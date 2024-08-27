@@ -1,0 +1,7 @@
+{
+  "name": "be",
+  "version": "0.0.0",
+  "scripts": {
+    "ping": "echo 'BE - pong'"
+  }
+}
