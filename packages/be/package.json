@@ -1,7 +1,18 @@
 {
-  "name": "be",
-  "version": "0.0.0",
-  "scripts": {
-    "ping": "echo 'BE - pong'"
-  }
+    "name": "be",
+    "version": "0.0.0",
+    "scripts": {
+        "ping": "echo 'BE - pong'",
+        "build": "tsc",
+        "dev": "ts-node src/index.ts",
+        "preview": "node dist/index.js"
+    },
+    "dependencies": {
+        "fastify": "^4.28.1"
+    },
+    "devDependencies": {
+        "@types/node": "^22.5.2",
+        "ts-node": "^10.9.2",
+        "typescript": "^5.5.4"
+    }
 }

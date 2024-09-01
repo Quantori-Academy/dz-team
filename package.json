@@ -1,15 +1,29 @@
 {
-  "name": "project-mayfly",
-  "version": "0.0.0",
-  "repository": "https://github.com/Quantori-Academy/dz-team.git",
-  "private": true,
-  "workspaces": [
-    "packages/be",
-    "packages/fe"
-  ],
-  "scripts": {
-    "ping": "yarn ping:be && yarn ping:fe",
-    "ping:be": "yarn workspace be run ping",
-    "ping:fe": "yarn workspace fe run ping"
-  }
+    "name": "project-mayfly",
+    "version": "0.0.0",
+    "repository": "https://github.com/Quantori-Academy/dz-team.git",
+    "private": true,
+    "workspaces": [
+        "packages/be",
+        "packages/fe"
+    ],
+    "type": "module",
+    "scripts": {
+        "ping": "yarn ping:be && yarn ping:fe",
+        "ping:be": "yarn workspace be run ping",
+        "ping:fe": "yarn workspace fe run ping",
+        "lint": "eslint .",
+        "format": "prettier --write ."
+    },
+    "devDependencies": {
+        "@eslint/js": "^9.9.1",
+        "@types/eslint__js": "^8.42.3",
+        "eslint": "^9.9.1",
+        "eslint-plugin-react-hooks": "^4.6.2",
+        "eslint-plugin-react-refresh": "^0.4.11",
+        "globals": "^15.9.0",
+        "prettier": "^3.3.3",
+        "typescript": "^5.5.4",
+        "typescript-eslint": "^8.3.0"
+    }
 }

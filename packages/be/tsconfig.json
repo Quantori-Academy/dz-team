@@ -1,0 +1,18 @@
+{
+    "extends": "../../tsconfig.json",
+    "$schema": "https://json.schemastore.org/tsconfig",
+    // copied over from fastify-tsconfig
+    "compilerOptions": {
+        "target": "ES2022",
+        "lib": ["ESNext"],
+        "module": "NodeNext",
+        "moduleResolution": "NodeNext",
+        "esModuleInterop": true,
+        "resolveJsonModule": true,
+        "removeComments": true,
+        "newLine": "lf",
+        "isolatedModules": true,
+        "forceConsistentCasingInFileNames": true,
+        "skipLibCheck": true
+    }
+}

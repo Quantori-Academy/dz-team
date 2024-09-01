@@ -4,15 +4,15 @@ Project Mayfly is a Laboratory Information Management System (LIMS) for the [May
 
 ## Features
 
-- [ ] User authentication and authorization with role-based access control
-- [ ] Sample tracking and management
-- [ ] Substances management
-- [ ] Equipment management
-- [ ] Storage management
-- [ ] Laboratories management
-- [ ] Reports and statistics generation
-
+-   [ ] User authentication and authorization with role-based access control
+-   [ ] Sample tracking and management
+-   [ ] Substances management
+-   [ ] Equipment management
+-   [ ] Storage management
+-   [ ] Laboratories management
+-   [ ] Reports and statistics generation
 
 ## Tech stack
-  Frontend: Vite, TS, React, Effector, ...(UI library tbd)
-  Backend: Node.js, TS, ...(framework tbd), ...(ORM tbd), PostgreSQL
+
+Frontend: Vite, TS, React, Effector, ...(UI library tbd)
+Backend: Node.js, TS, Fastify, ...(ORM tbd), PostgreSQL
