@@ -1,10 +1,24 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
 function App() {
     const [count, setCount] = useState(0);
+    const [connectionState, setConnectionState] = useState("...");
+
+    useEffect(() => {
+        fetch("http://localhost:8080/")
+            .then((res) => {
+                if (res.ok) {
+                    setConnectionState("ok!");
+                }
+            })
+            .catch((err) => {
+                setConnectionState("offline, check console for details");
+                console.error(err);
+            });
+    }, []);
 
     return (
         <>
@@ -25,13 +39,9 @@ function App() {
                 <button onClick={() => setCount((count) => count + 1)}>
                     count is {count}
                 </button>
-                <p>
-                    Edit <code>src/App.tsx</code> and save to test HMR
-                </p>
+                <p>App runs ok!</p>
             </div>
-            <p className="read-the-docs">
-                Click on the Vite and React logos to learn more
-            </p>
+            <p>Server connection is {connectionState}</p>
         </>
     );
 }
