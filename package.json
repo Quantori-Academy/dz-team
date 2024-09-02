@@ -12,19 +12,15 @@
     "ping": "yarn ping:be && yarn ping:fe",
     "ping:be": "yarn workspace be run ping",
     "ping:fe": "yarn workspace fe run ping",
-    "lint": "eslint .",
+    "lint": "eslint . --max-warnings 0",
     "lint:fix": "eslint . --fix",
-    "format": "prettier --write ."
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
+    "format": "prettier --write .",
+    "prepare": "husky"
   },
   "lint-staged": {
     "*.{js,jsx,ts,tsx}": [
-      "yarn lint:fix",
-      "yarn format"
+      "eslint . --fix --max-warnings 0",
+      "prettier --write ."
     ]
   },
   "devDependencies": {
