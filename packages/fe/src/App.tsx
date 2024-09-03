@@ -3,12 +3,18 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import "./App.css";
 
+import { isProd } from "./utils/isProd";
+
 function App() {
     const [count, setCount] = useState(0);
     const [connectionState, setConnectionState] = useState("...");
 
     useEffect(() => {
-        fetch("http://localhost:8080/")
+        fetch(
+            isProd
+                ? "http://vm4.quantori.academy:1337/"
+                : "http://localhost:1337/",
+        )
             .then((res) => {
                 if (res.ok) {
                     setConnectionState("ok!");
@@ -35,6 +41,7 @@ function App() {
                 </a>
             </div>
             <h1>Vite + React</h1>
+            <h3>{isProd ? "Production build" : "Not production build"}</h3>
             <div className="card">
                 <button onClick={() => setCount((count) => count + 1)}>
                     count is {count}

@@ -1,0 +1,26 @@
+name: mayfly
+
+services:
+    be:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: be
+        ports:
+            - "1337:1337"
+        networks:
+            - app
+
+    fe:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: fe
+        ports:
+            - "4173:80"
+        networks:
+            - app
+
+networks:
+    app:
+        driver: bridge

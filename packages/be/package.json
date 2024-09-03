@@ -4,7 +4,8 @@
     "scripts": {
         "build": "tsc",
         "dev": "ts-node src/index.ts",
-        "preview": "node dist/index.js"
+        "preview": "yarn build && node dist/index.js",
+        "prod": "yarn build && cross-env NODE_ENV=prod yarn preview"
     },
     "dependencies": {
         "@fastify/cors": "^9.0.1",
@@ -12,6 +13,7 @@
     },
     "devDependencies": {
         "@types/node": "^22.5.2",
+        "cross-env": "^7.0.3",
         "ts-node": "^10.9.2",
         "typescript": "^5.5.4"
     }
