@@ -5,9 +5,10 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "tsc -b && vite build",
-        "preview": "vite preview",
-        "prod": "yarn build && cross-env NODE_ENV=prod yarn preview"
+        "build": "tsc -b && cross-env NODE_ENV=production vite build",
+        "build:dev": "tsc -b && cross-env NODE_ENV=development vite build --mode development",
+        "preview": "yarn build:dev && vite preview",
+        "prod": "yarn build && vite preview"
     },
     "dependencies": {
         "react": "^18.3.1",

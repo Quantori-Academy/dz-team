@@ -4,7 +4,7 @@
     "scripts": {
         "build": "tsc",
         "dev": "ts-node src/index.ts",
-        "preview": "node dist/index.js",
+        "preview": "yarn build && node dist/index.js",
         "prod": "yarn build && cross-env NODE_ENV=prod yarn preview"
     },
     "dependencies": {
