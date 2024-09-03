@@ -6,6 +6,7 @@ server.register(cors, {
     origin: [
         "http://localhost:5173", // fe dev
         "http://localhost:4173", // fe preview
+        "http://localhost:8080", // docker dev
         "http://vm4.quantori.academy:1337", // fe prod
     ],
     methods: ["GET"],
