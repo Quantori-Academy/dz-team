@@ -15,10 +15,16 @@ server.register(cors, {
 server.get("/", async () => {
     return "hello world";
 });
-server.listen(8080, (err, address) => {
-    if (err) {
-        console.error(err);
-        process.exit(1);
-    }
-    console.log(`Server listening at ${address}`);
-});
+server.listen(
+    {
+        port: 8080,
+        host: "0.0.0.0",
+    },
+    (err, address) => {
+        if (err) {
+            console.error(err);
+            process.exit(1);
+        }
+        console.log("Server is listening on port " + address);
+    },
+);
