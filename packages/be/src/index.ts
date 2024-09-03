@@ -6,7 +6,9 @@ server.register(cors, {
     origin: [
         "http://localhost:5173", // fe dev
         "http://localhost:4173", // fe preview
-        "http://localhost:8080", // docker dev
+        "http://0.0.0.0:1337", // be
+        "http://0.0.0.0:4173", // fe preview
+        "http://localhost:1337", // docker dev
         "http://vm4.quantori.academy:1337", // fe prod
     ],
     methods: ["GET"],
@@ -17,8 +19,9 @@ server.get("/", async () => {
 });
 server.listen(
     {
-        port: 8080,
+        port: 1337,
         host: "0.0.0.0",
+        // TODO: check host for security
     },
     (err, address) => {
         if (err) {

@@ -8,7 +8,8 @@ function App() {
     const [connectionState, setConnectionState] = useState("...");
 
     useEffect(() => {
-        fetch("http://localhost:8080/")
+        fetch("http://localhost:1337/")
+            // TODO: use env variable for address
             .then((res) => {
                 if (res.ok) {
                     setConnectionState("ok!");

@@ -6,6 +6,6 @@ COPY . .
 
 RUN yarn
 
-RUN yarn workspace be build
+RUN yarn build
 
-CMD ["node", "/app/packages/be/dist/index.js"]
+CMD ["yarn", "prod"]
