@@ -5,6 +5,22 @@ services:
         build:
             context: .
             dockerfile: Dockerfile
+            target: be
         ports:
             - "1337:1337"
-            - "4173:4173"
+        networks:
+            - app
+
+    fe:
+        build:
+            context: .
+            dockerfile: Dockerfile
+            target: fe
+        ports:
+            - "4173:80"
+        networks:
+            - app
+
+networks:
+    app:
+        driver: bridge
