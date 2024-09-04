@@ -5,7 +5,7 @@ import { isProd } from "./utils/isProd";
 const server = fastify();
 
 const corsOptions = isProd
-    ? ["http://vm4.quantori.academy:8080"]
+    ? ["http://vm4.quantori.academy:80"]
     : ["http://localhost:5173", "http://localhost:4173"];
 
 server.register(cors, {
