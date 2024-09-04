@@ -3,9 +3,9 @@
     "version": "0.0.0",
     "scripts": {
         "build": "tsc",
-        "dev": "ts-node src/index.ts",
-        "preview": "yarn build && node dist/index.js",
-        "prod": "yarn build && cross-env NODE_ENV=prod yarn preview"
+        "dev": "cross-env NODE_ENV=development ts-node src/index.ts",
+        "preview": "yarn build && cross-env NODE_ENV=development node dist/index.js",
+        "prod": "yarn build && cross-env NODE_ENV=production yarn preview"
     },
     "dependencies": {
         "@fastify/cors": "^9.0.1",

@@ -1,22 +1,22 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
+import { isProd } from "./utils/isProd";
 
 const server = fastify();
+
+const corsOptions = isProd
+    ? ["http://vm4.quantori.academy:4173"]
+    : ["http://localhost:5173", "http://localhost:4173"];
+
 server.register(cors, {
-    origin: [
-        "http://localhost:5173", // fe dev
-        "http://localhost:4173", // fe preview
-        "http://0.0.0.0:1337", // be
-        "http://0.0.0.0:4173", // fe preview
-        "http://localhost:1337", // docker dev
-        "http://vm4.quantori.academy:1337", // fe prod
-    ],
+    origin: corsOptions,
     methods: ["GET"],
 });
 
 server.get("/", async () => {
     return "hello world";
 });
+
 server.listen(
     {
         port: 1337,
