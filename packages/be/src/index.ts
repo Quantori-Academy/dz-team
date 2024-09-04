@@ -14,7 +14,7 @@ server.register(cors, {
 });
 
 server.get("/", async () => {
-    return "hello world";
+    return `Hello world! isProd: ${isProd}`;
 });
 
 server.listen(

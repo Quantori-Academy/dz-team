@@ -6,6 +6,8 @@ services:
             context: .
             dockerfile: Dockerfile
             target: be
+        environment:
+            - NODE_ENV=production
         ports:
             - "1337:1337"
         networks:
@@ -16,6 +18,8 @@ services:
             context: .
             dockerfile: Dockerfile
             target: fe
+        environment:
+            - NODE_ENV=production
         ports:
             - "80:80"
         networks:
