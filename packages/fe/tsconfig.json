@@ -1,12 +1,25 @@
 {
-    "extends": "../../tsconfig.json",
-    "files": [],
-    "references": [
-        {
-            "path": "./tsconfig.app.json"
-        },
-        {
-            "path": "./tsconfig.node.json"
-        }
-    ]
+	"compilerOptions": {
+		"target": "ES2020",
+		"useDefineForClassFields": true,
+		"lib": ["ES2020", "DOM", "DOM.Iterable"],
+		"module": "ESNext",
+		"jsx": "react-jsx",
+		"strict": true,
+		"noEmit": true,
+		"skipLibCheck": true,
+		"allowJs": false,
+		"allowSyntheticDefaultImports": true,
+		"resolveJsonModule": true,
+		"isolatedModules": true,
+		"noImplicitAny": true,
+		"noImplicitThis": true,
+		"strictNullChecks": true,
+		// "allowImportingTsExtensions": true,
+
+		"moduleResolution": "Bundler",
+		// "moduleDetection": "force",
+		"baseUrl": "src"
+	},
+	"include": ["src/**/*"]
 }
