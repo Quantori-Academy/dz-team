@@ -8,7 +8,7 @@
     "packages/fe"
   ],
   "type": "module",
-  "packageManager": "yarn@1.2.22",
+  "packageManager": "yarn@1.22.22",
   "scripts": {
     "dev": "run-p dev:be dev:fe",
     "dev:be": "yarn workspace be run dev",
