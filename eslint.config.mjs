@@ -28,13 +28,17 @@ export default tseslint.config(
         },
     },
     {
+        ...reactPlugin.configs.flat.recommended,
         files: ["packages/fe/**/*.{ts,tsx}"],
         ignores: ["packages/fe/vite.config.ts"],
         extends: [js.configs.recommended, ...tseslint.configs.recommendedTypeChecked],
+        settings: { react: { version: "detect" } },
         languageOptions: {
             ecmaVersion: 2020,
+            sourceType: "module",
             globals: globals.browser,
             parserOptions: {
+                ecmaFeatures: { jsx: true },
                 project: ["./packages/fe/tsconfig.app.json"],
             },
         },
@@ -71,12 +75,12 @@ export default tseslint.config(
             // typescript
             "@typescript-eslint/no-explicit-any": "warn",
             "@typescript-eslint/no-unsafe-assignment": "off",
+            "@typescript-eslint/no-unsafe-member-access": "off",
+            "@typescript-eslint/no-unsafe-return": "off",
+            "@typescript-eslint/no-unused-expressions": "off",
+            "@typescript-eslint/no-unsafe-argument": "off",
             "@typescript-eslint/no-empty-function": "warn",
             "@typescript-eslint/ban-ts-comment": "warn",
-            "@typescript-eslint/ban-types": [
-                "warn",
-                { extendDefaults: true, types: { "{}": false } },
-            ],
             "@typescript-eslint/no-unused-vars": [
                 "warn",
                 {
@@ -86,6 +90,7 @@ export default tseslint.config(
                 },
             ],
             // react
+            "react/react-in-jsx-scope": "off",
             "jsx-quotes": ["warn", "prefer-double"],
             "react/jsx-equals-spacing": ["warn", "never"],
             "react/jsx-no-literals": "off",
