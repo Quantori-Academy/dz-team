@@ -70,7 +70,7 @@ type MergedConfig = Required<ConfigLogger> & {
 export function createDomainWatched(
     name?: string,
     configData?: Config | ConfigLogger,
-    watch?: DomainWatch,
+    watch?: DomainWatch
 ) {
     const config = (
         some(configData, (_, key) => includes(["domain", "logger", "options"], key))
@@ -168,7 +168,7 @@ function attachEvent(domain: Domain, config: MergedConfig) {
                 logGroup(
                     withColors(params, config),
                     withPayload(payload),
-                    config.options[event.shortName],
+                    config.options[event.shortName]
                 );
             }
         });
@@ -192,7 +192,7 @@ function attachStore(domain: Domain, config: MergedConfig) {
                 logGroup(
                     withColors(params, config),
                     withPayload(value),
-                    config.options[store.shortName],
+                    config.options[store.shortName]
                 );
             }
         });
@@ -215,7 +215,7 @@ function attachEffect(domain: Domain, config: MergedConfig) {
                 logGroup(
                     withColors(params, config),
                     withPayload(parameters),
-                    config.options[effect.shortName],
+                    config.options[effect.shortName]
                 );
             }
         });
@@ -234,7 +234,7 @@ function attachEffect(domain: Domain, config: MergedConfig) {
                 logGroup(
                     withColors(params, config),
                     { payload, result },
-                    config.options[effect.shortName],
+                    config.options[effect.shortName]
                 );
             }
         });
@@ -253,7 +253,7 @@ function attachEffect(domain: Domain, config: MergedConfig) {
                 logGroup(
                     withColors(params, config),
                     { payload, error },
-                    config.options[effect.shortName],
+                    config.options[effect.shortName]
                 );
             }
         });
@@ -293,8 +293,8 @@ export const updated = (o: AnyType, keys: Record<string, Fn>) => {
         (acc, fn, key) => {
             if (has(o, key)) acc.push(fn(o[key], key));
         },
-        [] as string[],
+        [] as string[]
     ).join(", ");
 };
 
-export const uuid = (u: string) => (u ? u.slice(0, 8) + "-*" : "*");
+export const uuid = (u: string) => (u ? String(u).slice(0, 8) + "-*" : "*");

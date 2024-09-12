@@ -1,6 +1,6 @@
 import { createDomain } from "effector";
 
-import { ConfigLogger, createDomainWatched, list, listKey, uuid } from "./debug-effector";
+import { ConfigLogger, createDomainWatched, list, listKey, size, uuid } from "./debug-effector";
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyType = any;
@@ -20,28 +20,29 @@ export const genericMuteDomain = createDomain("mayfly-muted");
 
 const materialsConfig: ConfigLogger = {
     colors: {
-        $materials: "query",
-        $selectedId: "fx",
-        $materialOptions: "data",
+        $materials: "green",
+        $selected: "fx",
+        $tags: "data",
+        $dirty: "orange",
+        updatedMaterial: "query",
     },
     filter: {
         gate: true,
-        createdMaterial: true,
-        selectedMaterial: false,
-        addedMaterial: false,
-        updatedMaterials: false,
-        updatedAttribute: true,
-        getMaterialOptionsFx_root: false,
+        setDirty: false,
+        resetDirty: false,
+        getMaterialsFx_root: false,
+        getMaterialFx_root: false,
     },
     fn: {
         $materials: (m: AnyType) => listKey(m, "name"),
-        $selectedId: (id: AnyType) => uuid(id),
-        updatedAttribute: (update: AnyType) => list(update),
+        $selected: (s: AnyType) => (size(s) ? uuid(s.id) : "empty"),
+        updatedMaterial: (update: AnyType) => list(update),
+        $dirty: (d: AnyType) => (d ? "on" : "off"),
     },
 };
 
 export const materialsDomain = createDomainWatched(
     "mayfly-materials",
     materialsConfig,
-    debugStores.materials,
+    debugStores.materials
 );
