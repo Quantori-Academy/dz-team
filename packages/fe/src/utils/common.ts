@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type AnyType = any;
+
 export const plural = (count?: number, noun?: string | null, fix = false, withoutCount = false) => {
     if (count) {
         const singular = fix && noun ? noun.replace(/s$/, "") : noun;
@@ -19,3 +22,10 @@ export function assert<T>(ok: T, message = "failed"): asserts ok {
         throw error;
     }
 }
+
+export const wait = (ms: number): Promise<void> => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+};
+
+type ApiFunc = (...args: AnyType) => AnyType;
+export type ApiResponse<T extends ApiFunc> = Awaited<ReturnType<T>>;
