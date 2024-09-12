@@ -51,8 +51,7 @@ export default tseslint.config(
         },
         rules: {
             ...reactPlugin.configs.recommended.rules,
-            ...effectorPlugin.configs.recommended.rules,
-            ...effectorPlugin.configs.scope.rules,
+            ...effectorPlugin.configs.rules,
             ...reactHooksPlugin.configs.recommended.rules,
             "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
             // general
