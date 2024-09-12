@@ -1,14 +1,17 @@
 import "./App.css";
 
 import { useEffect, useState } from "react";
+import { useGate } from "effector-react";
 
 import { config } from "config";
+import { AppGate } from "stores";
 
 import reactLogo from "./assets/react.svg";
 
 import viteLogo from "/vite.svg";
 
 function App() {
+    useGate(AppGate);
     const [count, setCount] = useState(0);
     const [connectionState, setConnectionState] = useState("...");
 
