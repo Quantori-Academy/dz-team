@@ -1,10 +1,11 @@
 import "./App.css";
+import "./logger/debug-load";
 
 import { useEffect, useState } from "react";
-import { useGate } from "effector-react";
+import { useGate, useUnit } from "effector-react";
 
 import { config } from "config";
-import { AppGate } from "stores";
+import { $materials, AppGate } from "stores";
 
 import reactLogo from "./assets/react.svg";
 
@@ -12,6 +13,7 @@ import viteLogo from "/vite.svg";
 
 function App() {
     useGate(AppGate);
+    const materials = useUnit($materials);
     const [count, setCount] = useState(0);
     const [connectionState, setConnectionState] = useState("...");
 
@@ -24,7 +26,7 @@ function App() {
             })
             .catch((err) => {
                 setConnectionState("offline, check console for details");
-                dev.error("{!offline}", err);
+                dev.info("{!offline}", err);
             });
     }, []);
 
@@ -43,6 +45,7 @@ function App() {
             <div className="card">
                 <button onClick={() => setCount((count) => count + 1)}>count is {count}</button>
                 <p>App runs ok!</p>
+                <p>{`${materials?.length ?? 0} materials loaded`}</p>
             </div>
             <p>Server connection is {connectionState}</p>
         </>
