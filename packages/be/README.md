@@ -1,5 +1,5 @@
 ## Prerequisites
-1. All dependencies installed. `npm install` in the monorepo root.
+1. All dependencies installed. `yarn` or `yarn install` in the monorepo root.
 2. Docker and Docker compose installed on the host machine.
 
 ## Local development
