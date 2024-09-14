@@ -1,60 +1,60 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
 import { PrismaClient } from "@prisma/client";
-import { isProd } from "./utils/isProd";
+import { isProd } from "./utils/isProd.js";
 
 const prisma = new PrismaClient();
 const server = fastify();
 
 const corsOptions = isProd
-  ? ["http://vm4.quantori.academy"]
-  : ["http://localhost:5173", "http://localhost:4173"];
+    ? ["http://vm4.quantori.academy"]
+    : ["http://localhost:5173", "http://localhost:4173"];
 
 server.register(cors, {
-  origin: corsOptions,
-  methods: ["GET"],
+    origin: corsOptions,
+    methods: ["GET"],
 });
 
 server.get("/", async () => {
-  return `Hello world! isProd: ${isProd}`;
+    return `Hello world! isProd: ${isProd}`;
 });
 
 server.post(
-  "/molecule",
-  {
-    schema: {
-      body: {
-        type: "object",
-        properties: {
-          smiles: { type: "string" },
+    "/molecule",
+    {
+        schema: {
+            body: {
+                type: "object",
+                properties: {
+                    smiles: { type: "string" },
+                },
+                additionalProperties: false,
+                required: ["smiles"],
+            },
         },
-        additionalProperties: false,
-        required: ["smiles"],
-      },
     },
-  },
-  async (request) => {
-    const { smiles } = request.body as { smiles: string };
-    const molecule = await prisma.molecule.create({
-      data: {
-        smiles,
-      },
-    });
-    return molecule;
-  },
+    async (request) => {
+        const { smiles } = request.body as { smiles: string };
+        const molecule = await prisma.molecule.create({
+            data: {
+                smiles,
+            },
+        });
+        return molecule;
+    },
 );
 
 server.listen(
-  {
-    port: 1337,
-    host: "0.0.0.0",
-    // TODO: check host for security
-  },
-  (err, address) => {
-    if (err) {
-      console.error(err);
-      process.exit(1);
-    }
-    console.log("Server is listening on port " + address);
-  },
+    {
+        port: 1337,
+        host: "0.0.0.0",
+        // TODO: check host for security
+    },
+    (err, address) => {
+        if (err) {
+            console.error(err);
+            process.exit(1);
+        }
+        console.log("Server is listening on port " + address);
+    },
 );
