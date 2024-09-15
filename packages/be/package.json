@@ -5,9 +5,13 @@
     "scripts": {
         "build": "tsc",
         "dev": "cross-env NODE_ENV=development tsx src/index.ts",
+        "dev:db": "yarn db && run-p dev:watch studio",
+        "db:build": "docker-compose build",
+        "db": "docker-compose up -d",
+        "dev:watch": "prisma migrate dev && cross-env NODE_ENV=development tsx watch src/index.ts",
+        "studio": "prisma migrate dev && prisma studio",
         "preview": "yarn build && cross-env NODE_ENV=development node dist/index.js",
-        "prod": "yarn build && cross-env NODE_ENV=production yarn preview",
-        "dev:watch": "prisma migrate dev && cross-env NODE_ENV=development tsx watch src/index.ts"
+        "prod": "prisma generate && prisma migrate deploy && cross-env NODE_ENV=production node dist/index.js"
     },
     "dependencies": {
         "@fastify/cors": "^9.0.1",
