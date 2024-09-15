@@ -62,8 +62,15 @@ jobs:
                   username: ${{ secrets.SSH_USER }}
                   cipher: ecdh-sha2-nistp521
                   key: ${{secrets.SSH_KEY}}
+                  envs: |
+                      POSTGRES_USER: ${{ secrets.POSTGRES_USER }}
+                      POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+                      DATABASE_URL: ${{ secrets.DATABASE_URL }}
                   script: |
                       cd ~/mayfly
+                      echo "${POSTGRES_USER}" > .env
+                      echo "${POSTGRES_PASSWORD}" >> .env
+                      echo "${DATABASE_URL}" >> .env
                       sudo docker compose stop
                       sudo docker compose up -d --build
                       rm -rf ./.git

@@ -4,16 +4,7 @@ WORKDIR /app
 
 COPY . .
 
-RUN yarn
-
-# Build Backend
-
-WORKDIR /app/packages/be
-
-RUN yarn build
-
-# Build Frontend
-WORKDIR /app/packages/fe
+RUN yarn --frozen-lockfile
 
 RUN yarn build
 
@@ -29,12 +20,14 @@ FROM node:20-alpine AS be
 
 WORKDIR /app/packages/be
 
-COPY --from=build /app/packages/be/dist .
+COPY --from=build /app/packages/be/dist ./dist
 
 COPY --from=build /app/packages/be/package.json .
+
+COPY --from=build app/packages/be/prisma ./prisma/
 
 RUN yarn
 
 EXPOSE 1337
 
-CMD ["node", "index.js"]
+CMD ["yarn", "prod"]
