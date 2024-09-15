@@ -12,7 +12,7 @@ const corsOptions = isProd
 
 server.register(cors, {
     origin: corsOptions,
-    methods: ["GET"],
+    methods: ["GET", "POST"],
 });
 
 server.get("/", async () => {
@@ -43,6 +43,11 @@ server.post(
         return molecule;
     },
 );
+
+server.get("/molecule/count", async () => {
+    const count = await prisma.molecule.count();
+    return count;
+});
 
 server.listen(
     {
