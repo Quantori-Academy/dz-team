@@ -1,15 +1,15 @@
 {
     "name": "be",
     "version": "0.0.0",
-    "type": "module",
     "scripts": {
         "build": "tsc",
-        "dev": "cross-env NODE_ENV=development tsx src/index.ts",
-        "dev:db": "yarn db && run-p dev:watch studio",
+        "dev": "cross-env NODE_ENV=development tsx watch src/index.ts",
+        "dev:db": "yarn db && run-p dev studio",
         "db:build": "docker-compose build",
-        "db": "docker-compose up -d",
-        "dev:watch": "prisma migrate dev && cross-env NODE_ENV=development tsx watch src/index.ts",
-        "studio": "prisma migrate dev && prisma studio",
+        "db": "docker-compose up -d & yarn migrate:dev",
+        "db:stop": "docker-compose down",
+        "studio": "prisma studio",
+        "migrate:dev": "prisma migrate dev",
         "preview": "yarn build && cross-env NODE_ENV=development node dist/index.js",
         "prod": "prisma generate && prisma migrate deploy && cross-env NODE_ENV=production node dist/index.js"
     },

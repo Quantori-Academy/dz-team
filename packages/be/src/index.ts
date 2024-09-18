@@ -1,7 +1,7 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
 import { PrismaClient } from "@prisma/client";
-import { isProd } from "./utils/isProd.js";
+import { isProd } from "./utils/isProd";
 
 const prisma = new PrismaClient();
 const server = fastify();
