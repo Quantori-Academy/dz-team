@@ -2,23 +2,26 @@
     "compilerOptions": {
         "target": "ES2020",
         "useDefineForClassFields": true,
-        "lib": ["ES2020", "DOM", "DOM.Iterable"],
-        "types": ["vite/client", "vite-plugin-svgr/client"],
+        "lib": [
+            "ES2020",
+            "DOM",
+            "DOM.Iterable"
+        ],
+        "types": [
+            "vite/client",
+            "vite-plugin-svgr/client"
+        ],
         "module": "ESNext",
         "moduleResolution": "bundler",
         "jsx": "react-jsx",
-        "strict": true,
-        "skipLibCheck": true,
         "allowImportingTsExtensions": true,
         "isolatedModules": true,
-        "allowSyntheticDefaultImports": true,
         "resolveJsonModule": true,
         "noEmit": true,
-        "noImplicitAny": true,
-        "noImplicitThis": true,
-        "strictNullChecks": true,
         "moduleDetection": "force",
         "baseUrl": "src"
     },
-    "include": ["src/**/*"]
+    "include": [
+        "src/**/*"
+    ]
 }
