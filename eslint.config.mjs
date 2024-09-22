@@ -31,7 +31,7 @@ export default tseslint.config(
         files: ["packages/fe/vite.config.ts"],
         languageOptions: {
             parserOptions: {
-                project: ["packages/fe/tsconfig.node.json"],
+                project: ["packages/fe/tsconfig.vite.json"],
             },
         },
     },
