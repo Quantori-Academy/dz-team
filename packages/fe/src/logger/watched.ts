@@ -35,6 +35,7 @@ const materialsConfig: ConfigLogger = {
     },
     fn: {
         $materials: (m: AnyType) => listKey(m, "name"),
+        // eslint-disable-next-line @typescript-eslint/no-unsafe-argument, @typescript-eslint/no-unsafe-member-access
         $selected: (s: AnyType) => (size(s) ? uuid(s.id) : "empty"),
         updatedMaterial: (update: AnyType) => list(update),
         $dirty: (d: AnyType) => (d ? "on" : "off"),
@@ -44,5 +45,5 @@ const materialsConfig: ConfigLogger = {
 export const materialsDomain = createDomainWatched(
     "mayfly-materials",
     materialsConfig,
-    debugStores.materials
+    debugStores.materials,
 );

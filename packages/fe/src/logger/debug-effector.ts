@@ -70,7 +70,7 @@ type MergedConfig = Required<ConfigLogger> & {
 export function createDomainWatched(
     name?: string,
     configData?: Config | ConfigLogger,
-    watch?: DomainWatch
+    watch?: DomainWatch,
 ) {
     const config = (
         some(configData, (_, key) => includes(["domain", "logger", "options"], key))
@@ -103,7 +103,7 @@ export function createDomainWatched(
 function watch(unit: Unit<AnyType>, fn: (payload: AnyType) => AnyType) {
     if (is.store(unit)) fn(unit.getState());
     const $watchUnit = (is.store(unit) ? unit.updates : unit) as AnyType;
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-call
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, @typescript-eslint/no-unsafe-member-access
     $watchUnit.watch(fn);
 }
 
@@ -168,7 +168,7 @@ function attachEvent(domain: Domain, config: MergedConfig) {
                 logGroup(
                     withColors(params, config),
                     withPayload(payload),
-                    config.options[event.shortName]
+                    config.options[event.shortName],
                 );
             }
         });
@@ -192,7 +192,7 @@ function attachStore(domain: Domain, config: MergedConfig) {
                 logGroup(
                     withColors(params, config),
                     withPayload(value),
-                    config.options[store.shortName]
+                    config.options[store.shortName],
                 );
             }
         });
@@ -215,7 +215,7 @@ function attachEffect(domain: Domain, config: MergedConfig) {
                 logGroup(
                     withColors(params, config),
                     withPayload(parameters),
-                    config.options[effect.shortName]
+                    config.options[effect.shortName],
                 );
             }
         });
@@ -234,7 +234,7 @@ function attachEffect(domain: Domain, config: MergedConfig) {
                 logGroup(
                     withColors(params, config),
                     { payload, result },
-                    config.options[effect.shortName]
+                    config.options[effect.shortName],
                 );
             }
         });
@@ -253,7 +253,7 @@ function attachEffect(domain: Domain, config: MergedConfig) {
                 logGroup(
                     withColors(params, config),
                     { payload, error },
-                    config.options[effect.shortName]
+                    config.options[effect.shortName],
                 );
             }
         });
@@ -267,33 +267,34 @@ const isMapSet = (o: AnyType) => isMap(o) || isSet(o);
 const genericStore = (o: AnyType) => (size(o) ? "some data" : "empty");
 
 export const size = (o: AnyType) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     return isMapSet(o) ? o.size : isPlainObject(o) ? keys(o).length : o?.length;
 };
 
 export const pl = (noun: string, count: number) => `${count} ` + (count === 1 ? noun : `${noun}s`);
 
 export const onOff = (o: AnyType, k?: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
     return k && !isNil(o) ? `${k} : ${(isPlainObject(o) ? o[k] : o) ? "on" : "off"}` : "unset";
 };
 
-export const list = (o: AnyType) => {
+export const list = (o: AnyType) =>
     size(o)
         ? `${(isArray(o) ? o : isMapSet(o) ? Array.from(o.keys()) : keys(o)).join(", ")}`
         : "empty";
-};
 
-export const listKey = (o: AnyType, k: string) => {
-    return size(o) ? `${map(o, (i) => get(i, k, "?")).join(", ")}` : "empty";
-};
+export const listKey = (o: AnyType, k: string) =>
+    size(o) ? `${map(o, (i) => get(i, k, "?")).join(", ")}` : "empty";
 
 type Fn = (p: AnyType, key?: string) => string;
 export const updated = (o: AnyType, keys: Record<string, Fn>) => {
     return transform(
         keys,
         (acc, fn, key) => {
+            // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
             if (has(o, key)) acc.push(fn(o[key], key));
         },
-        [] as string[]
+        [] as string[],
     ).join(", ");
 };
 

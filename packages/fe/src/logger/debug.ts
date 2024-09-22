@@ -1,5 +1,5 @@
 /* eslint-disable */
-// NOTE: it was written in JS and there is no time to rewrite it in TS
+// NOTE: it was written in JS and rewriting to typescript is not a priority
 // @ts-nocheck
 import _ from "lodash";
 

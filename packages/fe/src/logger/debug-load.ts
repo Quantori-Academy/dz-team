@@ -11,8 +11,6 @@ const dev: DevTools = debug;
 const devNone: DevTools = lo.transform(
     dev,
     (acc, _, key) => {
-        // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-        // @ts-expect-error
         // eslint-disable-next-line @typescript-eslint/unbound-method
         acc[key] = lo.noop;
     },

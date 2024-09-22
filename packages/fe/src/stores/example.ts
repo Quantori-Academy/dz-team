@@ -130,7 +130,7 @@ sample({
             description:
                 `An error ocurred while saving ${name}.\n` +
                 "Please review server errors for more information.",
-        } as Alert),
+        }) as Alert,
     target: createAlertFx,
 });
 
@@ -142,7 +142,7 @@ sample({
             severity: "success",
             message: "Success",
             description: `Material "${name}" removed successfully`,
-        } as Alert),
+        }) as Alert,
     target: createAlertFx,
 });
 
@@ -176,7 +176,7 @@ sample({
     clock: selectMaterial,
     source: $materials,
     filter: (materials, id) => !!find(materials, { id }),
-    fn: (materials, id) => find(materials, { id })!,
+    fn: (materials, id) => find(materials, { id }),
     target: [$selected, resetDirty],
 });
 
@@ -200,7 +200,7 @@ function responseMapping(items: ApiResponse<typeof api.Materials.all>, tags?: Ta
                 labels: tags ? filter(tags, ({ value }) => includes(item.tags, value)) : undefined,
                 created: item.createdAt ? new Date(item.createdAt) : null,
                 updated: item.updatedAt ? new Date(item.updatedAt) : null,
-            } as Material)
+            }) as Material,
     );
 }
 
