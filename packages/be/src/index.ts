@@ -1,7 +1,9 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
+import { PrismaClient } from "@prisma/client";
 import { isProd } from "./utils/isProd";
 
+const prisma = new PrismaClient();
 const server = fastify();
 
 const corsOptions = isProd
@@ -10,11 +12,41 @@ const corsOptions = isProd
 
 server.register(cors, {
     origin: corsOptions,
-    methods: ["GET"],
+    methods: ["GET", "POST"],
 });
 
 server.get("/", async () => {
     return `Hello world! isProd: ${isProd}`;
+});
+
+server.post(
+    "/molecule",
+    {
+        schema: {
+            body: {
+                type: "object",
+                properties: {
+                    smiles: { type: "string" },
+                },
+                additionalProperties: false,
+                required: ["smiles"],
+            },
+        },
+    },
+    async (request) => {
+        const { smiles } = request.body as { smiles: string };
+        const molecule = await prisma.molecule.create({
+            data: {
+                smiles,
+            },
+        });
+        return molecule;
+    },
+);
+
+server.get("/molecule/count", async () => {
+    const count = await prisma.molecule.count();
+    return count;
 });
 
 server.listen(

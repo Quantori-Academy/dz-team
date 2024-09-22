@@ -28,6 +28,14 @@ export default tseslint.config(
         },
     },
     {
+        files: ["packages/fe/vite.config.ts"],
+        languageOptions: {
+            parserOptions: {
+                project: ["packages/fe/tsconfig.vite.json"],
+            },
+        },
+    },
+    {
         ...reactPlugin.configs.flat.recommended,
         files: ["packages/fe/**/*.{ts,tsx}"],
         ignores: ["packages/fe/vite.config.ts"],
@@ -38,7 +46,7 @@ export default tseslint.config(
             sourceType: "module",
             globals: globals.browser,
             parserOptions: {
-                project: ["./packages/fe/tsconfig.app.json"],
+                project: ["packages/fe/tsconfig.app.json"],
             },
         },
         plugins: {
