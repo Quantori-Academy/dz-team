@@ -8,7 +8,7 @@ const server = fastify();
 
 const corsOptions = isProd
     ? ["http://vm4.quantori.academy"]
-    : ["http://localhost:5173", "http://localhost:4173"];
+    : ["http://localhost:3000", "http://localhost:4173"];
 
 server.register(cors, {
     origin: corsOptions,
