@@ -1,6 +1,6 @@
-# Project Mayfly
+# Project Luna
 
-Project Mayfly is a Laboratory Information Management System (LIMS) for the [Mayfly Project](https://github.com/Quantori-Academy). It aims to enhance laboratory management experience, workflow efficiency, overall productivity, and guarantee data integrity.
+Project Luna is a Laboratory Information Management System (LIMS) for the [Mayfly Project](https://github.com/Quantori-Academy). It aims to enhance laboratory management experience, workflow efficiency, overall productivity, and guarantee data integrity.
 
 ## Features
 
@@ -19,6 +19,10 @@ Project Mayfly is a Laboratory Information Management System (LIMS) for the [May
 3. Run `yarn` to install dependencies - see more in the [Package manager and monorepo](#package-manager-and-monorepo) section
 4. Run `yarn dev` to start the development server
 5. Open `http://localhost:5173` in your browser to see the app
+6. For development with a local database, you need to follow the instructions in the **Database** section in the [backend README](packages/be/README.md) - short version is: install and start docker, run `yarn dev:db`
+  <!--
+        💪 101: add a script to stop the db from the root
+    -->
 
 ## Vibes and mindset
 
@@ -29,8 +33,7 @@ We're aiming for a quality product, realistic workflow, good developer experienc
 We're building a cool, complicated thing, working as a team, catching up with great technologies, taking on challenges, making soft and hard mistakes, fixing them and moving on. This should be fun and functional, much like anything we do in life.
 
 Remember to tell your employer the opposite though. Your weaknesses are perfectionism and being an workaholic 😉
-
-<!-- Is that too informal? As representatives of Q, can we joke about it? -->
+(But really, don't do that. I'm just kidding.)
 
 Here are a couple of things to keep in mind:
 
@@ -44,7 +47,7 @@ Here are a couple of things to keep in mind:
 
 Our task management is based on the [Scrum](<https://en.wikipedia.org/wiki/Scrum_(software_development)>) methodology. This is a very common approach in the industry, so getting familiar with it is an extremely valuable experience.
 
-We have 2-week sprints, with a **planning** meeting at the beginning of each sprint, and a **retrospective** at the end. Daily stand-ups are ommited in favor of asynchronous communication in the form of **daily updates in the main Teams channel**. <!-- TODO: add link after channel is created -->
+We have 2-week sprints, with a **planning** meeting at the beginning of each sprint, and a **retrospective** at the end. Daily stand-ups are ommited in favor of asynchronous communication in the form of **daily updates in the main Teams channel**. <!-- 💪 33: add link to channel (don;t worry, the channel is private) -->
 
 We use [GitHub Projects](https://github.com/orgs/Quantori-Academy/projects/10) to manage our tasks and track our progress.
 
@@ -86,7 +89,7 @@ Run `npm install yarn -g` to install Yarn classic globally. If you have Corepack
 
 ## Possible issues
 
-If you encounter anything that blocks you from working on the project for more than 30 minutes, please reach out to the team in the main Teams channel. <!-- TODO: add link after channel is created -->
+If you encounter anything that blocks you from working on the project for more than 30 minutes, please reach out to the team in the main Teams channel. <!-- as a part of '💪 33', add link here as well -->
 
 That said, here are some things you might encounter:
 

@@ -15,6 +15,10 @@ const logError = (err: unknown) => dev.info("{!offline}", err);
 
 const base = config.isProd ? "http://vm4.quantori.academy:1337" : "http://localhost:1337";
 
+/**
+ * 💪 1212: move api requests into a separate file
+ */
+
 const fetchServerConnection = async () => {
     const response = await fetch(base);
     if (response.ok) {
@@ -61,6 +65,7 @@ function App() {
     return (
         <>
             <div>
+                {/* 💪 21: remove tech logos and links */}
                 <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
                     <img src={viteLogo} className="logo" alt="Vite logo" />
                 </a>
