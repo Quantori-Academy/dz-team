@@ -1,6 +1,6 @@
 ## Introduction
 
-This is the backend service for the Mayfly project. It is a Fastify server written in TypeScript, with a Postgres database and Prisma ORM. The server is responsible for handling all API requests and interfacing with the database.
+This is the backend service for the Luna project. It is a Fastify server written in TypeScript, with a Postgres database and Prisma ORM. The server is responsible for handling all API requests and interfacing with the database.
 
 ## Getting started
 

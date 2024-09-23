@@ -1,6 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 type AnyType = any;
-
+/**
+ * 💪 14: add JSDoc for these helpers
+ * */
 export const plural = (count?: number, noun?: string | null, fix = false, withoutCount = false) => {
     if (count) {
         const singular = fix && noun ? noun.replace(/s$/, "") : noun;
@@ -22,7 +24,9 @@ export function assert<T>(ok: T, message = "failed"): asserts ok {
         throw error;
     }
 }
-
+/**
+ * 💪 121: add default parameter of your choice :)
+ */
 export const wait = (ms: number): Promise<void> => {
     return new Promise((resolve) => setTimeout(resolve, ms));
 };
