@@ -47,7 +47,7 @@ Here are a couple of things to keep in mind:
 
 Our task management is based on the [Scrum](<https://en.wikipedia.org/wiki/Scrum_(software_development)>) methodology. This is a very common approach in the industry, so getting familiar with it is an extremely valuable experience.
 
-We have 2-week sprints, with a **planning** meeting at the beginning of each sprint, and a **retrospective** at the end. Daily stand-ups are ommited in favor of asynchronous communication in the form of **daily updates in the main Teams channel**. <!-- 💪 33: add link to channel (don;t worry, the channel is private) -->
+We have 2-week sprints, with a **planning** meeting at the beginning of each sprint, and a **retrospective** at the end. Daily stand-ups are ommited in favor of asynchronous communication in the form of **daily updates in the main [Teams channel](https://teams.microsoft.com/l/channel/19%3A19ef19fc071f4c7faf42475ce85c5769%40thread.tacv2/Team%20of%20Dmitriy%20Zhukov?groupId=c75db1e6-29be-435e-9199-a0c83673a899&tenantId=124ccfbd-07ea-44e3-8794-af8986d63809&ngc=true)**.
 
 We use [GitHub Projects](https://github.com/orgs/Quantori-Academy/projects/10) to manage our tasks and track our progress.
 
@@ -89,7 +89,7 @@ Run `npm install yarn -g` to install Yarn classic globally. If you have Corepack
 
 ## Possible issues
 
-If you encounter anything that blocks you from working on the project for more than 30 minutes, please reach out to the team in the main Teams channel. <!-- as a part of '💪 33', add link here as well -->
+If you encounter anything that blocks you from working on the project for more than 30 minutes, please reach out to the team in the main [Teams channel](https://teams.microsoft.com/l/channel/19%3A19ef19fc071f4c7faf42475ce85c5769%40thread.tacv2/Team%20of%20Dmitriy%20Zhukov?groupId=c75db1e6-29be-435e-9199-a0c83673a899&tenantId=124ccfbd-07ea-44e3-8794-af8986d63809&ngc=true).
 
 That said, here are some things you might encounter:
 
