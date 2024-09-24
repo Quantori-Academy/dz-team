@@ -7,10 +7,6 @@ import { useGate, useUnit } from "effector-react";
 import { config } from "config";
 import { $materials, AppGate } from "stores";
 
-import reactLogo from "./assets/react.svg";
-
-import viteLogo from "/vite.svg";
-
 const logError = (err: unknown) => dev.info("{!offline}", err);
 
 const base = config.isProd ? "http://vm4.quantori.academy:1337" : "http://localhost:1337";
@@ -64,15 +60,6 @@ function App() {
 
     return (
         <>
-            <div>
-                {/* 💪 21: remove tech logos and links */}
-                <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-                    <img src={viteLogo} className="logo" alt="Vite logo" />
-                </a>
-                <a href="https://react.dev" target="_blank" rel="noreferrer">
-                    <img src={reactLogo} className="logo react" alt="React logo" />
-                </a>
-            </div>
             <h1>Vite + React</h1>
             <h3>{config.isProd ? "Production build" : "Not production build"}</h3>
             <div className="card">
