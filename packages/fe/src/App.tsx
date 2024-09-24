@@ -1,12 +1,12 @@
 import "./App.css";
 import "./logger/debug-load";
 
+import { ThemeProvider } from "@mui/material/styles";
+
+import theme from "./Theme";
+
 function App() {
-    return (
-        <>
-            <h1>hello </h1>
-        </>
-    );
+    return <ThemeProvider theme={theme} />;
 }
 
 export default App;
