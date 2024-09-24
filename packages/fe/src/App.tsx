@@ -4,6 +4,7 @@ import "./logger/debug-load";
 import { useEffect, useState } from "react";
 import { useGate, useUnit } from "effector-react";
 
+import { fetchMolCount, fetchMolPost, fetchServerConnection } from "api/apiCalls";
 import { config } from "config";
 import { $materials, AppGate } from "stores";
 
@@ -12,35 +13,6 @@ import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 
 const logError = (err: unknown) => dev.info("{!offline}", err);
-
-const base = config.isProd ? "http://vm4.quantori.academy:1337" : "http://localhost:1337";
-
-/**
- * 💪 1212: move api requests into a separate file
- */
-
-const fetchServerConnection = async () => {
-    const response = await fetch(base);
-    if (response.ok) {
-        return "ok!";
-    }
-};
-
-const fetchMolCount = async () => {
-    const response = await fetch(base + "/molecule/count");
-    if (response.ok) {
-        return ((await response.json()) as number).toString(); // TODO: types should be defined with schema
-    }
-};
-
-const fetchMolPost = async () =>
-    await fetch(base + "/molecule", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ smiles: "CCO" }),
-    });
 
 function App() {
     useGate(AppGate);
