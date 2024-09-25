@@ -27,7 +27,8 @@
         "lint": "eslint . --max-warnings 0",
         "lint:fix": "eslint . --fix",
         "format": "prettier --write .",
-        "prepare": "husky"
+        "prepare": "husky",
+        "stop:db": "yarn workspace be run stop:db"
     },
     "lint-staged": {
         "*.{js,jsx,ts,tsx}": [
