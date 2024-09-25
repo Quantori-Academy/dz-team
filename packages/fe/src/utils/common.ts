@@ -27,7 +27,7 @@ export function assert<T>(ok: T, message = "failed"): asserts ok {
 /**
  * 💪 121: add default parameter of your choice :)
  */
-export const wait = (ms: number): Promise<void> => {
+export const wait = (ms: number = 1337): Promise<void> => {
     return new Promise((resolve) => setTimeout(resolve, ms));
 };
 
