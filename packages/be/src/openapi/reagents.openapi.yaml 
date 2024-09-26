@@ -1,0 +1,121 @@
+openapi: 3.0.0
+info:
+  title: Reagents API
+  version: 1.0.0
+paths:
+  /reagents:
+    get:
+      summary: Get all reagents
+      description: Fetch all reagents from the database.
+      responses:
+        '200':
+          description: Returns array of reagents
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Reagent'
+    post:
+      summary: Create a new reagent
+      description: Add a new reagent to the database.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reagent'
+      responses:
+        '201':
+          description: Reagent created successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reagent'
+
+  /reagents/{id}:
+    get:
+      summary: Get single reagent by id
+      description: Fetch a specific reagent from the database.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the reagent to retrieve.
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: A single reagent
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reagent'
+        '404':
+          description: Reagent not found
+
+    put:
+      summary: Update a reagent by ID
+      description: Update an existing reagent in the database.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the reagent to update.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Reagent'
+      responses:
+        '200':
+          description: Reagent updated successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Reagent'
+        '404':
+          description: Reagent not found
+
+    delete:
+      summary: Delete a reagent by ID
+      description: Remove a reagent from the database.
+      parameters:
+        - in: path
+          name: id
+          required: true
+          description: The ID of the reagent to delete.
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Reagent deleted successfully
+        '404':
+          description: Reagent not found
+
+components:
+  schemas:
+    Reagent:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        category:
+          type: string/enum
+        structure:
+          type: string
+        description:
+          type: string
+        quantityLeft:
+          type: number
+        storageLocation:
+          type: string
+        createdAt:
+          type: string
+          format: date-time
+        updatedAt:
+          type: string
+          format: date-time

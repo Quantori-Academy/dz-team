@@ -20,3 +20,20 @@ model Molecule {
   createdAt DateTime @default(now())
   smiles    String
 }
+
+model Reagent {
+  id             Int      @id @default(autoincrement())
+  name           String   // Name of the reagent
+  category       Category // Category (reagent or sample)
+  structure      String   // Chemical structure data
+  description    String  // Description of reagent
+  quantityLeft   Float    // Quantity left in stock
+  storageLocation String // Location of the reagent (Room, Cabinet, Shelf)
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+enum Category {
+  REAGENT
+  SAMPLE
+}

@@ -2,6 +2,7 @@ import fastify from "fastify";
 import cors from "@fastify/cors";
 import { PrismaClient } from "@prisma/client";
 import { isProd } from "./utils/isProd";
+import { reagentRoutes } from "./routes/reagentRoutes";
 
 const prisma = new PrismaClient();
 const server = fastify();
@@ -18,6 +19,9 @@ server.register(cors, {
 server.get("/", async () => {
     return `Hello world! isProd: ${isProd}`;
 });
+
+// Register routes with the prefix 'api/v1'
+server.register(reagentRoutes, { prefix: "/api/v1" });
 
 server.post(
     "/molecule",
