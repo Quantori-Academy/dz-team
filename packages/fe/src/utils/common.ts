@@ -3,6 +3,24 @@ type AnyType = any;
 /**
  * 💪 14: add JSDoc for these helpers
  * */
+
+/**
+ * Returns the singular or plural form of a noun based on the count.
+ *
+ * @param {number} [count] - The number to base the pluralization on. If 1, returns singular, otherwise plural.
+ * @param {string | null} [noun] - The noun to pluralize. If `fix` is true, trailing 's' is removed for singular.
+ * @param {boolean} [fix=false] - If true, removes trailing 's' from the noun for singular cases.
+ * @param {boolean} [withoutCount=false] - If true, omits the count from the return value.
+ * @returns {string | undefined} - The correctly pluralized noun with the count or undefined if no count is provided.
+ *
+ * @example
+ * plural(1, 'apple'); // "1 apple"
+ * plural(5, 'apple'); // "5 apples"
+ * plural(1, 'apples', true); // "1 apple"
+ * plural(5, 'apples', true); // "5 apples"
+ * plural(0, 'apple', false, true); // "apples"
+ */
+
 export const plural = (count?: number, noun?: string | null, fix = false, withoutCount = false) => {
     if (count) {
         const singular = fix && noun ? noun.replace(/s$/, "") : noun;
