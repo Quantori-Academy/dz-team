@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
-function NotFound() {
+export function NotFound() {
     return (
         <div>
             <h1>Error 404</h1>
@@ -9,5 +9,3 @@ function NotFound() {
         </div>
     );
 }
-
-export default NotFound;
