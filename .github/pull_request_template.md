@@ -27,12 +27,7 @@ resolves #
 -   [ ] Your changes complete the task
 -   [ ] You have self-reviewed your branch for bugs, logical problems, visual regressions and typos
 -   [ ] Your code is linted and formatted correctly (handled by pre-commit hooks)
-<!--
-until testing strategy is specified and documented, ignore
--   [ ] You have added unit tests or made changes to them, where necessary
-        -->
--   [ ] You have added documentation (if needed)
-<!-- PR is ready for review when all above are checked -->
+-   [ ] You have added documentation (if needed) <!-- PR is ready for review when all above are checked -->
 -   [ ] You've moved the task to "In Review" in the project board
 -   [ ] Code review is passed
 -   [ ] All comments are resolved
