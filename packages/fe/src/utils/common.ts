@@ -33,6 +33,7 @@ export const plural = (count?: number, noun?: string | null, fix = false, withou
  * @param {T} ok - The condition to assert.
  * @param {string} [message="failed"] - Optional error message.
  * @throws {Error} If the assertion fails.
+ * @see {@link https://www.typescriptlang.org/docs/handbook/release-notes/typescript-3-7.html#assertion-functions} - TypeScript Assertion Functions
  */
 
 export function assert<T>(ok: T, message: string = "failed"): asserts ok {
@@ -47,9 +48,7 @@ export function assert<T>(ok: T, message: string = "failed"): asserts ok {
         throw error;
     }
 }
-/**
- * 💪 121: add default parameter of your choice :)
- */
+
 /**
  * Delays execution for a specified amount of milliseconds.
  *
@@ -63,9 +62,3 @@ export const wait = (ms: number = 1337): Promise<void> => {
 
 type ApiFunc = (...args: AnyType) => AnyType;
 export type ApiResponse<T extends ApiFunc> = Awaited<ReturnType<T>>;
-
-/**
- * Link to TypeScript features.
- *
- * @see {@link https://www.typescriptlang.org/docs/}
- */
