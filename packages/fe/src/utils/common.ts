@@ -63,3 +63,9 @@ export const wait = (ms: number = 1337): Promise<void> => {
 
 type ApiFunc = (...args: AnyType) => AnyType;
 export type ApiResponse<T extends ApiFunc> = Awaited<ReturnType<T>>;
+
+/**
+ * Link to TypeScript features.
+ *
+ * @see {@link https://www.typescriptlang.org/docs/}
+ */
