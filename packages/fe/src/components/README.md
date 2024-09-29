@@ -29,5 +29,7 @@ The project follows these styling conventions:
 
 -   **General Rules**:
     -   Use the `sx` prop for straightforward style adjustments like margins, paddings, and color.
+    -   do not use classNames
     -   For complex styles, use MUI's `styled` API to extend MUI components with additional styles.
     -   Always utilize the MUI theme provided via the `ThemeProvider` to ensure consistency in spacing, color schemes, and typography across the application.
+    -   If an identical override is used three or more times, create a reusable component in this folder

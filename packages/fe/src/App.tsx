@@ -16,7 +16,7 @@ const logError = (err: unknown) => dev.info("{!offline}", err);
 
 import { Box, Button, ThemeProvider, Typography } from "@mui/material";
 
-import theme from "./theme";
+import { theme } from "./theme";
 
 function App() {
     useGate(AppGate);
