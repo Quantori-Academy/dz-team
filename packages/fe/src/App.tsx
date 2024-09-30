@@ -11,9 +11,7 @@ import { $materials, AppGate } from "stores";
 const logError = (err: unknown) => dev.info("{!offline}", err);
 
 import { Box, Button, ThemeProvider, Typography } from "@mui/material";
-
-import { theme } from "./theme";
-
+import { theme } from "theme/index";
 function App() {
     useGate(AppGate);
     const materials = useUnit($materials);
