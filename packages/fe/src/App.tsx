@@ -4,8 +4,10 @@ import "./logger/debug-load";
 import { useEffect, useState } from "react";
 import { useGate, useUnit } from "effector-react";
 
+import { fetchMolCount, fetchMolPost, fetchServerConnection } from "api/apiCalls";
 import { config } from "config";
 import { $materials, AppGate } from "stores";
+
 
 import { fetchMolCount, fetchMolPost, fetchServerConnection } from "./api/apiCalls";
 import reactLogo from "./assets/react.svg";
@@ -17,6 +19,10 @@ const logError = (err: unknown) => dev.info("{!offline}", err);
 import { Box, Button, ThemeProvider, Typography } from "@mui/material";
 
 import { theme } from "./theme";
+
+
+
+
 
 function App() {
     useGate(AppGate);
@@ -38,6 +44,7 @@ function App() {
         fetchMolCount().then(setMolCount).catch(logError);
     };
     return (
+
         <ThemeProvider theme={theme}>
             {" "}
             <Box>
@@ -61,6 +68,9 @@ function App() {
                 <Typography>{`${materials?.length ?? 0} materials loaded`}</Typography>
             </Box>
             <Typography>Server connection is {connectionState}</Typography>
+
+      
+
             <hr />
             <Typography variant="h2">DB</Typography>
             <Typography>registered molecules: {molCount}</Typography>
