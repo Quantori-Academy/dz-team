@@ -20,9 +20,6 @@ Project Luna is a Laboratory Information Management System (LIMS) for the [Mayfl
 4. Run `yarn dev` to start the development server
 5. Open `http://localhost:5173` in your browser to see the app
 6. For development with a local database, you need to follow the instructions in the **Database** section in the [backend README](packages/be/README.md) - short version is: install and start docker, run `yarn dev:db`, stop with `yarn stop:db`
-  <!--
-        💪 101: add a script to stop the db from the root
-    -->
 
 ## Vibes and mindset
 
