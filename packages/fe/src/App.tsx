@@ -34,7 +34,6 @@ function App() {
     };
     return (
         <ThemeProvider theme={theme}>
-            {" "}
             <Typography variant="h1">Vite + React</Typography>
             <Typography variant="h3">
                 {config.isProd ? "Production build" : "Not production build"}
