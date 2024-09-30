@@ -8,21 +8,11 @@ import { fetchMolCount, fetchMolPost, fetchServerConnection } from "api/apiCalls
 import { config } from "config";
 import { $materials, AppGate } from "stores";
 
-
-import { fetchMolCount, fetchMolPost, fetchServerConnection } from "./api/apiCalls";
-import reactLogo from "./assets/react.svg";
-
-import viteLogo from "/vite.svg";
-
 const logError = (err: unknown) => dev.info("{!offline}", err);
 
 import { Box, Button, ThemeProvider, Typography } from "@mui/material";
 
 import { theme } from "./theme";
-
-
-
-
 
 function App() {
     useGate(AppGate);
@@ -44,18 +34,8 @@ function App() {
         fetchMolCount().then(setMolCount).catch(logError);
     };
     return (
-
         <ThemeProvider theme={theme}>
             {" "}
-            <Box>
-                {/* 💪 21: remove tech logos and links */}
-                <a href="https://vitejs.dev" target="_blank" rel="noreferrer">
-                    <img src={viteLogo} className="logo" alt="Vite logo" />
-                </a>
-                <a href="https://react.dev" target="_blank" rel="noreferrer">
-                    <img src={reactLogo} className="logo react" alt="React logo" />
-                </a>
-            </Box>
             <Typography variant="h1">Vite + React</Typography>
             <Typography variant="h3">
                 {config.isProd ? "Production build" : "Not production build"}
@@ -68,9 +48,6 @@ function App() {
                 <Typography>{`${materials?.length ?? 0} materials loaded`}</Typography>
             </Box>
             <Typography>Server connection is {connectionState}</Typography>
-
-      
-
             <hr />
             <Typography variant="h2">DB</Typography>
             <Typography>registered molecules: {molCount}</Typography>
