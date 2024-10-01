@@ -13,5 +13,5 @@ export default defineConfig({
         svgr({ include: "**/*.svg?react" }),
     ],
     // build: { chunkSizeWarningLimit: 1000 },
-    server: { port: 3000 },
+    server: { port: 3000, open: true },
 });
