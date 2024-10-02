@@ -1,33 +1,49 @@
-# TanStack Router
+# Routing Guide
 
-[TanStack Router](https://tanstack.com/router/latest) library provides two ways to add routing to a project: **File-based** routing and **Code-based** routing.
-Due to better performance on the user side and developer convenience, File-based routing has been chosen for the project.
+This project uses [TanStack Router](https://tanstack.com/router/latest/docs/framework/react/overview) for [client-side routing](https://stackoverflow.com/questions/10190215/what-is-client-side-routing-and-how-is-it-used). Below is a guide on how to **add** new routes and **navigate** through them.
 
-# Creating new route
+## Adding a New Route
 
-### File-route
+1. Create a new file in the page components [directory](../components/) (e.g., `ReagentsPage.tsx`):
 
--   Add new file into [routes](../routes) or its any children directory - filename will be the route path name.
+```tsx
+// src/components/pages/reagents/ReagentsPage.tsx
+export const ReagentsPage = () => {
+    return (
+        <div>
+            <h1>Content example</h1>
+        </div>
+    );
+};
+```
 
-### Folder-route
+2. Add a file in the [routes](../routes/) directory and use the page component:
 
--   Create folder and insert `index.tsx` into it - in this case, the folder name will be the route path name.
-
-### Dot-based nesting route
-
--   Add new file with dots like `reagents.selected.tsx` - it will handled as `/reagents/selected` during the navigation.
-
-### Ending flow
-
-After adding files into the `route` directory, TanStack will automatically generate the shape of the function for each file.
-You just need to add the component (which will be displayed as a page) next to the "component" key, either by importing it or writing it inline.
-
-```ts
+```tsx
+// src/routes/reagents.tsx
 import { createFileRoute } from "@tanstack/react-router";
+import { ReagentsPage } from "src/components/pages/reagents/ReagentsPage.tsx";
 
-export const Route = createFileRoute("/filename")({
-    component: TheComponent,
+export const Route = createFileRoute("/reagents")({
+    component: <ReagentsPage />,
 });
 ```
 
-_As dynamic routes, search params or creating query is needed, the simpler guide about them will be provided._
+As a result, on the `"/reagents"` route path, the `<ReagentsPage>` component will be shown.
+
+## Navigation
+
+Use the `<Link to="" />` component anywhere in the application to perform client-side routing:
+
+```tsx
+import { Link } from "@tanstack/react-router";
+
+export function ToReagents() {
+    return (
+        <div>
+            <h1>Go to the Reagents page</h1>
+            <Link to="/reagents">Click Here</Link>
+        </div>
+    );
+}
+```
