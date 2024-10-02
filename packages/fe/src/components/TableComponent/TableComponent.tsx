@@ -2,6 +2,7 @@
 import "./TableComponent.css";
 
 import {
+    Box,
     Button,
     Paper,
     Table,
@@ -30,49 +31,60 @@ interface TableProps {
 
 const TableComponent: React.FC<TableProps> = ({ data, headers }) => {
     return (
-        <TableContainer component={Paper} style={{ maxHeight: "400px", overflowX: "auto" }}>
-            <Table stickyHeader>
-                <TableHead>
-                    <TableRow>
-                        {headers.map((header) => (
-                            <TableCell key={header.key}>
-                                <TableSortLabel>{header.label}</TableSortLabel>
-                            </TableCell>
-                        ))}
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {data.map((row, rowIndex) => (
-                        <TableRow key={rowIndex}>
-                            {headers.map((header) => (
-                                <TableCell
-                                    key={header.key}
-                                    sx={{
-                                        minWidth:
-                                            header.key === "quantityLeft" ||
-                                            header.key === "storageLocation"
-                                                ? "150px"
-                                                : "auto",
-                                    }}
-                                >
-                                    {/* {row[header.key]} */}
-                                    {header.key === "action" ? (
-                                        <Button
-                                            variant="outlined"
-                                            onClick={() => alert(`Editing ${row.name}`)}
-                                        >
-                                            Edit
-                                        </Button>
-                                    ) : (
-                                        row[header.key]
-                                    )}
-                                </TableCell>
-                            ))}
-                        </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+        <div className="App">
+            <Box sx={{ overflow: "auto" }}>
+                <Box sx={{ width: "100%", display: "table", tableLayout: "fixed" }}>
+                    <TableContainer
+                        component={Paper}
+                        style={{ maxHeight: "400px", overflowX: "auto" }}
+                        className="table-container"
+                    >
+                        <Table stickyHeader>
+                            <TableHead>
+                                <TableRow className="table-header">
+                                    {headers.map((header) => (
+                                        <TableCell key={header.key}>
+                                            <TableSortLabel>{header.label}</TableSortLabel>
+                                        </TableCell>
+                                    ))}
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
+                                {data.map((row, rowIndex) => (
+                                    <TableRow key={rowIndex}>
+                                        {headers.map((header) => (
+                                            <TableCell
+                                                key={header.key}
+                                                className="table-cell"
+                                                sx={{
+                                                    minWidth:
+                                                        header.key === "name" ||
+                                                        header.key === "quantityLeft" ||
+                                                        header.key === "storageLocation"
+                                                            ? "150px"
+                                                            : "auto",
+                                                }}
+                                            >
+                                                {header.key === "action" ? (
+                                                    <Button
+                                                        variant="outlined"
+                                                        onClick={() => alert(`Editing ${row.name}`)}
+                                                    >
+                                                        Edit
+                                                    </Button>
+                                                ) : (
+                                                    row[header.key]
+                                                )}
+                                            </TableCell>
+                                        ))}
+                                    </TableRow>
+                                ))}
+                            </TableBody>
+                        </Table>
+                    </TableContainer>
+                </Box>
+            </Box>
+        </div>
     );
 };
 

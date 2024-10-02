@@ -1,14 +1,4 @@
-table{
-  width: 100%;
-  table-layout: auto;
-  border-collapse: collapse;
- }
- td , th{
-  padding: 15px 20px;
-  text-align: center;
-  vertical-align: middle;
- }
- th{
+th{
   background: linear-gradient(0deg, #BFBFBF, #BFBFBF), #BFBFBF;
   color: #fafafa;
   font-family: 'Inter';
@@ -16,32 +6,6 @@ table{
   font-weight: 600;
   font-size: 14px;
   line-height: 17px;
-
   color: #000000;
-
-
  }
- tr{
-  background-color: #FFFFFF;
-  font-family: 'Inter';
-  height: 68px;
- }
-
- .active{
-  background: rgba(60, 134, 244, 0.12);
-}
-.resultTable thead {
-position: sticky;
-top: 0;
-background-color: #fff;
-}
-
-.sort-img{
-  width: 5%;
-  height: 5%;
-  background: transparent;
-  text-align: initial;
-  margin-left: 2%;
-  vertical-align: middle;
-}
 
