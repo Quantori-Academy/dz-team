@@ -1,12 +1,15 @@
 openapi: 3.0.0
 info:
-  title: Reagents API
+  title: Luna API
   version: 1.0.0
 paths:
   /reagents:
     get:
+      tags:
+        - "Reagents"  # Only include the tag name here
       summary: Get all reagents
       description: Fetch all reagents from the database.
+      operationId: getReagents  # Adding an operationId can help in displaying correctly
       responses:
         '200':
           description: Returns an array of reagents
@@ -71,3 +74,4 @@ components:
         updatedAt:
           type: string
           format: date-time
+

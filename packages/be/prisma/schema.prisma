@@ -32,18 +32,18 @@ model Reagent {
   id              Int       @id @default(autoincrement())
   name            String     // Name of the reagent
   category        Category   // 'REAGENT' or 'SAMPLE'
-  structure       String     // Stores the chemical structure
+  structure       String?     // Stores the chemical structure
   description     String     // Decription of the reagent
-  quantityLeft    Float      // Quantity left in stock
+  quantity        Float      // Quantity left in stock
   unit            String     // Unit of measurement (e.g., ml, g, etc.)
   size            Float?     // Size of the reagent (e.g., 500 ml)
   expirationDate  DateTime?  // Expiry date of the reagent
   storageLocation String     // Storage location: Room, Cabinet, Shelf
-  casNumber       String?    // CAS number for reagent-specific info
+  cas             String?    // CAS number for reagent-specific info
   producer        String?    // Manufacturer or supplier
   catalogId       String?    // Catalog identifier
   catalogLink     String?    // URL to the product catalog
-  pricePerUnit    Float?     // Price per unit in USD
+  pricePerUnit    Float?     // Price per unit
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
 }

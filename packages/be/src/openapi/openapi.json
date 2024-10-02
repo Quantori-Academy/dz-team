@@ -1,0 +1,30 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "Luna API Documentation",
+    "description": "Fastify Swagger API",
+    "version": "1.0.0"
+  },
+  "definitions": {},
+  "paths": {
+    "/api/v1/reagents": {
+      "get": {
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    }
+  },
+  "host": "localhost:1337",
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ]
+}

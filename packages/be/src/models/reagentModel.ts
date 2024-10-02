@@ -7,14 +7,14 @@ export interface Reagent {
     id: number;
     name: string;
     category: Category;
-    structure: string;
+    structure?: string;
     description?: string;
-    quantityLeft: number;
+    quantity: number;
     unit: string;
     size?: number;
     expirationDate?: Date;
     storageLocation: string;
-    casNumber?: string;
+    cas?: string;
     producer?: string;
     catalogId?: string;
     catalogLink?: string;
