@@ -12,6 +12,12 @@ const isDev = config.isDev;
 export const base = config.isProd ? "http://vm4.quantori.academy:1337" : "http://localhost:1337";
 
 const api = ky.create({
+    retry: {
+        limit: 2,
+        methods: ["get"],
+        statusCodes: [408, 429, 500, 502, 503, 504],
+        backoffLimit: 1000,
+    },
     hooks: {
         beforeRequest: [
             async (request) => {
