@@ -1,5 +1,3 @@
-const logError = (err: unknown) => dev.info("{!offline}", err);
-
 export function handleError(err: Error, url: unknown, options?: object): void {
     const errorDetails = `
 Name: ${err.name}
@@ -9,5 +7,5 @@ URL: ${JSON.stringify(url)}}
 Options: ${JSON.stringify(options, null, 2)}
 `;
 
-    logError(`Full error information:\n${errorDetails}`);
+    dev.error(`Full error information:\n${errorDetails}`);
 }
