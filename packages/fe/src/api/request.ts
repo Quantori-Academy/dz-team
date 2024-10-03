@@ -4,16 +4,21 @@ import * as rt from "runtypes";
 import { config } from "config";
 import { wait } from "utils";
 
+import { handleError } from "./errorHandler";
 import { decrementLoading, incrementLoading } from "./loadingState";
 
 const isDev = config.isDev;
-const logError = (err: unknown) => dev.info("{!offline}", err);
 
 export const base = config.isProd ? "http://vm4.quantori.academy:1337" : "http://localhost:1337";
 
 export async function request<T, K>(
     url: Input,
-    options?: Options & { contract?: rt.Runtype; mapper?: (val: T) => K },
+    options?: Options & {
+        contract?: rt.Runtype;
+        mapper?: (val: T) => K;
+        showErrorNotification?: boolean;
+        throwOnError?: boolean;
+    },
 ) {
     try {
         incrementLoading();
@@ -48,6 +53,16 @@ export async function request<T, K>(
         return response;
     } catch (err) {
         decrementLoading();
-        logError(err);
+
+        const showErrorNotification =
+            options?.showErrorNotification !== undefined ? options?.showErrorNotification : false;
+
+        if (showErrorNotification) {
+            handleError(err as Error, url, options);
+        }
+
+        if (options?.throwOnError) {
+            throw err;
+        }
     }
 }
