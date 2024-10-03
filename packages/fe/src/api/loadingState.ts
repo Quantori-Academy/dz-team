@@ -1,9 +1,12 @@
-import { createEvent, createStore } from "effector";
+import { createDomain } from "effector";
 
-export const incrementLoading = createEvent();
-export const decrementLoading = createEvent();
+const loadingDomain = createDomain();
 
-const $loadingCount = createStore<number>(0)
+export const incrementLoading = loadingDomain.createEvent();
+export const decrementLoading = loadingDomain.createEvent();
+
+const $loadingCount = loadingDomain
+    .createStore<number>(0)
     .on(incrementLoading, (state) => state + 1)
     .on(decrementLoading, (state) => state - 1);
 
