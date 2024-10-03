@@ -40,10 +40,13 @@ export async function request<T, K>(
         mapper?: (val: T) => K;
         showErrorNotification?: boolean;
         throwOnError?: boolean;
+        shouldAffectIsLoading?: boolean;
     },
 ) {
     try {
-        incrementLoading();
+        if (options?.shouldAffectIsLoading) {
+            incrementLoading();
+        }
 
         const response = await api<T>(url, options).json();
 
@@ -62,6 +65,8 @@ export async function request<T, K>(
             throw err;
         }
     } finally {
-        decrementLoading();
+        if (options?.shouldAffectIsLoading) {
+            decrementLoading();
+        }
     }
 }
