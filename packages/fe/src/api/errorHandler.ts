@@ -1,12 +1,6 @@
-import * as rt from "runtypes";
-
 const logError = (err: unknown) => dev.info("{!offline}", err);
 
-export function handleError(
-    err: Error,
-    url: unknown,
-    options?: { contract?: rt.Runtype } & object,
-): void {
+export function handleError(err: Error, url: unknown, options?: object): void {
     const errorDetails = `
 Name: ${err.name}
 Message: ${err.message}

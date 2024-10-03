@@ -11,10 +11,26 @@ const isDev = config.isDev;
 
 export const base = config.isProd ? "http://vm4.quantori.academy:1337" : "http://localhost:1337";
 
+const api = ky.create({
+    hooks: {
+        beforeRequest: [
+            async (request) => {
+                if (isDev) {
+                    const mockData = (await import("./data.json")).default;
+                    const url = request.url.toString().replace(base, "");
+                    const mock = mockData[url];
+                    await wait(Math.random() * 1000);
+                    return new Response(JSON.stringify(mock), { status: 200 });
+                }
+            },
+        ],
+    },
+});
+
 export async function request<T, K>(
     url: Input,
+    contract: rt.Runtype,
     options?: Options & {
-        contract?: rt.Runtype;
         mapper?: (val: T) => K;
         showErrorNotification?: boolean;
         throwOnError?: boolean;
@@ -23,37 +39,12 @@ export async function request<T, K>(
     try {
         incrementLoading();
 
-        const response = await ky<T>(url, {
-            ...options,
-            hooks: {
-                beforeRequest: [
-                    async (request) => {
-                        if (isDev) {
-                            const mockData = (await import("./data.json")).default;
-                            const url = request.url.toString().replace(base, "");
-                            const mock = mockData[url];
-                            await wait(Math.random() * 1000);
-                            return new Response(JSON.stringify(mock), { status: 200 });
-                        }
-                    },
-                ],
-            },
-        }).json();
+        const response = await api<T>(url, options).json();
 
-        decrementLoading();
+        const value = contract.check(response) as T;
 
-        if (options?.contract) {
-            options.contract.check(response);
-        }
-
-        if (options?.mapper) {
-            return options.mapper(response);
-        }
-
-        return response;
+        return options?.mapper ? options.mapper(value) : value;
     } catch (err) {
-        decrementLoading();
-
         const showErrorNotification =
             options?.showErrorNotification !== undefined ? options?.showErrorNotification : false;
 
@@ -64,5 +55,7 @@ export async function request<T, K>(
         if (options?.throwOnError) {
             throw err;
         }
+    } finally {
+        decrementLoading();
     }
 }
