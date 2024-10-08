@@ -1,4 +1,4 @@
-import rt from "runtypes";
+import * as rt from "runtypes";
 
 import { base, request } from "./request";
 

@@ -1,5 +1,5 @@
 import ky, { Input, Options } from "ky";
-import rt from "runtypes";
+import * as rt from "runtypes";
 
 import { config } from "config";
 import { wait } from "utils";
