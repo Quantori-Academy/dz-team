@@ -28,9 +28,8 @@ enum Category {
 }
 
 model Reagent {
-  id              Int       @id @default(autoincrement())
+  id              String   @id @default(uuid())
   name            String     // Name of the reagent
-  category        Category   // 'REAGENT' or 'SAMPLE'
   structure       String?    // Stores the chemical structure
   description     String     // Description of the reagent
   quantity        Float      // Quantity left in stock
@@ -46,23 +45,6 @@ model Reagent {
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
 
-  // Many-to-Many relation with Sample
-  samples         Sample[]   @relation("ReagentSamples")
-}
-
-// make samples table
-model Sample {
-  id              Int       @id @default(autoincrement())
-  title           String     // Title of the sample
-  description     String     // Description of the sample
-  structure       String?    // Chemical structure
-  initialQuantity Float      // Initial quantity of the sample
-  unit            String     // Unit of measurement (e.g., mg, ml, etc.)
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
-
-  // Many-to-Many relation with Reagent
-  reagents        Reagent[]  @relation("ReagentSamples")
 }
 
 
