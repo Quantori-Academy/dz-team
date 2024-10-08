@@ -10,12 +10,8 @@ jobs:
             pull-requests: write
         runs-on: ubuntu-latest
         steps:
-            - id: labeler
-              uses: actions/labeler@v5
-
             - uses: actions/checkout@v4
-
-            - name: Auto-assign for FE
+            - name: Auto-assign reviewers
               uses: ./.github/actions/auto-add-reviewers
               with:
                   configuration-path: ".github/auto_assign.yaml"
