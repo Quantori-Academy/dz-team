@@ -3,6 +3,10 @@ dist
 
 .env
 
+# Action specific files
+!.github/actions/auto-add-reviewers/node_modules
+!.github/actions/auto-add-reviewers/dist
+
 # Logs
 logs
 *.log
