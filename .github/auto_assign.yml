@@ -8,6 +8,11 @@ numberOfReviewers: 1
 useReviewGroups: true
 
 reviewGroups:
+    mentors:
+        - qdmitriyzhukov
+        - Salamdi
+        - KorovinQuantori
+        - picassoq
     students:
         - abe511
         - Adlet92
@@ -15,11 +20,6 @@ reviewGroups:
         - TeaChareqishvili
         - chubinaaa
         - Akimishvili
-    mentors:
-        - qdmitriyzhukov
-        - Salamdi
-        - KorovinQuantori
-        - picassoq
 
 # Set to true to add assignees to pull requests
 addAssignees: author
