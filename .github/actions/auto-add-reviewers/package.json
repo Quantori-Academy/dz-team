@@ -2,7 +2,7 @@
 	"name": "auto-mention-action",
 	"private": "true",
 	"scripts": {
-		"build": "esbuild src/main.js --bundle --platform=node --outfile=dist/index.js"
+		"build": "ncc build src/index.js --license licenses.txt"
 	},
 	"devDependencies": {
 		"@vercel/ncc": "^0.38.1",
