@@ -38,7 +38,7 @@ The project follows these styling conventions:
 
 useTheme hook is a way to access the theme object inside functional components.
 
-     ```jsx
+```jsx
 
 import { useTheme } from '@mui/material';
 
@@ -50,7 +50,5 @@ function MyButton() {
         </Button>
     );
 }
-
-```
 
 ```
