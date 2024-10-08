@@ -45,5 +45,24 @@ model Reagent {
   pricePerUnit    Float?     // Price per unit
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
+
+  // Many-to-Many relation with Sample
+  samples         Sample[]   @relation("ReagentSamples")
 }
+
+// make samples table
+model Sample {
+  id              Int       @id @default(autoincrement())
+  title           String     // Title of the sample
+  description     String     // Description of the sample
+  structure       String?    // Chemical structure
+  initialQuantity Float      // Initial quantity of the sample
+  unit            String     // Unit of measurement (e.g., mg, ml, etc.)
+  createdAt       DateTime   @default(now())
+  updatedAt       DateTime   @updatedAt
+
+  // Many-to-Many relation with Reagent
+  reagents        Reagent[]  @relation("ReagentSamples")
+}
+
 

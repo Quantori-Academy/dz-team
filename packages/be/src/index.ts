@@ -27,10 +27,7 @@ server.get("/", async () => {
     return `Hello world! isProd: ${isProd}`;
 });
 
-// Register Swagger
-registerSwagger(server);
-
-// Register reagent routes with prefix 'api/v1'
+// api routes with prefix 'api/v1'
 server.register(reagentRoutes, { prefix: "/api/v1" });
 
 // POST route for creating a molecule
@@ -65,6 +62,9 @@ server.get("/molecule/count", async () => {
 
 // Conditionally import the OpenAPI generator in non-production environments
 if (!isProd) {
+    // Register Swagger
+    registerSwagger(server);
+
     server.ready(() => {
         generateOpenApiSchema(server); // Call the schema generation without await
     });

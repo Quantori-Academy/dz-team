@@ -1,3 +1,5 @@
+import { Sample } from "@prisma/client";
+
 export enum Category {
     REAGENT = "REAGENT",
     SAMPLE = "SAMPLE",
@@ -21,4 +23,5 @@ export interface Reagent {
     pricePerUnit?: number;
     createdAt: Date;
     updatedAt: Date;
+    samples?: Sample[];
 }

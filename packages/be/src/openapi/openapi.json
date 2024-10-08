@@ -6,17 +6,7 @@
     "version": "1.0.0"
   },
   "definitions": {},
-  "paths": {
-    "/api/v1/reagents": {
-      "get": {
-        "responses": {
-          "200": {
-            "description": "Default Response"
-          }
-        }
-      }
-    }
-  },
+  "paths": {},
   "host": "localhost:1337",
   "schemes": [
     "http"
