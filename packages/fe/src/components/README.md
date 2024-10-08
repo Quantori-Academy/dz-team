@@ -33,3 +33,22 @@ The project follows these styling conventions:
     -   For complex styles, use MUI's `styled` API to extend MUI components with additional styles.
     -   Always utilize the MUI theme provided via the `ThemeProvider` to ensure consistency in spacing, color schemes, and typography across the application.
     -   If an identical override is used three or more times, create a reusable component in this folder
+
+### Example for using color pallete from theme
+
+useTheme hook is a way to access the theme object inside functional components.
+
+```jsx
+
+import { useTheme } from '@mui/material';
+
+function MyButton() {
+    const theme = useTheme();
+    return (
+        <Button style={{ backgroundColor: theme.palette.primary.main, color: theme.palette.background.default }}>
+            Click Me
+        </Button>
+    );
+}
+
+```
