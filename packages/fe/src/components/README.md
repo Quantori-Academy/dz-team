@@ -43,12 +43,12 @@ useTheme hook is a way to access the theme object inside functional components.
 import { useTheme } from '@mui/material';
 
 function MyButton() {
-const theme = useTheme();
-return (
-<Button style={{ backgroundColor: theme.palette.primary.main, color: theme.palette.background.default }}>
-Click Me
-</Button>
-);
+    const theme = useTheme();
+    return (
+        <Button style={{ backgroundColor: theme.palette.primary.main, color: theme.palette.background.default }}>
+            Click Me
+        </Button>
+    );
 }
 
 ```
