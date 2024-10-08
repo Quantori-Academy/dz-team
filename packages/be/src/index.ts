@@ -1,11 +1,12 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
+
 import { PrismaClient } from "@prisma/client";
+
 import { isProd } from "./utils/isProd";
+import { registerSwagger } from "./config/swaggerConfig";
+import { generateOpenApiSchema } from "./utils/generateOpenApi";
 import { reagentRoutes } from "./routes/reagentRoutes";
-import fastifySwagger from "@fastify/swagger";
-import fs from "fs";
-import path from "path";
 
 // Initialize Prisma Client
 const prisma = new PrismaClient();
@@ -26,23 +27,8 @@ server.get("/", async () => {
     return `Hello world! isProd: ${isProd}`;
 });
 
-// OpenAPI and Swagger init
-
-server.register(fastifySwagger, {
-    routePrefix: "/api/docs",
-    swagger: {
-        info: {
-            title: "Luna API Documentation",
-            description: "Fastify Swagger API",
-            version: "1.0.0",
-        },
-        host: "localhost:1337",
-        schemes: ["http"],
-        consumes: ["application/json"],
-        produces: ["application/json"],
-    },
-    exposeRoute: true,
-});
+// Register Swagger
+registerSwagger(server);
 
 // Register reagent routes with prefix 'api/v1'
 server.register(reagentRoutes, { prefix: "/api/v1" });
@@ -77,16 +63,12 @@ server.get("/molecule/count", async () => {
     return count;
 });
 
-// Generate and save OpenAPI file
-server.ready(() => {
-    const openapiJson = server.swagger(); // Generate the OpenAPI spec as a JSON object
-    // Save the OpenAPI spec as a JSON file
-    fs.writeFileSync(
-        path.join(__dirname, "openapi", "openapi.json"),
-        JSON.stringify(openapiJson, null, 2),
-    );
-    console.log("OpenAPI spec has been generated and saved to openapi/openapi.json");
-});
+// Conditionally import the OpenAPI generator in non-production environments
+if (!isProd) {
+    server.ready(() => {
+        generateOpenApiSchema(server); // Call the schema generation without await
+    });
+}
 
 // Start the server
 server.listen(

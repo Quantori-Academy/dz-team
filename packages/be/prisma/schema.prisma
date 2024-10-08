@@ -22,7 +22,6 @@ model Molecule {
 }
 
 // Make reagents table
-
 enum Category {
   REAGENT
   SAMPLE
@@ -32,13 +31,13 @@ model Reagent {
   id              Int       @id @default(autoincrement())
   name            String     // Name of the reagent
   category        Category   // 'REAGENT' or 'SAMPLE'
-  structure       String?     // Stores the chemical structure
-  description     String     // Decription of the reagent
+  structure       String?    // Stores the chemical structure
+  description     String     // Description of the reagent
   quantity        Float      // Quantity left in stock
   unit            String     // Unit of measurement (e.g., ml, g, etc.)
   size            Float?     // Size of the reagent (e.g., 500 ml)
   expirationDate  DateTime?  // Expiry date of the reagent
-  storageLocation String     // Storage location: Room, Cabinet, Shelf
+  storageLocation String     @default("Room 23, Cabinet 2, Shelf 5")  // Storage location: Room, Cabinet, Shelf
   cas             String?    // CAS number for reagent-specific info
   producer        String?    // Manufacturer or supplier
   catalogId       String?    // Catalog identifier
@@ -47,3 +46,4 @@ model Reagent {
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
 }
+
