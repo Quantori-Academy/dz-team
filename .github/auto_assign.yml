@@ -1,8 +1,8 @@
 # Set to true to add reviewers to pull requests
 addReviewers: true
 
-# A number of reviewers to add to the pull request
-numberOfReviewers: 2
+# A number of reviewers to add to the pull request per group
+numberOfReviewers: 1
 
 # Set to true to add reviewers from different groups to pull requests
 useReviewGroups: true
