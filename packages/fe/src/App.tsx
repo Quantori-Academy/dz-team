@@ -4,14 +4,18 @@ import "./logger/debug-load";
 import { useEffect, useState } from "react";
 import { useGate, useUnit } from "effector-react";
 
+import { Box, Button, ThemeProvider, Typography } from "@mui/material";
+import { theme } from "theme";
+
 import { fetchMolCount, fetchMolPost, fetchServerConnection } from "api/apiCalls";
 import { config } from "config";
 import { $materials, AppGate } from "stores";
 
+import LoginForm from "components/LoginForm"; // TO BE REMOVED. FOR TESTING PURPOSES ONLY
+
 const logError = (err: unknown) => dev.info("{!offline}", err);
 
-import { Box, Button, ThemeProvider, Typography } from "@mui/material";
-import { theme } from "theme";
+
 
 function App() {
     useGate(AppGate);
@@ -34,6 +38,7 @@ function App() {
     };
     return (
         <ThemeProvider theme={theme}>
+            <LoginForm />
             <Typography variant="h1">Vite + React</Typography>
             <Typography variant="h3">
                 {config.isProd ? "Production build" : "Not production build"}
