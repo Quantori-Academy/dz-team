@@ -7,9 +7,9 @@ import { wait } from "utils";
 import { handleError } from "./errorHandler";
 import { decrementLoading, incrementLoading } from "./loadingState";
 
-const { useMockData } = config;
+const { useMockData, isProd } = config;
 
-export const base = config.isProd ? "http://vm4.quantori.academy:1337" : "http://localhost:1337";
+export const base = isProd ? "http://vm4.quantori.academy:1337" : "http://localhost:1337";
 
 const api = ky.create({
     retry: {
@@ -54,9 +54,9 @@ const api = ky.create({
  * @returns {Promise<T | K | undefined>} - Returns the result of the request or a transformed value (if mapper is provided).
  * @throws {Error} - Throws an error if `throwOnError` is set to true.
  */
-export async function request<T, K>(
+export async function request<TT extends rt.Runtype, T = rt.Static<TT>, K = T>(
     url: Input,
-    contract: rt.Runtype,
+    contract: TT,
     options?: Options & {
         mapper?: (val: T) => K;
         showErrorNotification?: boolean;
@@ -79,8 +79,7 @@ export async function request<T, K>(
             handleError(err as Error, url, options);
         }
 
-        const throwOnError = options?.throwOnError == undefined ? true : options?.throwOnError;
-        if (throwOnError) {
+        if (options?.throwOnError ?? true) {
             throw err;
         }
     } finally {
