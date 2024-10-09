@@ -2,6 +2,7 @@ import "./App.css";
 import "./logger/debug-load";
 
 import { useEffect, useState } from "react";
+import { Link } from "@tanstack/react-router";
 import { useGate, useUnit } from "effector-react";
 
 import { fetchMolCount, fetchMolPost, fetchServerConnection } from "api/apiCalls";
@@ -42,6 +43,7 @@ function App() {
                 <Button variant="outlined" onClick={() => setCount((count) => count + 1)}>
                     count is {count}
                 </Button>
+                <Link to="/reagentsList">Click Here</Link>
                 <Typography>App runs ok!</Typography>
                 <Typography>{`${materials?.length ?? 0} materials loaded`}</Typography>
             </Box>
