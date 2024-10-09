@@ -78,6 +78,8 @@ export default tseslint.config(
             "@typescript-eslint/no-unsafe-argument": "warn",
             "@typescript-eslint/no-empty-function": "warn",
             "@typescript-eslint/ban-ts-comment": "warn",
+            "@typescript-eslint/no-floating-promises": "off",
+            "@typescript-eslint/no-misused-promises": "off",
             "@typescript-eslint/no-unused-vars": [
                 "warn",
                 {

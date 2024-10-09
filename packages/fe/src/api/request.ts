@@ -75,9 +75,7 @@ export async function request<T, K>(
 
         return options?.mapper ? options.mapper(value) : value;
     } catch (err) {
-        const showErrorNotification =
-            options?.showErrorNotification !== undefined ? options?.showErrorNotification : false;
-        if (showErrorNotification) {
+        if (options?.showErrorNotification) {
             handleError(err as Error, url, options);
         }
 
