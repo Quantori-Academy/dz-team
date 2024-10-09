@@ -7,7 +7,7 @@ import { wait } from "utils";
 import { handleError } from "./errorHandler";
 import { decrementLoading, incrementLoading } from "./loadingState";
 
-const { isDev } = config;
+const { useMockData } = config;
 
 export const base = config.isProd ? "http://vm4.quantori.academy:1337" : "http://localhost:1337";
 
@@ -21,7 +21,7 @@ const api = ky.create({
     hooks: {
         beforeRequest: [
             async (request) => {
-                if (isDev) {
+                if (useMockData) {
                     const mockData = (await import("./data.json")).default;
                     const url = request.url.toString().replace(base, "");
                     const mock = mockData[url];
@@ -76,8 +76,7 @@ export async function request<T, K>(
         return options?.mapper ? options.mapper(value) : value;
     } catch (err) {
         const showErrorNotification =
-            options?.showErrorNotification !== undefined ? options?.showErrorNotification : false; // убрать эту хрень
-
+            options?.showErrorNotification !== undefined ? options?.showErrorNotification : false;
         if (showErrorNotification) {
             handleError(err as Error, url, options);
         }
