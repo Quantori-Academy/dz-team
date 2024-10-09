@@ -79,7 +79,8 @@ export async function request<T, K>(
             handleError(err as Error, url, options);
         }
 
-        if (options?.throwOnError) {
+        const throwOnError = options?.throwOnError == undefined ? true : options?.throwOnError;
+        if (throwOnError) {
             throw err;
         }
     } finally {
