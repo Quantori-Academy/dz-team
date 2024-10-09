@@ -1,15 +1,17 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
 import { PrismaClient } from "@prisma/client";
-import { isProd } from "./utils/isProd";
-
-import {userSchema, moleculeSchema} from "../../shared/zod-schemas";
 import {ZodTypeProvider} from "fastify-type-provider-zod";
+
+import { isProd } from "./utils/isProd";
+import { registerSwagger } from "./config/swaggerConfig";
+import { generateOpenApiSchema } from "./utils/generateOpenApi";
+import { reagentRoutes } from "./routes/reagentRoutes";
+import {userSchema, moleculeSchema} from "../../shared/zod-schemas";
 
 
 const prisma = new PrismaClient();
 const server = fastify().withTypeProvider<ZodTypeProvider>();
-
 
 const corsOptions = isProd
     ? ["http://vm4.quantori.academy"]
@@ -37,6 +39,8 @@ server.post("/login", async (request, reply) => {
     }
 });
 
+// api routes with prefix 'api/v1'
+server.register(reagentRoutes, { prefix: "/api/v1" });
 
 server.post(
     "/molecule",
@@ -63,17 +67,27 @@ server.get("/molecule/count", async () => {
 });
 
 
+// Conditionally import the OpenAPI generator in non-production environments
+if (!isProd) {
+    // Register Swagger
+    registerSwagger(server);
+
+    server.ready(() => {
+        generateOpenApiSchema(server); // Call the schema generation without await
+    });
+}
+
+
 server.listen(
     {
         port: 1337,
         host: "0.0.0.0",
-        // TODO: check host for security
     },
     (err, address) => {
         if (err) {
             console.error(err);
             process.exit(1);
         }
-        console.log("Server is listening on port " + address);
+        console.log("Server is listening on " + address);
     },
 );
