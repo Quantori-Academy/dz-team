@@ -63,7 +63,7 @@ export async function request<T, K>(
         throwOnError?: boolean;
         shouldAffectIsLoading?: boolean;
     },
-) {
+): Promise<T | K | undefined> {
     try {
         if (options?.shouldAffectIsLoading) {
             incrementLoading();
