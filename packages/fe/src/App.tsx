@@ -2,20 +2,16 @@ import "./App.css";
 import "./logger/debug-load";
 
 import { useEffect, useState } from "react";
-import { useGate, useUnit } from "effector-react";
-
 import { Box, Button, ThemeProvider, Typography } from "@mui/material";
+import { useGate, useUnit } from "effector-react";
 import { theme } from "theme";
 
 import { fetchMolCount, fetchMolPost, fetchServerConnection } from "api/apiCalls";
+import { LoginForm } from "components/LoginForm"; // TO BE REMOVED. FOR TESTING PURPOSES ONLY
 import { config } from "config";
 import { $materials, AppGate } from "stores";
 
-import LoginForm from "components/LoginForm"; // TO BE REMOVED. FOR TESTING PURPOSES ONLY
-
 const logError = (err: unknown) => dev.info("{!offline}", err);
-
-
 
 function App() {
     useGate(AppGate);
