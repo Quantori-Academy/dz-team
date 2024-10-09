@@ -37,21 +37,25 @@ const api = ky.create({
  *
  * Performs an asynchronous HTTP request and processes the response using a runtype contract, and uses a mapper to transform the result.
  *
- * @template T - The expected type of the response from the API.
- * @template K - The type returned after applying the mapper function (if provided).
+ * @template TT - The Runtype that defines the expected structure of the response.
+ * @template T - The static type inferred from the Runtype (default is `rt.Static<TT>`).
+ * @template K - The type returned by the mapper function (default is `T`).
+ *
  * @param {Input} url - The URL or object to be used for the request.
- * @param {rt.Runtype} contract - The runtype contract used to validate the response.
+ * @param {TT} contract - The Runtype contract used to validate the response.
  * @param {Options & {
  *    mapper?: (val: T) => K;
  *    showErrorNotification?: boolean;
  *    throwOnError?: boolean;
  *    shouldAffectIsLoading?: boolean;
  *}} [options] - Additional options for configuring the request.
- * @param {Function} [options.mapper] - A function to transform the response if needed.
+ * @param {function(T): K} [options.mapper] - A function to transform the response data.
  * @param {boolean} [options.showErrorNotification=false] -  Whether to show an error notification.
  * @param {boolean} [options.throwOnError=false] - Whether to throw an error if one occurs.
  * @param {boolean} [options.shouldAffectIsLoading=false] - Whether the request should affect loading state.
+ *
  * @returns {Promise<T | K | undefined>} - Returns the result of the request or a transformed value (if mapper is provided).
+ *
  * @throws {Error} - Throws an error if `throwOnError` is set to true.
  */
 export async function request<TT extends rt.Runtype, T = rt.Static<TT>, K = T>(
