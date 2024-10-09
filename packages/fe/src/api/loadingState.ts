@@ -1,12 +1,10 @@
-import { createDomain } from "effector";
+import { genericDomain } from "logger";
 
-const loadingDomain = createDomain();
+export const incrementLoading = genericDomain.createEvent("incrementLoading");
+export const decrementLoading = genericDomain.createEvent("decrementLoading");
 
-export const incrementLoading = loadingDomain.createEvent();
-export const decrementLoading = loadingDomain.createEvent();
-
-const $loadingCount = loadingDomain
-    .createStore<number>(0)
+const $loadingCount = genericDomain
+    .createStore<number>(0, { name: "$loadingCount" })
     .on(incrementLoading, (state) => state + 1)
     .on(decrementLoading, (state) => state - 1);
 
