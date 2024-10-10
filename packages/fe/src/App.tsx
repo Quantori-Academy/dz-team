@@ -8,12 +8,14 @@ import { fetchMolCount, fetchMolPost, fetchServerConnection } from "api/apiCalls
 import { config } from "config";
 import { $materials, AppGate } from "stores";
 
-import TableComponent, { RowData } from "./components/TableComponent/TableComponent";
+import { Table } from "./components/Table/Table";
 
 const logError = (err: unknown) => dev.info("{!offline}", err);
 
 import { Box, Button, ThemeProvider, Typography } from "@mui/material";
 import { theme } from "theme";
+
+import { headers, mockData } from "components/Table/mockData";
 
 function App() {
     useGate(AppGate);
@@ -34,109 +36,9 @@ function App() {
     const handleUpdateMolCount = () => {
         fetchMolCount().then(setMolCount).catch(logError);
     };
-
-    const mockData: RowData[] = [
-        {
-            id: 1,
-            name: "Reagent A",
-            category: "Reagent",
-            structure: "",
-            description: "High purity",
-            quantityLeft: 50,
-            storageLocation: "Shelf 1",
-        },
-        {
-            id: 2,
-            name: "Reagent B",
-            category: "Reagent",
-            structure: "",
-            description: "Acidic reagent",
-            quantityLeft: 30,
-            storageLocation: "Shelf 2",
-        },
-        {
-            id: 3,
-            name: "Sample C",
-            category: "Sample",
-            structure: "",
-            description: "Blood sample",
-            quantityLeft: 10,
-            storageLocation: "Fridge 1",
-        },
-        {
-            id: 4,
-            name: "Sample D",
-            category: "Sample",
-            structure: "",
-            description: "Water sample",
-            quantityLeft: 5,
-            storageLocation: "Fridge 2",
-        },
-        {
-            id: 5,
-            name: "Reagent E",
-            category: "Reagent",
-            structure: "",
-            description: "Buffer solution",
-            quantityLeft: 20,
-            storageLocation: "Shelf 3",
-        },
-        {
-            id: 6,
-            name: "Reagent F",
-            category: "Reagent",
-            structure: "",
-            description: "Organic solvent",
-            quantityLeft: 40,
-            storageLocation: "Shelf 4",
-        },
-        {
-            id: 7,
-            name: "Sample G",
-            category: "Sample",
-            structure: "",
-            description: "Soil sample",
-            quantityLeft: 15,
-            storageLocation: "Fridge 3",
-        },
-        {
-            id: 8,
-            name: "Sample H",
-            category: "Sample",
-            structure: "",
-            description: "Plant tissue sample",
-            quantityLeft: 7,
-            storageLocation: "Fridge 4",
-        },
-        {
-            id: 9,
-            name: "Reagent I",
-            category: "Reagent",
-            structure: "",
-            description: "Salt solution",
-            quantityLeft: 60,
-            storageLocation: "Shelf 5",
-        },
-        {
-            id: 10,
-            name: "Reagent J",
-            category: "Reagent",
-            structure: "",
-            description: "Neutral buffer",
-            quantityLeft: 25,
-            storageLocation: "Shelf 6",
-        },
-    ];
-
-    const headers: { key: keyof RowData | "action"; label: string }[] = [
-        { key: "name", label: "Name" },
-        { key: "category", label: "Category" },
-        { key: "structure", label: "Structure" },
-        { key: "description", label: "Description" },
-        { key: "quantityLeft", label: "Quantity Left" },
-        { key: "storageLocation", label: "Storage Location" },
-        { key: "action", label: "Action" },
-    ];
+    const handleActionClick = () => {
+        alert(`click!`);
+    };
 
     return (
         <ThemeProvider theme={theme}>
@@ -169,8 +71,22 @@ function App() {
                     register new molecule to DB
                 </Button>
             </Box>
-            <h1>Reagents Table</h1>
-            <TableComponent data={mockData} headers={headers} />
+            <Typography variant="h4">Reagents Table</Typography>
+            <Box
+                sx={{
+                    overflow: "auto",
+                    width: "100%",
+                    display: "table",
+                    tableLayout: "fixed",
+                }}
+            >
+                <Table
+                    data={mockData}
+                    headers={headers}
+                    actionLabel="Purchase"
+                    onActionClick={handleActionClick}
+                />
+            </Box>
         </ThemeProvider>
     );
 }
