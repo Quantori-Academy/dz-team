@@ -6,7 +6,7 @@
     "workspaces": [
         "packages/be",
         "packages/fe",
-	"packages/shared"
+        "packages/shared"
     ],
     "type": "module",
     "packageManager": "yarn@1.22.22",
