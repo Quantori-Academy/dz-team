@@ -4,10 +4,10 @@ import { Box, MenuItem, Select, useTheme } from "@mui/material";
 type Language = "en" | "de" | "es" | "fr" | "";
 
 const languages = [
-    { value: "en", img: "en.jpg", name: "English" },
+    { value: "en", img: "en.png", name: "English" },
     { value: "de", img: "de.png", name: "Deutsch" },
     { value: "es", img: "es.png", name: "Español" },
-    { value: "fr", img: "fr.jpg", name: "Français" },
+    { value: "fr", img: "fr.png", name: "Français" },
 ];
 
 export function LanguageSelect() {
