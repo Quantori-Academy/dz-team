@@ -4,8 +4,8 @@ import { PrismaClient } from "@prisma/client";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 
 import { isProd } from "./utils/isProd";
-import { registerSwagger } from "./config/swaggerConfig";
-import { generateOpenApiSchema } from "./utils/generateOpenApi";
+// import { registerSwagger } from "./config/swaggerConfig";
+// import { generateOpenApiSchema } from "./utils/generateOpenApi";
 import { reagentRoutes } from "./routes/reagentRoutes";
 import { userSchema, moleculeSchema } from "shared/zod-schemas";
 
@@ -59,15 +59,15 @@ server.get("/molecule/count", async () => {
     }
 });
 
-// Conditionally import the OpenAPI generator in non-production environments
-if (!isProd) {
-    // Register Swagger
-    registerSwagger(server);
+// // Conditionally import the OpenAPI generator in non-production environments
+// if (!isProd) {
+//     // Register Swagger
+//     registerSwagger(server);
 
-    server.ready(() => {
-        generateOpenApiSchema(server); // Call the schema generation without await
-    });
-}
+//     server.ready(() => {
+//         generateOpenApiSchema(server); // Call the schema generation without await
+//     });
+// }
 
 server.listen(
     {
