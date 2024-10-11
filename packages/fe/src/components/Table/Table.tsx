@@ -13,7 +13,7 @@ import { formatCellContent, SupportedValue } from "../../utils/formatters";
 
 interface TableProps {
     data: Array<Record<string, SupportedValue>>;
-    headers: { key: string; label: string }[];
+    headers: Array<{ key: string; label: string }>;
     actionLabel?: string;
     onActionClick?: (row: Record<string, SupportedValue>) => void;
 }

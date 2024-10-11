@@ -8,26 +8,29 @@ export type SupportedValue =
     | string[]
     | { [key: string]: SupportedValue };
 
-export const formatCellContent = (value: SupportedValue) => {
-    if (typeof value === "boolean") {
-        return value ? "Yes" : "No";
+export const formatCellContent = (value: SupportedValue): string => {
+    switch (typeof value) {
+        case "boolean":
+            return value ? "Yes" : "No";
+
+        case "object":
+            if (value === null) {
+                return "N/A";
+            }
+            if (Array.isArray(value)) {
+                return value.join(", ");
+            }
+            if (value instanceof Date) {
+                return formatDate(value);
+            }
+            return formatObject(value);
+
+        case "bigint":
+            return value.toString();
+
+        default:
+            return value.toString();
     }
-    if (Array.isArray(value)) {
-        return value.join(", ");
-    }
-    if (value === null) {
-        return "N/A";
-    }
-    if (value instanceof Date) {
-        return formatDate(value);
-    }
-    if (typeof value === "bigint") {
-        return value.toString();
-    }
-    if (typeof value === "object") {
-        return formatObject(value);
-    }
-    return value;
 };
 
 const formatObject = (obj: Record<string, SupportedValue>): string => {
