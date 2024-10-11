@@ -33,6 +33,7 @@ function App() {
     const handleUpdateMolCount = () => {
         fetchMolCount().then(setMolCount).catch(logError);
     };
+
     return (
         <ThemeProvider theme={theme}>
             <Typography variant="h1">Vite + React</Typography>

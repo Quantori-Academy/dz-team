@@ -1,6 +1,7 @@
 import { createEffect, createEvent, createStore, sample } from "effector";
 
 import { api } from "api/getReagents";
+import { SupportedValue } from "utils/formatters";
 
 export type Material = {
     id: string;
@@ -19,6 +20,7 @@ export type Material = {
     pricePerUnit: null;
     createdAt: string;
     updatedAt: string;
+    [key: string]: SupportedValue;
 };
 
 //  event is triggered to start fetching reagents from the base.

@@ -2,11 +2,16 @@ import { useEffect } from "react";
 import { Box, Typography } from "@mui/material";
 import { useUnit } from "effector-react";
 
-import { selectMaterial } from "stores/example";
+import { headers } from "components/Table/mockData";
 
+// import { selectMaterial } from "stores/example";
 import { $reagentsList, fetchMaterials, Material } from "../stores/materials";
+import { Table } from "./Table/Table";
 
 export const ReagentsListPage = () => {
+    const handleActionClick = () => {
+        alert(`click!`);
+    };
     const materials: Material[] = useUnit($reagentsList);
 
     useEffect(() => {
@@ -16,13 +21,12 @@ export const ReagentsListPage = () => {
         <Box>
             <Typography variant="h1">Reagents List</Typography>
 
-            <ul>
-                {materials.map((material) => (
-                    <li key={material.id} onClick={() => selectMaterial(material.id)}>
-                        {material.name}
-                    </li>
-                ))}
-            </ul>
+            <Table
+                materials={materials}
+                headers={headers}
+                actionLabel="Edit"
+                onActionClick={handleActionClick}
+            />
         </Box>
     );
 };
