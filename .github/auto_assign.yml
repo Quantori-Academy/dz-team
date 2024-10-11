@@ -1,0 +1,36 @@
+# Set to true to add reviewers to pull requests
+addReviewers: true
+
+# A number of reviewers to add to the pull request per group
+numberOfReviewers: 1
+
+# Set to true to add reviewers from different groups to pull requests
+useReviewGroups: true
+
+reviewGroups:
+    mentors:
+        - qdmitriyzhukov
+        - Salamdi
+        - KorovinQuantori
+        - picassoq
+    students:
+        - abe511
+        - Adlet92
+        - nechepurenkoV
+        - TeaChareqishvili
+        - chubinaaa
+        - Akimishvili
+
+# Set to true to add assignees to pull requests
+addAssignees: author
+
+# A number of assignees to add to the pull request
+# Set to 0 to add all of the assignees.
+# Uses numberOfReviewers if unset.
+numberOfAssignees: 0
+
+# A list of keywords to be skipped the process that add reviewers if pull requests include it
+skipKeywords:
+    - no-review
+    - wip
+    - draft
