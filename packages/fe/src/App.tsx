@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { useGate, useUnit } from "effector-react";
 
 import { fetchMolCount, fetchMolPost, fetchServerConnection } from "api/apiCalls";
+import { $isLoading } from "api/loadingState";
 import { config } from "config";
 import { $materials, AppGate } from "stores";
 
@@ -20,9 +21,10 @@ import { headers, mockData } from "components/Table/mockData";
 function App() {
     useGate(AppGate);
     const materials = useUnit($materials);
+    const isLoading = useUnit($isLoading);
     const [count, setCount] = useState(0);
     const [connectionState, setConnectionState] = useState("...");
-    const [molCount, setMolCount] = useState("0");
+    const [molCount, setMolCount] = useState(0);
 
     useEffect(() => {
         fetchServerConnection().then(setConnectionState).catch(logError);
@@ -42,6 +44,7 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
+            <Box>{isLoading ? "TEST LOADING..." : null}</Box>
             <Typography variant="h1">Vite + React</Typography>
             <Typography variant="h3">
                 {config.isProd ? "Production build" : "Not production build"}

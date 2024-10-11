@@ -1,26 +1,31 @@
-import { config } from "config";
+import * as rt from "runtypes";
 
-const base = config.isProd ? "http://vm4.quantori.academy:1337" : "http://localhost:1337";
+import { base, request } from "./request";
 
 export const fetchServerConnection = async () => {
-    const response = await fetch(base);
-    if (response.ok) {
+    const result = await request(base + "/", rt.String, { shouldAffectIsLoading: true });
+
+    if (result) {
         return "ok!";
     }
 };
 
 export const fetchMolCount = async () => {
-    const response = await fetch(base + "/molecule/count");
-    if (response.ok) {
-        return ((await response.json()) as number).toString(); // TODO: types should be defined with schema
-    }
+    return request(base + "/molecule/count", rt.Number, { showErrorNotification: true });
 };
 
-export const fetchMolPost = async () =>
-    await fetch(base + "/molecule", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json",
+export const fetchMolPost = async () => {
+    return request(
+        base + "/molecule",
+        rt.Record({
+            id: rt.Number,
+            createdAt: rt.String,
+            smiles: rt.String,
+        }),
+        {
+            method: "post",
+            json: { smiles: "CCO" },
+            showErrorNotification: true,
         },
-        body: JSON.stringify({ smiles: "CCO" }),
-    });
+    );
+};
