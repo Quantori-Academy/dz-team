@@ -7,9 +7,5 @@ const prisma = new PrismaClient();
  * @returns {Promise<Array>} An array of samples.
  */
 export const getAllSamples = async (): Promise<Array<Sample>> => {
-    return prisma.sample.findMany({
-        include: {
-            reagents: true, // add reagents array to samples
-        },
-    });
+    return prisma.sample.findMany();
 };

@@ -1,4 +1,3 @@
-// routes/apiRoutes.ts
 import { FastifyInstance } from "fastify";
 
 import { reagentRoutes } from "./reagentRoutes";

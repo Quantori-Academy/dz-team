@@ -13,7 +13,6 @@
         "dev": "run-p dev:be dev:fe",
         "dev:db": "run-p dev:be:db dev:fe",
         "dev:be:db": "yarn workspace be run dev:db",
-        "stop:db": "yarn workspace be run stop:db",
         "dev:be": "yarn workspace be run dev",
         "dev:fe": "yarn workspace fe run dev",
         "build": "yarn build:be & yarn build:fe",
@@ -25,9 +24,9 @@
         "prod": "run-p prod:be prod:fe",
         "prod:be": "yarn workspace be run prod",
         "prod:fe": "yarn workspace fe run prod",
-        "lint": "eslint . --max-warnings 0",
-        "lint:fix": "eslint . --fix",
-        "format": "prettier --write .",
+        "lint": "eslint ../../.Trash/quantory_project copy --max-warnings 0",
+        "lint:fix": "eslint ../../.Trash/quantory_project copy --fix",
+        "format": "prettier --write ../../.Trash/quantory_project copy",
         "prepare": "husky"
     },
     "lint-staged": {
