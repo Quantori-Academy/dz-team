@@ -1,15 +1,12 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
 
-import { PrismaClient } from "@prisma/client";
-
 import { isProd } from "./utils/isProd";
 import { registerSwagger } from "./config/swaggerConfig";
 import { generateOpenApiSchema } from "./utils/generateOpenApi";
 import { apiRoutes } from "./routes/apiRoutes";
 
 // Initialize Prisma Client
-const prisma = new PrismaClient();
 const server = fastify();
 
 // Set up CORS options based on production or development environment
@@ -29,36 +26,6 @@ server.get("/", async () => {
 
 // initialization api routes with prefix 'api/v1'
 server.register(apiRoutes, { prefix: "/api/v1" });
-
-// POST route for creating a molecule
-server.post(
-    "/molecule",
-    {
-        schema: {
-            body: {
-                type: "object",
-                properties: {
-                    smiles: { type: "string" },
-                },
-                additionalProperties: false,
-                required: ["smiles"],
-            },
-        },
-    },
-    async (request) => {
-        const { smiles } = request.body as { smiles: string };
-        const molecule = await prisma.molecule.create({
-            data: { smiles },
-        });
-        return molecule;
-    },
-);
-
-// GET route for counting molecules
-server.get("/molecule/count", async () => {
-    const count = await prisma.molecule.count();
-    return count;
-});
 
 // Conditionally import the OpenAPI generator in non-production environments
 if (!isProd) {
