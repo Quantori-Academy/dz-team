@@ -9,7 +9,7 @@ import reactHooksPlugin from "eslint-plugin-react-hooks";
 import reactRefreshPlugin from "eslint-plugin-react-refresh";
 
 export default tseslint.config(
-    { ignores: ["dist"] },
+    { ignores: ["**/dist/*"] },
     {
         files: ["packages/be/**/*.{ts,tsx}"],
         extends: [js.configs.recommended, ...tseslint.configs.recommendedTypeChecked],
