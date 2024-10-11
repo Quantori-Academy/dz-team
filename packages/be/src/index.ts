@@ -6,7 +6,7 @@ import { PrismaClient } from "@prisma/client";
 import { isProd } from "./utils/isProd";
 import { registerSwagger } from "./config/swaggerConfig";
 import { generateOpenApiSchema } from "./utils/generateOpenApi";
-import { reagentRoutes } from "./routes/reagentRoutes";
+import { apiRoutes } from "./routes/apiRoutes";
 
 // Initialize Prisma Client
 const prisma = new PrismaClient();
@@ -27,8 +27,8 @@ server.get("/", async () => {
     return `Hello world! isProd: ${isProd}`;
 });
 
-// api routes with prefix 'api/v1'
-server.register(reagentRoutes, { prefix: "/api/v1" });
+// initialization api routes with prefix 'api/v1'
+server.register(apiRoutes, { prefix: "/api/v1" });
 
 // POST route for creating a molecule
 server.post(
