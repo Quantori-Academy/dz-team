@@ -4,17 +4,18 @@ import { useUnit } from "effector-react";
 
 import { selectMaterial } from "stores/example";
 
-import { $reagentsList, fetchMaterials } from "../stores/materials";
+import { $reagentsList, fetchMaterials, Material } from "../stores/materials";
 
 export const ReagentsListPage = () => {
-    const materials = useUnit($reagentsList);
+    const materials: Material[] = useUnit($reagentsList);
 
     useEffect(() => {
         fetchMaterials();
     }, []);
     return (
         <Box>
-            <Typography variant="h1">Hello List</Typography>
+            <Typography variant="h1">Reagents List</Typography>
+
             <ul>
                 {materials.map((material) => (
                     <li key={material.id} onClick={() => selectMaterial(material.id)}>

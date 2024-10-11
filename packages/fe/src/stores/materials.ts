@@ -23,11 +23,11 @@ export type Material = {
 
 //  event is triggered to start fetching reagents from the base.
 export const fetchMaterials = createEvent();
-// export const selectMaterial = createEvent<string>();
+export const selectMaterial = createEvent<string>();
 
 // store that holds data
 export const $reagentsList = createStore<Material[]>([]);
-// export const $selected = createStore<Material | null>(null);
+export const $selected = createStore<Material | null>(null);
 
 export const fetchMaterialsFx = createEffect(async () => {
     return api.ReagentsMaterials.all();
@@ -35,7 +35,7 @@ export const fetchMaterialsFx = createEffect(async () => {
 
 // updatedes data
 $reagentsList.on(fetchMaterialsFx.doneData, (_, materials) => materials);
-// $selected.on(selectMaterial, (state, id) => $reagentsList.getState().find((m) => m.id === id));
+$selected.on(selectMaterial, (state, id) => $reagentsList.getState().find((m) => m.id === id));
 
 fetchMaterials.watch(fetchMaterialsFx);
 
