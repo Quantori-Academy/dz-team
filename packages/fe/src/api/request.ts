@@ -51,7 +51,7 @@ const api = ky.create({
  *}} [options] - Additional options for configuring the request.
  * @param {function(T): K} [options.mapper] - A function to transform the response data.
  * @param {boolean} [options.showErrorNotification=false] -  Whether to show an error notification.
- * @param {boolean} [options.throwOnError=false] - Whether to throw an error if one occurs.
+ * @param {boolean} [options.throwOnError=true] - Whether to throw an error if one occurs.
  * @param {boolean} [options.shouldAffectIsLoading=false] - Whether the request should affect loading state.
  *
  * @returns {Promise<T | K | undefined>} - Returns the result of the request or a transformed value (if mapper is provided).
@@ -80,6 +80,7 @@ export async function request<TT extends rt.Runtype, T = rt.Static<TT>, K = T>(
         return options?.mapper ? options.mapper(value) : value;
     } catch (err) {
         if (options?.showErrorNotification) {
+            // TODO: notification is not implemented yet
             handleError(err as Error, url, options);
         }
 
