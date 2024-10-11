@@ -59,6 +59,9 @@ server.get("/molecule/count", async () => {
     }
 });
 
+
+// TODO: fix the fastify instance type error
+
 // // Conditionally import the OpenAPI generator in non-production environments
 // if (!isProd) {
 //     // Register Swagger
@@ -68,6 +71,8 @@ server.get("/molecule/count", async () => {
 //         generateOpenApiSchema(server); // Call the schema generation without await
 //     });
 // }
+
+// ********************
 
 server.listen(
     {
