@@ -15,7 +15,7 @@ import {
 
 import logo from "/lunaHeaderLogo.png";
 
-export function Header() {
+export function HeaderDesktop() {
     const theme = useTheme();
     const [isArrowUp, setIsArrowUp] = useState(false);
     const handleArrowClick = () => {

@@ -4,7 +4,7 @@ import { LanguageSelect } from "./LanguageSelectHeader";
 
 import logo from "/lunaHeaderLogo.png";
 
-export function LoginHeader() {
+export function LoginHeaderDesktop() {
     const theme = useTheme();
 
     return (
