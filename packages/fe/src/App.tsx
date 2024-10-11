@@ -20,7 +20,7 @@ function App() {
     const isLoading = useUnit($isLoading);
     const [count, setCount] = useState(0);
     const [connectionState, setConnectionState] = useState("...");
-    const [molCount, setMolCount] = useState("0");
+    const [molCount, setMolCount] = useState(0);
 
     useEffect(() => {
         fetchServerConnection().then(setConnectionState).catch(logError);
