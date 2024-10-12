@@ -6,7 +6,7 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { isProd } from "./utils/isProd";
 // import { registerSwagger } from "./config/swaggerConfig";
 // import { generateOpenApiSchema } from "./utils/generateOpenApi";
-import { userSchema } from "shared/zod-schemas";
+import { userSchema, moleculeSchema } from "shared/zod-schemas";
 import { apiRoutes } from "./routes/apiRoutes";
 
 
