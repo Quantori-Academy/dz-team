@@ -16,9 +16,6 @@ import { LoginForm } from "components/LoginForm"; // TO BE REMOVED. FOR TESTING 
 
 const logError = (err: unknown) => dev.info("{!offline}", err);
 
-import { Box, Button, ThemeProvider, Typography } from "@mui/material";
-import { theme } from "theme";
-
 import { headers, mockData } from "components/Table/mockData";
 
 
