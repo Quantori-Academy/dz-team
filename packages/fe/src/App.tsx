@@ -7,18 +7,28 @@ import { useGate, useUnit } from "effector-react";
 import { theme } from "theme";
 
 import { fetchMolCount, fetchMolPost, fetchServerConnection } from "api/apiCalls";
-import { LoginForm } from "components/LoginForm"; // TO BE REMOVED. FOR TESTING PURPOSES ONLY
+import { $isLoading } from "api/loadingState";
 import { config } from "config";
 import { $materials, AppGate } from "stores";
 
+import { Table } from "./components/Table/Table";
+import { LoginForm } from "components/LoginForm"; // TO BE REMOVED. FOR TESTING PURPOSES ONLY
+
 const logError = (err: unknown) => dev.info("{!offline}", err);
+
+import { Box, Button, ThemeProvider, Typography } from "@mui/material";
+import { theme } from "theme";
+
+import { headers, mockData } from "components/Table/mockData";
+
 
 function App() {
     useGate(AppGate);
     const materials = useUnit($materials);
+    const isLoading = useUnit($isLoading);
     const [count, setCount] = useState(0);
     const [connectionState, setConnectionState] = useState("...");
-    const [molCount, setMolCount] = useState("0");
+    const [molCount, setMolCount] = useState(0);
 
     useEffect(() => {
         fetchServerConnection().then(setConnectionState).catch(logError);
@@ -32,9 +42,14 @@ function App() {
     const handleUpdateMolCount = () => {
         fetchMolCount().then(setMolCount).catch(logError);
     };
+    const handleActionClick = () => {
+        alert(`click!`);
+    };
+
     return (
         <ThemeProvider theme={theme}>
             <LoginForm />
+            <Box>{isLoading ? "TEST LOADING..." : null}</Box>
             <Typography variant="h1">Vite + React</Typography>
             <Typography variant="h3">
                 {config.isProd ? "Production build" : "Not production build"}
@@ -63,6 +78,22 @@ function App() {
                 <Button variant="outlined" onClick={handlePost}>
                     register new molecule to DB
                 </Button>
+            </Box>
+            <Typography variant="h4">Reagents Table</Typography>
+            <Box
+                sx={{
+                    overflow: "auto",
+                    width: "100%",
+                    display: "table",
+                    tableLayout: "fixed",
+                }}
+            >
+                <Table
+                    data={mockData}
+                    headers={headers}
+                    actionLabel="Purchase"
+                    onActionClick={handleActionClick}
+                />
             </Box>
         </ThemeProvider>
     );

@@ -19,11 +19,13 @@
         "effector": "^23.2.2",
         "effector-react": "^23.2.1",
         "immer": "^10.1.1",
+        "ky": "^1.7.2",
         "lodash": "^4.17.21",
         "patronum": "^2.2.0",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "shared": "0.0.0"
+        "shared": "0.0.0",
+        "runtypes": "^6.7.0"
     },
     "devDependencies": {
         "@tanstack/router-devtools": "^1.58.9",

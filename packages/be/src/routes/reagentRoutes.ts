@@ -9,5 +9,5 @@ import { fetchAllReagents } from "../controllers/reagentController";
  * @returns {Promise<void>} A promise that resolves when the routes are registered.
  */
 export const reagentRoutes = async (app: FastifyInstance): Promise<void> => {
-    app.get("/reagents", fetchAllReagents);
+    app.get("/", fetchAllReagents); // get all reagents
 };

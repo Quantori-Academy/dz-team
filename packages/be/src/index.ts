@@ -6,8 +6,9 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { isProd } from "./utils/isProd";
 // import { registerSwagger } from "./config/swaggerConfig";
 // import { generateOpenApiSchema } from "./utils/generateOpenApi";
-import { reagentRoutes } from "./routes/reagentRoutes";
-import { userSchema, moleculeSchema } from "shared/zod-schemas";
+import { userSchema } from "shared/zod-schemas";
+import { apiRoutes } from "./routes/apiRoutes";
+
 
 const prisma = new PrismaClient();
 const server = fastify().withTypeProvider<ZodTypeProvider>();
@@ -36,8 +37,10 @@ server.post("/login", async (request, reply) => {
     }
 });
 
-// api routes with prefix 'api/v1'
-server.register(reagentRoutes, { prefix: "/api/v1" });
+
+// initialization api routes with prefix 'api/v1'
+server.register(apiRoutes, { prefix: "/api/v1" });
+
 
 server.post("/molecule", async (request) => {
     // the body is now typed according to the zod schema
