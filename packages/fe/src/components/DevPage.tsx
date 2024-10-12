@@ -1,4 +1,3 @@
-import "../App.css";
 import "../logger/debug-load";
 
 import { useEffect, useState } from "react";

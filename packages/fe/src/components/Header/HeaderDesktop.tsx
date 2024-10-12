@@ -23,7 +23,11 @@ export function HeaderDesktop() {
     };
 
     return (
-        <AppBar position="static" sx={{ backgroundColor: theme.palette.background.default }}>
+        <AppBar
+            position="static"
+            elevation={1}
+            sx={{ backgroundColor: theme.palette.background.default }}
+        >
             <Container maxWidth="lg">
                 <Toolbar disableGutters>
                     {/* logo */}
@@ -32,7 +36,7 @@ export function HeaderDesktop() {
                             component="img"
                             src={logo}
                             alt="Luna LIMS Logo"
-                            sx={{ width: 62, height: 54, padding: "13px 0" }}
+                            sx={{ width: 62, height: 80, padding: "13px 0" }}
                         />
                     </Box>
 

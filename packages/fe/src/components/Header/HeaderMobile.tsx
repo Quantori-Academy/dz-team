@@ -6,7 +6,11 @@ export function HeaderMobile() {
     const theme = useTheme();
 
     return (
-        <AppBar position="static" sx={{ backgroundColor: theme.palette.background.default }}>
+        <AppBar
+            position="static"
+            elevation={1}
+            sx={{ backgroundColor: theme.palette.background.default }}
+        >
             <Container maxWidth="sm">
                 <Toolbar disableGutters>
                     {/* menu icon */}
