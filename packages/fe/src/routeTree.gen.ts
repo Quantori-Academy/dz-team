@@ -11,13 +11,31 @@
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root";
+import { Route as LoginImport } from "./routes/login";
+import { Route as AppImport } from "./routes/_app";
 import { Route as IndexImport } from "./routes/index";
+import { Route as AppDevImport } from "./routes/_app/dev";
 
 // Create/Update Routes
+
+const LoginRoute = LoginImport.update({
+    path: "/login",
+    getParentRoute: () => rootRoute,
+} as any);
+
+const AppRoute = AppImport.update({
+    id: "/_app",
+    getParentRoute: () => rootRoute,
+} as any);
 
 const IndexRoute = IndexImport.update({
     path: "/",
     getParentRoute: () => rootRoute,
+} as any);
+
+const AppDevRoute = AppDevImport.update({
+    path: "/dev",
+    getParentRoute: () => AppRoute,
 } as any);
 
 // Populate the FileRoutesByPath interface
@@ -31,39 +49,83 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof IndexImport;
             parentRoute: typeof rootRoute;
         };
+        "/_app": {
+            id: "/_app";
+            path: "";
+            fullPath: "";
+            preLoaderRoute: typeof AppImport;
+            parentRoute: typeof rootRoute;
+        };
+        "/login": {
+            id: "/login";
+            path: "/login";
+            fullPath: "/login";
+            preLoaderRoute: typeof LoginImport;
+            parentRoute: typeof rootRoute;
+        };
+        "/_app/dev": {
+            id: "/_app/dev";
+            path: "/dev";
+            fullPath: "/dev";
+            preLoaderRoute: typeof AppDevImport;
+            parentRoute: typeof AppImport;
+        };
     }
 }
 
 // Create and export the route tree
 
+interface AppRouteChildren {
+    AppDevRoute: typeof AppDevRoute;
+}
+
+const AppRouteChildren: AppRouteChildren = {
+    AppDevRoute: AppDevRoute,
+};
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren);
+
 export interface FileRoutesByFullPath {
     "/": typeof IndexRoute;
+    "": typeof AppRouteWithChildren;
+    "/login": typeof LoginRoute;
+    "/dev": typeof AppDevRoute;
 }
 
 export interface FileRoutesByTo {
     "/": typeof IndexRoute;
+    "": typeof AppRouteWithChildren;
+    "/login": typeof LoginRoute;
+    "/dev": typeof AppDevRoute;
 }
 
 export interface FileRoutesById {
     __root__: typeof rootRoute;
     "/": typeof IndexRoute;
+    "/_app": typeof AppRouteWithChildren;
+    "/login": typeof LoginRoute;
+    "/_app/dev": typeof AppDevRoute;
 }
 
 export interface FileRouteTypes {
     fileRoutesByFullPath: FileRoutesByFullPath;
-    fullPaths: "/";
+    fullPaths: "/" | "" | "/login" | "/dev";
     fileRoutesByTo: FileRoutesByTo;
-    to: "/";
-    id: "__root__" | "/";
+    to: "/" | "" | "/login" | "/dev";
+    id: "__root__" | "/" | "/_app" | "/login" | "/_app/dev";
     fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
     IndexRoute: typeof IndexRoute;
+    AppRoute: typeof AppRouteWithChildren;
+    LoginRoute: typeof LoginRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
     IndexRoute: IndexRoute,
+    AppRoute: AppRouteWithChildren,
+    LoginRoute: LoginRoute,
 };
 
 export const routeTree = rootRoute
@@ -78,11 +140,26 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/",
+        "/_app",
+        "/login"
       ]
     },
     "/": {
       "filePath": "index.tsx"
+    },
+    "/_app": {
+      "filePath": "_app.tsx",
+      "children": [
+        "/_app/dev"
+      ]
+    },
+    "/login": {
+      "filePath": "login.tsx"
+    },
+    "/_app/dev": {
+      "filePath": "_app/dev.tsx",
+      "parent": "/_app"
     }
   }
 }
