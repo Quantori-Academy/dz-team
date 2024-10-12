@@ -1,57 +1,28 @@
-import { Box, Button, Dialog } from "@mui/material";
+import { Button, Dialog, Typography } from "@mui/material";
 
+import { removeResolve } from "./store";
+
+// inline interfaces for test purposes yet
 interface Props {
-    children: React.ReactNode;
-    onOk?: () => void;
-    onClose?: () => void;
-    onAccept?: () => void;
-    onDecline?: () => void;
     isOpen: boolean;
+    onClose: (val: unknown) => void;
 }
 
-export function Modal({ children, isOpen, onAccept, onClose, onDecline, onOk }: Props) {
-    const handleAccept = () => {
-        onAccept();
-        onClose();
-    };
-    const handleDecline = () => {
-        onDecline();
-        onClose();
-    };
-    const handleOk = () => {
-        onOk();
-        onClose();
+// to simplify, just receiving open/close props and tracking only the state
+export function Modal({ isOpen, onClose }: Props) {
+    const closeModal = () => {
+        // this should make the resolve action which (as i understood) should be dynamic as user choices
+        onClose("some action");
+        // cleares the store, which triggers the modal to be closed
+        removeResolve();
     };
 
     return (
-        <Dialog open={isOpen} onClose={onClose} sx={{}}>
-            <Box sx={{ width: "100%", display: "flex", justifyContent: "end" }}>
-                {onClose && (
-                    <Button variant="contained" sx={{ maxWidth: "" }} onClick={onClose}>
-                        Close
-                    </Button>
-                )}
-            </Box>
-            <Box sx={{ p: 1 }}>
-                <Box sx={{ display: "flex", justifyContent: "center" }}>{children}</Box>
-                <Box sx={{ display: "flex", gap: 1 }}>
-                    {onAccept && (
-                        <Button variant="contained" onClick={handleAccept}>
-                            Accept
-                        </Button>
-                    )}
-                    {onOk && (
-                        <Button variant="contained" onClick={handleOk}>
-                            Ok
-                        </Button>
-                    )}
-                    {onDecline && (
-                        <Button variant="contained" onClick={handleDecline}>
-                            Decline
-                        </Button>
-                    )}
-                </Box>
-            </Box>
+        <Dialog open={isOpen} onClose={closeModal}>
+            <Typography variant="h1">TEXT</Typography>
+            MESSAGE
+            <Button variant="contained">btn1</Button>
+            <Button variant="contained">btn2</Button>
         </Dialog>
     );
 }

@@ -13,7 +13,8 @@ const logError = (err: unknown) => dev.info("{!offline}", err);
 import { Box, Button, ThemeProvider, Typography } from "@mui/material";
 import { theme } from "theme";
 
-import { Modal } from "components/modal/Modal";
+import { Hub } from "components/Hub";
+import { ModalExample } from "components/modal/ModalExample";
 
 function App() {
     useGate(AppGate);
@@ -21,7 +22,6 @@ function App() {
     const [count, setCount] = useState(0);
     const [connectionState, setConnectionState] = useState("...");
     const [molCount, setMolCount] = useState("0");
-    const [isOpen, setIsOpen] = useState(false);
 
     useEffect(() => {
         fetchServerConnection().then(setConnectionState).catch(logError);
@@ -34,10 +34,6 @@ function App() {
 
     const handleUpdateMolCount = () => {
         fetchMolCount().then(setMolCount).catch(logError);
-    };
-
-    const closeModal = () => {
-        setIsOpen(false);
     };
 
     return (
@@ -70,20 +66,9 @@ function App() {
                 <Button variant="outlined" onClick={handlePost}>
                     register new molecule to DB
                 </Button>
-                <Button variant="outlined" onClick={() => setIsOpen(true)}>
-                    test generic modal
-                </Button>
+                <ModalExample />
+                <Hub />
             </Box>
-            <Modal
-                isOpen={isOpen}
-                onClose={closeModal}
-                // eslint-disable-next-line no-console
-                onAccept={() => console.log("accepting")}
-                // eslint-disable-next-line no-console
-                onDecline={() => console.log("declining")}
-            >
-                <Typography variant="h3">Text</Typography>
-            </Modal>
         </ThemeProvider>
     );
 }
