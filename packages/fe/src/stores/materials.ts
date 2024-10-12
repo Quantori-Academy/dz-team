@@ -10,7 +10,7 @@ export type Material = {
     description: string;
     quantity: number;
     unit?: string;
-    size?: string | number;
+    size?: SupportedValue;
     expirationDate?: null;
     storageLocation: string;
     cas: null;
@@ -23,25 +23,31 @@ export type Material = {
     [key: string]: SupportedValue;
 };
 
-//  event is triggered to start fetching reagents from the base.
-export const fetchMaterials = createEvent();
-export const selectMaterial = createEvent<string>();
+// Events to set the current page and limit for pagination
+export const setPage = createEvent<number>();
+export const setLimit = createEvent<number>();
 
-// store that holds data
-export const $reagentsList = createStore<Material[]>([]);
-export const $selected = createStore<Material | null>(null);
+// Stores to hold the current page and limit values
+export const page = createStore<number>(1);
+export const limit = createStore<number>(5);
+
+page.on(setPage, (_, newPage) => newPage);
+limit.on(setLimit, (_, newLimit) => newLimit);
 
 export const fetchMaterialsFx = createEffect(async () => {
-    return api.ReagentsMaterials.all();
+    const currentPage = page.getState();
+    const currentLimit = limit.getState();
+    return api.ReagentsMaterials.all(currentPage, currentLimit);
 });
 
-// updatedes data
-$reagentsList.on(fetchMaterialsFx.doneData, (_, materials) => materials);
-$selected.on(selectMaterial, (state, id) => $reagentsList.getState().find((m) => m.id === id));
-
-fetchMaterials.watch(fetchMaterialsFx);
+// Store to hold the list of materials fetched
+export const $materialsList = createStore<Material[]>([]).on(
+    fetchMaterialsFx.doneData,
+    (_, materials) => materials,
+);
 
 sample({
-    clock: fetchMaterials,
+    source: { page, limit },
+    clock: [setPage, setLimit],
     target: fetchMaterialsFx,
 });
