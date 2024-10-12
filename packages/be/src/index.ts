@@ -6,7 +6,6 @@ import { registerSwagger } from "./config/swaggerConfig";
 import { generateOpenApiSchema } from "./utils/generateOpenApi";
 import { apiRoutes } from "./routes/apiRoutes";
 
-// Initialize Prisma Client
 const server = fastify();
 
 // Set up CORS options based on production or development environment
