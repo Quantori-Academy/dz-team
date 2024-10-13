@@ -24,10 +24,6 @@ server.register(cors, {
     methods: ["GET", "POST"],
 });
 
-server.get("/", async () => {
-    return `Hello world! isProd: ${isProd}`;
-});
-
 // Conditionally import the OpenAPI generator in non-production environments
 if (!isProd) {
     // Register Swagger
@@ -37,6 +33,10 @@ if (!isProd) {
         generateOpenApiSchema(server); // Call the schema generation without await
     });
 }
+
+server.get("/", async () => {
+    return `Hello world! isProd: ${isProd}`;
+});
 
 // FOR TESTING PURPOSES ONLY
 server.post("/login", async (request, reply) => {
@@ -71,20 +71,6 @@ server.get("/molecule/count", async () => {
         console.log("failed to update molecule count:", err);
     }
 });
-
-// TODO: fix the fastify instance type error
-
-// // Conditionally import the OpenAPI generator in non-production environments
-// if (!isProd) {
-//     // Register Swagger
-//     registerSwagger(server);
-
-//     server.ready(() => {
-//         generateOpenApiSchema(server); // Call the schema generation without await
-//     });
-// }
-
-// ********************
 
 server.listen(
     {
