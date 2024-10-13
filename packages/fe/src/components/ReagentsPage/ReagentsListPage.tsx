@@ -1,13 +1,22 @@
 import { useEffect } from "react";
-import { Box, Button, Typography, useTheme } from "@mui/material";
+import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
 import { Link } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 
 import { headers } from "components/Table/mockData";
 
-// import { selectMaterial } from "stores/example";
-import { $materialsList, fetchMaterialsFx, page, setPage } from "../../stores/materials";
+import {
+    $materialsList,
+    debouncedSetFilter,
+    fetchMaterialsFx,
+    filter,
+    limit,
+    page,
+    sort,
+} from "../../stores/materials";
 import { Table } from "../Table/Table";
+import { Pagination } from "./Pagination";
+import { Sorting } from "./Sorting";
 
 export const ReagentsListPage = () => {
     const theme = useTheme();
@@ -15,15 +24,31 @@ export const ReagentsListPage = () => {
         alert(`click!`);
     };
 
-    useEffect(() => {
-        fetchMaterialsFx();
-    }, []);
-
     const materials = useUnit($materialsList);
-    const currentPage = useUnit(page);
+    const currentFilter = useUnit(filter);
 
-    const handleNext = () => setPage(currentPage + 1);
-    const handlePrev = () => setPage(currentPage - 1);
+    useEffect(() => {
+        fetchMaterialsFx({
+            page: page.getState(),
+            limit: limit.getState(),
+            sort: null,
+            filter: null,
+        });
+    }, []);
+    const handleApplySort = () => {
+        fetchMaterialsFx({
+            page: page.getState(),
+            limit: limit.getState(),
+            sort: sort.getState(),
+            filter: null,
+        });
+    };
+
+    // debounce fucntion for filter
+    const handleFilterChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+        debouncedSetFilter(event.target.value as string);
+    };
+
     return (
         <Box
             style={{
@@ -32,61 +57,39 @@ export const ReagentsListPage = () => {
                 padding: "20px",
             }}
         >
-            <Link to="/">
+            <Box style={{ display: "flex", alignItems: "flex-start", flexDirection: "column" }}>
                 {" "}
-                <Button
-                    style={{
-                        backgroundColor: theme.palette.primary.main,
-                        color: theme.palette.text.primary,
-                        cursor: "pointer",
-                    }}
-                >
+                <Link to="/">
                     {" "}
-                    Back
-                </Button>
-            </Link>
-            <Typography variant="h3" style={{ color: theme.palette.text.primary }}>
-                Reagents List
-            </Typography>
-            <Box
-                sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    justifyContent: "space-around",
-                    width: "100%",
-                    marginBottom: "20px",
-                }}
-            >
-                {" "}
-                <Button
-                    style={{
-                        backgroundColor: theme.palette.primary.main,
-                        color:
-                            currentPage === 1
-                                ? theme.palette.text.disabled
-                                : theme.palette.text.primary,
-                        cursor: "pointer",
-                    }}
-                    onClick={handlePrev}
-                    disabled={currentPage === 1}
-                >
-                    Previous
-                </Button>
-                <Typography style={{ color: theme.palette.text.primary }} variant="body1">
-                    Page: {currentPage}
-                </Typography>
-                <Button
-                    style={{
-                        backgroundColor: theme.palette.primary.main,
-                        color: theme.palette.text.primary,
-                        cursor: "pointer",
-                    }}
-                    onClick={handleNext}
-                >
-                    Next
-                </Button>
+                    <Button
+                        style={{
+                            backgroundColor: theme.palette.primary.main,
+                            color: theme.palette.text.primary,
+                            cursor: "pointer",
+                            marginBottom: "20px",
+                        }}
+                    >
+                        {" "}
+                        Back
+                    </Button>
+                </Link>
             </Box>
 
+            <Typography variant="h3" style={{ color: theme.palette.text.primary, padding: "20px" }}>
+                Reagents List
+            </Typography>
+            <Pagination />
+
+            <TextField
+                type="text"
+                label="Filter by name"
+                variant="outlined"
+                value={currentFilter}
+                onChange={handleFilterChange}
+                fullWidth
+                style={{ marginBottom: "20px" }}
+            />
+            <Sorting handleApplySort={handleApplySort} />
             <Table
                 materials={materials}
                 headers={headers}

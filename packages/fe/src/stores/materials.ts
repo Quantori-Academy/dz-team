@@ -1,3 +1,4 @@
+import { debounce } from "lodash";
 import { createEffect, createEvent, createStore, sample } from "effector";
 
 import { api } from "api/getReagents";
@@ -23,31 +24,38 @@ export type Material = {
     [key: string]: SupportedValue;
 };
 
-// Events to set the current page and limit for pagination
+// Event definitions
 export const setPage = createEvent<number>();
 export const setLimit = createEvent<number>();
+export const setSort = createEvent<string | null>();
+export const setFilter = createEvent<string | null>();
 
-// Stores to hold the current page and limit values
-export const page = createStore<number>(1);
+// Store definitions
+export const page = createStore<number>(1).on(setPage, (_, newPage) => newPage);
 export const limit = createStore<number>(5);
+export const sort = createStore<string>("");
+export const filter = createStore<string>("");
 
+// Update stores with events
 page.on(setPage, (_, newPage) => newPage);
 limit.on(setLimit, (_, newLimit) => newLimit);
+sort.on(setSort, (_, newSort) => newSort);
+filter.on(setFilter, (_, newFilter) => newFilter);
 
-export const fetchMaterialsFx = createEffect(async () => {
-    const currentPage = page.getState();
-    const currentLimit = limit.getState();
-    return api.ReagentsMaterials.all(currentPage, currentLimit);
-});
-
+export const fetchMaterialsFx = createEffect(
+    async (params: { page: number; limit: number; sort: string | null; filter: string | null }) => {
+        return api.ReagentsMaterials.all(params.page, params.limit, params.sort, params.filter);
+    },
+);
 // Store to hold the list of materials fetched
 export const $materialsList = createStore<Material[]>([]).on(
     fetchMaterialsFx.doneData,
     (_, materials) => materials,
 );
+export const debouncedSetFilter = debounce(setFilter, 300);
 
 sample({
-    source: { page, limit },
-    clock: [setPage, setLimit],
+    source: { page, limit, sort, filter },
+    clock: [setPage, setLimit, setFilter],
     target: fetchMaterialsFx,
 });
