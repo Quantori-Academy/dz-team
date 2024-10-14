@@ -22,7 +22,7 @@ export const theme = createTheme({
         },
         text: {
             primary: "#363636",
-            disabled: "#E1E2E3",
+            disabled: "#707070",
         },
     },
 });

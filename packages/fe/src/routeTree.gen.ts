@@ -11,59 +11,120 @@
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root";
-import { Route as IndexImport } from "./routes/index";
+import { Route as LoginImport } from "./routes/login";
+import { Route as AppImport } from "./routes/_app";
+import { Route as AppIndexImport } from "./routes/_app/index";
+import { Route as AppDevImport } from "./routes/_app/dev";
 
 // Create/Update Routes
 
-const IndexRoute = IndexImport.update({
-    path: "/",
+const LoginRoute = LoginImport.update({
+    path: "/login",
     getParentRoute: () => rootRoute,
+} as any);
+
+const AppRoute = AppImport.update({
+    id: "/_app",
+    getParentRoute: () => rootRoute,
+} as any);
+
+const AppIndexRoute = AppIndexImport.update({
+    path: "/",
+    getParentRoute: () => AppRoute,
+} as any);
+
+const AppDevRoute = AppDevImport.update({
+    path: "/dev",
+    getParentRoute: () => AppRoute,
 } as any);
 
 // Populate the FileRoutesByPath interface
 
 declare module "@tanstack/react-router" {
     interface FileRoutesByPath {
-        "/": {
-            id: "/";
+        "/_app": {
+            id: "/_app";
+            path: "";
+            fullPath: "";
+            preLoaderRoute: typeof AppImport;
+            parentRoute: typeof rootRoute;
+        };
+        "/login": {
+            id: "/login";
+            path: "/login";
+            fullPath: "/login";
+            preLoaderRoute: typeof LoginImport;
+            parentRoute: typeof rootRoute;
+        };
+        "/_app/dev": {
+            id: "/_app/dev";
+            path: "/dev";
+            fullPath: "/dev";
+            preLoaderRoute: typeof AppDevImport;
+            parentRoute: typeof AppImport;
+        };
+        "/_app/": {
+            id: "/_app/";
             path: "/";
             fullPath: "/";
-            preLoaderRoute: typeof IndexImport;
-            parentRoute: typeof rootRoute;
+            preLoaderRoute: typeof AppIndexImport;
+            parentRoute: typeof AppImport;
         };
     }
 }
 
 // Create and export the route tree
 
+interface AppRouteChildren {
+    AppDevRoute: typeof AppDevRoute;
+    AppIndexRoute: typeof AppIndexRoute;
+}
+
+const AppRouteChildren: AppRouteChildren = {
+    AppDevRoute: AppDevRoute,
+    AppIndexRoute: AppIndexRoute,
+};
+
+const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren);
+
 export interface FileRoutesByFullPath {
-    "/": typeof IndexRoute;
+    "": typeof AppRouteWithChildren;
+    "/login": typeof LoginRoute;
+    "/dev": typeof AppDevRoute;
+    "/": typeof AppIndexRoute;
 }
 
 export interface FileRoutesByTo {
-    "/": typeof IndexRoute;
+    "/login": typeof LoginRoute;
+    "/dev": typeof AppDevRoute;
+    "/": typeof AppIndexRoute;
 }
 
 export interface FileRoutesById {
     __root__: typeof rootRoute;
-    "/": typeof IndexRoute;
+    "/_app": typeof AppRouteWithChildren;
+    "/login": typeof LoginRoute;
+    "/_app/dev": typeof AppDevRoute;
+    "/_app/": typeof AppIndexRoute;
 }
 
 export interface FileRouteTypes {
     fileRoutesByFullPath: FileRoutesByFullPath;
-    fullPaths: "/";
+    fullPaths: "" | "/login" | "/dev" | "/";
     fileRoutesByTo: FileRoutesByTo;
-    to: "/";
-    id: "__root__" | "/";
+    to: "/login" | "/dev" | "/";
+    id: "__root__" | "/_app" | "/login" | "/_app/dev" | "/_app/";
     fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
-    IndexRoute: typeof IndexRoute;
+    AppRoute: typeof AppRouteWithChildren;
+    LoginRoute: typeof LoginRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
-    IndexRoute: IndexRoute,
+    AppRoute: AppRouteWithChildren,
+    LoginRoute: LoginRoute,
 };
 
 export const routeTree = rootRoute
@@ -78,11 +139,27 @@ export const routeTree = rootRoute
     "__root__": {
       "filePath": "__root.tsx",
       "children": [
-        "/"
+        "/_app",
+        "/login"
       ]
     },
-    "/": {
-      "filePath": "index.tsx"
+    "/_app": {
+      "filePath": "_app.tsx",
+      "children": [
+        "/_app/dev",
+        "/_app/"
+      ]
+    },
+    "/login": {
+      "filePath": "login.tsx"
+    },
+    "/_app/dev": {
+      "filePath": "_app/dev.tsx",
+      "parent": "/_app"
+    },
+    "/_app/": {
+      "filePath": "_app/index.tsx",
+      "parent": "/_app"
     }
   }
 }
