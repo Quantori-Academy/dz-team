@@ -7,6 +7,7 @@ import { useGate, useUnit } from "effector-react";
 
 import { fetchMolCount, fetchMolPost, fetchServerConnection } from "api/apiCalls";
 import { $isLoading } from "api/loadingState";
+import { LoginForm } from "components/LoginForm"; // TO BE REMOVED. FOR TESTING PURPOSES ONLY
 import { config } from "config";
 import { $materials, AppGate } from "stores";
 
@@ -38,6 +39,7 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
+            <LoginForm />
             <Box>{isLoading ? "TEST LOADING..." : null}</Box>
             <Typography variant="h1">Vite + React</Typography>
             <Typography variant="h3">

@@ -1,63 +1,28 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
 
-import { PrismaClient } from "@prisma/client";
+import { serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
+import { userSchema } from "shared/zod-schemas";
 
 import { isProd } from "./utils/isProd";
-import { registerSwagger } from "./config/swaggerConfig";
+import { registerSwagger } from "./utils/swaggerConfig";
 import { generateOpenApiSchema } from "./utils/generateOpenApi";
-import { reagentRoutes } from "./routes/reagentRoutes";
 
-// Initialize Prisma Client
-const prisma = new PrismaClient();
-const server = fastify();
+import { apiRoutes } from "./routes/apiRoutes";
 
-// Set up CORS options based on production or development environment
+const server = fastify().withTypeProvider<ZodTypeProvider>();
+
 const corsOptions = isProd
     ? ["http://vm4.quantori.academy"]
     : ["http://localhost:3000", "http://localhost:4173"];
 
+server.setValidatorCompiler(validatorCompiler);
+
+server.setSerializerCompiler(serializerCompiler);
+
 server.register(cors, {
     origin: corsOptions,
     methods: ["GET", "POST"],
-});
-
-// Root route
-server.get("/", async () => {
-    return `Hello world! isProd: ${isProd}`;
-});
-
-// api routes with prefix 'api/v1'
-server.register(reagentRoutes, { prefix: "/api/v1" });
-
-// POST route for creating a molecule
-server.post(
-    "/molecule",
-    {
-        schema: {
-            body: {
-                type: "object",
-                properties: {
-                    smiles: { type: "string" },
-                },
-                additionalProperties: false,
-                required: ["smiles"],
-            },
-        },
-    },
-    async (request) => {
-        const { smiles } = request.body as { smiles: string };
-        const molecule = await prisma.molecule.create({
-            data: { smiles },
-        });
-        return molecule;
-    },
-);
-
-// GET route for counting molecules
-server.get("/molecule/count", async () => {
-    const count = await prisma.molecule.count();
-    return count;
 });
 
 // Conditionally import the OpenAPI generator in non-production environments
@@ -70,7 +35,24 @@ if (!isProd) {
     });
 }
 
-// Start the server
+server.get("/", async () => {
+    return `Hello world! isProd: ${isProd}`;
+});
+
+// FOR TESTING PURPOSES ONLY
+server.post("/login", async (request, reply) => {
+    try {
+        const user = userSchema.parse(request.body);
+        console.log("user validated:", user);
+        return { success: true, data: user };
+    } catch (error) {
+        reply.status(400).send(error);
+    }
+});
+
+// initialization api routes with prefix 'api/v1'
+server.register(apiRoutes, { prefix: "/api/v1" });
+
 server.listen(
     {
         port: 1337,
