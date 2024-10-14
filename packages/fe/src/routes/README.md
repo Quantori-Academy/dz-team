@@ -19,7 +19,7 @@ export const ReagentsPage = () => {
 
 2. There are 2 options:
 
-2.1. If you want to use the standard layout (with header and footer), then create a file in `routes/_app`:
+2.1. If you want to use the standard layout (with header and footer), then create a file in `routes/_app` (\_app is a pathless route: https://tanstack.com/router/latest/docs/framework/react/guide/file-based-routing#pathless-routes):
 
 ```tsx
 // src/routes/_app/reagents.tsx
@@ -43,7 +43,7 @@ export const Route = createFileRoute("/reagents")({
 });
 ```
 
-As a result, on the `"/reagents"` route path, the `<ReagentsPage>` component will be shown.
+In both cases, on the `"/reagents"` route path, the `<ReagentsPage>` component will be shown.
 
 ## Navigation
 

@@ -1,15 +1,9 @@
-import { useTheme } from "@mui/material/styles";
-import useMediaQuery from "@mui/material/useMediaQuery";
+import { useIsDesktop } from "utils/useIsDesktop";
 
 import { HeaderDesktop } from "./desktop";
 import { HeaderMobile } from "./mobile";
 
 export function Header() {
-    const theme = useTheme();
-    const matches = useMediaQuery(theme.breakpoints.up("sm"));
-    if (matches) {
-        return <HeaderDesktop />;
-    } else {
-        return <HeaderMobile />;
-    }
+    const isDesktop = useIsDesktop();
+    return isDesktop ? <HeaderDesktop /> : <HeaderMobile />;
 }

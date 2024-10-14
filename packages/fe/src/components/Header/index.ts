@@ -1,2 +1,2 @@
-export * from "./Header";
-export * from "./LoginHeader";
+export { Header } from "./Header";
+export { LoginHeader } from "./LoginHeader";
