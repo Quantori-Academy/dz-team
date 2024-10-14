@@ -1,9 +1,9 @@
 import fs from "fs";
 import path from "path";
-import { FastifyInstance } from "fastify";
+import { FastifyZodInstance } from "../types";
 
 // Helper function to generate and save OpenAPI schema
-export const generateOpenApiSchema = (server: FastifyInstance) => {
+export const generateOpenApiSchema = (server: FastifyZodInstance) => {
     const openapiJson = server.swagger(); // Generate the OpenAPI spec as a JSON object
     fs.writeFileSync(
         path.join(__dirname, "../openapi", "openapi.json"),

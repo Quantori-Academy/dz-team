@@ -12,6 +12,7 @@ const logError = (err: unknown) => dev.info("{!offline}", err);
 
 import { Box, Button, Typography } from "@mui/material";
 
+import { LoginForm } from "components/LoginForm"; // TO BE REMOVED. FOR TESTING PURPOSES ONLY
 import { headers, mockData } from "components/pages/Table/mockData";
 import { Table } from "components/pages/Table/Table";
 
@@ -41,6 +42,7 @@ export function DevPage() {
 
     return (
         <>
+            <LoginForm />
             <Box>{isLoading ? "TEST LOADING..." : null}</Box>
             <Typography variant="h1">Vite + React</Typography>
             <Typography variant="h3">
