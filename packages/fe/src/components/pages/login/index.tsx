@@ -1,4 +1,4 @@
-import { LoginHeader } from "./Header/LoginHeader";
+import { LoginHeader } from "components/header";
 
 export function LoginPage() {
     return (

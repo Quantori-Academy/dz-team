@@ -1,15 +1,6 @@
-import { ThemeProvider } from "@emotion/react";
-import { createRootRoute, Outlet } from "@tanstack/react-router";
-import { theme } from "theme";
+import { createRootRoute } from "@tanstack/react-router";
+import { App } from "App";
 
 export const Route = createRootRoute({
-    component: () => <Root />,
+    component: () => <App />,
 });
-
-function Root() {
-    return (
-        <ThemeProvider theme={theme}>
-            <Outlet />
-        </ThemeProvider>
-    );
-}

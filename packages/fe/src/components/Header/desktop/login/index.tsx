@@ -1,6 +1,6 @@
 import { AppBar, Box, Container, Toolbar, useTheme } from "@mui/material";
 
-import { LanguageSelect } from "./LanguageSelectHeader";
+import { LanguageSelect } from "components/header/LanguageSelectHeader";
 
 import logo from "/lunaHeaderLogo.png";
 

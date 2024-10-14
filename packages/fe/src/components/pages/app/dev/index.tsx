@@ -1,4 +1,4 @@
-import "../logger/debug-load";
+import "logger/debug-load";
 
 import { useEffect, useState } from "react";
 import { useGate, useUnit } from "effector-react";
@@ -8,13 +8,12 @@ import { $isLoading } from "api/loadingState";
 import { config } from "config";
 import { $materials, AppGate } from "stores";
 
-import { Table } from "./Table/Table";
-
 const logError = (err: unknown) => dev.info("{!offline}", err);
 
 import { Box, Button, Typography } from "@mui/material";
 
-import { headers, mockData } from "components/Table/mockData";
+import { headers, mockData } from "components/pages/Table/mockData";
+import { Table } from "components/pages/Table/Table";
 
 export function DevPage() {
     useGate(AppGate);

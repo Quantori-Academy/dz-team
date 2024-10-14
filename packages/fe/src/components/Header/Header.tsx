@@ -1,8 +1,8 @@
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-import { HeaderDesktop } from "./HeaderDesktop";
-import { HeaderMobile } from "./HeaderMobile";
+import { HeaderDesktop } from "./desktop";
+import { HeaderMobile } from "./mobile";
 
 export function Header() {
     const theme = useTheme();

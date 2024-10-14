@@ -1,8 +1,8 @@
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
 
-import { LoginHeaderDesktop } from "./LoginHeaderDesktop";
-import { LoginHeaderMobile } from "./LoginHeaderMobile";
+import { LoginHeaderDesktop } from "./desktop/login";
+import { LoginHeaderMobile } from "./mobile/login";
 
 export function LoginHeader() {
     const theme = useTheme();
