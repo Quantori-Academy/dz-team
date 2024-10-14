@@ -1,14 +1,12 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
 import { PrismaClient } from "@prisma/client";
-import { ZodTypeProvider } from "fastify-type-provider-zod";
-
+import { serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
 import { isProd } from "./utils/isProd";
-// import { registerSwagger } from "./config/swaggerConfig";
-// import { generateOpenApiSchema } from "./utils/generateOpenApi";
+import { registerSwagger } from "./utils/swaggerConfig";
+import { generateOpenApiSchema } from "./utils/generateOpenApi";
 import { userSchema, moleculeSchema } from "shared/zod-schemas";
 import { apiRoutes } from "./routes/apiRoutes";
-
 
 const prisma = new PrismaClient();
 const server = fastify().withTypeProvider<ZodTypeProvider>();
@@ -17,10 +15,24 @@ const corsOptions = isProd
     ? ["http://vm4.quantori.academy"]
     : ["http://localhost:3000", "http://localhost:4173"];
 
+server.setValidatorCompiler(validatorCompiler);
+
+server.setSerializerCompiler(serializerCompiler);
+
 server.register(cors, {
     origin: corsOptions,
     methods: ["GET", "POST"],
 });
+
+// Conditionally import the OpenAPI generator in non-production environments
+if (!isProd) {
+    // Register Swagger
+    registerSwagger(server);
+
+    server.ready(() => {
+        generateOpenApiSchema(server); // Call the schema generation without await
+    });
+}
 
 server.get("/", async () => {
     return `Hello world! isProd: ${isProd}`;
@@ -37,10 +49,8 @@ server.post("/login", async (request, reply) => {
     }
 });
 
-
 // initialization api routes with prefix 'api/v1'
 server.register(apiRoutes, { prefix: "/api/v1" });
-
 
 server.post("/molecule", async (request) => {
     // the body is now typed according to the zod schema
@@ -62,21 +72,6 @@ server.get("/molecule/count", async () => {
     }
 });
 
-
-// TODO: fix the fastify instance type error
-
-// // Conditionally import the OpenAPI generator in non-production environments
-// if (!isProd) {
-//     // Register Swagger
-//     registerSwagger(server);
-
-//     server.ready(() => {
-//         generateOpenApiSchema(server); // Call the schema generation without await
-//     });
-// }
-
-// ********************
-
 server.listen(
     {
         port: 1337,
@@ -88,5 +83,5 @@ server.listen(
             process.exit(1);
         }
         console.log("Server is listening on " + address);
-    }
+    },
 );

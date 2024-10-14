@@ -8,16 +8,15 @@ import { theme } from "theme";
 
 import { fetchMolCount, fetchMolPost, fetchServerConnection } from "api/apiCalls";
 import { $isLoading } from "api/loadingState";
+import { LoginForm } from "components/LoginForm"; // TO BE REMOVED. FOR TESTING PURPOSES ONLY
 import { config } from "config";
 import { $materials, AppGate } from "stores";
 
 import { Table } from "./components/Table/Table";
-import { LoginForm } from "components/LoginForm"; // TO BE REMOVED. FOR TESTING PURPOSES ONLY
 
 const logError = (err: unknown) => dev.info("{!offline}", err);
 
 import { headers, mockData } from "components/Table/mockData";
-
 
 function App() {
     useGate(AppGate);
