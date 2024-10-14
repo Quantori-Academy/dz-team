@@ -1,7 +1,7 @@
-import { FastifyInstance } from "fastify";
 import fastifySwagger from "@fastify/swagger";
+import { FastifyZodInstance } from "../types";
 
-export const registerSwagger = (server: FastifyInstance) => {
+export const registerSwagger = (server: FastifyZodInstance) => {
     server.register(fastifySwagger, {
         routePrefix: "/api/docs",
         swagger: {

@@ -2,19 +2,19 @@ import "./App.css";
 import "./logger/debug-load";
 
 import { useEffect, useState } from "react";
+import { Box, Button, ThemeProvider, Typography } from "@mui/material";
 import { useGate, useUnit } from "effector-react";
+import { theme } from "theme";
 
 import { fetchMolCount, fetchMolPost, fetchServerConnection } from "api/apiCalls";
 import { $isLoading } from "api/loadingState";
+import { LoginForm } from "components/LoginForm"; // TO BE REMOVED. FOR TESTING PURPOSES ONLY
 import { config } from "config";
 import { $materials, AppGate } from "stores";
 
 import { Table } from "./components/Table/Table";
 
 const logError = (err: unknown) => dev.info("{!offline}", err);
-
-import { Box, Button, ThemeProvider, Typography } from "@mui/material";
-import { theme } from "theme";
 
 import { headers, mockData } from "components/Table/mockData";
 
@@ -44,6 +44,7 @@ function App() {
 
     return (
         <ThemeProvider theme={theme}>
+            <LoginForm />
             <Box>{isLoading ? "TEST LOADING..." : null}</Box>
             <Typography variant="h1">Vite + React</Typography>
             <Typography variant="h3">
