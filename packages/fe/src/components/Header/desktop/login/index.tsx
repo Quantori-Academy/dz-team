@@ -8,11 +8,7 @@ export function LoginHeaderDesktop() {
     const theme = useTheme();
 
     return (
-        <AppBar
-            position="fixed"
-            elevation={0}
-            sx={{ backgroundColor: theme.palette.background.default }}
-        >
+        <AppBar elevation={0} sx={{ backgroundColor: theme.palette.background.default }}>
             <Container maxWidth="lg">
                 <Toolbar disableGutters>
                     <Box display="flex" alignItems="center" flexGrow="1">

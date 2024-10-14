@@ -7,11 +7,7 @@ export function LoginHeaderMobile() {
     const theme = useTheme();
 
     return (
-        <AppBar
-            position="fixed"
-            elevation={0}
-            sx={{ backgroundColor: theme.palette.background.default }}
-        >
+        <AppBar elevation={0} sx={{ backgroundColor: theme.palette.background.default }}>
             <Container maxWidth="sm">
                 <Toolbar disableGutters>
                     {/* logo */}

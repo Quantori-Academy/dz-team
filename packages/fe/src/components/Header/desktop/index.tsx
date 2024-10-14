@@ -23,11 +23,7 @@ export function HeaderDesktop() {
     };
 
     return (
-        <AppBar
-            position="fixed"
-            elevation={1}
-            sx={{ backgroundColor: theme.palette.background.default }}
-        >
+        <AppBar elevation={1} sx={{ backgroundColor: theme.palette.background.default }}>
             <Container maxWidth="lg">
                 <Toolbar disableGutters>
                     {/* logo */}
