@@ -1,5 +1,6 @@
 import LanguageIcon from "@mui/icons-material/Language";
 import { AppBar, Box, Container, IconButton, Toolbar, useTheme } from "@mui/material";
+import { Link } from "@tanstack/react-router";
 
 import logo from "/lunaHeaderLogo.png";
 
@@ -7,17 +8,19 @@ export function LoginHeaderMobile() {
     const theme = useTheme();
 
     return (
-        <AppBar elevation={0} sx={{ backgroundColor: theme.palette.background.default }}>
+        <AppBar elevation={1} sx={{ backgroundColor: theme.palette.background.default }}>
             <Container maxWidth="sm">
                 <Toolbar disableGutters>
                     {/* logo */}
                     <Box display="flex" alignItems="center" sx={{ flexGrow: 1 }}>
-                        <Box
-                            component="img"
-                            src={logo}
-                            alt="Luna LIMS Logo"
-                            sx={{ width: 52, height: 46, mt: 1, mb: 1 }}
-                        />
+                        <Link to="/">
+                            <Box
+                                component="img"
+                                src={logo}
+                                alt="Luna LIMS Logo"
+                                sx={{ width: 52, height: 46, mt: 1, mb: 1 }}
+                            />
+                        </Link>
                     </Box>
 
                     {/* language icon */}
