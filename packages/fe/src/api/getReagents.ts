@@ -1,32 +1,28 @@
-import { base } from "./request";
+import { api, base } from "./request";
 
-export const api = {
+export const getReagentsApi = {
     ReagentsMaterials: {
-        // fetches whole reagents data from base
         all: async (page: number, limit: number, sort: string, filter: string | null) => {
-            const url = new URL(`${base}/api/v1/reagents`);
-            url.searchParams.append("_page", String(page));
-            url.searchParams.append("_limit", String(limit));
-            if (sort) {
-                url.searchParams.append("_sort", sort);
-            }
-            if (filter) {
-                url.searchParams.append("name", filter);
-            }
+            const searchParams = new URLSearchParams({
+                _page: String(page),
+                _limit: String(limit),
+                _sort: sort,
+                name: filter ?? "",
+            });
 
-            const response = await fetch(url.toString());
+            const response = await api.get(`${base}api/v1/reagents?${searchParams}`);
             if (!response.ok) {
                 throw new Error("Failed to fetch materials");
             }
-            return response.json();
+            return await response.json();
         },
-        // fetches detailed information about single reagent
+        // Method to fetch detailed information about a single reagent
         get: async (id: string) => {
-            const response = await fetch(`${base}/api/v1/reagents/${id}`);
+            const response = await api.get(`${base}api/v1/reagents/${id}`);
             if (!response.ok) {
                 throw new Error("Failed to fetch material");
             }
-            return response.json();
+            return await response.json();
         },
     },
 };

@@ -11,7 +11,7 @@ const { useMockData, isProd } = config;
 
 export const base = isProd ? "http://vm4.quantori.academy:1337" : "http://localhost:1337";
 
-const api = ky.create({
+export const api = ky.create({
     retry: {
         limit: 2,
         methods: ["get"],

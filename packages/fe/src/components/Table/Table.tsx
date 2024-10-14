@@ -14,18 +14,13 @@ import { Material } from "stores/materials";
 import { formatCellContent, SupportedValue } from "../../utils/formatters";
 
 interface TableProps {
-    materials: Material[];
+    data: Material[];
     headers: Array<{ key: string; label: string }>;
     actionLabel?: string;
     onActionClick?: (row: Record<string, SupportedValue>) => void;
 }
 
-export const Table = ({
-    materials,
-    headers,
-    actionLabel = "Action",
-    onActionClick,
-}: TableProps) => {
+export const Table = ({ data, headers, actionLabel = "Action", onActionClick }: TableProps) => {
     const headerStyles = {
         background: "linear-gradient(0deg, #BFBFBF, #BFBFBF), #BFBFBF",
         color: "#000000",
@@ -54,12 +49,12 @@ export const Table = ({
                     </TableRow>
                 </TableHead>
                 <TableBody>
-                    {materials.map((item) => (
+                    {data.map((item) => (
                         <TableRow key={item.id}>
                             {headers.map((header) => (
                                 <TableCell key={header.key}>
                                     {" "}
-                                    {formatCellContent(header.key, item[header.key])}
+                                    {formatCellContent(header.key)}
                                 </TableCell>
                             ))}
                             {onActionClick && (

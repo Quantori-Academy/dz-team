@@ -1,26 +1,26 @@
 import { debounce } from "lodash";
 import { createEffect, createEvent, createStore, sample } from "effector";
 
-import { api } from "api/getReagents";
+import { getReagentsApi } from "api/getReagents";
 import { SupportedValue } from "utils/formatters";
 
 export type Material = {
     id: string;
     name: string;
-    structure: string;
-    description: string;
-    quantity: number;
+    structure?: string;
+    description?: string;
+    quantity?: number;
     unit?: string;
     size?: SupportedValue;
     expirationDate?: null;
-    storageLocation: string;
-    cas: null;
-    producer: null;
-    catalogId: null;
-    catalogLink: null;
-    pricePerUnit: null;
-    createdAt: string;
-    updatedAt: string;
+    storageLocation?: string;
+    cas?: null;
+    producer?: null;
+    catalogId?: null;
+    catalogLink?: null;
+    pricePerUnit?: null;
+    createdAt?: string;
+    updatedAt?: string;
     [key: string]: SupportedValue;
 };
 
@@ -44,7 +44,12 @@ filter.on(setFilter, (_, newFilter) => newFilter);
 
 export const fetchMaterialsFx = createEffect(
     async (params: { page: number; limit: number; sort: string | null; filter: string | null }) => {
-        return api.ReagentsMaterials.all(params.page, params.limit, params.sort, params.filter);
+        return getReagentsApi.ReagentsMaterials.all(
+            params.page,
+            params.limit,
+            params.sort,
+            params.filter,
+        );
     },
 );
 // Store to hold the list of materials fetched

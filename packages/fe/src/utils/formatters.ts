@@ -1,14 +1,6 @@
-export type SupportedValue =
-    | string
-    | number
-    | boolean
-    | null
-    | Date
-    | bigint
-    | string[]
-    | { [key: string]: SupportedValue };
+export type SupportedValue = string | number | boolean | null | Date | bigint | string[];
 
-export const formatCellContent = (key: string, value: SupportedValue): string => {
+export const formatCellContent = (value: SupportedValue): string => {
     switch (typeof value) {
         case "boolean":
             return value ? "Yes" : "No";
@@ -33,7 +25,7 @@ export const formatCellContent = (key: string, value: SupportedValue): string =>
 
 const formatObject = (obj: Record<string, SupportedValue>): string => {
     return Object.entries(obj)
-        .map(([key, val]) => `${key}: ${formatCellContent(key, val)}`)
+        .map(([key, val]) => `${key}: ${formatCellContent(val)}`)
         .join(", ");
 };
 

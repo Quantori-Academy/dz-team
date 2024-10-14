@@ -1,11 +1,20 @@
 import { Box, Button, Typography, useTheme } from "@mui/material";
 import { useUnit } from "effector-react";
 
+import { Material } from "stores/example";
+
 import { page, setPage } from "../../stores/materials";
 
-export const Pagination = () => {
+type PaginationProps = {
+    data: Material[];
+};
+
+export const Pagination = ({ data }: PaginationProps) => {
     const theme = useTheme();
 
+    const totalItems = data.length;
+    const itemsPerPage = 5;
+    const totalPages = Math.ceil(totalItems / itemsPerPage);
     const currentPage = useUnit(page);
 
     const handleNext = () => setPage(currentPage + 1);
@@ -16,19 +25,14 @@ export const Pagination = () => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-around",
-                width: "100%",
-                marginBottom: "20px",
+                padding: "20px",
             }}
         >
-            {" "}
             <Button
-                style={{
+                sx={{
                     backgroundColor: theme.palette.primary.main,
-                    color:
-                        currentPage === 1
-                            ? theme.palette.text.disabled
-                            : theme.palette.text.primary,
                     cursor: "pointer",
+                    borderRadius: "4px",
                 }}
                 onClick={handlePrev}
                 disabled={currentPage === 1}
@@ -39,12 +43,13 @@ export const Pagination = () => {
                 Page: {currentPage}
             </Typography>
             <Button
-                style={{
+                sx={{
                     backgroundColor: theme.palette.primary.main,
-                    color: theme.palette.text.primary,
                     cursor: "pointer",
+                    borderRadius: "4px",
                 }}
                 onClick={handleNext}
+                disabled={currentPage >= totalPages}
             >
                 Next
             </Button>

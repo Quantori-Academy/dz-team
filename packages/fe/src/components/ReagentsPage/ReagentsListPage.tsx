@@ -1,7 +1,8 @@
 import { useEffect } from "react";
-import { Box, Button, TextField, Typography, useTheme } from "@mui/material";
+import { Box, TextField, ThemeProvider, Typography } from "@mui/material";
 import { Link } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
+import { theme } from "theme";
 
 import { headers } from "components/Table/mockData";
 
@@ -19,7 +20,6 @@ import { Pagination } from "./Pagination";
 import { Sorting } from "./Sorting";
 
 export const ReagentsListPage = () => {
-    const theme = useTheme();
     const handleActionClick = () => {
         alert(`click!`);
     };
@@ -50,52 +50,52 @@ export const ReagentsListPage = () => {
     };
 
     return (
-        <Box
-            style={{
-                backgroundColor: theme.palette.background.default,
-                width: "100%",
-                padding: "20px",
-            }}
-        >
-            <Box style={{ display: "flex", alignItems: "flex-start", flexDirection: "column" }}>
-                {" "}
-                <Link to="/">
-                    {" "}
-                    <Button
+        <ThemeProvider theme={theme}>
+            <Box
+                sx={{
+                    backgroundColor: theme.palette.background.default,
+                    width: "100%",
+                    padding: "20px",
+                }}
+            >
+                <Box sx={{ display: "flex", alignItems: "flex-start", flexDirection: "column" }}>
+                    <Link
+                        to="/"
                         style={{
                             backgroundColor: theme.palette.primary.main,
                             color: theme.palette.text.primary,
                             cursor: "pointer",
-                            marginBottom: "20px",
+                            padding: "6px 16px",
+                            borderRadius: "4px",
                         }}
                     >
-                        {" "}
                         Back
-                    </Button>
-                </Link>
+                    </Link>
+                </Box>
+                <Typography
+                    variant="h3"
+                    sx={{ color: theme.palette.text.primary, padding: "20px" }}
+                >
+                    Reagents List
+                </Typography>
+                <Pagination data={materials} />
+                <TextField
+                    type="text"
+                    label="Filter by name"
+                    variant="outlined"
+                    value={currentFilter}
+                    onChange={handleFilterChange}
+                    fullWidth
+                    sx={{ marginBottom: "20px" }}
+                />
+                <Sorting handleApplySort={handleApplySort} />
+                <Table
+                    data={materials}
+                    headers={headers}
+                    actionLabel="Edit"
+                    onActionClick={handleActionClick}
+                />
             </Box>
-
-            <Typography variant="h3" style={{ color: theme.palette.text.primary, padding: "20px" }}>
-                Reagents List
-            </Typography>
-            <Pagination />
-
-            <TextField
-                type="text"
-                label="Filter by name"
-                variant="outlined"
-                value={currentFilter}
-                onChange={handleFilterChange}
-                fullWidth
-                style={{ marginBottom: "20px" }}
-            />
-            <Sorting handleApplySort={handleApplySort} />
-            <Table
-                materials={materials}
-                headers={headers}
-                actionLabel="Edit"
-                onActionClick={handleActionClick}
-            />
-        </Box>
+        </ThemeProvider>
     );
 };
