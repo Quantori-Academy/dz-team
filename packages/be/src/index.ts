@@ -1,14 +1,15 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
-import { PrismaClient } from "@prisma/client";
+
 import { serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
+import { userSchema } from "shared/zod-schemas";
+
 import { isProd } from "./utils/isProd";
 import { registerSwagger } from "./utils/swaggerConfig";
 import { generateOpenApiSchema } from "./utils/generateOpenApi";
-import { userSchema, moleculeSchema } from "shared/zod-schemas";
+
 import { apiRoutes } from "./routes/apiRoutes";
 
-const prisma = new PrismaClient();
 const server = fastify().withTypeProvider<ZodTypeProvider>();
 
 const corsOptions = isProd
@@ -51,26 +52,6 @@ server.post("/login", async (request, reply) => {
 
 // initialization api routes with prefix 'api/v1'
 server.register(apiRoutes, { prefix: "/api/v1" });
-
-server.post("/molecule", async (request) => {
-    // the body is now typed according to the zod schema
-    try {
-        const { smiles } = moleculeSchema.parse(request.body);
-        const molecule = await prisma.molecule.create({ data: { smiles } });
-        return molecule;
-    } catch (err) {
-        console.log("failed to add a molecule:", err);
-    }
-});
-
-server.get("/molecule/count", async () => {
-    try {
-        const count = await prisma.molecule.count();
-        return count;
-    } catch (err) {
-        console.log("failed to update molecule count:", err);
-    }
-});
 
 server.listen(
     {

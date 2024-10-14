@@ -15,12 +15,6 @@ datasource db {
   extensions = [rdkit]
 }
 
-model Molecule {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  smiles    String
-}
-
 // Make reagents table
 enum Category {
   REAGENT
