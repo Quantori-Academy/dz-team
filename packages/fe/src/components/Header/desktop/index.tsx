@@ -68,20 +68,19 @@ export function HeaderDesktop() {
                                 >
                                     UserName
                                 </Typography>
-                                <IconButton
-                                    sx={{
-                                        color: theme.palette.text.disabled,
-                                        "&:focus": { outline: "none" },
-                                        padding: 0,
-                                    }}
-                                    disableRipple
-                                >
-                                    {isArrowUp ? (
-                                        <KeyboardArrowUpIcon />
-                                    ) : (
-                                        <KeyboardArrowDownIcon />
-                                    )}
-                                </IconButton>
+                                {isArrowUp ? (
+                                    <KeyboardArrowUpIcon
+                                        sx={{
+                                            color: theme.palette.text.disabled,
+                                        }}
+                                    />
+                                ) : (
+                                    <KeyboardArrowDownIcon
+                                        sx={{
+                                            color: theme.palette.text.disabled,
+                                        }}
+                                    />
+                                )}
                             </Box>
 
                             <Typography
