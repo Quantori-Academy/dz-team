@@ -24,7 +24,7 @@ export function HeaderDesktop() {
 
     return (
         <AppBar
-            position="static"
+            position="fixed"
             elevation={1}
             sx={{ backgroundColor: theme.palette.background.default }}
         >
@@ -53,36 +53,30 @@ export function HeaderDesktop() {
                     </IconButton>
 
                     {/* profile */}
-                    <Box display="flex" alignItems="center">
-                        <Avatar
-                            sx={{ width: 40, height: 40, mr: 1 }}
-                            src="/path/to/avatar.jpg"
-                            alt="User Avatar"
-                        />
+                    <Box
+                        display="flex"
+                        alignItems="center"
+                        onClick={handleArrowClick}
+                        sx={{ cursor: "pointer" }}
+                    >
+                        <Avatar sx={{ mr: 1 }} src="/path/to/avatar.jpg" alt="User Avatar" />
 
                         <Box display="flex" flexDirection="column">
-                            <Box display="flex">
+                            <Box display="flex" gap={"0 16px"}>
                                 <Typography
                                     variant="body1"
                                     sx={{
                                         fontWeight: "regular",
                                         color: theme.palette.text.primary,
-                                        display: "flex",
-                                        alignItems: "center",
-                                        justifyContent: "flex-start",
                                     }}
                                 >
                                     UserName
                                 </Typography>
                                 <IconButton
-                                    onClick={handleArrowClick}
                                     sx={{
                                         color: theme.palette.text.disabled,
-                                        ml: 1,
-                                        mt: -1,
-                                        mb: -1,
-                                        mr: -1,
                                         "&:focus": { outline: "none" },
+                                        padding: 0,
                                     }}
                                     disableRipple
                                 >

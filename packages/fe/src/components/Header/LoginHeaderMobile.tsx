@@ -8,7 +8,7 @@ export function LoginHeaderMobile() {
 
     return (
         <AppBar
-            position="static"
+            position="fixed"
             elevation={0}
             sx={{ backgroundColor: theme.palette.background.default }}
         >

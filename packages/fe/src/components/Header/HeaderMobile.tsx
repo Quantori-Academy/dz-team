@@ -7,7 +7,7 @@ export function HeaderMobile() {
 
     return (
         <AppBar
-            position="static"
+            position="fixed"
             elevation={1}
             sx={{ backgroundColor: theme.palette.background.default }}
         >

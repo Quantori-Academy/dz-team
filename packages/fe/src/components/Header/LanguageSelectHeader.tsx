@@ -25,7 +25,6 @@ export function LanguageSelect() {
                 color: theme.palette.text.primary,
                 width: "180px",
                 height: "40px",
-                padding: "20px 0",
             }}
             variant="outlined"
             size="small"
@@ -40,8 +39,6 @@ export function LanguageSelect() {
                                 height: 24,
                                 borderRadius: "50%",
                                 border: "1px solid #e1e2e3",
-                                backgroundColor: "transparent",
-                                display: "inline-block",
                                 mr: 1,
                                 backgroundImage: `url(/flags/${language.img})`,
                                 backgroundSize: "cover",

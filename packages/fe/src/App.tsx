@@ -1,6 +1,6 @@
 import "./logger/debug-load";
 
-import { Box } from "@mui/material";
+import { Box, Container } from "@mui/material";
 import { Outlet } from "@tanstack/react-router";
 
 import { Footer } from "components/Footer/Footer";
@@ -14,10 +14,13 @@ export function App() {
                 minHeight: "100vh",
                 flexDirection: "column",
                 justifyContent: "space-between",
+                paddingTop: { xs: "62px", lg: "80px" },
             }}
         >
             <Header />
-            <Outlet />
+            <Container>
+                <Outlet />
+            </Container>
             <Footer />
         </Box>
     );
