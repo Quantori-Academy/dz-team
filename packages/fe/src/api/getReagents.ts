@@ -6,11 +6,11 @@ import {
     ReagentType,
     request,
 } from "./request";
-
+// fetches reagents data and detailed reagent
 export const getReagentsApi = {
     ReagentsMaterials: {
         all: async (page: number, limit: number, sort: string, filter: string | null) => {
-            const url = new URL(`${base}/v1/reagents`);
+            const url = new URL(`${base}/api/v1/reagents`);
             url.searchParams.append("_page", String(page));
             url.searchParams.append("_limit", String(limit));
             if (sort) {
