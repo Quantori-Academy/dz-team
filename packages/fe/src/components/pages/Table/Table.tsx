@@ -10,7 +10,7 @@ import {
     TableSortLabel,
 } from "@mui/material";
 
-import { formatCellContent, SupportedValue } from "../../utils/formatters";
+import { formatCellContent, SupportedValue } from "utils/formatters";
 
 interface TableProps {
     data: Array<Record<string, SupportedValue>>;
