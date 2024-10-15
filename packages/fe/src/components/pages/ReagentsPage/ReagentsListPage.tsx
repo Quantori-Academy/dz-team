@@ -4,8 +4,6 @@ import { useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 import { theme } from "theme";
 
-import { headers } from "components/Table/mockData";
-
 import {
     $materialsList,
     debouncedSetFilter,
@@ -15,7 +13,8 @@ import {
     page,
     setSort,
     sort,
-} from "../../stores/materials";
+} from "../../../stores/materials";
+import { headers } from "../Table/mockData";
 import { Table } from "../Table/Table";
 import { Pagination } from "./Pagination";
 
