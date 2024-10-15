@@ -1,9 +1,1 @@
-{
-    "/": "Hello world! isProd: false",
-    "/molecule/count": 1,
-    "/molecule": {
-        "id": 1,
-        "smiles": "C",
-        "createdAt": "20201-08-01T00:00:000Z"
-    }
-}
+{}
