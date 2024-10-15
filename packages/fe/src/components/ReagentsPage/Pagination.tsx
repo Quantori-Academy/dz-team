@@ -25,7 +25,6 @@ export const Pagination = ({ data }: PaginationProps) => {
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-around",
-                padding: "20px",
             }}
         >
             <Button

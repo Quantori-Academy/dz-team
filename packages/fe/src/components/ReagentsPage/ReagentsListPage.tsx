@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { Box, TextField, ThemeProvider, Typography } from "@mui/material";
-import { Link } from "@tanstack/react-router";
+import { Box, Button, TextField, ThemeProvider, Typography } from "@mui/material";
+import { useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 import { theme } from "theme";
 
@@ -13,19 +13,21 @@ import {
     filter,
     limit,
     page,
+    setSort,
     sort,
 } from "../../stores/materials";
 import { Table } from "../Table/Table";
 import { Pagination } from "./Pagination";
-import { Sorting } from "./Sorting";
 
 export const ReagentsListPage = () => {
+    const navigate = useNavigate();
     const handleActionClick = () => {
         alert(`click!`);
     };
 
     const materials = useUnit($materialsList);
     const currentFilter = useUnit(filter);
+    const sortedMaterials = useUnit(sort);
 
     useEffect(() => {
         fetchMaterialsFx({
@@ -35,13 +37,10 @@ export const ReagentsListPage = () => {
             filter: null,
         });
     }, []);
-    const handleApplySort = () => {
-        fetchMaterialsFx({
-            page: page.getState(),
-            limit: limit.getState(),
-            sort: sort.getState(),
-            filter: null,
-        });
+
+    const handleSortRequest = (property) => {
+        const isAsc = sortedMaterials.field === property && sortedMaterials.order === "asc";
+        setSort({ field: property, order: isAsc ? "desc" : "asc" });
     };
 
     // debounce fucntion for filter
@@ -56,21 +55,30 @@ export const ReagentsListPage = () => {
                     backgroundColor: theme.palette.background.default,
                     width: "100%",
                     padding: "20px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "20px",
                 }}
             >
-                <Box sx={{ display: "flex", alignItems: "flex-start", flexDirection: "column" }}>
-                    <Link
-                        to="/"
-                        style={{
-                            backgroundColor: theme.palette.primary.main,
+                <Box
+                    sx={{
+                        display: "flex",
+                        alignItems: "flex-start",
+                        flexDirection: "column",
+                    }}
+                >
+                    <Button
+                        sx={{
                             color: theme.palette.text.primary,
                             cursor: "pointer",
                             padding: "6px 16px",
                             borderRadius: "4px",
                         }}
+                        variant="contained"
+                        onClick={() => navigate({ to: "/", replace: true })}
                     >
                         Back
-                    </Link>
+                    </Button>
                 </Box>
                 <Typography
                     variant="h3"
@@ -86,14 +94,14 @@ export const ReagentsListPage = () => {
                     value={currentFilter}
                     onChange={handleFilterChange}
                     fullWidth
-                    sx={{ marginBottom: "20px" }}
                 />
-                <Sorting handleApplySort={handleApplySort} />
                 <Table
                     data={materials}
                     headers={headers}
                     actionLabel="Edit"
                     onActionClick={handleActionClick}
+                    sortedMaterials={sortedMaterials}
+                    handleSortRequest={handleSortRequest}
                 />
             </Box>
         </ThemeProvider>

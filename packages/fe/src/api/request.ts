@@ -11,7 +11,7 @@ const { useMockData, isProd } = config;
 
 export const base = isProd ? "http://vm4.quantori.academy:1337" : "http://localhost:1337";
 
-export const api = ky.create({
+const api = ky.create({
     retry: {
         limit: 2,
         methods: ["get"],
@@ -33,6 +33,33 @@ export const api = ky.create({
     },
 });
 
+// runtype contracts for reagent data
+export const Reagent = rt.Record({
+    id: rt.String,
+    name: rt.Union(rt.String, rt.Null),
+    structure: rt.Union(rt.String, rt.Null),
+    description: rt.Union(rt.String, rt.Null),
+    quantity: rt.Number,
+    unit: rt.Union(rt.String, rt.Null),
+    size: rt.Union(rt.Number, rt.Null),
+    expirationDate: rt.Union(rt.String, rt.Null),
+    storageLocation: rt.String,
+    cas: rt.Union(rt.String, rt.Null),
+    producer: rt.Union(rt.String, rt.Null),
+    catalogId: rt.Union(rt.String, rt.Null),
+    catalogLink: rt.Union(rt.String, rt.Null),
+    pricePerUnit: rt.Union(rt.Number, rt.Null),
+    createdAt: rt.String,
+    updatedAt: rt.String,
+});
+
+export const ReagentsResponse = rt.Record({
+    data: rt.Optional(rt.Array(Reagent)),
+    success: rt.Optional(rt.Boolean),
+});
+
+export type ReagentType = rt.Static<typeof Reagent>;
+export type ReagentsResponseType = rt.Static<typeof ReagentsResponse>;
 /**
  *
  * Performs an asynchronous HTTP request and processes the response using a runtype contract, and uses a mapper to transform the result.

@@ -7,39 +7,41 @@ import { SupportedValue } from "utils/formatters";
 export type Material = {
     id: string;
     name: string;
-    structure?: string;
-    description?: string;
-    quantity?: number;
-    unit?: string;
-    size?: SupportedValue;
-    expirationDate?: null;
-    storageLocation?: string;
-    cas?: null;
-    producer?: null;
-    catalogId?: null;
-    catalogLink?: null;
-    pricePerUnit?: null;
-    createdAt?: string;
-    updatedAt?: string;
+    structure: string;
+    description: string;
+    quantity: number;
+    unit: string;
+    size: number;
+    expirationDate: null;
+    storageLocation: string;
+    cas: null;
+    producer: null;
+    catalogId: null;
+    catalogLink: null;
+    pricePerUnit: null;
+    createdAt: string;
+    updatedAt: string;
     [key: string]: SupportedValue;
 };
 
 // Event definitions
 export const setPage = createEvent<number>();
 export const setLimit = createEvent<number>();
-export const setSort = createEvent<string | null>();
+export const setSort = createEvent<{ field: string; order: "asc" | "desc" }>();
 export const setFilter = createEvent<string | null>();
 
 // Store definitions
 export const page = createStore<number>(1).on(setPage, (_, newPage) => newPage);
 export const limit = createStore<number>(5);
-export const sort = createStore<string>("");
+export const sort = createStore<{ field: string; order: "asc" | "desc" }>({
+    field: "name",
+    order: "asc",
+}).on(setSort, (_, newSort) => newSort);
 export const filter = createStore<string>("");
 
 // Update stores with events
 page.on(setPage, (_, newPage) => newPage);
 limit.on(setLimit, (_, newLimit) => newLimit);
-sort.on(setSort, (_, newSort) => newSort);
 filter.on(setFilter, (_, newFilter) => newFilter);
 
 export const fetchMaterialsFx = createEffect(
@@ -53,7 +55,7 @@ export const fetchMaterialsFx = createEffect(
     },
 );
 // Store to hold the list of materials fetched
-export const $materialsList = createStore<Material[]>([]).on(
+export const $materialsList = createStore<Material[] | string>([]).on(
     fetchMaterialsFx.doneData,
     (_, materials) => materials,
 );

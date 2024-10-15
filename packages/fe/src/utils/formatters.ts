@@ -1,4 +1,12 @@
-export type SupportedValue = string | number | boolean | null | Date | bigint | string[];
+export type SupportedValue =
+    | string
+    | number
+    | boolean
+    | null
+    | Date
+    | bigint
+    | string[]
+    | { [key: string]: SupportedValue };
 
 export const formatCellContent = (value: SupportedValue): string => {
     switch (typeof value) {
