@@ -5,21 +5,21 @@ import { getReagentsApi } from "api/getReagents";
 import { SupportedValue } from "utils/formatters";
 
 export type Material = {
+    cas: string | null;
+    catalogId: string | null;
+    catalogLink: string | null;
+    createdAt: string;
+    description: string;
+    expirationDate: string | null;
     id: string;
     name: string;
-    structure: string;
-    description: string;
+    pricePerUnit: number | null;
+    producer: string | null;
     quantity: number;
-    unit: string;
-    size: number;
-    expirationDate: null;
+    size: number | null;
     storageLocation: string;
-    cas: null;
-    producer: null;
-    catalogId: null;
-    catalogLink: null;
-    pricePerUnit: null;
-    createdAt: string;
+    structure: string | null;
+    unit: string;
     updatedAt: string;
     [key: string]: SupportedValue;
 };
@@ -46,23 +46,31 @@ filter.on(setFilter, (_, newFilter) => newFilter);
 
 export const fetchMaterialsFx = createEffect(
     async (params: { page: number; limit: number; sort: string | null; filter: string | null }) => {
-        return getReagentsApi.ReagentsMaterials.all(
+        const response = await getReagentsApi.ReagentsMaterials.all(
             params.page,
             params.limit,
             params.sort,
             params.filter,
         );
+
+        return response || [];
     },
 );
 // Store to hold the list of materials fetched
-export const $materialsList = createStore<Material[] | string>([]).on(
+
+export const $materialsList = createStore<Material[] | undefined>([]).on(
     fetchMaterialsFx.doneData,
     (_, materials) => materials,
 );
 export const debouncedSetFilter = debounce(setFilter, 300);
-
 sample({
     source: { page, limit, sort, filter },
-    clock: [setPage, setLimit, setFilter],
+    clock: [setPage, setLimit, setFilter, setSort],
+    fn: ({ page, limit, sort, filter }) => ({
+        page,
+        limit,
+        sort: sort ? `${sort.field}:${sort.order}` : null,
+        filter,
+    }),
     target: fetchMaterialsFx,
 });
