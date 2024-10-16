@@ -1,11 +1,5 @@
-import {
-    base,
-    Reagent,
-    ReagentsResponse,
-    ReagentsResponseType,
-    ReagentType,
-    request,
-} from "./request";
+import { Reagent, ReagentsResponse, ReagentsResponseType, ReagentType } from "./reagents";
+import { base, request } from "./request";
 // fetches reagents data and detailed reagent
 export const getReagentsApi = {
     ReagentsMaterials: {

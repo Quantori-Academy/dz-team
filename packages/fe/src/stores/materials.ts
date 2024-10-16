@@ -6,7 +6,7 @@ import { getReagentsApi } from "api/getReagents";
 import { genericDomain as domain } from "logger";
 import { SupportedValue } from "utils/formatters";
 
-import { ReagentType } from "../api/request";
+import { ReagentType } from "../api/reagents";
 
 export type Material = {
     cas: string | null;

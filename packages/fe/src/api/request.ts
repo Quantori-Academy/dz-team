@@ -1,5 +1,5 @@
 import ky, { Input, Options } from "ky";
-import { Array, Number, Record, Runtype, Static, String } from "runtypes";
+import { Runtype, Static } from "runtypes";
 
 import { config } from "config";
 import { wait } from "utils";
@@ -33,35 +33,6 @@ const api = ky.create({
     },
 });
 
-// runtype contracts for reagent data
-export const Reagent = Record({
-    id: String,
-    name: String.nullable(),
-    structure: String.nullable(),
-    description: String.nullable(),
-    quantity: Number,
-    unit: String.nullable(),
-    size: Number.nullable(),
-    expirationDate: String.nullable(),
-    storageLocation: String,
-    cas: String.nullable(),
-    producer: String.nullable(),
-    catalogId: String.nullable(),
-    catalogLink: String.nullable(),
-    pricePerUnit: Number.nullable(),
-    createdAt: String.nullable(),
-    updatedAt: String.nullable(),
-});
-
-export const ReagentsResponse = Array(Reagent).optional();
-
-// Record({
-//     // data: Array(Reagent).optional(),
-//     // success: Boolean.optional(),
-// });
-
-export type ReagentType = Static<typeof Reagent>;
-export type ReagentsResponseType = Static<typeof ReagentsResponse>;
 /**
  *
  * Performs an asynchronous HTTP request and processes the response using a runtype contract, and uses a mapper to transform the result.
