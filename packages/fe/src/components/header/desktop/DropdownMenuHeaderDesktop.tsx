@@ -1,5 +1,4 @@
 import { Logout, Settings } from "@mui/icons-material";
-import LanguageIcon from "@mui/icons-material/Language";
 import PersonIcon from "@mui/icons-material/Person";
 import { Box, Divider, ListItemIcon, Menu, MenuItem, Typography } from "@mui/material";
 import { Link } from "@tanstack/react-router";
@@ -66,15 +65,11 @@ export function DropdownMenuHeaderDesktop(props: {
                 </Typography>
             </Box>
             <Divider />
-            <MenuItem sx={{ color: theme.palette.text.primary, mt: 1 }}>
-                <ListItemIcon>
-                    <LanguageIcon fontSize="medium" />
-                </ListItemIcon>
-                Language
-            </MenuItem>
+
             <MenuItem
                 sx={{
                     color: theme.palette.text.primary,
+                    mt: 1,
                 }}
             >
                 <ListItemIcon>

@@ -1,6 +1,5 @@
 import { Logout, Settings } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
-import LanguageIcon from "@mui/icons-material/Language";
 import PersonIcon from "@mui/icons-material/Person";
 import { IconButton, MenuItem, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
@@ -47,15 +46,11 @@ export function DropdownMenuHeaderMobile(props: {
                 </IconButton>
             </Box>
             <Divider />
-            <MenuItem sx={{ color: theme.palette.text.primary, mt: 1 }}>
-                <ListItemIcon>
-                    <LanguageIcon fontSize="medium" />
-                </ListItemIcon>
-                Language
-            </MenuItem>
+
             <MenuItem
                 sx={{
                     color: theme.palette.text.primary,
+                    mt: 1,
                 }}
             >
                 <ListItemIcon>
