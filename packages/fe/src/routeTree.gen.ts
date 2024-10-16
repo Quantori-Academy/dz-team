@@ -11,7 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root";
-import { Route as ReagentsListImport } from "./routes/reagentsList";
+import { Route as ReagentsImport } from "./routes/reagents";
 import { Route as LoginImport } from "./routes/login";
 import { Route as AppImport } from "./routes/_app";
 import { Route as AppIndexImport } from "./routes/_app/index";
@@ -19,8 +19,8 @@ import { Route as AppDevImport } from "./routes/_app/dev";
 
 // Create/Update Routes
 
-const ReagentsListRoute = ReagentsListImport.update({
-    path: "/reagentsList",
+const ReagentsRoute = ReagentsImport.update({
+    path: "/reagents",
     getParentRoute: () => rootRoute,
 } as any);
 
@@ -62,11 +62,11 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof LoginImport;
             parentRoute: typeof rootRoute;
         };
-        "/reagentsList": {
-            id: "/reagentsList";
-            path: "/reagentsList";
-            fullPath: "/reagentsList";
-            preLoaderRoute: typeof ReagentsListImport;
+        "/reagents": {
+            id: "/reagents";
+            path: "/reagents";
+            fullPath: "/reagents";
+            preLoaderRoute: typeof ReagentsImport;
             parentRoute: typeof rootRoute;
         };
         "/_app/dev": {
@@ -103,14 +103,14 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren);
 export interface FileRoutesByFullPath {
     "": typeof AppRouteWithChildren;
     "/login": typeof LoginRoute;
-    "/reagentsList": typeof ReagentsListRoute;
+    "/reagents": typeof ReagentsRoute;
     "/dev": typeof AppDevRoute;
     "/": typeof AppIndexRoute;
 }
 
 export interface FileRoutesByTo {
     "/login": typeof LoginRoute;
-    "/reagentsList": typeof ReagentsListRoute;
+    "/reagents": typeof ReagentsRoute;
     "/dev": typeof AppDevRoute;
     "/": typeof AppIndexRoute;
 }
@@ -119,30 +119,30 @@ export interface FileRoutesById {
     __root__: typeof rootRoute;
     "/_app": typeof AppRouteWithChildren;
     "/login": typeof LoginRoute;
-    "/reagentsList": typeof ReagentsListRoute;
+    "/reagents": typeof ReagentsRoute;
     "/_app/dev": typeof AppDevRoute;
     "/_app/": typeof AppIndexRoute;
 }
 
 export interface FileRouteTypes {
     fileRoutesByFullPath: FileRoutesByFullPath;
-    fullPaths: "" | "/login" | "/reagentsList" | "/dev" | "/";
+    fullPaths: "" | "/login" | "/reagents" | "/dev" | "/";
     fileRoutesByTo: FileRoutesByTo;
-    to: "/login" | "/reagentsList" | "/dev" | "/";
-    id: "__root__" | "/_app" | "/login" | "/reagentsList" | "/_app/dev" | "/_app/";
+    to: "/login" | "/reagents" | "/dev" | "/";
+    id: "__root__" | "/_app" | "/login" | "/reagents" | "/_app/dev" | "/_app/";
     fileRoutesById: FileRoutesById;
 }
 
 export interface RootRouteChildren {
     AppRoute: typeof AppRouteWithChildren;
     LoginRoute: typeof LoginRoute;
-    ReagentsListRoute: typeof ReagentsListRoute;
+    ReagentsRoute: typeof ReagentsRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
     AppRoute: AppRouteWithChildren,
     LoginRoute: LoginRoute,
-    ReagentsListRoute: ReagentsListRoute,
+    ReagentsRoute: ReagentsRoute,
 };
 
 export const routeTree = rootRoute
@@ -159,7 +159,7 @@ export const routeTree = rootRoute
       "children": [
         "/_app",
         "/login",
-        "/reagentsList"
+        "/reagents"
       ]
     },
     "/_app": {
@@ -172,8 +172,8 @@ export const routeTree = rootRoute
     "/login": {
       "filePath": "login.tsx"
     },
-    "/reagentsList": {
-      "filePath": "reagentsList.tsx"
+    "/reagents": {
+      "filePath": "reagents.tsx"
     },
     "/_app/dev": {
       "filePath": "_app/dev.tsx",
