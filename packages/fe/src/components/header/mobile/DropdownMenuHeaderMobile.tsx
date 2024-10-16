@@ -7,6 +7,7 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import ListItemIcon from "@mui/material/ListItemIcon";
+import { Link } from "@tanstack/react-router";
 import { theme } from "theme";
 
 export function DropdownMenuHeaderMobile(props: {
@@ -46,31 +47,45 @@ export function DropdownMenuHeaderMobile(props: {
                 </IconButton>
             </Box>
             <Divider />
-            <MenuItem sx={{ mt: 1 }}>
+            <MenuItem sx={{ color: theme.palette.text.primary, mt: 1 }}>
                 <ListItemIcon>
                     <LanguageIcon fontSize="medium" />
                 </ListItemIcon>
                 Language
             </MenuItem>
-            <MenuItem>
+            <MenuItem
+                sx={{
+                    color: theme.palette.text.primary,
+                }}
+            >
                 <ListItemIcon>
                     <PersonIcon fontSize="medium" />
                 </ListItemIcon>
                 Account
             </MenuItem>
-            <MenuItem>
+            <MenuItem
+                sx={{
+                    color: theme.palette.text.primary,
+                }}
+            >
                 <ListItemIcon>
                     <Settings fontSize="medium" />
                 </ListItemIcon>
                 Settings
             </MenuItem>
             <Divider />
-            <MenuItem>
-                <ListItemIcon>
-                    <Logout fontSize="medium" />
-                </ListItemIcon>
-                Logout
-            </MenuItem>
+            <Link to="/login" style={{ textDecoration: "none" }}>
+                <MenuItem
+                    sx={{
+                        color: theme.palette.text.primary,
+                    }}
+                >
+                    <ListItemIcon>
+                        <Logout fontSize="medium" />
+                    </ListItemIcon>
+                    Logout
+                </MenuItem>
+            </Link>
         </Box>
     );
 

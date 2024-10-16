@@ -2,6 +2,7 @@ import { Logout, Settings } from "@mui/icons-material";
 import LanguageIcon from "@mui/icons-material/Language";
 import PersonIcon from "@mui/icons-material/Person";
 import { Box, Divider, ListItemIcon, Menu, MenuItem, Typography } from "@mui/material";
+import { Link } from "@tanstack/react-router";
 import { theme } from "theme";
 
 export function DropdownMenuHeaderDesktop(props: {
@@ -65,31 +66,45 @@ export function DropdownMenuHeaderDesktop(props: {
                 </Typography>
             </Box>
             <Divider />
-            <MenuItem onClick={props.handleClose} sx={{ mt: 1 }}>
+            <MenuItem sx={{ color: theme.palette.text.primary, mt: 1 }}>
                 <ListItemIcon>
                     <LanguageIcon fontSize="medium" />
                 </ListItemIcon>
                 Language
             </MenuItem>
-            <MenuItem onClick={props.handleClose}>
+            <MenuItem
+                sx={{
+                    color: theme.palette.text.primary,
+                }}
+            >
                 <ListItemIcon>
                     <PersonIcon fontSize="medium" />
                 </ListItemIcon>
                 Account
             </MenuItem>
-            <MenuItem onClick={props.handleClose}>
+            <MenuItem
+                sx={{
+                    color: theme.palette.text.primary,
+                }}
+            >
                 <ListItemIcon>
                     <Settings fontSize="medium" />
                 </ListItemIcon>
                 Settings
             </MenuItem>
             <Divider />
-            <MenuItem onClick={props.handleClose}>
-                <ListItemIcon>
-                    <Logout fontSize="medium" />
-                </ListItemIcon>
-                Logout
-            </MenuItem>
+            <Link to="/login" style={{ textDecoration: "none" }}>
+                <MenuItem
+                    sx={{
+                        color: theme.palette.text.primary,
+                    }}
+                >
+                    <ListItemIcon>
+                        <Logout fontSize="medium" />
+                    </ListItemIcon>
+                    Logout
+                </MenuItem>
+            </Link>
         </Menu>
     );
 }
