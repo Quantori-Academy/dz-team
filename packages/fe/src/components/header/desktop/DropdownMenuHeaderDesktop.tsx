@@ -1,4 +1,3 @@
-import React from "react";
 import { Logout, Settings } from "@mui/icons-material";
 import LanguageIcon from "@mui/icons-material/Language";
 import PersonIcon from "@mui/icons-material/Person";
