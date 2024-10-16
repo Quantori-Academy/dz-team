@@ -1,5 +1,5 @@
 import ky, { Input, Options } from "ky";
-import * as rt from "runtypes";
+import { Array, Number, Record, Runtype, Static, String } from "runtypes";
 
 import { config } from "config";
 import { wait } from "utils";
@@ -34,32 +34,34 @@ const api = ky.create({
 });
 
 // runtype contracts for reagent data
-export const Reagent = rt.Record({
-    id: rt.String,
-    name: rt.Union(rt.String, rt.Null),
-    structure: rt.Union(rt.String, rt.Null),
-    description: rt.Union(rt.String, rt.Null),
-    quantity: rt.Number,
-    unit: rt.Union(rt.String, rt.Null),
-    size: rt.Union(rt.Number, rt.Null),
-    expirationDate: rt.Union(rt.String, rt.Null),
-    storageLocation: rt.String,
-    cas: rt.Union(rt.String, rt.Null),
-    producer: rt.Union(rt.String, rt.Null),
-    catalogId: rt.Union(rt.String, rt.Null),
-    catalogLink: rt.Union(rt.String, rt.Null),
-    pricePerUnit: rt.Union(rt.Number, rt.Null),
-    createdAt: rt.String,
-    updatedAt: rt.String,
+export const Reagent = Record({
+    id: String,
+    name: String.nullable(),
+    structure: String.nullable(),
+    description: String.nullable(),
+    quantity: Number,
+    unit: String.nullable(),
+    size: Number.nullable(),
+    expirationDate: String.nullable(),
+    storageLocation: String,
+    cas: String.nullable(),
+    producer: String.nullable(),
+    catalogId: String.nullable(),
+    catalogLink: String.nullable(),
+    pricePerUnit: Number.nullable(),
+    createdAt: String.nullable(),
+    updatedAt: String.nullable(),
 });
 
-export const ReagentsResponse = rt.Record({
-    data: rt.Optional(rt.Array(Reagent)),
-    success: rt.Optional(rt.Boolean),
-});
+export const ReagentsResponse = Array(Reagent).optional();
 
-export type ReagentType = rt.Static<typeof Reagent>;
-export type ReagentsResponseType = rt.Static<typeof ReagentsResponse>;
+// Record({
+//     // data: Array(Reagent).optional(),
+//     // success: Boolean.optional(),
+// });
+
+export type ReagentType = Static<typeof Reagent>;
+export type ReagentsResponseType = Static<typeof ReagentsResponse>;
 /**
  *
  * Performs an asynchronous HTTP request and processes the response using a runtype contract, and uses a mapper to transform the result.
@@ -85,7 +87,7 @@ export type ReagentsResponseType = rt.Static<typeof ReagentsResponse>;
  *
  * @throws {Error} - Throws an error if `throwOnError` is set to true.
  */
-export async function request<TT extends rt.Runtype, T = rt.Static<TT>, K = T>(
+export async function request<TT extends Runtype, T = Static<TT>, K = T>(
     url: Input,
     contract: TT,
     options?: Options & {

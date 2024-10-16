@@ -3,7 +3,7 @@ import { useUnit } from "effector-react";
 
 import { Material } from "stores/example";
 
-import { page, setPage } from "../../../stores/materials";
+import { $page, setPage } from "../../../stores/materials";
 
 type PaginationProps = {
     data: Material[];
@@ -15,7 +15,7 @@ export const Pagination = ({ data }: PaginationProps) => {
     const totalItems = data.length;
     const itemsPerPage = 5;
     const totalPages = Math.ceil(totalItems / itemsPerPage);
-    const currentPage = useUnit(page);
+    const currentPage = useUnit($page);
 
     const handleNext = () => setPage(currentPage + 1);
     const handlePrev = () => setPage(currentPage - 1);

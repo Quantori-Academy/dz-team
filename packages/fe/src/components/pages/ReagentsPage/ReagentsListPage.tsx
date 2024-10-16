@@ -1,37 +1,39 @@
 import { useEffect } from "react";
 import { Box, Button, TextField, ThemeProvider, Typography } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
-import { useUnit } from "effector-react";
+import { useGate, useUnit } from "effector-react";
 import { theme } from "theme";
 
 import {
+    $filter,
+    $limit,
     $materialsList,
-    debouncedSetFilter,
+    $page,
+    $sort,
     fetchMaterialsFx,
-    filter,
-    limit,
-    page,
+    MaterialsGate,
+    setFilter,
     setSort,
-    sort,
 } from "../../../stores/materials";
 import { headers } from "../Table/mockData";
 import { Table } from "../Table/Table";
 import { Pagination } from "./Pagination";
 
 export const ReagentsListPage = () => {
+    useGate(MaterialsGate);
     const navigate = useNavigate();
     const handleActionClick = () => {
         alert(`click!`);
     };
 
     const materials = useUnit($materialsList);
-    const currentFilter = useUnit(filter);
-    const sortedMaterials = useUnit(sort);
+    const currentFilter = useUnit($filter);
+    const sortedMaterials = useUnit($sort);
 
     useEffect(() => {
         fetchMaterialsFx({
-            page: page.getState(),
-            limit: limit.getState(),
+            page: $page.getState(),
+            limit: $limit.getState(),
             sort: null,
             filter: null,
         });
@@ -44,7 +46,7 @@ export const ReagentsListPage = () => {
 
     // debounce fucntion for filter
     const handleFilterChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        debouncedSetFilter(event.target.value as string);
+        setFilter(event.target.value as string);
     };
 
     return (

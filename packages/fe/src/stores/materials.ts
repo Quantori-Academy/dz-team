@@ -1,8 +1,12 @@
-import { debounce } from "lodash";
-import { createEffect, createEvent, createStore, sample } from "effector";
+import { createEffect, sample } from "effector";
+import { createGate } from "effector-react";
+import { debounce } from "patronum";
 
 import { getReagentsApi } from "api/getReagents";
+import { genericDomain as domain } from "logger";
 import { SupportedValue } from "utils/formatters";
+
+import { ReagentType } from "../api/request";
 
 export type Material = {
     cas: string | null;
@@ -25,24 +29,31 @@ export type Material = {
 };
 
 // Event definitions
-export const setPage = createEvent<number>();
-export const setLimit = createEvent<number>();
-export const setSort = createEvent<{ field: string; order: "asc" | "desc" }>();
-export const setFilter = createEvent<string | null>();
+export const setPage = domain.createEvent<number>("setPage");
+export const setLimit = domain.createEvent<number>("setLimit");
+export const setSort = domain.createEvent<{ field: string; order: "asc" | "desc" }>("setSort");
+export const setFilter = domain.createEvent<string | null>("setFilter");
 
 // Store definitions
-export const page = createStore<number>(1).on(setPage, (_, newPage) => newPage);
-export const limit = createStore<number>(5);
-export const sort = createStore<{ field: string; order: "asc" | "desc" }>({
-    field: "name",
-    order: "asc",
-}).on(setSort, (_, newSort) => newSort);
-export const filter = createStore<string>("");
+export const $page = domain
+    .createStore<number>(1, { name: "$page" })
+    .on(setPage, (_, newPage) => newPage);
+export const $limit = domain.createStore<number>(5, { name: "$limit" });
+export const $sort = domain
+    .createStore<{ field: string; order: "asc" | "desc" }>(
+        {
+            field: "name",
+            order: "asc",
+        },
+        { name: "$sort" },
+    )
+    .on(setSort, (_, newSort) => newSort);
+export const $filter = domain.createStore<string>("", { name: "$filter" });
 
 // Update stores with events
-page.on(setPage, (_, newPage) => newPage);
-limit.on(setLimit, (_, newLimit) => newLimit);
-filter.on(setFilter, (_, newFilter) => newFilter);
+$page.on(setPage, (_, newPage) => newPage);
+$limit.on(setLimit, (_, newLimit) => newLimit);
+$filter.on(setFilter, (_, newFilter) => newFilter);
 
 export const fetchMaterialsFx = createEffect(
     async (params: { page: number; limit: number; sort: string | null; filter: string | null }) => {
@@ -53,19 +64,38 @@ export const fetchMaterialsFx = createEffect(
             params.filter,
         );
 
-        return response || [];
+        return response ?? [];
     },
 );
 // Store to hold the list of materials fetched
 
-export const $materialsList = createStore<Material[] | undefined>([]).on(
-    fetchMaterialsFx.doneData,
-    (_, materials) => materials,
-);
-export const debouncedSetFilter = debounce(setFilter, 300);
+export const $materialsList = domain.createStore<ReagentType[]>([], { name: "$materialsList" });
+
+export const MaterialsGate = createGate({ domain });
+// request for all  materials from server when gate is open
 sample({
-    source: { page, limit, sort, filter },
-    clock: [setPage, setLimit, setFilter, setSort],
+    clock: MaterialsGate.open,
+    source: { page: $page, limit: $limit, sort: $sort, filter: $filter },
+    fn: ({ page, limit, sort, filter }) => ({
+        page,
+        limit,
+        sort: sort ? `${sort.field}:${sort.order}` : null,
+        filter,
+    }),
+    target: fetchMaterialsFx,
+});
+
+// save data from server
+sample({
+    clock: fetchMaterialsFx.doneData,
+    target: $materialsList,
+});
+
+// export const debouncedSetFilter = debounce(setFilter, 300);
+
+sample({
+    clock: [$page, $limit, $sort, debounce($filter, 300)],
+    source: { page: $page, limit: $limit, sort: $sort, filter: $filter },
     fn: ({ page, limit, sort, filter }) => ({
         page,
         limit,
