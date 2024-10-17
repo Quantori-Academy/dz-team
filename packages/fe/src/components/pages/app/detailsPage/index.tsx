@@ -1,29 +1,54 @@
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import { Box, Button, Drawer, IconButton, Modal, Typography } from "@mui/material";
+import {
+    Box,
+    Button,
+    CircularProgress,
+    Drawer,
+    IconButton,
+    Modal,
+    Typography,
+} from "@mui/material";
+import { useLoaderData } from "@tanstack/react-router";
 
 import { ReagentForm } from "./ReagentForm";
 
-export const ReagentDetailsPage = () => {
-    // const { id } = useParams();
+export type Reagent = {
+    id: number;
+    name: string;
+    category: string;
+    description: string;
+    casNumber: string;
+    producer: string;
+    catalogId: string;
+    catalogLink: string;
+    pricePerUnit: number;
+    quantity: number;
+    units: string;
+};
+
+export function ReagentDetailsPage() {
+    // const { id } = useParams({ strict: false })
     const [isEditing, setIsEditing] = useState(false);
 
-    const reagent = {
-        id: 1,
-        name: "Reagent A",
-        category: "Category 1",
-        description: "A description of Reagent A",
-        casNumber: "1234-56-7",
-        producer: "Producer A",
-        catalogId: "CAT123",
-        catalogLink: "http://example.com",
-        pricePerUnit: 100,
-        quantity: 5,
-        units: "500ml",
-    };
+    const { reagent }: { reagent: Reagent } = useLoaderData({ from: undefined });
+
+    if (!reagent) {
+        return (
+            <Box
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    height: "100vh",
+                }}
+            >
+                <CircularProgress />
+            </Box>
+        );
+    }
 
     const handleEditSubmit = (_updatedReagent) => {
-        // console.log('Reagent updated:', updatedReagent);
         setIsEditing(false);
     };
     // const handleCloseDetails = () => {
@@ -60,9 +85,8 @@ export const ReagentDetailsPage = () => {
                 <Typography>Catalog ID: {reagent.catalogId}</Typography>
                 <Typography>catalog Link: {reagent.catalogLink}</Typography>
                 <Typography>Price per Unit: ${reagent.pricePerUnit}</Typography>
-                <Typography>
-                    Quantity: {reagent.quantity} {reagent.units}
-                </Typography>
+                <Typography>Quantity: {reagent.quantity}</Typography>
+                <Typography>Units : {reagent.units}</Typography>
                 <Button variant="contained" sx={{ mt: 2 }} onClick={() => setIsEditing(true)}>
                     Edit
                 </Button>
@@ -100,4 +124,4 @@ export const ReagentDetailsPage = () => {
             </Modal>
         </Drawer>
     );
-};
+}
