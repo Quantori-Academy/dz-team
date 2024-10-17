@@ -9,10 +9,6 @@ export function HeaderMobile() {
     const theme = useTheme();
     const [open, setOpen] = useState(false);
 
-    const toggleDrawer = (newOpen: boolean) => () => {
-        setOpen(newOpen);
-    };
-
     return (
         <>
             <AppBar elevation={1} sx={{ backgroundColor: theme.palette.background.default }}>
@@ -45,7 +41,7 @@ export function HeaderMobile() {
 
                         {/* profile */}
                         <Avatar
-                            onClick={toggleDrawer(true)}
+                            onClick={() => setOpen(true)}
                             sx={{ width: 32, height: 32 }}
                             src="/path/to/avatar.jpg"
                             alt="User Avatar"
@@ -53,7 +49,7 @@ export function HeaderMobile() {
                     </Toolbar>
                 </Container>
             </AppBar>
-            <DropdownMenuHeaderMobile open={open} toggleDrawer={toggleDrawer} />
+            <DropdownMenuHeaderMobile open={open} setOpen={setOpen} />
         </>
     );
 }

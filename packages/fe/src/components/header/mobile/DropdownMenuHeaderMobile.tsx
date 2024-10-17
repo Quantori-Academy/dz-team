@@ -9,12 +9,14 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import { Link } from "@tanstack/react-router";
 import { theme } from "theme";
 
-export function DropdownMenuHeaderMobile(props: {
+interface Props {
     open: boolean;
-    toggleDrawer: (newOpen: boolean) => () => void;
-}) {
+    setOpen: (newOpen: boolean) => void;
+}
+
+export function DropdownMenuHeaderMobile({ open, setOpen }: Props) {
     const DrawerList = (
-        <Box sx={{ width: "100vw" }} role="presentation" onClick={props.toggleDrawer(false)}>
+        <Box role="presentation" onClick={() => setOpen(false)}>
             <Box display="flex" sx={{ mt: 1, mr: 2, mb: 1, ml: 2 }}>
                 <Box>
                     <Typography
@@ -86,7 +88,7 @@ export function DropdownMenuHeaderMobile(props: {
 
     return (
         <>
-            <Drawer anchor={"top"} open={props.open} onClose={props.toggleDrawer(false)}>
+            <Drawer anchor={"top"} open={open} onClose={() => setOpen(false)}>
                 {DrawerList}
             </Drawer>
         </>

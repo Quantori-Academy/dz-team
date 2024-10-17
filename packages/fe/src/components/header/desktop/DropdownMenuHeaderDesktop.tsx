@@ -4,18 +4,18 @@ import { Box, Divider, ListItemIcon, Menu, MenuItem, Typography } from "@mui/mat
 import { Link } from "@tanstack/react-router";
 import { theme } from "theme";
 
-export function DropdownMenuHeaderDesktop(props: {
+interface Props {
     handleClose: () => void;
     open: boolean;
     anchorEl: HTMLElement;
-}) {
+}
+
+export function DropdownMenuHeaderDesktop({ handleClose, open, anchorEl }: Props) {
     return (
         <Menu
-            anchorEl={props.anchorEl}
-            id="account-menu"
-            open={props.open}
-            onClose={props.handleClose}
-            onClick={props.handleClose}
+            anchorEl={anchorEl}
+            open={open}
+            onClose={handleClose}
             slotProps={{
                 paper: {
                     elevation: 1,

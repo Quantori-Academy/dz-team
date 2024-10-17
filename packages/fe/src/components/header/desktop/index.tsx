@@ -23,7 +23,7 @@ export function HeaderDesktop() {
     const [isArrowUp, setIsArrowUp] = useState(false);
 
     const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
-    const open = Boolean(anchorEl);
+    const open = !!anchorEl;
     const handleClick = (event: React.MouseEvent<HTMLElement>) => {
         setAnchorEl(event.currentTarget);
         setIsArrowUp(!isArrowUp);
