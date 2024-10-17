@@ -21,10 +21,12 @@ const api = ky.create({
     hooks: {
         beforeRequest: [
             async (request) => {
-                if (useMockData) {
-                    const mockData = (await import("./data.json")).default;
+                if (!isProd && useMockData) {
                     const url = request.url.toString().replace(base, "");
-                    const mock = mockData[url];
+                    // eslint-disable-next-line no-console
+                    console.warn("will use mock data for:", url);
+                    const mockData = (await import("./data.json")).default;
+                    const mock = mockData[url] ?? mockData;
                     await wait(Math.random() * 1000);
                     return new Response(JSON.stringify(mock), { status: 200 });
                 }
