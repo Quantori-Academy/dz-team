@@ -15,7 +15,7 @@ import { formatCellContent, SupportedValue } from "utils/formatters";
 interface TableProps {
     data: Array<Record<string, SupportedValue>>;
     headers: Array<{ key: string; label: string }>;
-    sortedMaterials: { field: string | null; order: "asc" | "desc" | null };
+    onSort: { field: string | null; order: "asc" | "desc" | null };
     handleSortRequest: (field: string) => void;
     actionLabel?: string;
     onActionClick?: (row: Record<string, SupportedValue>) => void;
@@ -23,7 +23,7 @@ interface TableProps {
 
 export const Table = ({
     data,
-    sortedMaterials,
+    onSort,
     handleSortRequest,
     headers,
     actionLabel = "Action",
@@ -51,8 +51,8 @@ export const Table = ({
                         {headers.map((header) => (
                             <TableCell key={header.key} sx={headerStyles}>
                                 <TableSortLabel
-                                    active={sortedMaterials.field === header.key}
-                                    direction={sortedMaterials.order}
+                                    active={onSort.field === header.key}
+                                    direction={onSort.order}
                                     onClick={() => handleSortRequest(header.key)}
                                 >
                                     {header.label}

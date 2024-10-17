@@ -39,14 +39,14 @@ export const ReagentsListPage = () => {
         });
     }, []);
 
-    const handleSortRequest = (property) => {
+    const handleSortRequest = (property: string) => {
         const isAsc = sortedMaterials.field === property && sortedMaterials.order === "asc";
         setSort({ field: property, order: isAsc ? "desc" : "asc" });
     };
 
     // debounce fucntion for filter
-    const handleFilterChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        setFilter(event.target.value as string);
+    const handleFilterChange = (event: React.ChangeEvent<{ value: string }>) => {
+        setFilter(event.target.value);
     };
 
     return (
@@ -88,7 +88,7 @@ export const ReagentsListPage = () => {
                 headers={headers}
                 actionLabel="Edit"
                 onActionClick={handleActionClick}
-                sortedMaterials={sortedMaterials}
+                onSort={sortedMaterials}
                 handleSortRequest={handleSortRequest}
             />
         </Box>
