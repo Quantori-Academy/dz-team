@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Box, Button, TextField, ThemeProvider, Typography } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
 import { useGate, useUnit } from "effector-react";
 import { theme } from "theme";
@@ -50,61 +50,47 @@ export const ReagentsListPage = () => {
     };
 
     return (
-        <ThemeProvider theme={theme}>
+        <Box
+            sx={{
+                backgroundColor: theme.palette.background.default,
+                width: "100%",
+                padding: "20px",
+                display: "flex",
+                flexDirection: "column",
+                gap: "20px",
+            }}
+        >
             <Box
                 sx={{
-                    backgroundColor: theme.palette.background.default,
-                    width: "100%",
-                    padding: "20px",
                     display: "flex",
+                    alignItems: "flex-start",
                     flexDirection: "column",
-                    gap: "20px",
                 }}
             >
-                <Box
-                    sx={{
-                        display: "flex",
-                        alignItems: "flex-start",
-                        flexDirection: "column",
-                    }}
-                >
-                    <Button
-                        sx={{
-                            color: theme.palette.text.primary,
-                            cursor: "pointer",
-                            padding: "6px 16px",
-                            borderRadius: "4px",
-                        }}
-                        variant="contained"
-                        onClick={() => navigate({ to: "/", replace: true })}
-                    >
-                        Back
-                    </Button>
-                </Box>
-                <Typography
-                    variant="h3"
-                    sx={{ color: theme.palette.text.primary, padding: "20px" }}
-                >
-                    Reagents List
-                </Typography>
-                <Pagination data={materials} />
-                <TextField
-                    type="text"
-                    label="Filter by name"
-                    variant="outlined"
-                    value={currentFilter}
-                    onChange={handleFilterChange}
-                    fullWidth
-                />
-                <Table
-                    data={materials}
-                    headers={headers}
-                    actionLabel="Edit"
-                    onActionClick={handleActionClick}
-                    sortedMaterials={sortedMaterials}
-                    handleSortRequest={handleSortRequest}
-                />
+                <Button variant="contained" onClick={() => navigate({ to: "/", replace: true })}>
+                    Back
+                </Button>
             </Box>
-        </ThemeProvider>
+            <Typography variant="h3" sx={{ color: theme.palette.text.primary, padding: "20px" }}>
+                Reagents List
+            </Typography>
+            <Pagination data={materials} />
+            <TextField
+                type="text"
+                label="Filter by name"
+                variant="outlined"
+                value={currentFilter}
+                onChange={handleFilterChange}
+                fullWidth
+            />
+            <Table
+                data={materials}
+                headers={headers}
+                actionLabel="Edit"
+                onActionClick={handleActionClick}
+                sortedMaterials={sortedMaterials}
+                handleSortRequest={handleSortRequest}
+            />
+        </Box>
     );
 };

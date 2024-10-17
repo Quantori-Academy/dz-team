@@ -27,29 +27,13 @@ export const Pagination = ({ data }: PaginationProps) => {
                 justifyContent: "space-around",
             }}
         >
-            <Button
-                sx={{
-                    backgroundColor: theme.palette.primary.main,
-                    cursor: "pointer",
-                    borderRadius: "4px",
-                }}
-                onClick={handlePrev}
-                disabled={currentPage === 1}
-            >
+            <Button variant="contained" onClick={handlePrev} disabled={currentPage === 1}>
                 Previous
             </Button>
             <Typography style={{ color: theme.palette.text.primary }} variant="body1">
                 Page: {currentPage}
             </Typography>
-            <Button
-                sx={{
-                    backgroundColor: theme.palette.primary.main,
-                    cursor: "pointer",
-                    borderRadius: "4px",
-                }}
-                onClick={handleNext}
-                disabled={currentPage >= totalPages}
-            >
+            <Button variant="contained" onClick={handleNext} disabled={currentPage === totalPages}>
                 Next
             </Button>
         </Box>
