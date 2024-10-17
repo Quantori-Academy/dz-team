@@ -4,11 +4,11 @@ import { Box, Divider, ListItemIcon, Menu, MenuItem, Typography } from "@mui/mat
 import { Link } from "@tanstack/react-router";
 import { theme } from "theme";
 
-interface Props {
+type Props = {
     handleClose: () => void;
     open: boolean;
     anchorEl: HTMLElement;
-}
+};
 
 export function DropdownMenuHeaderDesktop({ handleClose, open, anchorEl }: Props) {
     return (

@@ -9,88 +9,82 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import { Link } from "@tanstack/react-router";
 import { theme } from "theme";
 
-interface Props {
+type Props = {
     open: boolean;
     setOpen: (newOpen: boolean) => void;
-}
+};
 
 export function DropdownMenuHeaderMobile({ open, setOpen }: Props) {
-    const DrawerList = (
-        <Box role="presentation" onClick={() => setOpen(false)}>
-            <Box display="flex" sx={{ mt: 1, mr: 2, mb: 1, ml: 2 }}>
-                <Box>
-                    <Typography
-                        sx={{
-                            color: theme.palette.text.primary,
-                        }}
-                    >
-                        UserName
-                    </Typography>
+    return (
+        <Drawer anchor={"top"} open={open} onClose={() => setOpen(false)}>
+            <Box role="presentation" onClick={() => setOpen(false)}>
+                <Box display="flex" sx={{ mt: 1, mr: 2, mb: 1, ml: 2 }}>
+                    <Box>
+                        <Typography
+                            sx={{
+                                color: theme.palette.text.primary,
+                            }}
+                        >
+                            UserName
+                        </Typography>
 
-                    <Typography
-                        variant="body2"
+                        <Typography
+                            variant="body2"
+                            sx={{
+                                color: theme.palette.text.disabled,
+                            }}
+                        >
+                            usermail@acme.com
+                        </Typography>
+                    </Box>
+                    <IconButton
                         sx={{
-                            color: theme.palette.text.disabled,
+                            position: "absolute",
+                            top: 2,
+                            right: 2,
+                            zIndex: 10,
                         }}
                     >
-                        usermail@acme.com
-                    </Typography>
+                        <CloseIcon fontSize="small" />
+                    </IconButton>
                 </Box>
-                <IconButton
+                <Divider />
+
+                <MenuItem
                     sx={{
-                        position: "absolute",
-                        top: 2,
-                        right: 2,
-                        zIndex: 10,
+                        color: theme.palette.text.primary,
+                        mt: 1,
                     }}
                 >
-                    <CloseIcon fontSize="small" />
-                </IconButton>
-            </Box>
-            <Divider />
-
-            <MenuItem
-                sx={{
-                    color: theme.palette.text.primary,
-                    mt: 1,
-                }}
-            >
-                <ListItemIcon>
-                    <PersonIcon fontSize="medium" />
-                </ListItemIcon>
-                Account
-            </MenuItem>
-            <MenuItem
-                sx={{
-                    color: theme.palette.text.primary,
-                }}
-            >
-                <ListItemIcon>
-                    <Settings fontSize="medium" />
-                </ListItemIcon>
-                Settings
-            </MenuItem>
-            <Divider />
-            <Link to="/login" style={{ textDecoration: "none" }}>
+                    <ListItemIcon>
+                        <PersonIcon fontSize="medium" />
+                    </ListItemIcon>
+                    Account
+                </MenuItem>
                 <MenuItem
                     sx={{
                         color: theme.palette.text.primary,
                     }}
                 >
                     <ListItemIcon>
-                        <Logout fontSize="medium" />
+                        <Settings fontSize="medium" />
                     </ListItemIcon>
-                    Logout
+                    Settings
                 </MenuItem>
-            </Link>
-        </Box>
-    );
-
-    return (
-        <>
-            <Drawer anchor={"top"} open={open} onClose={() => setOpen(false)}>
-                {DrawerList}
-            </Drawer>
-        </>
+                <Divider />
+                <Link to="/login" style={{ textDecoration: "none" }}>
+                    <MenuItem
+                        sx={{
+                            color: theme.palette.text.primary,
+                        }}
+                    >
+                        <ListItemIcon>
+                            <Logout fontSize="medium" />
+                        </ListItemIcon>
+                        Logout
+                    </MenuItem>
+                </Link>
+            </Box>
+        </Drawer>
     );
 }
