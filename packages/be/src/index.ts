@@ -8,6 +8,9 @@ import { isProd } from "./utils/isProd";
 import { registerSwagger } from "./utils/swaggerConfig";
 import { generateOpenApiSchema } from "./utils/generateOpenApi";
 
+import { jwtConfig } from "./utils/jwtConfig";
+import { jwtMiddleware } from "./middlewares/jwtMiddleware";
+
 import { apiRoutes } from "./routes/apiRoutes";
 
 const server = fastify().withTypeProvider<ZodTypeProvider>();
@@ -50,6 +53,12 @@ server.post("/login", async (request, reply) => {
     }
 });
 
+// Register the Fastify JWT plugin
+server.register(jwtConfig.plugin, jwtConfig.options);
+
+// Register the JWT middleware
+jwtMiddleware(server);
+
 // initialization api routes with prefix 'api/v1'
 server.register(apiRoutes, { prefix: "/api/v1" });
 
@@ -64,5 +73,5 @@ server.listen(
             process.exit(1);
         }
         console.log("Server is listening on " + address);
-    },
+    }
 );
