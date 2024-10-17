@@ -29,6 +29,7 @@ import { ReagentType } from "../api/reagents";
 // };
 
 // Event definitions
+
 export const setPage = domain.createEvent<number>("setPage");
 export const setLimit = domain.createEvent<number>("setLimit");
 export const setSort = domain.createEvent<{ field: string; order: "asc" | "desc" }>("setSort");
@@ -57,21 +58,21 @@ $filter.on(setFilter, (_, newFilter) => newFilter);
 
 export const fetchReagentsFx = createEffect(
     async (params: { page: number; limit: number; sort: string | null; filter: string | null }) => {
-        const response = await getReagentsApi.ReagentsMaterials.all(
+        const response = await getReagentsApi(
             params.page,
             params.limit,
             params.sort,
             params.filter,
         );
-
         return response ?? [];
     },
 );
-// Store to hold the list of materials fetched
 
+// Store to hold the list of materials fetched
 export const $ReagentsList = domain.createStore<ReagentType[]>([], { name: "$ReagentsList" });
 
 export const ReagentsGate = createGate({ domain });
+
 // request for all  materials from server when gate is open
 sample({
     clock: ReagentsGate.open,
@@ -90,8 +91,6 @@ sample({
     clock: fetchReagentsFx.doneData,
     target: $ReagentsList,
 });
-
-// export const debouncedSetFilter = debounce(setFilter, 300);
 
 sample({
     clock: [$page, $limit, $sort, debounce($filter, 300)],
