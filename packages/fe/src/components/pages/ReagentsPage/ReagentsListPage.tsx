@@ -7,31 +7,31 @@ import { theme } from "theme";
 import {
     $filter,
     $limit,
-    $materialsList,
     $page,
+    $ReagentsList,
     $sort,
-    fetchMaterialsFx,
-    MaterialsGate,
+    fetchReagentsFx,
+    ReagentsGate,
     setFilter,
     setSort,
-} from "../../../stores/materials";
+} from "../../../stores/reagents";
 import { headers } from "../Table/mockData";
 import { Table } from "../Table/Table";
 import { Pagination } from "./Pagination";
 
 export const ReagentsListPage = () => {
-    useGate(MaterialsGate);
+    useGate(ReagentsGate);
     const navigate = useNavigate();
     const handleActionClick = () => {
         alert(`click!`);
     };
 
-    const materials = useUnit($materialsList);
+    const reagents = useUnit($ReagentsList);
     const currentFilter = useUnit($filter);
     const sortedMaterials = useUnit($sort);
 
     useEffect(() => {
-        fetchMaterialsFx({
+        fetchReagentsFx({
             page: $page.getState(),
             limit: $limit.getState(),
             sort: null,
@@ -74,7 +74,7 @@ export const ReagentsListPage = () => {
             <Typography variant="h3" sx={{ color: theme.palette.text.primary, padding: "20px" }}>
                 Reagents List
             </Typography>
-            <Pagination data={materials} />
+            <Pagination data={reagents} />
             <TextField
                 type="text"
                 label="Filter by name"
@@ -84,7 +84,7 @@ export const ReagentsListPage = () => {
                 fullWidth
             />
             <Table
-                data={materials}
+                data={reagents}
                 headers={headers}
                 actionLabel="Edit"
                 onActionClick={handleActionClick}

@@ -3,7 +3,7 @@ import { useUnit } from "effector-react";
 
 import { Material } from "stores/example";
 
-import { $page, setPage } from "../../../stores/materials";
+import { $page, setPage } from "../../../stores/reagents";
 
 type PaginationProps = {
     data: Material[];

@@ -4,29 +4,29 @@ import { debounce } from "patronum";
 
 import { getReagentsApi } from "api/getReagents";
 import { genericDomain as domain } from "logger";
-import { SupportedValue } from "utils/formatters";
 
+// import { SupportedValue } from "utils/formatters";
 import { ReagentType } from "../api/reagents";
 
-export type Material = {
-    cas: string | null;
-    catalogId: string | null;
-    catalogLink: string | null;
-    createdAt: string;
-    description: string;
-    expirationDate: string | null;
-    id: string;
-    name: string;
-    pricePerUnit: number | null;
-    producer: string | null;
-    quantity: number;
-    size: number | null;
-    storageLocation: string;
-    structure: string | null;
-    unit: string;
-    updatedAt: string;
-    [key: string]: SupportedValue;
-};
+// export type Material = {
+//     cas: string | null;
+//     catalogId: string | null;
+//     catalogLink: string | null;
+//     createdAt: string;
+//     description: string;
+//     expirationDate: string | null;
+//     id: string;
+//     name: string;
+//     pricePerUnit: number | null;
+//     producer: string | null;
+//     quantity: number;
+//     size: number | null;
+//     storageLocation: string;
+//     structure: string | null;
+//     unit: string;
+//     updatedAt: string;
+//     [key: string]: SupportedValue;
+// };
 
 // Event definitions
 export const setPage = domain.createEvent<number>("setPage");
@@ -55,7 +55,7 @@ $page.on(setPage, (_, newPage) => newPage);
 $limit.on(setLimit, (_, newLimit) => newLimit);
 $filter.on(setFilter, (_, newFilter) => newFilter);
 
-export const fetchMaterialsFx = createEffect(
+export const fetchReagentsFx = createEffect(
     async (params: { page: number; limit: number; sort: string | null; filter: string | null }) => {
         const response = await getReagentsApi.ReagentsMaterials.all(
             params.page,
@@ -69,12 +69,12 @@ export const fetchMaterialsFx = createEffect(
 );
 // Store to hold the list of materials fetched
 
-export const $materialsList = domain.createStore<ReagentType[]>([], { name: "$materialsList" });
+export const $ReagentsList = domain.createStore<ReagentType[]>([], { name: "$ReagentsList" });
 
-export const MaterialsGate = createGate({ domain });
+export const ReagentsGate = createGate({ domain });
 // request for all  materials from server when gate is open
 sample({
-    clock: MaterialsGate.open,
+    clock: ReagentsGate.open,
     source: { page: $page, limit: $limit, sort: $sort, filter: $filter },
     fn: ({ page, limit, sort, filter }) => ({
         page,
@@ -82,13 +82,13 @@ sample({
         sort: sort ? `${sort.field}:${sort.order}` : null,
         filter,
     }),
-    target: fetchMaterialsFx,
+    target: fetchReagentsFx,
 });
 
 // save data from server
 sample({
-    clock: fetchMaterialsFx.doneData,
-    target: $materialsList,
+    clock: fetchReagentsFx.doneData,
+    target: $ReagentsList,
 });
 
 // export const debouncedSetFilter = debounce(setFilter, 300);
@@ -102,5 +102,5 @@ sample({
         sort: sort ? `${sort.field}:${sort.order}` : null,
         filter,
     }),
-    target: fetchMaterialsFx,
+    target: fetchReagentsFx,
 });
