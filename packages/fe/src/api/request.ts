@@ -23,8 +23,10 @@ const api = ky.create({
             async (request) => {
                 if (useMockData) {
                     const mockData = (await import("./data.json")).default;
-                    const url = request.url.toString().replace(base, "");
-                    const mock = mockData[url];
+                    // const url = request.url.toString().replace(base, "");
+                    const url = new URL(request.url);
+                    const urlPath = url.pathname;
+                    const mock = mockData[urlPath];
                     await wait(Math.random() * 1000);
                     return new Response(JSON.stringify(mock), { status: 200 });
                 }
@@ -66,7 +68,7 @@ export async function request<TT extends rt.Runtype, T = rt.Static<TT>, K = T>(
         showErrorNotification?: boolean;
         throwOnError?: boolean;
         shouldAffectIsLoading?: boolean;
-    },
+    }
 ): Promise<T | K | undefined> {
     try {
         if (options?.shouldAffectIsLoading) {

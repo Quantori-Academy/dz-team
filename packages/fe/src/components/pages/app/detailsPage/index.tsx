@@ -3,11 +3,12 @@ import CloseIcon from "@mui/icons-material/Close";
 import {
     Box,
     Button,
-    CircularProgress,
     Drawer,
     IconButton,
     Modal,
     Typography,
+    useMediaQuery,
+    useTheme,
 } from "@mui/material";
 import { useLoaderData } from "@tanstack/react-router";
 
@@ -28,10 +29,10 @@ export type Reagent = {
 };
 
 export function ReagentDetailsPage() {
-    // const { id } = useParams({ strict: false })
     const [isEditing, setIsEditing] = useState(false);
-
-    const { reagent }: { reagent: Reagent } = useLoaderData({ from: undefined });
+    const { reagent }: { reagent: Reagent } = useLoaderData({ from: "/_app/reagents/$id" });
+    const theme = useTheme();
+    const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
     if (!reagent) {
         return (
@@ -43,20 +44,26 @@ export function ReagentDetailsPage() {
                     height: "100vh",
                 }}
             >
-                <CircularProgress />
+                <Typography variant="h6">Reagent not found.</Typography>
             </Box>
         );
     }
 
-    const handleEditSubmit = (_updatedReagent) => {
+    const handleEditSubmit = () => {
         setIsEditing(false);
     };
-    // const handleCloseDetails = () => {
-    //   navigate('/reagents');
-    // };
+
+    const handleCloseDetails = () => {
+        window.location.href = "/reagents";
+    };
 
     return (
-        <Drawer anchor="right" open={true} variant="persistent">
+        <Drawer
+            anchor="right"
+            open={true}
+            variant="temporary"
+            sx={{ transform: isSmallScreen ? "translateY(55px)" : "translateY(83px)" }}
+        >
             <Box
                 sx={{
                     width: {
@@ -70,29 +77,57 @@ export function ReagentDetailsPage() {
             >
                 <IconButton
                     aria-label="close"
-                    // onClick={handleCloseDetails}
+                    onClick={handleCloseDetails}
                     sx={{ position: "absolute", top: 8, right: 8 }}
                 >
                     <CloseIcon />
                 </IconButton>
-                <Typography variant="h6">Reagent Details</Typography>
-                <Typography>ID: {reagent.id}</Typography>
-                <Typography>Name: {reagent.name}</Typography>
-                <Typography>Category: {reagent.category}</Typography>
-                <Typography>Description: {reagent.description}</Typography>
-                <Typography>CAS Number: {reagent.casNumber}</Typography>
-                <Typography>Producer: {reagent.producer}</Typography>
-                <Typography>Catalog ID: {reagent.catalogId}</Typography>
-                <Typography>catalog Link: {reagent.catalogLink}</Typography>
-                <Typography>Price per Unit: ${reagent.pricePerUnit}</Typography>
-                <Typography>Quantity: {reagent.quantity}</Typography>
-                <Typography>Units : {reagent.units}</Typography>
-                <Button variant="contained" sx={{ mt: 2 }} onClick={() => setIsEditing(true)}>
-                    Edit
-                </Button>
-                <Button variant="outlined" color="error" sx={{ mt: 2 }}>
-                    Delete
-                </Button>
+                <Box sx={{ pl: 2 }}>
+                    <Typography variant="h6" sx={{ fontSize: "1.25rem", mb: 2 }}>
+                        Reagent Details
+                    </Typography>
+                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>ID: {reagent.id}</Typography>
+                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>Name: {reagent.name}</Typography>
+                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
+                        Category: {reagent.category}
+                    </Typography>
+                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
+                        Description: {reagent.description}
+                    </Typography>
+                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
+                        CAS Number: {reagent.casNumber}
+                    </Typography>
+                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
+                        Producer: {reagent.producer}
+                    </Typography>
+                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
+                        Catalog ID: {reagent.catalogId}
+                    </Typography>
+                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
+                        catalog Link: {reagent.catalogLink}
+                    </Typography>
+                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
+                        Price per Unit: ${reagent.pricePerUnit}
+                    </Typography>
+                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
+                        Quantity: {reagent.quantity}
+                    </Typography>
+                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
+                        Units : {reagent.units}
+                    </Typography>
+                    <Box display="flex" justifyContent="flex-start" sx={{ mt: 2 }}>
+                        <Button
+                            variant="contained"
+                            sx={{ mt: 2 }}
+                            onClick={() => setIsEditing(true)}
+                        >
+                            Edit
+                        </Button>
+                        <Button variant="outlined" color="error" sx={{ mt: 2, ml: 2 }}>
+                            Delete
+                        </Button>
+                    </Box>
+                </Box>
             </Box>
 
             <Modal

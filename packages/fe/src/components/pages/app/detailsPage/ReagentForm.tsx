@@ -1,9 +1,7 @@
-/* eslint-disable react/prop-types */
-
-import { useState } from "react";
+import { useRef } from "react";
 import { Box, Button, TextField } from "@mui/material";
 
-interface ReagentFormProps {
+type ReagentFormProps = {
     initialData: {
         name: string;
         casNumber: string;
@@ -20,60 +18,56 @@ interface ReagentFormProps {
         quantity: string | number;
         units: string;
     }) => void;
-}
+};
 
-export const ReagentForm: React.FC<ReagentFormProps> = ({ initialData, onSubmit }) => {
-    const [formData, setFormData] = useState(
-        initialData || {
-            name: "",
-            casNumber: "",
-            producer: "",
-            pricePerUnit: "",
-            quantity: "",
-            units: "",
-        }
-    );
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData((prevFormData) => ({
-            ...prevFormData,
-            [name]: value,
-        }));
-    };
+export const ReagentForm = ({ initialData, onSubmit }: ReagentFormProps) => {
+    const nameRef = useRef<HTMLInputElement>(null);
+    const casNumberRef = useRef<HTMLInputElement>(null);
+    const producerRef = useRef<HTMLInputElement>(null);
+    const pricePerUnitRef = useRef<HTMLInputElement>(null);
+    const quantityRef = useRef<HTMLInputElement>(null);
+    const unitsRef = useRef<HTMLInputElement>(null);
 
     const handleSubmit = () => {
+        const formData = {
+            name: nameRef.current?.value || initialData.name || "",
+            casNumber: casNumberRef.current?.value || initialData.casNumber || "",
+            producer: producerRef.current?.value || initialData.producer || "",
+            pricePerUnit: pricePerUnitRef.current?.value || initialData.pricePerUnit || "",
+            quantity: quantityRef.current?.value || initialData.quantity || "",
+            units: unitsRef.current?.value || initialData.units || "",
+        };
         onSubmit(formData);
     };
 
     return (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <TextField label="Name" name="name" value={formData.name} onChange={handleChange} />
+            <TextField label="Name" inputRef={nameRef} defaultValue={initialData.name} />
             <TextField
                 label="CAS Number"
                 name="casNumber"
-                value={formData.casNumber}
-                onChange={handleChange}
+                inputRef={casNumberRef}
+                defaultValue={initialData.casNumber}
             />
             <TextField
                 label="Producer"
                 name="producer"
-                value={formData.producer}
-                onChange={handleChange}
+                inputRef={producerRef}
+                defaultValue={initialData.producer}
             />
             <TextField
                 label="Price per Unit ($)"
                 name="pricePerUnit"
-                value={formData.pricePerUnit}
-                onChange={handleChange}
+                inputRef={pricePerUnitRef}
+                defaultValue={initialData.pricePerUnit}
             />
             <TextField
                 label="Quantity"
                 name="quantity"
-                value={formData.quantity}
-                onChange={handleChange}
+                inputRef={quantityRef}
+                defaultValue={initialData.quantity}
             />
-            <TextField label="Units" name="units" value={formData.units} onChange={handleChange} />
+            <TextField label="Units" inputRef={unitsRef} defaultValue={initialData.units} />
 
             <Button variant="contained" onClick={handleSubmit}>
                 Submit
