@@ -5,6 +5,7 @@ import { Outlet } from "@tanstack/react-router";
 
 import { Footer } from "components/footer";
 import { Header } from "components/header";
+import { Navigation } from "components/navigation/Navigation";
 
 export function Layout() {
     return (
@@ -18,8 +19,17 @@ export function Layout() {
             }}
         >
             <Header />
-            <Container>
-                <Outlet />
+            <Container
+                sx={{
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "start",
+                }}
+            >
+                <Navigation />
+                <Box sx={{ width: "100%" }}>
+                    <Outlet />
+                </Box>
             </Container>
             <Footer />
         </Box>
