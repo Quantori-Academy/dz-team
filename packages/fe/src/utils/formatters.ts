@@ -12,6 +12,7 @@ export const formatCellContent = (value: SupportedValue): string => {
     switch (typeof value) {
         case "boolean":
             return value ? "Yes" : "No";
+
         case "object":
             if (value === null) {
                 return "N/A";
@@ -23,9 +24,10 @@ export const formatCellContent = (value: SupportedValue): string => {
                 return formatDate(value);
             }
             return formatObject(value);
+
         case "bigint":
-        case "number":
             return value.toString();
+
         default:
             return value.toString();
     }

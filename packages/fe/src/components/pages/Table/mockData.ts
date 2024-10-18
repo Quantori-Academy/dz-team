@@ -1,12 +1,3 @@
-export const headers = [
-    { key: "name", label: "Product Name" },
-    { key: "structure", label: "Structure" },
-    { key: "description", label: "Description" },
-
-    { key: "createdAt", label: "Creation Date" },
-    { key: "storageLocation", label: "Storage Location" },
-];
-
 export const mockData = [
     {
         id: 1,
@@ -24,4 +15,12 @@ export const mockData = [
         createdAt: new Date("2024-04-20"),
         details: { title: "Detail 2", department: "Marketing" },
     },
+];
+
+export const headers = [
+    { key: "name", label: "Product Name" },
+    { key: "available", label: "Available" },
+    { key: "tags", label: "Tags" },
+    { key: "createdAt", label: "Creation Date" },
+    { key: "details", label: "Details" },
 ];

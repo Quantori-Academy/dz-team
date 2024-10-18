@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
 import { useGate, useUnit } from "effector-react";
 import { theme } from "theme";
@@ -15,8 +15,9 @@ import {
     setFilter,
     setSort,
 } from "../../../stores/reagents";
-import { headers } from "../Table/mockData";
+import { headers, mockData } from "../Table/mockData";
 import { Table } from "../Table/Table";
+import { Filter } from "./Filter";
 import { Pagination } from "./Pagination";
 
 export const ReagentsListPage = () => {
@@ -52,9 +53,8 @@ export const ReagentsListPage = () => {
     return (
         <Box
             sx={{
-                backgroundColor: theme.palette.background.default,
                 width: "100%",
-                padding: "20px",
+                padding: "30px",
                 display: "flex",
                 flexDirection: "column",
                 gap: "20px",
@@ -64,33 +64,29 @@ export const ReagentsListPage = () => {
                 sx={{
                     display: "flex",
                     alignItems: "flex-start",
-                    flexDirection: "column",
                 }}
             >
                 <Button variant="contained" onClick={() => navigate({ to: "/", replace: true })}>
                     Back
                 </Button>
             </Box>
-            <Typography variant="h3" sx={{ color: theme.palette.text.primary, padding: "20px" }}>
-                Reagents List
-            </Typography>
-            <Pagination data={reagents} />
-            <TextField
-                type="text"
-                label="Filter by name"
-                variant="outlined"
-                value={currentFilter}
-                onChange={handleFilterChange}
-                fullWidth
-            />
+            <Box
+                sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "30px" }}
+            >
+                <Typography variant="h3" sx={{ color: theme.palette.text.primary }}>
+                    Reagents List
+                </Typography>
+            </Box>
+            <Filter currentFilter={currentFilter} filterBy={handleFilterChange} />
             <Table
-                data={reagents}
+                data={mockData}
                 headers={headers}
                 actionLabel="Edit"
                 onActionClick={handleActionClick}
-                onSort={sortedMaterials}
+                sortOrder={sortedMaterials}
                 handleSortRequest={handleSortRequest}
             />
+            <Pagination data={reagents} />
         </Box>
     );
 };

@@ -5,28 +5,7 @@ import { debounce } from "patronum";
 import { getReagentsApi } from "api/getReagents";
 import { genericDomain as domain } from "logger";
 
-// import { SupportedValue } from "utils/formatters";
 import { ReagentType } from "../api/reagents";
-
-// export type Material = {
-//     cas: string | null;
-//     catalogId: string | null;
-//     catalogLink: string | null;
-//     createdAt: string;
-//     description: string;
-//     expirationDate: string | null;
-//     id: string;
-//     name: string;
-//     pricePerUnit: number | null;
-//     producer: string | null;
-//     quantity: number;
-//     size: number | null;
-//     storageLocation: string;
-//     structure: string | null;
-//     unit: string;
-//     updatedAt: string;
-//     [key: string]: SupportedValue;
-// };
 
 // Event definitions
 
