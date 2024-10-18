@@ -28,11 +28,29 @@ export type Reagent = {
     units: string;
 };
 
+const $Typography = (props: React.PropsWithChildren) => (
+    <Typography sx={{ fontSize: "1rem", mb: 1 }}>{props.children}</Typography>
+);
+
 export function ReagentDetailsPage() {
     const [isEditing, setIsEditing] = useState(false);
     const { reagent }: { reagent: Reagent } = useLoaderData({ from: "/_app/reagents/$id" });
     const theme = useTheme();
     const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
+
+    const fields = [
+        `ID: ${reagent.id}`,
+        `Name: ${reagent.name}`,
+        `Category: ${reagent.category}`,
+        `Description: ${reagent.description}`,
+        `CAS Number: ${reagent.casNumber}`,
+        `Producer: ${reagent.producer}`,
+        `Catalog ID: ${reagent.catalogId}`,
+        `Catalog Link: ${reagent.catalogLink}`,
+        `Price per Unit: $${reagent.pricePerUnit}`,
+        `Quantity: ${reagent.quantity}`,
+        `Units: ${reagent.units}`,
+    ];
 
     if (!reagent) {
         return (
@@ -86,35 +104,9 @@ export function ReagentDetailsPage() {
                     <Typography variant="h6" sx={{ fontSize: "1.25rem", mb: 2 }}>
                         Reagent Details
                     </Typography>
-                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>ID: {reagent.id}</Typography>
-                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>Name: {reagent.name}</Typography>
-                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
-                        Category: {reagent.category}
-                    </Typography>
-                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
-                        Description: {reagent.description}
-                    </Typography>
-                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
-                        CAS Number: {reagent.casNumber}
-                    </Typography>
-                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
-                        Producer: {reagent.producer}
-                    </Typography>
-                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
-                        Catalog ID: {reagent.catalogId}
-                    </Typography>
-                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
-                        catalog Link: {reagent.catalogLink}
-                    </Typography>
-                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
-                        Price per Unit: ${reagent.pricePerUnit}
-                    </Typography>
-                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
-                        Quantity: {reagent.quantity}
-                    </Typography>
-                    <Typography sx={{ fontSize: "1rem", mb: 1 }}>
-                        Units : {reagent.units}
-                    </Typography>
+                    {fields.map((field, index) => (
+                        <$Typography key={index}>{field}</$Typography>
+                    ))}
                     <Box display="flex" justifyContent="flex-start" sx={{ mt: 2 }}>
                         <Button
                             variant="contained"
