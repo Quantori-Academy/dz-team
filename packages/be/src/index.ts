@@ -47,7 +47,11 @@ server.post("/login", async (request, reply) => {
     try {
         const user = userSchema.parse(request.body);
         console.log("user validated:", user);
-        return { success: true, data: user };
+
+        // Generate a JWT token for the authenticated user
+        const token = server.jwt.sign({ email: user.email });
+
+        return { success: true, token };
     } catch (error) {
         reply.status(400).send(error);
     }
