@@ -15,7 +15,7 @@ export function Layout() {
                 minHeight: "100vh",
                 flexDirection: "column",
                 justifyContent: "space-between",
-                paddingTop: { xs: "62px", lg: "80px" },
+                paddingTop: { xs: "62px", sm: "92px" },
             }}
         >
             <Header />
@@ -24,6 +24,7 @@ export function Layout() {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "start",
+                    gap: "8px",
                 }}
             >
                 <Navigation />
