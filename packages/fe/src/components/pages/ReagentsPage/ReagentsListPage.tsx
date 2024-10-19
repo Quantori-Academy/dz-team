@@ -8,7 +8,6 @@ import {
     $filter,
     $limit,
     $page,
-    $ReagentsList,
     $sort,
     fetchReagentsFx,
     ReagentsGate,
@@ -18,7 +17,7 @@ import {
 import { headers, mockData } from "../Table/mockData";
 import { Table } from "../Table/Table";
 import { Filter } from "./Filter";
-import { Pagination } from "./Pagination";
+import { ListPagination } from "./ListPagination";
 
 export const ReagentsListPage = () => {
     useGate(ReagentsGate);
@@ -27,7 +26,7 @@ export const ReagentsListPage = () => {
         alert(`click!`);
     };
 
-    const reagents = useUnit($ReagentsList);
+    // const reagents = useUnit($ReagentsList);
     const currentFilter = useUnit($filter);
     const sortedMaterials = useUnit($sort);
 
@@ -86,7 +85,7 @@ export const ReagentsListPage = () => {
                 sortOrder={sortedMaterials}
                 handleSortRequest={handleSortRequest}
             />
-            <Pagination data={reagents} />
+            <ListPagination data={mockData} />
         </Box>
     );
 };

@@ -18,7 +18,7 @@ export const setFilter = domain.createEvent<string | null>("setFilter");
 export const $page = domain
     .createStore<number>(1, { name: "$page" })
     .on(setPage, (_, newPage) => newPage);
-export const $limit = domain.createStore<number>(5, { name: "$limit" });
+export const $limit = domain.createStore<number>(15, { name: "$limit" });
 export const $sort = domain
     .createStore<{ field: string; order: "asc" | "desc" }>(
         {
@@ -29,6 +29,9 @@ export const $sort = domain
     )
     .on(setSort, (_, newSort) => newSort);
 export const $filter = domain.createStore<string>("", { name: "$filter" });
+
+// Store to hold the list of materials fetched
+export const $ReagentsList = domain.createStore<ReagentType[]>([], { name: "$ReagentsList" });
 
 // Update stores with events
 $page.on(setPage, (_, newPage) => newPage);
@@ -46,9 +49,6 @@ export const fetchReagentsFx = createEffect(
         return response ?? [];
     },
 );
-
-// Store to hold the list of materials fetched
-export const $ReagentsList = domain.createStore<ReagentType[]>([], { name: "$ReagentsList" });
 
 export const ReagentsGate = createGate({ domain });
 
