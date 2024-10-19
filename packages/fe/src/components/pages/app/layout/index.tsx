@@ -21,6 +21,7 @@ export function Layout() {
             <Header />
             <Container
                 sx={{
+                    height: "100%",
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "start",
