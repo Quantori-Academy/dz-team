@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-import { Box, Button, Typography } from "@mui/material";
-import { useNavigate } from "@tanstack/react-router";
+import { Box, Typography } from "@mui/material";
 import { useGate, useUnit } from "effector-react";
 import { theme } from "theme";
 
@@ -26,33 +25,18 @@ const header = [
 
 export const ReagentsListPage = () => {
     useGate(ReagentsGate);
-    const navigate = useNavigate();
     const handleActionClick = () => {
         alert(`click!`);
     };
 
     const reagents = useUnit($ReagentsList);
-    // const currentFilter = useUnit($filter);
-    // const sortedMaterials = useUnit($sort);
 
     useEffect(() => {
         fetchReagentsFx({
             page: $page.getState(),
             limit: $limit.getState(),
-            sort: null,
-            filter: null,
         });
     }, []);
-
-    // const handleSortRequest = (property: string) => {
-    //     const isAsc = sortedMaterials.field === property && sortedMaterials.order === "asc";
-    //     setSort({ field: property, order: isAsc ? "desc" : "asc" });
-    // };
-
-    // debounce fucntion for filter
-    // const handleFilterChange = (event: React.ChangeEvent<{ value: string }>) => {
-    //     setFilter(event.target.value);
-    // };
 
     return (
         <Box
@@ -64,16 +48,6 @@ export const ReagentsListPage = () => {
                 gap: "20px",
             }}
         >
-            <Box
-                sx={{
-                    display: "flex",
-                    alignItems: "flex-start",
-                }}
-            >
-                <Button variant="contained" onClick={() => navigate({ to: "/", replace: true })}>
-                    Back
-                </Button>
-            </Box>
             <Box
                 sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "30px" }}
             >

@@ -39,13 +39,6 @@ export const Table = ({ data, headers, actionLabel = "Action", onActionClick }: 
                     <TableRow>
                         {headers.map((header) => (
                             <TableCell key={header.key} sx={headerStyles}>
-                                {/* <TableSortLabel
-                                    active={sortOrder.field === header.key}
-                                    direction={sortOrder.order}
-                                    onClick={() => handleSortRequest(header.key)}
-                                >
-                                   
-                                </TableSortLabel> */}
                                 {header.label}
                             </TableCell>
                         ))}
