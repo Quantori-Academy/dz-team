@@ -2,7 +2,7 @@ import fastify from "fastify";
 import cors from "@fastify/cors";
 
 import { serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
-import { userSchema } from "shared/zod-schemas";
+import { userSchema } from "shared/zodSchemas";
 
 import { isProd } from "./utils/isProd";
 import { registerSwagger } from "./utils/swaggerConfig";

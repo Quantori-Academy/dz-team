@@ -9,23 +9,3 @@ export const fetchServerConnection = async () => {
         return "ok!";
     }
 };
-
-export const fetchMolCount = async () => {
-    return request(base + "/molecule/count", rt.Number, { showErrorNotification: true });
-};
-
-export const fetchMolPost = async () => {
-    return request(
-        base + "/molecule",
-        rt.Record({
-            id: rt.Number,
-            createdAt: rt.String,
-            smiles: rt.String,
-        }),
-        {
-            method: "post",
-            json: { smiles: "CCO" },
-            showErrorNotification: true,
-        },
-    );
-};

@@ -11,8 +11,7 @@
     "type": "module",
     "packageManager": "yarn@1.22.22",
     "scripts": {
-        "dev": "run-p dev:be dev:fe",
-        "dev:db": "run-p dev:be:db dev:fe",
+        "dev": "cross-env VITE_USE_MOCK_DATA=false run-p dev:be:db dev:fe",
         "dev:be:db": "yarn workspace be run dev:db",
         "stop:db": "yarn workspace be run stop:db",
         "dev:be": "yarn workspace be run dev",
@@ -40,6 +39,7 @@
     "devDependencies": {
         "@eslint/js": "^9.9.1",
         "@types/eslint__js": "^8.42.3",
+        "cross-env": "^7.0.3",
         "eslint": "^9.9.1",
         "eslint-plugin-effector": "^0.14.0",
         "eslint-plugin-react": "^7.35.2",

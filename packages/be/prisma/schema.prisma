@@ -4,9 +4,36 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
+
+
+
+// ***NOTE: run `npx prisma generate` to generate new zod schemas in `shared/generated/zod` every time a model is modified***
+
+
+
+
 generator client {
   provider = "prisma-client-js"
   previewFeatures = ["postgresqlExtensions"]
+}
+
+generator zod {
+  provider                         = "zod-prisma-types"
+  output                           = "../../shared/generated/zod" // default is ./generated/zod
+  useMultipleFiles                 = true // default is false
+  writeBarrelFiles                 = true // default is true
+  createInputTypes                 = true // default is true
+  createModelTypes                 = true // default is true
+  addInputTypeValidation           = true // default is true
+  addIncludeType                   = true // default is true
+  addSelectType                    = true // default is true
+  validateWhereUniqueInput         = true // default is true
+  createOptionalDefaultValuesTypes = true // default is false
+  createRelationValuesTypes        = true // default is false
+  createPartialTypes               = true // default is false
+  useDefaultValidators             = true // default is true
+  coerceDate                       = true // default is true
+  writeNullishInModelTypes         = true // default is false
 }
 
 datasource db {
@@ -21,8 +48,16 @@ enum Category {
   SAMPLE
 }
 
+
+  // with `dbgenerated("gen_random_uuid()")` UUID is generated on the DB level in POSTGRES
+  // with `uuid()` UUID is generated on Prisma level
+  // see "Native database functions" in Prisma docs
+
+  // zod-prisma-types "rich-comment" after three slashes adds "Field validators"
+  // see zod-prisma-types docs for the syntax and zod docs for validators
 model Reagent {
-  id              String   @id @default(uuid())
+  // id              String     @id @default(uuid()) /// @zod.string.uuid()
+  id              String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
   name            String     // Name of the reagent
   structure       String?    // Stores the chemical structure
   description     String     // Description of the reagent
@@ -36,6 +71,7 @@ model Reagent {
   catalogId       String?    // Catalog identifier
   catalogLink     String?    // URL to the product catalog
   pricePerUnit    Float?     // Price per unit
+  deletedAt       DateTime?  // Time of soft deletion
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
 
@@ -45,17 +81,17 @@ model Reagent {
 
 
 model Sample {
-  id              String     @id @default(uuid())
+  // id              String     @id @default(uuid()) /// @zod.string.uuid()
+  id              String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
   title           String     // Title of the sample
   description     String     // Description of the sample
   structure       String?    // Chemical structure
   initialQuantity Float      // Initial quantity of the sample
   unit            String     // Unit of measurement (e.g., mg, ml, etc.)
+  deletedAt       DateTime?  // Time of soft deletion
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
 
   // Many-to-Many relation with Reagent
   reagents        Reagent[]  @relation("ReagentSamples")
 }
-
-
