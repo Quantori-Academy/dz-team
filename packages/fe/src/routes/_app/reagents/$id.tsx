@@ -3,7 +3,7 @@ import * as rt from "runtypes";
 
 import { ReagentDetailsPage } from "components/pages/app/detailsPage";
 
-import { request } from "../../../api/request";
+import { base, request } from "../../../api/request";
 
 export const ReagentContract = rt.Record({
     id: rt.Number,
@@ -22,8 +22,7 @@ export const ReagentContract = rt.Record({
 export const Route = createFileRoute("/_app/reagents/$id")({
     loader: async ({ params }) => {
         const reagentId = Number(params.id);
-        const reagent = await request(`${reagentId}`, ReagentContract);
-        // const reagent = await request(reagentId);
+        const reagent = await request(`${base}/reagents/${reagentId}`, ReagentContract);
         return { reagent };
     },
     component: () => <ReagentDetailsPage />,

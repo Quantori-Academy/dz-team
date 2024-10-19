@@ -23,10 +23,8 @@ const api = ky.create({
             async (request) => {
                 if (useMockData) {
                     const mockData = (await import("./data.json")).default;
-                    // const url = request.url.toString().replace(base, "");
-                    const url = new URL(request.url);
-                    const urlPath = url.pathname;
-                    const mock = mockData[urlPath];
+                    const url = request.url.toString().replace(base, "");
+                    const mock = mockData[url];
                     await wait(Math.random() * 1000);
                     return new Response(JSON.stringify(mock), { status: 200 });
                 }
