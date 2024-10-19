@@ -4,15 +4,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useGate, useUnit } from "effector-react";
 import { theme } from "theme";
 
-import {
-    $limit,
-    $page,
-    $ReagentsList,
-    $sort,
-    fetchReagentsFx,
-    ReagentsGate,
-    setSort,
-} from "stores/reagents";
+import { $limit, $page, $ReagentsList, fetchReagentsFx, ReagentsGate } from "stores/reagents";
 
 import { Table } from "../Table/Table";
 
@@ -41,7 +33,7 @@ export const ReagentsListPage = () => {
 
     const reagents = useUnit($ReagentsList);
     // const currentFilter = useUnit($filter);
-    const sortedMaterials = useUnit($sort);
+    // const sortedMaterials = useUnit($sort);
 
     useEffect(() => {
         fetchReagentsFx({
@@ -52,10 +44,10 @@ export const ReagentsListPage = () => {
         });
     }, []);
 
-    const handleSortRequest = (property: string) => {
-        const isAsc = sortedMaterials.field === property && sortedMaterials.order === "asc";
-        setSort({ field: property, order: isAsc ? "desc" : "asc" });
-    };
+    // const handleSortRequest = (property: string) => {
+    //     const isAsc = sortedMaterials.field === property && sortedMaterials.order === "asc";
+    //     setSort({ field: property, order: isAsc ? "desc" : "asc" });
+    // };
 
     // debounce fucntion for filter
     // const handleFilterChange = (event: React.ChangeEvent<{ value: string }>) => {
@@ -95,8 +87,6 @@ export const ReagentsListPage = () => {
                 headers={header}
                 actionLabel="Edit"
                 onActionClick={handleActionClick}
-                sortOrder={sortedMaterials}
-                handleSortRequest={handleSortRequest}
             />
         </Box>
     );

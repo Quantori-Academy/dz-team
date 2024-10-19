@@ -7,7 +7,6 @@ import {
     TableContainer,
     TableHead,
     TableRow,
-    TableSortLabel,
 } from "@mui/material";
 
 import { formatCellContent, SupportedValue } from "utils/formatters";
@@ -15,20 +14,11 @@ import { formatCellContent, SupportedValue } from "utils/formatters";
 interface TableProps {
     data: Array<Record<string, SupportedValue>>;
     headers: Array<{ key: string; label: string }>;
-    sortOrder: { field: string | null; order: "asc" | "desc" | null };
-    handleSortRequest: (field: string) => void;
     actionLabel?: string;
     onActionClick?: (row: Record<string, SupportedValue>) => void;
 }
 
-export const Table = ({
-    data,
-    sortOrder,
-    handleSortRequest,
-    headers,
-    actionLabel = "Action",
-    onActionClick,
-}: TableProps) => {
+export const Table = ({ data, headers, actionLabel = "Action", onActionClick }: TableProps) => {
     const headerStyles = {
         background: "linear-gradient(0deg, #BFBFBF, #BFBFBF), #BFBFBF",
         color: "#000000",
@@ -49,13 +39,14 @@ export const Table = ({
                     <TableRow>
                         {headers.map((header) => (
                             <TableCell key={header.key} sx={headerStyles}>
-                                <TableSortLabel
+                                {/* <TableSortLabel
                                     active={sortOrder.field === header.key}
                                     direction={sortOrder.order}
                                     onClick={() => handleSortRequest(header.key)}
                                 >
-                                    {header.label}
-                                </TableSortLabel>
+                                   
+                                </TableSortLabel> */}
+                                {header.label}
                             </TableCell>
                         ))}
                         {onActionClick && <TableCell sx={headerStyles}>{actionLabel}</TableCell>}
