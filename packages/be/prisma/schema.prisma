@@ -7,7 +7,7 @@
 
 
 
-// ***NOTE: run `npx prisma generate` to generate new zod schemas in `shared/generated/zod` every time a model is modified***
+// ***NOTE: run `npx prisma generate` to generate new zod schemas in `shared/generated/zod` every time a model in this file is modified***
 
 
 
@@ -71,6 +71,8 @@ model Reagent {
   catalogId       String?    // Catalog identifier
   catalogLink     String?    // URL to the product catalog
   pricePerUnit    Float?     // Price per unit
+  category        String?    // Category of the reagent ("organic", "inorganic", "acidic", "basic", "oxidizing", "reducing", "precipitating", "complexing", "indicator", "other")
+  status          String?    // Status of availability of the reagent ("available", "low_stock", "out_of_stock", "ordered", "not_available")
   deletedAt       DateTime?  // Time of soft deletion
   createdAt       DateTime   @default(now())
   updatedAt       DateTime   @updatedAt
