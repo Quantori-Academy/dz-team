@@ -5,19 +5,32 @@ import { useGate, useUnit } from "effector-react";
 import { theme } from "theme";
 
 import {
-    $filter,
     $limit,
     $page,
+    $ReagentsList,
     $sort,
     fetchReagentsFx,
     ReagentsGate,
-    setFilter,
     setSort,
-} from "../../../stores/reagents";
-import { headers, mockData } from "../Table/mockData";
+} from "stores/reagents";
+
 import { Table } from "../Table/Table";
-import { Filter } from "./Filter";
-import { ListPagination } from "./ListPagination";
+
+const header = [
+    { key: "name", label: "Name" },
+    { key: "structure", label: "Structure" },
+    { key: "description", label: "Description" },
+    { key: "quantity", label: "Quantity" },
+    { key: "unit", label: "Unit" },
+    { key: "size", label: "Size" },
+    { key: "expirationDate", label: "Expiration Date" },
+    { key: "storageLocation", label: "Storage Location" },
+    { key: "cas", label: "CAS" },
+    { key: "producer", label: "Producer" },
+    { key: "catalogId", label: "Catalog ID" },
+    { key: "catalogLink", label: "Catalog Link" },
+    { key: "pricePerUnit", label: "Price Per Unit" },
+];
 
 export const ReagentsListPage = () => {
     useGate(ReagentsGate);
@@ -26,8 +39,8 @@ export const ReagentsListPage = () => {
         alert(`click!`);
     };
 
-    // const reagents = useUnit($ReagentsList);
-    const currentFilter = useUnit($filter);
+    const reagents = useUnit($ReagentsList);
+    // const currentFilter = useUnit($filter);
     const sortedMaterials = useUnit($sort);
 
     useEffect(() => {
@@ -45,9 +58,9 @@ export const ReagentsListPage = () => {
     };
 
     // debounce fucntion for filter
-    const handleFilterChange = (event: React.ChangeEvent<{ value: string }>) => {
-        setFilter(event.target.value);
-    };
+    // const handleFilterChange = (event: React.ChangeEvent<{ value: string }>) => {
+    //     setFilter(event.target.value);
+    // };
 
     return (
         <Box
@@ -76,16 +89,15 @@ export const ReagentsListPage = () => {
                     Reagents List
                 </Typography>
             </Box>
-            <Filter currentFilter={currentFilter} filterBy={handleFilterChange} />
+
             <Table
-                data={mockData}
-                headers={headers}
+                data={reagents}
+                headers={header}
                 actionLabel="Edit"
                 onActionClick={handleActionClick}
                 sortOrder={sortedMaterials}
                 handleSortRequest={handleSortRequest}
             />
-            <ListPagination data={mockData} />
         </Box>
     );
 };
