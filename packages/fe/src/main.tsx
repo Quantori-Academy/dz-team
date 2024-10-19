@@ -17,8 +17,12 @@ const router = createRouter({
     defaultNotFoundComponent: () => <NotFound />,
 });
 
-createRoot(document.getElementById("root")).render(
+const rootEl = document.getElementById("root");
+if (!rootEl) {
+    throw new Error("No root element found with id 'root'");
+}
+createRoot(rootEl).render(
     <StrictMode>
         <RouterProvider router={router} />
-    </StrictMode>,
+    </StrictMode>
 );
