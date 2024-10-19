@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { Link } from "@tanstack/react-router";
+import { Link, useMatches } from "@tanstack/react-router";
 import { theme } from "theme";
 
 type INavigationList = Array<{
@@ -41,6 +41,9 @@ interface Props {
 }
 
 export function NavList({ onClickCloseMobileModal }: Props) {
+    const matches = useMatches();
+    const pathname = matches[matches.length - 1].pathname;
+
     return (
         <>
             {routes.map((route, idx) => (
@@ -56,6 +59,8 @@ export function NavList({ onClickCloseMobileModal }: Props) {
                             borderColor: theme.palette.primary.main,
                             borderRadius: "4px",
                             p: "8px",
+                            bgcolor: pathname === route.href && theme.palette.primary.main,
+                            color: pathname === route.href && theme.palette.background.default,
                         }}
                     >
                         <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>
