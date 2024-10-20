@@ -3,7 +3,7 @@ import { Box, Typography } from "@mui/material";
 import { useGate, useUnit } from "effector-react";
 import { theme } from "theme";
 
-import { $limit, $page, $ReagentsList, fetchReagentsFx, ReagentsGate } from "stores/reagents";
+import { $ReagentsList, fetchReagentsFx, ReagentsGate } from "stores/reagents";
 
 import { Table } from "../Table/Table";
 
@@ -32,10 +32,7 @@ export const ReagentsListPage = () => {
     const reagents = useUnit($ReagentsList);
 
     useEffect(() => {
-        fetchReagentsFx({
-            page: $page.getState(),
-            limit: $limit.getState(),
-        });
+        fetchReagentsFx();
     }, []);
 
     return (
@@ -55,7 +52,6 @@ export const ReagentsListPage = () => {
                     Reagents List
                 </Typography>
             </Box>
-
             <Table
                 data={reagents}
                 headers={header}
