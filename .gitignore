@@ -3,6 +3,8 @@ dist
 
 .env
 
+packages/shared/generated/
+
 # Action specific files
 !.github/actions/auto-add-reviewers/dist
 
