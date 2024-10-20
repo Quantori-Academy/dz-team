@@ -7,8 +7,99 @@
   },
   "definitions": {},
   "paths": {
+    "/api/v1/reagents/{id}": {
+      "get": {
+        "tags": [
+          "Reagent"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "Reagent"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "_def": {
+                "unknownKeys": "strict",
+                "catchall": {
+                  "_def": {
+                    "typeName": "ZodNever"
+                  }
+                },
+                "typeName": "ZodObject"
+              },
+              "_cached": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Reagent"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "patch": {
+        "tags": [
+          "Reagent"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
     "/api/v1/reagents/": {
       "get": {
+        "tags": [
+          "Reagent"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Reagent"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "_def": {
+                "unknownKeys": "strict",
+                "catchall": {
+                  "_def": {
+                    "typeName": "ZodNever"
+                  }
+                },
+                "typeName": "ZodObject"
+              },
+              "_cached": null
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Default Response"
