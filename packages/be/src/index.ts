@@ -62,6 +62,12 @@ server.register(jwtConfig.plugin, jwtConfig.options);
 // Register the JWT middleware
 jwtMiddleware(server);
 
+// Register the Fastify JWT plugin
+server.register(jwtConfig.plugin, jwtConfig.options);
+
+// Register the JWT middleware
+jwtMiddleware(server);
+
 // initialization api routes with prefix 'api/v1'
 server.register(apiRoutes, { prefix: "/api/v1" });
 
@@ -76,5 +82,5 @@ server.listen(
             process.exit(1);
         }
         console.log("Server is listening on " + address);
-    }
+    },
 );
