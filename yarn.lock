@@ -1071,17 +1071,17 @@
     "@svgr/hast-util-to-babel-ast" "8.0.0"
     svg-parser "^2.0.4"
 
-"@tanstack/history@1.58.15":
-  version "1.58.15"
-  resolved "https://registry.yarnpkg.com/@tanstack/history/-/history-1.58.15.tgz#c1c14a75ff1e00b885e5fffbfe2bb991ab7ae5dd"
-  integrity sha512-M36Ke2Q2v8Iv4Cx0xw04iVkixuOligiFLOifH35DqGnzXe9PAtTHIooieQowqYkAjC09KuLo5j6sgvwKTZ+U5Q==
+"@tanstack/history@1.61.1":
+  version "1.61.1"
+  resolved "https://registry.yarnpkg.com/@tanstack/history/-/history-1.61.1.tgz#ab284ebad15bdcf639a6ffbf4fb6e436b4315989"
+  integrity sha512-2CqERleeqO3hkhJmyJm37tiL3LYgeOpmo8szqdjgtnnG0z7ZpvzkZz6HkfOr9Ca/ha7mhAiouSvLYuLkM37AMg==
 
-"@tanstack/react-router@^1.58.9":
-  version "1.58.15"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.58.15.tgz#fbeb642056d124442304ed8e0649972f6d58bb1c"
-  integrity sha512-bo5G6MGrTnrshnbNGvpsfffhJHNP+mP+BevA0Sdq0EQFuzFHuA+9MVihD4AAH0bE8jrtiBd25DLH+6Sa0Zt7nw==
+"@tanstack/react-router@^1.67.0":
+  version "1.74.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.74.0.tgz#393f937a15d70d843ef2ab6edc240aa40dedc74e"
+  integrity sha512-dthfscAM25bi1AjA38t9jPsU2jqNk0f6a6ziorEi845ss6Uwrbw4FSFQ1oI1UmUfaJR73S5SO8TGXKZAIxhlWQ==
   dependencies:
-    "@tanstack/history" "1.58.15"
+    "@tanstack/history" "1.61.1"
     "@tanstack/react-store" "^0.5.5"
     tiny-invariant "^1.3.3"
     tiny-warning "^1.0.3"
