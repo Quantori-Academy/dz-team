@@ -1,23 +1,15 @@
 import { useRef } from "react";
 import { Box, Button, TextField } from "@mui/material";
 
+import { Reagent } from "../../../../api/reagentType";
+
+type formData = Pick<
+    Reagent,
+    "name" | "casNumber" | "producer" | "pricePerUnit" | "quantity" | "units"
+>;
 type ReagentFormProps = {
-    initialData: {
-        name: string;
-        casNumber: string;
-        producer: string;
-        pricePerUnit: string | number;
-        quantity: string | number;
-        units: string;
-    };
-    onSubmit: (formData: {
-        name: string;
-        casNumber: string;
-        producer: string;
-        pricePerUnit: string | number;
-        quantity: string | number;
-        units: string;
-    }) => void;
+    initialData: formData;
+    onSubmit: (formData: formData) => void;
 };
 
 export const ReagentForm = ({ initialData, onSubmit }: ReagentFormProps) => {
@@ -29,13 +21,16 @@ export const ReagentForm = ({ initialData, onSubmit }: ReagentFormProps) => {
     const unitsRef = useRef<HTMLInputElement>(null);
 
     const handleSubmit = () => {
-        const formData = {
-            name: nameRef.current?.value || initialData.name || "",
-            casNumber: casNumberRef.current?.value || initialData.casNumber || "",
-            producer: producerRef.current?.value || initialData.producer || "",
-            pricePerUnit: pricePerUnitRef.current?.value || initialData.pricePerUnit || "",
-            quantity: quantityRef.current?.value || initialData.quantity || "",
-            units: unitsRef.current?.value || initialData.units || "",
+        const formData: formData = {
+            name: nameRef.current?.value || initialData.name,
+            casNumber: casNumberRef.current?.value || initialData.casNumber,
+            producer: producerRef.current?.value || initialData.producer,
+            pricePerUnit: parseInt(
+                pricePerUnitRef.current?.value || `${initialData.pricePerUnit}`,
+                10,
+            ),
+            quantity: parseInt(quantityRef.current?.value || `${initialData.quantity}`, 10),
+            units: unitsRef.current?.value || initialData.units,
         };
         onSubmit(formData);
     };

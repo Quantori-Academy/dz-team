@@ -1,56 +1,20 @@
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
-import {
-    Box,
-    Button,
-    Drawer,
-    IconButton,
-    Modal,
-    Typography,
-    useMediaQuery,
-    useTheme,
-} from "@mui/material";
+import { Box, Button, Drawer, IconButton, Modal, Typography } from "@mui/material";
 import { useLoaderData } from "@tanstack/react-router";
+
+import { useIsDesktop } from "utils/useIsDesktop";
 
 import { ReagentForm } from "./ReagentForm";
 
-export type Reagent = {
-    id: number;
-    name: string;
-    category: string;
-    description: string;
-    casNumber: string;
-    producer: string;
-    catalogId: string;
-    catalogLink: string;
-    pricePerUnit: number;
-    quantity: number;
-    units: string;
-};
-
 const $Typography = (props: React.PropsWithChildren) => (
-    <Typography sx={{ fontSize: "1rem", mb: 1 }}>{props.children}</Typography>
+    <Typography sx={{ mb: 1 }}>{props.children}</Typography>
 );
 
 export function ReagentDetailsPage() {
     const [isEditing, setIsEditing] = useState(false);
-    const { reagent }: { reagent: Reagent } = useLoaderData({ from: "/_app/reagents/$id" });
-    const theme = useTheme();
-    const isSmallScreen = useMediaQuery(theme.breakpoints.down("sm"));
-
-    const fields = [
-        `ID: ${reagent.id}`,
-        `Name: ${reagent.name}`,
-        `Category: ${reagent.category}`,
-        `Description: ${reagent.description}`,
-        `CAS Number: ${reagent.casNumber}`,
-        `Producer: ${reagent.producer}`,
-        `Catalog ID: ${reagent.catalogId}`,
-        `Catalog Link: ${reagent.catalogLink}`,
-        `Price per Unit: $${reagent.pricePerUnit}`,
-        `Quantity: ${reagent.quantity}`,
-        `Units: ${reagent.units}`,
-    ];
+    const { reagent } = useLoaderData({ from: "/_app/reagents/$id" });
+    const isSmallScreen = useIsDesktop();
 
     if (!reagent) {
         return (
@@ -67,6 +31,20 @@ export function ReagentDetailsPage() {
         );
     }
 
+    const fields = [
+        `ID: ${reagent.id}`,
+        `Name: ${reagent.name}`,
+        `Category: ${reagent.category}`,
+        `Description: ${reagent.description}`,
+        `CAS Number: ${reagent.casNumber}`,
+        `Producer: ${reagent.producer}`,
+        `Catalog ID: ${reagent.catalogId}`,
+        `Catalog Link: ${reagent.catalogLink}`,
+        `Price per Unit: $${reagent.pricePerUnit}`,
+        `Quantity: ${reagent.quantity}`,
+        `Units: ${reagent.units}`,
+    ];
+
     const handleEditSubmit = () => {
         setIsEditing(false);
     };
@@ -80,17 +58,19 @@ export function ReagentDetailsPage() {
             anchor="right"
             open={true}
             variant="temporary"
-            sx={{ transform: isSmallScreen ? "translateY(55px)" : "translateY(83px)" }}
+            elevation={0}
+            sx={{
+                transform: isSmallScreen ? "translateY(85px)" : "translateY(55px)",
+                borderTop: "1px solid rgba(0, 0, 0, 0.12)",
+            }}
         >
             <Box
                 sx={{
                     width: {
                         xs: "100%",
-                        sm: "75%",
                         md: 400,
                     },
                     p: 2,
-                    position: "relative",
                 }}
             >
                 <IconButton

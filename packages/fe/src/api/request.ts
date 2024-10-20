@@ -4,12 +4,17 @@ import * as rt from "runtypes";
 import { config } from "config";
 import { wait } from "utils";
 
+import { Reagent } from "../api/reagentType";
 import { handleError } from "./errorHandler";
 import { decrementLoading, incrementLoading } from "./loadingState";
 
 const { useMockData, isProd } = config;
 
 export const base = isProd ? "http://vm4.quantori.academy:1337" : "http://localhost:1337";
+
+type MockData = {
+    [key: string]: Reagent;
+};
 
 const api = ky.create({
     retry: {
@@ -25,7 +30,7 @@ const api = ky.create({
                     const url = request.url.toString().replace(base, "");
                     // eslint-disable-next-line no-console
                     console.warn("will use mock data for:", url);
-                    const mockData = (await import("./data.json")).default;
+                    const mockData: MockData = (await import("./data.json")).default;
                     if (!mockData) throw new Error("Mock data is not defined");
                     const mock = mockData[url];
                     if (!mock) throw new Error("Mock data on this url is not found");
@@ -70,7 +75,7 @@ export async function request<TT extends rt.Runtype, T = rt.Static<TT>, K = T>(
         showErrorNotification?: boolean;
         throwOnError?: boolean;
         shouldAffectIsLoading?: boolean;
-    }
+    },
 ): Promise<T | K | undefined> {
     try {
         if (options?.shouldAffectIsLoading) {
