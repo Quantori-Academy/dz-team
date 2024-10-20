@@ -41,27 +41,6 @@ server.get("/", async () => {
     return `Hello world! isProd: ${isProd}`;
 });
 
-// // FOR TESTING PURPOSES ONLY
-// server.post("/login", async (request, reply) => {
-//     try {
-//         const user = userSchema.parse(request.body);
-//         console.log("user validated:", user);
-//
-//         // Generate a JWT token for the authenticated user
-//         const token = server.jwt.sign({ email: user.email });
-//
-//         return { success: true, token };
-//     } catch (error) {
-//         reply.status(400).send(error);
-//     }
-// });
-
-// Register the Fastify JWT plugin
-server.register(jwtConfig.plugin, jwtConfig.options);
-
-// Register the JWT middleware
-jwtMiddleware(server);
-
 // Register the Fastify JWT plugin
 server.register(jwtConfig.plugin, jwtConfig.options);
 
