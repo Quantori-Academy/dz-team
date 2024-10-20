@@ -1,5 +1,5 @@
 import ky, { Input, Options } from "ky";
-import * as rt from "runtypes";
+import { Runtype, Static } from "runtypes";
 
 import { config } from "config";
 import { wait } from "utils";
@@ -21,13 +21,21 @@ const api = ky.create({
     hooks: {
         beforeRequest: [
             async (request) => {
+                if (isProd) return request;
                 if (useMockData) {
-                    const mockData = (await import("./data.json")).default;
                     const url = request.url.toString().replace(base, "");
-                    const mock = mockData[url];
+                    // eslint-disable-next-line no-console
+                    console.warn("will use mock data for:", url);
+                    const mockData = (await import("./data.json")).default;
+                    if (!mockData) throw new Error("Mock data is not defined");
+
+                    const mock = mockData[url as keyof typeof mockData]; // this assesment might be incorrect and must be checked with (!mock) below
+
+                    if (!mock) throw new Error("Mock data on this url is not found");
                     await wait(Math.random() * 1000);
                     return new Response(JSON.stringify(mock), { status: 200 });
                 }
+                return request;
             },
         ],
     },
@@ -58,7 +66,7 @@ const api = ky.create({
  *
  * @throws {Error} - Throws an error if `throwOnError` is set to true.
  */
-export async function request<TT extends rt.Runtype, T = rt.Static<TT>, K = T>(
+export async function request<TT extends Runtype, T = Static<TT>, K = T>(
     url: Input,
     contract: TT,
     options?: Options & {
