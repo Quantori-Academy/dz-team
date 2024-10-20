@@ -21,17 +21,19 @@ const api = ky.create({
     hooks: {
         beforeRequest: [
             async (request) => {
-                if (!isProd && useMockData) {
+                if (isProd) return request;
+                if (useMockData) {
                     const url = request.url.toString().replace(base, "");
                     // eslint-disable-next-line no-console
                     console.warn("will use mock data for:", url);
                     const mockData = (await import("./data.json")).default;
                     if (!mockData) throw new Error("Mock data is not defined");
-                    const mock = mockData[url];
+                    const mock = mockData[url as keyof typeof mockData]; // this assesment might be incorrect and must be checked with (!mock) below
                     if (!mock) throw new Error("Mock data on this url is not found");
                     await wait(Math.random() * 1000);
                     return new Response(JSON.stringify(mock), { status: 200 });
                 }
+                return request;
             },
         ],
     },
