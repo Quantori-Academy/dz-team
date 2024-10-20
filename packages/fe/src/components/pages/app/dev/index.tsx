@@ -4,22 +4,23 @@ import { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 
 import { fetchServerConnection } from "api/apiCalls";
-import { headers, mockData } from "components/pages/Table/mockData";
-import { Table } from "components/pages/Table/Table";
+// import { headers, mockData } from "components/pages/Table/mockData";
+import { ReagentSearchTable } from "components/pages/Table/ReagentSearchTable";
+// import { Table } from "components/pages/Table/Table";
 import { config } from "config";
 
 const logError = (err: unknown) => dev.info("{!offline}", err);
 
 export function DevPage() {
-    const [connectionState, setConnectionState] = useState("...");
+    const [connectionState, setConnectionState] = useState<string | undefined>("...");
 
     useEffect(() => {
         fetchServerConnection().then(setConnectionState).catch(logError);
     }, []);
 
-    const handleActionClick = () => {
-        alert(`click!`);
-    };
+    // const handleActionClick = () => {
+    //     alert(`click!`);
+    // };
 
     return (
         <>
@@ -59,12 +60,15 @@ export function DevPage() {
                     tableLayout: "fixed",
                 }}
             >
-                <Table
+                {/* DEMO COMPONENT. FOR REFERENCE ONLY */}
+                <ReagentSearchTable />
+
+                {/* <Table
                     data={mockData}
                     headers={headers}
                     actionLabel="Purchase"
                     onActionClick={handleActionClick}
-                />
+                /> */}
             </Box>
         </>
     );
