@@ -4,10 +4,11 @@ import { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 
 import { fetchServerConnection } from "api/apiCalls";
+import { ReagentDatagrid } from "components/pages/Table/ReagentDatagrid";
 // import { headers, mockData } from "components/pages/Table/mockData";
-import { ReagentSearchTable } from "components/pages/Table/ReagentSearchTable";
 // import { Table } from "components/pages/Table/Table";
 import { config } from "config";
+// import { ReagentSearchTable } from "components/pages/Table/ReagentSearchTable";
 
 const logError = (err: unknown) => dev.info("{!offline}", err);
 
@@ -61,8 +62,11 @@ export function DevPage() {
                 }}
             >
                 {/* DEMO COMPONENT. FOR REFERENCE ONLY */}
-                <ReagentSearchTable />
-
+                {/* <ReagentSearchTable /> */}
+                {/* <ReagentTable /> */}
+                {/* <DataTable /> */}
+                <ReagentDatagrid />
+                {/* <ReagentTableDemo /> */}
                 {/* <Table
                     data={mockData}
                     headers={headers}
