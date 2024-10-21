@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { Link, useMatches } from "@tanstack/react-router";
+import { Link, useLocation } from "@tanstack/react-router";
 import { theme } from "theme";
 
 type INavigationList = Array<{
@@ -41,8 +41,7 @@ interface Props {
 }
 
 export function NavList({ onClickCloseMobileModal }: Props) {
-    const matches = useMatches();
-    const pathname = matches[matches.length - 1].pathname;
+    const pathname = useLocation().pathname;
 
     return (
         <>
@@ -51,7 +50,7 @@ export function NavList({ onClickCloseMobileModal }: Props) {
                     key={idx}
                     to={route.href}
                     style={{ width: "100%", textDecoration: "none", color: "inherit" }}
-                    onClick={() => onClickCloseMobileModal && onClickCloseMobileModal()}
+                    onClick={onClickCloseMobileModal}
                 >
                     <Box
                         sx={{

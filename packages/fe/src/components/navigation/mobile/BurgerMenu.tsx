@@ -8,12 +8,12 @@ import logo from "/lunaHeaderLogo.png";
 
 interface Props {
     open: boolean;
-    setOpen: (val: boolean) => void;
+    closeMenu: () => void;
 }
 
-export default function BurgerMenu({ open, setOpen }: Props) {
+export default function BurgerMenu({ open, closeMenu }: Props) {
     return (
-        <Drawer open={open} onClose={() => setOpen(false)}>
+        <Drawer open={open} onClose={closeMenu}>
             <Box
                 sx={{
                     p: "32px",
@@ -38,7 +38,7 @@ export default function BurgerMenu({ open, setOpen }: Props) {
                             color: theme.palette.text.disabled,
                             "&:focus": { outline: "none" },
                         }}
-                        onClick={() => setOpen(false)}
+                        onClick={closeMenu}
                     >
                         <MenuIcon sx={{ width: 36, height: 36, transform: "rotate(90deg)" }} />
                     </IconButton>
@@ -58,7 +58,7 @@ export default function BurgerMenu({ open, setOpen }: Props) {
                         gap: "8px",
                     }}
                 >
-                    <NavList onClickCloseMobileModal={() => setOpen(false)} />
+                    <NavList onClickCloseMobileModal={closeMenu} />
                 </Box>
             </Box>
         </Drawer>
