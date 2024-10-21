@@ -10,6 +10,7 @@ import { decrementLoading, incrementLoading } from "./loadingState";
 
 const { useMockData, isProd } = config;
 
+// TODO: Update the base URL to include /api/v1 for consistency with the API routes.
 export const base = isProd ? "http://vm4.quantori.academy:1337" : "http://localhost:1337";
 
 type MockData = {
