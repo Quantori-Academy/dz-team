@@ -58,8 +58,14 @@ export function NavList({ onClickCloseMobileModal }: Props) {
                             borderColor: theme.palette.primary.main,
                             borderRadius: "4px",
                             p: "8px",
-                            bgcolor: pathname === route.href && theme.palette.primary.main,
-                            color: pathname === route.href && theme.palette.background.default,
+                            bgcolor:
+                                pathname === route.href
+                                    ? theme.palette.primary.main
+                                    : "transparent",
+                            color:
+                                pathname === route.href
+                                    ? theme.palette.background.default
+                                    : theme.palette.text.primary,
                         }}
                     >
                         <Typography variant="subtitle1" sx={{ fontWeight: "bold" }}>

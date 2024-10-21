@@ -29,7 +29,7 @@ export function Layout() {
                 }}
             >
                 <Navigation />
-                <Box flex={1}>
+                <Box sx={{ width: "100%" }}>
                     <Outlet />
                 </Box>
             </Container>

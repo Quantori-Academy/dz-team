@@ -22,6 +22,7 @@ import { Route as AppDevImport } from "./routes/_app/dev";
 // Create/Update Routes
 
 const LoginRoute = LoginImport.update({
+    id: "/login",
     path: "/login",
     getParentRoute: () => rootRoute,
 } as any);
@@ -32,26 +33,31 @@ const AppRoute = AppImport.update({
 } as any);
 
 const AppIndexRoute = AppIndexImport.update({
+    id: "/",
     path: "/",
     getParentRoute: () => AppRoute,
 } as any);
 
 const AppSamplesRoute = AppSamplesImport.update({
+    id: "/samples",
     path: "/samples",
     getParentRoute: () => AppRoute,
 } as any);
 
 const AppReagentsRoute = AppReagentsImport.update({
+    id: "/reagents",
     path: "/reagents",
     getParentRoute: () => AppRoute,
 } as any);
 
 const AppOrdersRoute = AppOrdersImport.update({
+    id: "/orders",
     path: "/orders",
     getParentRoute: () => AppRoute,
 } as any);
 
 const AppDevRoute = AppDevImport.update({
+    id: "/dev",
     path: "/dev",
     getParentRoute: () => AppRoute,
 } as any);
