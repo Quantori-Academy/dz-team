@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Box, Button, TextField } from "@mui/material";
 
-import { Reagent } from "../../../../api/reagentType";
+import { Reagent } from "api/reagentType";
 
 type formData = Pick<
     Reagent,
