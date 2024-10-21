@@ -1,7 +1,6 @@
 import ky, { Input, Options } from "ky";
 import { Runtype, Static } from "runtypes";
 
-import { Reagent } from "api/reagentType";
 import { config } from "config";
 import { wait } from "utils";
 
@@ -12,10 +11,6 @@ const { useMockData, isProd } = config;
 
 // TODO: Update the base URL to include /api/v1 for consistency with the API routes.
 export const base = isProd ? "http://vm4.quantori.academy:1337" : "http://localhost:1337";
-
-type MockData = {
-    [key: string]: Reagent;
-};
 
 const api = ky.create({
     retry: {
@@ -32,7 +27,7 @@ const api = ky.create({
                     const url = request.url.toString().replace(base, "");
                     // eslint-disable-next-line no-console
                     console.warn("will use mock data for:", url);
-                    const mockData: MockData = (await import("./data.json")).default;
+                    const mockData = (await import("./data.json")).default;
                     if (!mockData) throw new Error("Mock data is not defined");
 
                     const mock = mockData[url as keyof typeof mockData]; // this assesment might be incorrect and must be checked with (!mock) below

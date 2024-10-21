@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { Box, Typography } from "@mui/material";
+import { Outlet } from "@tanstack/react-router";
 import { useGate, useUnit } from "effector-react";
 import { theme } from "theme";
 
@@ -58,6 +59,7 @@ export const ReagentsListPage = () => {
                 actionLabel="Edit"
                 onActionClick={handleActionClick}
             />
+            <Outlet />
         </Box>
     );
 };

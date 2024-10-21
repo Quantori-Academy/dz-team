@@ -13,7 +13,7 @@ const $Typography = (props: React.PropsWithChildren) => (
 
 export function ReagentDetailsPage() {
     const [isEditing, setIsEditing] = useState(false);
-    const { reagent } = useLoaderData({ from: "/_app/reagents/$id" });
+    const reagent = useLoaderData({ from: "/_app/reagents/$id" });
     const isSmallScreen = useIsDesktop();
 
     if (!reagent) {
@@ -36,13 +36,13 @@ export function ReagentDetailsPage() {
         `Name: ${reagent.name}`,
         `Category: ${reagent.category}`,
         `Description: ${reagent.description}`,
-        `CAS Number: ${reagent.casNumber}`,
+        `CAS Number: ${reagent.cas}`,
         `Producer: ${reagent.producer}`,
         `Catalog ID: ${reagent.catalogId}`,
         `Catalog Link: ${reagent.catalogLink}`,
         `Price per Unit: $${reagent.pricePerUnit}`,
         `Quantity: ${reagent.quantity}`,
-        `Units: ${reagent.units}`,
+        `Units: ${reagent.unit}`,
     ];
 
     const handleEditSubmit = () => {
