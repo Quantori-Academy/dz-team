@@ -1,19 +1,34 @@
 import { useEffect } from "react";
 import { Box, Typography } from "@mui/material";
-import { useGate } from "effector-react";
+import { useGate, useUnit } from "effector-react";
 import { theme } from "theme";
 
 import { DataGridTable } from "components/gridTable/DataGridTable";
-import { columns, rows } from "components/gridTable/MockData";
-import { fetchReagentsFx, ReagentsGate } from "stores/reagents";
+import { $ReagentsList, fetchReagentsFx, ReagentsGate } from "stores/reagents";
 
 export const ReagentsListPage = () => {
     useGate(ReagentsGate);
+    const reagents = useUnit($ReagentsList);
 
     useEffect(() => {
         fetchReagentsFx();
     }, []);
 
+    const headers = [
+        { field: "name", headername: "Name" },
+        { field: "structure", headername: "Structure" },
+        { field: "description", headername: "Description" },
+        { field: "quantity", headername: "Quantity" },
+        { field: "unit", headername: "Unit" },
+        { field: "size", headername: "Size" },
+        { field: "expirationDate", headername: "Expiration Date" },
+        { field: "storageLocation", headername: "Storage Location" },
+        { field: "cas", headername: "CAS" },
+        { field: "producer", headername: "Producer" },
+        { field: "catalogId", headername: "Catalog ID" },
+        { field: "catalogLink", headername: "Catalog Link" },
+        { field: "pricePerUnit", headername: "Price Per Unit" },
+    ];
     return (
         <Box
             sx={{
@@ -31,7 +46,7 @@ export const ReagentsListPage = () => {
                     Reagents List
                 </Typography>
             </Box>
-            <DataGridTable data={rows} headers={columns} />
+            <DataGridTable data={reagents} headers={headers} />
         </Box>
     );
 };
