@@ -1,10 +1,10 @@
 import ky, { Input, Options } from "ky";
 import { Runtype, Static } from "runtypes";
 
+import { Reagent } from "api/reagentType";
 import { config } from "config";
 import { wait } from "utils";
 
-import { Reagent } from "../api/reagentType";
 import { handleError } from "./errorHandler";
 import { decrementLoading, incrementLoading } from "./loadingState";
 

@@ -38,6 +38,7 @@ const AppIndexRoute = AppIndexImport.update({
 } as any);
 
 const AppReagentsRoute = AppReagentsImport.update({
+    id: "/reagents",
     path: "/reagents",
     getParentRoute: () => AppRoute,
 } as any);
@@ -49,9 +50,9 @@ const AppDevRoute = AppDevImport.update({
 } as any);
 
 const AppReagentsIdRoute = AppReagentsIdImport.update({
-    id: "/reagents/$id",
-    path: "/reagents/$id",
-    getParentRoute: () => AppRoute,
+    id: "/$id",
+    path: "/$id",
+    getParentRoute: () => AppReagentsRoute,
 } as any);
 
 // Populate the FileRoutesByPath interface
@@ -95,28 +96,36 @@ declare module "@tanstack/react-router" {
         };
         "/_app/reagents/$id": {
             id: "/_app/reagents/$id";
-            path: "/reagents/$id";
+            path: "/$id";
             fullPath: "/reagents/$id";
             preLoaderRoute: typeof AppReagentsIdImport;
-            parentRoute: typeof AppImport;
+            parentRoute: typeof AppReagentsImport;
         };
     }
 }
 
 // Create and export the route tree
 
+interface AppReagentsRouteChildren {
+    AppReagentsIdRoute: typeof AppReagentsIdRoute;
+}
+
+const AppReagentsRouteChildren: AppReagentsRouteChildren = {
+    AppReagentsIdRoute: AppReagentsIdRoute,
+};
+
+const AppReagentsRouteWithChildren = AppReagentsRoute._addFileChildren(AppReagentsRouteChildren);
+
 interface AppRouteChildren {
     AppDevRoute: typeof AppDevRoute;
-    AppReagentsRoute: typeof AppReagentsRoute;
+    AppReagentsRoute: typeof AppReagentsRouteWithChildren;
     AppIndexRoute: typeof AppIndexRoute;
-    AppReagentsIdRoute: typeof AppReagentsIdRoute;
 }
 
 const AppRouteChildren: AppRouteChildren = {
     AppDevRoute: AppDevRoute,
-    AppReagentsRoute: AppReagentsRoute,
+    AppReagentsRoute: AppReagentsRouteWithChildren,
     AppIndexRoute: AppIndexRoute,
-    AppReagentsIdRoute: AppReagentsIdRoute,
 };
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren);
@@ -125,7 +134,7 @@ export interface FileRoutesByFullPath {
     "": typeof AppRouteWithChildren;
     "/login": typeof LoginRoute;
     "/dev": typeof AppDevRoute;
-    "/reagents": typeof AppReagentsRoute;
+    "/reagents": typeof AppReagentsRouteWithChildren;
     "/": typeof AppIndexRoute;
     "/reagents/$id": typeof AppReagentsIdRoute;
 }
@@ -133,7 +142,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
     "/login": typeof LoginRoute;
     "/dev": typeof AppDevRoute;
-    "/reagents": typeof AppReagentsRoute;
+    "/reagents": typeof AppReagentsRouteWithChildren;
     "/": typeof AppIndexRoute;
     "/reagents/$id": typeof AppReagentsIdRoute;
 }
@@ -143,18 +152,24 @@ export interface FileRoutesById {
     "/_app": typeof AppRouteWithChildren;
     "/login": typeof LoginRoute;
     "/_app/dev": typeof AppDevRoute;
-    "/_app/reagents": typeof AppReagentsRoute;
+    "/_app/reagents": typeof AppReagentsRouteWithChildren;
     "/_app/": typeof AppIndexRoute;
     "/_app/reagents/$id": typeof AppReagentsIdRoute;
 }
 
 export interface FileRouteTypes {
     fileRoutesByFullPath: FileRoutesByFullPath;
-
-    fullPaths: "" | "/login" | "/dev" | "/" | "/reagents" | "/reagents/$id";
+    fullPaths: "" | "/login" | "/dev" | "/reagents" | "/" | "/reagents/$id";
     fileRoutesByTo: FileRoutesByTo;
-    to: "/login" | "/dev" | "/" | "/reagents" | "/reagents/$id";
-    id: "__root__" | "/_app" | "/login" | "/_app/dev" | "/_app/" | "/_app/reagents" | "/_app/reagents/$id";
+    to: "/login" | "/dev" | "/reagents" | "/" | "/reagents/$id";
+    id:
+        | "__root__"
+        | "/_app"
+        | "/login"
+        | "/_app/dev"
+        | "/_app/reagents"
+        | "/_app/"
+        | "/_app/reagents/$id";
     fileRoutesById: FileRoutesById;
 }
 
@@ -188,9 +203,8 @@ export const routeTree = rootRoute
       "filePath": "_app.tsx",
       "children": [
         "/_app/dev",
-        "/_app/",
         "/_app/reagents",
-        "/_app/reagents/$id"
+        "/_app/"
       ]
     },
     "/login": {
@@ -202,7 +216,10 @@ export const routeTree = rootRoute
     },
     "/_app/reagents": {
       "filePath": "_app/reagents.tsx",
-      "parent": "/_app"
+      "parent": "/_app",
+      "children": [
+        "/_app/reagents/$id"
+      ]
     },
     "/_app/": {
       "filePath": "_app/index.tsx",
@@ -210,7 +227,7 @@ export const routeTree = rootRoute
     },
     "/_app/reagents/$id": {
       "filePath": "_app/reagents/$id.tsx",
-      "parent": "/_app"
+      "parent": "/_app/reagents"
     }
   }
 }
