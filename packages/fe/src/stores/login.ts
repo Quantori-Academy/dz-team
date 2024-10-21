@@ -6,7 +6,7 @@ export const loginFx = genericDomain.createEffect(
         if (username === "admin" && password === "password") {
             return { success: true };
         } else {
-            throw new Error("Invalid credentials");
+            throw new Error("Failed to log in: incorrect username or password");
         }
     },
 );

@@ -70,7 +70,7 @@ export function LoginForm() {
                     error={!!usernameError || !!loginState.message}
                     label={usernameError || "Username"}
                     variant="outlined"
-                    sx={{ height: "56px", width: "100%", mt: 3, mb: 2 }}
+                    sx={{ height: "56px", width: 1, mt: 3, mb: 2 }}
                     value={username}
                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
                         setUsername(event.target.value);
@@ -81,12 +81,13 @@ export function LoginForm() {
                     label={passwordError || "Password"}
                     variant="outlined"
                     type="password"
-                    sx={{ height: "56px", width: "100%", mb: 2 }}
+                    sx={{ height: "56px", width: 1, mb: 2 }}
                     value={password}
                     onChange={(event: ChangeEvent<HTMLInputElement>) => {
                         setPassword(event.target.value);
                     }}
                 />
+                {/* TODO: use when auth state is added */}
                 <FormControlLabel
                     control={<Checkbox sx={{ ml: 1 }} />}
                     label="Remember me"
@@ -110,7 +111,7 @@ export function LoginForm() {
                     color="primary"
                     sx={{
                         height: "42px",
-                        width: "100%",
+                        width: 1,
                         mb: 2,
                     }}
                 >
@@ -118,9 +119,10 @@ export function LoginForm() {
                 </Button>
                 {loginState.message ? (
                     <Alert severity="error" sx={{ mb: 2 }}>
-                        Failed to log in: incorrect username or password
+                        {loginState.message}
                     </Alert>
                 ) : null}
+                {/* TODO: update link when password restoration page is ready */}
                 <Link variant="body2" color="secondary" sx={{ cursor: "pointer" }}>
                     Forgot password?
                 </Link>
