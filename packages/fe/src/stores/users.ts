@@ -9,7 +9,6 @@ export const $UserList = domain.createStore<UserType[]>([], { name: "$UserList" 
 
 export const fetchUsersFx = createEffect(async () => {
     const response = await getUsersApi();
-
     return response ?? [];
 });
 
