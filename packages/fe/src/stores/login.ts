@@ -4,7 +4,7 @@ export const loginFx = genericDomain.createEffect(
     ({ username, password }: { username: string; password: string }) => {
         // the request function doesn't support logic, so we use a mock here
         if (username === "admin" && password === "password") {
-            return { success: true };
+            return { success: true, username }; // TODO: return user object received from backend
         } else {
             throw new Error("Failed to log in: incorrect username or password");
         }
