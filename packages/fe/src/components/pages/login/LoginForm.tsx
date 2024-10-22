@@ -1,4 +1,4 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
     Alert,
     Box,
@@ -17,10 +17,12 @@ import { $loginState, loginFx } from "stores/login";
 import { useIsDesktop } from "utils/useIsDesktop";
 
 export function LoginForm() {
-    const [username, setUsername] = useState("");
-    const [password, setPassword] = useState("");
     const [usernameError, setUsernameError] = useState("");
     const [passwordError, setPasswordError] = useState("");
+
+    const usernameInput = useRef<HTMLInputElement>(null);
+    const passwordInput = useRef<HTMLInputElement>(null);
+
     const navigate = useNavigate();
 
     const loginState = useUnit($loginState);
@@ -31,6 +33,23 @@ export function LoginForm() {
             navigate({ to: "/" });
         }
     }, [loginState.success, navigate]);
+
+    const handleLogin = useCallback(() => {
+        const username = usernameInput.current?.value;
+        const password = passwordInput.current?.value;
+
+        if (!username) {
+            setUsernameError("Username is required");
+        }
+        if (!password) {
+            setPasswordError("Password is required");
+        }
+        if (username && password) {
+            loginFx({ username, password });
+            setPasswordError("");
+            setUsernameError("");
+        }
+    }, [passwordInput, usernameInput]);
 
     return (
         <Box
@@ -63,65 +82,50 @@ export function LoginForm() {
                     borderRadius: 1,
                     zIndex: 2,
                     p: 7,
+                    mt: 15,
                 }}
             >
-                <Typography sx={{ fontSize: "24px" }}>Log In</Typography>
+                <Typography sx={{ fontSize: 24 }}>Log In</Typography>
                 <TextField
+                    variant="outlined"
+                    sx={{ minHeight: 56, width: 1, mt: 3, mb: 2 }}
+                    inputRef={usernameInput}
                     error={!!usernameError || !!loginState.message}
                     label={usernameError || "Username"}
-                    variant="outlined"
-                    sx={{ height: "56px", width: 1, mt: 3, mb: 2 }}
-                    value={username}
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                        setUsername(event.target.value);
-                    }}
                 />
                 <TextField
-                    error={!!passwordError || !!loginState.message}
-                    label={passwordError || "Password"}
                     variant="outlined"
                     type="password"
-                    sx={{ height: "56px", width: 1, mb: 2 }}
-                    value={password}
-                    onChange={(event: ChangeEvent<HTMLInputElement>) => {
-                        setPassword(event.target.value);
-                    }}
+                    sx={{ minHeight: 56, width: 1, mb: 2 }}
+                    inputRef={passwordInput}
+                    error={!!passwordError || !!loginState.message}
+                    label={passwordError || "Password"}
                 />
                 {/* TODO: use when auth state is added */}
                 <FormControlLabel
-                    control={<Checkbox sx={{ ml: 1 }} />}
                     label="Remember me"
                     sx={{ mb: 2 }}
+                    control={<Checkbox sx={{ ml: 1 }} />}
                 />
                 <Button
-                    onClick={() => {
-                        if (!username) {
-                            setUsernameError("Username is required");
-                        }
-                        if (!password) {
-                            setPasswordError("Password is required");
-                        }
-                        if (username && password) {
-                            loginFx({ username, password });
-                            setPasswordError("");
-                            setUsernameError("");
-                        }
-                    }}
                     variant="contained"
                     color="primary"
                     sx={{
-                        height: "42px",
+                        minHeight: 42,
                         width: 1,
                         mb: 2,
                     }}
+                    onClick={handleLogin}
                 >
                     Log In
                 </Button>
-                {loginState.message ? (
-                    <Alert severity="error" sx={{ mb: 2 }}>
-                        {loginState.message}
-                    </Alert>
-                ) : null}
+                <Box sx={{ minHeight: 70, mb: 2 }}>
+                    {loginState.message ? (
+                        <Alert severity="error" sx={{ mb: 2 }}>
+                            {loginState.message}
+                        </Alert>
+                    ) : null}
+                </Box>
                 {/* TODO: update link when password restoration page is ready */}
                 <Link variant="body2" color="secondary" sx={{ cursor: "pointer" }}>
                     Forgot password?
