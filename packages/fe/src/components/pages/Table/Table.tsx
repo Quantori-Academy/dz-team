@@ -27,7 +27,6 @@ export const Table = ({ data, headers, actionLabel = "Action", onActionClick }: 
         fontSize: "14px",
         lineHeight: "17px",
     };
-
     return (
         <TableContainer
             component={Paper}
