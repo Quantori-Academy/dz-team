@@ -1,16 +1,24 @@
 import { Box, Button } from "@mui/material";
 
 import { createModal } from "./createModal";
+import { removeResolve } from "./store";
 
 export function ModalExample() {
     const handleModal = async () => {
-        // to simplify, not passing details to the create modal; just implementing open/close functionality
-        const result = await createModal();
+        try {
+            const result = await createModal({
+                title: "ეთანხმებით მოსაზრებას",
+                message: "ეთანხმებით თუ არა მოსაზრებას, რომ რიკი რიკი გოუდის?",
+                labels: [{ ok: "კარგი" }, { cancel: "გამორთვა" }],
+            });
 
-        if (result) {
-            // the onClose("some value") in modal component is logging from here
             // eslint-disable-next-line no-console
-            console.log(result);
+            console.log("Resolved with:", result);
+        } catch (err) {
+            // eslint-disable-next-line no-console
+            console.log("Rejected with:", err);
+        } finally {
+            removeResolve();
         }
     };
 

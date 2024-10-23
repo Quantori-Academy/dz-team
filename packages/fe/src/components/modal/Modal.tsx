@@ -1,28 +1,43 @@
-import { Button, Dialog, Typography } from "@mui/material";
+import { Box, Button, Dialog, Typography } from "@mui/material";
 
-import { removeResolve } from "./store";
-
-// inline interfaces for test purposes yet
 interface Props {
     isOpen: boolean;
-    onClose: (val: unknown) => void;
+    resolve: (value?: unknown) => void | null;
+    reject: (reason?: unknown) => void | null;
+    title: string;
+    message: string | React.ReactNode;
+    labels: [{ ok: string }, { cancel: string }];
 }
 
-// to simplify, just receiving open/close props and tracking only the state
-export function Modal({ isOpen, onClose }: Props) {
-    const closeModal = () => {
-        // this should make the resolve action which (as i understood) should be dynamic as user choices
-        onClose("some action");
-        // cleares the store, which triggers the modal to be closed
-        removeResolve();
+export function Modal({ isOpen, message, title, labels, resolve, reject }: Props) {
+    const handleResolve = () => {
+        resolve();
+    };
+    const handleReject = () => {
+        reject();
     };
 
     return (
-        <Dialog open={isOpen} onClose={closeModal}>
-            <Typography variant="h1">TEXT</Typography>
-            MESSAGE
-            <Button variant="contained">btn1</Button>
-            <Button variant="contained">btn2</Button>
+        <Dialog open={isOpen} onClose={handleReject}>
+            <Box sx={{ p: "18px" }}>
+                <Typography variant="h5">{title}</Typography>
+                <Typography variant="body1">{message}</Typography>
+                <Box
+                    sx={{
+                        width: "100%",
+                        display: "flex",
+                        justifyContent: "flex-end",
+                        alignItems: "center",
+                        gap: "8px",
+                    }}
+                >
+                    {labels.map((btn, idx) => (
+                        <Button key={idx} variant="contained" onClick={handleResolve}>
+                            {btn[Object.keys(btn)[0]]}
+                        </Button>
+                    ))}
+                </Box>
+            </Box>
         </Dialog>
     );
 }

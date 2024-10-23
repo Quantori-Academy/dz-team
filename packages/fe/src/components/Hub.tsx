@@ -4,10 +4,16 @@ import { Modal } from "./modal/Modal";
 import { $modal } from "./modal/store";
 
 export function Hub() {
-    const { modal, resolve } = useUnit($modal);
+    const { modal, modalData, resolve, reject } = useUnit($modal);
 
-    // logging into console to track how the state is changing
-    // console.log({ modal, resolve });
-
-    return <Modal isOpen={modal !== null} onClose={resolve} />;
+    return (
+        <Modal
+            isOpen={!!modal}
+            title={modalData.title}
+            message={modalData.message}
+            labels={modalData.labels}
+            resolve={resolve}
+            reject={reject}
+        />
+    );
 }
