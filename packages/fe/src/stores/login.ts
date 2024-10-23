@@ -1,17 +1,25 @@
+import { getLoginApi } from "api/login";
 import { genericDomain } from "logger";
 
 export const loginFx = genericDomain.createEffect(
-    ({ username, password }: { username: string; password: string }) => {
-        // the request function doesn't support logic, so we use a mock here
-        if (username === "admin" && password === "password") {
-            return { success: true, username }; // TODO: return user object received from backend
-        } else {
-            throw new Error("Failed to log in: incorrect username or password");
+    async ({ username, password }: { username: string; password: string }) => {
+        try {
+            const response = await getLoginApi({ username, password });
+
+            if (response) {
+                return { token: response.token };
+            }
+            throw new Error("Unknown error");
+        } catch (err) {
+            if (err instanceof Error) {
+                throw err;
+            }
+            throw new Error("Unknown error");
         }
     },
 );
 
 export const $loginState = genericDomain
-    .createStore<{ success: boolean; message: string | null }>({ success: false, message: null })
-    .on(loginFx.done, () => ({ success: true, message: null }))
-    .on(loginFx.fail, (_, { error }) => ({ success: false, message: error.message }));
+    .createStore<{ errorMessage: string | null }>({ errorMessage: null })
+    .on(loginFx.done, () => ({ errorMessage: null }))
+    .on(loginFx.fail, (_, { error }) => ({ errorMessage: error.message }));

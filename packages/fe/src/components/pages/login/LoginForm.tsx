@@ -13,6 +13,7 @@ import {
 import { useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 
+import { $auth } from "stores/auth";
 import { $loginState, loginFx } from "stores/login";
 import { useIsDesktop } from "utils/useIsDesktop";
 
@@ -26,13 +27,14 @@ export function LoginForm() {
     const navigate = useNavigate();
 
     const loginState = useUnit($loginState);
+    const authState = useUnit($auth);
     const isDesktop = useIsDesktop();
 
     useEffect(() => {
-        if (loginState.success) {
+        if (authState) {
             navigate({ to: "/" });
         }
-    }, [loginState.success, navigate]);
+    }, [authState, navigate]);
 
     const handleLogin = useCallback(() => {
         const username = usernameInput.current?.value;
@@ -90,7 +92,7 @@ export function LoginForm() {
                     variant="outlined"
                     sx={{ minHeight: 56, width: 1, mt: 3, mb: 2 }}
                     inputRef={usernameInput}
-                    error={!!usernameError || !!loginState.message}
+                    error={!!usernameError || !!loginState.errorMessage}
                     label={usernameError || "Username"}
                 />
                 <TextField
@@ -98,7 +100,7 @@ export function LoginForm() {
                     type="password"
                     sx={{ minHeight: 56, width: 1, mb: 2 }}
                     inputRef={passwordInput}
-                    error={!!passwordError || !!loginState.message}
+                    error={!!passwordError || !!loginState.errorMessage}
                     label={passwordError || "Password"}
                 />
                 {/* TODO: use when auth state is added */}
@@ -120,9 +122,9 @@ export function LoginForm() {
                     Log In
                 </Button>
                 <Box sx={{ minHeight: 70, mb: 2 }}>
-                    {loginState.message ? (
+                    {loginState.errorMessage ? (
                         <Alert severity="error" sx={{ mb: 2 }}>
-                            {loginState.message}
+                            {loginState.errorMessage}
                         </Alert>
                     ) : null}
                 </Box>
