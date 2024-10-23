@@ -13,9 +13,6 @@ const logError = (err: unknown) => dev.info("{!offline}", err);
 import { Box, Button, ThemeProvider, Typography } from "@mui/material";
 import { theme } from "theme";
 
-import { Hub } from "components/Hub";
-import { ModalExample } from "components/modal/ModalExample";
-
 function App() {
     useGate(AppGate);
     const materials = useUnit($materials);
@@ -66,8 +63,6 @@ function App() {
                 <Button variant="outlined" onClick={handlePost}>
                     register new molecule to DB
                 </Button>
-                <ModalExample />
-                <Hub />
             </Box>
         </ThemeProvider>
     );
