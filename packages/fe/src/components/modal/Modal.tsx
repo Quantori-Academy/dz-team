@@ -21,7 +21,13 @@ export function Modal({ isOpen, message, title, labels, resolve, reject }: Props
         <Dialog open={isOpen} onClose={handleReject}>
             <Box sx={{ p: "18px" }}>
                 <Typography variant="h5">{title}</Typography>
-                <Typography variant="body1">{message}</Typography>
+                {typeof message === "string" ? (
+                    <Typography variant="body1" sx={{ my: "20px" }}>
+                        {message}
+                    </Typography>
+                ) : (
+                    <Box sx={{ my: "20px" }}>{message}</Box>
+                )}
                 <Box
                     sx={{
                         width: "100%",
@@ -31,11 +37,12 @@ export function Modal({ isOpen, message, title, labels, resolve, reject }: Props
                         gap: "8px",
                     }}
                 >
-                    {labels.map((btn, idx) => (
-                        <Button key={idx} variant="contained" onClick={handleResolve}>
-                            {btn[Object.keys(btn)[0]]}
-                        </Button>
-                    ))}
+                    <Button variant="contained" onClick={handleResolve}>
+                        {labels[0].ok}
+                    </Button>
+                    <Button variant="outlined" onClick={handleReject}>
+                        {labels[1].cancel}
+                    </Button>
                 </Box>
             </Box>
         </Dialog>

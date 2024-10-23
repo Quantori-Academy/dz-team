@@ -24,9 +24,9 @@ const initialValue: StoreType = {
 
 // Events
 export const saveResolve = createEvent<StoreType>();
-export const removeResolve = createEvent();
+export const removeModal = createEvent();
 
 // Store
 export const $modal = createStore<StoreType>(initialValue)
     .on(saveResolve, (_, payload) => ({ ...payload }))
-    .on(removeResolve, () => initialValue);
+    .on(removeModal, () => initialValue);

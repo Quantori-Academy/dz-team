@@ -1,31 +1,33 @@
-import { Box, Button } from "@mui/material";
+import { useState } from "react";
+import { Box, Button, Typography } from "@mui/material";
 
 import { createModal } from "./createModal";
-import { removeResolve } from "./store";
+import { removeModal } from "./store";
 
 export function ModalExample() {
-    const handleModal = async () => {
+    const [count, setCount] = useState(0);
+
+    const increment = async () => {
         try {
-            const result = await createModal({
-                title: "ეთანხმებით მოსაზრებას",
-                message: "ეთანხმებით თუ არა მოსაზრებას, რომ რიკი რიკი გოუდის?",
-                labels: [{ ok: "კარგი" }, { cancel: "გამორთვა" }],
+            await createModal({
+                title: "Make count higher",
+                message: "Are you sure you want to add 1 to the counter?",
+                labels: [{ ok: "Yes" }, { cancel: "No" }],
             });
 
-            // eslint-disable-next-line no-console
-            console.log("Resolved with:", result);
-        } catch (err) {
-            // eslint-disable-next-line no-console
-            console.log("Rejected with:", err);
-        } finally {
-            removeResolve();
+            setCount((prev) => prev + 1);
+            removeModal();
+        } catch (_) {
+            setCount((prev) => prev);
+            removeModal();
         }
     };
 
     return (
         <Box>
-            <Button variant="outlined" onClick={() => void handleModal()}>
-                Open a modal
+            <Typography>Current state: {count}</Typography>
+            <Button variant="outlined" onClick={() => void increment()}>
+                Add +1 to the count
             </Button>
         </Box>
     );
