@@ -11,6 +11,7 @@ const dev: DevTools = debug;
 const devNone: DevTools = lo.transform(
     dev,
     (acc, _, key) => {
+        // @ts-expect-error string can be used to  index`acc`
         // eslint-disable-next-line @typescript-eslint/unbound-method
         acc[key] = lo.noop;
     },
