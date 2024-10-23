@@ -1,9 +1,9 @@
 import { Box, Typography } from "@mui/material";
 import { useGate, useUnit } from "effector-react";
 
-import { $UserList, UsersGate } from "stores/users";
+import { $UsersList, UsersGate } from "stores/users";
 
-import { TableGrid } from "../tableGrid/TableGrid";
+import { Grid } from "../../dataGrid/Grid";
 
 const headers = [
     { field: "firstName", headerName: "First Name", width: 200 },
@@ -13,13 +13,20 @@ const headers = [
     { field: "lastLoginDate", headerName: "Last login date", width: 200 },
 ];
 
+const boxStyles = {
+    padding: "40px",
+    display: "flex",
+    flexDirection: "column",
+    gap: "20px",
+};
+
 export const UserList = () => {
     useGate(UsersGate);
-    const users = useUnit($UserList);
+    const users = useUnit($UsersList);
     return (
-        <Box sx={{ padding: "40px", display: "flex", flexDirection: "column", gap: "20px" }}>
+        <Box sx={boxStyles}>
             <Typography variant="h5">User List</Typography>
-            <TableGrid data={users} headers={headers} />
+            <Grid rows={users} headers={headers} />
         </Box>
     );
 };

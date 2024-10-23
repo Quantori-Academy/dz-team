@@ -2,7 +2,7 @@ import { Array, Record, Static, String } from "runtypes";
 
 import { base, request } from "./request";
 
-const Users = Record({
+const User = Record({
     id: String,
     firstName: String,
     lastName: String,
@@ -11,10 +11,10 @@ const Users = Record({
     lastLoginDate: String,
 });
 
-const UserResponse = Array(Users).optional();
-export type UserType = Static<typeof Users>;
+const UsersResponse = Array(User).optional();
+export type UserType = Static<typeof User>;
 
-export const getUsersApi = async () => {
-    const Users = await request(`${base}/api/v1/users`, UserResponse);
+export const getUsers = async () => {
+    const Users = await request(`${base}/api/v1/users`, UsersResponse);
     return Users;
 };

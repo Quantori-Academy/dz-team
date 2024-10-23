@@ -1,14 +1,14 @@
 import { createEffect, sample } from "effector";
 import { createGate } from "effector-react";
 
-import { getUsersApi, UserType } from "api/users";
+import { getUsers, UserType } from "api/users";
 import { genericDomain as domain } from "logger";
 
 // Store to hold the user list
-export const $UserList = domain.createStore<UserType[]>([], { name: "$UserList" });
+export const $UsersList = domain.createStore<UserType[]>([], { name: "$UserList" });
 
 export const fetchUsersFx = createEffect(async () => {
-    const response = await getUsersApi();
+    const response = await getUsers();
     return response ?? [];
 });
 
@@ -23,5 +23,5 @@ sample({
 // save data from server
 sample({
     clock: fetchUsersFx.doneData,
-    target: $UserList,
+    target: $UsersList,
 });
