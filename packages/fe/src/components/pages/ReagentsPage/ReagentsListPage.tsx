@@ -38,11 +38,10 @@ export const ReagentsListPage = () => {
     return (
         <Box
             sx={{
+                overflow: "auto",
                 width: "100%",
-                padding: "30px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "20px",
+                display: "table",
+                tableLayout: "fixed",
             }}
         >
             <Box

@@ -53,7 +53,7 @@ export function HeaderMobile() {
                 </Container>
             </AppBar>
             <DropdownMenuHeaderMobile open={openDropDown} setOpen={setOpenDropDown} />
-            <BurgerMenu open={openBurger} setOpen={setOpenBurger} />
+            <BurgerMenu open={openBurger} closeMenu={() => setOpenBurger(false)} />
         </>
     );
 }
