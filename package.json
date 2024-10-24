@@ -30,13 +30,6 @@
         "format": "prettier --write .",
         "prepare": "husky"
     },
-    "lint-staged": {
-        "*.{ts,tsx}": [
-            "tsc --noEmit",
-            "eslint --fix --max-warnings 0 --no-warn-ignored",
-            "prettier --write"
-        ]
-    },
     "devDependencies": {
         "@eslint/js": "^9.13.0",
         "@types/eslint__js": "^8.42.3",
