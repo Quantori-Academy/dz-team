@@ -3,11 +3,14 @@ import MenuIcon from "@mui/icons-material/Menu";
 import Notifications from "@mui/icons-material/Notifications";
 import { AppBar, Avatar, Box, Container, IconButton, Toolbar, useTheme } from "@mui/material";
 
+import BurgerMenu from "components/navigation/mobile/BurgerMenu";
+
 import { DropdownMenuHeaderMobile } from "./DropdownMenuHeaderMobile";
 
 export function HeaderMobile() {
     const theme = useTheme();
-    const [open, setOpen] = useState(false);
+    const [openDropDown, setOpenDropDown] = useState(false);
+    const [openBurger, setOpenBurger] = useState(false);
 
     return (
         <>
@@ -21,7 +24,7 @@ export function HeaderMobile() {
                                     color: theme.palette.text.disabled,
                                     "&:focus": { outline: "none" },
                                 }}
-                                disableRipple
+                                onClick={() => setOpenBurger(true)}
                             >
                                 <MenuIcon sx={{ width: 36, height: 36 }} />
                             </IconButton>
@@ -41,7 +44,7 @@ export function HeaderMobile() {
 
                         {/* profile */}
                         <Avatar
-                            onClick={() => setOpen(true)}
+                            onClick={() => setOpenDropDown(true)}
                             sx={{ width: 32, height: 32 }}
                             src="/path/to/avatar.jpg"
                             alt="User Avatar"
@@ -49,7 +52,8 @@ export function HeaderMobile() {
                     </Toolbar>
                 </Container>
             </AppBar>
-            <DropdownMenuHeaderMobile open={open} setOpen={setOpen} />
+            <DropdownMenuHeaderMobile open={openDropDown} setOpen={setOpenDropDown} />
+            <BurgerMenu open={openBurger} closeMenu={() => setOpenBurger(false)} />
         </>
     );
 }

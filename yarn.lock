@@ -1091,6 +1091,7 @@
   version "1.74.0"
   resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.74.0.tgz#393f937a15d70d843ef2ab6edc240aa40dedc74e"
   integrity sha512-dthfscAM25bi1AjA38t9jPsU2jqNk0f6a6ziorEi845ss6Uwrbw4FSFQ1oI1UmUfaJR73S5SO8TGXKZAIxhlWQ==
+
   dependencies:
     "@tanstack/history" "1.61.1"
     "@tanstack/react-store" "^0.5.5"
