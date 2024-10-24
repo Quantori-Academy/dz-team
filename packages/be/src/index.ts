@@ -1,63 +1,30 @@
 import fastify from "fastify";
 import cors from "@fastify/cors";
 
-import { PrismaClient } from "@prisma/client";
+import { serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
 
 import { isProd } from "./utils/isProd";
-import { registerSwagger } from "./config/swaggerConfig";
+import { registerSwagger } from "./utils/swaggerConfig";
 import { generateOpenApiSchema } from "./utils/generateOpenApi";
-import { reagentRoutes } from "./routes/reagentRoutes";
 
-// Initialize Prisma Client
-const prisma = new PrismaClient();
-const server = fastify();
+import { jwtConfig } from "./utils/jwtConfig";
+import { jwtMiddleware } from "./middlewares/jwtMiddleware";
 
-// Set up CORS options based on production or development environment
+import { apiRoutes } from "./routes/apiRoutes";
+
+const server = fastify().withTypeProvider<ZodTypeProvider>();
+
 const corsOptions = isProd
     ? ["http://vm4.quantori.academy"]
     : ["http://localhost:3000", "http://localhost:4173"];
 
+server.setValidatorCompiler(validatorCompiler);
+
+server.setSerializerCompiler(serializerCompiler);
+
 server.register(cors, {
     origin: corsOptions,
     methods: ["GET", "POST"],
-});
-
-// Root route
-server.get("/", async () => {
-    return `Hello world! isProd: ${isProd}`;
-});
-
-// api routes with prefix 'api/v1'
-server.register(reagentRoutes, { prefix: "/api/v1" });
-
-// POST route for creating a molecule
-server.post(
-    "/molecule",
-    {
-        schema: {
-            body: {
-                type: "object",
-                properties: {
-                    smiles: { type: "string" },
-                },
-                additionalProperties: false,
-                required: ["smiles"],
-            },
-        },
-    },
-    async (request) => {
-        const { smiles } = request.body as { smiles: string };
-        const molecule = await prisma.molecule.create({
-            data: { smiles },
-        });
-        return molecule;
-    },
-);
-
-// GET route for counting molecules
-server.get("/molecule/count", async () => {
-    const count = await prisma.molecule.count();
-    return count;
 });
 
 // Conditionally import the OpenAPI generator in non-production environments
@@ -70,7 +37,19 @@ if (!isProd) {
     });
 }
 
-// Start the server
+server.get("/", async () => {
+    return `Hello world! isProd: ${isProd}`;
+});
+
+// Register the Fastify JWT plugin
+server.register(jwtConfig.plugin, jwtConfig.options);
+
+// Register the JWT middleware
+jwtMiddleware(server);
+
+// initialization api routes with prefix 'api/v1'
+server.register(apiRoutes, { prefix: "/api/v1" });
+
 server.listen(
     {
         port: 1337,

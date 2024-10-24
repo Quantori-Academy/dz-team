@@ -3,6 +3,8 @@ dist
 
 .env
 
+packages/shared/generated/
+
 # Action specific files
 !.github/actions/auto-add-reviewers/dist
 
@@ -25,3 +27,4 @@ lerna-debug.log*
 *.njsproj
 *.sln
 *.sw?
+/packages/shared/generated/
