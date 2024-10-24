@@ -86,18 +86,17 @@ export async function request<TT extends Runtype, T = Static<TT>, K = T>(
         let value: T;
 
         // Check if the response is an array or a single object
-        if (Array.isArray(response.data)) {
+        if (response.data) {
             // For list responses
             value = contract.check(response.data) as T;
         } else {
             // For single object responses
             value = contract.check(response) as T;
         }
-        // const value = contract.check(response.data) as T;
 
         return options?.mapper ? options.mapper(value) : value;
     } catch (err) {
-        if (options?.showErrorNotification) {
+        if (options?.showErrorNotification ?? !isProd) {
             // TODO: notification is not implemented yet
             handleError(err as Error, url, options);
         }

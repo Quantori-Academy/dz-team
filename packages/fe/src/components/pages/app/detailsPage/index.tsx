@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, Drawer, IconButton, Modal, Typography } from "@mui/material";
-import { useLoaderData } from "@tanstack/react-router";
+import { useLoaderData, useNavigate } from "@tanstack/react-router";
 
 import { useIsDesktop } from "utils/useIsDesktop";
 
@@ -15,6 +15,7 @@ export function ReagentDetailsPage() {
     const [isEditing, setIsEditing] = useState(false);
     const reagent = useLoaderData({ from: "/_app/reagents/$id" });
     const isSmallScreen = useIsDesktop();
+    const navigate = useNavigate();
 
     if (!reagent) {
         return (
@@ -51,9 +52,7 @@ export function ReagentDetailsPage() {
 
     const handleCloseDetails = () => {
         // TODO: Use useNavigate instead of window.location.href in the future
-        // const navigate = useNavigate();
-        // navigate("/reagents");
-        window.location.href = "/reagents";
+        navigate({ to: "/reagents", replace: false });
     };
 
     return (

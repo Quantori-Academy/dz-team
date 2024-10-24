@@ -147,7 +147,7 @@ const AppReagentsRouteWithChildren = AppReagentsRoute._addFileChildren(AppReagen
 interface AppRouteChildren {
     AppDevRoute: typeof AppDevRoute;
     AppOrdersRoute: typeof AppOrdersRoute;
-    AppReagentsRoute: typeof AppReagentsRoute;
+    AppReagentsRoute: typeof AppReagentsRouteWithChildren;
     AppSamplesRoute: typeof AppSamplesRoute;
     AppIndexRoute: typeof AppIndexRoute;
 }
@@ -155,7 +155,7 @@ interface AppRouteChildren {
 const AppRouteChildren: AppRouteChildren = {
     AppDevRoute: AppDevRoute,
     AppOrdersRoute: AppOrdersRoute,
-    AppReagentsRoute: AppReagentsRoute,
+    AppReagentsRoute: AppReagentsRouteWithChildren,
     AppSamplesRoute: AppSamplesRoute,
     AppIndexRoute: AppIndexRoute,
 };
@@ -167,7 +167,7 @@ export interface FileRoutesByFullPath {
     "/login": typeof LoginRoute;
     "/dev": typeof AppDevRoute;
     "/orders": typeof AppOrdersRoute;
-    "/reagents": typeof AppReagentsRoute;
+    "/reagents": typeof AppReagentsRouteWithChildren;
     "/samples": typeof AppSamplesRoute;
     "/": typeof AppIndexRoute;
     "/reagents/$id": typeof AppReagentsIdRoute;
@@ -177,7 +177,7 @@ export interface FileRoutesByTo {
     "/login": typeof LoginRoute;
     "/dev": typeof AppDevRoute;
     "/orders": typeof AppOrdersRoute;
-    "/reagents": typeof AppReagentsRoute;
+    "/reagents": typeof AppReagentsRouteWithChildren;
     "/samples": typeof AppSamplesRoute;
     "/": typeof AppIndexRoute;
     "/reagents/$id": typeof AppReagentsIdRoute;
@@ -189,7 +189,7 @@ export interface FileRoutesById {
     "/login": typeof LoginRoute;
     "/_app/dev": typeof AppDevRoute;
     "/_app/orders": typeof AppOrdersRoute;
-    "/_app/reagents": typeof AppReagentsRoute;
+    "/_app/reagents": typeof AppReagentsRouteWithChildren;
     "/_app/samples": typeof AppSamplesRoute;
     "/_app/": typeof AppIndexRoute;
     "/_app/reagents/$id": typeof AppReagentsIdRoute;
@@ -197,7 +197,15 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
     fileRoutesByFullPath: FileRoutesByFullPath;
-    fullPaths: "" | "/login" | "/dev" | "/orders" | "/reagents" | "/samples" | "/" | "/reagents/$id";
+    fullPaths:
+        | ""
+        | "/login"
+        | "/dev"
+        | "/orders"
+        | "/reagents"
+        | "/samples"
+        | "/"
+        | "/reagents/$id";
     fileRoutesByTo: FileRoutesByTo;
     to: "/login" | "/dev" | "/orders" | "/reagents" | "/samples" | "/" | "/reagents/$id";
     id:
@@ -208,9 +216,8 @@ export interface FileRouteTypes {
         | "/_app/orders"
         | "/_app/reagents"
         | "/_app/samples"
-        | "/_app/";
+        | "/_app/"
         | "/_app/reagents/$id";
-
     fileRoutesById: FileRoutesById;
 }
 

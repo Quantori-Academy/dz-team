@@ -32,7 +32,7 @@ export const ReagentsListPage = () => {
     };
 
     const handleRowClick = (row: { id: string }) => {
-        navigate({ to: `/reagents/${row.id}` });
+        navigate({ to: `/reagents/${row.id}`, replace: false });
     };
 
     const reagents = useUnit($ReagentsList);
