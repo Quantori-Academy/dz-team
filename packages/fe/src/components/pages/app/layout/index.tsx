@@ -23,13 +23,14 @@ export function Layout() {
                 sx={{
                     height: "100%",
                     display: "flex",
-                    justifyContent: "center",
+                    justifyContent: "flex-start",
                     alignItems: "start",
                     gap: "8px",
+                    overflow: "hidden",
                 }}
             >
                 <Navigation />
-                <Box sx={{ width: "100%" }}>
+                <Box flexGrow={1} overflow="auto">
                     <Outlet />
                 </Box>
             </Container>

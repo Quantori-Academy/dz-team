@@ -5,15 +5,15 @@ import { NavList } from "../NavList";
 export function DesktopNav() {
     return (
         <Box
-            sx={{
-                height: "100%",
-                width: "fit-content",
-                maxWidth: "270px",
-                display: "flex",
-                flexDirection: "column",
-                justifyContent: "center",
-                alignItems: "start",
-                gap: "8px",
+            display={{ xs: "none", sm: "flex" }}
+            flexDirection="column"
+            justifyContent="center"
+            alignItems="start"
+            gap={1}
+            flexShrink={0}
+            width={{
+                sm: "220px",
+                lg: "280px",
             }}
         >
             <NavList />
