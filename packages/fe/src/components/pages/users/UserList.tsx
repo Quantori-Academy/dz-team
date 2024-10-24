@@ -6,11 +6,12 @@ import { $UsersList, UsersGate } from "stores/users";
 import { Grid } from "../../dataGrid/Grid";
 
 const headers = [
-    { field: "firstName", headerName: "First Name", width: 200 },
-    { field: "lastName", headerName: "Last name", width: 200 },
-    { field: "email", headerName: "Email", width: 200 },
-    { field: "role", headerName: "Role", width: 200 },
-    { field: "lastLoginDate", headerName: "Last login date", width: 200 },
+    { field: "userName", headerName: "User Name", width: 150 },
+    { field: "firstName", headerName: "First Name", width: 150 },
+    { field: "lastName", headerName: "Last name", width: 170 },
+    { field: "email", headerName: "Email", width: 170 },
+    { field: "role", headerName: "Role", width: 170 },
+    { field: "lastLoginDate", headerName: "Last login date", width: 170 },
 ];
 
 const boxStyles = {

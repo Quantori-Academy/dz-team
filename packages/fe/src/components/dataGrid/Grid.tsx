@@ -1,6 +1,7 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
+import { TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
 import { deleteUserFx } from "stores/users";
@@ -13,8 +14,24 @@ type GridProps = {
     headers: Array<{ field: string; headerName: string }>;
 };
 export const Grid = ({ rows, headers }: GridProps) => {
+    const [searchQuery, setSearchQuery] = useState("");
+
     const handleDeleteClick = (id: string) => {
         deleteUserFx(id);
+    };
+
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+        setSearchQuery(event.target.value);
+    };
+    /* eslint-disable @typescript-eslint/no-base-to-string */
+    const filteredRows = rows.filter((row) =>
+        Object.values(row).some(
+            (value) => value && value.toString().toLowerCase().includes(searchQuery.toLowerCase()),
+        ),
+    );
+
+    const textField = {
+        width: "350px",
     };
     const columns = useMemo(() => {
         const editColumn = {
@@ -44,13 +61,22 @@ export const Grid = ({ rows, headers }: GridProps) => {
         return [...headers, editColumn];
     }, [headers]);
     return (
-        <DataGrid
-            rows={rows}
-            rowHeight={60}
-            columns={columns}
-            slots={{
-                toolbar: AddRecord,
-            }}
-        />
+        <>
+            <TextField
+                sx={textField}
+                variant="outlined"
+                placeholder="Search by name, username, or email"
+                value={searchQuery}
+                onChange={handleSearch}
+            />
+            <DataGrid
+                rows={filteredRows}
+                rowHeight={60}
+                columns={columns}
+                slots={{
+                    toolbar: AddRecord,
+                }}
+            />
+        </>
     );
 };
