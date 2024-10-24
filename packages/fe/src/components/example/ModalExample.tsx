@@ -1,8 +1,8 @@
 import { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 
-import { createModal } from "./createModal";
-import { removeModal } from "./store";
+import { createModal } from "components/modal/createModal";
+import { removeModal } from "components/modal/store";
 
 export function ModalExample() {
     const [count, setCount] = useState(0);
@@ -10,6 +10,7 @@ export function ModalExample() {
     const increment = async () => {
         try {
             await createModal({
+                name: "counter_modal",
                 title: "Make count higher",
                 message: "Are you sure you want to add 1 to the counter?",
                 labels: [{ ok: "Yes" }, { cancel: "No" }],

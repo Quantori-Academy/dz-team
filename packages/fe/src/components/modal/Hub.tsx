@@ -1,7 +1,7 @@
 import { useUnit } from "effector-react";
 
-import { Modal } from "./modal/Modal";
-import { $modal } from "./modal/store";
+import { Modal } from "./Modal";
+import { $modal } from "./store";
 
 export function Hub() {
     const { modal, modalData, resolve, reject } = useUnit($modal);

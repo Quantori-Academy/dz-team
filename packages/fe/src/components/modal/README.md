@@ -7,17 +7,19 @@ Since there are a lot of kind of pop-ups, project has reusable modal component. 
 Just call `await createModal()` function in a component and pass object with certain keys to it. It will make a Promise and simply: resolving of it means "YES" and rejecting means "NO".
 
 ```tsx
+import { useState } from "react";
 import { Box, Button, Typography } from "@mui/material";
 
-import { createModal } from "./createModal";
-import { removeModal } from "./store";
+import { createModal } from "components/modal/createModal";
+import { removeModal } from "components/modal/store";
 
 export function ModalExample() {
-    const [count, setCount] = React.useState(0);
+    const [count, setCount] = useState(0);
 
     const increment = async () => {
         try {
             await createModal({
+                name: "counter_modal",
                 title: "Make count higher",
                 message: "Are you sure you want to add 1 to the counter?",
                 labels: [{ ok: "Yes" }, { cancel: "No" }],
@@ -34,7 +36,9 @@ export function ModalExample() {
     return (
         <Box>
             <Typography>Current state: {count}</Typography>
-            <Button onClick={() => void increment()}>Add +1 to the count</Button>
+            <Button variant="outlined" onClick={() => void increment()}>
+                Add +1 to the count
+            </Button>
         </Box>
     );
 }

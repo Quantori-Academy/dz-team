@@ -10,15 +10,8 @@ interface Props {
 }
 
 export function Modal({ isOpen, message, title, labels, resolve, reject }: Props) {
-    const handleResolve = () => {
-        resolve();
-    };
-    const handleReject = () => {
-        reject();
-    };
-
     return (
-        <Dialog open={isOpen} onClose={handleReject}>
+        <Dialog open={isOpen} onClose={reject}>
             <Box sx={{ p: "18px" }}>
                 <Typography variant="h5">{title}</Typography>
                 {typeof message === "string" ? (
@@ -37,10 +30,10 @@ export function Modal({ isOpen, message, title, labels, resolve, reject }: Props
                         gap: "8px",
                     }}
                 >
-                    <Button variant="contained" onClick={handleResolve}>
+                    <Button variant="contained" onClick={resolve}>
                         {labels[0].ok}
                     </Button>
-                    <Button variant="outlined" onClick={handleReject}>
+                    <Button variant="outlined" onClick={reject}>
                         {labels[1].cancel}
                     </Button>
                 </Box>
