@@ -14,12 +14,15 @@ import { Route as rootRoute } from "./routes/__root";
 import { Route as LoginImport } from "./routes/login";
 import { Route as AppImport } from "./routes/_app";
 import { Route as AppIndexImport } from "./routes/_app/index";
+import { Route as AppSamplesImport } from "./routes/_app/samples";
 import { Route as AppReagentsImport } from "./routes/_app/reagents";
+import { Route as AppOrdersImport } from "./routes/_app/orders";
 import { Route as AppDevImport } from "./routes/_app/dev";
 
 // Create/Update Routes
 
 const LoginRoute = LoginImport.update({
+    id: "/login",
     path: "/login",
     getParentRoute: () => rootRoute,
 } as any);
@@ -30,16 +33,31 @@ const AppRoute = AppImport.update({
 } as any);
 
 const AppIndexRoute = AppIndexImport.update({
+    id: "/",
     path: "/",
     getParentRoute: () => AppRoute,
 } as any);
 
+const AppSamplesRoute = AppSamplesImport.update({
+    id: "/samples",
+    path: "/samples",
+    getParentRoute: () => AppRoute,
+} as any);
+
 const AppReagentsRoute = AppReagentsImport.update({
+    id: "/reagents",
     path: "/reagents",
     getParentRoute: () => AppRoute,
 } as any);
 
+const AppOrdersRoute = AppOrdersImport.update({
+    id: "/orders",
+    path: "/orders",
+    getParentRoute: () => AppRoute,
+} as any);
+
 const AppDevRoute = AppDevImport.update({
+    id: "/dev",
     path: "/dev",
     getParentRoute: () => AppRoute,
 } as any);
@@ -69,11 +87,25 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof AppDevImport;
             parentRoute: typeof AppImport;
         };
+        "/_app/orders": {
+            id: "/_app/orders";
+            path: "/orders";
+            fullPath: "/orders";
+            preLoaderRoute: typeof AppOrdersImport;
+            parentRoute: typeof AppImport;
+        };
         "/_app/reagents": {
             id: "/_app/reagents";
             path: "/reagents";
             fullPath: "/reagents";
             preLoaderRoute: typeof AppReagentsImport;
+            parentRoute: typeof AppImport;
+        };
+        "/_app/samples": {
+            id: "/_app/samples";
+            path: "/samples";
+            fullPath: "/samples";
+            preLoaderRoute: typeof AppSamplesImport;
             parentRoute: typeof AppImport;
         };
         "/_app/": {
@@ -90,13 +122,17 @@ declare module "@tanstack/react-router" {
 
 interface AppRouteChildren {
     AppDevRoute: typeof AppDevRoute;
+    AppOrdersRoute: typeof AppOrdersRoute;
     AppReagentsRoute: typeof AppReagentsRoute;
+    AppSamplesRoute: typeof AppSamplesRoute;
     AppIndexRoute: typeof AppIndexRoute;
 }
 
 const AppRouteChildren: AppRouteChildren = {
     AppDevRoute: AppDevRoute,
+    AppOrdersRoute: AppOrdersRoute,
     AppReagentsRoute: AppReagentsRoute,
+    AppSamplesRoute: AppSamplesRoute,
     AppIndexRoute: AppIndexRoute,
 };
 
@@ -106,14 +142,18 @@ export interface FileRoutesByFullPath {
     "": typeof AppRouteWithChildren;
     "/login": typeof LoginRoute;
     "/dev": typeof AppDevRoute;
+    "/orders": typeof AppOrdersRoute;
     "/reagents": typeof AppReagentsRoute;
+    "/samples": typeof AppSamplesRoute;
     "/": typeof AppIndexRoute;
 }
 
 export interface FileRoutesByTo {
     "/login": typeof LoginRoute;
     "/dev": typeof AppDevRoute;
+    "/orders": typeof AppOrdersRoute;
     "/reagents": typeof AppReagentsRoute;
+    "/samples": typeof AppSamplesRoute;
     "/": typeof AppIndexRoute;
 }
 
@@ -122,16 +162,26 @@ export interface FileRoutesById {
     "/_app": typeof AppRouteWithChildren;
     "/login": typeof LoginRoute;
     "/_app/dev": typeof AppDevRoute;
+    "/_app/orders": typeof AppOrdersRoute;
     "/_app/reagents": typeof AppReagentsRoute;
+    "/_app/samples": typeof AppSamplesRoute;
     "/_app/": typeof AppIndexRoute;
 }
 
 export interface FileRouteTypes {
     fileRoutesByFullPath: FileRoutesByFullPath;
-    fullPaths: "" | "/login" | "/dev" | "/reagents" | "/";
+    fullPaths: "" | "/login" | "/dev" | "/orders" | "/reagents" | "/samples" | "/";
     fileRoutesByTo: FileRoutesByTo;
-    to: "/login" | "/dev" | "/reagents" | "/";
-    id: "__root__" | "/_app" | "/login" | "/_app/dev" | "/_app/reagents" | "/_app/";
+    to: "/login" | "/dev" | "/orders" | "/reagents" | "/samples" | "/";
+    id:
+        | "__root__"
+        | "/_app"
+        | "/login"
+        | "/_app/dev"
+        | "/_app/orders"
+        | "/_app/reagents"
+        | "/_app/samples"
+        | "/_app/";
     fileRoutesById: FileRoutesById;
 }
 
@@ -165,7 +215,9 @@ export const routeTree = rootRoute
       "filePath": "_app.tsx",
       "children": [
         "/_app/dev",
+        "/_app/orders",
         "/_app/reagents",
+        "/_app/samples",
         "/_app/"
       ]
     },
@@ -176,8 +228,16 @@ export const routeTree = rootRoute
       "filePath": "_app/dev.tsx",
       "parent": "/_app"
     },
+    "/_app/orders": {
+      "filePath": "_app/orders.tsx",
+      "parent": "/_app"
+    },
     "/_app/reagents": {
       "filePath": "_app/reagents.tsx",
+      "parent": "/_app"
+    },
+    "/_app/samples": {
+      "filePath": "_app/samples.tsx",
       "parent": "/_app"
     },
     "/_app/": {

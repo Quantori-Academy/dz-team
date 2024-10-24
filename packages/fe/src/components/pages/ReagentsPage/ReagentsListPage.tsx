@@ -36,15 +36,7 @@ export const ReagentsListPage = () => {
     }, []);
 
     return (
-        <Box
-            sx={{
-                width: "100%",
-                padding: "30px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "20px",
-            }}
-        >
+        <Box>
             <Box
                 sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "30px" }}
             >
