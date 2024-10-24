@@ -60,6 +60,7 @@ export function ReagentDetailsPage() {
         <Drawer
             anchor="right"
             open={true}
+            onClose={handleCloseDetails}
             variant="temporary"
             elevation={0}
             sx={{

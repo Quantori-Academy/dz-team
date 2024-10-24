@@ -81,10 +81,19 @@ export async function request<TT extends Runtype, T = Static<TT>, K = T>(
         if (options?.shouldAffectIsLoading) {
             incrementLoading();
         }
+        const response = await api<{ data: T[] }>(url, options).json();
 
-        const response = await api<T>(url, options).json();
+        let value: T;
 
-        const value = contract.check(response) as T;
+        // Check if the response is an array or a single object
+        if (Array.isArray(response.data)) {
+            // For list responses
+            value = contract.check(response.data) as T;
+        } else {
+            // For single object responses
+            value = contract.check(response) as T;
+        }
+        // const value = contract.check(response.data) as T;
 
         return options?.mapper ? options.mapper(value) : value;
     } catch (err) {

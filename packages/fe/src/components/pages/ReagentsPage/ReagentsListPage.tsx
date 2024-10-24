@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { Box, Typography } from "@mui/material";
-import { Outlet } from "@tanstack/react-router";
+import { Outlet, useNavigate } from "@tanstack/react-router";
 import { useGate, useUnit } from "effector-react";
 import { theme } from "theme";
 
@@ -26,8 +26,13 @@ const header = [
 
 export const ReagentsListPage = () => {
     useGate(ReagentsGate);
+    const navigate = useNavigate();
     const handleActionClick = () => {
         alert(`click!`);
+    };
+
+    const handleRowClick = (row: { id: string }) => {
+        navigate({ to: `/reagents/${row.id}` });
     };
 
     const reagents = useUnit($ReagentsList);
@@ -58,6 +63,7 @@ export const ReagentsListPage = () => {
                 headers={header}
                 actionLabel="Edit"
                 onActionClick={handleActionClick}
+                onRowClick={handleRowClick}
             />
             <Outlet />
         </Box>
