@@ -81,7 +81,7 @@ export async function request<TT extends Runtype, T = Static<TT>, K = T>(
         if (options?.shouldAffectIsLoading) {
             incrementLoading();
         }
-        const response = await api<{ data: T[] }>(url, options).json();
+        const response = await api<{ data: T[] }>(url, options).json(); // TODO: fix type asserion
 
         let value: T;
 
