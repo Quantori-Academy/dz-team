@@ -1,6 +1,12 @@
-import { createRootRoute } from "@tanstack/react-router";
+import { createRootRouteWithContext } from "@tanstack/react-router";
 import { App } from "App";
 
-export const Route = createRootRoute({
+import { Auth } from "stores/auth";
+
+type MyRouterContext = {
+    auth: Auth | null;
+};
+
+export const Route = createRootRouteWithContext<MyRouterContext>()({
     component: () => <App />,
 });

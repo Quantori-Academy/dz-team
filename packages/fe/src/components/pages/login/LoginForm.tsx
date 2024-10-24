@@ -56,10 +56,11 @@ export function LoginForm() {
     return (
         <Box
             sx={{
+                position: "relative",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
-                height: "100vh",
+                minHeight: "100vh",
                 backgroundImage: { xs: "none", sm: 'url("/bg.png")' },
                 backgroundSize: "cover",
                 backgroundPosition: "center",
@@ -70,7 +71,7 @@ export function LoginForm() {
                     top: 0,
                     left: 0,
                     right: 0,
-                    bottom: 0,
+                    height: "100%",
                     backgroundColor: { xs: "none", sm: "rgba(83, 83, 83, 0.4)" },
                     zIndex: 1,
                 },
@@ -121,7 +122,7 @@ export function LoginForm() {
                 >
                     Log In
                 </Button>
-                <Box sx={{ minHeight: 70, mb: 2 }}>
+                <Box sx={{ minHeight: 90, mb: 2 }}>
                     {loginState.errorMessage ? (
                         <Alert severity="error" sx={{ mb: 2 }}>
                             {loginState.errorMessage}

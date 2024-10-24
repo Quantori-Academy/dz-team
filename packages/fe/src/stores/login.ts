@@ -9,12 +9,12 @@ export const loginFx = genericDomain.createEffect(
             if (response) {
                 return { token: response.token };
             }
-            throw new Error("Unknown error");
+            throw new Error("An unexpected error occurred. Please, try again or contact support.");
         } catch (err) {
             if (err instanceof Error) {
-                throw err;
+                dev.error(err.message, err.stack);
             }
-            throw new Error("Unknown error");
+            throw new Error("An unexpected error occurred. Please, try again or contact support.");
         }
     },
 );
