@@ -1,5 +1,5 @@
-const { PrismaClient } = require('@prisma/client');
-const reagents = require('./seedData/reagents.json');
+const { PrismaClient } = require("@prisma/client");
+const reagents = require("./seedData/reagents.json");
 
 const prisma = new PrismaClient();
 
@@ -17,7 +17,7 @@ async function main() {
 }
 
 main()
-    .catch(e => {
+    .catch((e) => {
         console.error(e);
         process.exit(1);
     })
