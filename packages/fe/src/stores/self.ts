@@ -1,10 +1,9 @@
-import { getUser, UserType } from "api/user";
+import { getUser, UserType } from "api/self";
 import { genericDomain } from "logger";
 
-export const getUserFx = genericDomain.createEffect(async () => {
+export const getUserFx = genericDomain.createEffect(async (token: string) => {
     try {
-        const response = await getUser();
-
+        const response = await getUser(token);
         if (response) {
             return response;
         }

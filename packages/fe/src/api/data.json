@@ -115,5 +115,6 @@
             "updatedAt": "2021-09-01T00:00:00.000Z"
         }
     ],
-    "/api/v1/login": { "token": "string" }
+    "/api/v1/login": { "token": "string" },
+    "/api/v1/self": { "role": "procurementOfficer" }
 }

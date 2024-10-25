@@ -14,9 +14,10 @@ export const UserContract = Record({
 
 export type UserType = Static<typeof UserContract>;
 
-export const getUser = async () => {
-    const response = await request(`${base}/api/v1/user`, UserContract, {
+export const getUser = async (token: string) => {
+    const response = await request(`${base}/api/v1/self`, UserContract, {
         method: "GET", // TODO: pass auth token when it's merged
+        headers: { Authorization: token },
         showErrorNotification: true,
         shouldAffectIsLoading: true,
     });
