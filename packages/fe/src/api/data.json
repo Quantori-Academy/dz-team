@@ -1,1 +1,83 @@
-{}
+{
+    "/": "Hello world! isProd: false",
+    "/molecule/count": 1,
+    "/molecule": {
+        "id": 1,
+        "smiles": "C",
+        "createdAt": "20201-08-01T00:00:000Z"
+    },
+    "/api/v1/reagents": [
+        {
+            "id": "1",
+            "name": "Material 1",
+            "structure": "C6H12O6",
+            "description": "Material 1 description",
+            "quantity": 10,
+            "unit": "g",
+            "size": 10,
+            "expirationDate": null,
+            "storageLocation": "Room temperature",
+            "cas": null,
+            "producer": null,
+            "catalogId": null,
+            "catalogLink": null,
+            "pricePerUnit": null,
+            "createdAt": "2021-09-01T00:00:00.000Z",
+            "updatedAt": "2021-09-01T00:00:00.000Z"
+        },
+        {
+            "id": "2",
+            "name": "Material 2",
+            "structure": "C6H12O6",
+            "description": "Material 2 description",
+            "quantity": 20,
+            "unit": "g",
+            "size": 20,
+            "expirationDate": null,
+            "storageLocation": "Room temperature",
+            "cas": null,
+            "producer": null,
+            "catalogId": null,
+            "catalogLink": null,
+            "pricePerUnit": null,
+            "createdAt": "2021-09-01T00:00:00.000Z",
+            "updatedAt": "2021-09-01T00:00:00.000Z"
+        },
+        {
+            "id": "3",
+            "name": "Material 3",
+            "structure": "C6H12O6",
+            "description": "Material 3 description",
+            "quantity": 30,
+            "unit": "g",
+            "size": 30,
+            "expirationDate": null,
+            "storageLocation": "Room temperature",
+            "cas": null,
+            "producer": null,
+            "catalogId": null,
+            "catalogLink": null,
+            "pricePerUnit": null,
+            "createdAt": "2021-09-01T00:00:00.000Z",
+            "updatedAt": "2021-09-01T00:00:00.000Z"
+        },
+        {
+            "id": "4",
+            "name": "Material 4",
+            "structure": "C6H12O6",
+            "description": "Material 4 description",
+            "quantity": 40,
+            "unit": "g",
+            "size": 40,
+            "expirationDate": null,
+            "storageLocation": "Room temperature",
+            "cas": null,
+            "producer": null,
+            "catalogId": null,
+            "catalogLink": null,
+            "pricePerUnit": null,
+            "createdAt": "2021-09-01T00:00:00.000Z",
+            "updatedAt": "2021-09-01T00:00:00.000Z"
+        }
+    ]
+}

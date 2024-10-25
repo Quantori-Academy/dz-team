@@ -4,21 +4,31 @@ import { ReagentService } from "../services/reagentService";
 import {
     ReagentCreateInputSchema,
     ReagentUpdateInputSchema,
-} from "shared/generated/zod/inputTypeSchemas";
-import { idSchema } from "shared/zodSchemas";
+} from "../../../shared/generated/zod/inputTypeSchemas";
+import { idSchema, ReagentSearchSchema } from "../../../shared/zodSchemas";
 
 const reagentService = new ReagentService();
 
 export class ReagentController {
     /**
      * Get all reagents.
-     * @param _ - FastifyRequest (unused parameter)
+     * @param request - FastifyRequest
      * @param reply - FastifyReply
      * @returns A promise that resolves to an array of Reagent.
      */
-    async getReagents(_: FastifyRequest, reply: FastifyReply): Promise<void> {
-        const reagents = await reagentService.getAllReagents();
-        reply.send(reagents);
+    async getReagents(request: FastifyRequest, reply: FastifyReply): Promise<void> {
+        try {
+            const validatedData = ReagentSearchSchema.parse(request.query);
+            const reagents = await reagentService.getAllReagents(validatedData);
+            reply.send(reagents);
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                return reply
+                    .status(400)
+                    .send({ message: "Validation error", errors: error.errors });
+            }
+            return reply.status(500).send({ message: "Internal server error" });
+        }
     }
 
     /**

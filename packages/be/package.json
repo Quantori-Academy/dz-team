@@ -1,17 +1,22 @@
 {
     "name": "be",
     "version": "0.0.0",
+    "prisma": {
+        "seed": "node prisma/seed.js"
+    },
     "scripts": {
         "build": "tsc",
         "dev": "cross-env NODE_ENV=development tsx watch src/index.ts",
         "dev:db": "yarn db && run-p dev studio",
         "db:build": "docker-compose build",
-        "db": "docker-compose up -d & yarn migrate:dev",
+        "db": "docker-compose up -d & prisma generate & prisma migrate dev",
+        "db:seed": "prisma db seed",
         "db:stop": "docker-compose down",
         "studio": "prisma studio",
-        "migrate:dev": "prisma migrate dev",
         "preview": "yarn build && cross-env NODE_ENV=development node dist/index.js",
-        "prod": "prisma generate && prisma migrate deploy && cross-env NODE_ENV=production node dist/index.js"
+        "db:reset": "prisma migrate reset --force",
+        "db:preprod": "prisma migrate deploy",
+        "prod": "cross-env NODE_ENV=production node dist/be/src/index.js"
     },
     "dependencies": {
         "@fastify/cors": "^9.0.1",
@@ -23,8 +28,7 @@
         "fastify": "^4.28.1",
         "fastify-type-provider-zod": "^4.0.2",
         "js-yaml": "^4.1.0",
-        "prisma": "^5.20.0",
-        "shared": "0.0.0"
+        "prisma": "^5.20.0"
     },
     "devDependencies": {
         "@types/node": "^22.5.2",

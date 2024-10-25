@@ -1,6 +1,7 @@
-import { ReagentCreateInputSchema, ReagentUpdateInputSchema } from "shared/generated/zod";
+import { ReagentCreateInputSchema, ReagentUpdateInputSchema } from "../../../shared/generated/zod";
 import { ReagentController } from "../controllers/reagentController";
 import { FastifyZodInstance } from "../types";
+import { ReagentSearch } from "../../../shared/zodSchemas";
 
 const reagentController = new ReagentController();
 
@@ -11,6 +12,39 @@ const reagentController = new ReagentController();
  * @returns {Promise<void>} A promise that resolves when the routes have been registered.
  */
 export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
+    /**
+     * GET / endpoint to retrieve a list of reagents.
+     *
+     * @name GetReagents
+     * @function
+     * @memberof module:routes
+     * @param {import("shared/zodSchemas").ReagentSearch} request.query - The search parameters for filtering reagents.
+     * @param {Object} reply - The reply object.
+     * @returns {Promise<Object>} The list of reagents and metadata.
+     * @throws {Error} Throws an error if there is an issue retrieving reagents.
+     *
+     * @typedef {Object} ReagentSearch
+     * @property {number} [page] - The page number for pagination.
+     * @property {number} [limit] - The number of results per page.
+     * @property {string} [sortBy] - The field to sort the results by.
+     * @property {'asc' | 'desc'} [sortOrder] - The order to sort the results.
+     * @property {string} [category] - The category of reagents to filter by.
+     * @property {string} [status] - The status of reagents to filter by.
+     * @property {string} [storageLocation] - The storage location to filter by.
+     * @property {string} [query] - A search query to filter results.
+     *
+     * @example
+     * // Example query
+     * GET /?page=1&limit=20&sortBy=name&sortBy=structure&sortOrder=asc
+     */
+    app.get<{ Querystring: ReagentSearch }>(
+        "/",
+        { schema: { tags: ["Reagent"] } },
+        async (request, reply) => {
+            return await reagentController.getReagents(request, reply);
+        },
+    );
+
     /**
      * @route GET /:id
      * @tags Reagent
@@ -26,16 +60,6 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
             return await reagentController.getReagent(request, reply);
         },
     );
-
-    /**
-     * @route GET /
-     * @tags Reagent
-     * @summary Get all reagents.
-     * @returns {Reagent[]} 200 - An array of reagents
-     */
-    app.get("/", { schema: { tags: ["Reagent"] } }, async (request, reply) => {
-        return await reagentController.getReagents(request, reply);
-    });
 
     /**
      * @route POST /
