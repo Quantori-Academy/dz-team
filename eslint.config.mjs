@@ -70,6 +70,7 @@ export default tseslint.config(
             "no-duplicate-imports": "warn",
             "no-unsafe-optional-chaining": "warn",
             // typescript
+            "@typescript-eslint/only-throw-error": "off",
             "@typescript-eslint/no-explicit-any": "warn",
             "@typescript-eslint/no-unsafe-assignment": "off",
             "@typescript-eslint/no-unsafe-member-access": "warn",
