@@ -5,19 +5,15 @@ import {
     Checkbox,
     FormControlLabel,
     MenuItem,
-    // Pagination,
-    // Paper,
     Select,
-    SelectChangeEvent,
     TextField,
-    // Toolbar,
     Typography,
 } from "@mui/material";
-import { DataGrid, GridColDef, GridToolbar } from "@mui/x-data-grid";
+import { DataGrid, GridColDef, GridSortModel, GridToolbar } from "@mui/x-data-grid";
 
 import { Reagent } from "shared/generated/zod";
 
-type ReagentMeta = {
+type ResponseMeta = {
     currentPage: number;
     totalPages: number;
     totalCount: number;
@@ -25,23 +21,25 @@ type ReagentMeta = {
     hasPreviousPage: boolean;
 };
 
-type ReagentState = {
+type ResponseState = {
     data: Reagent[];
-    meta: ReagentMeta;
+    meta: ResponseMeta;
 };
 
 type SearchBy = {
     [key in keyof Reagent]?: boolean;
 };
 
+type GridSortingDirection = "asc" | "desc";
+
 const columns: GridColDef[] = [
-    { field: "id", headerName: "ID", width: 90 },
+    { field: "id", headerName: "ID", width: 90, sortable: false },
     { field: "name", headerName: "Name", width: 150 },
     { field: "structure", headerName: "Structure", width: 150 },
     { field: "description", headerName: "Description", width: 200 },
     { field: "quantity", headerName: "Quantity", width: 110 },
-    { field: "unit", headerName: "Unit", width: 100 },
-    { field: "size", headerName: "Size", width: 100 },
+    { field: "unit", headerName: "Unit", width: 100, sortable: false },
+    { field: "size", headerName: "Size", width: 100, sortable: false },
     { field: "expirationDate", headerName: "Expiration Date", width: 150 },
     { field: "storageLocation", headerName: "Storage Location", width: 150 },
     { field: "cas", headerName: "CAS", width: 120 },
@@ -55,19 +53,10 @@ const columns: GridColDef[] = [
     { field: "updatedAt", headerName: "Updated At", width: 150 },
 ];
 
-const categoryOptions = [
-    "organic",
-    "inorganic",
-    "acidic",
-    "basic",
-    "oxidizing",
-    "reducing",
-    "precipitating",
-    "complexing",
-    "indicator",
-    "other",
-];
+// currently requires server-side support
+const categoryOptions = ["reagent", "sample"];
 
+// to be discussed
 const statusOptions = ["available", "low_stock", "out_of_stock", "ordered", "not_available"];
 
 const searchableFields: (keyof Reagent)[] = [
@@ -80,13 +69,17 @@ const searchableFields: (keyof Reagent)[] = [
     "catalogLink",
 ];
 
-export const ReagentDatagrid = () => {
-    // const [page, setPage] = useState(1);
-    // const [rowsPerPage, setRowsPerPage] = useState<number>(10);
+export const MainList = () => {
     const [paginationModel, setPaginationModel] = useState({
         pageSize: 25,
         page: 0,
     });
+    const [sortModel, setSortModel] = useState<GridSortModel>([
+        {
+            field: "name",
+            sort: "asc",
+        },
+    ]);
     const [loading, setLoading] = useState(false);
     const [category, setCategory] = useState("");
     const [status, setStatus] = useState("");
@@ -95,7 +88,7 @@ export const ReagentDatagrid = () => {
     const [searchBy, setSearchBy] = useState<SearchBy>(
         searchableFields.reduce((acc, field) => ({ ...acc, [field]: true }), {} as SearchBy)
     );
-    const [results, setResults] = useState<ReagentState>({
+    const [results, setResults] = useState<ResponseState>({
         data: [],
         meta: {
             currentPage: 1,
@@ -106,27 +99,28 @@ export const ReagentDatagrid = () => {
         },
     });
 
-    useEffect(() => {
-        fetchData();
-
-        // }, [page, rowsPerPage, category, status, storageLocation, query, searchBy]);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [
+    const fetchHookDeps = [
         paginationModel.pageSize,
         paginationModel.page,
+        sortModel[0].field,
+        sortModel[0].sort,
         category,
         status,
         storageLocation,
         query,
         searchBy,
-    ]);
+    ];
+    useEffect(() => {
+        fetchData();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, fetchHookDeps);
 
     const fetchData = async () => {
         const searchParams = new URLSearchParams({
-            // page: page.toString(),
-            // limit: rowsPerPage.toString(),
             page: (paginationModel.page + 1).toString(),
             limit: paginationModel.pageSize.toString(),
+            sortBy: sortModel[0].field,
+            sortOrder: sortModel[0].sort as GridSortingDirection, // enforce using this type, without "null" and "undefined" of MUI GridSortDirection
             ...(category && { category }),
             ...(status && { status }),
             ...(storageLocation && { storageLocation }),
@@ -141,44 +135,34 @@ export const ReagentDatagrid = () => {
             searchParams.append("searchBy", key);
         });
 
+        // 'base' url should be used instead of this one
         const url = `/api/v1/reagents?${searchParams.toString()}`;
 
         try {
             setLoading(true);
             const response = await fetch(url);
-            const result: { data: Reagent[]; meta: ReagentMeta } = await response.json();
+            const result: { data: Reagent[]; meta: ResponseMeta } = await response.json();
             setResults({
                 data: result.data,
                 meta: result.meta,
             });
-
-            // setData(result.data);
-            // setTotalCount(result.meta.totalCount);
         } catch (error) {
-            // eslint-disable-next-line no-console
-            console.error("Error fetching data:", error);
+            dev.error("Error fetching reagents and samples data:", error);
         } finally {
             setLoading(false);
         }
     };
 
-    // const handleChangePage = (newPage: number) => {
-    //     setPage(newPage);
-    // };
-
-    // const handleChangeRowsPerPage = (event: SelectChangeEvent<string>) => {
-    //     setRowsPerPage(parseInt(event.target.value, 10));
-    //     setPage(1);
-    // };
-
-    const handleChangePage = (newPage: number) => {
-        setPaginationModel({ ...paginationModel, page: newPage });
+    const handlePaginationMetaChange = (currentPage: number) => {
+        setPaginationModel({ ...paginationModel, page: currentPage });
     };
 
-    const handleChangeRowsPerPage = (event: SelectChangeEvent<string>) => {
-        setPaginationModel({ ...paginationModel, pageSize: parseInt(event.target.value, 10) });
-        // setPaginationModel({page: 1, pageSize: parseInt(event.target.value, 10)});
-        // setPage(1);
+    const handleRowCountChange = (totalPages: number) => {
+        setPaginationModel({ ...paginationModel, pageSize: totalPages });
+    };
+
+    const handleSortModelChange = (sortModel: GridSortModel) => {
+        setSortModel(sortModel);
     };
 
     return (
@@ -200,7 +184,7 @@ export const ReagentDatagrid = () => {
                     <MenuItem value="">All Categories</MenuItem>
                     {categoryOptions.map((option) => (
                         <MenuItem key={option} value={option}>
-                            {option}
+                            {option.toUpperCase()}
                         </MenuItem>
                     ))}
                 </Select>
@@ -254,55 +238,31 @@ export const ReagentDatagrid = () => {
 
             <Box sx={{ height: 400, width: "100%" }}>
                 <DataGrid
-                    //   pagination
+                    initialState={{
+                        sorting: {
+                            sortModel,
+                        },
+                    }}
                     rows={results.data}
                     columns={columns}
                     slots={{ toolbar: GridToolbar }}
                     checkboxSelection
-                    // pageSize={rowsPerPage}
-                    // pageSize={paginationModel.pageSize}
                     pageSizeOptions={[5, 10, 25, 50, 100]}
                     paginationModel={paginationModel}
                     paginationMode="server"
                     onPaginationModelChange={setPaginationModel}
                     rowCount={results.meta?.totalCount}
-                    // onPageChange={handleChangePage}
-                    onPageChange={() => handleChangePage(results.meta.currentPage)}
-                    onPageSizeChange={handleChangeRowsPerPage}
-                    // getRowId={(row) => row.id}
-                    disableSelectionOnClick
-                    // disableRowSelectionOnClick
-                    // pagination={ paginationModel}
+                    onPaginationMetaChange={() =>
+                        handlePaginationMetaChange(results.meta.currentPage)
+                    }
+                    onRowCountChange={() => handleRowCountChange(results.meta.totalPages)}
+                    sortingMode="server"
+                    onSortModelChange={handleSortModelChange}
+                    sortingOrder={["asc", "desc"]}
                     loading={loading}
-                    // initialState={{
-                    // //     ...results.data,
-                    //     pagination: { paginationModel },
-                    // }}
+                    showColumnVerticalBorder
                 />
             </Box>
-
-            {/* <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    mt: 2,
-                }}
-            >
-                <Typography variant="body2">
-                    Showing {(page - 1) * rowsPerPage + 1} to{" "}
-                    {Math.min(page * rowsPerPage, results.meta.totalCount)} of{" "}
-                    {results.meta.totalCount} results
-                </Typography>
-                <Pagination
-                    count={results.meta.totalPages}
-                    page={results.meta.currentPage}
-                    onChange={handleChangePage}
-                    color="primary"
-                    showFirstButton
-                    showLastButton
-                />
-            </Box> */}
         </Box>
     );
 };

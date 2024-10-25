@@ -15,6 +15,7 @@
         "@emotion/styled": "^11.13.0",
         "@mui/icons-material": "^6.1.1",
         "@mui/material": "^6.1.1",
+        "@mui/x-data-grid": "^7.21.0",
         "@tanstack/react-router": "^1.58.9",
         "effector": "^23.2.2",
         "effector-react": "^23.2.1",
@@ -24,8 +25,8 @@
         "patronum": "^2.2.0",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "shared": "0.0.0",
-        "runtypes": "^6.7.0"
+        "runtypes": "^6.7.0",
+        "shared": "0.0.0"
     },
     "devDependencies": {
         "@tanstack/router-devtools": "^1.58.9",
