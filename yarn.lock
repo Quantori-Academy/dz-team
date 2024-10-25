@@ -1102,10 +1102,10 @@
   resolved "https://registry.yarnpkg.com/@tanstack/history/-/history-1.61.1.tgz#ab284ebad15bdcf639a6ffbf4fb6e436b4315989"
   integrity sha512-2CqERleeqO3hkhJmyJm37tiL3LYgeOpmo8szqdjgtnnG0z7ZpvzkZz6HkfOr9Ca/ha7mhAiouSvLYuLkM37AMg==
 
-"@tanstack/react-router@^1.58.9":
-  version "1.73.1"
-  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.73.1.tgz#efdc79ddb504f494ce0449b6d42b3e64105cc0ca"
-  integrity sha512-TI3tqPogSN9q8MxwS7qtHevM3DwPNIa8AoOoHHB/c88o+U5DBkoHclaRNkcSrTcFdfOoyak8T8lTOH2mbLMHzw==
+"@tanstack/react-router@^1.67.0":
+  version "1.74.0"
+  resolved "https://registry.yarnpkg.com/@tanstack/react-router/-/react-router-1.74.0.tgz#393f937a15d70d843ef2ab6edc240aa40dedc74e"
+  integrity sha512-dthfscAM25bi1AjA38t9jPsU2jqNk0f6a6ziorEi845ss6Uwrbw4FSFQ1oI1UmUfaJR73S5SO8TGXKZAIxhlWQ==
   dependencies:
     "@tanstack/history" "1.61.1"
     "@tanstack/react-store" "^0.5.5"
@@ -1469,7 +1469,7 @@ ansi-escapes@^7.0.0:
 
 ansi-regex@^5.0.1:
   version "5.0.1"
-  resolved "https://registry.npmjs.org/ansi-regex/-/ansi-regex-5.0.1.tgz"
+  resolved "https://registry.yarnpkg.com/ansi-regex/-/ansi-regex-5.0.1.tgz#082cb2c89c9fe8659a311a53bd6a4dc5301db304"
   integrity sha512-quJQXlTSUGL2LH9SUXo8VwsY4soanhgo6LNSm84E1LBcE8s3O0wpdiRzyR9z/ZZJMlMWv37qOOb9pdJlMUEKFQ==
 
 ansi-regex@^6.0.1:
@@ -4372,6 +4372,7 @@ string-argv@~0.3.2:
   resolved "https://registry.npmjs.org/string-argv/-/string-argv-0.3.2.tgz"
   integrity sha512-aqD2Q0144Z+/RqG52NeHEkZauTAUWJO8c6yTftGJKO3Tja5tUgIfmIl6kExvhtxSDP7fXB6DvzkfMpCd/F3G+Q==
 
+
 "string-width@^1.0.2 || 2 || 3 || 4", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
@@ -4460,6 +4461,7 @@ string_decoder@^1.1.1:
   integrity sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==
   dependencies:
     safe-buffer "~5.2.0"
+
 
 strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
