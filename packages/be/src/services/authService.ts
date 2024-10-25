@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
 
-import { RegisterUser } from "shared/zodSchemas";
+import { RegisterUser } from "../../../shared/zodSchemas";
 
 const prisma = new PrismaClient();
 
@@ -21,7 +21,7 @@ export class AuthService {
      * @throws {Error} If passwords do not match.
      */
     async register(
-        userData: RegisterUser
+        userData: RegisterUser,
     ): Promise<Omit<RegisterUser, "password" | "confirmPassword"> | null> {
         const existingUser = await this.getUserByUsernameOrEmail(userData.username, userData.email);
         if (existingUser) {

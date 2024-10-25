@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
 
-import { RegisterUser, registerUserSchema } from "shared/zodSchemas";
+import { RegisterUser, registerUserSchema } from "../../../shared/zodSchemas";
 
 import { AuthService } from "../services/authService";
 
@@ -16,7 +16,7 @@ export class AuthController {
      */
     async register(
         request: FastifyRequest<{ Body: RegisterUser }>,
-        reply: FastifyReply
+        reply: FastifyReply,
     ): Promise<void> {
         try {
             // Check validated data according to registerUserSchema

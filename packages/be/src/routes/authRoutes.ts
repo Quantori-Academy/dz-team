@@ -1,6 +1,6 @@
 import { FastifyZodInstance } from "../types";
 
-import { RegisterUser, registerUserSchema } from "shared/zodSchemas";
+import { RegisterUser, registerUserSchema } from "../../../shared/zodSchemas";
 
 import { AuthController } from "../controllers/authController";
 
@@ -25,6 +25,6 @@ export const authRoutes = async (app: FastifyZodInstance): Promise<void> => {
         { schema: { tags: ["Auth"], body: registerUserSchema } },
         async (request, reply) => {
             return await authController.register(request, reply);
-        }
+        },
     );
 };
