@@ -1,13 +1,14 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
 
-import { LoginUser, RegisterUser, registerUserSchema, loginUserSchema } from "shared/zodSchemas";
+import { LoginUser, loginUserSchema } from "shared/zodSchemas";
 import { AuthService } from "../services/authService";
 
 const authService = new AuthService();
 
 export class AuthController {
     /**
+
      * Register a new user.
      * @param request - FastifyRequest containing the user data in the body
      * @param reply - FastifyReply
@@ -41,6 +42,7 @@ export class AuthController {
     }
 
     /**
+
      * Handle user login.
      * @param request - FastifyRequest containing the login data in the body.
      * @param reply - FastifyReply for sending responses.

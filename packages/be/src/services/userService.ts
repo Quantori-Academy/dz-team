@@ -1,10 +1,22 @@
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
-import { LoginUser } from "shared/zodSchemas";
+import { RegisterUser } from "shared/zodSchemas";
+import { UserSchema } from "shared/generated/zod/modelSchema/UserSchema";
+import { z } from "zod";
 
 const prisma = new PrismaClient();
 
-export class AuthService {
+export class UserService {
+    /**
+     * Get all users including passwords.
+     * @returns {Promise<UserSchema[]>} A list of users including passwords.
+     */
+    async getAllUsers(): Promise<z.infer<typeof UserSchema>[]> {
+        const users = await prisma.user.findMany(); // Fetch all users
+
+        // Validate the returned data with UserSchema
+        return users.map((user) => UserSchema.parse(user)); // Parse each user into UserSchema
+    }
 
     // Check unique credentials
     async getUserByUsernameOrEmail(username: string, email: string) {
@@ -21,8 +33,8 @@ export class AuthService {
      * @returns {Promise<Omit<RegisterUser, 'password' | 'confirmPassword'> | null>} The newly registered user without the password.
      * @throws {Error} If passwords do not match or the user already exists.
      */
-    async register(
-        userData: RegisterUser
+    async createUser(
+        userData: RegisterUser,
     ): Promise<Omit<RegisterUser, "password" | "confirmPassword"> | null> {
         const existingUser = await this.getUserByUsernameOrEmail(userData.username, userData.email);
         if (existingUser) {
@@ -50,46 +62,16 @@ export class AuthService {
         return userWithoutPassword;
     }
 
-
     /**
-     * Log in a user by verifying credentials.
-     * @param userData - The login data including username and password.
-     * @param jwtSign - The Fastify JWT sign function.
-     * @returns A JWT token if authentication is successful.
+     * Delete a user by their userId.
+     * @param {string} userId - The ID of the user to delete.
+     * @returns {Promise<boolean>} True if the user was deleted, false if not found.
      */
-    async login(
-        userData: LoginUser, // Use the LoginUser type here
-
-        jwtSign: (payload: object) => string
-
-        jwtSign: (payload: object, options?: { expiresIn: string }) => string,
-
-    ): Promise<{ token: string }> {
-        const { username, password } = userData; // Destructure username and password
-
-        // Find user by username only
-        const user = await prisma.user.findFirst({
-            where: {
-                username: username,
-            },
+    async deleteUser(userId: string): Promise<boolean> {
+        const deletedUser = await prisma.user.delete({
+            where: { id: userId },
         });
 
-        if (!user) {
-            throw new Error("Invalid username or password.");
-        }
-
-        // Verify the password
-        const isPasswordValid = await bcrypt.compare(password, user.password);
-        if (!isPasswordValid) {
-            throw new Error("Invalid username or password.");
-        }
-
-        // Generate a JWT token using Fastify's jwtSign method
-        const token = jwtSign(
-            { userId: user.id },
-            { expiresIn: "1h" }, // Token expires in 1 hour
-        );
-
-        return { token };
+        return !!deletedUser; // Return true if user is deleted, false otherwise
     }
 }
