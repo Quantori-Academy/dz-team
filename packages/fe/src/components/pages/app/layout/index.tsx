@@ -5,6 +5,7 @@ import { Outlet } from "@tanstack/react-router";
 
 import { Footer } from "components/footer";
 import { Header } from "components/header";
+import { Hub } from "components/modal/Hub";
 import { Navigation } from "components/navigation";
 
 export function Layout() {
@@ -32,6 +33,7 @@ export function Layout() {
                 <Navigation />
                 <Box flexGrow={1} overflow="auto">
                     <Outlet />
+                    <Hub />
                 </Box>
             </Container>
             <Footer />

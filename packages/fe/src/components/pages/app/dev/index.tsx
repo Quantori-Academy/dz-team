@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 
 import { fetchServerConnection } from "api/apiCalls";
+import { ModalExample } from "components/example/ModalExample";
 import { headers, mockData } from "components/pages/Table/mockData";
 import { Table } from "components/pages/Table/Table";
 import { config } from "config";
@@ -66,6 +67,7 @@ export function DevPage() {
                     onActionClick={handleActionClick}
                 />
             </Box>
+            <ModalExample />
         </>
     );
 }

@@ -115,6 +115,7 @@
             "updatedAt": "2021-09-01T00:00:00.000Z"
         }
     ],
+
     "/api/v1/users": [
         {
             "id": "1",
@@ -162,4 +163,7 @@
             "lastLoginDate": "2024-10-18 12:45:00"
         }
     ]
+
+    "/api/v1/login": { "token": "string" }
+
 }
