@@ -162,8 +162,7 @@
             "role": "User",
             "lastLoginDate": "2024-10-18 12:45:00"
         }
-    ]
+    ],
 
     "/api/v1/login": { "token": "string" }
-
 }

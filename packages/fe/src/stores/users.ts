@@ -39,6 +39,8 @@ sample({
 sample({
     clock: deleteUserFx.doneData,
     source: $UsersList,
-    fn: (userList, deletedId: string) => userList.filter((user) => user.id !== deletedId),
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any, @typescript-eslint/no-unsafe-member-access
+    fn: (userList, deletedId) => userList.filter((user: any) => user.id !== deletedId),
+
     target: $UsersList,
 });
