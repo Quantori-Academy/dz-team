@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
 
-import { RegisterUser, registerUserSchema } from "shared/zodSchemas";
+import { RegisterUser, registerUserSchema } from "../../../shared/zodSchemas";
 
 import { AuthService } from "../services/authService";
 
