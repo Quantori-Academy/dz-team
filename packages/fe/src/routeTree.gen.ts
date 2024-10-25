@@ -11,7 +11,9 @@
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root";
+import { Route as ProcurementofficersImport } from "./routes/procurementofficers";
 import { Route as LoginImport } from "./routes/login";
+import { Route as AdminImport } from "./routes/admin";
 import { Route as AppImport } from "./routes/_app";
 import { Route as AppIndexImport } from "./routes/_app/index";
 import { Route as AppSamplesImport } from "./routes/_app/samples";
@@ -21,9 +23,21 @@ import { Route as AppDevImport } from "./routes/_app/dev";
 
 // Create/Update Routes
 
+const ProcurementofficersRoute = ProcurementofficersImport.update({
+    id: "/procurementofficers",
+    path: "/procurementofficers",
+    getParentRoute: () => rootRoute,
+} as any);
+
 const LoginRoute = LoginImport.update({
     id: "/login",
     path: "/login",
+    getParentRoute: () => rootRoute,
+} as any);
+
+const AdminRoute = AdminImport.update({
+    id: "/admin",
+    path: "/admin",
     getParentRoute: () => rootRoute,
 } as any);
 
@@ -73,11 +87,25 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof AppImport;
             parentRoute: typeof rootRoute;
         };
+        "/admin": {
+            id: "/admin";
+            path: "/admin";
+            fullPath: "/admin";
+            preLoaderRoute: typeof AdminImport;
+            parentRoute: typeof rootRoute;
+        };
         "/login": {
             id: "/login";
             path: "/login";
             fullPath: "/login";
             preLoaderRoute: typeof LoginImport;
+            parentRoute: typeof rootRoute;
+        };
+        "/procurementofficers": {
+            id: "/procurementofficers";
+            path: "/procurementofficers";
+            fullPath: "/procurementofficers";
+            preLoaderRoute: typeof ProcurementofficersImport;
             parentRoute: typeof rootRoute;
         };
         "/_app/dev": {
@@ -140,7 +168,9 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren);
 
 export interface FileRoutesByFullPath {
     "": typeof AppRouteWithChildren;
+    "/admin": typeof AdminRoute;
     "/login": typeof LoginRoute;
+    "/procurementofficers": typeof ProcurementofficersRoute;
     "/dev": typeof AppDevRoute;
     "/orders": typeof AppOrdersRoute;
     "/reagents": typeof AppReagentsRoute;
@@ -149,7 +179,9 @@ export interface FileRoutesByFullPath {
 }
 
 export interface FileRoutesByTo {
+    "/admin": typeof AdminRoute;
     "/login": typeof LoginRoute;
+    "/procurementofficers": typeof ProcurementofficersRoute;
     "/dev": typeof AppDevRoute;
     "/orders": typeof AppOrdersRoute;
     "/reagents": typeof AppReagentsRoute;
@@ -160,7 +192,9 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
     __root__: typeof rootRoute;
     "/_app": typeof AppRouteWithChildren;
+    "/admin": typeof AdminRoute;
     "/login": typeof LoginRoute;
+    "/procurementofficers": typeof ProcurementofficersRoute;
     "/_app/dev": typeof AppDevRoute;
     "/_app/orders": typeof AppOrdersRoute;
     "/_app/reagents": typeof AppReagentsRoute;
@@ -170,13 +204,32 @@ export interface FileRoutesById {
 
 export interface FileRouteTypes {
     fileRoutesByFullPath: FileRoutesByFullPath;
-    fullPaths: "" | "/login" | "/dev" | "/orders" | "/reagents" | "/samples" | "/";
+    fullPaths:
+        | ""
+        | "/admin"
+        | "/login"
+        | "/procurementofficers"
+        | "/dev"
+        | "/orders"
+        | "/reagents"
+        | "/samples"
+        | "/";
     fileRoutesByTo: FileRoutesByTo;
-    to: "/login" | "/dev" | "/orders" | "/reagents" | "/samples" | "/";
+    to:
+        | "/admin"
+        | "/login"
+        | "/procurementofficers"
+        | "/dev"
+        | "/orders"
+        | "/reagents"
+        | "/samples"
+        | "/";
     id:
         | "__root__"
         | "/_app"
+        | "/admin"
         | "/login"
+        | "/procurementofficers"
         | "/_app/dev"
         | "/_app/orders"
         | "/_app/reagents"
@@ -187,12 +240,16 @@ export interface FileRouteTypes {
 
 export interface RootRouteChildren {
     AppRoute: typeof AppRouteWithChildren;
+    AdminRoute: typeof AdminRoute;
     LoginRoute: typeof LoginRoute;
+    ProcurementofficersRoute: typeof ProcurementofficersRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
     AppRoute: AppRouteWithChildren,
+    AdminRoute: AdminRoute,
     LoginRoute: LoginRoute,
+    ProcurementofficersRoute: ProcurementofficersRoute,
 };
 
 export const routeTree = rootRoute
@@ -208,7 +265,9 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/_app",
-        "/login"
+        "/admin",
+        "/login",
+        "/procurementofficers"
       ]
     },
     "/_app": {
@@ -221,8 +280,14 @@ export const routeTree = rootRoute
         "/_app/"
       ]
     },
+    "/admin": {
+      "filePath": "admin.tsx"
+    },
     "/login": {
       "filePath": "login.tsx"
+    },
+    "/procurementofficers": {
+      "filePath": "procurementofficers.tsx"
     },
     "/_app/dev": {
       "filePath": "_app/dev.tsx",
