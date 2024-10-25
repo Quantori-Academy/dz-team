@@ -114,5 +114,55 @@
             "createdAt": "2021-09-01T00:00:00.000Z",
             "updatedAt": "2021-09-01T00:00:00.000Z"
         }
-    ]
+    ],
+
+    "/api/v1/users": [
+        {
+            "id": "1",
+            "userName": "userName1",
+            "firstName": "user1",
+            "lastName": "user1",
+            "email": "user1@example.com",
+            "role": "Admin",
+            "lastLoginDate": "2024-10-20 14:35:00"
+        },
+        {
+            "id": "2",
+            "userName": "userName2",
+            "firstName": "user2",
+            "lastName": "user2",
+            "email": "user2@example.com",
+            "role": "User",
+            "lastLoginDate": "2024-10-21 08:20:00"
+        },
+        {
+            "id": "3",
+            "userName": "userName3",
+            "firstName": "user3",
+            "lastName": "user3",
+            "email": "user3@example.com",
+            "role": "Procurement officer",
+            "lastLoginDate": "2024-10-19 17:50:00"
+        },
+        {
+            "id": "4",
+            "userName": "userName4",
+            "firstName": "user4",
+            "lastName": "user4",
+            "email": "user4@example.com",
+            "role": "User",
+            "lastLoginDate": "2024-10-22 09:10:00"
+        },
+        {
+            "id": "5",
+            "userName": "userName5",
+            "firstName": "user5",
+            "lastName": "user5",
+            "email": "user5@example.com",
+            "role": "User",
+            "lastLoginDate": "2024-10-18 12:45:00"
+        }
+    ],
+
+    "/api/v1/login": { "token": "string" }
 }
