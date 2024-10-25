@@ -15,7 +15,7 @@
         "@emotion/styled": "^11.13.0",
         "@mui/icons-material": "^6.1.1",
         "@mui/material": "^6.1.1",
-        "@tanstack/react-router": "^1.58.9",
+        "@tanstack/react-router": "^1.67.0",
         "effector": "^23.2.2",
         "effector-react": "^23.2.1",
         "immer": "^10.1.1",
@@ -24,10 +24,10 @@
         "patronum": "^2.2.0",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "shared": "0.0.0",
         "runtypes": "^6.7.0"
     },
     "devDependencies": {
+        "@tanstack/router-cli": "^1.74.2",
         "@tanstack/router-devtools": "^1.58.9",
         "@tanstack/router-plugin": "^1.58.4",
         "@types/lodash": "^4.17.7",

@@ -2,7 +2,6 @@ import fastify from "fastify";
 import cors from "@fastify/cors";
 
 import { serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
-import { userSchema } from "shared/zodSchemas";
 
 import { isProd } from "./utils/isProd";
 import { registerSwagger } from "./utils/swaggerConfig";
@@ -40,21 +39,6 @@ if (!isProd) {
 
 server.get("/", async () => {
     return `Hello world! isProd: ${isProd}`;
-});
-
-// FOR TESTING PURPOSES ONLY
-server.post("/login", async (request, reply) => {
-    try {
-        const user = userSchema.parse(request.body);
-        console.log("user validated:", user);
-
-        // Generate a JWT token for the authenticated user
-        const token = server.jwt.sign({ email: user.email });
-
-        return { success: true, token };
-    } catch (error) {
-        reply.status(400).send(error);
-    }
 });
 
 // Register the Fastify JWT plugin

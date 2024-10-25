@@ -42,13 +42,6 @@ datasource db {
   extensions = [rdkit]
 }
 
-// Make reagents table
-enum Category {
-  REAGENT
-  SAMPLE
-}
-
-
   // with `dbgenerated("gen_random_uuid()")` UUID is generated on the DB level in POSTGRES
   // with `uuid()` UUID is generated on Prisma level
   // see "Native database functions" in Prisma docs
@@ -97,3 +90,24 @@ model Sample {
   // Many-to-Many relation with Reagent
   reagents        Reagent[]  @relation("ReagentSamples")
 }
+
+
+enum Role {
+  admin
+  procurementOfficer
+  researcher
+}
+
+model User {
+  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  username       String   @unique // username an unique field
+  firstName      String
+  lastName       String
+  email          String   @unique // email an unique field
+  password       String
+  role           Role
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+}
+
+

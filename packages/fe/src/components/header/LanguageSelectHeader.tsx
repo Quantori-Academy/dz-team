@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Box, MenuItem, Select, useTheme } from "@mui/material";
 
 type Language = "en" | "de" | "es" | "fr" | "";
