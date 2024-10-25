@@ -35,7 +35,7 @@ sample({
 
 // Update usersList store after deleting user
 
-// TODO fix type
+// TODO fix types
 sample({
     clock: deleteUserFx.doneData,
     source: $UsersList,
