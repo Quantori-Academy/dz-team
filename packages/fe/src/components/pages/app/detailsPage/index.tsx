@@ -51,7 +51,6 @@ export function ReagentDetailsPage() {
     };
 
     const handleCloseDetails = () => {
-        // TODO: Use useNavigate instead of window.location.href in the future
         navigate({ to: "/reagents", replace: false });
     };
 
