@@ -1,15 +1,23 @@
-const { PrismaClient } = require("@prisma/client");
-const { reagents } = require("./seedData/reagents");
+const { PrismaClient } = require('@prisma/client');
+const reagents = require('./seedData/reagents.json');
 
 const prisma = new PrismaClient();
 
+async function addReagents() {
+    const result = await prisma.reagent.createMany({
+        data: reagents,
+        skipDuplicates: true,
+    });
+    console.log(`Seeded database with ${result.count} reagent entries.`);
+}
+
 async function main() {
-    // add reagents
-    await prisma.reagent.createMany({ data: reagents });
+    // comment out to avoid duplicate data
+    await addReagents();
 }
 
 main()
-    .catch((e) => {
+    .catch(e => {
         console.error(e);
         process.exit(1);
     })
