@@ -1,4 +1,5 @@
 import { z } from "zod";
+import userSchema from "./generated/zod/modelSchema/UserSchema";
 
 export const idSchema = z.string().uuid();
 
@@ -112,9 +113,6 @@ export const registerUserSchema = z
         path: ["confirmPassword"], // Points the error to the confirmPassword field
     });
 
-// Type inference for RegisterUser
-export type RegisterUser = z.infer<typeof registerUserSchema>;
-
 // Define the login schema
 export const loginUserSchema = z.object({
     username: z
@@ -133,5 +131,8 @@ export const loginUserSchema = z.object({
     }),
 });
 
-// Type inference for LoginUser
+export type User = z.infer<typeof userSchema>;
+
+// Type inference for RegisterUser
+export type RegisterUser = z.infer<typeof registerUserSchema>;
 export type LoginUser = z.infer<typeof loginUserSchema>;

@@ -9,6 +9,7 @@ import { decrementLoading, incrementLoading } from "./loadingState";
 
 const { useMockData, isProd } = config;
 
+// TODO: Update the base URL to include /api/v1 for consistency with the API routes.
 export const base = isProd ? "http://vm4.quantori.academy:1337" : "http://localhost:1337";
 
 const api = ky.create({
@@ -80,14 +81,22 @@ export async function request<TT extends Runtype, T = Static<TT>, K = T>(
         if (options?.shouldAffectIsLoading) {
             incrementLoading();
         }
+        const response = await api<{ data: T[] }>(url, options).json(); // TODO: fix type asserion
 
-        const response = await api<T>(url, options).json();
+        let value: T;
 
-        const value = contract.check(response) as T;
+        // Check if the response is an array or a single object
+        if (response.data) {
+            // For list responses
+            value = contract.check(response.data) as T;
+        } else {
+            // For single object responses
+            value = contract.check(response) as T;
+        }
 
         return options?.mapper ? options.mapper(value) : value;
     } catch (err) {
-        if (options?.showErrorNotification) {
+        if (options?.showErrorNotification ?? !isProd) {
             // TODO: notification is not implemented yet
             handleError(err as Error, url, options);
         }

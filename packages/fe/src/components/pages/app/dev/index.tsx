@@ -11,7 +11,7 @@ import { config } from "config";
 const logError = (err: unknown) => dev.info("{!offline}", err);
 
 export function DevPage() {
-    const [connectionState, setConnectionState] = useState("...");
+    const [connectionState, setConnectionState] = useState<string | undefined>("...");
 
     useEffect(() => {
         fetchServerConnection().then(setConnectionState).catch(logError);
