@@ -10,7 +10,7 @@ RUN yarn build
 
 EXPOSE 1337
 
-CMD ["yarn", "prod:be"]
+CMD ["yarn", "init:be"]
 
 # Deploy Frontend
 FROM nginx:alpine AS fe
