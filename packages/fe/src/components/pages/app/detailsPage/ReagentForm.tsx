@@ -27,7 +27,7 @@ export const ReagentForm = ({ initialData, onSubmit }: ReagentFormProps) => {
             producer: producerRef.current?.value || initialData.producer,
             pricePerUnit: parseInt(
                 pricePerUnitRef.current?.value || `${initialData.pricePerUnit}`,
-                10,
+                10
             ),
             quantity: parseInt(quantityRef.current?.value || `${initialData.quantity}`, 10),
             unit: unitRef.current?.value || initialData.unit,

@@ -15,7 +15,7 @@ const devNone: DevTools = lo.transform(
         // eslint-disable-next-line @typescript-eslint/unbound-method
         acc[key] = lo.noop;
     },
-    {} as DevTools,
+    {} as DevTools
 );
 
 // make `DevTools` available from global scope
