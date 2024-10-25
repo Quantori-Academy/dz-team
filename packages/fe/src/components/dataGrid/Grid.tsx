@@ -12,8 +12,9 @@ import { AddRecord } from "./Addrecord";
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
+    handleAddRecord: () => void;
 };
-export const Grid = ({ rows, headers }: GridProps) => {
+export const Grid = ({ rows, headers, handleAddRecord }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
 
     const handleDeleteClick = (id: string) => {
@@ -26,8 +27,8 @@ export const Grid = ({ rows, headers }: GridProps) => {
     /* eslint-disable @typescript-eslint/no-base-to-string */
     const filteredRows = rows.filter((row) =>
         Object.values(row).some(
-            (value) => value && value.toString().toLowerCase().includes(searchQuery.toLowerCase()),
-        ),
+            (value) => value && value.toString().toLowerCase().includes(searchQuery.toLowerCase())
+        )
     );
 
     const textField = {
@@ -74,7 +75,7 @@ export const Grid = ({ rows, headers }: GridProps) => {
                 rowHeight={60}
                 columns={columns}
                 slots={{
-                    toolbar: AddRecord,
+                    toolbar: () => <AddRecord onAdd={handleAddRecord} />,
                 }}
             />
         </>
