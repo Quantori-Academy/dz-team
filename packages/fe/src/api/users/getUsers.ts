@@ -18,7 +18,8 @@ const UsersResponse = Array(User).optional();
 export type UserType = Static<typeof User>;
 
 export const getUsers = async () => {
-    await request(`${base}/api/v1/users`, UsersResponse, {
+    const Users = await request(`${base}/api/v1/users`, UsersResponse, {
         method: "GET",
     });
+    return Users;
 };
