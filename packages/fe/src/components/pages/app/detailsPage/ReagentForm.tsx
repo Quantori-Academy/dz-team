@@ -15,15 +15,25 @@ type ReagentFormProps = {
     onSubmit: () => void;
 };
 
+const fields = [
+    { label: "Name", name: "name", disabled: true },
+    { label: "CAS Number", name: "cas", disabled: true },
+    { label: "Producer", name: "producer", disabled: true },
+    { label: "Price per Unit ($)", name: "pricePerUnit", disabled: true },
+    { label: "Quantity", name: "quantity", disabled: false },
+    { label: "Unit", name: "unit", disabled: true },
+    { label: "Storage Location", name: "storageLocation", disabled: false },
+];
+
 export const ReagentForm = ({ initialData, onSubmit }: ReagentFormProps) => {
-    const nameRef = useRef<HTMLInputElement>(null);
-    const casRef = useRef<HTMLInputElement>(null);
-    const producerRef = useRef<HTMLInputElement>(null);
-    const pricePerUnitRef = useRef<HTMLInputElement>(null);
     const quantityRef = useRef<HTMLInputElement>(null);
-    const unitRef = useRef<HTMLInputElement>(null);
     const storageLocationRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
+
+    const refMap = {
+        quantity: quantityRef,
+        storageLocation: storageLocationRef,
+    };
 
     const handleSubmit = async () => {
         const updatedData: formData = {
@@ -46,40 +56,17 @@ export const ReagentForm = ({ initialData, onSubmit }: ReagentFormProps) => {
 
     return (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-            <TextField label="Name" inputRef={nameRef} defaultValue={initialData.name} disabled />
-            <TextField
-                label="CAS Number"
-                name="cas"
-                inputRef={casRef}
-                defaultValue={initialData.cas}
-                disabled
-            />
-            <TextField
-                label="Producer"
-                name="producer"
-                inputRef={producerRef}
-                defaultValue={initialData.producer}
-                disabled
-            />
-            <TextField
-                label="Price per Unit ($)"
-                name="pricePerUnit"
-                inputRef={pricePerUnitRef}
-                defaultValue={initialData.pricePerUnit}
-                disabled
-            />
-            <TextField
-                label="Quantity"
-                name="quantity"
-                inputRef={quantityRef}
-                defaultValue={initialData.quantity}
-            />
-            <TextField label="Unit" inputRef={unitRef} defaultValue={initialData.unit} disabled />
-            <TextField
-                label="Storage Location"
-                inputRef={storageLocationRef}
-                defaultValue={initialData.storageLocation}
-            />
+            {fields.map((field, index) => {
+                return (
+                    <TextField
+                        key={index}
+                        label={field.label}
+                        inputRef={refMap[field.name as keyof typeof refMap] || null}
+                        defaultValue={initialData[field.name as keyof formData]}
+                        disabled={field.disabled}
+                    />
+                );
+            })}
             <Button variant="contained" onClick={handleSubmit}>
                 Submit
             </Button>
