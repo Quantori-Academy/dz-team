@@ -36,23 +36,6 @@ export const ReagentForm = ({ initialData, onSubmit }: ReagentFormProps) => {
             unit: initialData.unit,
             storageLocation: storageLocationRef.current?.value || "",
         };
-        // try {
-        //     if (updatedData.quantity === 0) {
-        //         await deleteReagent(initialData.id, navigate);
-        //         onSubmit();
-        //     } else {
-        //         await fetch(`${base}/api/v1/reagents/${initialData.id}`, {
-        //             method: "PUT",
-        //             headers: { "Content-Type": "application/json" },
-        //             body: JSON.stringify(updatedData),
-        //         });
-        //         updateReagentEvent(updatedData);
-        //         onSubmit();
-        //         navigate({ to: `/reagents/${initialData.id}` });
-        //     }
-        // } catch (_error) {
-        //     alert("Failed to update reagent. Please try again later.");
-        // }
         if (updatedData.quantity === 0) {
             await deleteReagent(initialData.id, navigate);
         } else {
