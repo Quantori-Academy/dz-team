@@ -12,6 +12,7 @@ const AddUser = Record({
     role: String,
 });
 
+//TODO fix types
 export type NewUser = Static<typeof AddUser>;
 export const PostUsers = async (userData: NewUser) => {
     await request(`${base}/api/v1/users`, AddUser, {
