@@ -3,11 +3,9 @@ import { Box, Button, TextField } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
 
 import { ReagentDetails } from "api/reagentDetails/contract";
-import { base } from "api/request";
-import { updateReagentEvent } from "stores/reagents";
-import { deleteReagent } from "utils/reagentActions";
+import { deleteReagent, updateReagent } from "utils/reagentActions";
 
-type formData = Pick<
+export type formData = Pick<
     ReagentDetails,
     "id" | "name" | "cas" | "producer" | "pricePerUnit" | "quantity" | "unit" | "storageLocation"
 >;
@@ -38,23 +36,29 @@ export const ReagentForm = ({ initialData, onSubmit }: ReagentFormProps) => {
             unit: initialData.unit,
             storageLocation: storageLocationRef.current?.value || "",
         };
-        try {
-            if (updatedData.quantity === 0) {
-                await deleteReagent(initialData.id, navigate);
-                onSubmit();
-            } else {
-                await fetch(`${base}/api/v1/reagents/${initialData.id}`, {
-                    method: "PUT",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify(updatedData),
-                });
-                updateReagentEvent(updatedData);
-                onSubmit();
-                navigate({ to: `/reagents/${initialData.id}` });
-            }
-        } catch (_error) {
-            alert("Failed to update reagent. Please try again later.");
+        // try {
+        //     if (updatedData.quantity === 0) {
+        //         await deleteReagent(initialData.id, navigate);
+        //         onSubmit();
+        //     } else {
+        //         await fetch(`${base}/api/v1/reagents/${initialData.id}`, {
+        //             method: "PUT",
+        //             headers: { "Content-Type": "application/json" },
+        //             body: JSON.stringify(updatedData),
+        //         });
+        //         updateReagentEvent(updatedData);
+        //         onSubmit();
+        //         navigate({ to: `/reagents/${initialData.id}` });
+        //     }
+        // } catch (_error) {
+        //     alert("Failed to update reagent. Please try again later.");
+        // }
+        if (updatedData.quantity === 0) {
+            await deleteReagent(initialData.id, navigate);
+        } else {
+            await updateReagent(updatedData, navigate);
         }
+        onSubmit();
     };
 
     return (
