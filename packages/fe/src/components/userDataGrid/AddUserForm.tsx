@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Button, MenuItem, TextField } from "@mui/material";
 
-const roles = ["Admin", "Procurement Officer", "Researcher"];
+import { addUserFx } from "stores/users";
 
 type FormErrors = {
     username?: string;
@@ -14,6 +14,7 @@ type FormErrors = {
 };
 
 export const AddUserForm = () => {
+    const roles = ["admin", "researcher", "procurementOfficer"];
     const [formData, setFormData] = useState({
         username: "",
         firstName: "",
@@ -76,6 +77,7 @@ export const AddUserForm = () => {
 
     const handleSubmit = () => {
         if (validateForm()) {
+            addUserFx(formData);
             setFormData({
                 username: "",
                 firstName: "",
@@ -89,87 +91,78 @@ export const AddUserForm = () => {
         }
     };
     const textfieldStyle = {
-        width: "300px",
+        width: "400px",
     };
     const BoxStyle = {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
     };
-    const gap = {
-        display: "flex",
-        gap: "10px",
-    };
+
     return (
         <Box component="form" noValidate autoComplete="off" sx={BoxStyle}>
-            <Box sx={gap}>
-                <TextField
-                    label="Username"
-                    name="username"
-                    value={formData.username}
-                    onChange={handleChange}
-                    error={!!errors.username}
-                    helperText={errors.username}
-                    margin="normal"
-                    sx={textfieldStyle}
-                />
-                <TextField
-                    label="First Name"
-                    name="firstName"
-                    value={formData.firstName}
-                    onChange={handleChange}
-                    error={!!errors.firstName}
-                    helperText={errors.firstName}
-                    margin="normal"
-                    sx={textfieldStyle}
-                />
-            </Box>
-            <Box sx={gap}>
-                <TextField
-                    label="Last Name"
-                    name="lastName"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    error={!!errors.lastName}
-                    helperText={errors.lastName}
-                    margin="normal"
-                    sx={textfieldStyle}
-                />
-                <TextField
-                    label="Email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    error={!!errors.email}
-                    helperText={errors.email}
-                    margin="normal"
-                    sx={textfieldStyle}
-                />
-            </Box>
-            <Box sx={gap}>
-                <TextField
-                    label="Password"
-                    name="password"
-                    type="password"
-                    value={formData.password}
-                    onChange={handleChange}
-                    error={!!errors.password}
-                    helperText={errors.password}
-                    margin="normal"
-                    sx={textfieldStyle}
-                />
-                <TextField
-                    label="Confirm Password"
-                    name="confirmPassword"
-                    type="password"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    error={!!errors.confirmPassword}
-                    helperText={errors.confirmPassword}
-                    margin="normal"
-                    sx={textfieldStyle}
-                />
-            </Box>
+            <TextField
+                label="Username"
+                name="username"
+                value={formData.username}
+                onChange={handleChange}
+                error={!!errors.username}
+                helperText={errors.username}
+                margin="normal"
+                sx={textfieldStyle}
+            />
+            <TextField
+                label="First Name"
+                name="firstName"
+                value={formData.firstName}
+                onChange={handleChange}
+                error={!!errors.firstName}
+                helperText={errors.firstName}
+                margin="normal"
+                sx={textfieldStyle}
+            />
+            <TextField
+                label="Last Name"
+                name="lastName"
+                value={formData.lastName}
+                onChange={handleChange}
+                error={!!errors.lastName}
+                helperText={errors.lastName}
+                margin="normal"
+                sx={textfieldStyle}
+            />
+            <TextField
+                label="Email"
+                name="email"
+                value={formData.email}
+                onChange={handleChange}
+                error={!!errors.email}
+                helperText={errors.email}
+                margin="normal"
+                sx={textfieldStyle}
+            />
+            <TextField
+                label="Password"
+                name="password"
+                type="password"
+                value={formData.password}
+                onChange={handleChange}
+                error={!!errors.password}
+                helperText={errors.password}
+                margin="normal"
+                sx={textfieldStyle}
+            />
+            <TextField
+                label="Confirm Password"
+                name="confirmPassword"
+                type="password"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                error={!!errors.confirmPassword}
+                helperText={errors.confirmPassword}
+                margin="normal"
+                sx={textfieldStyle}
+            />
             <TextField
                 select
                 label="Role"

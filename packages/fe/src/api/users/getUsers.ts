@@ -1,6 +1,6 @@
 import { Array, Record, Static, String } from "runtypes";
 
-import { base, request } from "./request";
+import { base, request } from "../request";
 
 const User = Record({
     createdAt: String.nullable(),
@@ -18,8 +18,7 @@ const UsersResponse = Array(User).optional();
 export type UserType = Static<typeof User>;
 
 export const getUsers = async () => {
-    const Users = await request(`${base}/api/v1/users`, UsersResponse, {
+    await request(`${base}/api/v1/users`, UsersResponse, {
         method: "GET",
     });
-    return Users;
 };

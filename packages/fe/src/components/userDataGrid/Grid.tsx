@@ -12,13 +12,13 @@ import { AddRecord } from "./Addrecord";
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
-    handleAddRecord: () => void;
 };
-export const Grid = ({ rows, headers, handleAddRecord }: GridProps) => {
+export const Grid = ({ rows, headers }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
 
     const handleDeleteClick = (id: string) => {
         deleteUserFx(id);
+        window.location.reload();
     };
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -27,13 +27,14 @@ export const Grid = ({ rows, headers, handleAddRecord }: GridProps) => {
     /* eslint-disable @typescript-eslint/no-base-to-string */
     const filteredRows = rows.filter((row) =>
         Object.values(row).some(
-            (value) => value && value.toString().toLowerCase().includes(searchQuery.toLowerCase())
-        )
+            (value) => value && value.toString().toLowerCase().includes(searchQuery.toLowerCase()),
+        ),
     );
 
     const textField = {
         width: "350px",
     };
+
     const columns = useMemo(() => {
         const editColumn = {
             field: "actions",
@@ -74,8 +75,17 @@ export const Grid = ({ rows, headers, handleAddRecord }: GridProps) => {
                 rows={filteredRows}
                 rowHeight={60}
                 columns={columns}
+                disableRowSelectionOnClick
+                pageSizeOptions={[10, 15, 25, 50]}
+                initialState={{
+                    pagination: {
+                        paginationModel: {
+                            pageSize: 10,
+                        },
+                    },
+                }}
                 slots={{
-                    toolbar: () => <AddRecord onAdd={handleAddRecord} />,
+                    toolbar: () => <AddRecord />,
                 }}
             />
         </>

@@ -1,10 +1,9 @@
 import { Box, Typography } from "@mui/material";
-import { useNavigate } from "@tanstack/react-router";
 import { useGate, useUnit } from "effector-react";
 
 import { $UsersList, UsersGate } from "stores/users";
 
-import { Grid } from "../../dataGrid/Grid";
+import { Grid } from "../../userDataGrid/Grid";
 
 const headers = [
     { field: "userName", headerName: "User Name", width: 150 },
@@ -23,15 +22,11 @@ const boxStyles = {
 export const UserList = () => {
     useGate(UsersGate);
     const users = useUnit($UsersList);
-    const navigate = useNavigate();
 
-    const handleAddRecord = () => {
-        navigate({ to: "/newUser" });
-    };
     return (
         <Box sx={boxStyles}>
             <Typography variant="h5">User List</Typography>
-            <Grid rows={users} headers={headers} handleAddRecord={handleAddRecord} />
+            <Grid rows={users} headers={headers} />
         </Box>
     );
 };
