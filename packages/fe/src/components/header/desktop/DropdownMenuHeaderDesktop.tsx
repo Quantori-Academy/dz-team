@@ -7,7 +7,7 @@ import { theme } from "theme";
 type Props = {
     handleClose: () => void;
     open: boolean;
-    anchorEl: HTMLElement;
+    anchorEl: HTMLElement | null;
 };
 
 export function DropdownMenuHeaderDesktop({ handleClose, open, anchorEl }: Props) {

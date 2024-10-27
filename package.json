@@ -23,18 +23,13 @@
         "preview:be": "yarn workspace be run preview",
         "preview:fe": "yarn workspace fe run preview",
         "prod": "run-p prod:be prod:fe",
-        "prod:be": "yarn workspace be run prod",
+        "prod:be": "yarn workspace be run db:preprod && yarn workspace be run prod",
         "prod:fe": "yarn workspace fe run prod",
+        "init:be": "yarn workspace be run db:reset && yarn workspace be run prod",
         "lint": "eslint . --max-warnings 0",
         "lint:fix": "eslint . --fix",
         "format": "prettier --write .",
         "prepare": "husky"
-    },
-    "lint-staged": {
-        "*.{js,jsx,ts,tsx}": [
-            "eslint --fix --max-warnings 0 --no-warn-ignored",
-            "prettier --write"
-        ]
     },
     "devDependencies": {
         "@eslint/js": "^9.13.0",

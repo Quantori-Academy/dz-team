@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import { Box, Typography } from "@mui/material";
 
 import { fetchServerConnection } from "api/apiCalls";
+import { ModalExample } from "components/example/ModalExample";
 import { headers, mockData } from "components/pages/Table/mockData";
 import { Table } from "components/pages/Table/Table";
 import { config } from "config";
@@ -11,7 +12,7 @@ import { config } from "config";
 const logError = (err: unknown) => dev.info("{!offline}", err);
 
 export function DevPage() {
-    const [connectionState, setConnectionState] = useState("...");
+    const [connectionState, setConnectionState] = useState<string | undefined>("...");
 
     useEffect(() => {
         fetchServerConnection().then(setConnectionState).catch(logError);
@@ -66,6 +67,7 @@ export function DevPage() {
                     onActionClick={handleActionClick}
                 />
             </Box>
+            <ModalExample />
         </>
     );
 }
