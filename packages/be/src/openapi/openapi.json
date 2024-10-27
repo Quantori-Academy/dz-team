@@ -116,10 +116,50 @@
         }
       }
     },
-    "/api/v1/auth/register": {
+    "/api/v1/auth/login": {
       "post": {
         "tags": [
           "Auth"
+        ],
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "schema": {
+              "_def": {
+                "unknownKeys": "strip",
+                "catchall": {
+                  "_def": {
+                    "typeName": "ZodNever"
+                  }
+                },
+                "typeName": "ZodObject"
+              },
+              "_cached": null
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      }
+    },
+    "/api/v1/users/": {
+      "get": {
+        "tags": [
+          "Users"
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "Users"
         ],
         "parameters": [
           {
@@ -154,10 +194,10 @@
         }
       }
     },
-    "/api/v1/auth/login": {
-      "post": {
+    "/api/v1/users/{userId}": {
+      "put": {
         "tags": [
-          "Auth"
+          "Users"
         ],
         "parameters": [
           {
@@ -176,6 +216,16 @@
               "_cached": null
             }
           }
+        ],
+        "responses": {
+          "200": {
+            "description": "Default Response"
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Users"
         ],
         "responses": {
           "200": {
