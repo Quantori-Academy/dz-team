@@ -1,4 +1,4 @@
-import { Record, Static, String } from "runtypes";
+import { Literal, Record, Static, Union } from "runtypes";
 
 import { base, request } from "./request";
 
@@ -9,7 +9,11 @@ export enum UserRole {
 }
 
 export const UserContract = Record({
-    role: String,
+    role: Union(
+        Literal(UserRole.admin),
+        Literal(UserRole.procurementOfficer),
+        Literal(UserRole.researcher),
+    ),
 });
 
 export type UserType = Static<typeof UserContract>;

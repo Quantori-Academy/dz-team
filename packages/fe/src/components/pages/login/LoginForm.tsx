@@ -12,9 +12,10 @@ import {
 } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
+import { roleRoutes } from "rolesRoutes";
 
-import { $auth } from "stores/auth";
 import { $loginState, loginFx } from "stores/login";
+import { $selfState } from "stores/self";
 import { useIsDesktop } from "utils/useIsDesktop";
 
 export function LoginForm() {
@@ -27,14 +28,18 @@ export function LoginForm() {
     const navigate = useNavigate();
 
     const loginState = useUnit($loginState);
-    const authState = useUnit($auth);
+    const selfState = useUnit($selfState);
     const isDesktop = useIsDesktop();
 
     useEffect(() => {
-        if (authState) {
-            navigate({ to: "/" });
+        if (selfState) {
+            const value = {
+                to: roleRoutes[selfState.role],
+            };
+
+            navigate(value);
         }
-    }, [authState, navigate]);
+    }, [selfState, navigate]);
 
     const handleLogin = useCallback(() => {
         const username = usernameInput.current?.value;

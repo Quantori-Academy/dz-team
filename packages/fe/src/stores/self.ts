@@ -15,7 +15,7 @@ export const getUserFx = genericDomain.createEffect(async (token: string) => {
     }
 });
 
-export const $userState = genericDomain
+export const $selfState = genericDomain
     .createStore<UserType | null>(null)
     .on(getUserFx.done, (_, { result }) => result)
     .on(getUserFx.fail, () => null);

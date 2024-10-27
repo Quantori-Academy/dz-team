@@ -8,6 +8,7 @@ import { NotFound } from "NotFound";
 import { routeTree } from "routeTree.gen.ts";
 
 import { $auth } from "stores/auth";
+import { $selfState } from "stores/self";
 
 declare module "@tanstack/react-router" {
     interface Register {
@@ -20,6 +21,7 @@ const router = createRouter({
     defaultNotFoundComponent: () => <NotFound />,
     context: {
         auth: undefined!,
+        self: undefined!,
     },
 });
 
@@ -30,9 +32,10 @@ if (!rootEl) {
 
 export function Root() {
     const auth = useUnit($auth);
+    const self = useUnit($selfState);
     return (
         <StrictMode>
-            <RouterProvider router={router} context={{ auth }} />
+            <RouterProvider router={router} context={{ auth, self }} />
         </StrictMode>
     );
 }
