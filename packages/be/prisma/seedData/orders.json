@@ -1,0 +1,3299 @@
+[
+    {
+        "id": "0d65bbf2-0d7d-402f-801a-c36b7522d0c3",
+        "userId": "73042579-f638-4275-a897-663ab4cfe861",
+        "createdAt": "2024-09-07T09:29:27.390828",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "01a7e235-63dc-49a0-9c22-9020420f4227",
+                "name": "Methanol",
+                "structure": "CCCCCC",
+                "cas": "77-92-9",
+                "producer": "CitricLabs",
+                "catalogId": "CA-200",
+                "catalogLink": "https://citriclabs.com/catalog/CA-200",
+                "category": "acidic",
+                "units": "l",
+                "pricePerUnit": 3,
+                "quantity": 1
+            },
+            {
+                "id": "d76fa7d3-0f0b-4e27-96af-9038ed5d253a",
+                "name": "Methanol",
+                "structure": "CO",
+                "cas": "579-81-7",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "206685",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "ml",
+                "pricePerUnit": 2.5,
+                "quantity": 8
+            },
+            {
+                "id": "27b47586-797b-405a-a60a-4f0e03623c1c",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "236-43-6",
+                "producer": "Merck",
+                "catalogId": "223711",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "g",
+                "pricePerUnit": 3,
+                "quantity": 10
+            }
+        ]
+    },
+    {
+        "id": "ae7aed1d-3895-4ccf-a5ae-0b0032c8c756",
+        "userId": "88ffeca1-ab51-48a0-a8d7-c49737c521df",
+        "createdAt": "2024-08-29T06:56:27.391431",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "03fc1ee4-3f56-401a-9cc5-63d926f37b80",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CC(=O)O",
+                "cas": "180-39-9",
+                "producer": "Merck",
+                "catalogId": "230197",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "l",
+                "pricePerUnit": 2,
+                "quantity": 7
+            }
+        ]
+    },
+    {
+        "id": "47a663fa-2a00-4be9-be7c-0ba71c96c388",
+        "userId": "c3f123be-09bc-4345-b36e-3382839094c3",
+        "createdAt": "2024-09-16T17:15:27.391569",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "ebc4e102-40f8-4d0f-9fb4-c54151a5f3d7",
+                "name": "Sulfuric Acid",
+                "structure": "CCCCCC",
+                "cas": "110-83-3",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "274578",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 3,
+                "quantity": 1
+            },
+            {
+                "id": "e7bebedf-4a9b-4cdf-9590-34cffa52f674",
+                "name": "Methanol",
+                "structure": "OS(=O)(=O)O",
+                "cas": "142-79-9",
+                "producer": "Thermo Fisher",
+                "catalogId": "246928",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "l",
+                "pricePerUnit": 2.5,
+                "quantity": 5
+            }
+        ]
+    },
+    {
+        "id": "83ada0da-0120-4566-9c0c-f0ed6a0a80e2",
+        "userId": "23fc0a13-edbe-4895-b553-076f46211d22",
+        "createdAt": "2024-08-17T15:07:27.391823",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "f0c80895-f582-40de-9469-bcca83cb6e7f",
+                "name": "Acetic Acid",
+                "structure": "CO",
+                "cas": "766-56-7",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "223365",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "l",
+                "pricePerUnit": 3,
+                "quantity": 8
+            },
+            {
+                "id": "d35afd8a-caf5-4202-8297-14d18ab60cc9",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CCCCCC",
+                "cas": "158-18-4",
+                "producer": "Merck",
+                "catalogId": "209652",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 1,
+                "quantity": 6
+            }
+        ]
+    },
+    {
+        "id": "399bef55-8228-443e-b590-a5d503c27f11",
+        "userId": "cb57aaa3-2a1f-4fa2-b54f-6b1b363fce93",
+        "createdAt": "2024-09-21T20:16:27.392374",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "b46b2e2f-3175-4b25-9e07-62c087c01bec",
+                "name": "Methanol",
+                "structure": "OS(=O)(=O)O",
+                "cas": "111-81-4",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "231266",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "g",
+                "pricePerUnit": 2,
+                "quantity": 4
+            },
+            {
+                "id": "3d93dca4-fdd4-4ba8-942e-b3997878e497",
+                "name": "Sulfuric Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "974-39-1",
+                "producer": "Thermo Fisher",
+                "catalogId": "292636",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "id": "2791e728-ba0e-4054-9828-d8d5204fc4b2",
+        "userId": "e699154d-956b-4891-86f9-88d953722bff",
+        "createdAt": "2024-10-10T14:11:27.392477",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "5253547f-80b8-44ad-88cf-ff5b89d05b7e",
+                "name": "Methanol",
+                "structure": "OS(=O)(=O)O",
+                "cas": "847-85-7",
+                "producer": "Thermo Fisher",
+                "catalogId": "235590",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 3,
+                "quantity": 6
+            },
+            {
+                "id": "b249da54-0592-4a52-87b1-1cc8734a231e",
+                "name": "Sulfuric Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "375-70-9",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "235347",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "l",
+                "pricePerUnit": 3.5,
+                "quantity": 8
+            }
+        ]
+    },
+    {
+        "id": "49813cb5-59f5-4944-8514-3ea181de50a0",
+        "userId": "d1743362-9dbc-4226-97b7-35d89f6e904f",
+        "createdAt": "2024-09-07T11:57:27.392539",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "7d6ecac3-ceb6-4b29-9865-2298f074304c",
+                "name": "Methanol",
+                "structure": "OS(=O)(=O)O",
+                "cas": "905-28-1",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "295457",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "l",
+                "pricePerUnit": 2,
+                "quantity": 5
+            },
+            {
+                "id": "388b20ab-7b14-40d3-ab22-a7259da8b86c",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CO",
+                "cas": "469-80-6",
+                "producer": "Thermo Fisher",
+                "catalogId": "255304",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "l",
+                "pricePerUnit": 2,
+                "quantity": 3
+            },
+            {
+                "id": "76eeb7d4-e989-492b-80e2-2b6421053b34",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "749-78-4",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "273722",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "l",
+                "pricePerUnit": 3,
+                "quantity": 6
+            }
+        ]
+    },
+    {
+        "id": "21ad6fdb-2207-43b8-826b-458ca75abe25",
+        "userId": "159e106b-d10b-409e-9a38-377c57ba9987",
+        "createdAt": "2024-09-28T22:15:27.392693",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "e797bf4a-8531-4310-a56a-4cbfdbf05477",
+                "name": "Sulfuric Acid",
+                "structure": "CCCCCC",
+                "cas": "827-17-7",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "264827",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2.5,
+                "quantity": 5
+            },
+            {
+                "id": "bb952b77-9e33-43b4-b4f7-bf7cd355b5d6",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "129-45-4",
+                "producer": "Merck",
+                "catalogId": "217496",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 10
+            }
+        ]
+    },
+    {
+        "id": "3e95957b-e119-4ee0-af0d-a228100da711",
+        "userId": "6621b56d-8295-45fc-a3a0-79dd34f78b66",
+        "createdAt": "2024-09-15T01:36:27.392784",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "4f3c2d4a-f8c1-4b7e-9341-ab6940ca952f",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "916-12-4",
+                "producer": "Merck",
+                "catalogId": "200847",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2.5,
+                "quantity": 4
+            },
+            {
+                "id": "aeb9e133-8422-4c04-bb16-bb72a5f8d6bc",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "OS(=O)(=O)O",
+                "cas": "991-81-2",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "267902",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 1,
+                "quantity": 1
+            },
+            {
+                "id": "2b917d01-47b5-4783-8805-4b686b1b3f99",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CCCCCC",
+                "cas": "409-32-7",
+                "producer": "Thermo Fisher",
+                "catalogId": "291925",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2,
+                "quantity": 5
+            }
+        ]
+    },
+    {
+        "id": "415f5ca3-3fc9-4bf1-9022-21744ebc9542",
+        "userId": "b5e7a8b7-9bec-411e-9172-6a422848a351",
+        "createdAt": "2024-08-28T05:33:27.392917",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "5a23ce52-ccd5-4709-ae69-fd3d293d61f0",
+                "name": "Sulfuric Acid",
+                "structure": "CO",
+                "cas": "819-95-3",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "296764",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 3,
+                "quantity": 4
+            },
+            {
+                "id": "99c87ab2-3d48-4895-93bc-258d132f9fb1",
+                "name": "Methanol",
+                "structure": "CCCCCC",
+                "cas": "656-23-8",
+                "producer": "Thermo Fisher",
+                "catalogId": "268860",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "l",
+                "pricePerUnit": 2,
+                "quantity": 2
+            }
+        ]
+    },
+    {
+        "id": "70f2040a-5fff-43dd-be96-7c5812f9518c",
+        "userId": "b435690b-d362-48da-a559-c520e22c07a4",
+        "createdAt": "2024-09-04T12:31:27.392988",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "d69836f1-bfb1-4fa1-8e87-a1388acd5fbf",
+                "name": "Sulfuric Acid",
+                "structure": "CO",
+                "cas": "615-47-1",
+                "producer": "Merck",
+                "catalogId": "265705",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 9
+            },
+            {
+                "id": "9cc82b9d-a16c-41e8-8e5f-6433717ed670",
+                "name": "Sulfuric Acid",
+                "structure": "CCCCCC",
+                "cas": "499-52-4",
+                "producer": "Merck",
+                "catalogId": "242894",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 8
+            },
+            {
+                "id": "b3f7538f-e5d5-438a-b903-566eaa33185f",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CCCCCC",
+                "cas": "456-98-7",
+                "producer": "Merck",
+                "catalogId": "200544",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "id": "dbcc325a-753e-45f0-9a2d-a4def9f761e7",
+        "userId": "336c14fb-d002-40c4-be8b-b2758d87e730",
+        "createdAt": "2024-08-02T19:53:27.393134",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "c59fd682-ad3a-4c43-9390-2b09ceaa22d3",
+                "name": "Methanol",
+                "structure": "CO",
+                "cas": "693-89-2",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "225882",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 7
+            },
+            {
+                "id": "0403714a-445f-4631-93f5-09d73a48de1e",
+                "name": "Methanol",
+                "structure": "CC(=O)O",
+                "cas": "763-38-4",
+                "producer": "Merck",
+                "catalogId": "213612",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 6
+            },
+            {
+                "id": "6dbfdba4-ee3d-4554-be6d-78249ac2c2c7",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CCCCCC",
+                "cas": "406-91-7",
+                "producer": "Thermo Fisher",
+                "catalogId": "231979",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2,
+                "quantity": 2
+            }
+        ]
+    },
+    {
+        "id": "f8a59c8a-a3a4-4780-86d2-21fda0ce73ce",
+        "userId": "381f67d2-19f3-43b5-bea1-8ce1ed2f2298",
+        "createdAt": "2024-09-13T19:56:27.393210",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "ad79e5f4-047a-48f4-80c3-3aa1774d5a92",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "463-54-7",
+                "producer": "Thermo Fisher",
+                "catalogId": "227735",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2,
+                "quantity": 8
+            },
+            {
+                "id": "e26d9311-67a6-4fb5-ba64-e9964eee4a9d",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "OS(=O)(=O)O",
+                "cas": "255-72-6",
+                "producer": "Merck",
+                "catalogId": "244136",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2,
+                "quantity": 5
+            },
+            {
+                "id": "c0fc7268-3975-4667-a26d-83bff5c22ebb",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "906-92-4",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "261898",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 2
+            }
+        ]
+    },
+    {
+        "id": "6613fc4b-c57a-43a9-8a81-581bc8c3e974",
+        "userId": "9a952020-3f66-438c-aec2-c2244a07c67e",
+        "createdAt": "2024-08-30T09:15:27.393492",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "5da2a115-aabb-4167-8c68-6c99a5c1b677",
+                "name": "Acetic Acid",
+                "structure": "CCCCCC",
+                "cas": "573-91-2",
+                "producer": "Thermo Fisher",
+                "catalogId": "209916",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 2
+            },
+            {
+                "id": "1a7d688b-8695-41e2-b7fb-dee9c4f05618",
+                "name": "Sulfuric Acid",
+                "structure": "CCCCCC",
+                "cas": "716-87-2",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "260149",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 10
+            },
+            {
+                "id": "f56bec9b-a362-4a6a-b51a-82d5175e91fa",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CC(=O)O",
+                "cas": "557-66-3",
+                "producer": "Merck",
+                "catalogId": "235942",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 5
+            }
+        ]
+    },
+    {
+        "id": "ea13ce18-84fd-43cf-8eeb-e01f40001ab6",
+        "userId": "b4b0ce8f-d193-4c06-ae89-deb8d3e3d509",
+        "createdAt": "2024-08-22T22:11:27.393728",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "c5f57109-d2d0-436d-ac58-0a7a1803fd12",
+                "name": "Methanol",
+                "structure": "OS(=O)(=O)O",
+                "cas": "387-75-5",
+                "producer": "Thermo Fisher",
+                "catalogId": "289481",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 5
+            },
+            {
+                "id": "724c4d88-1c69-40ed-bae4-8a6937498ba7",
+                "name": "Acetic Acid",
+                "structure": "CO",
+                "cas": "202-96-2",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "209156",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "id": "b9704b9c-3c5a-4250-a300-05dff65dd38e",
+        "userId": "984eb65c-f381-4757-88df-8be3ed3739a1",
+        "createdAt": "2024-09-02T08:56:27.393813",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "fbff93fd-bc6a-4334-bc0b-1253fecf1ecd",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "633-18-6",
+                "producer": "Thermo Fisher",
+                "catalogId": "228497",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2,
+                "quantity": 5
+            },
+            {
+                "id": "47c9a764-e77f-4390-83a8-8ed7af9aa8f1",
+                "name": "Methanol",
+                "structure": "CCCCCC",
+                "cas": "978-89-9",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "210425",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "id": "b2ff7313-ca93-463c-be2b-1b3c89ed8844",
+        "userId": "540e00f7-0b26-447a-b0c9-af1321a0e5c8",
+        "createdAt": "2024-09-02T11:05:27.393879",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "bae8aef3-7233-4257-b3a9-658872a09699",
+                "name": "Methanol",
+                "structure": "CO",
+                "cas": "717-64-7",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "264338",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 4
+            },
+            {
+                "id": "9f9f698e-d114-454f-b10a-6b675040a233",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CO",
+                "cas": "484-48-2",
+                "producer": "Thermo Fisher",
+                "catalogId": "278759",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2,
+                "quantity": 8
+            },
+            {
+                "id": "b989432b-cc0b-4015-8872-1d2d507563d3",
+                "name": "Acetic Acid",
+                "structure": "CO",
+                "cas": "744-38-7",
+                "producer": "Thermo Fisher",
+                "catalogId": "256723",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2,
+                "quantity": 10
+            }
+        ]
+    },
+    {
+        "id": "ba505619-3b3e-4db6-8366-95b713c8d42b",
+        "userId": "830b06f3-4f2c-47be-9719-6ea156c408b6",
+        "createdAt": "2024-10-10T21:11:27.393999",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "0de6f36a-7169-4bf6-912b-65dc6efa4423",
+                "name": "Sulfuric Acid",
+                "structure": "CO",
+                "cas": "624-18-2",
+                "producer": "Thermo Fisher",
+                "catalogId": "208930",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 9
+            },
+            {
+                "id": "bef0e03f-c701-4f27-9da2-da43734e33e0",
+                "name": "Methanol",
+                "structure": "OS(=O)(=O)O",
+                "cas": "922-36-2",
+                "producer": "Merck",
+                "catalogId": "222981",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 8
+            },
+            {
+                "id": "17e86a92-6628-4f3d-b80c-a0023f5100f9",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "951-65-3",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "242239",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 9
+            }
+        ]
+    },
+    {
+        "id": "98c9fb44-6f0a-426e-b3c3-f0fc9a5c3233",
+        "userId": "c0f64642-109b-4072-89e3-419eb4cbf6bc",
+        "createdAt": "2024-08-10T17:08:27.394077",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "46be8007-a6e9-4e9d-bf3f-2252ab121a8c",
+                "name": "Methanol",
+                "structure": "CC(=O)O",
+                "cas": "515-22-5",
+                "producer": "Thermo Fisher",
+                "catalogId": "241519",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 8
+            },
+            {
+                "id": "a1674738-1140-4001-98ab-a5549a606636",
+                "name": "Methanol",
+                "structure": "OS(=O)(=O)O",
+                "cas": "216-63-4",
+                "producer": "Thermo Fisher",
+                "catalogId": "250844",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "id": "ad86255d-b878-40df-b84e-68841e6aa3af",
+        "userId": "aeabcf02-7ac6-4f52-82b4-f49aa31b1db7",
+        "createdAt": "2024-10-08T23:18:27.394288",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "7c389489-4364-4455-9dae-fdf781b2cc26",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CC(=O)O",
+                "cas": "576-34-5",
+                "producer": "Merck",
+                "catalogId": "251619",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 9
+            }
+        ]
+    },
+    {
+        "id": "ded279b2-12fd-4189-ae75-e426a7bd198e",
+        "userId": "efe84349-942b-46b9-99f3-5c4875af029c",
+        "createdAt": "2024-09-09T15:38:27.394569",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "01f84d86-b4ad-405d-ae65-62fa64533bf3",
+                "name": "Sulfuric Acid",
+                "structure": "CCCCCC",
+                "cas": "887-10-4",
+                "producer": "Merck",
+                "catalogId": "217894",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 7
+            },
+            {
+                "id": "2c5af83c-8d12-4a62-b66c-e6f2b6d00cad",
+                "name": "Methanol",
+                "structure": "OS(=O)(=O)O",
+                "cas": "498-44-5",
+                "producer": "Thermo Fisher",
+                "catalogId": "287113",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 5
+            }
+        ]
+    },
+    {
+        "id": "c308e3f3-0020-429d-ab00-cd987ae61744",
+        "userId": "6f251385-2f43-4374-9812-322afc2f3021",
+        "createdAt": "2024-08-24T09:26:27.394707",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "f38391b0-09cf-4337-9af8-54fc1e9687d5",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "489-65-2",
+                "producer": "Thermo Fisher",
+                "catalogId": "282960",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 4
+            },
+            {
+                "id": "62cbb9de-af36-40ab-aeb9-63a999c66991",
+                "name": "Acetic Acid",
+                "structure": "CO",
+                "cas": "232-41-1",
+                "producer": "Merck",
+                "catalogId": "222176",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 3
+            },
+            {
+                "id": "4c4c02e1-d798-4f82-acef-9223935f0e5b",
+                "name": "Methanol",
+                "structure": "CCCCCC",
+                "cas": "212-97-2",
+                "producer": "Merck",
+                "catalogId": "281354",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 10
+            }
+        ]
+    },
+    {
+        "id": "4b1e0f12-1108-4a38-b82e-b54ebc339d4b",
+        "userId": "b0d53228-519e-4578-94cd-75e68801ed40",
+        "createdAt": "2024-08-24T20:52:27.394811",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "fb7c3da1-39e1-4659-9053-c6b446b4155b",
+                "name": "Sulfuric Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "964-72-3",
+                "producer": "Thermo Fisher",
+                "catalogId": "201819",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 4
+            }
+        ]
+    },
+    {
+        "id": "5c3f1876-8d16-4cdf-b162-d66aea87e1db",
+        "userId": "38ab2680-79d7-4468-8ab1-bfec880c5220",
+        "createdAt": "2024-10-27T12:04:27.394849",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "2dd4b739-8fd3-472b-9d7c-f8098b39ff5f",
+                "name": "Methanol",
+                "structure": "CO",
+                "cas": "199-95-3",
+                "producer": "Merck",
+                "catalogId": "267946",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 7
+            }
+        ]
+    },
+    {
+        "id": "ddf88662-dbc6-48a5-9d48-fba17c6ef610",
+        "userId": "c3e7cc38-06c9-4fcf-828b-f9eb510d1e5e",
+        "createdAt": "2024-08-17T19:50:27.394892",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "8f98e5c4-691b-4319-bdcc-3fcbfd26d750",
+                "name": "Methanol",
+                "structure": "CO",
+                "cas": "758-23-5",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "230322",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 4
+            }
+        ]
+    },
+    {
+        "id": "416891e4-bbca-474d-b8c8-4086a87ffc85",
+        "userId": "02def6e0-062f-4389-beb6-ddf547d2d99b",
+        "createdAt": "2024-07-31T16:06:27.395098",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "d392c456-1d87-4149-9132-ac7d3a9cb7da",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "518-29-6",
+                "producer": "Thermo Fisher",
+                "catalogId": "269226",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 6
+            }
+        ]
+    },
+    {
+        "id": "642bb3c6-a439-472f-ba82-c4de4d8a8f5b",
+        "userId": "7215211a-58ad-48bd-94b6-a9f49cbb3bb3",
+        "createdAt": "2024-08-25T19:03:27.395201",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "99f3a324-1a03-47c5-ae7d-87025b2118db",
+                "name": "Sulfuric Acid",
+                "structure": "CO",
+                "cas": "354-61-2",
+                "producer": "Merck",
+                "catalogId": "274614",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 2
+            },
+            {
+                "id": "0cb48ca6-338e-4b99-a4e5-b8a60c462863",
+                "name": "Methanol",
+                "structure": "CO",
+                "cas": "620-99-9",
+                "producer": "Merck",
+                "catalogId": "204150",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 8
+            }
+        ]
+    },
+    {
+        "id": "3a18c3b4-445c-4a74-9c76-f0bb16c8e174",
+        "userId": "3f2b9f45-72b9-441b-8479-2f2f8d6c639d",
+        "createdAt": "2024-10-22T13:31:27.395269",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "e1e70844-6a1e-4f38-a3a9-8b81d6249d12",
+                "name": "Acetic Acid",
+                "structure": "CCCCCC",
+                "cas": "335-92-2",
+                "producer": "Thermo Fisher",
+                "catalogId": "208147",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 4
+            },
+            {
+                "id": "bd3c76bd-b14d-48bd-adaa-47e7d314f7ad",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "226-76-9",
+                "producer": "Thermo Fisher",
+                "catalogId": "224585",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 7
+            },
+            {
+                "id": "20ea2510-3dcd-4168-b79c-f7008b464fd4",
+                "name": "Acetic Acid",
+                "structure": "CO",
+                "cas": "553-28-9",
+                "producer": "Thermo Fisher",
+                "catalogId": "275298",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 2
+            }
+        ]
+    },
+    {
+        "id": "1b08a3cb-5edf-44c4-8a7e-1a9a05c45e5b",
+        "userId": "14367ff9-382d-4245-9dda-33046aadbfac",
+        "createdAt": "2024-08-11T09:47:27.395336",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "7126576f-3aa5-44af-805d-3bfc57f33938",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CC(=O)O",
+                "cas": "274-37-2",
+                "producer": "Merck",
+                "catalogId": "205697",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 9
+            }
+        ]
+    },
+    {
+        "id": "3c3d6357-14bb-42ee-9afb-4720a8816623",
+        "userId": "9d699329-81fe-4d94-80fb-e45fd769d17b",
+        "createdAt": "2024-10-26T16:55:27.395373",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "f8101998-9a53-4f4d-8e47-6dfaee050e68",
+                "name": "Acetic Acid",
+                "structure": "CO",
+                "cas": "971-50-2",
+                "producer": "Thermo Fisher",
+                "catalogId": "231007",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 3
+            }
+        ]
+    },
+    {
+        "id": "02df0ebd-7c2e-48c3-abe3-d6008f78943e",
+        "userId": "5f379a86-aa40-4f54-9a4a-90372b2f7046",
+        "createdAt": "2024-08-02T22:27:27.395413",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "3a7027ac-0c54-450f-8f2f-78f5502cf9fa",
+                "name": "Sulfuric Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "200-94-7",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "202965",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 2
+            },
+            {
+                "id": "aa4e14d9-9300-4051-8f2b-28cda0c96761",
+                "name": "Sulfuric Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "510-26-7",
+                "producer": "Merck",
+                "catalogId": "232609",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 7
+            },
+            {
+                "id": "86ac1f91-b812-438f-a220-7530df58626b",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "OS(=O)(=O)O",
+                "cas": "263-21-8",
+                "producer": "Thermo Fisher",
+                "catalogId": "267987",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 6
+            }
+        ]
+    },
+    {
+        "id": "0c15a5a7-2bc3-4a3d-855c-1ec01aa180f4",
+        "userId": "9fec7d6d-3f7c-4b74-b858-6b3487266b81",
+        "createdAt": "2024-08-03T05:07:27.395605",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "3ba2eb21-b5aa-47bd-9fff-1c294b1e3b68",
+                "name": "Sulfuric Acid",
+                "structure": "CCCCCC",
+                "cas": "746-36-4",
+                "producer": "Thermo Fisher",
+                "catalogId": "221285",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 10
+            },
+            {
+                "id": "6550707c-b08b-4e54-84d9-6c5a7113201f",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "228-87-6",
+                "producer": "Merck",
+                "catalogId": "215277",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 3
+            },
+            {
+                "id": "10028bc3-93e8-4e33-b0b1-79c4d01aa33a",
+                "name": "Sulfuric Acid",
+                "structure": "CCCCCC",
+                "cas": "330-89-2",
+                "producer": "Merck",
+                "catalogId": "200562",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 10
+            }
+        ]
+    },
+    {
+        "id": "5f7d2b25-7368-4066-80ad-7279856523d5",
+        "userId": "388e0a96-e954-465f-aa06-6d6d8d786b2e",
+        "createdAt": "2024-08-26T13:49:27.395717",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "ad176b22-1ba8-4f83-b232-5384d24ef452",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "280-40-6",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "261235",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 2
+            },
+            {
+                "id": "12fb48b2-9459-47f0-be05-187ac503e067",
+                "name": "Acetic Acid",
+                "structure": "CCCCCC",
+                "cas": "910-80-3",
+                "producer": "Merck",
+                "catalogId": "222031",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 8
+            },
+            {
+                "id": "f8a7eb4c-a9ca-4189-bd66-ad2459e2602e",
+                "name": "Acetic Acid",
+                "structure": "CCCCCC",
+                "cas": "741-61-7",
+                "producer": "Merck",
+                "catalogId": "230214",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 2
+            }
+        ]
+    },
+    {
+        "id": "fab6f53a-2b7c-452f-ac89-8049151b75dd",
+        "userId": "0973985a-1989-4240-8bf3-01e0ad6fe7a0",
+        "createdAt": "2024-08-25T16:51:27.395780",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "4e71f9c2-f84c-472e-8e18-c2d69b26c252",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "569-21-2",
+                "producer": "Merck",
+                "catalogId": "258679",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 9
+            },
+            {
+                "id": "ead6deec-655e-4871-b39d-2cf43dc4779a",
+                "name": "Acetic Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "731-30-3",
+                "producer": "Merck",
+                "catalogId": "284287",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 9
+            },
+            {
+                "id": "4de2db1e-4a76-478e-b2eb-5269f91fb4e2",
+                "name": "Sulfuric Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "776-30-9",
+                "producer": "Merck",
+                "catalogId": "282010",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 9
+            }
+        ]
+    },
+    {
+        "id": "51bc594b-bd67-4204-b1d4-0bf8949d8950",
+        "userId": "646df440-555d-4827-bae8-da4fcf694a80",
+        "createdAt": "2024-08-30T09:18:27.395901",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "b13d55f7-1677-422a-8344-683f15067480",
+                "name": "Acetic Acid",
+                "structure": "CCCCCC",
+                "cas": "340-45-6",
+                "producer": "Thermo Fisher",
+                "catalogId": "273904",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 6
+            },
+            {
+                "id": "75f404b2-6cdd-446b-90da-a4b48e5d44ce",
+                "name": "Sulfuric Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "689-58-2",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "232997",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 8
+            }
+        ]
+    },
+    {
+        "id": "950060f2-ff00-4574-848c-d893cbcae342",
+        "userId": "6b7aeae2-f2e0-49e6-afa8-2929527cfe5d",
+        "createdAt": "2024-07-31T04:42:27.395953",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "1829c340-3a74-4854-8af0-734cb1468123",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CO",
+                "cas": "619-81-1",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "231244",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 10
+            },
+            {
+                "id": "91bd4ca8-d5ba-4895-b755-c6eaf6d98ee6",
+                "name": "Methanol",
+                "structure": "CO",
+                "cas": "926-24-6",
+                "producer": "Merck",
+                "catalogId": "293409",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "id": "48a56c91-483f-4d82-ae7a-943cb9b952dd",
+        "userId": "ee4309f1-ce96-4cf2-a791-4f7678e95c5b",
+        "createdAt": "2024-10-18T11:12:27.396002",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "c02fca06-9e67-4525-904d-1c23770cdd66",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CO",
+                "cas": "879-13-2",
+                "producer": "Thermo Fisher",
+                "catalogId": "275307",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 7
+            }
+        ]
+    },
+    {
+        "id": "0fe51d09-ed7f-443f-b581-cf4b08228c2b",
+        "userId": "5f6aded8-646a-4cf7-b64b-2080a399d49c",
+        "createdAt": "2024-10-27T05:41:27.396036",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "45eba1b3-da74-4ec5-9b75-41478b81b5be",
+                "name": "Methanol",
+                "structure": "CC(=O)O",
+                "cas": "610-43-2",
+                "producer": "Thermo Fisher",
+                "catalogId": "240247",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 6
+            },
+            {
+                "id": "56f99405-1b0b-406b-958a-4887a6446b0f",
+                "name": "Acetic Acid",
+                "structure": "CCCCCC",
+                "cas": "155-63-4",
+                "producer": "Merck",
+                "catalogId": "231654",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 10
+            }
+        ]
+    },
+    {
+        "id": "79e8cc7d-12c9-4395-aac9-c2c1ea6cf8d5",
+        "userId": "08b4df42-4ea4-41f7-ae09-b6ca4a4246ac",
+        "createdAt": "2024-10-24T02:46:27.396122",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "7d552365-4435-4352-95a3-6b6fdddebde0",
+                "name": "Acetic Acid",
+                "structure": "CCCCCC",
+                "cas": "957-95-9",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "284289",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 2
+            },
+            {
+                "id": "85c97ef5-9dc1-47ea-b2a5-3a41c0309449",
+                "name": "Acetic Acid",
+                "structure": "CCCCCC",
+                "cas": "619-70-8",
+                "producer": "Thermo Fisher",
+                "catalogId": "210857",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 9
+            }
+        ]
+    },
+    {
+        "id": "72d8f247-fe1d-48f8-b94b-52a4927549a9",
+        "userId": "e7b3ac5a-b181-4eff-9615-31aab509d2db",
+        "createdAt": "2024-08-28T05:42:27.396177",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "7db5d42d-e028-4900-a245-54cc852afe65",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CCCCCC",
+                "cas": "183-74-9",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "206472",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 3
+            },
+            {
+                "id": "f78149fc-f20d-4f1d-b4eb-051bbd7acaa1",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "544-56-1",
+                "producer": "Thermo Fisher",
+                "catalogId": "225135",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "id": "b0766071-1081-41ac-8144-c6f3490973bb",
+        "userId": "ccf27c95-6075-41c4-b577-0c90d5f4a1e6",
+        "createdAt": "2024-09-15T14:52:27.396266",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "dace0dac-7a00-4c66-9b3a-48b8a7f5b502",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "394-29-8",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "287908",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 8
+            }
+        ]
+    },
+    {
+        "id": "a26f022c-9884-4c53-92e2-c469fe9024c4",
+        "userId": "e19b8c91-30b1-4f12-ab7f-cba38f8a5766",
+        "createdAt": "2024-09-08T08:01:27.396304",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "4d628249-3dce-4706-9d1c-baf4b98a5d45",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "OS(=O)(=O)O",
+                "cas": "384-53-9",
+                "producer": "Merck",
+                "catalogId": "206194",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 9
+            },
+            {
+                "id": "868a9893-9850-4e16-953c-c993047b814b",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "426-19-3",
+                "producer": "Merck",
+                "catalogId": "254887",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "id": "680b2ca7-5223-4b17-b65f-59b1772022be",
+        "userId": "9145ca91-edcc-4e9c-8afe-e1586edfa3af",
+        "createdAt": "2024-08-14T07:47:27.396354",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "3416e61f-3100-42a9-a3a6-ecb811892ae0",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "872-29-8",
+                "producer": "Merck",
+                "catalogId": "265810",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 10
+            },
+            {
+                "id": "4e8a31b3-008f-428d-9ec1-c76a6224b300",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "234-81-2",
+                "producer": "Merck",
+                "catalogId": "269686",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 7
+            }
+        ]
+    },
+    {
+        "id": "56cb597d-6996-420f-842e-e67fcf436919",
+        "userId": "59740730-94db-4ab2-b805-f2a69584d297",
+        "createdAt": "2024-08-22T21:00:27.396431",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "32e53608-0f6b-4cb7-8511-9166082d289c",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CO",
+                "cas": "701-88-2",
+                "producer": "Thermo Fisher",
+                "catalogId": "295409",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 10
+            },
+            {
+                "id": "bad118d3-e9e8-4ca7-80e0-cd79f364c087",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CO",
+                "cas": "745-48-1",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "288405",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 2
+            },
+            {
+                "id": "1f4979d3-b697-4820-b85a-f9c71e984690",
+                "name": "Acetic Acid",
+                "structure": "CCCCCC",
+                "cas": "279-96-1",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "292792",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 3
+            }
+        ]
+    },
+    {
+        "id": "60a357ab-c9ca-4658-929a-04658047869d",
+        "userId": "b01ac023-a82a-4d70-968e-3f045a2ba87a",
+        "createdAt": "2024-08-27T03:50:27.396558",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "ea97144c-62b8-493d-af1d-096f953e111f",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CO",
+                "cas": "883-70-6",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "294754",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 2
+            }
+        ]
+    },
+    {
+        "id": "4fa85e61-a348-4d7a-be5d-e4b982132a6b",
+        "userId": "360180b4-42d9-458b-a190-53ef91086cbb",
+        "createdAt": "2024-08-13T05:44:27.396617",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "ec269007-11bb-4a36-ade3-2033fb31e786",
+                "name": "Methanol",
+                "structure": "CC(=O)O",
+                "cas": "522-35-2",
+                "producer": "Thermo Fisher",
+                "catalogId": "236567",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 7
+            }
+        ]
+    },
+    {
+        "id": "9f0b3f97-945c-455c-a7d0-9c6ca9205f5a",
+        "userId": "61fe5496-faa9-4b01-aeb7-b1f1b011d930",
+        "createdAt": "2024-08-26T02:19:27.396716",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "4ba038b3-b262-4393-bb41-2a3abd29e528",
+                "name": "Sulfuric Acid",
+                "structure": "CCCCCC",
+                "cas": "131-67-4",
+                "producer": "Thermo Fisher",
+                "catalogId": "247890",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 10
+            }
+        ]
+    },
+    {
+        "id": "2c969dd2-6e1c-48a8-8029-11704aa2f004",
+        "userId": "68d1b1dc-770e-4f3f-aae3-1b161e177e3e",
+        "createdAt": "2024-08-26T07:10:27.396754",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "6559b625-596b-40d4-b693-a96f608c3fa9",
+                "name": "Acetic Acid",
+                "structure": "CO",
+                "cas": "253-85-1",
+                "producer": "Thermo Fisher",
+                "catalogId": "224757",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 4
+            },
+            {
+                "id": "d3a5c1e8-927f-42d0-8d62-74f4f72adeb6",
+                "name": "Sulfuric Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "580-14-8",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "259263",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 3
+            },
+            {
+                "id": "6d3f35ac-1269-4eab-9efc-3ce4bfdc3bb1",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CCCCCC",
+                "cas": "469-53-2",
+                "producer": "Merck",
+                "catalogId": "249199",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "id": "58108850-bc5b-47c1-918f-35f7e24d4d78",
+        "userId": "c305a24b-c341-45f3-9d13-730b36c38064",
+        "createdAt": "2024-08-22T22:59:27.396837",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "5915d080-7606-4c7c-b292-f79d9bf10e2a",
+                "name": "Sulfuric Acid",
+                "structure": "CCCCCC",
+                "cas": "100-76-7",
+                "producer": "Thermo Fisher",
+                "catalogId": "251122",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 2
+            }
+        ]
+    },
+    {
+        "id": "29dfd77d-371c-4025-9b7d-beb03177b688",
+        "userId": "02e3a298-c174-478a-ae1c-90503bbaf012",
+        "createdAt": "2024-09-17T11:22:27.396883",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "b5a8e60b-9628-4b5e-a063-1291cd16dea4",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CO",
+                "cas": "222-51-9",
+                "producer": "Merck",
+                "catalogId": "268402",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 1
+            },
+            {
+                "id": "6b148bc0-0e8a-4c1b-8ef2-3fd2eb002458",
+                "name": "Acetic Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "480-79-7",
+                "producer": "Merck",
+                "catalogId": "200227",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 9
+            },
+            {
+                "id": "a376e373-4076-4edf-9f93-9781f5533ca3",
+                "name": "Sulfuric Acid",
+                "structure": "CCCCCC",
+                "cas": "518-40-9",
+                "producer": "Thermo Fisher",
+                "catalogId": "225129",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 2
+            }
+        ]
+    },
+    {
+        "id": "69cf118d-a9d8-4b7b-b0fc-58fb99b9a68b",
+        "userId": "8f5b0b72-eb38-4376-aabc-46e1961dd982",
+        "createdAt": "2024-09-03T00:49:27.397008",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "98b15fd6-4c7e-4bb0-ba3b-a4aa32f4ee3e",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "817-29-2",
+                "producer": "Thermo Fisher",
+                "catalogId": "270316",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 4
+            },
+            {
+                "id": "2fbfcde5-21b4-4b2b-9429-5c06aa9f2aa1",
+                "name": "Acetic Acid",
+                "structure": "CCCCCC",
+                "cas": "443-62-9",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "248223",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 4
+            },
+            {
+                "id": "4e92696c-11d4-435e-8350-24c730540719",
+                "name": "Acetic Acid",
+                "structure": "CCCCCC",
+                "cas": "737-92-7",
+                "producer": "Thermo Fisher",
+                "catalogId": "260421",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 7
+            }
+        ]
+    },
+    {
+        "id": "ec04e3ff-3787-4b55-b1ad-ec0554399dc4",
+        "userId": "cfe11799-591e-473c-9df3-36ed5a589e97",
+        "createdAt": "2024-10-04T09:05:27.397077",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "47ead712-415d-4b92-a23a-c1ed33fd3ffb",
+                "name": "Methanol",
+                "structure": "CCCCCC",
+                "cas": "287-34-1",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "242489",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 2
+            },
+            {
+                "id": "86e1d653-450b-4b3b-88b1-832d3109efa0",
+                "name": "Acetic Acid",
+                "structure": "CCCCCC",
+                "cas": "850-52-1",
+                "producer": "Thermo Fisher",
+                "catalogId": "249212",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 4
+            }
+        ]
+    },
+    {
+        "id": "d340f396-9518-4d1b-aa5a-920f4583d434",
+        "userId": "65e7919d-df4a-4884-86c2-bd5fd0883046",
+        "createdAt": "2024-09-28T21:57:27.397134",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "f4576227-ce26-4261-aa1b-957af2cdc3da",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CO",
+                "cas": "619-35-7",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "270060",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 6
+            },
+            {
+                "id": "c3ee0d7e-ca00-44de-8a1a-e8e65fead390",
+                "name": "Acetic Acid",
+                "structure": "CO",
+                "cas": "522-21-6",
+                "producer": "Merck",
+                "catalogId": "280501",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 5
+            },
+            {
+                "id": "a1f2bbf3-b360-459d-9dfa-08d7149f8680",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CO",
+                "cas": "621-10-8",
+                "producer": "Thermo Fisher",
+                "catalogId": "278610",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 9
+            }
+        ]
+    },
+    {
+        "id": "7bb3597d-519a-4dab-bc49-e01c42713816",
+        "userId": "d7dd1967-9505-470e-bda3-0248272ec8cd",
+        "createdAt": "2024-09-05T20:39:27.397204",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "9786ff27-ccea-4cbf-81e5-a75a08a2bfa5",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "174-99-2",
+                "producer": "Merck",
+                "catalogId": "239040",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 8
+            },
+            {
+                "id": "81f4e252-9f95-4c75-81b6-76a4cde8d03d",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CC(=O)O",
+                "cas": "248-19-7",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "293367",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 3
+            }
+        ]
+    },
+    {
+        "id": "267c9619-880a-4758-94e0-02c5d756e939",
+        "userId": "6f64f81b-bb52-414a-adf1-e4d704850eba",
+        "createdAt": "2024-08-22T23:02:27.397280",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "a7c83e12-515c-4e3e-bddf-2d54f0436b85",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CCCCCC",
+                "cas": "166-71-3",
+                "producer": "Thermo Fisher",
+                "catalogId": "272207",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 7
+            },
+            {
+                "id": "0fe6e8a7-8a6e-44a6-bcd2-694f8c7339ae",
+                "name": "Sulfuric Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "427-92-4",
+                "producer": "Merck",
+                "catalogId": "234385",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 2
+            }
+        ]
+    },
+    {
+        "id": "f334a09d-940c-4d91-be91-74d9763a012b",
+        "userId": "fa005f26-f3de-415b-9328-26700b238d6d",
+        "createdAt": "2024-10-29T03:07:27.397386",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "fd6711bf-7257-49a3-8b42-a3bc14c9ee13",
+                "name": "Acetic Acid",
+                "structure": "CO",
+                "cas": "538-37-5",
+                "producer": "Thermo Fisher",
+                "catalogId": "214443",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 2
+            },
+            {
+                "id": "55c58f95-18bd-43ec-b20a-873070c5d864",
+                "name": "Acetic Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "407-90-1",
+                "producer": "Merck",
+                "catalogId": "224369",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 1
+            },
+            {
+                "id": "734e3682-940f-43dd-be6a-fd5516e84565",
+                "name": "Acetic Acid",
+                "structure": "CO",
+                "cas": "845-35-2",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "290665",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 2
+            }
+        ]
+    },
+    {
+        "id": "9474ba7d-41a8-4643-9240-26af560408ed",
+        "userId": "b41c7cf9-7a0d-44a5-bd39-d3ebbc03d2cd",
+        "createdAt": "2024-08-01T04:31:27.397566",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "ae359543-4c3a-4a3a-aa36-b531441a33d7",
+                "name": "Acetic Acid",
+                "structure": "CCCCCC",
+                "cas": "781-46-8",
+                "producer": "Merck",
+                "catalogId": "298482",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 10
+            }
+        ]
+    },
+    {
+        "id": "84987901-f7f5-4d6e-8c58-c0b7b951c05b",
+        "userId": "6f84c649-027e-41ce-b19b-a4d96371fa9a",
+        "createdAt": "2024-10-25T16:28:27.397655",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "1949b495-d3b2-4b35-942e-8ad53e6c3223",
+                "name": "Methanol",
+                "structure": "CCCCCC",
+                "cas": "465-27-1",
+                "producer": "Thermo Fisher",
+                "catalogId": "290407",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 5
+            },
+            {
+                "id": "3a7b5566-4734-43bc-80c1-ff834bce18c9",
+                "name": "Sulfuric Acid",
+                "structure": "CCCCCC",
+                "cas": "798-91-2",
+                "producer": "Merck",
+                "catalogId": "276754",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "id": "67754be6-0d30-477a-a752-1e5799fab86f",
+        "userId": "82fa8efe-2ffa-4b8c-9bd3-7381e18cf8e8",
+        "createdAt": "2024-08-01T17:30:27.397814",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "1b9d0866-b31b-48f9-9558-b39176a64d69",
+                "name": "Sulfuric Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "740-88-3",
+                "producer": "Thermo Fisher",
+                "catalogId": "241245",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 10
+            },
+            {
+                "id": "8f888495-b23c-44ff-bf8a-034be5a2066e",
+                "name": "Acetic Acid",
+                "structure": "CCCCCC",
+                "cas": "526-18-1",
+                "producer": "Thermo Fisher",
+                "catalogId": "260608",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 9
+            },
+            {
+                "id": "ed089ea7-6986-4be7-81a8-33c3381a7884",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CC(=O)O",
+                "cas": "490-68-2",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "239166",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 7
+            }
+        ]
+    },
+    {
+        "id": "010d25b2-a33a-435d-a78a-0922f2ad13e9",
+        "userId": "8b79b076-e7ea-44c9-a503-449d42298f92",
+        "createdAt": "2024-10-13T04:41:27.397983",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "73a64777-abd5-4e82-a571-bd7cf405dc34",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "730-46-3",
+                "producer": "Thermo Fisher",
+                "catalogId": "227758",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 9
+            },
+            {
+                "id": "0fd3cf97-757e-4136-9ed5-d3f05f9cd690",
+                "name": "Sulfuric Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "728-62-4",
+                "producer": "Thermo Fisher",
+                "catalogId": "269582",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 6
+            },
+            {
+                "id": "b9f830f0-cc6e-40a2-a1fe-f03cd48e3b19",
+                "name": "Methanol",
+                "structure": "CO",
+                "cas": "947-29-8",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "209312",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 7
+            }
+        ]
+    },
+    {
+        "id": "7a067b43-6163-4b3b-836b-020b8b9d5b98",
+        "userId": "960ac9c5-6278-4db8-b0b0-fc481f6b45dd",
+        "createdAt": "2024-09-07T01:21:27.398151",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "238047b9-4b06-4afe-859d-83b7edce0254",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "322-67-6",
+                "producer": "Merck",
+                "catalogId": "210953",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 4
+            }
+        ]
+    },
+    {
+        "id": "53073e96-ff12-4d8a-81af-70481d77e031",
+        "userId": "632f850e-2f32-4992-b58c-c3451bb88051",
+        "createdAt": "2024-08-27T12:00:27.398248",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "84d0b6fb-d182-4d7e-9d2b-ec39daeb9e86",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "539-56-5",
+                "producer": "Thermo Fisher",
+                "catalogId": "238055",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 6
+            },
+            {
+                "id": "974d1463-7e06-4d67-9ee5-6d02a6d1d841",
+                "name": "Methanol",
+                "structure": "OS(=O)(=O)O",
+                "cas": "790-60-3",
+                "producer": "Merck",
+                "catalogId": "243153",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 1
+            },
+            {
+                "id": "41e6ac27-3737-4f36-8269-62b57d7699ef",
+                "name": "Methanol",
+                "structure": "OS(=O)(=O)O",
+                "cas": "896-10-2",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "215254",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 10
+            }
+        ]
+    },
+    {
+        "id": "8700c7e5-d485-4126-a2d5-4ac3e01d3718",
+        "userId": "e61a63cf-2a52-447c-9b90-c2a41bdc76dc",
+        "createdAt": "2024-10-15T18:31:27.398361",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "9f9bd988-5e8f-4f00-8cdf-238c9d6bdd39",
+                "name": "Methanol",
+                "structure": "OS(=O)(=O)O",
+                "cas": "874-12-1",
+                "producer": "Thermo Fisher",
+                "catalogId": "214493",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "id": "877fedb5-9413-48b1-b17c-f81d2ca000d3",
+        "userId": "e1d204f5-9307-4a46-a6a2-df494345a650",
+        "createdAt": "2024-10-06T19:24:27.398438",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "987eaea7-233c-4504-a48f-d8e06abe693f",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CCCCCC",
+                "cas": "857-62-7",
+                "producer": "Thermo Fisher",
+                "catalogId": "291388",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 4
+            },
+            {
+                "id": "d66b9e83-e4e4-49db-b7f0-d2cb9b2f7d44",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CCCCCC",
+                "cas": "396-73-3",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "206242",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 8
+            }
+        ]
+    },
+    {
+        "id": "1c5a17ae-91ea-463c-9baf-7817edd9b0ce",
+        "userId": "44c8c1e9-6b06-4655-80cd-c89aa21f1c42",
+        "createdAt": "2024-09-23T17:29:27.398663",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "eba1034e-0d1b-457c-b3ad-89c51835eecf",
+                "name": "Acetic Acid",
+                "structure": "CO",
+                "cas": "233-81-4",
+                "producer": "Merck",
+                "catalogId": "250448",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 2
+            }
+        ]
+    },
+    {
+        "id": "507eacd1-58a4-4805-ad31-2ada9017dbfb",
+        "userId": "94c51595-27b0-4a6c-bd78-fe91d32ec149",
+        "createdAt": "2024-09-18T11:06:27.398817",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "fe8fc5c4-da37-4c31-ad1d-8569041e5702",
+                "name": "Methanol",
+                "structure": "CC(=O)O",
+                "cas": "247-18-6",
+                "producer": "Thermo Fisher",
+                "catalogId": "217329",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 1
+            },
+            {
+                "id": "f63cb532-9e39-47c8-9ca0-a430fa96626d",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CC(=O)O",
+                "cas": "553-78-6",
+                "producer": "Thermo Fisher",
+                "catalogId": "250801",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 8
+            },
+            {
+                "id": "cc117077-fb21-4808-85e4-eab014b84931",
+                "name": "Acetic Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "971-24-9",
+                "producer": "Thermo Fisher",
+                "catalogId": "250526",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 6
+            }
+        ]
+    },
+    {
+        "id": "67a14820-db1e-4cac-81c0-afa32531ccd7",
+        "userId": "93d48a63-7b4b-4be1-b0e5-4dfb98bb41fc",
+        "createdAt": "2024-09-25T05:26:27.399128",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "f3f8cfdc-dbbf-49b7-97ea-3ff819a962e5",
+                "name": "Methanol",
+                "structure": "CC(=O)O",
+                "cas": "198-66-8",
+                "producer": "Thermo Fisher",
+                "catalogId": "281203",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 8
+            }
+        ]
+    },
+    {
+        "id": "e4e18db9-8a5d-4957-9f72-7f633af1c88d",
+        "userId": "4065c018-6c0b-406d-9886-3d54edd6c01d",
+        "createdAt": "2024-08-25T02:00:27.399237",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "31652b1e-64b3-4ef4-bc12-cbdb1a9a3575",
+                "name": "Methanol",
+                "structure": "CO",
+                "cas": "220-60-8",
+                "producer": "Thermo Fisher",
+                "catalogId": "261415",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 10
+            }
+        ]
+    },
+    {
+        "id": "13d75f04-03be-450e-a311-7a17907d1458",
+        "userId": "efcc205c-928a-47b4-a42c-f14ebaa4aee4",
+        "createdAt": "2024-09-22T01:55:27.399303",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "648eff98-e8c1-4637-90d7-c8382ccaf57b",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "OS(=O)(=O)O",
+                "cas": "344-90-1",
+                "producer": "Thermo Fisher",
+                "catalogId": "285673",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 7
+            }
+        ]
+    },
+    {
+        "id": "1110c73e-4f52-4165-9580-e03a423da63d",
+        "userId": "4cf26392-02d1-43e8-bc24-cad26df2aa5c",
+        "createdAt": "2024-09-23T06:56:27.399372",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "28b81b31-bf7e-4eb1-b380-a5c3f49108b4",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CCCCCC",
+                "cas": "211-79-9",
+                "producer": "Thermo Fisher",
+                "catalogId": "297763",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 4
+            },
+            {
+                "id": "6fbc7c9d-c906-47e1-a23d-d628d26b8978",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "722-99-6",
+                "producer": "Thermo Fisher",
+                "catalogId": "220080",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 6
+            },
+            {
+                "id": "354253cd-a718-416a-9f46-7ed52e9efd79",
+                "name": "Methanol",
+                "structure": "CCCCCC",
+                "cas": "447-15-4",
+                "producer": "Thermo Fisher",
+                "catalogId": "218455",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "id": "333e71ea-d01d-4d34-8bcc-0fb794b89e0f",
+        "userId": "c35b94f9-92dd-4c55-bdbb-84aec9735637",
+        "createdAt": "2024-10-07T17:18:27.399496",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "05f90ef3-c270-4919-a44c-f674d75edb43",
+                "name": "Methanol",
+                "structure": "CCCCCC",
+                "cas": "178-31-3",
+                "producer": "Merck",
+                "catalogId": "274724",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 3
+            },
+            {
+                "id": "2ef18348-15ac-45aa-a454-86baefd9599d",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CC(=O)O",
+                "cas": "824-21-7",
+                "producer": "Thermo Fisher",
+                "catalogId": "237423",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 10
+            }
+        ]
+    },
+    {
+        "id": "c449eb3d-7aa4-40a9-a39f-f76426506119",
+        "userId": "cd33093a-a7b9-44d5-aa0e-958a06fc12f8",
+        "createdAt": "2024-10-18T04:39:27.399564",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "a0515708-3931-40a6-b533-93c607af496f",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CCCCCC",
+                "cas": "573-71-5",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "298532",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 6
+            },
+            {
+                "id": "1f9f6cc8-81d8-4735-907a-1b43c3cdd61f",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "OS(=O)(=O)O",
+                "cas": "102-10-6",
+                "producer": "Merck",
+                "catalogId": "231857",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 3
+            }
+        ]
+    },
+    {
+        "id": "a375477a-1ed1-4822-ad8b-6cd7be2ba507",
+        "userId": "aab75913-5774-420d-80e6-ad7f8cd1daed",
+        "createdAt": "2024-08-02T21:26:27.399643",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "0c2cb177-1d7b-4998-81c8-eeaf8fa493be",
+                "name": "Acetic Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "808-63-1",
+                "producer": "Merck",
+                "catalogId": "256191",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 1
+            },
+            {
+                "id": "923ed765-8549-4c65-bab6-80e6bcd25365",
+                "name": "Methanol",
+                "structure": "CC(=O)O",
+                "cas": "499-42-4",
+                "producer": "Thermo Fisher",
+                "catalogId": "273818",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 9
+            },
+            {
+                "id": "89658123-55f2-4a32-b0d7-8658b37ebe2b",
+                "name": "Sulfuric Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "689-27-3",
+                "producer": "Merck",
+                "catalogId": "278049",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 8
+            }
+        ]
+    },
+    {
+        "id": "9516c4a2-8728-4959-8625-8207b98cb4ea",
+        "userId": "adb2e0ed-a512-42dd-b6f0-afaa4b5bf336",
+        "createdAt": "2024-08-06T04:33:27.399714",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "2e548675-fa88-4dfe-becf-ded523d6f695",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "542-14-9",
+                "producer": "Merck",
+                "catalogId": "228775",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 3
+            },
+            {
+                "id": "23c7202c-bbb7-44d1-9ba0-9221c43b1415",
+                "name": "Acetic Acid",
+                "structure": "CCCCCC",
+                "cas": "314-92-3",
+                "producer": "Thermo Fisher",
+                "catalogId": "221927",
+                "catalogLink": "https://benzenechem.com/catalog/BEN-150",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 7
+            }
+        ]
+    },
+    {
+        "id": "b0a2195f-a958-48b3-af50-38a63dc571f3",
+        "userId": "079f55e6-c9e9-48d4-adbb-e284cef525a4",
+        "createdAt": "2024-10-28T01:16:27.399790",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "9855bac8-70d2-494a-8742-5a105abafc72",
+                "name": "Acetic Acid",
+                "structure": "CO",
+                "cas": "389-16-7",
+                "producer": "Merck",
+                "catalogId": "206409",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 3
+            },
+            {
+                "id": "b95bde7d-0300-462b-99ac-f234d2563720",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "460-21-6",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "202273",
+                "catalogLink": "https://solventmasters.com/catalog/HEX-250",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 7
+            },
+            {
+                "id": "5c29db99-9954-4d30-838a-3b2d750fbfa9",
+                "name": "Sulfuric Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "124-67-5",
+                "producer": "Merck",
+                "catalogId": "204331",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "id": "031d49ca-41a9-41f3-87f9-bfc6e7e8b742",
+        "userId": "27d8410e-8e09-4177-b912-13907b388c28",
+        "createdAt": "2024-08-01T23:46:27.400052",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "b17c07c1-c724-4f18-b7ee-5cc6a8aadac4",
+                "name": "Sulfuric Acid",
+                "structure": "CCCCCC",
+                "cas": "616-31-6",
+                "producer": "Thermo Fisher",
+                "catalogId": "214436",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 5
+            },
+            {
+                "id": "3ab55d31-a39b-4018-b5fb-84074e9f47f5",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "933-56-2",
+                "producer": "Merck",
+                "catalogId": "267130",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 5
+            },
+            {
+                "id": "241b09e1-e58e-4d27-ae9c-b0340ef92f33",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CCCCCC",
+                "cas": "773-20-8",
+                "producer": "Thermo Fisher",
+                "catalogId": "269677",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 10
+            }
+        ]
+    },
+    {
+        "id": "871493d4-87b8-4e19-aec7-b62a7764557c",
+        "userId": "b0d75ddc-54d9-445b-900e-ed8ffbe2e26b",
+        "createdAt": "2024-08-22T17:15:27.400135",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "669cd502-0b03-4102-a889-29c0ec1d49a6",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "573-94-2",
+                "producer": "Thermo Fisher",
+                "catalogId": "244282",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 1
+            },
+            {
+                "id": "267a0d8f-2c48-4879-a829-930b9ce05efd",
+                "name": "Methanol",
+                "structure": "OS(=O)(=O)O",
+                "cas": "331-55-9",
+                "producer": "Thermo Fisher",
+                "catalogId": "258799",
+                "catalogLink": "https://solventmasters.com/catalog/HEX-250",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 6
+            },
+            {
+                "id": "1592d386-cbc6-4981-98b3-387415c4ae8c",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CC(=O)O",
+                "cas": "650-18-2",
+                "producer": "Thermo Fisher",
+                "catalogId": "204470",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 9
+            }
+        ]
+    },
+    {
+        "id": "ed556f1f-875d-481a-9aeb-2cc479ceb847",
+        "userId": "7b7e37f0-b7ce-47f3-9851-08c5468cfadf",
+        "createdAt": "2024-08-24T06:10:27.400262",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "b754e0c1-6c25-48f4-8e71-fbce2885cd1b",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "105-66-5",
+                "producer": "Merck",
+                "catalogId": "220495",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 3
+            }
+        ]
+    },
+    {
+        "id": "344a7404-1466-40ee-a3d8-99c98e73ec9d",
+        "userId": "caa15e03-7afb-4af5-a318-ed84374a18b3",
+        "createdAt": "2024-08-05T21:01:27.400338",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "a03db29d-25cb-484d-94bb-68fae1907ab2",
+                "name": "Acetic Acid",
+                "structure": "CO",
+                "cas": "416-29-9",
+                "producer": "Thermo Fisher",
+                "catalogId": "239184",
+                "catalogLink": "https://solventmasters.com/catalog/HEX-250",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 10
+            }
+        ]
+    },
+    {
+        "id": "d84ee883-fbeb-482c-9d85-8cdf98e3f8e3",
+        "userId": "51cc041f-ed74-4f1c-ae5d-998a0f3d8b66",
+        "createdAt": "2024-09-14T09:09:27.400381",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "4e655133-909b-47b6-b64e-c65cf39b99df",
+                "name": "Sulfuric Acid",
+                "structure": "CO",
+                "cas": "993-67-2",
+                "producer": "Merck",
+                "catalogId": "228008",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 7
+            }
+        ]
+    },
+    {
+        "id": "db57c3da-c3e7-4a67-9420-5ec44edb5414",
+        "userId": "3338ad58-6c83-4882-832e-060d5123a650",
+        "createdAt": "2024-08-13T12:42:27.400476",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "9ac9ecaf-cdc2-432b-88e1-47dcaa021291",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CCCCCC",
+                "cas": "929-36-8",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "286355",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 10
+            },
+            {
+                "id": "b0defb13-3144-499e-be3a-6db40b3e93ac",
+                "name": "Sulfuric Acid",
+                "structure": "CCCCCC",
+                "cas": "454-94-3",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "211632",
+                "catalogLink": "https://solventmasters.com/catalog/HEX-250",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 4
+            }
+        ]
+    },
+    {
+        "id": "f9ba9dbe-3608-4f1e-afe0-4b2587232d99",
+        "userId": "54601d7c-5d10-4394-bb70-ccfb3980af6b",
+        "createdAt": "2024-09-22T09:16:27.400704",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "e1e8ec25-718d-4341-87cf-ef755b566f1b",
+                "name": "Methanol",
+                "structure": "CO",
+                "cas": "894-50-3",
+                "producer": "Thermo Fisher",
+                "catalogId": "263648",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 6
+            }
+        ]
+    },
+    {
+        "id": "4ec9d5e9-7108-455a-b7de-130890b1163f",
+        "userId": "ea9885b4-6b03-450e-83b4-054825dea17d",
+        "createdAt": "2024-08-28T19:44:27.400794",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "6c0406be-5e2f-484a-88c8-5755ccb84ecc",
+                "name": "Acetic Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "977-12-4",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "254266",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 3
+            },
+            {
+                "id": "e78e0995-9485-49ab-b95b-5e2e0730bed9",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CC(=O)O",
+                "cas": "278-33-8",
+                "producer": "Thermo Fisher",
+                "catalogId": "200678",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 3
+            },
+            {
+                "id": "e0751cec-b942-4861-9993-9eca40f1f654",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CCCCCC",
+                "cas": "136-69-9",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "238350",
+                "catalogLink": "https://solventmasters.com/catalog/HEX-250",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 6
+            }
+        ]
+    },
+    {
+        "id": "570bcff5-d9e8-4b85-9fe9-22e46bc9420f",
+        "userId": "173c0ca6-a631-42d8-912f-82508e89ed68",
+        "createdAt": "2024-10-11T04:15:27.400917",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "f4b5077e-5c4f-4199-98f7-a84e8285f69e",
+                "name": "Acetic Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "382-17-9",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "258100",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "l",
+                "pricePerUnit": 3,
+                "quantity": 6
+            },
+            {
+                "id": "4cd999e5-b101-4857-a3ee-387f97b40bf8",
+                "name": "Sulfuric Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "733-72-5",
+                "producer": "Thermo Fisher",
+                "catalogId": "287652",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 5
+            },
+            {
+                "id": "59684385-52ac-4ebc-af0a-4fcee5c16ff4",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CC(=O)O",
+                "cas": "167-49-5",
+                "producer": "Thermo Fisher",
+                "catalogId": "208579",
+                "catalogLink": "https://solventmasters.com/catalog/HEX-250",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 5
+            }
+        ]
+    },
+    {
+        "id": "736eb419-db20-428c-ae3a-133a0b37c24d",
+        "userId": "9913d230-23e8-427c-94f5-30a7d8c83554",
+        "createdAt": "2024-09-20T17:40:27.400991",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "222ebc9e-499f-4f11-8120-424362fc7aa0",
+                "name": "Acetic Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "935-14-6",
+                "producer": "Merck",
+                "catalogId": "249082",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 5
+            }
+        ]
+    },
+    {
+        "id": "6706fd4f-e4dd-413e-9859-c75ffec11e4b",
+        "userId": "617156f4-89cd-4a79-a38d-26ba6d1a736a",
+        "createdAt": "2024-09-07T01:09:27.401044",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "f49e895b-9a89-493c-98f7-b1ccb72d86c5",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "971-40-7",
+                "producer": "Merck",
+                "catalogId": "274139",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 8
+            },
+            {
+                "id": "dda5b522-6711-46e4-87a5-3312e1d8ec8e",
+                "name": "Sulfuric Acid",
+                "structure": "CCCCCC",
+                "cas": "714-80-8",
+                "producer": "Thermo Fisher",
+                "catalogId": "250734",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 5
+            },
+            {
+                "id": "7d1d636d-fa35-4aef-a21c-3acb5c0f0b60",
+                "name": "Acetic Acid",
+                "structure": "CCCCCC",
+                "cas": "774-63-7",
+                "producer": "Merck",
+                "catalogId": "290728",
+                "catalogLink": "https://solventmasters.com/catalog/HEX-250",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 5
+            }
+        ]
+    },
+    {
+        "id": "f542e76a-ee88-4a5d-8cfd-5b0e8e2ff1b8",
+        "userId": "7854010a-4827-4945-ae5f-cdb110c653b7",
+        "createdAt": "2024-09-24T13:03:27.401522",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "92140a65-4799-4db4-aaa8-f69ecb979f42",
+                "name": "Methanol",
+                "structure": "CO",
+                "cas": "111-71-2",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "237787",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 10
+            }
+        ]
+    },
+    {
+        "id": "22b69152-7427-4eda-a7ce-3e3f5f788ec1",
+        "userId": "279ebfe5-9ac3-4d49-910a-b286f246bc36",
+        "createdAt": "2024-09-10T06:47:27.401600",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "949a8462-be5f-457e-af84-52dfe7b68220",
+                "name": "Sulfuric Acid",
+                "structure": "CCCCCC",
+                "cas": "576-57-4",
+                "producer": "Thermo Fisher",
+                "catalogId": "202107",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 5
+            },
+            {
+                "id": "68bf686d-4b0d-42d7-9dcc-a30afff71dbc",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CC(=O)O",
+                "cas": "537-61-5",
+                "producer": "Thermo Fisher",
+                "catalogId": "217322",
+                "catalogLink": "https://solventmasters.com/catalog/HEX-250",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 10
+            }
+        ]
+    },
+    {
+        "id": "1ea94887-1a67-4791-8fb3-504bd0760405",
+        "userId": "f29f0962-50ac-4b69-9377-52f52df08e81",
+        "createdAt": "2024-09-25T13:56:27.401653",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "d3359281-92e4-4f20-89a6-45de00e0f020",
+                "name": "Sulfuric Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "780-54-4",
+                "producer": "Merck",
+                "catalogId": "295960",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 6
+            },
+            {
+                "id": "3107e2e0-e2be-413f-8c50-8d138d8256ce",
+                "name": "Methanol",
+                "structure": "CC(=O)O",
+                "cas": "643-64-6",
+                "producer": "Merck",
+                "catalogId": "262764",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 3
+            },
+            {
+                "id": "c584bc15-c688-41fe-a8b9-2a0addb4702e",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "763-93-9",
+                "producer": "Thermo Fisher",
+                "catalogId": "247926",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "id": "b1f0a305-87d4-4da6-96cf-c2965269615b",
+        "userId": "b7d238c6-2da2-4802-81a0-a73fbcb23b9c",
+        "createdAt": "2024-10-13T09:02:27.401729",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "2f099d44-ff71-4e54-b31f-5ee0c6ed27d0",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CC(=O)O",
+                "cas": "312-32-8",
+                "producer": "Merck",
+                "catalogId": "274501",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 8
+            },
+            {
+                "id": "244c703d-00ba-4e60-b017-ea4ae996a7cd",
+                "name": "Sulfuric Acid",
+                "structure": "CC(=O)O",
+                "cas": "219-69-6",
+                "producer": "Merck",
+                "catalogId": "242098",
+                "catalogLink": "https://solventmasters.com/catalog/HEX-250",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 2
+            }
+        ]
+    },
+    {
+        "id": "5434a08c-29c6-4a8e-84f6-eacd6e8880cc",
+        "userId": "a34135e3-43f8-44f5-80bc-156d48e248ba",
+        "createdAt": "2024-08-02T02:36:27.401781",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "1978b43c-940b-4ebc-8e53-dded0910f6e9",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CO",
+                "cas": "550-45-9",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "248772",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 9
+            },
+            {
+                "id": "f00feb9a-0ee1-4051-87e1-8f3f75e532e1",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "509-60-9",
+                "producer": "Thermo Fisher",
+                "catalogId": "219672",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 2
+            }
+        ]
+    },
+    {
+        "id": "ec680475-1bee-4a96-8b67-7ac88ec2638d",
+        "userId": "2072459b-06f9-4c0d-b081-259d27f0daff",
+        "createdAt": "2024-10-22T18:44:27.401831",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "1d96500e-14ff-4750-8c32-409241d1abaf",
+                "name": "Methanol",
+                "structure": "OS(=O)(=O)O",
+                "cas": "918-56-3",
+                "producer": "Merck",
+                "catalogId": "215974",
+                "catalogLink": "https://solventmasters.com/catalog/HEX-250",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 2
+            },
+            {
+                "id": "f01e214c-69a1-44ca-8553-8e2760b2f57f",
+                "name": "Acetic Acid",
+                "structure": "CO",
+                "cas": "130-50-4",
+                "producer": "Thermo Fisher",
+                "catalogId": "210310",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 8
+            },
+            {
+                "id": "73624de0-aaaa-4a2e-8c86-469613f05908",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "835-40-2",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "235246",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 7
+            }
+        ]
+    },
+    {
+        "id": "1ae6b953-f3e5-4c27-9ec2-9f46282308d7",
+        "userId": "6331adda-5916-42ef-81c5-fd9e28afd59b",
+        "createdAt": "2024-09-04T16:22:27.401896",
+        "status": "fulfilled",
+        "reagents": [
+            {
+                "id": "eb0de639-4650-41c7-89fc-759220cac059",
+                "name": "Acetic Acid",
+                "structure": "CCCCCC",
+                "cas": "604-98-7",
+                "producer": "Merck",
+                "catalogId": "258547",
+                "catalogLink": "https://solventmasters.com/catalog/HEX-250",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 9
+            }
+        ]
+    },
+    {
+        "id": "ab9d2a71-6c20-4b26-a4e5-811a15815f8e",
+        "userId": "191bccff-fd52-4013-b7c9-6f8be2d35a29",
+        "createdAt": "2024-09-28T08:06:27.401933",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "44972e9e-a0d5-44f2-a279-7dc6edddf0c5",
+                "name": "Methanol",
+                "structure": "CCCCCC",
+                "cas": "380-50-2",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "272673",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 3
+            },
+            {
+                "id": "fc35e5fd-27b2-4da1-b9eb-cf6d2bc61052",
+                "name": "Methanol",
+                "structure": "CO",
+                "cas": "909-77-8",
+                "producer": "Merck",
+                "catalogId": "238965",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 6
+            },
+            {
+                "id": "8061893f-9233-4213-9640-5e13d1057fcc",
+                "name": "Acetic Acid",
+                "structure": "CO",
+                "cas": "652-10-4",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "223937",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 1
+            }
+        ]
+    },
+    {
+        "id": "38cf5dea-0249-4da7-9667-db3f3bb71841",
+        "userId": "56d8711c-df09-4c0b-9f2f-0a3917ca4603",
+        "createdAt": "2024-08-27T22:24:27.401997",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "41f85377-afe9-49c4-9486-36fbbc282d03",
+                "name": "Sulfuric Acid",
+                "structure": "CCCCCC",
+                "cas": "872-75-4",
+                "producer": "Merck",
+                "catalogId": "285211",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 6
+            },
+            {
+                "id": "75153d53-70e8-4dd1-b0a8-bc42765c568c",
+                "name": "Sulfuric Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "911-98-4",
+                "producer": "Thermo Fisher",
+                "catalogId": "213610",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 3
+            },
+            {
+                "id": "390649b1-c19b-4798-8820-91550604c0bd",
+                "name": "Acetic Acid",
+                "structure": "CO",
+                "cas": "601-33-2",
+                "producer": "Thermo Fisher",
+                "catalogId": "283936",
+                "catalogLink": "https://solventmasters.com/catalog/HEX-250",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 5
+            }
+        ]
+    },
+    {
+        "id": "925d2bca-8d9a-4d77-a134-388c1fcd720b",
+        "userId": "c6d95256-7fcf-4296-88d5-4ad10addc585",
+        "createdAt": "2024-09-30T12:28:27.402067",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "7eaf3df1-d141-4b40-952e-d5772721495c",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CC(=O)O",
+                "cas": "753-33-2",
+                "producer": "Sigma-Aldrich",
+                "catalogId": "249937",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 6
+            },
+            {
+                "id": "9d80c8d7-e3ad-4d4e-a8a0-c5ca073d8f08",
+                "name": "Sulfuric Acid",
+                "structure": "OS(=O)(=O)O",
+                "cas": "599-50-2",
+                "producer": "Thermo Fisher",
+                "catalogId": "204969",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 2
+            },
+            {
+                "id": "db4922c7-8f4f-4854-96b2-b7201b024f20",
+                "name": "Methanol",
+                "structure": "CO",
+                "cas": "600-65-2",
+                "producer": "Merck",
+                "catalogId": "287766",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 7
+            }
+        ]
+    },
+    {
+        "id": "55f4f83d-bf63-4728-962c-120d07a9ef74",
+        "userId": "2cd6d84a-2298-4d63-a6a8-e43e1e800fb8",
+        "createdAt": "2024-08-24T20:49:27.402146",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "be68e960-f132-4154-bebf-b7edf9c2d379",
+                "name": "Sulfuric Acid",
+                "structure": "CCCCCC",
+                "cas": "428-14-9",
+                "producer": "Merck",
+                "catalogId": "208892",
+                "catalogLink": "https://solventmasters.com/catalog/HEX-250",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 5
+            },
+            {
+                "id": "af973f23-2369-4b74-901a-1ebb9d996352",
+                "name": "Sulfuric Acid",
+                "structure": "CO",
+                "cas": "197-55-1",
+                "producer": "Merck",
+                "catalogId": "230495",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 7
+            }
+        ]
+    },
+    {
+        "id": "62a0cf35-ee4e-48c6-8ffa-8bf1f7477fba",
+        "userId": "c6170ebd-8d2e-434e-bdcd-70f6132bf83a",
+        "createdAt": "2024-08-26T08:03:27.402241",
+        "status": "declined",
+        "reagents": [
+            {
+                "id": "d92cff1b-73c0-48e6-bc14-b55a4a854294",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "413-57-5",
+                "producer": "Merck",
+                "catalogId": "293952",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "g",
+                "pricePerUnit": 2.5,
+                "quantity": 2
+            },
+            {
+                "id": "91e77486-8772-4ced-af48-e3e92b42d959",
+                "name": "Acetic Acid",
+                "structure": "CC(=O)O",
+                "cas": "620-20-2",
+                "producer": "Thermo Fisher",
+                "catalogId": "297527",
+                "catalogLink": "https://aceticlabs.com/catalog/AA-200",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 6
+            }
+        ]
+    },
+    {
+        "id": "b249c655-cb45-4c5e-9ae7-43341b3c84bf",
+        "userId": "73f257e1-bf2e-44de-9f97-cc88dfd24888",
+        "createdAt": "2024-10-11T04:40:27.402300",
+        "status": "ordered",
+        "reagents": [
+            {
+                "id": "34d72bb9-e144-4e75-8eb0-e6dbbf4564de",
+                "name": "Methanol",
+                "structure": "CO",
+                "cas": "435-90-8",
+                "producer": "Merck",
+                "catalogId": "288289",
+                "catalogLink": "https://leadchem.com/catalog/LN-100",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 2
+            }
+        ]
+    },
+    {
+        "id": "a34fe73a-4955-4df0-b15f-dae3de49e250",
+        "userId": "4912e816-d028-4012-9d99-3eb3f9037d8f",
+        "createdAt": "2024-08-29T13:35:27.402361",
+        "status": "pending",
+        "reagents": [
+            {
+                "id": "d3dc43e5-1e3c-46b5-9ba2-182a8e45798c",
+                "name": "Hexan, Laboratory Reagent, \u226595%",
+                "structure": "CCCCCC",
+                "cas": "134-47-9",
+                "producer": "Merck",
+                "catalogId": "271790",
+                "catalogLink": "https://citratecorp.com/catalog/SC-300",
+                "units": "ml",
+                "pricePerUnit": 2,
+                "quantity": 5
+            }
+        ]
+    }
+]
