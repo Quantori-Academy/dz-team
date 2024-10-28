@@ -17,7 +17,7 @@ const fields = [
     { label: "Price per Unit", name: "pricePerUnit", type: "number" },
     { label: "Unit", name: "unit" },
     { label: "Quantity", name: "quantity", type: "number" },
-    { label: "Expiration Date", name: "expirationDate" },
+    { label: "Expiration Date", name: "expirationDate", type: "date" },
     { label: "Storage Location", name: "storageLocation" },
 ];
 
@@ -34,7 +34,7 @@ export const AddReagentForm = forwardRef<HTMLDivElement, AddReagentFormProps>(
             pricePerUnit: 0,
             unit: "",
             quantity: 0,
-            expirationDate: "",
+            expirationDate: new Date().toISOString().split("T")[0],
             storageLocation: "",
         });
 
@@ -59,6 +59,9 @@ export const AddReagentForm = forwardRef<HTMLDivElement, AddReagentFormProps>(
                 alert("Failed to add reagent. Please try again.");
             }
         };
+
+        // Check if all fields are filled
+        const isFormValid = Object.values(formData).every((value) => value !== "" && value !== 0);
 
         return (
             <Box
@@ -90,9 +93,15 @@ export const AddReagentForm = forwardRef<HTMLDivElement, AddReagentFormProps>(
                         fullWidth
                         margin="normal"
                         type={field.type || "text"}
+                        required
                     />
                 ))}
-                <Button variant="contained" sx={{ mt: 2 }} onClick={handleSubmit}>
+                <Button
+                    variant="contained"
+                    sx={{ mt: 2 }}
+                    onClick={handleSubmit}
+                    disabled={!isFormValid}
+                >
                     Submit
                 </Button>
                 <Button variant="outlined" sx={{ mt: 1 }} onClick={onClose}>
