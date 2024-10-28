@@ -22,4 +22,16 @@ export const ReagentDetailsContract = Record({
     updatedAt: String,
 });
 
+export const ReagentDetailsEditContract = Record({
+    id: String,
+    name: String.nullable(),
+    cas: String.nullable(),
+    producer: String.nullable(),
+    pricePerUnit: Number.nullable(),
+    quantity: Number,
+    unit: String.nullable(),
+    storageLocation: String,
+});
+
 export type ReagentDetails = Static<typeof ReagentDetailsContract>;
+export type ReagentDetailsEdit = Static<typeof ReagentDetailsEditContract>;
