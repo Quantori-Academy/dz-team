@@ -60,6 +60,9 @@ export const AddReagentForm = forwardRef<HTMLDivElement, AddReagentFormProps>(
             }
         };
 
+        // Check if all fields are filled
+        const isFormValid = Object.values(formData).every((value) => value !== "" && value !== 0);
+
         return (
             <Box
                 ref={ref}
@@ -90,9 +93,15 @@ export const AddReagentForm = forwardRef<HTMLDivElement, AddReagentFormProps>(
                         fullWidth
                         margin="normal"
                         type={field.type || "text"}
+                        required
                     />
                 ))}
-                <Button variant="contained" sx={{ mt: 2 }} onClick={handleSubmit}>
+                <Button
+                    variant="contained"
+                    sx={{ mt: 2 }}
+                    onClick={handleSubmit}
+                    disabled={!isFormValid}
+                >
                     Submit
                 </Button>
                 <Button variant="outlined" sx={{ mt: 1 }} onClick={onClose}>
