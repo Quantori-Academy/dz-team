@@ -2,7 +2,7 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import { Prisma } from "@prisma/client";
 import { z } from "zod";
 
-import { RegisterUser, registerUserSchema } from "shared/zodSchemas";
+import { RegisterUser, registerUserSchema, UpdateUser } from "shared/zodSchemas";
 
 import { UserService } from "../services/userService";
 
@@ -63,6 +63,45 @@ export class UserController {
                 return reply.status(409).send({ message: error.message });
             }
             return reply.status(500).send({ message: "Internal server error" });
+        }
+    }
+
+    /**
+     * Update user profile with role-based access control.
+     * @param request - FastifyRequest containing user data and token with user ID and role.
+     * @param reply - FastifyReply
+     * @returns Updated user data or error.
+     */
+    async updateUser(
+        request: FastifyRequest<{ Params: { userId: string }; Body: UpdateUser }>,
+        reply: FastifyReply,
+    ): Promise<void> {
+        try {
+            const { userId } = request.params;
+            const { body: userData } = request;
+            const requesterId = request.userData?.userId;
+            const requesterRole = request.userData?.role;
+
+            // Ensure request userId and role are available
+            if (!requesterId || !requesterRole)
+                return reply.status(401).send({ message: "Unauthorized" });
+
+            // Attempt update through the UserService
+            const updatedUser = await userService.updateUser(
+                userId,
+                userData,
+                requesterId,
+                requesterRole,
+            );
+            reply.status(200).send(updatedUser);
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                reply.status(400).send({ message: "Validation error", errors: error.errors });
+            } else if (error instanceof Error) {
+                reply.status(409).send({ message: error.message });
+            } else {
+                reply.status(500).send({ message: "Internal server error" });
+            }
         }
     }
 

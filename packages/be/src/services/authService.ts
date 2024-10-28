@@ -1,6 +1,7 @@
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
 import { LoginUser } from "shared/zodSchemas";
+import { JwtPayload } from "../types";
 
 const prisma = new PrismaClient();
 
@@ -13,7 +14,7 @@ export class AuthService {
      */
     async login(
         userData: LoginUser, // Use the LoginUser type here
-        jwtSign: (payload: object, options?: { expiresIn: string }) => string,
+        jwtSign: (payload: JwtPayload, options?: { expiresIn: string }) => string,
     ): Promise<{ token: string }> {
         const { username, password } = userData; // Destructure username and password
 
@@ -35,10 +36,7 @@ export class AuthService {
         }
 
         // Generate a JWT token using Fastify's jwtSign method
-        const token = jwtSign(
-            { userId: user.id },
-            { expiresIn: "1h" }, // Token expires in 1 hour
-        );
+        const token = jwtSign({ userId: user.id, role: user.role });
 
         return { token };
     }
