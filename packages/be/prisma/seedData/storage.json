@@ -1,7 +1,8 @@
 [
     {
         "storageLocation": {
-            "name": "Room 3, Shelf A3"
+            "name": "Room 3, Shelf A3",
+            "id": "2ecb0dc1-1cc6-44c8-93e3-ff1646ebadca"
         },
         "reagents": [
             {
@@ -12,14 +13,14 @@
                 "unit": "g",
                 "size": 887,
                 "expirationDate": "2025-09-07T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf A3",
                 "cas": "8251-79-8892",
                 "producer": "SaltCo Ltd.",
                 "catalogId": "CAT-001",
                 "catalogLink": "https://example.com/catalog/CAT-001",
                 "pricePerUnit": 4.93,
                 "category": "acidic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "945e827c-a609-4aeb-bd04-b4942c3e6a26"
             },
             {
                 "name": "Sodium Hydroxide",
@@ -29,14 +30,14 @@
                 "unit": "l",
                 "size": 420,
                 "expirationDate": "2025-01-18T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf A3",
                 "cas": "2026-54-3008",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-018",
                 "catalogLink": "https://example.com/catalog/CAT-018",
                 "pricePerUnit": 3.83,
                 "category": "acidic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "486bdf83-b00a-436e-92fd-0af0a8ebf548"
             },
             {
                 "name": "Magnesium Sulfate",
@@ -46,20 +47,21 @@
                 "unit": "ml",
                 "size": 721,
                 "expirationDate": "2026-02-11T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf A3",
                 "cas": "3825-45-9631",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-063",
                 "catalogLink": "https://example.com/catalog/CAT-063",
                 "pricePerUnit": 3.92,
                 "category": "acidic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "0d44be71-726b-442f-b86c-d6c25f856e6b"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 5, Shelf B2"
+            "name": "Room 5, Shelf B2",
+            "id": "c4fe1cd6-a0bb-467f-8256-9b0da0aec61f"
         },
         "reagents": [
             {
@@ -70,14 +72,14 @@
                 "unit": "l",
                 "size": 390,
                 "expirationDate": "2026-07-20T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf B2",
                 "cas": "6955-79-1509",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-002",
                 "catalogLink": "https://example.com/catalog/CAT-002",
                 "pricePerUnit": 3.86,
                 "category": "basic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "f208ad12-ffcc-4807-95db-bbfc1102011f"
             },
             {
                 "name": "Calcium Carbonate",
@@ -87,14 +89,14 @@
                 "unit": "g",
                 "size": 979,
                 "expirationDate": "2027-04-02T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf B2",
                 "cas": "3879-84-3620",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-045",
                 "catalogLink": "https://example.com/catalog/CAT-045",
                 "pricePerUnit": 8.12,
                 "category": "acidic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "4384423c-1322-470d-b2be-eeb1b07a78c8"
             },
             {
                 "name": "Ammonium Nitrate",
@@ -104,20 +106,21 @@
                 "unit": "ml",
                 "size": 524,
                 "expirationDate": "2027-02-03T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf B2",
                 "cas": "5988-98-3801",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-093",
                 "catalogLink": "https://example.com/catalog/CAT-093",
                 "pricePerUnit": 9.9,
                 "category": "organic",
-                "status": "available"
+                "status": "available",
+                "id": "e763a197-7244-4cd2-b1ef-33a0b5038b8d"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 3, Shelf D3"
+            "name": "Room 3, Shelf D3",
+            "id": "03e4f2ab-9c5b-41d9-866b-5d70e827399c"
         },
         "reagents": [
             {
@@ -128,14 +131,14 @@
                 "unit": "ml",
                 "size": 374,
                 "expirationDate": "2025-07-19T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf D3",
                 "cas": "5176-67-9660",
                 "producer": "SaltCo Ltd.",
                 "catalogId": "CAT-003",
                 "catalogLink": "https://example.com/catalog/CAT-003",
                 "pricePerUnit": 6.83,
                 "category": "other",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "e84cef01-9ad8-4838-b523-f10e0480819a"
             },
             {
                 "name": "Toluene",
@@ -145,14 +148,14 @@
                 "unit": "ml",
                 "size": 962,
                 "expirationDate": "2026-12-19T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf D3",
                 "cas": "7034-21-2131",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-062",
                 "catalogLink": "https://example.com/catalog/CAT-062",
                 "pricePerUnit": 1.02,
                 "category": "acidic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "7bd4d9fd-8c81-4cf4-b03a-65ab3ce69f37"
             },
             {
                 "name": "Phenol",
@@ -162,14 +165,14 @@
                 "unit": "g",
                 "size": 512,
                 "expirationDate": "2026-03-20T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf D3",
                 "cas": "7314-47-1721",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-073",
                 "catalogLink": "https://example.com/catalog/CAT-073",
                 "pricePerUnit": 5.95,
                 "category": "acidic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "3a38392a-8ad4-44ae-892c-2785c0d2e40b"
             },
             {
                 "name": "Sodium Chloride",
@@ -179,14 +182,14 @@
                 "unit": "l",
                 "size": 858,
                 "expirationDate": "2025-03-07T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf D3",
                 "cas": "4312-76-1844",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-091",
                 "catalogLink": "https://example.com/catalog/CAT-091",
                 "pricePerUnit": 8.16,
                 "category": "basic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "91c1066e-df33-4b21-a185-8da37e220617"
             },
             {
                 "name": "Phenol",
@@ -196,20 +199,21 @@
                 "unit": "ml",
                 "size": 469,
                 "expirationDate": "2025-07-10T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf D3",
                 "cas": "8390-82-8354",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-099",
                 "catalogLink": "https://example.com/catalog/CAT-099",
                 "pricePerUnit": 7.78,
                 "category": "organic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "10da1801-1301-48be-a536-912d4c26c9af"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 5, Shelf C2"
+            "name": "Room 5, Shelf C2",
+            "id": "a825fba0-48e3-4a07-92ac-c8dac964b8bc"
         },
         "reagents": [
             {
@@ -220,14 +224,14 @@
                 "unit": "l",
                 "size": 288,
                 "expirationDate": "2026-08-27T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf C2",
                 "cas": "9398-22-9364",
                 "producer": "SaltCo Ltd.",
                 "catalogId": "CAT-004",
                 "catalogLink": "https://example.com/catalog/CAT-004",
                 "pricePerUnit": 5.42,
                 "category": "other",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "c2ae49db-4c56-4923-8749-77bfbe621ce3"
             },
             {
                 "name": "Boric Acid",
@@ -237,20 +241,21 @@
                 "unit": "g",
                 "size": 378,
                 "expirationDate": "2025-07-20T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf C2",
                 "cas": "4181-10-1258",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-035",
                 "catalogLink": "https://example.com/catalog/CAT-035",
                 "pricePerUnit": 2.34,
                 "category": "organic",
-                "status": "available"
+                "status": "available",
+                "id": "44d2c47e-b436-495c-a475-7d398f51a956"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 5, Shelf A2"
+            "name": "Room 5, Shelf A2",
+            "id": "a2c2ae34-232e-4cbd-9c95-563bd4637e66"
         },
         "reagents": [
             {
@@ -261,14 +266,14 @@
                 "unit": "l",
                 "size": 519,
                 "expirationDate": "2027-02-27T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf A2",
                 "cas": "5968-95-5404",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-005",
                 "catalogLink": "https://example.com/catalog/CAT-005",
                 "pricePerUnit": 5.55,
                 "category": "inorganic",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "f7aa474c-0c5b-494c-a934-506a7340290c"
             },
             {
                 "name": "Sulfuric Acid",
@@ -278,20 +283,21 @@
                 "unit": "l",
                 "size": 419,
                 "expirationDate": "2025-08-25T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf A2",
                 "cas": "7541-49-1117",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-048",
                 "catalogLink": "https://example.com/catalog/CAT-048",
                 "pricePerUnit": 1.43,
                 "category": "basic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "59e201ba-4169-4d62-be24-c476d5d24eff"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 5, Shelf A3"
+            "name": "Room 5, Shelf A3",
+            "id": "4c2b8a41-e072-45b8-b1d9-ed556fa2e77a"
         },
         "reagents": [
             {
@@ -302,14 +308,14 @@
                 "unit": "l",
                 "size": 373,
                 "expirationDate": "2025-10-28T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf A3",
                 "cas": "4912-60-5416",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-006",
                 "catalogLink": "https://example.com/catalog/CAT-006",
                 "pricePerUnit": 2.95,
                 "category": "acidic",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "f8795e7a-9e90-4210-b9c6-8bd040013157"
             },
             {
                 "name": "Calcium Carbonate",
@@ -319,20 +325,21 @@
                 "unit": "ml",
                 "size": 419,
                 "expirationDate": "2025-02-15T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf A3",
                 "cas": "3448-31-4852",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-050",
                 "catalogLink": "https://example.com/catalog/CAT-050",
                 "pricePerUnit": 2.41,
                 "category": "acidic",
-                "status": "available"
+                "status": "available",
+                "id": "1e52c05c-8435-417f-979b-3b0186dbdacf"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 2, Shelf A1"
+            "name": "Room 2, Shelf A1",
+            "id": "a6f8cc88-c0c6-4359-af40-2d936f445645"
         },
         "reagents": [
             {
@@ -343,20 +350,21 @@
                 "unit": "l",
                 "size": 927,
                 "expirationDate": "2025-06-13T18:20:48.000Z",
-                "storageLocation": "Room 2, Shelf A1",
                 "cas": "5825-74-5666",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-007",
                 "catalogLink": "https://example.com/catalog/CAT-007",
                 "pricePerUnit": 4.09,
                 "category": "other",
-                "status": "available"
+                "status": "available",
+                "id": "0bd8e0ba-9ca8-49b6-b4be-b0901e2832e7"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 4, Shelf D2"
+            "name": "Room 4, Shelf D2",
+            "id": "e00cc3b7-0dea-4057-9f3b-8357320326f4"
         },
         "reagents": [
             {
@@ -367,14 +375,14 @@
                 "unit": "l",
                 "size": 873,
                 "expirationDate": "2025-11-01T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf D2",
                 "cas": "4580-72-3235",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-008",
                 "catalogLink": "https://example.com/catalog/CAT-008",
                 "pricePerUnit": 1.94,
                 "category": "organic",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "ef04e567-408a-49ab-ac54-a4cc961c263c"
             },
             {
                 "name": "Calcium Carbonate",
@@ -384,20 +392,21 @@
                 "unit": "l",
                 "size": 339,
                 "expirationDate": "2025-08-30T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf D2",
                 "cas": "6975-84-7645",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-023",
                 "catalogLink": "https://example.com/catalog/CAT-023",
                 "pricePerUnit": 5.69,
                 "category": "inorganic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "06e70b64-9aa7-4a2d-9e37-c075697182e7"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 4, Shelf B2"
+            "name": "Room 4, Shelf B2",
+            "id": "1571e53c-33a3-4e60-b6ac-3abd0b65c7f5"
         },
         "reagents": [
             {
@@ -408,14 +417,14 @@
                 "unit": "ml",
                 "size": 398,
                 "expirationDate": "2025-03-31T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf B2",
                 "cas": "3090-42-3317",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-009",
                 "catalogLink": "https://example.com/catalog/CAT-009",
                 "pricePerUnit": 6.69,
                 "category": "inorganic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "dc5dbc5a-fb8d-4eda-afda-1318a1c0c397"
             },
             {
                 "name": "Hydrochloric Acid",
@@ -425,14 +434,14 @@
                 "unit": "ml",
                 "size": 739,
                 "expirationDate": "2026-09-14T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf B2",
                 "cas": "4491-91-5502",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-025",
                 "catalogLink": "https://example.com/catalog/CAT-025",
                 "pricePerUnit": 7.3,
                 "category": "organic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "2a3a22cd-0fc9-4db6-ab5b-3458ab851ad8"
             },
             {
                 "name": "Calcium Sulfate",
@@ -442,20 +451,21 @@
                 "unit": "g",
                 "size": 331,
                 "expirationDate": "2025-04-22T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf B2",
                 "cas": "6566-50-8984",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-042",
                 "catalogLink": "https://example.com/catalog/CAT-042",
                 "pricePerUnit": 3.71,
                 "category": "acidic",
-                "status": "available"
+                "status": "available",
+                "id": "ad1a7faf-d97f-47aa-a779-81364f5c2cce"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 3, Shelf B2"
+            "name": "Room 3, Shelf B2",
+            "id": "d05cc823-2ce3-4029-b7e2-e1f62813b882"
         },
         "reagents": [
             {
@@ -466,14 +476,14 @@
                 "unit": "ml",
                 "size": 901,
                 "expirationDate": "2025-08-05T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf B2",
                 "cas": "1437-21-2033",
                 "producer": "SaltCo Ltd.",
                 "catalogId": "CAT-010",
                 "catalogLink": "https://example.com/catalog/CAT-010",
                 "pricePerUnit": 7.88,
                 "category": "acidic",
-                "status": "available"
+                "status": "available",
+                "id": "07fe28d8-9b1b-426b-9b72-078305258c5e"
             },
             {
                 "name": "Hydrogen Peroxide",
@@ -483,20 +493,21 @@
                 "unit": "g",
                 "size": 857,
                 "expirationDate": "2026-06-29T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf B2",
                 "cas": "5541-63-1752",
                 "producer": "SaltCo Ltd.",
                 "catalogId": "CAT-024",
                 "catalogLink": "https://example.com/catalog/CAT-024",
                 "pricePerUnit": 2.63,
                 "category": "acidic",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "cd5df8a0-5cc4-4b41-925d-4b4e93f0d172"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 1, Shelf D3"
+            "name": "Room 1, Shelf D3",
+            "id": "5f5704f9-0d2b-440a-a6eb-974fbae0ee47"
         },
         "reagents": [
             {
@@ -507,14 +518,14 @@
                 "unit": "l",
                 "size": 749,
                 "expirationDate": "2025-09-24T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf D3",
                 "cas": "6920-81-4731",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-011",
                 "catalogLink": "https://example.com/catalog/CAT-011",
                 "pricePerUnit": 3.11,
                 "category": "organic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "10083f97-0b37-4737-bf6c-0314ee5e029b"
             },
             {
                 "name": "Ethanol",
@@ -524,14 +535,14 @@
                 "unit": "ml",
                 "size": 966,
                 "expirationDate": "2027-01-18T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf D3",
                 "cas": "5394-15-7835",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-058",
                 "catalogLink": "https://example.com/catalog/CAT-058",
                 "pricePerUnit": 2.75,
                 "category": "basic",
-                "status": "available"
+                "status": "available",
+                "id": "7387d4eb-ad75-4a73-acb2-3dfd40576ac8"
             },
             {
                 "name": "Phenol",
@@ -541,14 +552,14 @@
                 "unit": "l",
                 "size": 488,
                 "expirationDate": "2026-05-22T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf D3",
                 "cas": "9852-48-6362",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-061",
                 "catalogLink": "https://example.com/catalog/CAT-061",
                 "pricePerUnit": 6.3,
                 "category": "inorganic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "3cdd8c84-99f0-42d3-932e-9bb8d54c2baa"
             },
             {
                 "name": "Hydrogen Peroxide",
@@ -558,20 +569,21 @@
                 "unit": "l",
                 "size": 863,
                 "expirationDate": "2025-06-17T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf D3",
                 "cas": "1002-24-8593",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-096",
                 "catalogLink": "https://example.com/catalog/CAT-096",
                 "pricePerUnit": 2.7,
                 "category": "acidic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "686ea18f-6cc7-4526-bf51-ac93408d6a53"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 3, Shelf C2"
+            "name": "Room 3, Shelf C2",
+            "id": "a3558960-5974-429d-ad93-af3f692692a1"
         },
         "reagents": [
             {
@@ -582,14 +594,14 @@
                 "unit": "ml",
                 "size": 739,
                 "expirationDate": "2026-10-17T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf C2",
                 "cas": "8585-28-7262",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-012",
                 "catalogLink": "https://example.com/catalog/CAT-012",
                 "pricePerUnit": 1.43,
                 "category": "organic",
-                "status": "available"
+                "status": "available",
+                "id": "f35d603b-e0fd-4444-9313-0ec45f3c40ab"
             },
             {
                 "name": "Toluene",
@@ -599,14 +611,14 @@
                 "unit": "ml",
                 "size": 765,
                 "expirationDate": "2025-09-25T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf C2",
                 "cas": "3633-97-6412",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-030",
                 "catalogLink": "https://example.com/catalog/CAT-030",
                 "pricePerUnit": 7.91,
                 "category": "other",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "5754ea2b-0b3b-4b73-9b0c-4772937b54b0"
             },
             {
                 "name": "Sodium Hydroxide",
@@ -616,20 +628,21 @@
                 "unit": "ml",
                 "size": 640,
                 "expirationDate": "2024-12-09T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf C2",
                 "cas": "3057-28-6797",
                 "producer": "SaltCo Ltd.",
                 "catalogId": "CAT-041",
                 "catalogLink": "https://example.com/catalog/CAT-041",
                 "pricePerUnit": 2.76,
                 "category": "organic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "6e0475c9-b9a6-412b-b402-fbb9caed1038"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 5, Shelf A1"
+            "name": "Room 5, Shelf A1",
+            "id": "ca041029-15f8-48f6-bf8f-517b962b8aa7"
         },
         "reagents": [
             {
@@ -640,14 +653,14 @@
                 "unit": "g",
                 "size": 507,
                 "expirationDate": "2025-05-10T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf A1",
                 "cas": "4812-43-3596",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-013",
                 "catalogLink": "https://example.com/catalog/CAT-013",
                 "pricePerUnit": 7.42,
                 "category": "basic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "8ddf2cc0-8232-43a4-a3b2-f3f3aa36ce56"
             },
             {
                 "name": "Calcium Carbonate",
@@ -657,14 +670,14 @@
                 "unit": "g",
                 "size": 863,
                 "expirationDate": "2026-03-16T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf A1",
                 "cas": "7012-24-7043",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-015",
                 "catalogLink": "https://example.com/catalog/CAT-015",
                 "pricePerUnit": 1.4,
                 "category": "organic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "d5942678-6b56-4103-900f-1253f6ff3f3c"
             },
             {
                 "name": "Magnesium Sulfate",
@@ -674,20 +687,21 @@
                 "unit": "g",
                 "size": 820,
                 "expirationDate": "2026-03-14T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf A1",
                 "cas": "4322-40-2840",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-036",
                 "catalogLink": "https://example.com/catalog/CAT-036",
                 "pricePerUnit": 7.56,
                 "category": "basic",
-                "status": "available"
+                "status": "available",
+                "id": "0cee989e-4cd6-4be5-a422-464011dfc4f8"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 1, Shelf A2"
+            "name": "Room 1, Shelf A2",
+            "id": "4cfb358c-f66a-4b73-bb34-6e77fc674f86"
         },
         "reagents": [
             {
@@ -698,14 +712,14 @@
                 "unit": "g",
                 "size": 908,
                 "expirationDate": "2025-10-23T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf A2",
                 "cas": "2701-23-1349",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-014",
                 "catalogLink": "https://example.com/catalog/CAT-014",
                 "pricePerUnit": 6.41,
                 "category": "acidic",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "3709ebc0-603b-45c4-a566-1255508cc1ed"
             },
             {
                 "name": "Tannic Acid",
@@ -715,20 +729,21 @@
                 "unit": "l",
                 "size": 600,
                 "expirationDate": "2025-09-04T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf A2",
                 "cas": "2470-12-4953",
                 "producer": "SaltCo Ltd.",
                 "catalogId": "CAT-076",
                 "catalogLink": "https://example.com/catalog/CAT-076",
                 "pricePerUnit": 2.16,
                 "category": "basic",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "05837bf3-a7b0-4ad4-9135-83da8ffc9ec7"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 4, Shelf A3"
+            "name": "Room 4, Shelf A3",
+            "id": "86c957ef-7c63-4e85-8aee-77a5bdfe9d58"
         },
         "reagents": [
             {
@@ -739,20 +754,21 @@
                 "unit": "g",
                 "size": 728,
                 "expirationDate": "2025-05-23T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf A3",
                 "cas": "9598-50-5806",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-016",
                 "catalogLink": "https://example.com/catalog/CAT-016",
                 "pricePerUnit": 4.89,
                 "category": "acidic",
-                "status": "available"
+                "status": "available",
+                "id": "5d02409d-535a-4e10-af91-e4453541348d"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 1, Shelf C3"
+            "name": "Room 1, Shelf C3",
+            "id": "d5b32084-18e4-436f-8f77-aafba352af8a"
         },
         "reagents": [
             {
@@ -763,14 +779,14 @@
                 "unit": "ml",
                 "size": 618,
                 "expirationDate": "2025-05-28T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf C3",
                 "cas": "2290-32-1688",
                 "producer": "SaltCo Ltd.",
                 "catalogId": "CAT-017",
                 "catalogLink": "https://example.com/catalog/CAT-017",
                 "pricePerUnit": 1.59,
                 "category": "acidic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "420b3333-a547-4cd0-bc2e-bb77baff6e00"
             },
             {
                 "name": "Acetic Acid",
@@ -780,14 +796,14 @@
                 "unit": "g",
                 "size": 624,
                 "expirationDate": "2027-01-17T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf C3",
                 "cas": "1831-55-7991",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-054",
                 "catalogLink": "https://example.com/catalog/CAT-054",
                 "pricePerUnit": 3.79,
                 "category": "other",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "ed0b8b1b-4338-4320-9124-221e214d82a3"
             },
             {
                 "name": "Calcium Sulfate",
@@ -797,14 +813,14 @@
                 "unit": "g",
                 "size": 401,
                 "expirationDate": "2026-10-04T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf C3",
                 "cas": "4952-16-4838",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-064",
                 "catalogLink": "https://example.com/catalog/CAT-064",
                 "pricePerUnit": 2.38,
                 "category": "organic",
-                "status": "available"
+                "status": "available",
+                "id": "e5af45a8-f176-4946-8a97-666ffadf3546"
             },
             {
                 "name": "Calcium Sulfate",
@@ -814,20 +830,21 @@
                 "unit": "g",
                 "size": 966,
                 "expirationDate": "2026-04-11T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf C3",
                 "cas": "4409-97-7720",
                 "producer": "SaltCo Ltd.",
                 "catalogId": "CAT-082",
                 "catalogLink": "https://example.com/catalog/CAT-082",
                 "pricePerUnit": 4.18,
                 "category": "inorganic",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "67251d66-11e5-42ed-a2d4-90e2ae896344"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 4, Shelf A2"
+            "name": "Room 4, Shelf A2",
+            "id": "08a76108-1204-4a7d-b295-8488ad1c259e"
         },
         "reagents": [
             {
@@ -838,14 +855,14 @@
                 "unit": "l",
                 "size": 334,
                 "expirationDate": "2025-02-25T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf A2",
                 "cas": "2732-46-6333",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-019",
                 "catalogLink": "https://example.com/catalog/CAT-019",
                 "pricePerUnit": 3.66,
                 "category": "inorganic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "0f88945a-9f09-4f2d-a597-1dc58070653b"
             },
             {
                 "name": "Calcium Sulfate",
@@ -855,14 +872,14 @@
                 "unit": "g",
                 "size": 499,
                 "expirationDate": "2025-10-23T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf A2",
                 "cas": "7698-99-9114",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-081",
                 "catalogLink": "https://example.com/catalog/CAT-081",
                 "pricePerUnit": 3.42,
                 "category": "acidic",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "34c89456-d4c7-47ef-aebd-687f3b830d8b"
             },
             {
                 "name": "Sodium Hydroxide",
@@ -872,14 +889,14 @@
                 "unit": "ml",
                 "size": 760,
                 "expirationDate": "2025-11-01T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf A2",
                 "cas": "3637-22-4945",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-088",
                 "catalogLink": "https://example.com/catalog/CAT-088",
                 "pricePerUnit": 1.66,
                 "category": "organic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "a06d25b8-1288-464b-a03a-7abbff613901"
             },
             {
                 "name": "Hydrogen Peroxide",
@@ -889,20 +906,21 @@
                 "unit": "ml",
                 "size": 636,
                 "expirationDate": "2026-02-28T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf A2",
                 "cas": "2690-20-6367",
                 "producer": "SaltCo Ltd.",
                 "catalogId": "CAT-095",
                 "catalogLink": "https://example.com/catalog/CAT-095",
                 "pricePerUnit": 6.46,
                 "category": "basic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "87daa0ad-f6c2-4ba0-a489-bc343aca1d05"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 1, Shelf A3"
+            "name": "Room 1, Shelf A3",
+            "id": "73d175a5-b339-4d85-992b-ac21ae7e24bb"
         },
         "reagents": [
             {
@@ -913,20 +931,21 @@
                 "unit": "l",
                 "size": 767,
                 "expirationDate": "2025-06-25T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf A3",
                 "cas": "8138-49-2495",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-020",
                 "catalogLink": "https://example.com/catalog/CAT-020",
                 "pricePerUnit": 4.32,
                 "category": "inorganic",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "62b10eaa-22c5-43e3-a294-ae4c653df81f"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 5, Shelf D2"
+            "name": "Room 5, Shelf D2",
+            "id": "2046edd2-1ec4-48ec-a8b7-9ab7b1d352c1"
         },
         "reagents": [
             {
@@ -937,14 +956,14 @@
                 "unit": "g",
                 "size": 774,
                 "expirationDate": "2026-02-14T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf D2",
                 "cas": "9457-73-2289",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-021",
                 "catalogLink": "https://example.com/catalog/CAT-021",
                 "pricePerUnit": 9.01,
                 "category": "inorganic",
-                "status": "available"
+                "status": "available",
+                "id": "35584982-6032-43e0-b000-19a0362f3a42"
             },
             {
                 "name": "Sodium Hydroxide",
@@ -954,20 +973,21 @@
                 "unit": "ml",
                 "size": 374,
                 "expirationDate": "2026-12-28T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf D2",
                 "cas": "6671-34-3296",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-085",
                 "catalogLink": "https://example.com/catalog/CAT-085",
                 "pricePerUnit": 4.07,
                 "category": "acidic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "01a06379-0eb9-4692-98ac-6c98028ebf25"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 3, Shelf A2"
+            "name": "Room 3, Shelf A2",
+            "id": "2c7c19d2-a0a0-44ff-88ea-b0eddd671277"
         },
         "reagents": [
             {
@@ -978,14 +998,14 @@
                 "unit": "g",
                 "size": 542,
                 "expirationDate": "2026-10-02T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf A2",
                 "cas": "3859-73-2774",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-022",
                 "catalogLink": "https://example.com/catalog/CAT-022",
                 "pricePerUnit": 4.49,
                 "category": "organic",
-                "status": "available"
+                "status": "available",
+                "id": "da62f433-eda3-409c-b479-8ba64018385e"
             },
             {
                 "name": "Boric Acid",
@@ -995,14 +1015,14 @@
                 "unit": "g",
                 "size": 942,
                 "expirationDate": "2025-07-25T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf A2",
                 "cas": "1876-73-1347",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-027",
                 "catalogLink": "https://example.com/catalog/CAT-027",
                 "pricePerUnit": 9.68,
                 "category": "basic",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "b3d594bc-01ff-44d7-a501-6753fc8f8494"
             },
             {
                 "name": "Calcium Sulfate",
@@ -1012,14 +1032,14 @@
                 "unit": "g",
                 "size": 584,
                 "expirationDate": "2025-01-16T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf A2",
                 "cas": "6601-51-9480",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-031",
                 "catalogLink": "https://example.com/catalog/CAT-031",
                 "pricePerUnit": 1.31,
                 "category": "basic",
-                "status": "available"
+                "status": "available",
+                "id": "c0e3e299-bdc9-4435-90f8-35ce06b9520a"
             },
             {
                 "name": "Hydrochloric Acid",
@@ -1029,20 +1049,21 @@
                 "unit": "g",
                 "size": 363,
                 "expirationDate": "2026-02-26T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf A2",
                 "cas": "7801-39-9492",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-052",
                 "catalogLink": "https://example.com/catalog/CAT-052",
                 "pricePerUnit": 6.12,
                 "category": "basic",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "e208afc7-e64c-4684-90dd-00cd12913fc1"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 2, Shelf A3"
+            "name": "Room 2, Shelf A3",
+            "id": "3d568e6d-d2f1-4844-a24f-58ec28b570c7"
         },
         "reagents": [
             {
@@ -1053,14 +1074,14 @@
                 "unit": "l",
                 "size": 351,
                 "expirationDate": "2026-11-05T18:20:48.000Z",
-                "storageLocation": "Room 2, Shelf A3",
                 "cas": "6874-65-5322",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-026",
                 "catalogLink": "https://example.com/catalog/CAT-026",
                 "pricePerUnit": 1.54,
                 "category": "inorganic",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "626d3b21-4443-4f3f-9d1e-353a1ca4113a"
             },
             {
                 "name": "Sulfuric Acid",
@@ -1070,14 +1091,14 @@
                 "unit": "ml",
                 "size": 573,
                 "expirationDate": "2025-06-03T18:20:48.000Z",
-                "storageLocation": "Room 2, Shelf A3",
                 "cas": "2925-90-9998",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-047",
                 "catalogLink": "https://example.com/catalog/CAT-047",
                 "pricePerUnit": 8.21,
                 "category": "inorganic",
-                "status": "available"
+                "status": "available",
+                "id": "79dd99ec-3aa5-47a4-b682-9650fd11bca1"
             },
             {
                 "name": "Phenol",
@@ -1087,20 +1108,21 @@
                 "unit": "ml",
                 "size": 788,
                 "expirationDate": "2026-12-24T18:20:48.000Z",
-                "storageLocation": "Room 2, Shelf A3",
                 "cas": "4568-65-3706",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-077",
                 "catalogLink": "https://example.com/catalog/CAT-077",
                 "pricePerUnit": 3.82,
                 "category": "acidic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "c21b159f-05dc-49f5-9198-dae56a5d2856"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 1, Shelf D2"
+            "name": "Room 1, Shelf D2",
+            "id": "7f61d297-225b-4421-885f-6e0185808a24"
         },
         "reagents": [
             {
@@ -1111,20 +1133,21 @@
                 "unit": "g",
                 "size": 948,
                 "expirationDate": "2025-09-08T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf D2",
                 "cas": "1293-62-2119",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-028",
                 "catalogLink": "https://example.com/catalog/CAT-028",
                 "pricePerUnit": 4.96,
                 "category": "other",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "f9a99436-01c0-444e-8b26-19e761705ab9"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 2, Shelf B2"
+            "name": "Room 2, Shelf B2",
+            "id": "3741fb1d-0d91-4232-9330-ef3faebc8442"
         },
         "reagents": [
             {
@@ -1135,14 +1158,14 @@
                 "unit": "g",
                 "size": 259,
                 "expirationDate": "2026-08-23T18:20:48.000Z",
-                "storageLocation": "Room 2, Shelf B2",
                 "cas": "8813-95-7998",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-029",
                 "catalogLink": "https://example.com/catalog/CAT-029",
                 "pricePerUnit": 6.23,
                 "category": "acidic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "9552ffc3-c298-4ed4-a4db-b11ce560e236"
             },
             {
                 "name": "Potassium Permanganate",
@@ -1152,14 +1175,14 @@
                 "unit": "g",
                 "size": 824,
                 "expirationDate": "2025-04-18T18:20:48.000Z",
-                "storageLocation": "Room 2, Shelf B2",
                 "cas": "7680-68-4729",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-040",
                 "catalogLink": "https://example.com/catalog/CAT-040",
                 "pricePerUnit": 7.73,
                 "category": "inorganic",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "7cac6295-d7fc-4d22-b6f7-b70e8390ada7"
             },
             {
                 "name": "Sulfuric Acid",
@@ -1169,20 +1192,21 @@
                 "unit": "l",
                 "size": 680,
                 "expirationDate": "2025-02-17T18:20:48.000Z",
-                "storageLocation": "Room 2, Shelf B2",
                 "cas": "8382-44-5925",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-044",
                 "catalogLink": "https://example.com/catalog/CAT-044",
                 "pricePerUnit": 4.65,
                 "category": "acidic",
-                "status": "available"
+                "status": "available",
+                "id": "759bd828-1237-4dc6-aa6b-6b3074a5dd4e"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 1, Shelf C4"
+            "name": "Room 1, Shelf C4",
+            "id": "bfe82536-4cd6-4df2-b238-8f6b9baea10b"
         },
         "reagents": [
             {
@@ -1193,14 +1217,14 @@
                 "unit": "g",
                 "size": 463,
                 "expirationDate": "2027-01-13T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf C4",
                 "cas": "7824-86-7930",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-032",
                 "catalogLink": "https://example.com/catalog/CAT-032",
                 "pricePerUnit": 7.2,
                 "category": "other",
-                "status": "available"
+                "status": "available",
+                "id": "92cbba71-c8be-48f9-abab-275789481035"
             },
             {
                 "name": "Hydrogen Peroxide",
@@ -1210,14 +1234,14 @@
                 "unit": "g",
                 "size": 943,
                 "expirationDate": "2026-03-04T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf C4",
                 "cas": "7645-10-4823",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-039",
                 "catalogLink": "https://example.com/catalog/CAT-039",
                 "pricePerUnit": 2.85,
                 "category": "basic",
-                "status": "available"
+                "status": "available",
+                "id": "d2bd79f7-438d-413f-81d4-3529575e5b35"
             },
             {
                 "name": "Toluene",
@@ -1227,14 +1251,14 @@
                 "unit": "g",
                 "size": 433,
                 "expirationDate": "2026-06-13T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf C4",
                 "cas": "7481-22-5364",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-043",
                 "catalogLink": "https://example.com/catalog/CAT-043",
                 "pricePerUnit": 5.44,
                 "category": "other",
-                "status": "available"
+                "status": "available",
+                "id": "1ca9970c-0094-4dbc-8279-7809f110fd7e"
             },
             {
                 "name": "Tannic Acid",
@@ -1244,20 +1268,21 @@
                 "unit": "l",
                 "size": 346,
                 "expirationDate": "2025-01-29T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf C4",
                 "cas": "1457-73-2287",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-083",
                 "catalogLink": "https://example.com/catalog/CAT-083",
                 "pricePerUnit": 7.27,
                 "category": "acidic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "32df5f32-2465-4b0a-9e83-0ab0d0e7d1bf"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 2, Shelf D3"
+            "name": "Room 2, Shelf D3",
+            "id": "d940e206-e555-4c93-8818-c13e49def1b5"
         },
         "reagents": [
             {
@@ -1268,20 +1293,21 @@
                 "unit": "ml",
                 "size": 449,
                 "expirationDate": "2027-02-10T18:20:48.000Z",
-                "storageLocation": "Room 2, Shelf D3",
                 "cas": "8891-49-3796",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-033",
                 "catalogLink": "https://example.com/catalog/CAT-033",
                 "pricePerUnit": 1.62,
                 "category": "acidic",
-                "status": "available"
+                "status": "available",
+                "id": "68d3bb23-d1c8-495f-ae8b-ae82fea31e6b"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 2, Shelf B1"
+            "name": "Room 2, Shelf B1",
+            "id": "364105ee-5724-4ab8-a2ac-f146035514f8"
         },
         "reagents": [
             {
@@ -1292,14 +1318,14 @@
                 "unit": "ml",
                 "size": 747,
                 "expirationDate": "2026-01-13T18:20:48.000Z",
-                "storageLocation": "Room 2, Shelf B1",
                 "cas": "2886-34-9303",
                 "producer": "SaltCo Ltd.",
                 "catalogId": "CAT-034",
                 "catalogLink": "https://example.com/catalog/CAT-034",
                 "pricePerUnit": 3.81,
                 "category": "inorganic",
-                "status": "available"
+                "status": "available",
+                "id": "660f916b-0f02-4ea2-9902-f872dd9975a9"
             },
             {
                 "name": "Ethanol",
@@ -1309,20 +1335,21 @@
                 "unit": "ml",
                 "size": 649,
                 "expirationDate": "2025-10-06T18:20:48.000Z",
-                "storageLocation": "Room 2, Shelf B1",
                 "cas": "4618-55-7805",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-066",
                 "catalogLink": "https://example.com/catalog/CAT-066",
                 "pricePerUnit": 9.49,
                 "category": "acidic",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "7af3a579-3441-4153-8086-a858e114b128"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 4, Shelf C3"
+            "name": "Room 4, Shelf C3",
+            "id": "6b3747ad-a29c-442f-9544-75c7cebd9164"
         },
         "reagents": [
             {
@@ -1333,14 +1360,14 @@
                 "unit": "g",
                 "size": 425,
                 "expirationDate": "2026-01-19T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf C3",
                 "cas": "1086-64-9072",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-037",
                 "catalogLink": "https://example.com/catalog/CAT-037",
                 "pricePerUnit": 7.72,
                 "category": "inorganic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "b5d3ab19-e916-4c5b-98a8-9a921c774373"
             },
             {
                 "name": "Sodium Chloride",
@@ -1350,14 +1377,14 @@
                 "unit": "g",
                 "size": 873,
                 "expirationDate": "2026-03-08T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf C3",
                 "cas": "8906-45-7854",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-049",
                 "catalogLink": "https://example.com/catalog/CAT-049",
                 "pricePerUnit": 2.12,
                 "category": "organic",
-                "status": "available"
+                "status": "available",
+                "id": "03d76be2-d2d5-4a26-ac3f-a253602901e5"
             },
             {
                 "name": "Ethanol",
@@ -1367,20 +1394,21 @@
                 "unit": "l",
                 "size": 869,
                 "expirationDate": "2026-07-29T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf C3",
                 "cas": "9188-65-4767",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-068",
                 "catalogLink": "https://example.com/catalog/CAT-068",
                 "pricePerUnit": 2.1,
                 "category": "inorganic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "b73ba5fa-e76c-4721-9389-6faffe27025d"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 4, Shelf B1"
+            "name": "Room 4, Shelf B1",
+            "id": "5b3af013-82b4-48d2-8478-dfc48e8ef29e"
         },
         "reagents": [
             {
@@ -1391,14 +1419,14 @@
                 "unit": "l",
                 "size": 423,
                 "expirationDate": "2027-04-09T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf B1",
                 "cas": "2854-47-2894",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-038",
                 "catalogLink": "https://example.com/catalog/CAT-038",
                 "pricePerUnit": 5.15,
                 "category": "acidic",
-                "status": "available"
+                "status": "available",
+                "id": "9eac2b08-1b72-40b2-a72c-c755230fa8f4"
             },
             {
                 "name": "Calcium Carbonate",
@@ -1408,14 +1436,14 @@
                 "unit": "g",
                 "size": 431,
                 "expirationDate": "2025-10-03T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf B1",
                 "cas": "2606-92-3773",
                 "producer": "SaltCo Ltd.",
                 "catalogId": "CAT-056",
                 "catalogLink": "https://example.com/catalog/CAT-056",
                 "pricePerUnit": 5.93,
                 "category": "acidic",
-                "status": "available"
+                "status": "available",
+                "id": "7cc9d38c-4cba-4c83-9c17-f510abed0079"
             },
             {
                 "name": "Hydrogen Peroxide",
@@ -1425,14 +1453,14 @@
                 "unit": "g",
                 "size": 522,
                 "expirationDate": "2025-11-29T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf B1",
                 "cas": "9420-76-1772",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-086",
                 "catalogLink": "https://example.com/catalog/CAT-086",
                 "pricePerUnit": 2.09,
                 "category": "basic",
-                "status": "available"
+                "status": "available",
+                "id": "b4135153-051a-4e26-b896-474e43017e2c"
             },
             {
                 "name": "Ethanol",
@@ -1442,20 +1470,21 @@
                 "unit": "ml",
                 "size": 865,
                 "expirationDate": "2025-05-29T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf B1",
                 "cas": "8861-92-9949",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-098",
                 "catalogLink": "https://example.com/catalog/CAT-098",
                 "pricePerUnit": 8.61,
                 "category": "acidic",
-                "status": "available"
+                "status": "available",
+                "id": "d4095878-3c34-4665-9200-e8571f5efc4e"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 2, Shelf D2"
+            "name": "Room 2, Shelf D2",
+            "id": "99cef1bd-fba7-4ff9-83ee-90004d2fe231"
         },
         "reagents": [
             {
@@ -1466,20 +1495,21 @@
                 "unit": "ml",
                 "size": 699,
                 "expirationDate": "2025-08-24T18:20:48.000Z",
-                "storageLocation": "Room 2, Shelf D2",
                 "cas": "8403-30-4507",
                 "producer": "SaltCo Ltd.",
                 "catalogId": "CAT-046",
                 "catalogLink": "https://example.com/catalog/CAT-046",
                 "pricePerUnit": 3.66,
                 "category": "other",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "d74b0ced-c3ff-4e1a-afa1-a961e84bcd12"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 1, Shelf C2"
+            "name": "Room 1, Shelf C2",
+            "id": "bfcfae95-af9e-4017-99df-c4832d454a11"
         },
         "reagents": [
             {
@@ -1490,14 +1520,14 @@
                 "unit": "ml",
                 "size": 668,
                 "expirationDate": "2026-05-30T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf C2",
                 "cas": "9454-10-3914",
                 "producer": "SaltCo Ltd.",
                 "catalogId": "CAT-051",
                 "catalogLink": "https://example.com/catalog/CAT-051",
                 "pricePerUnit": 7.49,
                 "category": "other",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "1bbd108d-ee6e-4b78-b258-aa9c051a35a3"
             },
             {
                 "name": "Iodine",
@@ -1507,14 +1537,14 @@
                 "unit": "g",
                 "size": 789,
                 "expirationDate": "2025-05-08T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf C2",
                 "cas": "1309-59-8279",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-084",
                 "catalogLink": "https://example.com/catalog/CAT-084",
                 "pricePerUnit": 5.0,
                 "category": "organic",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "225f4438-067f-40c0-bda2-72cbc0bbd935"
             },
             {
                 "name": "Sodium Chloride",
@@ -1524,20 +1554,21 @@
                 "unit": "ml",
                 "size": 598,
                 "expirationDate": "2026-12-12T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf C2",
                 "cas": "2956-36-6692",
                 "producer": "SaltCo Ltd.",
                 "catalogId": "CAT-092",
                 "catalogLink": "https://example.com/catalog/CAT-092",
                 "pricePerUnit": 1.71,
                 "category": "acidic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "dbf86961-6fa2-43e6-88e2-a5f534fdb9e5"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 2, Shelf C3"
+            "name": "Room 2, Shelf C3",
+            "id": "8450cca3-dbc6-4aed-820f-e6ed924b26b3"
         },
         "reagents": [
             {
@@ -1548,14 +1579,14 @@
                 "unit": "ml",
                 "size": 304,
                 "expirationDate": "2025-05-05T18:20:48.000Z",
-                "storageLocation": "Room 2, Shelf C3",
                 "cas": "4041-73-2885",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-053",
                 "catalogLink": "https://example.com/catalog/CAT-053",
                 "pricePerUnit": 6.45,
                 "category": "basic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "02568a5c-5f8f-4e0d-b22c-5cf5d19f35f2"
             },
             {
                 "name": "Magnesium Sulfate",
@@ -1565,20 +1596,21 @@
                 "unit": "g",
                 "size": 645,
                 "expirationDate": "2025-10-25T18:20:48.000Z",
-                "storageLocation": "Room 2, Shelf C3",
                 "cas": "6162-23-7605",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-078",
                 "catalogLink": "https://example.com/catalog/CAT-078",
                 "pricePerUnit": 1.43,
                 "category": "other",
-                "status": "available"
+                "status": "available",
+                "id": "12f284ad-fb67-4909-ada4-b53cd070f1be"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 1, Shelf A1"
+            "name": "Room 1, Shelf A1",
+            "id": "d4dc2668-f763-43b9-8c2c-efb121ddd83a"
         },
         "reagents": [
             {
@@ -1589,14 +1621,14 @@
                 "unit": "ml",
                 "size": 895,
                 "expirationDate": "2026-11-02T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf A1",
                 "cas": "8906-67-5622",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-055",
                 "catalogLink": "https://example.com/catalog/CAT-055",
                 "pricePerUnit": 6.53,
                 "category": "organic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "72ca1102-00b7-4a2d-b5e1-41eec5349e44"
             },
             {
                 "name": "Magnesium Sulfate",
@@ -1606,14 +1638,14 @@
                 "unit": "ml",
                 "size": 877,
                 "expirationDate": "2026-10-26T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf A1",
                 "cas": "2675-65-7792",
                 "producer": "SaltCo Ltd.",
                 "catalogId": "CAT-072",
                 "catalogLink": "https://example.com/catalog/CAT-072",
                 "pricePerUnit": 5.71,
                 "category": "other",
-                "status": "available"
+                "status": "available",
+                "id": "210c086d-8950-4195-9f94-250f66245544"
             },
             {
                 "name": "Ammonium Nitrate",
@@ -1623,20 +1655,21 @@
                 "unit": "g",
                 "size": 272,
                 "expirationDate": "2025-07-22T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf A1",
                 "cas": "5380-20-1238",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-090",
                 "catalogLink": "https://example.com/catalog/CAT-090",
                 "pricePerUnit": 7.23,
                 "category": "organic",
-                "status": "available"
+                "status": "available",
+                "id": "a49e7d81-da50-497b-b9a0-846dd4eef207"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 2, Shelf C2"
+            "name": "Room 2, Shelf C2",
+            "id": "01e20373-c176-4dcc-9355-2fb02b4df9ec"
         },
         "reagents": [
             {
@@ -1647,20 +1680,21 @@
                 "unit": "l",
                 "size": 610,
                 "expirationDate": "2025-02-14T18:20:48.000Z",
-                "storageLocation": "Room 2, Shelf C2",
                 "cas": "1863-49-6679",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-057",
                 "catalogLink": "https://example.com/catalog/CAT-057",
                 "pricePerUnit": 5.48,
                 "category": "organic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "5646a7c6-80d5-4ed8-afa8-c526ab8040c6"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 4, Shelf D3"
+            "name": "Room 4, Shelf D3",
+            "id": "34d3aecf-dc5d-4e97-a563-3565d306a1bd"
         },
         "reagents": [
             {
@@ -1671,14 +1705,14 @@
                 "unit": "l",
                 "size": 947,
                 "expirationDate": "2026-11-16T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf D3",
                 "cas": "4543-79-2990",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-059",
                 "catalogLink": "https://example.com/catalog/CAT-059",
                 "pricePerUnit": 5.92,
                 "category": "inorganic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "82912dc6-863e-47b2-a2ec-5db0c63418d9"
             },
             {
                 "name": "Ammonium Nitrate",
@@ -1688,20 +1722,21 @@
                 "unit": "l",
                 "size": 741,
                 "expirationDate": "2026-12-20T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf D3",
                 "cas": "1099-97-4889",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-089",
                 "catalogLink": "https://example.com/catalog/CAT-089",
                 "pricePerUnit": 2.72,
                 "category": "acidic",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "53683091-e7e5-4306-b3a6-da3690939522"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 3, Shelf A1"
+            "name": "Room 3, Shelf A1",
+            "id": "187e6f17-542c-49de-b286-ad343591ed27"
         },
         "reagents": [
             {
@@ -1712,14 +1747,14 @@
                 "unit": "g",
                 "size": 455,
                 "expirationDate": "2026-04-29T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf A1",
                 "cas": "8936-76-1676",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-060",
                 "catalogLink": "https://example.com/catalog/CAT-060",
                 "pricePerUnit": 8.77,
                 "category": "other",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "3ad51341-e493-49aa-906e-d42b1614af59"
             },
             {
                 "name": "Ethanol",
@@ -1729,14 +1764,14 @@
                 "unit": "ml",
                 "size": 452,
                 "expirationDate": "2025-08-23T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf A1",
                 "cas": "1684-84-8497",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-071",
                 "catalogLink": "https://example.com/catalog/CAT-071",
                 "pricePerUnit": 7.26,
                 "category": "organic",
-                "status": "available"
+                "status": "available",
+                "id": "36f33953-d437-4792-b2f8-5d61ab2b8971"
             },
             {
                 "name": "Iodine",
@@ -1746,20 +1781,21 @@
                 "unit": "g",
                 "size": 708,
                 "expirationDate": "2026-10-13T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf A1",
                 "cas": "9110-67-1475",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-097",
                 "catalogLink": "https://example.com/catalog/CAT-097",
                 "pricePerUnit": 4.86,
                 "category": "organic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "0e4da56e-b06b-4b07-b7a2-2db57e1e5b96"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 3, Shelf B1"
+            "name": "Room 3, Shelf B1",
+            "id": "2b9c7dda-0e57-4362-9bf3-a9a61c7a10f9"
         },
         "reagents": [
             {
@@ -1770,14 +1806,14 @@
                 "unit": "ml",
                 "size": 969,
                 "expirationDate": "2025-07-24T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf B1",
                 "cas": "2407-17-5317",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-065",
                 "catalogLink": "https://example.com/catalog/CAT-065",
                 "pricePerUnit": 2.14,
                 "category": "basic",
-                "status": "available"
+                "status": "available",
+                "id": "0bf68fb6-7c97-48ba-a9d5-d90b93430175"
             },
             {
                 "name": "Potassium Permanganate",
@@ -1787,20 +1823,21 @@
                 "unit": "g",
                 "size": 319,
                 "expirationDate": "2025-01-25T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf B1",
                 "cas": "3592-79-5787",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-087",
                 "catalogLink": "https://example.com/catalog/CAT-087",
                 "pricePerUnit": 9.86,
                 "category": "basic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "04eb37ed-499d-417e-88d3-e0e27b279ee4"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 5, Shelf C3"
+            "name": "Room 5, Shelf C3",
+            "id": "f526ea5d-2e82-435e-95f4-90fdb353d563"
         },
         "reagents": [
             {
@@ -1811,20 +1848,21 @@
                 "unit": "l",
                 "size": 859,
                 "expirationDate": "2026-04-11T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf C3",
                 "cas": "8234-96-1836",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-067",
                 "catalogLink": "https://example.com/catalog/CAT-067",
                 "pricePerUnit": 2.32,
                 "category": "other",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "5f48cf69-2197-45de-bdad-b00c4b91b39f"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 5, Shelf D3"
+            "name": "Room 5, Shelf D3",
+            "id": "c119adbd-163c-479a-a238-0926484263b4"
         },
         "reagents": [
             {
@@ -1835,20 +1873,21 @@
                 "unit": "l",
                 "size": 935,
                 "expirationDate": "2025-01-16T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf D3",
                 "cas": "5638-29-5335",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-069",
-                "catalogLink": "https://mineralcorp.com/catalog/CC-500",
+                "catalogLink": "https://example.com/catalog/CAT-069",
                 "pricePerUnit": 7.65,
                 "category": "basic",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "a020bd52-68cf-4cbf-842f-efca2ead1f31"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 5, Shelf B1"
+            "name": "Room 5, Shelf B1",
+            "id": "132a6bf8-e84b-45ae-8a5d-c9513b6ebf24"
         },
         "reagents": [
             {
@@ -1859,20 +1898,21 @@
                 "unit": "g",
                 "size": 772,
                 "expirationDate": "2025-08-19T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf B1",
                 "cas": "9826-59-4303",
                 "producer": "SaltCo Ltd.",
                 "catalogId": "CAT-070",
-                "catalogLink": "https://mineralcorp.com/catalog/CC-500",
+                "catalogLink": "https://example.com/catalog/CAT-070",
                 "pricePerUnit": 2.76,
                 "category": "basic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "33e41006-eed9-489e-8d05-4a9fcd3fae22"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 5, Shelf C4"
+            "name": "Room 5, Shelf C4",
+            "id": "2aeeffa0-f6c8-4e7e-a72a-9e3b4a838920"
         },
         "reagents": [
             {
@@ -1883,20 +1923,21 @@
                 "unit": "g",
                 "size": 715,
                 "expirationDate": "2025-12-31T18:20:48.000Z",
-                "storageLocation": "Room 5, Shelf C4",
                 "cas": "1367-89-3581",
                 "producer": "ChemSolv Inc.",
                 "catalogId": "CAT-074",
-                "catalogLink": "https://mineralcorp.com/catalog/CC-500",
+                "catalogLink": "https://example.com/catalog/CAT-074",
                 "pricePerUnit": 3.61,
                 "category": "other",
-                "status": "out_of_stock"
+                "status": "out_of_stock",
+                "id": "f47e48b4-11f5-49dd-88a3-3f0560869d71"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 2, Shelf C4"
+            "name": "Room 2, Shelf C4",
+            "id": "6f64f702-da7a-4c4a-9759-133b9954bee5"
         },
         "reagents": [
             {
@@ -1907,20 +1948,21 @@
                 "unit": "g",
                 "size": 683,
                 "expirationDate": "2026-08-22T18:20:48.000Z",
-                "storageLocation": "Room 2, Shelf C4",
                 "cas": "2659-74-2724",
                 "producer": "BioChem Corp.",
                 "catalogId": "CAT-075",
-                "catalogLink": "https://mineralcorp.com/catalog/CC-500",
+                "catalogLink": "https://example.com/catalog/CAT-075",
                 "pricePerUnit": 8.66,
                 "category": "acidic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "2dc92034-cc09-424c-85f8-2054c0bd2daf"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 1, Shelf B2"
+            "name": "Room 1, Shelf B2",
+            "id": "7e0fcb1c-c743-428d-be5d-bbfff4a711ec"
         },
         "reagents": [
             {
@@ -1931,20 +1973,21 @@
                 "unit": "g",
                 "size": 450,
                 "expirationDate": "2025-08-22T18:20:48.000Z",
-                "storageLocation": "Room 1, Shelf B2",
                 "cas": "4621-12-3987",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-079",
-                "catalogLink": "https://mineralcorp.com/catalog/CC-500",
+                "catalogLink": "https://example.com/catalog/CAT-079",
                 "pricePerUnit": 7.0,
                 "category": "acidic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "7dad6696-910f-4fce-a2ef-903bef76e400"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 4, Shelf C4"
+            "name": "Room 4, Shelf C4",
+            "id": "246e4fbf-9b4f-4f77-a0af-acd9b97685a3"
         },
         "reagents": [
             {
@@ -1955,14 +1998,14 @@
                 "unit": "g",
                 "size": 818,
                 "expirationDate": "2025-09-04T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf C4",
                 "cas": "4654-44-5720",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-080",
-                "catalogLink": "https://mineralcorp.com/catalog/CC-500",
+                "catalogLink": "https://example.com/catalog/CAT-080",
                 "pricePerUnit": 9.48,
                 "category": "acidic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "3ce297a6-0316-493a-8fc6-cb5f7b6660b6"
             },
             {
                 "name": "Toluene",
@@ -1972,20 +2015,21 @@
                 "unit": "ml",
                 "size": 347,
                 "expirationDate": "2027-02-04T18:20:48.000Z",
-                "storageLocation": "Room 4, Shelf C4",
                 "cas": "7635-55-5462",
                 "producer": "MineralCorp",
                 "catalogId": "CAT-094",
-                "catalogLink": "https://mineralcorp.com/catalog/CC-500",
+                "catalogLink": "https://example.com/catalog/CAT-094",
                 "pricePerUnit": 3.6,
                 "category": "inorganic",
-                "status": "ordered"
+                "status": "ordered",
+                "id": "beb36a06-6550-4c77-90ca-77c9ac6438f5"
             }
         ]
     },
     {
         "storageLocation": {
-            "name": "Room 3, Shelf C4"
+            "name": "Room 3, Shelf C4",
+            "id": "811b20a6-df39-4a42-9acb-e9db93f209a5"
         },
         "reagents": [
             {
@@ -1996,14 +2040,14 @@
                 "unit": "ml",
                 "size": 418,
                 "expirationDate": "2025-06-28T18:20:48.000Z",
-                "storageLocation": "Room 3, Shelf C4",
                 "cas": "3934-74-7065",
                 "producer": "AcidMasters Inc.",
                 "catalogId": "CAT-100",
                 "catalogLink": "https://example.com/catalog/CAT-100",
                 "pricePerUnit": 6.17,
                 "category": "basic",
-                "status": "low_stock"
+                "status": "low_stock",
+                "id": "5223b5bf-f6ca-4a4a-96ed-7141e921dcf0"
             }
         ]
     }
