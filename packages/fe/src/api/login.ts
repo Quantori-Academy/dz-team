@@ -13,7 +13,7 @@ export const getLoginApi = async ({
     username: string;
     password: string;
 }) => {
-    const response = await request(`${base}/api/v1/login`, LoginResponseContract, {
+    const response = await request(`${base}/api/v1/auth/login`, LoginResponseContract, {
         method: "POST",
         json: { username, password },
         showErrorNotification: true,
