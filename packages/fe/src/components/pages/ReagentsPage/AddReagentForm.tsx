@@ -17,7 +17,7 @@ const fields = [
     { label: "Price per Unit", name: "pricePerUnit", type: "number" },
     { label: "Unit", name: "unit" },
     { label: "Quantity", name: "quantity", type: "number" },
-    { label: "Expiration Date", name: "expirationDate" },
+    { label: "Expiration Date", name: "expirationDate", type: "date" },
     { label: "Storage Location", name: "storageLocation" },
 ];
 
@@ -34,7 +34,7 @@ export const AddReagentForm = forwardRef<HTMLDivElement, AddReagentFormProps>(
             pricePerUnit: 0,
             unit: "",
             quantity: 0,
-            expirationDate: "",
+            expirationDate: new Date().toISOString().split("T")[0],
             storageLocation: "",
         });
 
