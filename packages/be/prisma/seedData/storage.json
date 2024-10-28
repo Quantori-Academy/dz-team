@@ -1,0 +1,2010 @@
+[
+    {
+        "storageLocation": {
+            "name": "Room 3, Shelf A3"
+        },
+        "reagents": [
+            {
+                "name": "Acetic Acid",
+                "structure": "NH4NO3",
+                "description": "Fungicide and algaecide in agriculture.",
+                "quantity": 195,
+                "unit": "g",
+                "size": 887,
+                "expirationDate": "2025-09-07T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf A3",
+                "cas": "8251-79-8892",
+                "producer": "SaltCo Ltd.",
+                "catalogId": "CAT-001",
+                "catalogLink": "https://example.com/catalog/CAT-001",
+                "pricePerUnit": 4.93,
+                "category": "acidic",
+                "status": "out_of_stock"
+            },
+            {
+                "name": "Sodium Hydroxide",
+                "structure": "MgSO4",
+                "description": "Used in plaster and as a drying agent.",
+                "quantity": 212,
+                "unit": "l",
+                "size": 420,
+                "expirationDate": "2025-01-18T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf A3",
+                "cas": "2026-54-3008",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-018",
+                "catalogLink": "https://example.com/catalog/CAT-018",
+                "pricePerUnit": 3.83,
+                "category": "acidic",
+                "status": "ordered"
+            },
+            {
+                "name": "Magnesium Sulfate",
+                "structure": "H3BO3",
+                "description": "Photography and disinfectant chemical.",
+                "quantity": 459,
+                "unit": "ml",
+                "size": 721,
+                "expirationDate": "2026-02-11T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf A3",
+                "cas": "3825-45-9631",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-063",
+                "catalogLink": "https://example.com/catalog/CAT-063",
+                "pricePerUnit": 3.92,
+                "category": "acidic",
+                "status": "out_of_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 5, Shelf B2"
+        },
+        "reagents": [
+            {
+                "name": "Phenol",
+                "structure": "C7H8",
+                "description": "Used in tanning and dyeing.",
+                "quantity": 437,
+                "unit": "l",
+                "size": 390,
+                "expirationDate": "2026-07-20T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf B2",
+                "cas": "6955-79-1509",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-002",
+                "catalogLink": "https://example.com/catalog/CAT-002",
+                "pricePerUnit": 3.86,
+                "category": "basic",
+                "status": "out_of_stock"
+            },
+            {
+                "name": "Calcium Carbonate",
+                "structure": "C2H4O2",
+                "description": "Common table salt used in food and industrial processes.",
+                "quantity": 104,
+                "unit": "g",
+                "size": 979,
+                "expirationDate": "2027-04-02T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf B2",
+                "cas": "3879-84-3620",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-045",
+                "catalogLink": "https://example.com/catalog/CAT-045",
+                "pricePerUnit": 8.12,
+                "category": "acidic",
+                "status": "out_of_stock"
+            },
+            {
+                "name": "Ammonium Nitrate",
+                "structure": "H3BO3",
+                "description": "Solvent in paint thinners and adhesives.",
+                "quantity": 306,
+                "unit": "ml",
+                "size": 524,
+                "expirationDate": "2027-02-03T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf B2",
+                "cas": "5988-98-3801",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-093",
+                "catalogLink": "https://example.com/catalog/CAT-093",
+                "pricePerUnit": 9.9,
+                "category": "organic",
+                "status": "available"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 3, Shelf D3"
+        },
+        "reagents": [
+            {
+                "name": "Sulfuric Acid",
+                "structure": "NH4NO3",
+                "description": "Bleaching agent and disinfectant.",
+                "quantity": 77,
+                "unit": "ml",
+                "size": 374,
+                "expirationDate": "2025-07-19T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf D3",
+                "cas": "5176-67-9660",
+                "producer": "SaltCo Ltd.",
+                "catalogId": "CAT-003",
+                "catalogLink": "https://example.com/catalog/CAT-003",
+                "pricePerUnit": 6.83,
+                "category": "other",
+                "status": "out_of_stock"
+            },
+            {
+                "name": "Toluene",
+                "structure": "I2",
+                "description": "A common solvent used in various chemical applications.",
+                "quantity": 338,
+                "unit": "ml",
+                "size": 962,
+                "expirationDate": "2026-12-19T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf D3",
+                "cas": "7034-21-2131",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-062",
+                "catalogLink": "https://example.com/catalog/CAT-062",
+                "pricePerUnit": 1.02,
+                "category": "acidic",
+                "status": "ordered"
+            },
+            {
+                "name": "Phenol",
+                "structure": "H2SO4",
+                "description": "A strong acid used in laboratories and industry.",
+                "quantity": 309,
+                "unit": "g",
+                "size": 512,
+                "expirationDate": "2026-03-20T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf D3",
+                "cas": "7314-47-1721",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-073",
+                "catalogLink": "https://example.com/catalog/CAT-073",
+                "pricePerUnit": 5.95,
+                "category": "acidic",
+                "status": "ordered"
+            },
+            {
+                "name": "Sodium Chloride",
+                "structure": "C2H4O2",
+                "description": "Widely used in geology and as a supplement.",
+                "quantity": 227,
+                "unit": "l",
+                "size": 858,
+                "expirationDate": "2025-03-07T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf D3",
+                "cas": "4312-76-1844",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-091",
+                "catalogLink": "https://example.com/catalog/CAT-091",
+                "pricePerUnit": 8.16,
+                "category": "basic",
+                "status": "out_of_stock"
+            },
+            {
+                "name": "Phenol",
+                "structure": "C3H6O",
+                "description": "Disinfectant and synthesis compound.",
+                "quantity": 406,
+                "unit": "ml",
+                "size": 469,
+                "expirationDate": "2025-07-10T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf D3",
+                "cas": "8390-82-8354",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-099",
+                "catalogLink": "https://example.com/catalog/CAT-099",
+                "pricePerUnit": 7.78,
+                "category": "organic",
+                "status": "out_of_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 5, Shelf C2"
+        },
+        "reagents": [
+            {
+                "name": "Iodine",
+                "structure": "KMnO4",
+                "description": "Alcohol commonly used in cleaning agents and as a solvent.",
+                "quantity": 365,
+                "unit": "l",
+                "size": 288,
+                "expirationDate": "2026-08-27T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf C2",
+                "cas": "9398-22-9364",
+                "producer": "SaltCo Ltd.",
+                "catalogId": "CAT-004",
+                "catalogLink": "https://example.com/catalog/CAT-004",
+                "pricePerUnit": 5.42,
+                "category": "other",
+                "status": "low_stock"
+            },
+            {
+                "name": "Boric Acid",
+                "structure": "C2H5OH",
+                "description": "Disinfectant and synthesis compound.",
+                "quantity": 423,
+                "unit": "g",
+                "size": 378,
+                "expirationDate": "2025-07-20T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf C2",
+                "cas": "4181-10-1258",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-035",
+                "catalogLink": "https://example.com/catalog/CAT-035",
+                "pricePerUnit": 2.34,
+                "category": "organic",
+                "status": "available"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 5, Shelf A2"
+        },
+        "reagents": [
+            {
+                "name": "Silver Nitrate",
+                "structure": "C2H4O2",
+                "description": "Primarily used as a fertilizer and in explosives.",
+                "quantity": 378,
+                "unit": "l",
+                "size": 519,
+                "expirationDate": "2027-02-27T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf A2",
+                "cas": "5968-95-5404",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-005",
+                "catalogLink": "https://example.com/catalog/CAT-005",
+                "pricePerUnit": 5.55,
+                "category": "inorganic",
+                "status": "low_stock"
+            },
+            {
+                "name": "Sulfuric Acid",
+                "structure": "C6H5OH",
+                "description": "Primarily used as a fertilizer and in explosives.",
+                "quantity": 82,
+                "unit": "l",
+                "size": 419,
+                "expirationDate": "2025-08-25T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf A2",
+                "cas": "7541-49-1117",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-048",
+                "catalogLink": "https://example.com/catalog/CAT-048",
+                "pricePerUnit": 1.43,
+                "category": "basic",
+                "status": "out_of_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 5, Shelf A3"
+        },
+        "reagents": [
+            {
+                "name": "Boric Acid",
+                "structure": "HCl",
+                "description": "An oxidizing agent used in chemical reactions.",
+                "quantity": 344,
+                "unit": "l",
+                "size": 373,
+                "expirationDate": "2025-10-28T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf A3",
+                "cas": "4912-60-5416",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-006",
+                "catalogLink": "https://example.com/catalog/CAT-006",
+                "pricePerUnit": 2.95,
+                "category": "acidic",
+                "status": "low_stock"
+            },
+            {
+                "name": "Calcium Carbonate",
+                "structure": "C2H5OH",
+                "description": "Disinfectant and synthesis compound.",
+                "quantity": 416,
+                "unit": "ml",
+                "size": 419,
+                "expirationDate": "2025-02-15T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf A3",
+                "cas": "3448-31-4852",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-050",
+                "catalogLink": "https://example.com/catalog/CAT-050",
+                "pricePerUnit": 2.41,
+                "category": "acidic",
+                "status": "available"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 2, Shelf A1"
+        },
+        "reagents": [
+            {
+                "name": "Sulfuric Acid",
+                "structure": "NaOH",
+                "description": "Alcohol commonly used in cleaning agents and as a solvent.",
+                "quantity": 99,
+                "unit": "l",
+                "size": 927,
+                "expirationDate": "2025-06-13T18:20:48.000Z",
+                "storageLocation": "Room 2, Shelf A1",
+                "cas": "5825-74-5666",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-007",
+                "catalogLink": "https://example.com/catalog/CAT-007",
+                "pricePerUnit": 4.09,
+                "category": "other",
+                "status": "available"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 4, Shelf D2"
+        },
+        "reagents": [
+            {
+                "name": "Iodine",
+                "structure": "CuSO4",
+                "description": "Photography and disinfectant chemical.",
+                "quantity": 184,
+                "unit": "l",
+                "size": 873,
+                "expirationDate": "2025-11-01T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf D2",
+                "cas": "4580-72-3235",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-008",
+                "catalogLink": "https://example.com/catalog/CAT-008",
+                "pricePerUnit": 1.94,
+                "category": "organic",
+                "status": "low_stock"
+            },
+            {
+                "name": "Calcium Carbonate",
+                "structure": "CuSO4",
+                "description": "Fungicide and algaecide in agriculture.",
+                "quantity": 121,
+                "unit": "l",
+                "size": 339,
+                "expirationDate": "2025-08-30T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf D2",
+                "cas": "6975-84-7645",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-023",
+                "catalogLink": "https://example.com/catalog/CAT-023",
+                "pricePerUnit": 5.69,
+                "category": "inorganic",
+                "status": "out_of_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 4, Shelf B2"
+        },
+        "reagents": [
+            {
+                "name": "Sodium Hydroxide",
+                "structure": "CaCO3",
+                "description": "A preservative and chemical reagent.",
+                "quantity": 132,
+                "unit": "ml",
+                "size": 398,
+                "expirationDate": "2025-03-31T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf B2",
+                "cas": "3090-42-3317",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-009",
+                "catalogLink": "https://example.com/catalog/CAT-009",
+                "pricePerUnit": 6.69,
+                "category": "inorganic",
+                "status": "ordered"
+            },
+            {
+                "name": "Hydrochloric Acid",
+                "structure": "C7H8",
+                "description": "Photography and disinfectant chemical.",
+                "quantity": 96,
+                "unit": "ml",
+                "size": 739,
+                "expirationDate": "2026-09-14T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf B2",
+                "cas": "4491-91-5502",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-025",
+                "catalogLink": "https://example.com/catalog/CAT-025",
+                "pricePerUnit": 7.3,
+                "category": "organic",
+                "status": "out_of_stock"
+            },
+            {
+                "name": "Calcium Sulfate",
+                "structure": "C6H5OH",
+                "description": "A strong acid used in laboratories and industry.",
+                "quantity": 350,
+                "unit": "g",
+                "size": 331,
+                "expirationDate": "2025-04-22T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf B2",
+                "cas": "6566-50-8984",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-042",
+                "catalogLink": "https://example.com/catalog/CAT-042",
+                "pricePerUnit": 3.71,
+                "category": "acidic",
+                "status": "available"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 3, Shelf B2"
+        },
+        "reagents": [
+            {
+                "name": "Magnesium Sulfate",
+                "structure": "NaOH",
+                "description": "Bleaching agent and disinfectant.",
+                "quantity": 484,
+                "unit": "ml",
+                "size": 901,
+                "expirationDate": "2025-08-05T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf B2",
+                "cas": "1437-21-2033",
+                "producer": "SaltCo Ltd.",
+                "catalogId": "CAT-010",
+                "catalogLink": "https://example.com/catalog/CAT-010",
+                "pricePerUnit": 7.88,
+                "category": "acidic",
+                "status": "available"
+            },
+            {
+                "name": "Hydrogen Peroxide",
+                "structure": "NH4NO3",
+                "description": "A weak acid used in insecticides and antiseptics.",
+                "quantity": 73,
+                "unit": "g",
+                "size": 857,
+                "expirationDate": "2026-06-29T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf B2",
+                "cas": "5541-63-1752",
+                "producer": "SaltCo Ltd.",
+                "catalogId": "CAT-024",
+                "catalogLink": "https://example.com/catalog/CAT-024",
+                "pricePerUnit": 2.63,
+                "category": "acidic",
+                "status": "low_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 1, Shelf D3"
+        },
+        "reagents": [
+            {
+                "name": "Sodium Chloride",
+                "structure": "H2O2",
+                "description": "Alcohol commonly used in cleaning agents and as a solvent.",
+                "quantity": 418,
+                "unit": "l",
+                "size": 749,
+                "expirationDate": "2025-09-24T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf D3",
+                "cas": "6920-81-4731",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-011",
+                "catalogLink": "https://example.com/catalog/CAT-011",
+                "pricePerUnit": 3.11,
+                "category": "organic",
+                "status": "out_of_stock"
+            },
+            {
+                "name": "Ethanol",
+                "structure": "MgSO4",
+                "description": "Used in pH adjustment in laboratories.",
+                "quantity": 113,
+                "unit": "ml",
+                "size": 966,
+                "expirationDate": "2027-01-18T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf D3",
+                "cas": "5394-15-7835",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-058",
+                "catalogLink": "https://example.com/catalog/CAT-058",
+                "pricePerUnit": 2.75,
+                "category": "basic",
+                "status": "available"
+            },
+            {
+                "name": "Phenol",
+                "structure": "C76H52O46",
+                "description": "Primarily used as a fertilizer and in explosives.",
+                "quantity": 475,
+                "unit": "l",
+                "size": 488,
+                "expirationDate": "2026-05-22T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf D3",
+                "cas": "9852-48-6362",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-061",
+                "catalogLink": "https://example.com/catalog/CAT-061",
+                "pricePerUnit": 6.3,
+                "category": "inorganic",
+                "status": "ordered"
+            },
+            {
+                "name": "Hydrogen Peroxide",
+                "structure": "HCl",
+                "description": "Bleaching agent and disinfectant.",
+                "quantity": 113,
+                "unit": "l",
+                "size": 863,
+                "expirationDate": "2025-06-17T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf D3",
+                "cas": "1002-24-8593",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-096",
+                "catalogLink": "https://example.com/catalog/CAT-096",
+                "pricePerUnit": 2.7,
+                "category": "acidic",
+                "status": "ordered"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 3, Shelf C2"
+        },
+        "reagents": [
+            {
+                "name": "Acetic Acid",
+                "structure": "C7H8",
+                "description": "Primarily used as a fertilizer and in explosives.",
+                "quantity": 88,
+                "unit": "ml",
+                "size": 739,
+                "expirationDate": "2026-10-17T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf C2",
+                "cas": "8585-28-7262",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-012",
+                "catalogLink": "https://example.com/catalog/CAT-012",
+                "pricePerUnit": 1.43,
+                "category": "organic",
+                "status": "available"
+            },
+            {
+                "name": "Toluene",
+                "structure": "H2SO4",
+                "description": "Photography and disinfectant chemical.",
+                "quantity": 167,
+                "unit": "ml",
+                "size": 765,
+                "expirationDate": "2025-09-25T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf C2",
+                "cas": "3633-97-6412",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-030",
+                "catalogLink": "https://example.com/catalog/CAT-030",
+                "pricePerUnit": 7.91,
+                "category": "other",
+                "status": "out_of_stock"
+            },
+            {
+                "name": "Sodium Hydroxide",
+                "structure": "HCl",
+                "description": "Used as a drying agent and in agriculture.",
+                "quantity": 147,
+                "unit": "ml",
+                "size": 640,
+                "expirationDate": "2024-12-09T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf C2",
+                "cas": "3057-28-6797",
+                "producer": "SaltCo Ltd.",
+                "catalogId": "CAT-041",
+                "catalogLink": "https://example.com/catalog/CAT-041",
+                "pricePerUnit": 2.76,
+                "category": "organic",
+                "status": "out_of_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 5, Shelf A1"
+        },
+        "reagents": [
+            {
+                "name": "Magnesium Sulfate",
+                "structure": "C6H5OH",
+                "description": "Used as a drying agent and in agriculture.",
+                "quantity": 413,
+                "unit": "g",
+                "size": 507,
+                "expirationDate": "2025-05-10T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf A1",
+                "cas": "4812-43-3596",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-013",
+                "catalogLink": "https://example.com/catalog/CAT-013",
+                "pricePerUnit": 7.42,
+                "category": "basic",
+                "status": "ordered"
+            },
+            {
+                "name": "Calcium Carbonate",
+                "structure": "C76H52O46",
+                "description": "Used as a drying agent and in agriculture.",
+                "quantity": 336,
+                "unit": "g",
+                "size": 863,
+                "expirationDate": "2026-03-16T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf A1",
+                "cas": "7012-24-7043",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-015",
+                "catalogLink": "https://example.com/catalog/CAT-015",
+                "pricePerUnit": 1.4,
+                "category": "organic",
+                "status": "out_of_stock"
+            },
+            {
+                "name": "Magnesium Sulfate",
+                "structure": "C6H5OH",
+                "description": "Used as a drying agent and in agriculture.",
+                "quantity": 482,
+                "unit": "g",
+                "size": 820,
+                "expirationDate": "2026-03-14T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf A1",
+                "cas": "4322-40-2840",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-036",
+                "catalogLink": "https://example.com/catalog/CAT-036",
+                "pricePerUnit": 7.56,
+                "category": "basic",
+                "status": "available"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 1, Shelf A2"
+        },
+        "reagents": [
+            {
+                "name": "Hydrogen Peroxide",
+                "structure": "C7H8",
+                "description": "A weak acid used in insecticides and antiseptics.",
+                "quantity": 143,
+                "unit": "g",
+                "size": 908,
+                "expirationDate": "2025-10-23T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf A2",
+                "cas": "2701-23-1349",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-014",
+                "catalogLink": "https://example.com/catalog/CAT-014",
+                "pricePerUnit": 6.41,
+                "category": "acidic",
+                "status": "low_stock"
+            },
+            {
+                "name": "Tannic Acid",
+                "structure": "C3H6O",
+                "description": "Used in plaster and as a drying agent.",
+                "quantity": 80,
+                "unit": "l",
+                "size": 600,
+                "expirationDate": "2025-09-04T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf A2",
+                "cas": "2470-12-4953",
+                "producer": "SaltCo Ltd.",
+                "catalogId": "CAT-076",
+                "catalogLink": "https://example.com/catalog/CAT-076",
+                "pricePerUnit": 2.16,
+                "category": "basic",
+                "status": "low_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 4, Shelf A3"
+        },
+        "reagents": [
+            {
+                "name": "Magnesium Sulfate",
+                "structure": "C3H6O",
+                "description": "Bleaching agent and disinfectant.",
+                "quantity": 90,
+                "unit": "g",
+                "size": 728,
+                "expirationDate": "2025-05-23T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf A3",
+                "cas": "9598-50-5806",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-016",
+                "catalogLink": "https://example.com/catalog/CAT-016",
+                "pricePerUnit": 4.89,
+                "category": "acidic",
+                "status": "available"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 1, Shelf C3"
+        },
+        "reagents": [
+            {
+                "name": "Sodium Hydroxide",
+                "structure": "CuSO4",
+                "description": "Used in pH adjustment in laboratories.",
+                "quantity": 320,
+                "unit": "ml",
+                "size": 618,
+                "expirationDate": "2025-05-28T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf C3",
+                "cas": "2290-32-1688",
+                "producer": "SaltCo Ltd.",
+                "catalogId": "CAT-017",
+                "catalogLink": "https://example.com/catalog/CAT-017",
+                "pricePerUnit": 1.59,
+                "category": "acidic",
+                "status": "ordered"
+            },
+            {
+                "name": "Acetic Acid",
+                "structure": "CaSO4",
+                "description": "A strong acid used in laboratories and industry.",
+                "quantity": 246,
+                "unit": "g",
+                "size": 624,
+                "expirationDate": "2027-01-17T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf C3",
+                "cas": "1831-55-7991",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-054",
+                "catalogLink": "https://example.com/catalog/CAT-054",
+                "pricePerUnit": 3.79,
+                "category": "other",
+                "status": "ordered"
+            },
+            {
+                "name": "Calcium Sulfate",
+                "structure": "C76H52O46",
+                "description": "Solvent in paint thinners and adhesives.",
+                "quantity": 450,
+                "unit": "g",
+                "size": 401,
+                "expirationDate": "2026-10-04T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf C3",
+                "cas": "4952-16-4838",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-064",
+                "catalogLink": "https://example.com/catalog/CAT-064",
+                "pricePerUnit": 2.38,
+                "category": "organic",
+                "status": "available"
+            },
+            {
+                "name": "Calcium Sulfate",
+                "structure": "CuSO4",
+                "description": "A common solvent used in various chemical applications.",
+                "quantity": 127,
+                "unit": "g",
+                "size": 966,
+                "expirationDate": "2026-04-11T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf C3",
+                "cas": "4409-97-7720",
+                "producer": "SaltCo Ltd.",
+                "catalogId": "CAT-082",
+                "catalogLink": "https://example.com/catalog/CAT-082",
+                "pricePerUnit": 4.18,
+                "category": "inorganic",
+                "status": "low_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 4, Shelf A2"
+        },
+        "reagents": [
+            {
+                "name": "Tannic Acid",
+                "structure": "NaCl",
+                "description": "A preservative and chemical reagent.",
+                "quantity": 92,
+                "unit": "l",
+                "size": 334,
+                "expirationDate": "2025-02-25T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf A2",
+                "cas": "2732-46-6333",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-019",
+                "catalogLink": "https://example.com/catalog/CAT-019",
+                "pricePerUnit": 3.66,
+                "category": "inorganic",
+                "status": "out_of_stock"
+            },
+            {
+                "name": "Calcium Sulfate",
+                "structure": "C6H5OH",
+                "description": "Alcohol commonly used in cleaning agents and as a solvent.",
+                "quantity": 82,
+                "unit": "g",
+                "size": 499,
+                "expirationDate": "2025-10-23T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf A2",
+                "cas": "7698-99-9114",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-081",
+                "catalogLink": "https://example.com/catalog/CAT-081",
+                "pricePerUnit": 3.42,
+                "category": "acidic",
+                "status": "low_stock"
+            },
+            {
+                "name": "Sodium Hydroxide",
+                "structure": "H2SO4",
+                "description": "A weak acid used in insecticides and antiseptics.",
+                "quantity": 152,
+                "unit": "ml",
+                "size": 760,
+                "expirationDate": "2025-11-01T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf A2",
+                "cas": "3637-22-4945",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-088",
+                "catalogLink": "https://example.com/catalog/CAT-088",
+                "pricePerUnit": 1.66,
+                "category": "organic",
+                "status": "ordered"
+            },
+            {
+                "name": "Hydrogen Peroxide",
+                "structure": "CuSO4",
+                "description": "Solvent in paint thinners and adhesives.",
+                "quantity": 244,
+                "unit": "ml",
+                "size": 636,
+                "expirationDate": "2026-02-28T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf A2",
+                "cas": "2690-20-6367",
+                "producer": "SaltCo Ltd.",
+                "catalogId": "CAT-095",
+                "catalogLink": "https://example.com/catalog/CAT-095",
+                "pricePerUnit": 6.46,
+                "category": "basic",
+                "status": "ordered"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 1, Shelf A3"
+        },
+        "reagents": [
+            {
+                "name": "Iodine",
+                "structure": "HCl",
+                "description": "A weak acid used in insecticides and antiseptics.",
+                "quantity": 161,
+                "unit": "l",
+                "size": 767,
+                "expirationDate": "2025-06-25T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf A3",
+                "cas": "8138-49-2495",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-020",
+                "catalogLink": "https://example.com/catalog/CAT-020",
+                "pricePerUnit": 4.32,
+                "category": "inorganic",
+                "status": "low_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 5, Shelf D2"
+        },
+        "reagents": [
+            {
+                "name": "Hydrochloric Acid",
+                "structure": "C3H6O",
+                "description": "Used in plaster and as a drying agent.",
+                "quantity": 311,
+                "unit": "g",
+                "size": 774,
+                "expirationDate": "2026-02-14T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf D2",
+                "cas": "9457-73-2289",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-021",
+                "catalogLink": "https://example.com/catalog/CAT-021",
+                "pricePerUnit": 9.01,
+                "category": "inorganic",
+                "status": "available"
+            },
+            {
+                "name": "Sodium Hydroxide",
+                "structure": "CuSO4",
+                "description": "Primarily used as a fertilizer and in explosives.",
+                "quantity": 78,
+                "unit": "ml",
+                "size": 374,
+                "expirationDate": "2026-12-28T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf D2",
+                "cas": "6671-34-3296",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-085",
+                "catalogLink": "https://example.com/catalog/CAT-085",
+                "pricePerUnit": 4.07,
+                "category": "acidic",
+                "status": "out_of_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 3, Shelf A2"
+        },
+        "reagents": [
+            {
+                "name": "Phenol",
+                "structure": "NaCl",
+                "description": "Chemical manufacturing compound with antiseptic properties.",
+                "quantity": 73,
+                "unit": "g",
+                "size": 542,
+                "expirationDate": "2026-10-02T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf A2",
+                "cas": "3859-73-2774",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-022",
+                "catalogLink": "https://example.com/catalog/CAT-022",
+                "pricePerUnit": 4.49,
+                "category": "organic",
+                "status": "available"
+            },
+            {
+                "name": "Boric Acid",
+                "structure": "H2SO4",
+                "description": "Used in pH adjustment in laboratories.",
+                "quantity": 472,
+                "unit": "g",
+                "size": 942,
+                "expirationDate": "2025-07-25T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf A2",
+                "cas": "1876-73-1347",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-027",
+                "catalogLink": "https://example.com/catalog/CAT-027",
+                "pricePerUnit": 9.68,
+                "category": "basic",
+                "status": "low_stock"
+            },
+            {
+                "name": "Calcium Sulfate",
+                "structure": "NH4NO3",
+                "description": "Common table salt used in food and industrial processes.",
+                "quantity": 186,
+                "unit": "g",
+                "size": 584,
+                "expirationDate": "2025-01-16T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf A2",
+                "cas": "6601-51-9480",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-031",
+                "catalogLink": "https://example.com/catalog/CAT-031",
+                "pricePerUnit": 1.31,
+                "category": "basic",
+                "status": "available"
+            },
+            {
+                "name": "Hydrochloric Acid",
+                "structure": "I2",
+                "description": "A common solvent used in various chemical applications.",
+                "quantity": 169,
+                "unit": "g",
+                "size": 363,
+                "expirationDate": "2026-02-26T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf A2",
+                "cas": "7801-39-9492",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-052",
+                "catalogLink": "https://example.com/catalog/CAT-052",
+                "pricePerUnit": 6.12,
+                "category": "basic",
+                "status": "low_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 2, Shelf A3"
+        },
+        "reagents": [
+            {
+                "name": "Hydrogen Peroxide",
+                "structure": "C2H4O2",
+                "description": "Primarily used as a fertilizer and in explosives.",
+                "quantity": 429,
+                "unit": "l",
+                "size": 351,
+                "expirationDate": "2026-11-05T18:20:48.000Z",
+                "storageLocation": "Room 2, Shelf A3",
+                "cas": "6874-65-5322",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-026",
+                "catalogLink": "https://example.com/catalog/CAT-026",
+                "pricePerUnit": 1.54,
+                "category": "inorganic",
+                "status": "low_stock"
+            },
+            {
+                "name": "Sulfuric Acid",
+                "structure": "NaOH",
+                "description": "Photography and disinfectant chemical.",
+                "quantity": 69,
+                "unit": "ml",
+                "size": 573,
+                "expirationDate": "2025-06-03T18:20:48.000Z",
+                "storageLocation": "Room 2, Shelf A3",
+                "cas": "2925-90-9998",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-047",
+                "catalogLink": "https://example.com/catalog/CAT-047",
+                "pricePerUnit": 8.21,
+                "category": "inorganic",
+                "status": "available"
+            },
+            {
+                "name": "Phenol",
+                "structure": "CaSO4",
+                "description": "A strong base utilized in cleaning and chemical synthesis.",
+                "quantity": 108,
+                "unit": "ml",
+                "size": 788,
+                "expirationDate": "2026-12-24T18:20:48.000Z",
+                "storageLocation": "Room 2, Shelf A3",
+                "cas": "4568-65-3706",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-077",
+                "catalogLink": "https://example.com/catalog/CAT-077",
+                "pricePerUnit": 3.82,
+                "category": "acidic",
+                "status": "out_of_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 1, Shelf D2"
+        },
+        "reagents": [
+            {
+                "name": "Ammonium Nitrate",
+                "structure": "CuSO4",
+                "description": "Bleaching agent and disinfectant.",
+                "quantity": 156,
+                "unit": "g",
+                "size": 948,
+                "expirationDate": "2025-09-08T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf D2",
+                "cas": "1293-62-2119",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-028",
+                "catalogLink": "https://example.com/catalog/CAT-028",
+                "pricePerUnit": 4.96,
+                "category": "other",
+                "status": "ordered"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 2, Shelf B2"
+        },
+        "reagents": [
+            {
+                "name": "Phenol",
+                "structure": "NaOH",
+                "description": "Disinfectant and synthesis compound.",
+                "quantity": 162,
+                "unit": "g",
+                "size": 259,
+                "expirationDate": "2026-08-23T18:20:48.000Z",
+                "storageLocation": "Room 2, Shelf B2",
+                "cas": "8813-95-7998",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-029",
+                "catalogLink": "https://example.com/catalog/CAT-029",
+                "pricePerUnit": 6.23,
+                "category": "acidic",
+                "status": "out_of_stock"
+            },
+            {
+                "name": "Potassium Permanganate",
+                "structure": "HCl",
+                "description": "Primarily used as a fertilizer and in explosives.",
+                "quantity": 359,
+                "unit": "g",
+                "size": 824,
+                "expirationDate": "2025-04-18T18:20:48.000Z",
+                "storageLocation": "Room 2, Shelf B2",
+                "cas": "7680-68-4729",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-040",
+                "catalogLink": "https://example.com/catalog/CAT-040",
+                "pricePerUnit": 7.73,
+                "category": "inorganic",
+                "status": "low_stock"
+            },
+            {
+                "name": "Sulfuric Acid",
+                "structure": "MgSO4",
+                "description": "Primarily used as a fertilizer and in explosives.",
+                "quantity": 384,
+                "unit": "l",
+                "size": 680,
+                "expirationDate": "2025-02-17T18:20:48.000Z",
+                "storageLocation": "Room 2, Shelf B2",
+                "cas": "8382-44-5925",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-044",
+                "catalogLink": "https://example.com/catalog/CAT-044",
+                "pricePerUnit": 4.65,
+                "category": "acidic",
+                "status": "available"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 1, Shelf C4"
+        },
+        "reagents": [
+            {
+                "name": "Boric Acid",
+                "structure": "NH4NO3",
+                "description": "Common table salt used in food and industrial processes.",
+                "quantity": 293,
+                "unit": "g",
+                "size": 463,
+                "expirationDate": "2027-01-13T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf C4",
+                "cas": "7824-86-7930",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-032",
+                "catalogLink": "https://example.com/catalog/CAT-032",
+                "pricePerUnit": 7.2,
+                "category": "other",
+                "status": "available"
+            },
+            {
+                "name": "Hydrogen Peroxide",
+                "structure": "CuSO4",
+                "description": "A strong acid used in laboratories and industry.",
+                "quantity": 352,
+                "unit": "g",
+                "size": 943,
+                "expirationDate": "2026-03-04T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf C4",
+                "cas": "7645-10-4823",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-039",
+                "catalogLink": "https://example.com/catalog/CAT-039",
+                "pricePerUnit": 2.85,
+                "category": "basic",
+                "status": "available"
+            },
+            {
+                "name": "Toluene",
+                "structure": "NaCl",
+                "description": "Solvent in paint thinners and adhesives.",
+                "quantity": 233,
+                "unit": "g",
+                "size": 433,
+                "expirationDate": "2026-06-13T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf C4",
+                "cas": "7481-22-5364",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-043",
+                "catalogLink": "https://example.com/catalog/CAT-043",
+                "pricePerUnit": 5.44,
+                "category": "other",
+                "status": "available"
+            },
+            {
+                "name": "Tannic Acid",
+                "structure": "H2SO4",
+                "description": "A weak acid used in insecticides and antiseptics.",
+                "quantity": 278,
+                "unit": "l",
+                "size": 346,
+                "expirationDate": "2025-01-29T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf C4",
+                "cas": "1457-73-2287",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-083",
+                "catalogLink": "https://example.com/catalog/CAT-083",
+                "pricePerUnit": 7.27,
+                "category": "acidic",
+                "status": "ordered"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 2, Shelf D3"
+        },
+        "reagents": [
+            {
+                "name": "Magnesium Sulfate",
+                "structure": "NaOH",
+                "description": "A common solvent used in various chemical applications.",
+                "quantity": 187,
+                "unit": "ml",
+                "size": 449,
+                "expirationDate": "2027-02-10T18:20:48.000Z",
+                "storageLocation": "Room 2, Shelf D3",
+                "cas": "8891-49-3796",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-033",
+                "catalogLink": "https://example.com/catalog/CAT-033",
+                "pricePerUnit": 1.62,
+                "category": "acidic",
+                "status": "available"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 2, Shelf B1"
+        },
+        "reagents": [
+            {
+                "name": "Toluene",
+                "structure": "C2H4O2",
+                "description": "Used in pH adjustment in laboratories.",
+                "quantity": 429,
+                "unit": "ml",
+                "size": 747,
+                "expirationDate": "2026-01-13T18:20:48.000Z",
+                "storageLocation": "Room 2, Shelf B1",
+                "cas": "2886-34-9303",
+                "producer": "SaltCo Ltd.",
+                "catalogId": "CAT-034",
+                "catalogLink": "https://example.com/catalog/CAT-034",
+                "pricePerUnit": 3.81,
+                "category": "inorganic",
+                "status": "available"
+            },
+            {
+                "name": "Ethanol",
+                "structure": "C76H52O46",
+                "description": "Fungicide and algaecide in agriculture.",
+                "quantity": 385,
+                "unit": "ml",
+                "size": 649,
+                "expirationDate": "2025-10-06T18:20:48.000Z",
+                "storageLocation": "Room 2, Shelf B1",
+                "cas": "4618-55-7805",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-066",
+                "catalogLink": "https://example.com/catalog/CAT-066",
+                "pricePerUnit": 9.49,
+                "category": "acidic",
+                "status": "low_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 4, Shelf C3"
+        },
+        "reagents": [
+            {
+                "name": "Calcium Carbonate",
+                "structure": "C2H5OH",
+                "description": "Used in pH adjustment in laboratories.",
+                "quantity": 136,
+                "unit": "g",
+                "size": 425,
+                "expirationDate": "2026-01-19T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf C3",
+                "cas": "1086-64-9072",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-037",
+                "catalogLink": "https://example.com/catalog/CAT-037",
+                "pricePerUnit": 7.72,
+                "category": "inorganic",
+                "status": "out_of_stock"
+            },
+            {
+                "name": "Sodium Chloride",
+                "structure": "HCl",
+                "description": "A weak acid used in insecticides and antiseptics.",
+                "quantity": 161,
+                "unit": "g",
+                "size": 873,
+                "expirationDate": "2026-03-08T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf C3",
+                "cas": "8906-45-7854",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-049",
+                "catalogLink": "https://example.com/catalog/CAT-049",
+                "pricePerUnit": 2.12,
+                "category": "organic",
+                "status": "available"
+            },
+            {
+                "name": "Ethanol",
+                "structure": "CaCO3",
+                "description": "Photography and disinfectant chemical.",
+                "quantity": 149,
+                "unit": "l",
+                "size": 869,
+                "expirationDate": "2026-07-29T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf C3",
+                "cas": "9188-65-4767",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-068",
+                "catalogLink": "https://example.com/catalog/CAT-068",
+                "pricePerUnit": 2.1,
+                "category": "inorganic",
+                "status": "ordered"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 4, Shelf B1"
+        },
+        "reagents": [
+            {
+                "name": "Ammonium Nitrate",
+                "structure": "CuSO4",
+                "description": "A strong base utilized in cleaning and chemical synthesis.",
+                "quantity": 425,
+                "unit": "l",
+                "size": 423,
+                "expirationDate": "2027-04-09T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf B1",
+                "cas": "2854-47-2894",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-038",
+                "catalogLink": "https://example.com/catalog/CAT-038",
+                "pricePerUnit": 5.15,
+                "category": "acidic",
+                "status": "available"
+            },
+            {
+                "name": "Calcium Carbonate",
+                "structure": "CuSO4",
+                "description": "Disinfectant and synthesis compound.",
+                "quantity": 213,
+                "unit": "g",
+                "size": 431,
+                "expirationDate": "2025-10-03T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf B1",
+                "cas": "2606-92-3773",
+                "producer": "SaltCo Ltd.",
+                "catalogId": "CAT-056",
+                "catalogLink": "https://example.com/catalog/CAT-056",
+                "pricePerUnit": 5.93,
+                "category": "acidic",
+                "status": "available"
+            },
+            {
+                "name": "Hydrogen Peroxide",
+                "structure": "AgNO3",
+                "description": "Primarily used as a fertilizer and in explosives.",
+                "quantity": 362,
+                "unit": "g",
+                "size": 522,
+                "expirationDate": "2025-11-29T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf B1",
+                "cas": "9420-76-1772",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-086",
+                "catalogLink": "https://example.com/catalog/CAT-086",
+                "pricePerUnit": 2.09,
+                "category": "basic",
+                "status": "available"
+            },
+            {
+                "name": "Ethanol",
+                "structure": "NaCl",
+                "description": "Used in pH adjustment in laboratories.",
+                "quantity": 137,
+                "unit": "ml",
+                "size": 865,
+                "expirationDate": "2025-05-29T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf B1",
+                "cas": "8861-92-9949",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-098",
+                "catalogLink": "https://example.com/catalog/CAT-098",
+                "pricePerUnit": 8.61,
+                "category": "acidic",
+                "status": "available"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 2, Shelf D2"
+        },
+        "reagents": [
+            {
+                "name": "Ethanol",
+                "structure": "H3BO3",
+                "description": "Solvent in paint thinners and adhesives.",
+                "quantity": 108,
+                "unit": "ml",
+                "size": 699,
+                "expirationDate": "2025-08-24T18:20:48.000Z",
+                "storageLocation": "Room 2, Shelf D2",
+                "cas": "8403-30-4507",
+                "producer": "SaltCo Ltd.",
+                "catalogId": "CAT-046",
+                "catalogLink": "https://example.com/catalog/CAT-046",
+                "pricePerUnit": 3.66,
+                "category": "other",
+                "status": "ordered"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 1, Shelf C2"
+        },
+        "reagents": [
+            {
+                "name": "Magnesium Sulfate",
+                "structure": "NH4NO3",
+                "description": "Solvent in paint thinners and adhesives.",
+                "quantity": 442,
+                "unit": "ml",
+                "size": 668,
+                "expirationDate": "2026-05-30T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf C2",
+                "cas": "9454-10-3914",
+                "producer": "SaltCo Ltd.",
+                "catalogId": "CAT-051",
+                "catalogLink": "https://example.com/catalog/CAT-051",
+                "pricePerUnit": 7.49,
+                "category": "other",
+                "status": "low_stock"
+            },
+            {
+                "name": "Iodine",
+                "structure": "C2H4O2",
+                "description": "A strong acid used in laboratories and industry.",
+                "quantity": 55,
+                "unit": "g",
+                "size": 789,
+                "expirationDate": "2025-05-08T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf C2",
+                "cas": "1309-59-8279",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-084",
+                "catalogLink": "https://example.com/catalog/CAT-084",
+                "pricePerUnit": 5.0,
+                "category": "organic",
+                "status": "low_stock"
+            },
+            {
+                "name": "Sodium Chloride",
+                "structure": "C2H5OH",
+                "description": "Alcohol commonly used in cleaning agents and as a solvent.",
+                "quantity": 51,
+                "unit": "ml",
+                "size": 598,
+                "expirationDate": "2026-12-12T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf C2",
+                "cas": "2956-36-6692",
+                "producer": "SaltCo Ltd.",
+                "catalogId": "CAT-092",
+                "catalogLink": "https://example.com/catalog/CAT-092",
+                "pricePerUnit": 1.71,
+                "category": "acidic",
+                "status": "out_of_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 2, Shelf C3"
+        },
+        "reagents": [
+            {
+                "name": "Calcium Carbonate",
+                "structure": "NaOH",
+                "description": "Widely used in geology and as a supplement.",
+                "quantity": 479,
+                "unit": "ml",
+                "size": 304,
+                "expirationDate": "2025-05-05T18:20:48.000Z",
+                "storageLocation": "Room 2, Shelf C3",
+                "cas": "4041-73-2885",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-053",
+                "catalogLink": "https://example.com/catalog/CAT-053",
+                "pricePerUnit": 6.45,
+                "category": "basic",
+                "status": "out_of_stock"
+            },
+            {
+                "name": "Magnesium Sulfate",
+                "structure": "H2SO4",
+                "description": "A weak acid used in insecticides and antiseptics.",
+                "quantity": 452,
+                "unit": "g",
+                "size": 645,
+                "expirationDate": "2025-10-25T18:20:48.000Z",
+                "storageLocation": "Room 2, Shelf C3",
+                "cas": "6162-23-7605",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-078",
+                "catalogLink": "https://example.com/catalog/CAT-078",
+                "pricePerUnit": 1.43,
+                "category": "other",
+                "status": "available"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 1, Shelf A1"
+        },
+        "reagents": [
+            {
+                "name": "Acetic Acid",
+                "structure": "CuSO4",
+                "description": "A strong base utilized in cleaning and chemical synthesis.",
+                "quantity": 251,
+                "unit": "ml",
+                "size": 895,
+                "expirationDate": "2026-11-02T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf A1",
+                "cas": "8906-67-5622",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-055",
+                "catalogLink": "https://example.com/catalog/CAT-055",
+                "pricePerUnit": 6.53,
+                "category": "organic",
+                "status": "ordered"
+            },
+            {
+                "name": "Magnesium Sulfate",
+                "structure": "C76H52O46",
+                "description": "Fungicide and algaecide in agriculture.",
+                "quantity": 118,
+                "unit": "ml",
+                "size": 877,
+                "expirationDate": "2026-10-26T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf A1",
+                "cas": "2675-65-7792",
+                "producer": "SaltCo Ltd.",
+                "catalogId": "CAT-072",
+                "catalogLink": "https://example.com/catalog/CAT-072",
+                "pricePerUnit": 5.71,
+                "category": "other",
+                "status": "available"
+            },
+            {
+                "name": "Ammonium Nitrate",
+                "structure": "C3H6O",
+                "description": "Bleaching agent and disinfectant.",
+                "quantity": 389,
+                "unit": "g",
+                "size": 272,
+                "expirationDate": "2025-07-22T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf A1",
+                "cas": "5380-20-1238",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-090",
+                "catalogLink": "https://example.com/catalog/CAT-090",
+                "pricePerUnit": 7.23,
+                "category": "organic",
+                "status": "available"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 2, Shelf C2"
+        },
+        "reagents": [
+            {
+                "name": "Potassium Permanganate",
+                "structure": "I2",
+                "description": "Bleaching agent and disinfectant.",
+                "quantity": 172,
+                "unit": "l",
+                "size": 610,
+                "expirationDate": "2025-02-14T18:20:48.000Z",
+                "storageLocation": "Room 2, Shelf C2",
+                "cas": "1863-49-6679",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-057",
+                "catalogLink": "https://example.com/catalog/CAT-057",
+                "pricePerUnit": 5.48,
+                "category": "organic",
+                "status": "out_of_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 4, Shelf D3"
+        },
+        "reagents": [
+            {
+                "name": "Phenol",
+                "structure": "AgNO3",
+                "description": "A strong acid used in laboratories and industry.",
+                "quantity": 138,
+                "unit": "l",
+                "size": 947,
+                "expirationDate": "2026-11-16T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf D3",
+                "cas": "4543-79-2990",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-059",
+                "catalogLink": "https://example.com/catalog/CAT-059",
+                "pricePerUnit": 5.92,
+                "category": "inorganic",
+                "status": "out_of_stock"
+            },
+            {
+                "name": "Ammonium Nitrate",
+                "structure": "CaCO3",
+                "description": "Used in pH adjustment in laboratories.",
+                "quantity": 100,
+                "unit": "l",
+                "size": 741,
+                "expirationDate": "2026-12-20T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf D3",
+                "cas": "1099-97-4889",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-089",
+                "catalogLink": "https://example.com/catalog/CAT-089",
+                "pricePerUnit": 2.72,
+                "category": "acidic",
+                "status": "low_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 3, Shelf A1"
+        },
+        "reagents": [
+            {
+                "name": "Hydrochloric Acid",
+                "structure": "NaCl",
+                "description": "Widely used in geology and as a supplement.",
+                "quantity": 194,
+                "unit": "g",
+                "size": 455,
+                "expirationDate": "2026-04-29T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf A1",
+                "cas": "8936-76-1676",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-060",
+                "catalogLink": "https://example.com/catalog/CAT-060",
+                "pricePerUnit": 8.77,
+                "category": "other",
+                "status": "out_of_stock"
+            },
+            {
+                "name": "Ethanol",
+                "structure": "C3H6O",
+                "description": "Fungicide and algaecide in agriculture.",
+                "quantity": 495,
+                "unit": "ml",
+                "size": 452,
+                "expirationDate": "2025-08-23T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf A1",
+                "cas": "1684-84-8497",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-071",
+                "catalogLink": "https://example.com/catalog/CAT-071",
+                "pricePerUnit": 7.26,
+                "category": "organic",
+                "status": "available"
+            },
+            {
+                "name": "Iodine",
+                "structure": "CaCO3",
+                "description": "Alcohol commonly used in cleaning agents and as a solvent.",
+                "quantity": 236,
+                "unit": "g",
+                "size": 708,
+                "expirationDate": "2026-10-13T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf A1",
+                "cas": "9110-67-1475",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-097",
+                "catalogLink": "https://example.com/catalog/CAT-097",
+                "pricePerUnit": 4.86,
+                "category": "organic",
+                "status": "out_of_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 3, Shelf B1"
+        },
+        "reagents": [
+            {
+                "name": "Phenol",
+                "structure": "H2SO4",
+                "description": "Primarily used as a fertilizer and in explosives.",
+                "quantity": 197,
+                "unit": "ml",
+                "size": 969,
+                "expirationDate": "2025-07-24T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf B1",
+                "cas": "2407-17-5317",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-065",
+                "catalogLink": "https://example.com/catalog/CAT-065",
+                "pricePerUnit": 2.14,
+                "category": "basic",
+                "status": "available"
+            },
+            {
+                "name": "Potassium Permanganate",
+                "structure": "CuSO4",
+                "description": "Fungicide and algaecide in agriculture.",
+                "quantity": 454,
+                "unit": "g",
+                "size": 319,
+                "expirationDate": "2025-01-25T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf B1",
+                "cas": "3592-79-5787",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-087",
+                "catalogLink": "https://example.com/catalog/CAT-087",
+                "pricePerUnit": 9.86,
+                "category": "basic",
+                "status": "ordered"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 5, Shelf C3"
+        },
+        "reagents": [
+            {
+                "name": "Sodium Hydroxide",
+                "structure": "C3H6O",
+                "description": "Chemical manufacturing compound with antiseptic properties.",
+                "quantity": 431,
+                "unit": "l",
+                "size": 859,
+                "expirationDate": "2026-04-11T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf C3",
+                "cas": "8234-96-1836",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-067",
+                "catalogLink": "https://example.com/catalog/CAT-067",
+                "pricePerUnit": 2.32,
+                "category": "other",
+                "status": "low_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 5, Shelf D3"
+        },
+        "reagents": [
+            {
+                "name": "Calcium Carbonate",
+                "structure": "I2",
+                "description": "Common table salt used in food and industrial processes.",
+                "quantity": 121,
+                "unit": "l",
+                "size": 935,
+                "expirationDate": "2025-01-16T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf D3",
+                "cas": "5638-29-5335",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-069",
+                "catalogLink": "https://mineralcorp.com/catalog/CC-500",
+                "pricePerUnit": 7.65,
+                "category": "basic",
+                "status": "out_of_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 5, Shelf B1"
+        },
+        "reagents": [
+            {
+                "name": "Copper(II) Sulfate",
+                "structure": "HCl",
+                "description": "Photography and disinfectant chemical.",
+                "quantity": 92,
+                "unit": "g",
+                "size": 772,
+                "expirationDate": "2025-08-19T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf B1",
+                "cas": "9826-59-4303",
+                "producer": "SaltCo Ltd.",
+                "catalogId": "CAT-070",
+                "catalogLink": "https://mineralcorp.com/catalog/CC-500",
+                "pricePerUnit": 2.76,
+                "category": "basic",
+                "status": "ordered"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 5, Shelf C4"
+        },
+        "reagents": [
+            {
+                "name": "Acetic Acid",
+                "structure": "NaCl",
+                "description": "A common solvent used in various chemical applications.",
+                "quantity": 244,
+                "unit": "g",
+                "size": 715,
+                "expirationDate": "2025-12-31T18:20:48.000Z",
+                "storageLocation": "Room 5, Shelf C4",
+                "cas": "1367-89-3581",
+                "producer": "ChemSolv Inc.",
+                "catalogId": "CAT-074",
+                "catalogLink": "https://mineralcorp.com/catalog/CC-500",
+                "pricePerUnit": 3.61,
+                "category": "other",
+                "status": "out_of_stock"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 2, Shelf C4"
+        },
+        "reagents": [
+            {
+                "name": "Magnesium Sulfate",
+                "structure": "CuSO4",
+                "description": "Chemical manufacturing compound with antiseptic properties.",
+                "quantity": 476,
+                "unit": "g",
+                "size": 683,
+                "expirationDate": "2026-08-22T18:20:48.000Z",
+                "storageLocation": "Room 2, Shelf C4",
+                "cas": "2659-74-2724",
+                "producer": "BioChem Corp.",
+                "catalogId": "CAT-075",
+                "catalogLink": "https://mineralcorp.com/catalog/CC-500",
+                "pricePerUnit": 8.66,
+                "category": "acidic",
+                "status": "ordered"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 1, Shelf B2"
+        },
+        "reagents": [
+            {
+                "name": "Hydrogen Peroxide",
+                "structure": "CuSO4",
+                "description": "A weak acid used in insecticides and antiseptics.",
+                "quantity": 320,
+                "unit": "g",
+                "size": 450,
+                "expirationDate": "2025-08-22T18:20:48.000Z",
+                "storageLocation": "Room 1, Shelf B2",
+                "cas": "4621-12-3987",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-079",
+                "catalogLink": "https://mineralcorp.com/catalog/CC-500",
+                "pricePerUnit": 7.0,
+                "category": "acidic",
+                "status": "ordered"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 4, Shelf C4"
+        },
+        "reagents": [
+            {
+                "name": "Sodium Hydroxide",
+                "structure": "H2SO4",
+                "description": "Used in plaster and as a drying agent.",
+                "quantity": 52,
+                "unit": "g",
+                "size": 818,
+                "expirationDate": "2025-09-04T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf C4",
+                "cas": "4654-44-5720",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-080",
+                "catalogLink": "https://mineralcorp.com/catalog/CC-500",
+                "pricePerUnit": 9.48,
+                "category": "acidic",
+                "status": "ordered"
+            },
+            {
+                "name": "Toluene",
+                "structure": "H2O2",
+                "description": "Used as a drying agent and in agriculture.",
+                "quantity": 337,
+                "unit": "ml",
+                "size": 347,
+                "expirationDate": "2027-02-04T18:20:48.000Z",
+                "storageLocation": "Room 4, Shelf C4",
+                "cas": "7635-55-5462",
+                "producer": "MineralCorp",
+                "catalogId": "CAT-094",
+                "catalogLink": "https://mineralcorp.com/catalog/CC-500",
+                "pricePerUnit": 3.6,
+                "category": "inorganic",
+                "status": "ordered"
+            }
+        ]
+    },
+    {
+        "storageLocation": {
+            "name": "Room 3, Shelf C4"
+        },
+        "reagents": [
+            {
+                "name": "Potassium Permanganate",
+                "structure": "CaSO4",
+                "description": "Photography and disinfectant chemical.",
+                "quantity": 204,
+                "unit": "ml",
+                "size": 418,
+                "expirationDate": "2025-06-28T18:20:48.000Z",
+                "storageLocation": "Room 3, Shelf C4",
+                "cas": "3934-74-7065",
+                "producer": "AcidMasters Inc.",
+                "catalogId": "CAT-100",
+                "catalogLink": "https://example.com/catalog/CAT-100",
+                "pricePerUnit": 6.17,
+                "category": "basic",
+                "status": "low_stock"
+            }
+        ]
+    }
+]
