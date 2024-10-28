@@ -1,5 +1,5 @@
 import { z } from "zod";
-import userSchema from "./generated/zod/modelSchema/UserSchema";
+import userSchema, { UserSchema } from "./generated/zod/modelSchema/UserSchema";
 
 export const idSchema = z.string().uuid();
 
@@ -171,3 +171,5 @@ export const updateUserSchema = z.object({
 
 // Type inference for UpdateUser
 export type UpdateUser = z.infer<typeof updateUserSchema>;
+
+export const publicUserSchema = UserSchema.omit({ password: true });

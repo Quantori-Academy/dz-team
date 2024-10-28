@@ -26,14 +26,20 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
             schema: { tags: ["Users"] },
             preHandler: [
                 async (request, reply) => {
-                    // Ensure that verifyJWT is defined before calling it
-                    if (app.verifyJWT) {
-                        await app.verifyJWT(request, reply);
+                    // Ensure verifyJWT and verifyRole exist, otherwise block the request
+                    if (!app.verifyJWT || !app.verifyRole) {
+                        reply
+                            .code(500)
+                            .send({
+                                error: "Authentication or authorization method not available",
+                            });
+                        throw new Error(
+                            "Required authentication or authorization method not registered.",
+                        );
                     }
-                    // Ensure that verifyRole is defined before calling it
-                    if (app.verifyRole) {
-                        await app.verifyRole(request, reply, [Roles.ADMIN]);
-                    }
+
+                    await app.verifyJWT(request, reply);
+                    await app.verifyRole(request, reply, [Roles.ADMIN]);
                 },
             ],
         },
@@ -58,12 +64,20 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
             schema: { tags: ["Users"], body: registerUserSchema },
             preHandler: [
                 async (request, reply) => {
-                    if (app.verifyJWT) {
-                        await app.verifyJWT(request, reply);
+                    // Ensure verifyJWT and verifyRole exist, otherwise block the request
+                    if (!app.verifyJWT || !app.verifyRole) {
+                        reply
+                            .code(500)
+                            .send({
+                                error: "Authentication or authorization method not available",
+                            });
+                        throw new Error(
+                            "Required authentication or authorization method not registered.",
+                        );
                     }
-                    if (app.verifyRole) {
-                        await app.verifyRole(request, reply, [Roles.ADMIN]);
-                    }
+
+                    await app.verifyJWT(request, reply);
+                    await app.verifyRole(request, reply, [Roles.ADMIN]);
                 },
             ],
         },
@@ -88,10 +102,19 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
             schema: { tags: ["Users"], body: updateUserSchema },
             preHandler: [
                 async (request, reply) => {
-                    if (app.verifyJWT) {
-                        await app.verifyJWT(request, reply);
+                    // Ensure verifyJWT and verifyRole exist, otherwise block the request
+                    if (!app.verifyJWT) {
+                        reply
+                            .code(500)
+                            .send({
+                                error: "Authentication or authorization method not available",
+                            });
+                        throw new Error(
+                            "Required authentication or authorization method not registered.",
+                        );
                     }
-                    // No role check, so any authorized user can update specified data
+
+                    await app.verifyJWT(request, reply);
                 },
             ],
         },
@@ -116,12 +139,20 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
             schema: { tags: ["Users"] },
             preHandler: [
                 async (request, reply) => {
-                    if (app.verifyJWT) {
-                        await app.verifyJWT(request, reply);
+                    // Ensure verifyJWT and verifyRole exist, otherwise block the request
+                    if (!app.verifyJWT || !app.verifyRole) {
+                        reply
+                            .code(500)
+                            .send({
+                                error: "Authentication or authorization method not available",
+                            });
+                        throw new Error(
+                            "Required authentication or authorization method not registered.",
+                        );
                     }
-                    if (app.verifyRole) {
-                        await app.verifyRole(request, reply, [Roles.ADMIN]);
-                    }
+
+                    await app.verifyJWT(request, reply);
+                    await app.verifyRole(request, reply, [Roles.ADMIN]);
                 },
             ],
         },
