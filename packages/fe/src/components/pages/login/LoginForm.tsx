@@ -14,8 +14,8 @@ import { useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 import { roleRoutes } from "rolesRoutes";
 
+import { $auth } from "stores/auth";
 import { $loginState, loginFx } from "stores/login";
-import { $selfState } from "stores/self";
 import { useIsDesktop } from "utils/useIsDesktop";
 
 export function LoginForm() {
@@ -28,18 +28,18 @@ export function LoginForm() {
     const navigate = useNavigate();
 
     const loginState = useUnit($loginState);
-    const selfState = useUnit($selfState);
+    const authState = useUnit($auth);
     const isDesktop = useIsDesktop();
 
     useEffect(() => {
-        if (selfState) {
+        if (authState) {
             const value = {
-                to: roleRoutes[selfState.role],
+                to: roleRoutes[authState.self.role],
             };
 
             navigate(value);
         }
-    }, [selfState, navigate]);
+    }, [authState, navigate]);
 
     const handleLogin = useCallback(() => {
         const username = usernameInput.current?.value;

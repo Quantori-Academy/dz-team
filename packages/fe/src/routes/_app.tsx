@@ -5,7 +5,10 @@ import { Layout } from "components/pages/app/layout";
 
 export const Route = createFileRoute("/_app")({
     beforeLoad: ({ context }) => {
-        if (!context.auth?.token || context.self?.role !== UserRole.researcher) {
+        if (
+            context.auth !== false &&
+            (!context.auth?.token || context.auth?.self.role !== UserRole.researcher)
+        ) {
             throw redirect({
                 to: "/login",
             });

@@ -6,7 +6,10 @@ import { AdminPage } from "components/pages/AdminPage";
 export const Route = createFileRoute("/admin")({
     component: () => <AdminPage />,
     beforeLoad: ({ context }) => {
-        if (!context.auth?.token || context.self?.role !== UserRole.admin) {
+        if (
+            context.auth !== false &&
+            (!context.auth?.token || context.auth?.self.role !== UserRole.admin)
+        ) {
             throw redirect({
                 to: "/login",
             });

@@ -16,7 +16,7 @@ export const UserContract = Record({
     ),
 });
 
-export type UserType = Static<typeof UserContract>;
+export type SelfType = Static<typeof UserContract>;
 
 export const getUser = async (token: string) => {
     const response = await request(`${base}/api/v1/self`, UserContract, {

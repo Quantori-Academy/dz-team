@@ -6,7 +6,10 @@ import { ProcurementOfficersPage } from "components/pages/ProcurementOfficersPag
 export const Route = createFileRoute("/procurementofficers")({
     component: () => <ProcurementOfficersPage />,
     beforeLoad: ({ context }) => {
-        if (!context.auth?.token || context.self?.role !== UserRole.procurementOfficer) {
+        if (
+            context.auth !== false &&
+            (!context.auth?.token || context.auth?.self.role !== UserRole.procurementOfficer)
+        ) {
             throw redirect({
                 to: "/login",
             });
