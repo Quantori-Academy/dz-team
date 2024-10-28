@@ -42,7 +42,7 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
         { schema: { tags: ["Reagent"] } },
         async (request, reply) => {
             return await reagentController.getReagents(request, reply);
-        }
+        },
     );
 
     /**
@@ -58,7 +58,7 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
         { schema: { tags: ["Reagent"] } },
         async (request, reply) => {
             return await reagentController.getReagent(request, reply);
-        }
+        },
     );
 
     /**
@@ -74,7 +74,7 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
         { schema: { tags: ["Reagent"], body: ReagentCreateInputSchema } },
         async (request, reply) => {
             return await reagentController.createReagent(request, reply);
-        }
+        },
     );
 
     /**
@@ -92,7 +92,7 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
         { schema: { tags: ["Reagent"], body: ReagentUpdateInputSchema } },
         async (request, reply) => {
             return await reagentController.updateReagent(request, reply);
-        }
+        },
     );
 
     /**
@@ -108,7 +108,7 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
         { schema: { tags: ["Reagent"] } },
         async (request, reply) => {
             return await reagentController.deleteReagent(request, reply);
-        }
+        },
     );
 
     /**
@@ -124,6 +124,6 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
         { schema: { tags: ["Reagent"] } },
         async (response, reply) => {
             return await reagentController.undoDeleteReagent(response, reply);
-        }
+        },
     );
 };

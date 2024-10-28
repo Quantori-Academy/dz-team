@@ -27,8 +27,8 @@ export const Grid = ({ rows, headers, handleAddRecord }: GridProps) => {
     /* eslint-disable @typescript-eslint/no-base-to-string */
     const filteredRows = rows.filter((row) =>
         Object.values(row).some(
-            (value) => value && value.toString().toLowerCase().includes(searchQuery.toLowerCase())
-        )
+            (value) => value && value.toString().toLowerCase().includes(searchQuery.toLowerCase()),
+        ),
     );
 
     const textField = {

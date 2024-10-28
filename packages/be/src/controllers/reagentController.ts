@@ -39,7 +39,7 @@ export class ReagentController {
      */
     async getReagent(
         request: FastifyRequest<{ Params: { id: string } }>,
-        reply: FastifyReply
+        reply: FastifyReply,
     ): Promise<void> {
         try {
             const validatedId = idSchema.parse(request.params.id);
@@ -67,7 +67,7 @@ export class ReagentController {
      */
     async createReagent(
         request: FastifyRequest<{ Body: unknown }>,
-        reply: FastifyReply
+        reply: FastifyReply,
     ): Promise<void> {
         try {
             const validatedData = ReagentCreateInputSchema.parse(request.body);
@@ -92,7 +92,7 @@ export class ReagentController {
      */
     async updateReagent(
         request: FastifyRequest<{ Params: { id: string }; Body: unknown }>,
-        reply: FastifyReply
+        reply: FastifyReply,
     ): Promise<void> {
         try {
             const validatedId = idSchema.parse(request.params.id);
@@ -118,7 +118,7 @@ export class ReagentController {
      */
     async deleteReagent(
         request: FastifyRequest<{ Params: { id: string } }>,
-        reply: FastifyReply
+        reply: FastifyReply,
     ): Promise<void> {
         try {
             const validatedId = idSchema.parse(request.params.id);
@@ -146,7 +146,7 @@ export class ReagentController {
      */
     async undoDeleteReagent(
         request: FastifyRequest<{ Params: { id: string } }>,
-        reply: FastifyReply
+        reply: FastifyReply,
     ): Promise<void> {
         try {
             const validatedId = idSchema.parse(request.params.id);
