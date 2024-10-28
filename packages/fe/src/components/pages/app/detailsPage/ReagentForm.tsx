@@ -29,7 +29,7 @@ export const ReagentForm = ({ initialData, onSubmit }: ReagentFormProps) => {
     const quantityRef = useRef<HTMLInputElement>(null);
     const storageLocationRef = useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
-
+  
     const refMap = {
         quantity: quantityRef,
         storageLocation: storageLocationRef,

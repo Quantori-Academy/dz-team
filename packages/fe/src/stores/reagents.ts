@@ -30,3 +30,8 @@ sample({
     clock: fetchReagentsFx.doneData,
     target: $ReagentsList,
 });
+
+sample({
+    clock: ReagentsGate.open,
+    target: fetchReagentsFx,
+});
