@@ -26,8 +26,48 @@ export class UserController {
                     .send({ message: "Validation error", errors: error.errors });
             }
             if (error instanceof Error) {
-                // Return a 409 Conflict status for registration issues (e.g., username/email already in use)
-                return reply.status(409).send({ message: error.message });
+                return reply.status(500).send({ message: "Internal server error" });
+            }
+            return reply.status(500).send({ message: "Internal server error" });
+        }
+    }
+
+    /**
+     * Get a single user by their userId with role-based access control.
+     * @param request - FastifyRequest containing the userId as a parameter.
+     * @param reply - FastifyReply
+     * @returns A promise that resolves to the user data or an error.
+     */
+    async getSingleUser(
+        request: FastifyRequest<{ Params: { userId: string } }>,
+        reply: FastifyReply,
+    ): Promise<void> {
+        try {
+            const { userId } = request.params;
+            const requesterId = request.userData?.userId;
+            const requesterRole = request.userData?.role;
+
+            // Ensure request userId and role are available
+            if (!requesterId || !requesterRole) {
+                return reply.status(401).send({ message: "Unauthorized" });
+            }
+
+            // Attempt to get the user through the UserService
+            const user = await userService.getSingleUser(userId, requesterId, requesterRole);
+
+            if (user) {
+                return reply.status(200).send(user);
+            } else {
+                return reply.status(404).send({ message: "User not found" });
+            }
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                return reply
+                    .status(400)
+                    .send({ message: "Validation error", errors: error.errors });
+            }
+            if (error instanceof Error) {
+                return reply.status(500).send({ message: "Internal server error" });
             }
             return reply.status(500).send({ message: "Internal server error" });
         }

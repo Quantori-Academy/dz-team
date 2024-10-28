@@ -17,6 +17,38 @@ export class UserService {
         return users.map((user) => publicUserSchema.parse(user)); // Parse each user into UserSchema
     }
 
+    /**
+     * Get a single user by ID with role-based access control.
+     * @param userId - The ID of the user to retrieve.
+     * @param requesterId - The ID of the user making the request.
+     * @param requesterRole - The role of the user making the request.
+     * @returns The user data or null if not found.
+     */
+    async getSingleUser(
+        userId: string,
+        requesterId: string,
+        requesterRole: string,
+    ): Promise<z.infer<typeof publicUserSchema> | null> {
+        if (requesterRole === "admin") {
+            // Admin can access any user's data
+            const user = await prisma.user.findUnique({
+                where: { id: userId },
+            });
+            return user ? publicUserSchema.parse(user) : null;
+        } else if (requesterRole === "researcher" || requesterRole === "procurementOfficer") {
+            // Non-admin users can only access their own data
+            if (userId !== requesterId) {
+                throw new Error("Unauthorized: Insufficient permissions.");
+            }
+            const user = await prisma.user.findUnique({
+                where: { id: userId },
+            });
+            return user ? publicUserSchema.parse(user) : null;
+        } else {
+            throw new Error("Unauthorized: Insufficient permissions.");
+        }
+    }
+
     // Check unique credentials
     async getUserByUsernameOrEmail(username: string, email: string) {
         return prisma.user.findFirst({
