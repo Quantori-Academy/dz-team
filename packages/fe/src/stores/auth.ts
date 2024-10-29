@@ -12,13 +12,9 @@ export type AuthStoreValue = Auth | null | false;
 export const $auth = genericDomain.createStore<AuthStoreValue>(false);
 
 export const getUserFx = genericDomain.createEffect(
-    async ({ token, userId }: { token: string; userId: string }) => {
+    ({ token, userId }: { token: string; userId: string }) => {
         try {
-            const response = await getUser({ token, userId });
-
-            if (response) {
-                return response;
-            }
+            return getUser({ token, userId });
         } catch (err) {
             if (err instanceof Error) {
                 dev.error(err.message, err.stack);
@@ -73,7 +69,7 @@ sample({
 // set auth value based on received user
 sample({
     clock: getUserFx.done,
-    fn: ({ params, result }) => ({ token: params.token, self: result! }),
+    fn: ({ params, result }) => ({ token: params.token, self: result }),
     target: $auth,
 });
 

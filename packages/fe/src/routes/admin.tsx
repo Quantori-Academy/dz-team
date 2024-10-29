@@ -4,7 +4,6 @@ import { UserRole } from "api/self";
 import { AdminPage } from "components/pages/AdminPage";
 
 export const Route = createFileRoute("/admin")({
-    component: () => <AdminPage />,
     beforeLoad: ({ context }) => {
         if (
             context.auth !== false &&
@@ -15,4 +14,5 @@ export const Route = createFileRoute("/admin")({
             });
         }
     },
+    component: () => <AdminPage />,
 });

@@ -12,10 +12,10 @@ import {
 } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
-import { roleRoutes } from "rolesRoutes";
 
 import { $auth } from "stores/auth";
 import { $loginState, loginFx } from "stores/login";
+import { rolesRoutes } from "utils/rolesRoutes";
 import { useIsDesktop } from "utils/useIsDesktop";
 
 export function LoginForm() {
@@ -34,7 +34,7 @@ export function LoginForm() {
     useEffect(() => {
         if (authState) {
             const value = {
-                to: roleRoutes[authState.self.role],
+                to: rolesRoutes[authState.self.role],
             };
 
             navigate(value);

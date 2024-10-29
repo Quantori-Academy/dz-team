@@ -25,7 +25,7 @@ export function AdminPage() {
                     overflow: "hidden",
                 }}
             >
-                <></>
+                <Box>Hello, admin</Box>
             </Container>
             <Footer />
         </Box>

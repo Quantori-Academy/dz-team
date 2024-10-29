@@ -25,7 +25,7 @@ export function ProcurementOfficersPage() {
                     overflow: "hidden",
                 }}
             >
-                <></>
+                <Box>Hello, officer</Box>
             </Container>
             <Footer />
         </Box>

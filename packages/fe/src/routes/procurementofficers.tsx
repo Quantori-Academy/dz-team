@@ -4,7 +4,6 @@ import { UserRole } from "api/self";
 import { ProcurementOfficersPage } from "components/pages/ProcurementOfficersPage";
 
 export const Route = createFileRoute("/procurementofficers")({
-    component: () => <ProcurementOfficersPage />,
     beforeLoad: ({ context }) => {
         if (
             context.auth !== false &&
@@ -15,4 +14,5 @@ export const Route = createFileRoute("/procurementofficers")({
             });
         }
     },
+    component: () => <ProcurementOfficersPage />,
 });
