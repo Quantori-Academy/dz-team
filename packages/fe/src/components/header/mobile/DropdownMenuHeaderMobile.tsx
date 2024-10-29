@@ -76,7 +76,7 @@ export function DropdownMenuHeaderMobile({ open, setOpen }: Props) {
                     Settings
                 </MenuItem>
                 <Divider />
-                <Link onClick={() => deleteSession()} style={{ textDecoration: "none" }}>
+                <Link onClick={deleteSession} style={{ textDecoration: "none" }}>
                     <MenuItem
                         sx={{
                             color: theme.palette.text.primary,
