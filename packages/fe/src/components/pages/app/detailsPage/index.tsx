@@ -3,6 +3,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, Drawer, IconButton, Modal, Typography } from "@mui/material";
 import { useLoaderData, useNavigate } from "@tanstack/react-router";
 
+import { deleteReagent } from "utils/reagentActions";
 import { useIsDesktop } from "utils/useIsDesktop";
 
 import { ReagentForm } from "./ReagentForm";
@@ -51,7 +52,6 @@ export function ReagentDetailsPage() {
     };
 
     const handleCloseDetails = () => {
-        // TODO: Use useNavigate instead of window.location.href in the future
         navigate({ to: "/reagents", replace: false });
     };
 
@@ -98,7 +98,12 @@ export function ReagentDetailsPage() {
                         >
                             Edit
                         </Button>
-                        <Button variant="outlined" color="error" sx={{ mt: 2, ml: 2 }}>
+                        <Button
+                            variant="outlined"
+                            color="error"
+                            sx={{ mt: 2, ml: 2 }}
+                            onClick={() => deleteReagent(reagent.id, navigate)}
+                        >
                             Delete
                         </Button>
                     </Box>

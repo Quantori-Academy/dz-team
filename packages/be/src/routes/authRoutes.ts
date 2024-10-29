@@ -13,24 +13,6 @@ const authController = new AuthController();
  */
 export const authRoutes = async (app: FastifyZodInstance): Promise<void> => {
     /**
-
-     * @route POST /register
-     * @tags Auth
-     * @summary Register a new user.
-     * @param {RegisterUser} request.body.required - User data to register
-     * @returns {User} 201 - The created user
-     * @returns {Error} 400 - Validation error
-     */
-    app.post<{ Body: RegisterUser }>(
-        "/register",
-        { schema: { tags: ["Auth"], body: registerUserSchema } },
-        async (request, reply) => {
-            return await authController.register(request, reply);
-        }
-    );
-
-    /**
-
      * @route POST /login
      * @summary Log in a user.
      * @tags Auth
@@ -51,6 +33,6 @@ export const authRoutes = async (app: FastifyZodInstance): Promise<void> => {
         },
         async (request, reply) => {
             return await authController.login(request, reply);
-        }
+        },
     );
 };
