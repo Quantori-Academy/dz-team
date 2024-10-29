@@ -3,7 +3,7 @@
         "id": "0d65bbf2-0d7d-402f-801a-c36b7522d0c3",
         "userId": "73042579-f638-4275-a897-663ab4cfe861",
         "createdAt": "2024-09-07T09:29:27.390828",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "01a7e235-63dc-49a0-9c22-9020420f4227",
@@ -13,7 +13,6 @@
                 "producer": "CitricLabs",
                 "catalogId": "CA-200",
                 "catalogLink": "https://citriclabs.com/catalog/CA-200",
-                "category": "acidic",
                 "units": "l",
                 "pricePerUnit": 3,
                 "quantity": 1
@@ -348,7 +347,7 @@
         "id": "70f2040a-5fff-43dd-be96-7c5812f9518c",
         "userId": "b435690b-d362-48da-a559-c520e22c07a4",
         "createdAt": "2024-09-04T12:31:27.392988",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "d69836f1-bfb1-4fa1-8e87-a1388acd5fbf",
@@ -480,7 +479,7 @@
         "id": "6613fc4b-c57a-43a9-8a81-581bc8c3e974",
         "userId": "9a952020-3f66-438c-aec2-c2244a07c67e",
         "createdAt": "2024-08-30T09:15:27.393492",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "5da2a115-aabb-4167-8c68-6c99a5c1b677",
@@ -708,7 +707,7 @@
         "id": "ad86255d-b878-40df-b84e-68841e6aa3af",
         "userId": "aeabcf02-7ac6-4f52-82b4-f49aa31b1db7",
         "createdAt": "2024-10-08T23:18:27.394288",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "7c389489-4364-4455-9dae-fdf781b2cc26",
@@ -728,7 +727,7 @@
         "id": "ded279b2-12fd-4189-ae75-e426a7bd198e",
         "userId": "efe84349-942b-46b9-99f3-5c4875af029c",
         "createdAt": "2024-09-09T15:38:27.394569",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "01f84d86-b4ad-405d-ae65-62fa64533bf3",
@@ -884,7 +883,7 @@
         "id": "642bb3c6-a439-472f-ba82-c4de4d8a8f5b",
         "userId": "7215211a-58ad-48bd-94b6-a9f49cbb3bb3",
         "createdAt": "2024-08-25T19:03:27.395201",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "99f3a324-1a03-47c5-ae7d-87025b2118db",
@@ -1044,7 +1043,7 @@
         "id": "0c15a5a7-2bc3-4a3d-855c-1ec01aa180f4",
         "userId": "9fec7d6d-3f7c-4b74-b858-6b3487266b81",
         "createdAt": "2024-08-03T05:07:27.395605",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "3ba2eb21-b5aa-47bd-9fff-1c294b1e3b68",
@@ -1132,7 +1131,7 @@
         "id": "fab6f53a-2b7c-452f-ac89-8049151b75dd",
         "userId": "0973985a-1989-4240-8bf3-01e0ad6fe7a0",
         "createdAt": "2024-08-25T16:51:27.395780",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "4e71f9c2-f84c-472e-8e18-c2d69b26c252",
@@ -1176,7 +1175,7 @@
         "id": "51bc594b-bd67-4204-b1d4-0bf8949d8950",
         "userId": "646df440-555d-4827-bae8-da4fcf694a80",
         "createdAt": "2024-08-30T09:18:27.395901",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "b13d55f7-1677-422a-8344-683f15067480",
@@ -1260,7 +1259,7 @@
         "id": "0fe51d09-ed7f-443f-b581-cf4b08228c2b",
         "userId": "5f6aded8-646a-4cf7-b64b-2080a399d49c",
         "createdAt": "2024-10-27T05:41:27.396036",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "45eba1b3-da74-4ec5-9b75-41478b81b5be",
@@ -1292,7 +1291,7 @@
         "id": "79e8cc7d-12c9-4395-aac9-c2c1ea6cf8d5",
         "userId": "08b4df42-4ea4-41f7-ae09-b6ca4a4246ac",
         "createdAt": "2024-10-24T02:46:27.396122",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "7d552365-4435-4352-95a3-6b6fdddebde0",
@@ -1324,7 +1323,7 @@
         "id": "72d8f247-fe1d-48f8-b94b-52a4927549a9",
         "userId": "e7b3ac5a-b181-4eff-9615-31aab509d2db",
         "createdAt": "2024-08-28T05:42:27.396177",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "7db5d42d-e028-4900-a245-54cc852afe65",
@@ -1356,7 +1355,7 @@
         "id": "b0766071-1081-41ac-8144-c6f3490973bb",
         "userId": "ccf27c95-6075-41c4-b577-0c90d5f4a1e6",
         "createdAt": "2024-09-15T14:52:27.396266",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "dace0dac-7a00-4c66-9b3a-48b8a7f5b502",
@@ -1376,7 +1375,7 @@
         "id": "a26f022c-9884-4c53-92e2-c469fe9024c4",
         "userId": "e19b8c91-30b1-4f12-ab7f-cba38f8a5766",
         "createdAt": "2024-09-08T08:01:27.396304",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "4d628249-3dce-4706-9d1c-baf4b98a5d45",
@@ -1440,7 +1439,7 @@
         "id": "56cb597d-6996-420f-842e-e67fcf436919",
         "userId": "59740730-94db-4ab2-b805-f2a69584d297",
         "createdAt": "2024-08-22T21:00:27.396431",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "32e53608-0f6b-4cb7-8511-9166082d289c",
@@ -1484,7 +1483,7 @@
         "id": "60a357ab-c9ca-4658-929a-04658047869d",
         "userId": "b01ac023-a82a-4d70-968e-3f045a2ba87a",
         "createdAt": "2024-08-27T03:50:27.396558",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "ea97144c-62b8-493d-af1d-096f953e111f",
@@ -1504,7 +1503,7 @@
         "id": "4fa85e61-a348-4d7a-be5d-e4b982132a6b",
         "userId": "360180b4-42d9-458b-a190-53ef91086cbb",
         "createdAt": "2024-08-13T05:44:27.396617",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "ec269007-11bb-4a36-ade3-2033fb31e786",
@@ -1588,7 +1587,7 @@
         "id": "58108850-bc5b-47c1-918f-35f7e24d4d78",
         "userId": "c305a24b-c341-45f3-9d13-730b36c38064",
         "createdAt": "2024-08-22T22:59:27.396837",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "5915d080-7606-4c7c-b292-f79d9bf10e2a",
@@ -1608,7 +1607,7 @@
         "id": "29dfd77d-371c-4025-9b7d-beb03177b688",
         "userId": "02e3a298-c174-478a-ae1c-90503bbaf012",
         "createdAt": "2024-09-17T11:22:27.396883",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "b5a8e60b-9628-4b5e-a063-1291cd16dea4",
@@ -1696,7 +1695,7 @@
         "id": "ec04e3ff-3787-4b55-b1ad-ec0554399dc4",
         "userId": "cfe11799-591e-473c-9df3-36ed5a589e97",
         "createdAt": "2024-10-04T09:05:27.397077",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "47ead712-415d-4b92-a23a-c1ed33fd3ffb",
@@ -1772,7 +1771,7 @@
         "id": "7bb3597d-519a-4dab-bc49-e01c42713816",
         "userId": "d7dd1967-9505-470e-bda3-0248272ec8cd",
         "createdAt": "2024-09-05T20:39:27.397204",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "9786ff27-ccea-4cbf-81e5-a75a08a2bfa5",
@@ -1804,7 +1803,7 @@
         "id": "267c9619-880a-4758-94e0-02c5d756e939",
         "userId": "6f64f81b-bb52-414a-adf1-e4d704850eba",
         "createdAt": "2024-08-22T23:02:27.397280",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "a7c83e12-515c-4e3e-bddf-2d54f0436b85",
@@ -1836,7 +1835,7 @@
         "id": "f334a09d-940c-4d91-be91-74d9763a012b",
         "userId": "fa005f26-f3de-415b-9328-26700b238d6d",
         "createdAt": "2024-10-29T03:07:27.397386",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "fd6711bf-7257-49a3-8b42-a3bc14c9ee13",
@@ -1932,7 +1931,7 @@
         "id": "67754be6-0d30-477a-a752-1e5799fab86f",
         "userId": "82fa8efe-2ffa-4b8c-9bd3-7381e18cf8e8",
         "createdAt": "2024-08-01T17:30:27.397814",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "1b9d0866-b31b-48f9-9558-b39176a64d69",
@@ -2020,7 +2019,7 @@
         "id": "7a067b43-6163-4b3b-836b-020b8b9d5b98",
         "userId": "960ac9c5-6278-4db8-b0b0-fc481f6b45dd",
         "createdAt": "2024-09-07T01:21:27.398151",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "238047b9-4b06-4afe-859d-83b7edce0254",
@@ -2040,7 +2039,7 @@
         "id": "53073e96-ff12-4d8a-81af-70481d77e031",
         "userId": "632f850e-2f32-4992-b58c-c3451bb88051",
         "createdAt": "2024-08-27T12:00:27.398248",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "84d0b6fb-d182-4d7e-9d2b-ec39daeb9e86",
@@ -2084,7 +2083,7 @@
         "id": "8700c7e5-d485-4126-a2d5-4ac3e01d3718",
         "userId": "e61a63cf-2a52-447c-9b90-c2a41bdc76dc",
         "createdAt": "2024-10-15T18:31:27.398361",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "9f9bd988-5e8f-4f00-8cdf-238c9d6bdd39",
@@ -2156,7 +2155,7 @@
         "id": "507eacd1-58a4-4805-ad31-2ada9017dbfb",
         "userId": "94c51595-27b0-4a6c-bd78-fe91d32ec149",
         "createdAt": "2024-09-18T11:06:27.398817",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "fe8fc5c4-da37-4c31-ad1d-8569041e5702",
@@ -2200,7 +2199,7 @@
         "id": "67a14820-db1e-4cac-81c0-afa32531ccd7",
         "userId": "93d48a63-7b4b-4be1-b0e5-4dfb98bb41fc",
         "createdAt": "2024-09-25T05:26:27.399128",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "f3f8cfdc-dbbf-49b7-97ea-3ff819a962e5",
@@ -2240,7 +2239,7 @@
         "id": "13d75f04-03be-450e-a311-7a17907d1458",
         "userId": "efcc205c-928a-47b4-a42c-f14ebaa4aee4",
         "createdAt": "2024-09-22T01:55:27.399303",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "648eff98-e8c1-4637-90d7-c8382ccaf57b",
@@ -2304,7 +2303,7 @@
         "id": "333e71ea-d01d-4d34-8bcc-0fb794b89e0f",
         "userId": "c35b94f9-92dd-4c55-bdbb-84aec9735637",
         "createdAt": "2024-10-07T17:18:27.399496",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "05f90ef3-c270-4919-a44c-f674d75edb43",
@@ -2336,7 +2335,7 @@
         "id": "c449eb3d-7aa4-40a9-a39f-f76426506119",
         "userId": "cd33093a-a7b9-44d5-aa0e-958a06fc12f8",
         "createdAt": "2024-10-18T04:39:27.399564",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "a0515708-3931-40a6-b533-93c607af496f",
@@ -2368,7 +2367,7 @@
         "id": "a375477a-1ed1-4822-ad8b-6cd7be2ba507",
         "userId": "aab75913-5774-420d-80e6-ad7f8cd1daed",
         "createdAt": "2024-08-02T21:26:27.399643",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "0c2cb177-1d7b-4998-81c8-eeaf8fa493be",
@@ -2412,7 +2411,7 @@
         "id": "9516c4a2-8728-4959-8625-8207b98cb4ea",
         "userId": "adb2e0ed-a512-42dd-b6f0-afaa4b5bf336",
         "createdAt": "2024-08-06T04:33:27.399714",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "2e548675-fa88-4dfe-becf-ded523d6f695",
@@ -2444,7 +2443,7 @@
         "id": "b0a2195f-a958-48b3-af50-38a63dc571f3",
         "userId": "079f55e6-c9e9-48d4-adbb-e284cef525a4",
         "createdAt": "2024-10-28T01:16:27.399790",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "9855bac8-70d2-494a-8742-5a105abafc72",
@@ -2576,7 +2575,7 @@
         "id": "ed556f1f-875d-481a-9aeb-2cc479ceb847",
         "userId": "7b7e37f0-b7ce-47f3-9851-08c5468cfadf",
         "createdAt": "2024-08-24T06:10:27.400262",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "b754e0c1-6c25-48f4-8e71-fbce2885cd1b",
@@ -2596,7 +2595,7 @@
         "id": "344a7404-1466-40ee-a3d8-99c98e73ec9d",
         "userId": "caa15e03-7afb-4af5-a318-ed84374a18b3",
         "createdAt": "2024-08-05T21:01:27.400338",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "a03db29d-25cb-484d-94bb-68fae1907ab2",
@@ -2636,7 +2635,7 @@
         "id": "db57c3da-c3e7-4a67-9420-5ec44edb5414",
         "userId": "3338ad58-6c83-4882-832e-060d5123a650",
         "createdAt": "2024-08-13T12:42:27.400476",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "9ac9ecaf-cdc2-432b-88e1-47dcaa021291",
@@ -2668,7 +2667,7 @@
         "id": "f9ba9dbe-3608-4f1e-afe0-4b2587232d99",
         "userId": "54601d7c-5d10-4394-bb70-ccfb3980af6b",
         "createdAt": "2024-09-22T09:16:27.400704",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "e1e8ec25-718d-4341-87cf-ef755b566f1b",
@@ -2732,7 +2731,7 @@
         "id": "570bcff5-d9e8-4b85-9fe9-22e46bc9420f",
         "userId": "173c0ca6-a631-42d8-912f-82508e89ed68",
         "createdAt": "2024-10-11T04:15:27.400917",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "f4b5077e-5c4f-4199-98f7-a84e8285f69e",
@@ -2796,7 +2795,7 @@
         "id": "6706fd4f-e4dd-413e-9859-c75ffec11e4b",
         "userId": "617156f4-89cd-4a79-a38d-26ba6d1a736a",
         "createdAt": "2024-09-07T01:09:27.401044",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "f49e895b-9a89-493c-98f7-b1ccb72d86c5",
@@ -2860,7 +2859,7 @@
         "id": "22b69152-7427-4eda-a7ce-3e3f5f788ec1",
         "userId": "279ebfe5-9ac3-4d49-910a-b286f246bc36",
         "createdAt": "2024-09-10T06:47:27.401600",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "949a8462-be5f-457e-af84-52dfe7b68220",
@@ -2968,7 +2967,7 @@
         "id": "5434a08c-29c6-4a8e-84f6-eacd6e8880cc",
         "userId": "a34135e3-43f8-44f5-80bc-156d48e248ba",
         "createdAt": "2024-08-02T02:36:27.401781",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "1978b43c-940b-4ebc-8e53-dded0910f6e9",
@@ -3064,7 +3063,7 @@
         "id": "ab9d2a71-6c20-4b26-a4e5-811a15815f8e",
         "userId": "191bccff-fd52-4013-b7c9-6f8be2d35a29",
         "createdAt": "2024-09-28T08:06:27.401933",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "44972e9e-a0d5-44f2-a279-7dc6edddf0c5",
@@ -3152,7 +3151,7 @@
         "id": "925d2bca-8d9a-4d77-a134-388c1fcd720b",
         "userId": "c6d95256-7fcf-4296-88d5-4ad10addc585",
         "createdAt": "2024-09-30T12:28:27.402067",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "7eaf3df1-d141-4b40-952e-d5772721495c",
@@ -3196,7 +3195,7 @@
         "id": "55f4f83d-bf63-4728-962c-120d07a9ef74",
         "userId": "2cd6d84a-2298-4d63-a6a8-e43e1e800fb8",
         "createdAt": "2024-08-24T20:49:27.402146",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "be68e960-f132-4154-bebf-b7edf9c2d379",
@@ -3228,7 +3227,7 @@
         "id": "62a0cf35-ee4e-48c6-8ffa-8bf1f7477fba",
         "userId": "c6170ebd-8d2e-434e-bdcd-70f6132bf83a",
         "createdAt": "2024-08-26T08:03:27.402241",
-        "status": "declined",
+        "status": "canceled",
         "reagents": [
             {
                 "id": "d92cff1b-73c0-48e6-bc14-b55a4a854294",
@@ -3260,7 +3259,7 @@
         "id": "b249c655-cb45-4c5e-9ae7-43341b3c84bf",
         "userId": "73f257e1-bf2e-44de-9f97-cc88dfd24888",
         "createdAt": "2024-10-11T04:40:27.402300",
-        "status": "ordered",
+        "status": "submitted",
         "reagents": [
             {
                 "id": "34d72bb9-e144-4e75-8eb0-e6dbbf4564de",
