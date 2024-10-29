@@ -14,6 +14,11 @@ export function createModal({
     labels,
 }: GenericModalDetails): Promise<unknown> {
     return new Promise((resolve, reject) => {
-        saveResolve({ modal: name, resolve, reject, modalData: { title, message, labels } });
+        saveResolve({
+            modal: name,
+            resolve: resolve as () => void,
+            reject,
+            modalData: { title, message, labels },
+        });
     });
 }

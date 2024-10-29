@@ -113,7 +113,7 @@ export class ReagentService {
      */
     async updateReagent(
         id: string,
-        updateReagentData: Prisma.ReagentUpdateInput
+        updateReagentData: Prisma.ReagentUpdateInput,
     ): Promise<Reagent> {
         const validatedData = ReagentUpdateInputSchema.parse(updateReagentData);
 

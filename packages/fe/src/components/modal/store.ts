@@ -2,8 +2,8 @@ import { createEvent, createStore } from "effector";
 
 type StoreType = {
     modal: string | null;
-    resolve: (value?: unknown) => void | null;
-    reject: (reason?: unknown) => void | null;
+    resolve: (() => void) | null;
+    reject: (() => void) | null;
     modalData: {
         title: string;
         message: string | React.ReactNode;
