@@ -1,4 +1,4 @@
-import { Literal, Record, Static, Union } from "runtypes";
+import { z } from "zod";
 
 import { base, request } from "./request";
 
@@ -8,20 +8,16 @@ export enum UserRole {
     researcher = "researcher",
 }
 
-export const UserContract = Record({
-    role: Union(
-        Literal(UserRole.admin),
-        Literal(UserRole.procurementOfficer),
-        Literal(UserRole.researcher),
-    ),
+export const UserContract = z.object({
+    role: z.nativeEnum(UserRole),
 });
 
-export type SelfType = Static<typeof UserContract>;
+export type SelfType = z.infer<typeof UserContract>;
 
-export const getUser = async (token: string) => {
-    const response = await request(`${base}/api/v1/self`, UserContract, {
-        method: "GET", // TODO: pass auth token when it's merged
-        headers: { Authorization: token },
+export const getUser = async ({ token, userId }: { token: string; userId: string }) => {
+    const response = await request(`${base}/api/v1/users/${userId}`, UserContract, {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
         showErrorNotification: true,
         shouldAffectIsLoading: true,
     });

@@ -20,6 +20,7 @@
         "effector": "^23.2.2",
         "effector-react": "^23.2.1",
         "immer": "^10.1.1",
+        "jwt-decode": "^4.0.0",
         "ky": "^1.7.2",
         "lodash": "^4.17.21",
         "patronum": "^2.2.0",

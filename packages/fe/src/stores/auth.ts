@@ -1,4 +1,5 @@
 import { sample } from "effector";
+import { jwtDecode } from "jwt-decode";
 
 import { getUser, SelfType } from "api/self";
 import { genericDomain } from "logger";
@@ -10,20 +11,22 @@ export type AuthStoreValue = Auth | null | false;
 
 export const $auth = genericDomain.createStore<AuthStoreValue>(false);
 
-export const getUserFx = genericDomain.createEffect(async (token: string) => {
-    try {
-        const response = await getUser(token);
+export const getUserFx = genericDomain.createEffect(
+    async ({ token, userId }: { token: string; userId: string }) => {
+        try {
+            const response = await getUser({ token, userId });
 
-        if (response) {
-            return response;
+            if (response) {
+                return response;
+            }
+        } catch (err) {
+            if (err instanceof Error) {
+                dev.error(err.message, err.stack);
+            }
+            throw new Error("Failed to get user role");
         }
-    } catch (err) {
-        if (err instanceof Error) {
-            dev.error(err.message, err.stack);
-        }
-        throw new Error("Failed to get user role");
-    }
-});
+    },
+);
 
 const localStorageKey = "effector-session";
 
@@ -59,14 +62,18 @@ sample({
 // request user based on received token
 sample({
     clock: loginFx.done,
-    fn: ({ result }) => result.token,
+    fn: ({ result }) => {
+        const decodedToken: { userId: string } = jwtDecode(result.token);
+        const res = { token: result.token, userId: decodedToken.userId };
+        return res;
+    },
     target: getUserFx,
 });
 
 // set auth value based on received user
 sample({
     clock: getUserFx.done,
-    fn: ({ params: token, result }) => ({ token: token, self: result! }),
+    fn: ({ params, result }) => ({ token: params.token, self: result! }),
     target: $auth,
 });
 
