@@ -1,13 +1,13 @@
-import { Record, Static, String } from "runtypes";
+import { z } from "zod";
 
 import { $auth } from "stores/auth";
 
 import { base, request } from "../request";
 
-const UserId = Record({
-    id: String,
+const UserId = z.object({
+    id: z.string().nullable(),
 });
-export type UserIdType = Static<typeof UserId>;
+export type UserIdType = z.infer<typeof UserId>;
 
 const token = $auth.getState()?.token;
 export const deleteUser = async (id: string) => {

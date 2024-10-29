@@ -1,9 +1,9 @@
-import { Record, String } from "runtypes";
+import { z } from "zod";
 
 import { base, request } from "api/request";
 
-const LoginResponseContract = Record({
-    token: String,
+const LoginResponseContract = z.object({
+    token: z.string(),
 });
 
 export const getLoginApi = async ({

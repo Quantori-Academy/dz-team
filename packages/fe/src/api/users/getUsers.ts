@@ -1,23 +1,20 @@
-import { Array, Record, Static, String } from "runtypes";
+import { z } from "zod";
 
 import { $auth } from "stores/auth";
 
 import { base, request } from "../request";
 
-const User = Record({
-    createdAt: String.nullable(),
-    email: String.nullable(),
-    firstName: String.nullable(),
-    id: String,
-    lastName: String.nullable(),
-    role: String.nullable(),
-    updatedAt: String.nullable(),
-    username: String.nullable(),
-    lastLoginDate: String.nullable(),
+const User = z.object({
+    id: z.string(),
+    firstName: z.string(),
+    lastName: z.string(),
+    email: z.string(),
+    role: z.string(),
+    lastLoginDate: z.string(),
 });
 
-const UsersResponse = Array(User).optional();
-export type UserType = Static<typeof User>;
+const UsersResponse = z.array(User).optional();
+export type UserType = z.infer<typeof User>;
 
 const token = $auth.getState()?.token;
 

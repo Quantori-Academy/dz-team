@@ -1,37 +1,37 @@
-import { Number, Record, Static, String } from "runtypes";
+import { z } from "zod";
 
-export const ReagentDetailsContract = Record({
-    id: String,
-    name: String.nullable(),
-    structure: String.nullable(),
-    description: String.nullable(),
-    quantity: Number,
-    unit: String.nullable(),
-    size: Number.nullable(),
-    expirationDate: String.nullable(),
-    storageLocation: String,
-    cas: String.nullable(),
-    producer: String.nullable(),
-    catalogId: String.nullable(),
-    catalogLink: String.nullable(),
-    pricePerUnit: Number.nullable(),
-    category: String.nullable(),
-    status: String.nullable(),
-    deletedAt: String.nullable(),
-    createdAt: String,
-    updatedAt: String,
+export const ReagentDetailsContract = z.object({
+    id: z.string(),
+    name: z.string().nullable(),
+    structure: z.string().nullable(),
+    description: z.string().nullable(),
+    quantity: z.number(),
+    unit: z.string().nullable(),
+    size: z.number().nullable(),
+    expirationDate: z.string().nullable(),
+    storageLocation: z.string(),
+    cas: z.string().nullable(),
+    producer: z.string().nullable(),
+    catalogId: z.string().nullable(),
+    catalogLink: z.string().nullable(),
+    pricePerUnit: z.number().nullable(),
+    category: z.string().nullable(),
+    status: z.string().nullable(),
+    deletedAt: z.string().nullable(),
+    createdAt: z.string(),
+    updatedAt: z.string(),
 });
 
-export const ReagentDetailsEditContract = Record({
-    id: String,
-    name: String.nullable(),
-    cas: String.nullable(),
-    producer: String.nullable(),
-    pricePerUnit: Number.nullable(),
-    quantity: Number,
-    unit: String.nullable(),
-    storageLocation: String,
+export const ReagentDetailsEditContract = z.object({
+    id: z.string(),
+    name: z.string().nullable(),
+    cas: z.string().nullable(),
+    producer: z.string().nullable(),
+    pricePerUnit: z.number().nullable(),
+    quantity: z.number(),
+    unit: z.string().nullable(),
+    storageLocation: z.string(),
 });
 
-export type ReagentDetails = Static<typeof ReagentDetailsContract>;
-export type ReagentDetailsEdit = Static<typeof ReagentDetailsEditContract>;
+export type ReagentDetails = z.infer<typeof ReagentDetailsContract>;
+export type ReagentDetailsEdit = z.infer<typeof ReagentDetailsEditContract>;
