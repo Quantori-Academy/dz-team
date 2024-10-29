@@ -1,18 +1,18 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 import { UserRole } from "api/self";
-import { AdminPage } from "components/pages/AdminPage";
+import { rolesRoutes } from "utils/rolesRoutes";
 
-export const Route = createFileRoute("/admin")({
+export const Route = createFileRoute("/_app/_pOfficerLayout")({
     beforeLoad: ({ context }) => {
         if (
             context.auth !== false &&
-            (!context.auth?.token || context.auth?.self.role !== UserRole.admin)
+            context.auth &&
+            context.auth.self.role !== UserRole.procurementOfficer
         ) {
             throw redirect({
-                to: "/login",
+                to: rolesRoutes[context.auth.self.role],
             });
         }
     },
-    component: () => <AdminPage />,
 });

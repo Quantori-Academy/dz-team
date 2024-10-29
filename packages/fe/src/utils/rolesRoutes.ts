@@ -1,5 +1,5 @@
 export const rolesRoutes = {
     admin: "/admin",
-    procurementOfficer: "/procurementofficers",
+    procurementOfficer: "/pOfficer",
     researcher: "/",
 };
