@@ -65,28 +65,31 @@ export function DropdownMenuHeaderDesktop({ handleClose, open, anchorEl }: Props
                 </Typography>
             </Box>
             <Divider />
-
-            <MenuItem
-                sx={{
-                    color: theme.palette.text.primary,
-                    mt: 1,
-                }}
-            >
-                <ListItemIcon>
-                    <PersonIcon fontSize="medium" />
-                </ListItemIcon>
-                Account
-            </MenuItem>
-            <MenuItem
-                sx={{
-                    color: theme.palette.text.primary,
-                }}
-            >
-                <ListItemIcon>
-                    <Settings fontSize="medium" />
-                </ListItemIcon>
-                Settings
-            </MenuItem>
+            <Link to="/profile" style={{ textDecoration: "none" }}>
+                <MenuItem
+                    sx={{
+                        color: theme.palette.text.primary,
+                        mt: 1,
+                    }}
+                >
+                    <ListItemIcon>
+                        <PersonIcon fontSize="medium" />
+                    </ListItemIcon>
+                    Account
+                </MenuItem>
+            </Link>
+            <Link to="/settings" style={{ textDecoration: "none" }}>
+                <MenuItem
+                    sx={{
+                        color: theme.palette.text.primary,
+                    }}
+                >
+                    <ListItemIcon>
+                        <Settings fontSize="medium" />
+                    </ListItemIcon>
+                    Settings
+                </MenuItem>
+            </Link>
             <Divider />
             <Link to="/login" style={{ textDecoration: "none" }}>
                 <MenuItem

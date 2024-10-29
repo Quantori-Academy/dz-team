@@ -12,17 +12,17 @@ const routes: INavigationList = [
     {
         href: "/",
         title: "Home",
-        details: "Entry point of application",
+        details: "",
     },
     {
-        href: "/reagents",
-        title: "Reagents",
-        details: "See the list of available reagents and reagent details",
+        href: "/dashboard",
+        title: "Dashboard",
+        details: "",
     },
     {
-        href: "/samples",
-        title: "Samples",
-        details: "Explore existing samples or create new ones",
+        href: "/list",
+        title: "List",
+        details: "List of Reagents and Samples",
     },
     {
         href: "/orders",
@@ -30,9 +30,29 @@ const routes: INavigationList = [
         details: "Create a new request, view request statuses",
     },
     {
+        href: "/requests",
+        title: "Requests",
+        details: "",
+    },
+    {
+        href: "/storage",
+        title: "Storage",
+        details: "Manage storage details",
+    },
+    {
+        href: "/profile",
+        title: "User Profile",
+        details: "",
+    },
+    {
+        href: "/settings",
+        title: "Settings",
+        details: "",
+    },
+    {
         href: "/dev",
         title: "Dev",
-        details: "Dev route",
+        details: "",
     },
 ];
 

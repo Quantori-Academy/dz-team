@@ -15,11 +15,15 @@ import { Route as LoginImport } from "./routes/login";
 import { Route as AppImport } from "./routes/_app";
 import { Route as AppIndexImport } from "./routes/_app/index";
 import { Route as AppUsersImport } from "./routes/_app/users";
-import { Route as AppSamplesImport } from "./routes/_app/samples";
-import { Route as AppReagentsImport } from "./routes/_app/reagents";
+import { Route as AppStorageImport } from "./routes/_app/storage";
+import { Route as AppSettingsImport } from "./routes/_app/settings";
+import { Route as AppRequestsImport } from "./routes/_app/requests";
+import { Route as AppProfileImport } from "./routes/_app/profile";
 import { Route as AppOrdersImport } from "./routes/_app/orders";
 import { Route as AppNewUserImport } from "./routes/_app/newUser";
+import { Route as AppListImport } from "./routes/_app/list";
 import { Route as AppDevImport } from "./routes/_app/dev";
+import { Route as AppDashboardImport } from "./routes/_app/dashboard";
 import { Route as AppReagentsIdImport } from "./routes/_app/reagents/$id";
 
 // Create/Update Routes
@@ -47,15 +51,27 @@ const AppUsersRoute = AppUsersImport.update({
     getParentRoute: () => AppRoute,
 } as any);
 
-const AppSamplesRoute = AppSamplesImport.update({
-    id: "/samples",
-    path: "/samples",
+const AppStorageRoute = AppStorageImport.update({
+    id: "/storage",
+    path: "/storage",
     getParentRoute: () => AppRoute,
 } as any);
 
-const AppReagentsRoute = AppReagentsImport.update({
-    id: "/reagents",
-    path: "/reagents",
+const AppSettingsRoute = AppSettingsImport.update({
+    id: "/settings",
+    path: "/settings",
+    getParentRoute: () => AppRoute,
+} as any);
+
+const AppRequestsRoute = AppRequestsImport.update({
+    id: "/requests",
+    path: "/requests",
+    getParentRoute: () => AppRoute,
+} as any);
+
+const AppProfileRoute = AppProfileImport.update({
+    id: "/profile",
+    path: "/profile",
     getParentRoute: () => AppRoute,
 } as any);
 
@@ -71,16 +87,28 @@ const AppNewUserRoute = AppNewUserImport.update({
     getParentRoute: () => AppRoute,
 } as any);
 
+const AppListRoute = AppListImport.update({
+    id: "/list",
+    path: "/list",
+    getParentRoute: () => AppRoute,
+} as any);
+
 const AppDevRoute = AppDevImport.update({
     id: "/dev",
     path: "/dev",
     getParentRoute: () => AppRoute,
 } as any);
 
+const AppDashboardRoute = AppDashboardImport.update({
+    id: "/dashboard",
+    path: "/dashboard",
+    getParentRoute: () => AppRoute,
+} as any);
+
 const AppReagentsIdRoute = AppReagentsIdImport.update({
-    id: "/$id",
-    path: "/$id",
-    getParentRoute: () => AppReagentsRoute,
+    id: "/reagents/$id",
+    path: "/reagents/$id",
+    getParentRoute: () => AppRoute,
 } as any);
 
 // Populate the FileRoutesByPath interface
@@ -101,11 +129,25 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof LoginImport;
             parentRoute: typeof rootRoute;
         };
+        "/_app/dashboard": {
+            id: "/_app/dashboard";
+            path: "/dashboard";
+            fullPath: "/dashboard";
+            preLoaderRoute: typeof AppDashboardImport;
+            parentRoute: typeof AppImport;
+        };
         "/_app/dev": {
             id: "/_app/dev";
             path: "/dev";
             fullPath: "/dev";
             preLoaderRoute: typeof AppDevImport;
+            parentRoute: typeof AppImport;
+        };
+        "/_app/list": {
+            id: "/_app/list";
+            path: "/list";
+            fullPath: "/list";
+            preLoaderRoute: typeof AppListImport;
             parentRoute: typeof AppImport;
         };
         "/_app/newUser": {
@@ -122,18 +164,32 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof AppOrdersImport;
             parentRoute: typeof AppImport;
         };
-        "/_app/reagents": {
-            id: "/_app/reagents";
-            path: "/reagents";
-            fullPath: "/reagents";
-            preLoaderRoute: typeof AppReagentsImport;
+        "/_app/profile": {
+            id: "/_app/profile";
+            path: "/profile";
+            fullPath: "/profile";
+            preLoaderRoute: typeof AppProfileImport;
             parentRoute: typeof AppImport;
         };
-        "/_app/samples": {
-            id: "/_app/samples";
-            path: "/samples";
-            fullPath: "/samples";
-            preLoaderRoute: typeof AppSamplesImport;
+        "/_app/requests": {
+            id: "/_app/requests";
+            path: "/requests";
+            fullPath: "/requests";
+            preLoaderRoute: typeof AppRequestsImport;
+            parentRoute: typeof AppImport;
+        };
+        "/_app/settings": {
+            id: "/_app/settings";
+            path: "/settings";
+            fullPath: "/settings";
+            preLoaderRoute: typeof AppSettingsImport;
+            parentRoute: typeof AppImport;
+        };
+        "/_app/storage": {
+            id: "/_app/storage";
+            path: "/storage";
+            fullPath: "/storage";
+            preLoaderRoute: typeof AppStorageImport;
             parentRoute: typeof AppImport;
         };
         "/_app/users": {
@@ -152,44 +208,44 @@ declare module "@tanstack/react-router" {
         };
         "/_app/reagents/$id": {
             id: "/_app/reagents/$id";
-            path: "/$id";
+            path: "/reagents/$id";
             fullPath: "/reagents/$id";
             preLoaderRoute: typeof AppReagentsIdImport;
-            parentRoute: typeof AppReagentsImport;
+            parentRoute: typeof AppImport;
         };
     }
 }
 
 // Create and export the route tree
 
-interface AppReagentsRouteChildren {
+interface AppRouteChildren {
+    AppDashboardRoute: typeof AppDashboardRoute;
+    AppDevRoute: typeof AppDevRoute;
+    AppListRoute: typeof AppListRoute;
+    AppNewUserRoute: typeof AppNewUserRoute;
+    AppOrdersRoute: typeof AppOrdersRoute;
+    AppProfileRoute: typeof AppProfileRoute;
+    AppRequestsRoute: typeof AppRequestsRoute;
+    AppSettingsRoute: typeof AppSettingsRoute;
+    AppStorageRoute: typeof AppStorageRoute;
+    AppUsersRoute: typeof AppUsersRoute;
+    AppIndexRoute: typeof AppIndexRoute;
     AppReagentsIdRoute: typeof AppReagentsIdRoute;
 }
 
-const AppReagentsRouteChildren: AppReagentsRouteChildren = {
-    AppReagentsIdRoute: AppReagentsIdRoute,
-};
-
-const AppReagentsRouteWithChildren = AppReagentsRoute._addFileChildren(AppReagentsRouteChildren);
-
-interface AppRouteChildren {
-    AppDevRoute: typeof AppDevRoute;
-    AppNewUserRoute: typeof AppNewUserRoute;
-    AppOrdersRoute: typeof AppOrdersRoute;
-    AppReagentsRoute: typeof AppReagentsRouteWithChildren;
-    AppSamplesRoute: typeof AppSamplesRoute;
-    AppUsersRoute: typeof AppUsersRoute;
-    AppIndexRoute: typeof AppIndexRoute;
-}
-
 const AppRouteChildren: AppRouteChildren = {
+    AppDashboardRoute: AppDashboardRoute,
     AppDevRoute: AppDevRoute,
+    AppListRoute: AppListRoute,
     AppNewUserRoute: AppNewUserRoute,
     AppOrdersRoute: AppOrdersRoute,
-    AppReagentsRoute: AppReagentsRouteWithChildren,
-    AppSamplesRoute: AppSamplesRoute,
+    AppProfileRoute: AppProfileRoute,
+    AppRequestsRoute: AppRequestsRoute,
+    AppSettingsRoute: AppSettingsRoute,
+    AppStorageRoute: AppStorageRoute,
     AppUsersRoute: AppUsersRoute,
     AppIndexRoute: AppIndexRoute,
+    AppReagentsIdRoute: AppReagentsIdRoute,
 };
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren);
@@ -197,11 +253,15 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren);
 export interface FileRoutesByFullPath {
     "": typeof AppRouteWithChildren;
     "/login": typeof LoginRoute;
+    "/dashboard": typeof AppDashboardRoute;
     "/dev": typeof AppDevRoute;
+    "/list": typeof AppListRoute;
     "/newUser": typeof AppNewUserRoute;
     "/orders": typeof AppOrdersRoute;
-    "/reagents": typeof AppReagentsRouteWithChildren;
-    "/samples": typeof AppSamplesRoute;
+    "/profile": typeof AppProfileRoute;
+    "/requests": typeof AppRequestsRoute;
+    "/settings": typeof AppSettingsRoute;
+    "/storage": typeof AppStorageRoute;
     "/users": typeof AppUsersRoute;
     "/": typeof AppIndexRoute;
     "/reagents/$id": typeof AppReagentsIdRoute;
@@ -209,11 +269,15 @@ export interface FileRoutesByFullPath {
 
 export interface FileRoutesByTo {
     "/login": typeof LoginRoute;
+    "/dashboard": typeof AppDashboardRoute;
     "/dev": typeof AppDevRoute;
+    "/list": typeof AppListRoute;
     "/newUser": typeof AppNewUserRoute;
     "/orders": typeof AppOrdersRoute;
-    "/reagents": typeof AppReagentsRouteWithChildren;
-    "/samples": typeof AppSamplesRoute;
+    "/profile": typeof AppProfileRoute;
+    "/requests": typeof AppRequestsRoute;
+    "/settings": typeof AppSettingsRoute;
+    "/storage": typeof AppStorageRoute;
     "/users": typeof AppUsersRoute;
     "/": typeof AppIndexRoute;
     "/reagents/$id": typeof AppReagentsIdRoute;
@@ -223,11 +287,15 @@ export interface FileRoutesById {
     __root__: typeof rootRoute;
     "/_app": typeof AppRouteWithChildren;
     "/login": typeof LoginRoute;
+    "/_app/dashboard": typeof AppDashboardRoute;
     "/_app/dev": typeof AppDevRoute;
+    "/_app/list": typeof AppListRoute;
     "/_app/newUser": typeof AppNewUserRoute;
     "/_app/orders": typeof AppOrdersRoute;
-    "/_app/reagents": typeof AppReagentsRouteWithChildren;
-    "/_app/samples": typeof AppSamplesRoute;
+    "/_app/profile": typeof AppProfileRoute;
+    "/_app/requests": typeof AppRequestsRoute;
+    "/_app/settings": typeof AppSettingsRoute;
+    "/_app/storage": typeof AppStorageRoute;
     "/_app/users": typeof AppUsersRoute;
     "/_app/": typeof AppIndexRoute;
     "/_app/reagents/$id": typeof AppReagentsIdRoute;
@@ -238,22 +306,30 @@ export interface FileRouteTypes {
     fullPaths:
         | ""
         | "/login"
+        | "/dashboard"
         | "/dev"
+        | "/list"
         | "/newUser"
         | "/orders"
-        | "/reagents"
-        | "/samples"
+        | "/profile"
+        | "/requests"
+        | "/settings"
+        | "/storage"
         | "/users"
         | "/"
         | "/reagents/$id";
     fileRoutesByTo: FileRoutesByTo;
     to:
         | "/login"
+        | "/dashboard"
         | "/dev"
+        | "/list"
         | "/newUser"
         | "/orders"
-        | "/reagents"
-        | "/samples"
+        | "/profile"
+        | "/requests"
+        | "/settings"
+        | "/storage"
         | "/users"
         | "/"
         | "/reagents/$id";
@@ -261,11 +337,15 @@ export interface FileRouteTypes {
         | "__root__"
         | "/_app"
         | "/login"
+        | "/_app/dashboard"
         | "/_app/dev"
+        | "/_app/list"
         | "/_app/newUser"
         | "/_app/orders"
-        | "/_app/reagents"
-        | "/_app/samples"
+        | "/_app/profile"
+        | "/_app/requests"
+        | "/_app/settings"
+        | "/_app/storage"
         | "/_app/users"
         | "/_app/"
         | "/_app/reagents/$id";
@@ -301,20 +381,33 @@ export const routeTree = rootRoute
     "/_app": {
       "filePath": "_app.tsx",
       "children": [
+        "/_app/dashboard",
         "/_app/dev",
+        "/_app/list",
         "/_app/newUser",
         "/_app/orders",
-        "/_app/reagents",
-        "/_app/samples",
+        "/_app/profile",
+        "/_app/requests",
+        "/_app/settings",
+        "/_app/storage",
         "/_app/users",
-        "/_app/"
+        "/_app/",
+        "/_app/reagents/$id"
       ]
     },
     "/login": {
       "filePath": "login.tsx"
     },
+    "/_app/dashboard": {
+      "filePath": "_app/dashboard.tsx",
+      "parent": "/_app"
+    },
     "/_app/dev": {
       "filePath": "_app/dev.tsx",
+      "parent": "/_app"
+    },
+    "/_app/list": {
+      "filePath": "_app/list.tsx",
       "parent": "/_app"
     },
     "/_app/newUser": {
@@ -325,15 +418,20 @@ export const routeTree = rootRoute
       "filePath": "_app/orders.tsx",
       "parent": "/_app"
     },
-    "/_app/reagents": {
-      "filePath": "_app/reagents.tsx",
-      "parent": "/_app",
-      "children": [
-        "/_app/reagents/$id"
-      ]
+    "/_app/profile": {
+      "filePath": "_app/profile.tsx",
+      "parent": "/_app"
     },
-    "/_app/samples": {
-      "filePath": "_app/samples.tsx",
+    "/_app/requests": {
+      "filePath": "_app/requests.tsx",
+      "parent": "/_app"
+    },
+    "/_app/settings": {
+      "filePath": "_app/settings.tsx",
+      "parent": "/_app"
+    },
+    "/_app/storage": {
+      "filePath": "_app/storage.tsx",
       "parent": "/_app"
     },
     "/_app/users": {
@@ -346,7 +444,7 @@ export const routeTree = rootRoute
     },
     "/_app/reagents/$id": {
       "filePath": "_app/reagents/$id.tsx",
-      "parent": "/_app/reagents"
+      "parent": "/_app"
     }
   }
 }
