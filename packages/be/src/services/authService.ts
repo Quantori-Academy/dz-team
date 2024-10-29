@@ -20,9 +20,7 @@ export class AuthService {
 
         // Find user by username only
         const user = await prisma.user.findFirst({
-            where: {
-                username: username,
-            },
+            where: { username },
         });
 
         if (!user) {
@@ -34,6 +32,12 @@ export class AuthService {
         if (!isPasswordValid) {
             throw new Error("Invalid username or password.");
         }
+
+        // Update lastLogin to the current date and time
+        await prisma.user.update({
+            where: { id: user.id },
+            data: { lastLoginDate: new Date() },
+        });
 
         // Generate a JWT token using Fastify's jwtSign method
         const token = jwtSign({ userId: user.id, role: user.role });
