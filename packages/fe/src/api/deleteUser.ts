@@ -1,11 +1,11 @@
-import { Record, Static, String } from "runtypes";
+import { z } from "zod";
 
 import { base, request } from "./request";
 
-const UserId = Record({
-    id: String.nullable(),
+const UserId = z.object({
+    id: z.string().nullable(),
 });
-export type UserIdType = Static<typeof UserId>;
+export type UserIdType = z.infer<typeof UserId>;
 
 export const deleteUser = async (id: string) => {
     const DeleteUser = await request(`${base}/api/v1/users/${id}`, UserId, {

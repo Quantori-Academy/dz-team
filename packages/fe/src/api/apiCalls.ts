@@ -1,9 +1,9 @@
-import * as rt from "runtypes";
+import { z } from "zod";
 
 import { base, request } from "./request";
 
 export const fetchServerConnection = async () => {
-    const result = await request(base + "/", rt.String, { shouldAffectIsLoading: true });
+    const result = await request(base + "/", z.string(), { shouldAffectIsLoading: true });
 
     if (result) {
         return "ok!";
