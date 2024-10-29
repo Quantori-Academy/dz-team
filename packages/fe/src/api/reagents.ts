@@ -1,28 +1,28 @@
-import { Array, Number, Record, Static, String } from "runtypes";
+import { z } from "zod";
 
 import { base, request } from "./request";
 
-const Reagent = Record({
-    id: String,
-    name: String.nullable(),
-    structure: String.nullable(),
-    description: String.nullable(),
-    quantity: Number,
-    unit: String.nullable(),
-    size: Number.nullable(),
-    expirationDate: String.nullable(),
-    storageLocation: String,
-    cas: String.nullable(),
-    producer: String.nullable(),
-    catalogId: String.nullable(),
-    catalogLink: String.nullable(),
-    pricePerUnit: Number.nullable(),
-    createdAt: String.nullable(),
-    updatedAt: String.nullable(),
+const Reagent = z.object({
+    id: z.string(),
+    name: z.string().nullable(),
+    structure: z.string().nullable(),
+    description: z.string().nullable(),
+    quantity: z.number(),
+    unit: z.string().nullable(),
+    size: z.number().nullable(),
+    expirationDate: z.string().nullable(),
+    storageLocation: z.string(),
+    cas: z.string().nullable(),
+    producer: z.string().nullable(),
+    catalogId: z.string().nullable(),
+    catalogLink: z.string().nullable(),
+    pricePerUnit: z.number().nullable(),
+    createdAt: z.string().nullable(),
+    updatedAt: z.string().nullable(),
 });
 
-const ReagentsResponse = Array(Reagent).optional();
-export type ReagentType = Static<typeof Reagent>;
+const ReagentsResponse = z.array(Reagent).optional();
+export type ReagentType = z.infer<typeof Reagent>;
 
 export const getReagentsApi = async () => {
     const reagents = await request(`${base}/api/v1/reagents`, ReagentsResponse);
