@@ -1,4 +1,4 @@
-import { createEffect, sample } from "effector";
+import { createEffect, createEvent, sample } from "effector";
 import { createGate } from "effector-react";
 
 import { NewUser, PostUsers } from "api/users/addUser";
@@ -10,6 +10,7 @@ import { genericDomain as domain } from "logger";
 export const $UsersList = domain.createStore<UserType[]>([], { name: "$UserList" });
 
 export const deleteUserFx = createEffect(async (id: string) => {
+    // TODO fix id types for validation
     const response = await deleteUser(id);
     return response;
 });
@@ -24,6 +25,21 @@ export const addUserFx = createEffect(async (userData: NewUser) => {
     return response;
 });
 
+export const deleteUserEvent = createEvent<string>("deleteUserEvent");
+export const addNewUserEvent = createEvent<NewUser>("addNewUserEvent");
+
+// Update store after deleting and adding new user
+$UsersList.on(deleteUserEvent, (state, id) => state.filter((user) => user.id !== id));
+
+$UsersList.on(addNewUserEvent, (state, newUser) => {
+    const userToAdd = {
+        ...newUser,
+        password: undefined,
+        confirmPassword: undefined,
+    };
+    return [...state, userToAdd as unknown as UserType];
+});
+
 export const UsersGate = createGate({ domain });
 
 // trigger request when gate is open
@@ -36,14 +52,4 @@ sample({
 sample({
     clock: fetchUsersFx.doneData,
     target: $UsersList,
-});
-
-sample({
-    clock: addUserFx.doneData,
-    target: fetchUsersFx,
-});
-
-sample({
-    clock: deleteUserFx.doneData,
-    source: $UsersList,
 });

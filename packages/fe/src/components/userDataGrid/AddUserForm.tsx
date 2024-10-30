@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Button, MenuItem, TextField } from "@mui/material";
 
-import { addUserFx } from "stores/users";
+import { addNewUserEvent, addUserFx } from "stores/users";
 
 type FormErrors = {
     username?: string;
@@ -77,6 +77,7 @@ export const AddUserForm = () => {
 
     const handleSubmit = () => {
         if (validateForm()) {
+            addNewUserEvent(formData);
             addUserFx(formData);
             setFormData({
                 username: "",
