@@ -1,9 +1,9 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { useGate, useUnit } from "effector-react";
 
 import { $StorageList, StorageGate } from "stores/storage";
 
-import { Grid } from "./Grid";
+import { Grid } from "components/userDataGrid/Grid";
 
 const headers = [
     { field: "name", headerName: "Storage Name", width: 170 },
@@ -36,8 +36,7 @@ export const StorageList = () => {
 
     return (
         <Box sx={BoxStyle}>
-            <Typography>Storage List</Typography>
-            <Grid rows={rows} headers={headers} />
+            <Grid rows={rows} headers={headers} recordType="storage" />
         </Box>
     );
 };

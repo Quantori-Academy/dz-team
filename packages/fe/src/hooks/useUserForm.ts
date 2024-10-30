@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { addUserFx } from "stores/users";
+import { addUserFx, deleteUserFx } from "stores/users";
 
 type FormErrors = {
     username?: string;
@@ -70,8 +70,12 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
         refs.role.current!.value = "";
     };
 
+    const handleDeleteClick = (id: string) => {
+        deleteUserFx(id);
+    };
     return {
         errors,
         handleSubmit,
+        handleDeleteClick,
     };
 };
