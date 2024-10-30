@@ -51,6 +51,11 @@ const rolesNavLists: RoleToNavList = {
             title: "Dev",
             details: "Dev route",
         },
+        {
+            href: "/storage",
+            title: "Storage",
+            details: "View Storage locations list",
+        },
     ],
 };
 
