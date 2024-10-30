@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { $auth } from "stores/auth";
+import { $auth, Auth } from "stores/auth";
 
 import { base, request } from "../request";
 
@@ -16,7 +16,7 @@ const User = z.object({
 const UsersResponse = z.array(User).optional();
 export type UserType = z.infer<typeof User>;
 
-const token = $auth.getState()?.token;
+const token = ($auth.getState() as Auth | null)?.token ?? "";
 
 export const getUsers = async () => {
     const Users = await request(`${base}/api/v1/users`, UsersResponse, {

@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { $auth } from "stores/auth";
+import { $auth, Auth } from "stores/auth";
 
 import { base, request } from "../request";
 
@@ -14,7 +14,7 @@ const AddUser = z.object({
     role: z.string(),
 });
 
-const token = $auth.getState()?.token;
+const token = ($auth.getState() as Auth | null)?.token ?? "";
 
 //TODO fix types
 export type NewUser = z.infer<typeof AddUser>;
