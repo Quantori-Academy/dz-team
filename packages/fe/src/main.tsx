@@ -1,13 +1,13 @@
 import "./index.css";
 
-import { StrictMode } from "react";
+import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 import { NotFound } from "NotFound";
 import { routeTree } from "routeTree.gen.ts";
 
-import { $auth } from "stores/auth";
+import { $auth, sessionLoadFx } from "stores/auth";
 
 declare module "@tanstack/react-router" {
     interface Register {
@@ -30,6 +30,12 @@ if (!rootEl) {
 
 export function Root() {
     const auth = useUnit($auth);
+    const loadSession = useUnit(sessionLoadFx);
+
+    useEffect(() => {
+        loadSession();
+    }, [loadSession]);
+
     return (
         <StrictMode>
             <RouterProvider router={router} context={{ auth }} />

@@ -3,7 +3,7 @@ import { createRootRouteWithContext } from "@tanstack/react-router";
 import { App } from "App";
 
 import { config } from "config";
-import { Auth } from "stores/auth";
+import { AuthStoreValue } from "stores/auth";
 
 const TanStackRouterDevtools = config.isProd
     ? () => null
@@ -14,7 +14,7 @@ const TanStackRouterDevtools = config.isProd
       );
 
 type MyRouterContext = {
-    auth: Auth | null;
+    auth: AuthStoreValue;
 };
 
 export const Route = createRootRouteWithContext<MyRouterContext>()({

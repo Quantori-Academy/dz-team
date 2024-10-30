@@ -2,7 +2,10 @@ import { Logout, Settings } from "@mui/icons-material";
 import PersonIcon from "@mui/icons-material/Person";
 import { Box, Divider, ListItemIcon, Menu, MenuItem, Typography } from "@mui/material";
 import { Link } from "@tanstack/react-router";
+import { useUnit } from "effector-react";
 import { theme } from "theme";
+
+import { sessionDeleteFx } from "stores/auth";
 
 type Props = {
     handleClose: () => void;
@@ -11,6 +14,7 @@ type Props = {
 };
 
 export function DropdownMenuHeaderDesktop({ handleClose, open, anchorEl }: Props) {
+    const deleteSession = useUnit(sessionDeleteFx);
     return (
         <Menu
             anchorEl={anchorEl}
@@ -88,7 +92,7 @@ export function DropdownMenuHeaderDesktop({ handleClose, open, anchorEl }: Props
                 Settings
             </MenuItem>
             <Divider />
-            <Link to="/login" style={{ textDecoration: "none" }}>
+            <Link onClick={deleteSession} style={{ textDecoration: "none" }}>
                 <MenuItem
                     sx={{
                         color: theme.palette.text.primary,
