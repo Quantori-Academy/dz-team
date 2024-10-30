@@ -13,6 +13,10 @@ import {
     useTheme,
 } from "@mui/material";
 import { Link } from "@tanstack/react-router";
+import { useUnit } from "effector-react";
+
+import { $auth } from "stores/auth";
+import { rolesHeaders } from "utils/rolesHeaders";
 
 import { DropdownMenuHeaderDesktop } from "./DropdownMenuHeaderDesktop";
 
@@ -31,6 +35,9 @@ export function HeaderDesktop() {
     const handleClose = () => {
         setAnchorEl(null);
     };
+
+    const auth = useUnit($auth);
+    const role = auth ? rolesHeaders[auth.self.role] : [];
 
     return (
         <>
@@ -110,7 +117,7 @@ export function HeaderDesktop() {
                                         justifyContent: "flex-start",
                                     }}
                                 >
-                                    Admin
+                                    {role}
                                 </Typography>
                             </Box>
                         </Box>
