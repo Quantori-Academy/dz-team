@@ -1,6 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import { Link, useLocation } from "@tanstack/react-router";
+import { useUnit } from "effector-react";
 import { theme } from "theme";
+
+import { UserRole } from "api/self";
+import { $auth } from "stores/auth";
 
 type INavigationList = Array<{
     href: string;
@@ -8,38 +12,50 @@ type INavigationList = Array<{
     details: string;
 }>;
 
-const routes: INavigationList = [
-    {
-        href: "/",
-        title: "Home",
-        details: "Entry point of application",
-    },
-    {
-        href: "/reagents",
-        title: "Reagents",
-        details: "See the list of available reagents and reagent details",
-    },
-    {
-        href: "/samples",
-        title: "Samples",
-        details: "Explore existing samples or create new ones",
-    },
-    {
-        href: "/orders",
-        title: "Orders",
-        details: "Create a new request, view request statuses",
-    },
-    {
-        href: "/dev",
-        title: "Dev",
-        details: "Dev route",
-    },
-    {
-        href: "/users",
-        title: "User's List",
-        details: "View all authorized users.",
-    },
-];
+
+
+type RoleToNavList = {
+    [key in UserRole]: INavigationList;
+};
+
+const rolesNavLists: RoleToNavList = {
+    admin: [
+        { href: "/admin", title: "Home", details: "Entry point of application" },
+        { href: "/users", title: "User list", details: "See the list of users" },
+        { href: "/newUser", title: "New user", details: "Create a new user" },
+    ],
+    procurementOfficer: [
+        {
+            href: "/pOfficer",
+            title: "Home",
+            details: "Entry point of application",
+        },
+        {
+            href: "/orders",
+            title: "Orders",
+            details: "Create a new request, view request statuses",
+        },
+    ],
+    researcher: [
+        { href: "/", title: "Home", details: "Entry point of application" },
+        {
+            href: "/reagents",
+            title: "Reagents",
+            details: "See the list of available reagents and reagent details",
+        },
+        {
+            href: "/samples",
+            title: "Samples",
+            details: "Explore existing samples or create new ones",
+        },
+        {
+            href: "/dev",
+            title: "Dev",
+            details: "Dev route",
+        },
+    ],
+};
+
 
 interface Props {
     onClickCloseMobileModal?: () => void;
@@ -47,6 +63,10 @@ interface Props {
 
 export function NavList({ onClickCloseMobileModal }: Props) {
     const pathname = useLocation().pathname;
+
+    const auth = useUnit($auth);
+
+    const routes = auth ? rolesNavLists[auth.self.role] : [];
 
     return (
         <>
