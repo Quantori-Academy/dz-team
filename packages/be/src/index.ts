@@ -1,14 +1,14 @@
-import fastify from "fastify";
 import cors from "@fastify/cors";
+import fastify from "fastify";
 
 import { serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
 
+import { generateOpenApiSchema } from "./utils/generateOpenApi";
 import { isProd } from "./utils/isProd";
 import { registerSwagger } from "./utils/swaggerConfig";
-import { generateOpenApiSchema } from "./utils/generateOpenApi";
 
-import { jwtConfig } from "./utils/jwtConfig";
 import { jwtMiddleware } from "./middlewares/jwtMiddleware";
+import { jwtConfig } from "./utils/jwtConfig";
 
 import { apiRoutes } from "./routes/apiRoutes";
 
@@ -24,7 +24,7 @@ server.setSerializerCompiler(serializerCompiler);
 
 server.register(cors, {
     origin: corsOptions,
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 });
 
 // Conditionally import the OpenAPI generator in non-production environments

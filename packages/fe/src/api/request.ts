@@ -75,7 +75,7 @@ export async function request<TT extends Runtype, T = Static<TT>, K = T>(
         showErrorNotification?: boolean;
         throwOnError?: boolean;
         shouldAffectIsLoading?: boolean;
-    }
+    },
 ): Promise<T | K | undefined> {
     try {
         if (options?.shouldAffectIsLoading) {

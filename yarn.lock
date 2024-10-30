@@ -839,6 +839,18 @@
   resolved "https://registry.yarnpkg.com/@mui/types/-/types-7.2.18.tgz#4b6385ed2f7828ef344113cdc339d6fdf8e4bc23"
   integrity sha512-uvK9dWeyCJl/3ocVnTOS6nlji/Knj8/tVqVX03UVTpdmTJYu/s4jtDd9Kvv0nRGE0CUSNW1UYAci7PYypjealg==
 
+"@mui/utils@^5.16.6 || ^6.0.0":
+  version "6.1.5"
+  resolved "https://registry.yarnpkg.com/@mui/utils/-/utils-6.1.5.tgz#a5c75ac48f9913340670ebeba2907568a6ee8c49"
+  integrity sha512-vp2WfNDY+IbKUIGg+eqX1Ry4t/BilMjzp6p9xO1rfqpYjH1mj8coQxxDfKxcQLzBQkmBJjymjoGOak5VUYwXug==
+  dependencies:
+    "@babel/runtime" "^7.25.7"
+    "@mui/types" "^7.2.18"
+    "@types/prop-types" "^15.7.13"
+    clsx "^2.1.1"
+    prop-types "^15.8.1"
+    react-is "^18.3.1"
+
 "@mui/utils@^6.1.4":
   version "6.1.4"
   resolved "https://registry.yarnpkg.com/@mui/utils/-/utils-6.1.4.tgz#44deebc8e576695836c9bda870d755c8f079e54d"
@@ -850,6 +862,26 @@
     clsx "^2.1.1"
     prop-types "^15.8.1"
     react-is "^18.3.1"
+
+"@mui/x-data-grid@^7.21.0":
+  version "7.22.0"
+  resolved "https://registry.yarnpkg.com/@mui/x-data-grid/-/x-data-grid-7.22.0.tgz#ad20ce4daf21b36a5c505847fff3b8ae89e7b160"
+  integrity sha512-gXl7+hG0YRNU3YODlPvz6Q/9+EeUsPAWn/u2YMQmYTgwAxeY5QE3lY224VRnwM5v9SfTFheo1kzAKmXPdjb9tQ==
+  dependencies:
+    "@babel/runtime" "^7.25.7"
+    "@mui/utils" "^5.16.6 || ^6.0.0"
+    "@mui/x-internals" "7.21.0"
+    clsx "^2.1.1"
+    prop-types "^15.8.1"
+    reselect "^5.1.1"
+
+"@mui/x-internals@7.21.0":
+  version "7.21.0"
+  resolved "https://registry.yarnpkg.com/@mui/x-internals/-/x-internals-7.21.0.tgz#daca984059015b27efdb47bb44dc7ff4a6816673"
+  integrity sha512-94YNyZ0BhK5Z+Tkr90RKf47IVCW8R/1MvdUhh6MCQg6sZa74jsX+x+gEZ4kzuCqOsuyTyxikeQ8vVuCIQiP7UQ==
+  dependencies:
+    "@babel/runtime" "^7.25.7"
+    "@mui/utils" "^5.16.6 || ^6.0.0"
 
 "@nodelib/fs.scandir@2.1.5":
   version "2.1.5"
@@ -4030,6 +4062,11 @@ require-from-string@^2.0.2:
   resolved "https://registry.npmjs.org/require-from-string/-/require-from-string-2.0.2.tgz"
   integrity sha512-Xf0nWe6RseziFMu+Ap9biiUbmplq6S9/p+7w7YXP/JBHhrUDDUhwa+vANyubuqfZWTveU//DYVGsDG7RKL/vEw==
 
+reselect@^5.1.1:
+  version "5.1.1"
+  resolved "https://registry.yarnpkg.com/reselect/-/reselect-5.1.1.tgz#c766b1eb5d558291e5e550298adb0becc24bb72e"
+  integrity sha512-K/BG6eIky/SBpzfHZv/dd+9JBFiS4SWV7FIujVyJRux6e45+73RaUHXLmIR1f7WOMaQ0U1km6qwklRQxpJJY0w==
+
 resolve-from@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/resolve-from/-/resolve-from-4.0.0.tgz"
@@ -4372,7 +4409,6 @@ string-argv@~0.3.2:
   resolved "https://registry.npmjs.org/string-argv/-/string-argv-0.3.2.tgz"
   integrity sha512-aqD2Q0144Z+/RqG52NeHEkZauTAUWJO8c6yTftGJKO3Tja5tUgIfmIl6kExvhtxSDP7fXB6DvzkfMpCd/F3G+Q==
 
-
 "string-width@^1.0.2 || 2 || 3 || 4", string-width@^4.1.0, string-width@^4.2.0, string-width@^4.2.3:
   version "4.2.3"
   resolved "https://registry.yarnpkg.com/string-width/-/string-width-4.2.3.tgz#269c7117d27b05ad2e536830a8ec895ef9c6d010"
@@ -4461,7 +4497,6 @@ string_decoder@^1.1.1:
   integrity sha512-hkRX8U1WjJFd8LsDJ2yQ/wWWxaopEsABU1XfkM8A+j0+85JAGppt16cr1Whg6KIbb4okU6Mql6BOj+uup/wKeA==
   dependencies:
     safe-buffer "~5.2.0"
-
 
 strip-ansi@^6.0.0, strip-ansi@^6.0.1:
   version "6.0.1"
