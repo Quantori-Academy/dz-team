@@ -26,7 +26,6 @@ export const AddRecord = ({
                 message: content,
                 labels: [{ ok: labels.ok ?? "Confirm" }, { cancel: labels.cancel ?? "Close" }],
             });
-            removeModal();
         } catch (_) {
             removeModal();
         }

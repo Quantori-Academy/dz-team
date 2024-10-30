@@ -15,6 +15,7 @@ const AddUser = z.object({
 });
 
 const token = $auth.getState()?.token;
+
 //TODO fix types
 export type NewUser = z.infer<typeof AddUser>;
 export const PostUsers = async (userData: NewUser) => {

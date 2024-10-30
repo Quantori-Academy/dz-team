@@ -6,11 +6,11 @@ import { base, request } from "../request";
 
 const User = z.object({
     id: z.string(),
-    firstName: z.string(),
-    lastName: z.string(),
-    email: z.string(),
-    role: z.string(),
-    lastLoginDate: z.string(),
+    firstName: z.string().nullable(),
+    lastName: z.string().nullable(),
+    email: z.string().nullable(),
+    role: z.string().nullable(),
+    lastLoginDate: z.string().nullable(),
 });
 
 const UsersResponse = z.array(User).optional();
@@ -25,5 +25,6 @@ export const getUsers = async () => {
             Authorization: `Bearer ${token}`,
         },
     });
+
     return Users;
 };
