@@ -15,7 +15,7 @@ import { useUnit } from "effector-react";
 
 import { $auth } from "stores/auth";
 import { $loginState, loginFx } from "stores/login";
-import { rolesRoutes } from "utils/rolesRoutes";
+import { rolesRoutes } from "utils/roles";
 import { useIsDesktop } from "utils/useIsDesktop";
 
 export function LoginForm() {

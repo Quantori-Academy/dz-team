@@ -1,7 +1,7 @@
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 import { UserRole } from "api/self";
-import { rolesRoutes } from "utils/rolesRoutes";
+import { rolesRoutes } from "utils/roles";
 
 export const Route = createFileRoute("/_app/_adminLayout")({
     beforeLoad: ({ context }) => {

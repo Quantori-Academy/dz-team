@@ -16,7 +16,7 @@ import { Link } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 
 import { $auth } from "stores/auth";
-import { rolesHeaders } from "utils/rolesHeaders";
+import { rolesHeaders } from "utils/roles";
 
 import { DropdownMenuHeaderDesktop } from "./DropdownMenuHeaderDesktop";
 
