@@ -34,6 +34,11 @@ const routes: INavigationList = [
         title: "Dev",
         details: "Dev route",
     },
+    {
+        href: "/users",
+        title: "User's List",
+        details: "View all authorized users.",
+    },
 ];
 
 interface Props {
