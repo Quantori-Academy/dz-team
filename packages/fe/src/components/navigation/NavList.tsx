@@ -12,8 +12,6 @@ type INavigationList = Array<{
     details: string;
 }>;
 
-
-
 type RoleToNavList = {
     [key in UserRole]: INavigationList;
 };
@@ -22,7 +20,6 @@ const rolesNavLists: RoleToNavList = {
     admin: [
         { href: "/admin", title: "Home", details: "Entry point of application" },
         { href: "/users", title: "User list", details: "See the list of users" },
-        { href: "/newUser", title: "New user", details: "Create a new user" },
     ],
     procurementOfficer: [
         {
@@ -55,7 +52,6 @@ const rolesNavLists: RoleToNavList = {
         },
     ],
 };
-
 
 interface Props {
     onClickCloseMobileModal?: () => void;

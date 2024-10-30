@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { $auth, Auth } from "stores/auth";
+import { $auth } from "stores/auth";
 
 import { base, request } from "../request";
 
@@ -14,11 +14,11 @@ const AddUser = z.object({
     role: z.string(),
 });
 
-const token = ($auth.getState() as Auth | null)?.token ?? "";
-
 //TODO fix types
 export type NewUser = z.infer<typeof AddUser>;
 export const PostUsers = async (userData: NewUser) => {
+    const auth = $auth.getState();
+    const token = auth !== false ? auth?.token : null;
     await request(`${base}/api/v1/users`, AddUser, {
         method: "POST",
         json: userData,

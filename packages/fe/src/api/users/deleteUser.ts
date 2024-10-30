@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { $auth, Auth } from "stores/auth";
+import { $auth } from "stores/auth";
 
 import { base, request } from "../request";
 
@@ -9,8 +9,9 @@ const UserId = z.object({
 });
 export type UserIdType = z.infer<typeof UserId>;
 
-const token = ($auth.getState() as Auth | null)?.token ?? "";
 export const deleteUser = async (id: string) => {
+    const auth = $auth.getState();
+    const token = auth !== false ? auth?.token : null;
     await request(`${base}/api/v1/users/${id}`, UserId, {
         method: "DELETE",
         headers: {
