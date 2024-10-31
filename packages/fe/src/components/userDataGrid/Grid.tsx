@@ -1,12 +1,12 @@
 import { useMemo, useState } from "react";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
-import { TextField } from "@mui/material";
+import { Box, Modal, TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
 import { SupportedValue } from "utils/formatters";
 
-import { AddRecord } from "./Addrecord";
+import { AddRecord } from "./AddRecord";
 import { AddUserForm } from "./AddUserForm";
 
 type GridProps = {
@@ -15,12 +15,9 @@ type GridProps = {
     handleDeleteClick: (id: string) => void;
 };
 
-const textField = {
-    width: "350px",
-};
-
 export const Grid = ({ rows, headers, handleDeleteClick }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
+    const [isModalOpen, setModalOpen] = useState(false);
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(event.target.value);
@@ -45,10 +42,18 @@ export const Grid = ({ rows, headers, handleDeleteClick }: GridProps) => {
         })
     );
 
+    const handleModalClose = () => {
+        setModalOpen(false);
+    };
+
+    const handleAddUserOpen = () => {
+        setModalOpen(true);
+    };
+
     const columns = useMemo(() => {
         const editColumn = {
             field: "actions",
-            headerName: "actions",
+            headerName: "Actions",
             width: 100,
             renderCell: (params: { row: { id: string } }) => (
                 <>
@@ -64,31 +69,31 @@ export const Grid = ({ rows, headers, handleDeleteClick }: GridProps) => {
                         onClick={() => handleDeleteClick(params.row.id)}
                         color="inherit"
                     />
-                    ,
                 </>
             ),
         };
         return [...headers, editColumn];
     }, [headers, handleDeleteClick]);
+
     return (
         <>
             <TextField
-                sx={textField}
                 variant="outlined"
                 placeholder="Search by name, username, or email"
                 value={searchQuery}
                 onChange={handleSearch}
+                sx={{ width: "350px", marginBottom: "16px" }}
             />
             <DataGrid
                 rows={filteredRows}
                 rowHeight={60}
-                getRowId={(row) => {
-                    return typeof row.id === "string" || typeof row.id === "number"
+                getRowId={(row) =>
+                    typeof row.id === "string" || typeof row.id === "number"
                         ? row.id
                         : `${String(row.username ?? "unknown")}-${Math.random()
                               .toString(36)
-                              .substring(2, 9)}`;
-                }}
+                              .substring(2, 9)}`
+                }
                 columns={columns}
                 disableRowSelectionOnClick
                 pageSizeOptions={[5, 15, 25, 50]}
@@ -101,14 +106,25 @@ export const Grid = ({ rows, headers, handleDeleteClick }: GridProps) => {
                 }}
                 slots={{
                     toolbar: () => (
-                        <AddRecord
-                            title="Add New User"
-                            content={<AddUserForm />}
-                            buttonLabel="Add New User"
-                        />
+                        <AddRecord buttonLabel="Add New User" onAddRecord={handleAddUserOpen} />
                     ),
                 }}
             />
+            <Modal open={isModalOpen} onClose={handleModalClose}>
+                <Box
+                    sx={{
+                        width: 400,
+                        padding: 4,
+                        margin: "auto",
+                        marginTop: "10%",
+                        bgcolor: "background.paper",
+                        boxShadow: 24,
+                        borderRadius: 1,
+                    }}
+                >
+                    <AddUserForm onClose={handleModalClose} />
+                </Box>
+            </Modal>
         </>
     );
 };
