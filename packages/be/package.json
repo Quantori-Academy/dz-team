@@ -28,6 +28,7 @@
         "fastify": "^4.28.1",
         "fastify-type-provider-zod": "^4.0.2",
         "js-yaml": "^4.1.0",
+        "jsonwebtoken": "^9.0.2",
         "prisma": "^5.20.0"
     },
     "devDependencies": {
