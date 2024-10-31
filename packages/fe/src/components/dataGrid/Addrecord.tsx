@@ -4,13 +4,14 @@ import { GridToolbarContainer } from "@mui/x-data-grid";
 
 type AddRecordType = {
     onAdd: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    label?: string;
 };
 
-export const AddRecord = ({ onAdd }: AddRecordType) => {
+export const AddRecord = ({ onAdd, label }: AddRecordType) => {
     return (
         <GridToolbarContainer>
             <Button color="primary" startIcon={<AddIcon />} onClick={onAdd}>
-                Add New User
+                {label}
             </Button>
         </GridToolbarContainer>
     );

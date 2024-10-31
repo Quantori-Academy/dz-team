@@ -1,0 +1,192 @@
+{
+    "/api/v1/reagents/1": {
+        "id": "1",
+        "name": "Cobalt Chloride",
+        "structure": "CoCl2",
+        "description": "Used in humidity indicators and as a catalyst.",
+        "quantity": 50,
+        "unit": "g",
+        "size": 100,
+        "expirationDate": "2025-06-01T00:00:00.000Z",
+        "storageLocation": "Room 5, Shelf B1",
+        "cas": "7646-79-9",
+        "producer": "CobaltChem",
+        "catalogId": "CC-50",
+        "catalogLink": "https://cobaltchem.com/catalog/CC-50",
+        "pricePerUnit": 5,
+        "category": "other",
+        "status": "available",
+        "deletedAt": null,
+        "createdAt": "2024-10-20T20:51:31.630Z",
+        "updatedAt": "2024-10-20T20:51:31.630Z"
+    },
+    "/api/v1/reagents/2": {
+        "id": "2",
+        "name": "Octane",
+        "structure": "C8H18",
+        "description": "Used as a fuel and in organic synthesis.",
+        "quantity": 200,
+        "unit": "ml",
+        "size": 500,
+        "expirationDate": "2024-07-20T00:00:00.000Z",
+        "storageLocation": "Room 3, Shelf A1",
+        "cas": "111-65-9",
+        "producer": "FuelChem Inc.",
+        "catalogId": "OC-200",
+        "catalogLink": "https://fuelchem.com/catalog/OC-200",
+        "pricePerUnit": 3,
+        "category": "organic",
+        "status": "available",
+        "deletedAt": null,
+        "createdAt": "2024-10-20T20:51:31.630Z",
+        "updatedAt": "2024-10-20T20:51:31.630Z"
+    },
+    "/api/v1/orders": [
+        {
+            "id": "1",
+            "reagentName": "Hexane",
+            "quantity": 6,
+            "status": "Pending",
+            "creationDate": "2024-10-29"
+        },
+        {
+            "id": "2",
+            "reagentName": "Acetone",
+            "quantity": 12,
+            "status": "Completed",
+            "creationDate": "2024-10-25"
+        },
+        {
+            "id": "3",
+            "reagentName": "Ethanol",
+            "quantity": 8,
+            "status": "Shipped",
+            "creationDate": "2024-10-27"
+        },
+        {
+            "id": "4",
+            "reagentName": "Methanol",
+            "quantity": 10,
+            "status": "Pending",
+            "creationDate": "2024-10-28"
+        },
+        {
+            "id": "5",
+            "reagentName": "Chloroform",
+            "quantity": 15,
+            "status": "Canceled",
+            "creationDate": "2024-10-26"
+        },
+        {
+            "id": "6",
+            "reagentName": "Benzene",
+            "quantity": 7,
+            "status": "Completed",
+            "creationDate": "2024-10-29"
+        },
+        {
+            "id": "7",
+            "reagentName": "Toluene",
+            "quantity": 20,
+            "status": "Shipped",
+            "creationDate": "2024-10-24"
+        },
+        {
+            "id": "8",
+            "reagentName": "Diethyl Ether",
+            "quantity": 5,
+            "status": "Pending",
+            "creationDate": "2024-10-28"
+        },
+        {
+            "id": "9",
+            "reagentName": "Sulfuric Acid",
+            "quantity": 3,
+            "status": "Completed",
+            "creationDate": "2024-10-29"
+        },
+        {
+            "id": "10",
+            "reagentName": "Acetic Acid",
+            "quantity": 9,
+            "status": "Shipped",
+            "creationDate": "2024-10-27"
+        }
+    ],
+    "/api/v1/reagents": [
+        {
+            "id": "1",
+            "name": "Material 1",
+            "structure": "C6H12O6",
+            "description": "Material 1 description",
+            "quantity": 10,
+            "unit": "g",
+            "size": 10,
+            "expirationDate": null,
+            "storageLocation": "Room temperature",
+            "cas": null,
+            "producer": null,
+            "catalogId": null,
+            "catalogLink": null,
+            "pricePerUnit": null,
+            "createdAt": "2021-09-01T00:00:00.000Z",
+            "updatedAt": "2021-09-01T00:00:00.000Z"
+        },
+        {
+            "id": "2",
+            "name": "Material 2",
+            "structure": "C6H12O6",
+            "description": "Material 2 description",
+            "quantity": 20,
+            "unit": "g",
+            "size": 20,
+            "expirationDate": null,
+            "storageLocation": "Room temperature",
+            "cas": null,
+            "producer": null,
+            "catalogId": null,
+            "catalogLink": null,
+            "pricePerUnit": null,
+            "createdAt": "2021-09-01T00:00:00.000Z",
+            "updatedAt": "2021-09-01T00:00:00.000Z"
+        },
+        {
+            "id": "3",
+            "name": "Material 3",
+            "structure": "C6H12O6",
+            "description": "Material 3 description",
+            "quantity": 30,
+            "unit": "g",
+            "size": 30,
+            "expirationDate": null,
+            "storageLocation": "Room temperature",
+            "cas": null,
+            "producer": null,
+            "catalogId": null,
+            "catalogLink": null,
+            "pricePerUnit": null,
+            "createdAt": "2021-09-01T00:00:00.000Z",
+            "updatedAt": "2021-09-01T00:00:00.000Z"
+        },
+        {
+            "id": "4",
+            "name": "Material 4",
+            "structure": "C6H12O6",
+            "description": "Material 4 description",
+            "quantity": 40,
+            "unit": "g",
+            "size": 40,
+            "expirationDate": null,
+            "storageLocation": "Room temperature",
+            "cas": null,
+            "producer": null,
+            "catalogId": null,
+            "catalogLink": null,
+            "pricePerUnit": null,
+            "createdAt": "2021-09-01T00:00:00.000Z",
+            "updatedAt": "2021-09-01T00:00:00.000Z"
+        }
+    ],
+
+    "/api/v1/auth/login": { "token": "string" }
+}

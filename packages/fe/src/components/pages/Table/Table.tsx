@@ -39,6 +39,7 @@ export const Table = ({
             component={Paper}
             sx={{
                 overflowX: "auto",
+                overflowY: "auto",
             }}
         >
             <MuiTable stickyHeader>
