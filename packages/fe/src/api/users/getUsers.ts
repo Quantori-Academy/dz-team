@@ -11,6 +11,7 @@ const User = z.object({
     email: z.string().nullable(),
     role: z.string().nullable(),
     lastLoginDate: z.string().nullable(),
+    username: z.string().nullable(),
 });
 
 const UsersResponse = z.array(User).optional();

@@ -6,7 +6,7 @@ import { $UsersList, deleteUserEvent, deleteUserFx, UsersGate } from "stores/use
 import { Grid } from "../../userDataGrid/Grid";
 
 const headers = [
-    { field: "userName", headerName: "User Name", width: 150 },
+    { field: "username", headerName: "User Name", width: 150 },
     { field: "email", headerName: "Email", width: 170 },
     { field: "role", headerName: "Role", width: 170 },
     { field: "lastLoginDate", headerName: "Last login date", width: 170 },
