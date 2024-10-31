@@ -35,7 +35,7 @@ export function ReagentRequestPage() {
             </Typography>
 
             <Table data={dataReagentRequests} headers={reagentRequestHeaders} />
-
+            {/* TODO: Add link when Create Reagent Request page is ready */}
             <Link>
                 <Button variant="contained" color="primary" sx={{ mt: 5 }}>
                     Create a Reagent Request
