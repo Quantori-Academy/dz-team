@@ -22,25 +22,10 @@ export type UserFormData = {
     role: string;
 };
 
-export const useUserForm = () => {
-    const [formData, setFormData] = useState<UserFormData>({
-        username: "",
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-        role: "",
-    });
-
+export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElement> }) => {
     const [errors, setErrors] = useState<FormErrors>({});
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = event.target;
-        setFormData({ ...formData, [name]: value });
-    };
-
-    const validateForm = () => {
+    const validateForm = (formData: UserFormData) => {
         const newErrors: FormErrors = {};
 
         if (!formData.username) newErrors.username = "Username is required.";
@@ -68,31 +53,25 @@ export const useUserForm = () => {
     };
 
     const handleSubmit = () => {
-        if (validateForm()) {
+        const formData: UserFormData = {
+            username: refs.username.current?.value || "",
+            firstName: refs.firstName.current?.value || "",
+            lastName: refs.lastName.current?.value || "",
+            email: refs.email.current?.value || "",
+            password: refs.password.current?.value || "",
+            confirmPassword: refs.confirmPassword.current?.value || "",
+            role: refs.role.current?.value || "",
+        };
+
+        if (validateForm(formData)) {
             addNewUserEvent(formData);
             addUserFx(formData);
-            resetForm();
+            setErrors({});
         }
     };
 
-    const resetForm = () => {
-        setFormData({
-            username: "",
-            firstName: "",
-            lastName: "",
-            email: "",
-            password: "",
-            confirmPassword: "",
-            role: "",
-        });
-        setErrors({});
-    };
-
     return {
-        formData,
         errors,
-        handleChange,
         handleSubmit,
-        resetForm,
     };
 };

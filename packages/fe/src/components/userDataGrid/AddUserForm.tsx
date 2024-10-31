@@ -1,28 +1,32 @@
+import { useRef } from "react";
 import { Box, Button, MenuItem, TextField } from "@mui/material";
 
 import { useUserForm } from "hooks/useUserForm";
 
+const roles = ["admin", "researcher", "procurementOfficer"];
+
+const textfieldStyle = { width: "400px" };
+const BoxStyle = { display: "flex", flexDirection: "column", alignItems: "center" };
+
 export const AddUserForm = () => {
-    const roles = ["admin", "researcher", "procurementOfficer"];
-
-    const { formData, errors, handleChange, handleSubmit } = useUserForm();
-
-    const textfieldStyle = {
-        width: "400px",
+    const refs = {
+        username: useRef<HTMLInputElement>(null),
+        firstName: useRef<HTMLInputElement>(null),
+        lastName: useRef<HTMLInputElement>(null),
+        email: useRef<HTMLInputElement>(null),
+        password: useRef<HTMLInputElement>(null),
+        confirmPassword: useRef<HTMLInputElement>(null),
+        role: useRef<HTMLInputElement>(null),
     };
-    const BoxStyle = {
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-    };
+
+    const { errors, handleSubmit } = useUserForm(refs);
 
     return (
         <Box component="form" noValidate autoComplete="off" sx={BoxStyle}>
             <TextField
                 label="Username"
                 name="username"
-                value={formData.username}
-                onChange={handleChange}
+                inputRef={refs.username}
                 error={!!errors.username}
                 helperText={errors.username}
                 margin="normal"
@@ -31,8 +35,7 @@ export const AddUserForm = () => {
             <TextField
                 label="First Name"
                 name="firstName"
-                value={formData.firstName}
-                onChange={handleChange}
+                inputRef={refs.firstName}
                 error={!!errors.firstName}
                 helperText={errors.firstName}
                 margin="normal"
@@ -41,8 +44,7 @@ export const AddUserForm = () => {
             <TextField
                 label="Last Name"
                 name="lastName"
-                value={formData.lastName}
-                onChange={handleChange}
+                inputRef={refs.lastName}
                 error={!!errors.lastName}
                 helperText={errors.lastName}
                 margin="normal"
@@ -51,8 +53,7 @@ export const AddUserForm = () => {
             <TextField
                 label="Email"
                 name="email"
-                value={formData.email}
-                onChange={handleChange}
+                inputRef={refs.email}
                 error={!!errors.email}
                 helperText={errors.email}
                 margin="normal"
@@ -62,8 +63,7 @@ export const AddUserForm = () => {
                 label="Password"
                 name="password"
                 type="password"
-                value={formData.password}
-                onChange={handleChange}
+                inputRef={refs.password}
                 error={!!errors.password}
                 helperText={errors.password}
                 margin="normal"
@@ -73,8 +73,7 @@ export const AddUserForm = () => {
                 label="Confirm Password"
                 name="confirmPassword"
                 type="password"
-                value={formData.confirmPassword}
-                onChange={handleChange}
+                inputRef={refs.confirmPassword}
                 error={!!errors.confirmPassword}
                 helperText={errors.confirmPassword}
                 margin="normal"
@@ -84,11 +83,11 @@ export const AddUserForm = () => {
                 select
                 label="Role"
                 name="role"
-                value={formData.role}
-                onChange={handleChange}
+                inputRef={refs.role}
                 error={!!errors.role}
                 helperText={errors.role}
                 margin="normal"
+                defaultValue=""
                 sx={textfieldStyle}
             >
                 {roles.map((role) => (

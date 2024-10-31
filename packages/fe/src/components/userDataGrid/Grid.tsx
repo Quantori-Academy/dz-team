@@ -14,6 +14,11 @@ type GridProps = {
     headers: Array<{ field: string; headerName: string }>;
     handleDeleteClick: (id: string) => void;
 };
+
+const textField = {
+    width: "350px",
+};
+
 export const Grid = ({ rows, headers, handleDeleteClick }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -33,16 +38,12 @@ export const Grid = ({ rows, headers, handleDeleteClick }: GridProps) => {
                 return Object.values(value).some(
                     (nestedValue) =>
                         typeof nestedValue === "string" &&
-                        nestedValue.toLowerCase().includes(searchQuery.toLowerCase()),
+                        nestedValue.toLowerCase().includes(searchQuery.toLowerCase())
                 );
             }
             return false;
-        }),
+        })
     );
-
-    const textField = {
-        width: "350px",
-    };
 
     const columns = useMemo(() => {
         const editColumn = {
@@ -84,7 +85,9 @@ export const Grid = ({ rows, headers, handleDeleteClick }: GridProps) => {
                 getRowId={(row) => {
                     return typeof row.id === "string" || typeof row.id === "number"
                         ? row.id
-                        : `${String(row.username ?? "unknown")}-${Math.random().toString(36).substring(2, 9)}`;
+                        : `${String(row.username ?? "unknown")}-${Math.random()
+                              .toString(36)
+                              .substring(2, 9)}`;
                 }}
                 columns={columns}
                 disableRowSelectionOnClick
