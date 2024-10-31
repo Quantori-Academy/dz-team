@@ -2,7 +2,8 @@
     {
         "storageLocation": {
             "id": "2ecb0dc1-1cc6-44c8-93e3-ff1646ebadca",
-            "name": "Room 3, Shelf A3"
+            "name": "Room 3, Shelf A3",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -61,7 +62,8 @@
     {
         "storageLocation": {
             "id": "c4fe1cd6-a0bb-467f-8256-9b0da0aec61f",
-            "name": "Room 5, Shelf B2"
+            "name": "Room 5, Shelf B2",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -120,7 +122,8 @@
     {
         "storageLocation": {
             "id": "03e4f2ab-9c5b-41d9-866b-5d70e827399c",
-            "name": "Room 3, Shelf D3"
+            "name": "Room 3, Shelf D3",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -213,7 +216,8 @@
     {
         "storageLocation": {
             "id": "a825fba0-48e3-4a07-92ac-c8dac964b8bc",
-            "name": "Room 5, Shelf C2"
+            "name": "Room 5, Shelf C2",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -255,7 +259,8 @@
     {
         "storageLocation": {
             "id": "a2c2ae34-232e-4cbd-9c95-563bd4637e66",
-            "name": "Room 5, Shelf A2"
+            "name": "Room 5, Shelf A2",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -297,7 +302,8 @@
     {
         "storageLocation": {
             "id": "4c2b8a41-e072-45b8-b1d9-ed556fa2e77a",
-            "name": "Room 5, Shelf A3"
+            "name": "Room 5, Shelf A3",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -339,7 +345,8 @@
     {
         "storageLocation": {
             "id": "a6f8cc88-c0c6-4359-af40-2d936f445645",
-            "name": "Room 2, Shelf A1"
+            "name": "Room 2, Shelf A1",
+            "description": " Contains disinfectants and bleaching agents for industrial applications."
         },
         "reagents": [
             {
@@ -364,7 +371,8 @@
     {
         "storageLocation": {
             "id": "e00cc3b7-0dea-4057-9f3b-8357320326f4",
-            "name": "Room 4, Shelf D2"
+            "name": "Room 4, Shelf D2",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -406,7 +414,8 @@
     {
         "storageLocation": {
             "id": "1571e53c-33a3-4e60-b6ac-3abd0b65c7f5",
-            "name": "Room 4, Shelf B2"
+            "name": "Room 4, Shelf B2",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -465,7 +474,8 @@
     {
         "storageLocation": {
             "id": "d05cc823-2ce3-4029-b7e2-e1f62813b882",
-            "name": "Room 3, Shelf B2"
+            "name": "Room 3, Shelf B2",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -507,7 +517,8 @@
     {
         "storageLocation": {
             "id": "5f5704f9-0d2b-440a-a6eb-974fbae0ee47",
-            "name": "Room 1, Shelf D3"
+            "name": "Room 1, Shelf D3",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -583,7 +594,8 @@
     {
         "storageLocation": {
             "id": "a3558960-5974-429d-ad93-af3f692692a1",
-            "name": "Room 3, Shelf C2"
+            "name": "Room 3, Shelf C2",
+            "description": " Contains disinfectants and bleaching agents for industrial applications."
         },
         "reagents": [
             {
@@ -642,7 +654,8 @@
     {
         "storageLocation": {
             "id": "ca041029-15f8-48f6-bf8f-517b962b8aa7",
-            "name": "Room 5, Shelf A1"
+            "name": "Room 5, Shelf A1",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -701,7 +714,8 @@
     {
         "storageLocation": {
             "id": "4cfb358c-f66a-4b73-bb34-6e77fc674f86",
-            "name": "Room 1, Shelf A2"
+            "name": "Room 1, Shelf A2",
+            "description": " Contains disinfectants and bleaching agents for industrial applications."
         },
         "reagents": [
             {
@@ -743,7 +757,8 @@
     {
         "storageLocation": {
             "id": "86c957ef-7c63-4e85-8aee-77a5bdfe9d58",
-            "name": "Room 4, Shelf A3"
+            "name": "Room 4, Shelf A3",
+            "description": " Stocked with low-stock items like Silver Nitrate for explosives and fertilizers."
         },
         "reagents": [
             {
@@ -768,7 +783,8 @@
     {
         "storageLocation": {
             "id": "d5b32084-18e4-436f-8f77-aafba352af8a",
-            "name": "Room 1, Shelf C3"
+            "name": "Room 1, Shelf C3",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -844,7 +860,8 @@
     {
         "storageLocation": {
             "id": "08a76108-1204-4a7d-b295-8488ad1c259e",
-            "name": "Room 4, Shelf A2"
+            "name": "Room 4, Shelf A2",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -920,7 +937,8 @@
     {
         "storageLocation": {
             "id": "73d175a5-b339-4d85-992b-ac21ae7e24bb",
-            "name": "Room 1, Shelf A3"
+            "name": "Room 1, Shelf A3",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -945,7 +963,8 @@
     {
         "storageLocation": {
             "id": "2046edd2-1ec4-48ec-a8b7-9ab7b1d352c1",
-            "name": "Room 5, Shelf D2"
+            "name": "Room 5, Shelf D2",
+            "description": " Contains disinfectants and bleaching agents for industrial applications."
         },
         "reagents": [
             {
@@ -987,7 +1006,8 @@
     {
         "storageLocation": {
             "id": "2c7c19d2-a0a0-44ff-88ea-b0eddd671277",
-            "name": "Room 3, Shelf A2"
+            "name": "Room 3, Shelf A2",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -1063,7 +1083,8 @@
     {
         "storageLocation": {
             "id": "3d568e6d-d2f1-4844-a24f-58ec28b570c7",
-            "name": "Room 2, Shelf A3"
+            "name": "Room 2, Shelf A3",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -1122,7 +1143,8 @@
     {
         "storageLocation": {
             "id": "7f61d297-225b-4421-885f-6e0185808a24",
-            "name": "Room 1, Shelf D2"
+            "name": "Room 1, Shelf D2",
+            "description": " Contains disinfectants and bleaching agents for industrial applications."
         },
         "reagents": [
             {
@@ -1147,7 +1169,8 @@
     {
         "storageLocation": {
             "id": "3741fb1d-0d91-4232-9330-ef3faebc8442",
-            "name": "Room 2, Shelf B2"
+            "name": "Room 2, Shelf B2",
+            "description": " Stocked with low-stock items like Silver Nitrate for explosives and fertilizers."
         },
         "reagents": [
             {
@@ -1206,7 +1229,8 @@
     {
         "storageLocation": {
             "id": "bfe82536-4cd6-4df2-b238-8f6b9baea10b",
-            "name": "Room 1, Shelf C4"
+            "name": "Room 1, Shelf C4",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -1282,7 +1306,8 @@
     {
         "storageLocation": {
             "id": "d940e206-e555-4c93-8818-c13e49def1b5",
-            "name": "Room 2, Shelf D3"
+            "name": "Room 2, Shelf D3",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -1307,7 +1332,8 @@
     {
         "storageLocation": {
             "id": "364105ee-5724-4ab8-a2ac-f146035514f8",
-            "name": "Room 2, Shelf B1"
+            "name": "Room 2, Shelf B1",
+            "description": " Contains disinfectants and bleaching agents for industrial applications."
         },
         "reagents": [
             {
@@ -1349,7 +1375,8 @@
     {
         "storageLocation": {
             "id": "6b3747ad-a29c-442f-9544-75c7cebd9164",
-            "name": "Room 4, Shelf C3"
+            "name": "Room 4, Shelf C3",
+            "description": " Stocked with low-stock items like Silver Nitrate for explosives and fertilizers."
         },
         "reagents": [
             {
@@ -1408,7 +1435,8 @@
     {
         "storageLocation": {
             "id": "5b3af013-82b4-48d2-8478-dfc48e8ef29e",
-            "name": "Room 4, Shelf B1"
+            "name": "Room 4, Shelf B1",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -1484,7 +1512,8 @@
     {
         "storageLocation": {
             "id": "99cef1bd-fba7-4ff9-83ee-90004d2fe231",
-            "name": "Room 2, Shelf D2"
+            "name": "Room 2, Shelf D2",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -1509,7 +1538,8 @@
     {
         "storageLocation": {
             "id": "bfcfae95-af9e-4017-99df-c4832d454a11",
-            "name": "Room 1, Shelf C2"
+            "name": "Room 1, Shelf C2",
+            "description": " Stocked with low-stock items like Silver Nitrate for explosives and fertilizers."
         },
         "reagents": [
             {
@@ -1568,7 +1598,8 @@
     {
         "storageLocation": {
             "id": "8450cca3-dbc6-4aed-820f-e6ed924b26b3",
-            "name": "Room 2, Shelf C3"
+            "name": "Room 2, Shelf C3",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -1610,7 +1641,8 @@
     {
         "storageLocation": {
             "id": "d4dc2668-f763-43b9-8c2c-efb121ddd83a",
-            "name": "Room 1, Shelf A1"
+            "name": "Room 1, Shelf A1",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -1669,7 +1701,8 @@
     {
         "storageLocation": {
             "id": "01e20373-c176-4dcc-9355-2fb02b4df9ec",
-            "name": "Room 2, Shelf C2"
+            "name": "Room 2, Shelf C2",
+            "description": " Stocked with low-stock items like Silver Nitrate for explosives and fertilizers."
         },
         "reagents": [
             {
@@ -1694,7 +1727,8 @@
     {
         "storageLocation": {
             "id": "34d3aecf-dc5d-4e97-a563-3565d306a1bd",
-            "name": "Room 4, Shelf D3"
+            "name": "Room 4, Shelf D3",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -1736,7 +1770,8 @@
     {
         "storageLocation": {
             "id": "187e6f17-542c-49de-b286-ad343591ed27",
-            "name": "Room 3, Shelf A1"
+            "name": "Room 3, Shelf A1",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -1795,7 +1830,8 @@
     {
         "storageLocation": {
             "id": "2b9c7dda-0e57-4362-9bf3-a9a61c7a10f9",
-            "name": "Room 3, Shelf B1"
+            "name": "Room 3, Shelf B1",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -1837,7 +1873,8 @@
     {
         "storageLocation": {
             "id": "f526ea5d-2e82-435e-95f4-90fdb353d563",
-            "name": "Room 5, Shelf C3"
+            "name": "Room 5, Shelf C3",
+            "description": " Stocked with low-stock items like Silver Nitrate for explosives and fertilizers."
         },
         "reagents": [
             {
@@ -1862,7 +1899,8 @@
     {
         "storageLocation": {
             "id": "c119adbd-163c-479a-a238-0926484263b4",
-            "name": "Room 5, Shelf D3"
+            "name": "Room 5, Shelf D3",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -1887,7 +1925,8 @@
     {
         "storageLocation": {
             "id": "132a6bf8-e84b-45ae-8a5d-c9513b6ebf24",
-            "name": "Room 5, Shelf B1"
+            "name": "Room 5, Shelf B1",
+            "description": " Stocked with low-stock items like Silver Nitrate for explosives and fertilizers."
         },
         "reagents": [
             {
@@ -1912,7 +1951,8 @@
     {
         "storageLocation": {
             "id": "2aeeffa0-f6c8-4e7e-a72a-9e3b4a838920",
-            "name": "Room 5, Shelf C4"
+            "name": "Room 5, Shelf C4",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -1937,7 +1977,8 @@
     {
         "storageLocation": {
             "id": "6f64f702-da7a-4c4a-9759-133b9954bee5",
-            "name": "Room 2, Shelf C4"
+            "name": "Room 2, Shelf C4",
+            "description": " Stocked with low-stock items like Silver Nitrate for explosives and fertilizers."
         },
         "reagents": [
             {
@@ -1962,7 +2003,8 @@
     {
         "storageLocation": {
             "id": "7e0fcb1c-c743-428d-be5d-bbfff4a711ec",
-            "name": "Room 1, Shelf B2"
+            "name": "Room 1, Shelf B2",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -1987,7 +2029,8 @@
     {
         "storageLocation": {
             "id": "246e4fbf-9b4f-4f77-a0af-acd9b97685a3",
-            "name": "Room 4, Shelf C4"
+            "name": "Room 4, Shelf C4",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -2029,7 +2072,8 @@
     {
         "storageLocation": {
             "id": "811b20a6-df39-4a42-9acb-e9db93f209a5",
-            "name": "Room 3, Shelf C4"
+            "name": "Room 3, Shelf C4",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -2054,7 +2098,8 @@
     {
         "storageLocation": {
             "id": "89a56312-48b1-4f68-9f87-c73c29ee2840",
-            "name": "Room 5, Shelf C"
+            "name": "Room 5, Shelf C",
+            "description": " Stocked with low-stock items like Silver Nitrate for explosives and fertilizers."
         },
         "reagents": [
             {
@@ -2079,7 +2124,8 @@
     {
         "storageLocation": {
             "id": "73fb80a1-5ccf-4742-9698-20bf3c906937",
-            "name": "Room 2, Shelf D"
+            "name": "Room 2, Shelf D",
+            "description": " Stocked with low-stock items like Silver Nitrate for explosives and fertilizers."
         },
         "reagents": [
             {
@@ -2104,7 +2150,8 @@
     {
         "storageLocation": {
             "id": "d5c547fb-9dca-4041-bfa8-ba53b2b85c4a",
-            "name": "Room 2, Shelf B"
+            "name": "Room 2, Shelf B",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -2129,7 +2176,8 @@
     {
         "storageLocation": {
             "id": "12c456df-3f9c-49c8-9df2-94a9c0a31f28",
-            "name": "Room 1, Shelf A"
+            "name": "Room 1, Shelf A",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -2154,7 +2202,8 @@
     {
         "storageLocation": {
             "id": "234e3b1d-8ab1-4f87-9020-3f456df3f9b8",
-            "name": "Room 4, Shelf E"
+            "name": "Room 4, Shelf E",
+            "description": " Stocked with low-stock items like Silver Nitrate for explosives and fertilizers."
         },
         "reagents": [
             {
@@ -2180,7 +2229,8 @@
     {
         "storageLocation": {
             "id": "d6f832c3-40a8-4e1c-b022-6d8b21d0f16c",
-            "name": "Room 1, Shelf B"
+            "name": "Room 1, Shelf B",
+            "description": " Contains disinfectants and bleaching agents for industrial applications."
         },
         "reagents": [
             {
@@ -2205,7 +2255,8 @@
     {
         "storageLocation": {
             "id": "9bd8621c-51b7-4d72-8f78-4d0b0a1b5b77",
-            "name": "Room 3, Shelf C"
+            "name": "Room 3, Shelf C",
+            "description": " Stocked with low-stock items like Silver Nitrate for explosives and fertilizers."
         },
         "reagents": [
             {
@@ -2230,7 +2281,8 @@
     {
         "storageLocation": {
             "id": "8efad234-63f4-4b7f-9364-82c77f5e0c3b",
-            "name": "Room 2, Shelf F"
+            "name": "Room 2, Shelf F",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -2255,7 +2307,8 @@
     {
         "storageLocation": {
             "id": "bf7f8520-4a7e-4a3b-97e5-b342c8b4c2d6",
-            "name": "Room 4, Shelf D"
+            "name": "Room 4, Shelf D",
+            "description": " Stocked with low-stock items like Silver Nitrate for explosives and fertilizers."
         },
         "reagents": [
             {
@@ -2280,7 +2333,8 @@
     {
         "storageLocation": {
             "id": "82a7e31e-8f88-490f-8dd5-35d3f8df63c3",
-            "name": "Room 5, Shelf E"
+            "name": "Room 5, Shelf E",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -2305,7 +2359,8 @@
     {
         "storageLocation": {
             "id": "d9025f4c-b3e8-4b72-9647-e78c1a72c87f",
-            "name": "Room 1, Shelf F"
+            "name": "Room 1, Shelf F",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -2330,7 +2385,8 @@
     {
         "storageLocation": {
             "id": "47d23718-5f12-4a1b-bb6d-11b8f3bc452a",
-            "name": "Room 3, Shelf G"
+            "name": "Room 3, Shelf G",
+            "description": " Contains disinfectants and bleaching agents for industrial applications."
         },
         "reagents": [
             {
@@ -2355,7 +2411,8 @@
     {
         "storageLocation": {
             "id": "c3f824a9-2b4b-4b23-8a8e-58b4c7f24e5a",
-            "name": "Room 2, Shelf H"
+            "name": "Room 2, Shelf H",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -2380,7 +2437,8 @@
     {
         "storageLocation": {
             "id": "e7b482a1-62c8-4c3e-843e-274c3f88df15",
-            "name": "Room 4, Shelf J"
+            "name": "Room 4, Shelf J",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -2405,7 +2463,8 @@
     {
         "storageLocation": {
             "id": "d99f8320-f482-41a8-ae16-4b6e5d3fce2e",
-            "name": "Room 6, Shelf B"
+            "name": "Room 6, Shelf B",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -2430,7 +2489,8 @@
     {
         "storageLocation": {
             "id": "38a6b16f-341c-431b-9364-4e28592dfc43",
-            "name": "Room 5, Shelf E"
+            "name": "Room 5, Shelf E",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -2455,7 +2515,8 @@
     {
         "storageLocation": {
             "id": "5ab8c61e-10b3-4c3d-911c-8c345f8b3a16",
-            "name": "Room 2, Shelf F"
+            "name": "Room 2, Shelf F",
+            "description": " Stocked with low-stock items like Silver Nitrate for explosives and fertilizers."
         },
         "reagents": [
             {
@@ -2480,7 +2541,8 @@
     {
         "storageLocation": {
             "id": "a6d4f71f-22c5-43a8-a7d6-5c9e8f1a3d29",
-            "name": "Room 1, Shelf G"
+            "name": "Room 1, Shelf G",
+            "description": " Contains disinfectants and bleaching agents for industrial applications."
         },
         "reagents": [
             {
@@ -2505,7 +2567,8 @@
     {
         "storageLocation": {
             "id": "c9a8d92f-b2a1-4f5d-b8a7-d3a6f8f3c6a1",
-            "name": "Room 3, Shelf I"
+            "name": "Room 3, Shelf I",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -2530,7 +2593,8 @@
     {
         "storageLocation": {
             "id": "b1f4a3d8-39a2-4c5f-9b8e-f3d5a9c2e6f1",
-            "name": "Room 6, Shelf A"
+            "name": "Room 6, Shelf A",
+            "description": "Houses cleaning agents and disinfectants, ideal for agricultural purposes."
         },
         "reagents": [
             {
@@ -2555,7 +2619,8 @@
     {
         "storageLocation": {
             "id": "1d7f54a5-4d2b-47be-a7c4-0a07e8b2385c",
-            "name": "Room 2, Shelf A3"
+            "name": "Room 2, Shelf A3",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -2597,7 +2662,8 @@
     {
         "storageLocation": {
             "id": "3f2c76ad-74be-4f43-a729-3a57f4a68d42",
-            "name": "Room 3, Shelf C1"
+            "name": "Room 3, Shelf C1",
+            "description": "Houses cleaning agents and disinfectants, ideal for agricultural purposes."
         },
         "reagents": [
             {
@@ -2639,7 +2705,8 @@
     {
         "storageLocation": {
             "id": "7a3e4df8-283f-4b9e-96e2-4628bd5f9ed5",
-            "name": "Room 1, Shelf D2"
+            "name": "Room 1, Shelf D2",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -2681,7 +2748,8 @@
     {
         "storageLocation": {
             "id": "1d7f54a5-4d2b-47be-a7c4-0a07e8b2385c",
-            "name": "Room 2, Shelf A3"
+            "name": "Room 2, Shelf A3",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -2723,7 +2791,8 @@
     {
         "storageLocation": {
             "id": "3f2c76ad-74be-4f43-a729-3a57f4a68d42",
-            "name": "Room 3, Shelf C1"
+            "name": "Room 3, Shelf C1",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -2765,7 +2834,8 @@
     {
         "storageLocation": {
             "id": "7a3e4df8-283f-4b9e-96e2-4628bd5f9ed5",
-            "name": "Room 1, Shelf D2"
+            "name": "Room 1, Shelf D2",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -2807,7 +2877,8 @@
     {
         "storageLocation": {
             "id": "5c9e65e4-1e7b-4c90-8e0d-54b7a2fa6b16",
-            "name": "Room 4, Shelf B1"
+            "name": "Room 4, Shelf B1",
+            "description": "Houses cleaning agents and disinfectants, ideal for agricultural purposes."
         },
         "reagents": [
             {
@@ -2849,7 +2920,8 @@
     {
         "storageLocation": {
             "id": "4c1f5e2e-5c8d-4f3a-8d9a-3e4a7f5c2e8d",
-            "name": "Room 5, Shelf C3"
+            "name": "Room 5, Shelf C3",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -2891,7 +2963,8 @@
     {
         "storageLocation": {
             "id": "1d7f54a5-4d2b-47be-a7c4-0a07e8b2385c",
-            "name": "Room 2, Shelf A3"
+            "name": "Room 2, Shelf A3",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -2933,7 +3006,8 @@
     {
         "storageLocation": {
             "id": "3f2c76ad-74be-4f43-a729-3a57f4a68d42",
-            "name": "Room 3, Shelf C1"
+            "name": "Room 3, Shelf C1",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -2975,7 +3049,8 @@
     {
         "storageLocation": {
             "id": "7a3e4df8-283f-4b9e-96e2-4628bd5f9ed5",
-            "name": "Room 1, Shelf D2"
+            "name": "Room 1, Shelf D2",
+            "description": " Contains disinfectants and bleaching agents for industrial applications."
         },
         "reagents": [
             {
@@ -3017,7 +3092,8 @@
     {
         "storageLocation": {
             "id": "5c9e65e4-1e7b-4c90-8e0d-54b7a2fa6b16",
-            "name": "Room 4, Shelf B1"
+            "name": "Room 4, Shelf B1",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -3059,7 +3135,8 @@
     {
         "storageLocation": {
             "id": "4c1f5e2e-5c8d-4f3a-8d9a-3e4a7f5c2e8d",
-            "name": "Room 5, Shelf C3"
+            "name": "Room 5, Shelf C3",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -3101,7 +3178,8 @@
     {
         "storageLocation": {
             "id": "2ecb0dc1-1cc6-44c8-93e3-ff1646ebadca",
-            "name": "Room 1, Shelf A1"
+            "name": "Room 1, Shelf A1",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -3143,7 +3221,8 @@
     {
         "storageLocation": {
             "id": "c4fe1cd6-a0bb-467f-8256-9b0da0aec61f",
-            "name": "Room 1, Shelf B2"
+            "name": "Room 1, Shelf B2",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -3185,7 +3264,8 @@
     {
         "storageLocation": {
             "id": "3d568e6d-d2f1-4844-a24f-58ec28b570c7",
-            "name": "Room 2, Shelf A3"
+            "name": "Room 2, Shelf A3",
+            "description": "Houses cleaning agents and disinfectants, ideal for agricultural purposes."
         },
         "reagents": [
             {
@@ -3227,7 +3307,8 @@
     {
         "storageLocation": {
             "id": "86c957ef-7c63-4e85-8aee-77a5bdfe9d58",
-            "name": "Room 4, Shelf D3"
+            "name": "Room 4, Shelf D3",
+            "description": " Contains disinfectants and bleaching agents for industrial applications."
         },
         "reagents": [
             {
@@ -3252,7 +3333,8 @@
     {
         "storageLocation": {
             "id": "a825fba0-48e3-4a07-92ac-c8dac964b8bc",
-            "name": "Room 3, Shelf A1"
+            "name": "Room 3, Shelf A1",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -3294,7 +3376,8 @@
     {
         "storageLocation": {
             "id": "ca041029-15f8-48f6-bf8f-517b962b8aa7",
-            "name": "Room 2, Shelf A1"
+            "name": "Room 2, Shelf A1",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -3336,7 +3419,8 @@
     {
         "storageLocation": {
             "id": "d5b32084-18e4-436f-8f77-aafba352af8a",
-            "name": "Room 1, Shelf C3"
+            "name": "Room 1, Shelf C3",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -3378,7 +3462,8 @@
     {
         "storageLocation": {
             "id": "a2c2ae34-232e-4cbd-9c95-563bd4637e66",
-            "name": "Room 3, Shelf C2"
+            "name": "Room 3, Shelf C2",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -3420,7 +3505,8 @@
     {
         "storageLocation": {
             "id": "9a0f2e5b-8037-4b21-923a-5ab28d3a8a88",
-            "name": "Room 1, Shelf B1"
+            "name": "Room 1, Shelf B1",
+            "description": "Houses cleaning agents and disinfectants, ideal for agricultural purposes."
         },
         "reagents": [
             {
@@ -3462,7 +3548,8 @@
     {
         "storageLocation": {
             "id": "c8cba843-0846-4b7b-b5f8-b6c2327a6737",
-            "name": "Room 2, Shelf C3"
+            "name": "Room 2, Shelf C3",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -3504,7 +3591,8 @@
     {
         "storageLocation": {
             "id": "4cb2dada-884e-49cf-bb74-49b7f0e3f27b",
-            "name": "Room 3, Shelf A2"
+            "name": "Room 3, Shelf A2",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -3529,7 +3617,8 @@
     {
         "storageLocation": {
             "id": "d4a0c4b2-b64d-4c73-a8b7-830b5456c462",
-            "name": "Room 4, Shelf D1"
+            "name": "Room 4, Shelf D1",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -3554,7 +3643,8 @@
     {
         "storageLocation": {
             "id": "b7345f83-327a-45b5-bc42-6cda6b9b6f5a",
-            "name": "Room 5, Shelf C1"
+            "name": "Room 5, Shelf C1",
+            "description": " Contains disinfectants and bleaching agents for industrial applications."
         },
         "reagents": [
             {
@@ -3596,7 +3686,8 @@
     {
         "storageLocation": {
             "id": "fa2a3d2a-fc16-4c48-9b32-04c8f625b273",
-            "name": "Room 2, Shelf D3"
+            "name": "Room 2, Shelf D3",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -3621,7 +3712,8 @@
     {
         "storageLocation": {
             "id": "4ac4e732-118b-4853-abc8-bcb5c37f125e",
-            "name": "Room 3, Shelf B1"
+            "name": "Room 3, Shelf B1",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -3646,7 +3738,8 @@
     {
         "storageLocation": {
             "id": "8fc2e58e-f625-471f-9ff4-f8d2689c5d4d",
-            "name": "Room 4, Shelf C2"
+            "name": "Room 4, Shelf C2",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -3671,7 +3764,8 @@
     {
         "storageLocation": {
             "id": "6c7af00f-9e93-4c6d-bd27-4b9d8197f5cf",
-            "name": "Room 5, Shelf A3"
+            "name": "Room 5, Shelf A3",
+            "description": "Houses cleaning agents and disinfectants, ideal for agricultural purposes."
         },
         "reagents": [
             {
@@ -3696,7 +3790,8 @@
     {
         "storageLocation": {
             "id": "7f0b8f67-c5a4-4e87-95cf-3048c6a9c7a7",
-            "name": "Room 3, Shelf C1"
+            "name": "Room 3, Shelf C1",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -3721,7 +3816,8 @@
     {
         "storageLocation": {
             "id": "4d5a8f34-a897-4b63-9293-92a8b647d4c2",
-            "name": "Room 2, Shelf D2"
+            "name": "Room 2, Shelf D2",
+            "description": "Houses cleaning agents and disinfectants, ideal for agricultural purposes."
         },
         "reagents": [
             {
@@ -3746,7 +3842,8 @@
     {
         "storageLocation": {
             "id": "7a8b2c7f-112e-4cb8-92d1-9a6d5e7a94b8",
-            "name": "Room 3, Shelf D3"
+            "name": "Room 3, Shelf D3",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -3771,7 +3868,8 @@
     {
         "storageLocation": {
             "id": "3e9d8a3d-bf7b-47b8-a2c5-62f94f63d1b7",
-            "name": "Room 4, Shelf B2"
+            "name": "Room 4, Shelf B2",
+            "description": "Houses cleaning agents and disinfectants, ideal for agricultural purposes."
         },
         "reagents": [
             {
@@ -3796,7 +3894,8 @@
     {
         "storageLocation": {
             "id": "8f5d2d8b-4a9e-409b-b47f-12345678abcd",
-            "name": "Room 1, Shelf C3"
+            "name": "Room 1, Shelf C3",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -3821,7 +3920,8 @@
     {
         "storageLocation": {
             "id": "abcd1234-5678-4cde-90ab-3456f7890bcd",
-            "name": "Room 5, Shelf D1"
+            "name": "Room 5, Shelf D1",
+            "description": "Houses cleaning agents and disinfectants, ideal for agricultural purposes."
         },
         "reagents": [
             {
@@ -3846,7 +3946,8 @@
     {
         "storageLocation": {
             "id": "5f6d8b9c-1234-4a5d-6789-bcd1e2f34567",
-            "name": "Room 2, Shelf A1"
+            "name": "Room 2, Shelf A1",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -3871,7 +3972,8 @@
     {
         "storageLocation": {
             "id": "7e8d9f6b-4321-4c2d-89ab-5432d1c7e8a9",
-            "name": "Room 1, Shelf D2"
+            "name": "Room 1, Shelf D2",
+            "description": "Stores essential acidic reagents, primarily for agricultural and photographic use."
         },
         "reagents": [
             {
@@ -3896,7 +3998,8 @@
     {
         "storageLocation": {
             "id": "5b7a8c9d-4321-4a6f-b9a0-c1d2e3f4b5a6",
-            "name": "Room 3, Shelf C2"
+            "name": "Room 3, Shelf C2",
+            "description": "Houses cleaning agents and disinfectants, ideal for agricultural purposes."
         },
         "reagents": [
             {
@@ -3921,7 +4024,8 @@
     {
         "storageLocation": {
             "id": "9c0b8d7e-4321-5f4a-b8c7-2d3f1c6a7e5d",
-            "name": "Room 4, Shelf B3"
+            "name": "Room 4, Shelf B3",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
@@ -3946,7 +4050,8 @@
     {
         "storageLocation": {
             "id": "8a5b9c0d-4321-4f7a-6c8d-1e2f3a4b7d6e",
-            "name": "Room 2, Shelf D1"
+            "name": "Room 2, Shelf D1",
+            "description": " Holds basic reagents for tanning, dyeing, and industrial processes."
         },
         "reagents": [
             {
