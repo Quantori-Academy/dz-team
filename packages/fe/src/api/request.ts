@@ -2,6 +2,7 @@ import ky, { Input, Options } from "ky";
 import { z, ZodType } from "zod";
 
 import { config } from "config";
+import { $auth } from "stores/auth";
 import { wait } from "utils";
 
 import { handleError } from "./errorHandler";
@@ -75,13 +76,20 @@ export async function request<TT extends ZodType, T = z.infer<TT>, K = T>(
         showErrorNotification?: boolean;
         throwOnError?: boolean;
         shouldAffectIsLoading?: boolean;
-    },
+    }
 ): Promise<T | K | undefined> {
+    const auth = $auth.getState();
+    const token = auth ? auth.token : null;
     try {
         if (options?.shouldAffectIsLoading) {
             incrementLoading();
         }
-        const response = await api<{ data: T[] }>(url, options).json(); // TODO: fix type asserion
+        const headers = {
+            Authorization: `Bearer ${token}`,
+            ...options?.headers,
+        };
+
+        const response = await api<{ data: T[] }>(url, { ...options, headers }).json(); // TODO: fix type asserion
 
         let value: T;
 
