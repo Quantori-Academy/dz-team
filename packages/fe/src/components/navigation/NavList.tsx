@@ -42,6 +42,11 @@ const rolesNavLists: RoleToNavList = {
             details: "See the list of available reagents and reagent details",
         },
         {
+            href: "/reagentRequestPage",
+            title: "Reagent Request",
+            details: "ReagentRequestPage",
+        },
+        {
             href: "/samples",
             title: "Samples",
             details: "Explore existing samples or create new ones",

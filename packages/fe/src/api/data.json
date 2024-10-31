@@ -167,5 +167,36 @@
     "/api/v1/auth/login": {
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcklkIjoiMTIzIiwiaWF0IjoxNTE2MjM5MDIyfQ.13w-xbkD5hYBV-LR73LTz3KOw1JijATmXIebjS6Y2Ww"
     },
-    "/api/v1/users/123": { "role": "admin" }
+    "/api/v1/users/123": { "role": "admin" },
+
+    "/api/v1/reagent-request": {
+        "data": [
+            {
+                "id": "1",
+                "userId": "User-001",
+                "reagentName": "Hexane",
+                "structure": "SMILES data",
+                "casNumber": "110-54-3",
+                "desiredQuantity": "500 ml",
+                "userComments": "Urgent request",
+                "procurementComments": "",
+                "status": "Pending",
+                "creationDate": "2024-10-29",
+                "dateModified": "2024-10-30"
+            },
+            {
+                "id": "2",
+                "userId": "User-002",
+                "reagentName": "Acetone",
+                "structure": "SMILES data",
+                "casNumber": "67-64-1",
+                "desiredQuantity": "200 ml",
+                "userComments": "Need it by tomorrow",
+                "procurementComments": "",
+                "status": "Ordered",
+                "creationDate": "2024-10-28",
+                "dateModified": "2024-10-30"
+            }
+        ]
+    }
 }
