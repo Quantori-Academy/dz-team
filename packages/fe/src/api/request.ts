@@ -83,16 +83,7 @@ export async function request<TT extends ZodType, T = z.infer<TT>, K = T>(
         }
         const response = await api<{ data: T[] }>(url, options).json(); // TODO: fix type asserion
 
-        let value: T;
-
-        // Check if the response is an array or a single object
-        if (response.data) {
-            // For list responses
-            value = contract.parse(response.data) as T;
-        } else {
-            // For single object responses
-            value = contract.parse(response) as T;
-        }
+        const value = contract.parse(response) as T;
 
         return options?.mapper ? options.mapper(value) : value;
     } catch (err) {
