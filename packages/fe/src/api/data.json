@@ -167,7 +167,8 @@
         {
             "storageLocation": {
                 "id": "2ecb0dc1-1cc6-44c8-93e3-ff1646ebadca",
-                "name": "Room 3, Shelf A3"
+                "name": "Room 3, Shelf A3",
+                "description": "Holds basic reagents for tanning, dyeing, and industrial processes."
             },
             "reagents": [
                 {
@@ -226,7 +227,8 @@
         {
             "storageLocation": {
                 "id": "c4fe1cd6-a0bb-467f-8256-9b0da0aec61f",
-                "name": "Room 5, Shelf B2"
+                "name": "Room 5, Shelf B2",
+                "description": "Reserved for organic reagents with industrial applications."
             },
             "reagents": [
                 {
@@ -285,7 +287,8 @@
         {
             "storageLocation": {
                 "id": "03e4f2ab-9c5b-41d9-866b-5d70e827399c",
-                "name": "Room 3, Shelf D3"
+                "name": "Room 3, Shelf D3",
+                "description": " Holds reagents for fertilizers and explosives, including Acetic Acid."
             },
             "reagents": [
                 {

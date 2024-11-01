@@ -1,7 +1,7 @@
 import { createEffect, sample } from "effector";
 import { createGate } from "effector-react";
 
-import { getStorage } from "api/storage/getStorage";
+import { getStorage, StorageType } from "api/storage/getStorage";
 import { genericDomain as domain } from "logger";
 
 export const fetchStorageFx = createEffect(async () => {
@@ -9,7 +9,7 @@ export const fetchStorageFx = createEffect(async () => {
     return response ?? [];
 });
 
-export const $StorageList = domain.createStore<unknown>([], { name: "$StorageList" });
+export const $StorageList = domain.createStore<StorageType>([], { name: "$StorageList" });
 
 export const StorageGate = createGate({ domain });
 

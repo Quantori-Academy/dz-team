@@ -23,6 +23,7 @@ const StorageReagentTypes = z.object({
 const StorageLocationTypes = z.object({
     id: z.string(),
     name: z.string(),
+    description: z.string(),
 });
 
 const StorageLocation = z.object({
@@ -30,7 +31,7 @@ const StorageLocation = z.object({
     reagents: z.array(StorageReagentTypes),
 });
 const ApiResponseType = z.array(StorageLocation);
-
+export type StorageType = z.infer<typeof ApiResponseType>;
 export const getStorage = async () => {
     const Storage = await request(`${base}/api/v1/storage-locations`, ApiResponseType);
     return Storage;
