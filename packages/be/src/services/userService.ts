@@ -27,7 +27,7 @@ export class UserService {
     async getSingleUser(
         userId: string,
         requesterId: string,
-        requesterRole: string
+        requesterRole: string,
     ): Promise<z.infer<typeof publicUserSchema> | null> {
         if (requesterRole === "admin") {
             // Admin can access any user's data
@@ -65,7 +65,7 @@ export class UserService {
      * @throws {Error} If passwords do not match or the user already exists.
      */
     async createUser(
-        userData: RegisterUser
+        userData: RegisterUser,
     ): Promise<Omit<RegisterUser, "password" | "confirmPassword"> | null> {
         const existingUser = await this.getUserByUsernameOrEmail(userData.username, userData.email);
         if (existingUser) {
@@ -105,7 +105,7 @@ export class UserService {
         userId: string,
         userData: UpdateUser,
         requesterId: string,
-        requesterRole: string
+        requesterRole: string,
     ): Promise<{ user: UpdateUser | null; mustChangePassword: boolean }> {
         const userToUpdate = await prisma.user.findUnique({ where: { id: userId } });
 
