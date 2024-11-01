@@ -5,9 +5,10 @@ import { useUserForm } from "hooks/useUserForm";
 
 const roles = ["admin", "researcher", "procurementOfficer"];
 
-const textfieldStyle = { width: "250px" };
+const textfieldStyle = { width: "200px" };
 const button = { width: "250px" };
-const BoxStyle = { display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" };
+const boxStyle = { display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" };
+const input = { display: "flex", alignItems: "center", gap: "10px" };
 interface AddUserFormProps {
     onClose: () => void;
 }
@@ -25,70 +26,79 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
     const { errors, handleSubmit } = useUserForm(refs);
 
     return (
-        <Box component="form" noValidate autoComplete="off" sx={BoxStyle}>
-            <TextField
-                label="Username"
-                name="username"
-                inputRef={refs.username}
-                error={!!errors.username}
-                helperText={errors.username}
-                margin="normal"
-                sx={textfieldStyle}
-                required={true}
-            />
-            <TextField
-                label="First Name"
-                name="firstName"
-                inputRef={refs.firstName}
-                error={!!errors.firstName}
-                helperText={errors.firstName}
-                margin="normal"
-                sx={textfieldStyle}
-                required={true}
-            />
-            <TextField
-                label="Last Name"
-                name="lastName"
-                inputRef={refs.lastName}
-                error={!!errors.lastName}
-                helperText={errors.lastName}
-                margin="normal"
-                sx={textfieldStyle}
-                required={true}
-            />
-            <TextField
-                label="Email"
-                name="email"
-                inputRef={refs.email}
-                error={!!errors.email}
-                helperText={errors.email}
-                margin="normal"
-                sx={textfieldStyle}
-                required={true}
-                type="email"
-            />
-            <TextField
-                label="Password"
-                name="password"
-                type="password"
-                inputRef={refs.password}
-                error={!!errors.password}
-                helperText={errors.password}
-                margin="normal"
-                sx={textfieldStyle}
-                required={true}
-            />
-            <TextField
-                label="Confirm Password"
-                name="confirmPassword"
-                type="password"
-                inputRef={refs.confirmPassword}
-                error={!!errors.confirmPassword}
-                helperText={errors.confirmPassword}
-                margin="normal"
-                sx={textfieldStyle}
-                required={true}
-            />
+        <Box component="form" noValidate autoComplete="off" sx={boxStyle}>
+            <Box sx={input}>
+                {" "}
+                <TextField
+                    label="Username"
+                    name="username"
+                    inputRef={refs.username}
+                    error={!!errors.username}
+                    helperText={errors.username}
+                    margin="normal"
+                    sx={textfieldStyle}
+                    required={true}
+                />
+                <TextField
+                    label="First Name"
+                    name="firstName"
+                    inputRef={refs.firstName}
+                    error={!!errors.firstName}
+                    helperText={errors.firstName}
+                    margin="normal"
+                    sx={textfieldStyle}
+                    required={true}
+                />
+            </Box>
+            <Box sx={input}>
+                {" "}
+                <TextField
+                    label="Last Name"
+                    name="lastName"
+                    inputRef={refs.lastName}
+                    error={!!errors.lastName}
+                    helperText={errors.lastName}
+                    margin="normal"
+                    sx={textfieldStyle}
+                    required={true}
+                />
+                <TextField
+                    label="Email"
+                    name="email"
+                    inputRef={refs.email}
+                    error={!!errors.email}
+                    helperText={errors.email}
+                    margin="normal"
+                    sx={textfieldStyle}
+                    required={true}
+                    type="email"
+                />
+            </Box>
+            <Box sx={input}>
+                {" "}
+                <TextField
+                    label="Password"
+                    name="password"
+                    type="password"
+                    inputRef={refs.password}
+                    error={!!errors.password}
+                    helperText={errors.password}
+                    margin="normal"
+                    sx={textfieldStyle}
+                    required={true}
+                />
+                <TextField
+                    label="Confirm Password"
+                    name="confirmPassword"
+                    type="password"
+                    inputRef={refs.confirmPassword}
+                    error={!!errors.confirmPassword}
+                    helperText={errors.confirmPassword}
+                    margin="normal"
+                    sx={textfieldStyle}
+                    required={true}
+                />
+            </Box>
             <TextField
                 select
                 label="Role"
@@ -107,7 +117,7 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     </MenuItem>
                 ))}
             </TextField>
-            <Box sx={BoxStyle}>
+            <Box sx={boxStyle}>
                 {" "}
                 <Button sx={button} variant="contained" color="primary" onClick={handleSubmit}>
                     Save User

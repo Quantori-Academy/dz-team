@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { addNewUserEvent, addUserFx } from "stores/users";
+import { addUserFx } from "stores/users";
 
 type FormErrors = {
     username?: string;
@@ -58,7 +58,6 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
         };
 
         if (validateForm(formData)) {
-            addNewUserEvent(formData);
             addUserFx(formData);
             setErrors({});
         }

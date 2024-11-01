@@ -53,3 +53,15 @@ sample({
     clock: fetchUsersFx.doneData,
     target: $UsersList,
 });
+
+// update event for  delete user
+sample({
+    clock: deleteUserFx,
+    target: deleteUserId,
+});
+
+// update event for  new user
+sample({
+    clock: addUserFx,
+    target: addNewUser,
+});

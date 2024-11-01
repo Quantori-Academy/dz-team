@@ -6,7 +6,7 @@ import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
 import { SupportedValue } from "utils/formatters";
 
-import { AddRecord } from "./AddRecord";
+import { AddRecord } from "./Addrecord";
 import { AddUserForm } from "./AddUserForm";
 
 type GridProps = {
@@ -113,7 +113,11 @@ export const Grid = ({ rows, headers, handleDeleteClick }: GridProps) => {
             <Modal open={isModalOpen} onClose={handleModalClose}>
                 <Box
                     sx={{
-                        width: 400,
+                        width: "500px",
+                        display: "flex",
+                        alignItems: "center",
+                        justifyContent: "center",
+
                         padding: 4,
                         margin: "auto",
                         marginTop: "10%",
