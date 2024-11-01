@@ -21,11 +21,12 @@ const Reagent = z.object({
     updatedAt: z.string().nullable(),
 });
 
-const ReagentsResponse = z.array(Reagent).optional();
+const ReagentsResponse = z.object({ data: z.array(Reagent) });
+
 export type ReagentType = z.infer<typeof Reagent>;
 
 export const getReagentsApi = async () => {
     const reagents = await request(`${base}/api/v1/reagents`, ReagentsResponse);
 
-    return reagents;
+    return reagents?.data;
 };
