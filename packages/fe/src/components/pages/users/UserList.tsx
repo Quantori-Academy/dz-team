@@ -1,7 +1,7 @@
 import { Box, Typography } from "@mui/material";
 import { useGate, useUnit } from "effector-react";
 
-import { $UsersList, deleteUserEvent, deleteUserFx, UsersGate } from "stores/users";
+import { $UsersList, deleteUserFx, deleteUserId, UsersGate } from "stores/users";
 
 import { Grid } from "../../userDataGrid/Grid";
 
@@ -25,7 +25,7 @@ export const UserList = () => {
 
     const handleDeleteClick = (id: string) => {
         deleteUserFx(id);
-        deleteUserEvent(id);
+        deleteUserId(id);
     };
 
     return (

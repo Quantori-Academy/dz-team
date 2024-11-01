@@ -25,13 +25,13 @@ export const addUserFx = createEffect(async (userData: NewUser) => {
     return response;
 });
 
-export const deleteUserEvent = createEvent<string>("deleteUserEvent");
-export const addNewUserEvent = createEvent<NewUser>("addNewUserEvent");
+export const deleteUserId = createEvent<string>("deleteUser");
+export const addNewUser = createEvent<NewUser>("addNewUser");
 
 // Update store after deleting and adding new user
-$UsersList.on(deleteUserEvent, (state, id) => state.filter((user) => user.id !== id));
+$UsersList.on(deleteUserId, (state, id) => state.filter((user) => user.id !== id));
 
-$UsersList.on(addNewUserEvent, (state, newUser) => {
+$UsersList.on(addNewUser, (state, newUser) => {
     const userToAdd = {
         ...newUser,
         password: undefined,
