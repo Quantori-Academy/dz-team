@@ -1,15 +1,12 @@
 import { Box, Typography } from "@mui/material";
-import { useNavigate } from "@tanstack/react-router";
 import { useGate, useUnit } from "effector-react";
 
-import { $UsersList, UsersGate } from "stores/users";
+import { $UsersList, deleteUserFx, UsersGate } from "stores/users";
 
-import { Grid } from "../../dataGrid/Grid";
+import { Grid } from "../../userDataGrid/Grid";
 
 const headers = [
-    { field: "userName", headerName: "User Name", width: 150 },
-    { field: "firstName", headerName: "First Name", width: 150 },
-    { field: "lastName", headerName: "Last name", width: 170 },
+    { field: "username", headerName: "User Name", width: 150 },
     { field: "email", headerName: "Email", width: 170 },
     { field: "role", headerName: "Role", width: 170 },
     { field: "lastLoginDate", headerName: "Last login date", width: 170 },
@@ -25,15 +22,15 @@ const boxStyles = {
 export const UserList = () => {
     useGate(UsersGate);
     const users = useUnit($UsersList);
-    const navigate = useNavigate();
 
-    const handleAddRecord = () => {
-        navigate({ to: "/newUser" });
+    const handleDeleteClick = (id: string) => {
+        deleteUserFx(id);
     };
+
     return (
         <Box sx={boxStyles}>
             <Typography variant="h5">User List</Typography>
-            <Grid rows={users} headers={headers} handleAddRecord={handleAddRecord} />
+            <Grid rows={users} headers={headers} handleDeleteClick={handleDeleteClick} />
         </Box>
     );
 };
