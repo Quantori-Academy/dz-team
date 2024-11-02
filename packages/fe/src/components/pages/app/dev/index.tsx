@@ -5,8 +5,7 @@ import { Box, Typography } from "@mui/material";
 
 import { fetchServerConnection } from "api/apiCalls";
 import { ModalExample } from "components/example/ModalExample";
-import { headers, mockData } from "components/pages/Table/mockData";
-import { Table } from "components/pages/Table/Table";
+import { MainList } from "components/pages/mainList/MainList";
 import { config } from "config";
 
 const logError = (err: unknown) => dev.info("{!offline}", err);
@@ -17,10 +16,6 @@ export function DevPage() {
     useEffect(() => {
         fetchServerConnection().then(setConnectionState).catch(logError);
     }, []);
-
-    const handleActionClick = () => {
-        alert(`click!`);
-    };
 
     return (
         <>
@@ -51,7 +46,7 @@ export function DevPage() {
                     Server connection: {connectionState ?? "no"}
                 </Typography>
             </Box>
-            <Typography variant="h4">Reagents Table</Typography>
+            <Typography variant="h4">Reagents (and Samples) List</Typography>
             <Box
                 sx={{
                     overflow: "auto",
@@ -60,12 +55,7 @@ export function DevPage() {
                     tableLayout: "fixed",
                 }}
             >
-                <Table
-                    data={mockData}
-                    headers={headers}
-                    actionLabel="Purchase"
-                    onActionClick={handleActionClick}
-                />
+                <MainList />
             </Box>
             <ModalExample />
         </>
