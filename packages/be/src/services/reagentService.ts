@@ -25,17 +25,7 @@ export class ReagentService {
      * @returns {Promise<Reagent[]>} An array of all non-deleted reagents.
      */
     async getAllReagents(queryString: ReagentSearch): Promise<SearchResults> {
-        const {
-            query,
-            page,
-            limit,
-            sortBy,
-            sortOrder,
-            searchBy,
-            category,
-            storageLocation,
-            status,
-        } = queryString;
+        const { query, page, limit, sortBy, sortOrder, searchBy, category, status } = queryString;
 
         // conditionally construct search conditions
         const searchConditions = query
@@ -51,7 +41,6 @@ export class ReagentService {
             AND: [
                 category ? { category } : {},
                 status ? { status } : {},
-                storageLocation ? { storageLocation } : {},
                 // SEARCH CONDITIONS
                 // include OR condition only if there are search conditions
                 searchConditions && searchConditions.length > 0 ? { OR: searchConditions } : {},

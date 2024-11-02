@@ -1,5 +1,5 @@
 import ky, { Input, Options } from "ky";
-import { Runtype, Static } from "runtypes";
+import { z, ZodType } from "zod";
 
 import { config } from "config";
 import { wait } from "utils";
@@ -44,14 +44,14 @@ const api = ky.create({
 
 /**
  *
- * Performs an asynchronous HTTP request and processes the response using a runtype contract, and uses a mapper to transform the result.
+ * Performs an asynchronous HTTP request and processes the response using a zod contract, and uses a mapper to transform the result.
  *
- * @template TT - The Runtype that defines the expected structure of the response.
- * @template T - The static type inferred from the Runtype (default is `rt.Static<TT>`).
+ * @template TT - The zod schema that defines the expected structure of the response.
+ * @template T - The static type inferred from the zod schema (default is `z.infer<TT>`).
  * @template K - The type returned by the mapper function (default is `T`).
  *
  * @param {Input} url - The URL or object to be used for the request.
- * @param {TT} contract - The Runtype contract used to validate the response.
+ * @param {TT} contract - The zod contract used to validate the response.
  * @param {Options & {
  *    mapper?: (val: T) => K;
  *    showErrorNotification?: boolean;
@@ -67,7 +67,7 @@ const api = ky.create({
  *
  * @throws {Error} - Throws an error if `throwOnError` is set to true.
  */
-export async function request<TT extends Runtype, T = Static<TT>, K = T>(
+export async function request<TT extends ZodType, T = z.infer<TT>, K = T>(
     url: Input,
     contract: TT,
     options?: Options & {
@@ -83,16 +83,7 @@ export async function request<TT extends Runtype, T = Static<TT>, K = T>(
         }
         const response = await api<{ data: T[] }>(url, options).json(); // TODO: fix type asserion
 
-        let value: T;
-
-        // Check if the response is an array or a single object
-        if (response.data) {
-            // For list responses
-            value = contract.check(response.data) as T;
-        } else {
-            // For single object responses
-            value = contract.check(response) as T;
-        }
+        const value = contract.parse(response) as T;
 
         return options?.mapper ? options.mapper(value) : value;
     } catch (err) {

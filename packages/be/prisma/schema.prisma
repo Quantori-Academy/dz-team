@@ -4,16 +4,10 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-
-
-
 // ***NOTE: run `npx prisma generate` to generate new zod schemas in `shared/generated/zod` every time a model in this file is modified***
 
-
-
-
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["postgresqlExtensions"]
 }
 
@@ -37,60 +31,66 @@ generator zod {
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+  provider   = "postgresql"
+  url        = env("DATABASE_URL")
   extensions = [rdkit]
 }
 
-  // with `dbgenerated("gen_random_uuid()")` UUID is generated on the DB level in POSTGRES
-  // with `uuid()` UUID is generated on Prisma level
-  // see "Native database functions" in Prisma docs
+// with `dbgenerated("gen_random_uuid()")` UUID is generated on the DB level in POSTGRES
+// with `uuid()` UUID is generated on Prisma level
+// see "Native database functions" in Prisma docs
 
-  // zod-prisma-types "rich-comment" after three slashes adds "Field validators"
-  // see zod-prisma-types docs for the syntax and zod docs for validators
-model Reagent {
-  // id              String     @id @default(uuid()) /// @zod.string.uuid()
-  id              String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
-  name            String     // Name of the reagent
-  structure       String?    // Stores the chemical structure
-  description     String     // Description of the reagent
-  quantity        Float      // Quantity left in stock
-  unit            String     // Unit of measurement (e.g., ml, g, etc.)
-  size            Float?     // Size of the reagent (e.g., 500 ml)
-  expirationDate  DateTime?  // Expiry date of the reagent
-  storageLocation String     @default("Room 23, Cabinet 2, Shelf 5")  // Storage location: Room, Cabinet, Shelf
-  cas             String?    // CAS number for reagent-specific info
-  producer        String?    // Manufacturer or supplier
-  catalogId       String?    // Catalog identifier
-  catalogLink     String?    // URL to the product catalog
-  pricePerUnit    Float?     // Price per unit
-  category        String?    // Category of the reagent ("organic", "inorganic", "acidic", "basic", "oxidizing", "reducing", "precipitating", "complexing", "indicator", "other")
-  status          String?    // Status of availability of the reagent ("available", "low_stock", "out_of_stock", "ordered", "not_available")
-  deletedAt       DateTime?  // Time of soft deletion
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
+// zod-prisma-types "rich-comment" after three slashes adds "Field validators"
+// see zod-prisma-types docs for the syntax and zod docs for validators
 
-    // Many-to-Many relation with Sample
-  samples         Sample[]   @relation("ReagentSamples")
+model StorageLocation {
+  id       String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  name     String // Name of the storage location
+  reagents Reagent[] @relation("StorageLocationReagents") // Establish a relation to Reagents
 }
 
+model Reagent {
+  // id              String     @id @default(uuid()) /// @zod.string.uuid()
+  id                String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  name              String // Name of the reagent
+  structure         String? // Stores the chemical structure
+  description       String // Description of the reagent
+  quantity          Float // Quantity left in stock
+  unit              String // Unit of measurement (e.g., ml, g, etc.)
+  size              Float? // Size of the reagent (e.g., 500 ml)
+  expirationDate    DateTime? // Expiry date of the reagent
+  storageLocationId String?       @db.Uuid /// @zod.string.uuid()
+  cas               String? // CAS number for reagent-specific info
+  producer          String? // Manufacturer or supplier
+  catalogId         String? // Catalog identifier
+  catalogLink       String? // URL to the product catalog
+  pricePerUnit      Float? // Price per unit
+  category          String? // Category of the reagent ("organic", "inorganic", "acidic", "basic", "oxidizing", "reducing", "precipitating", "complexing", "indicator", "other")
+  status            String? // Status of availability of the reagent ("available", "low_stock", "out_of_stock", "ordered", "not_available")
+  deletedAt         DateTime? // Time of soft deletion
+  createdAt         DateTime         @default(now())
+  updatedAt         DateTime         @updatedAt
+  // Many-to-Many relation with Sample
+  samples           Sample[]         @relation("ReagentSamples")
+  // One-to-Many relation with StorageLocation
+  storageLocation   StorageLocation? @relation("StorageLocationReagents", fields: [storageLocationId], references: [id])
+}
 
 model Sample {
   // id              String     @id @default(uuid()) /// @zod.string.uuid()
-  id              String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
-  title           String     // Title of the sample
-  description     String     // Description of the sample
-  structure       String?    // Chemical structure
-  initialQuantity Float      // Initial quantity of the sample
-  unit            String     // Unit of measurement (e.g., mg, ml, etc.)
-  deletedAt       DateTime?  // Time of soft deletion
-  createdAt       DateTime   @default(now())
-  updatedAt       DateTime   @updatedAt
+  id              String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  title           String // Title of the sample
+  description     String // Description of the sample
+  structure       String? // Chemical structure
+  initialQuantity Float // Initial quantity of the sample
+  unit            String // Unit of measurement (e.g., mg, ml, etc.)
+  deletedAt       DateTime? // Time of soft deletion
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
 
   // Many-to-Many relation with Reagent
-  reagents        Reagent[]  @relation("ReagentSamples")
+  reagents Reagent[] @relation("ReagentSamples")
 }
-
 
 enum Role {
   admin
@@ -99,16 +99,14 @@ enum Role {
 }
 
 model User {
-  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
-  username       String   @unique // username an unique field
-  firstName      String
-  lastName       String
-  email          String   @unique // email an unique field
-  password       String
-  role           Role
-  lastLoginDate  DateTime?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  id            String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  username      String    @unique // username an unique field
+  firstName     String
+  lastName      String
+  email         String    @unique // email an unique field
+  password      String
+  role          Role
+  lastLoginDate DateTime?
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
 }
-
-
