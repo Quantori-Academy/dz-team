@@ -1,10 +1,10 @@
 import { sample } from "effector";
 
-import { getreagentRequest, reagentRequestType } from "api/reagentRequest";
+import { getReagentRequest, reagentRequestType } from "api/reagentRequest";
 import { genericDomain } from "logger";
 
 export const reagentRequestFx = genericDomain.createEffect(async () => {
-    const response = await getreagentRequest();
+    const response = await getReagentRequest();
 
     if (response == null) {
         throw new Error("Reagent requests fail");

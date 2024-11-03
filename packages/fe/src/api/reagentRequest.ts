@@ -20,7 +20,7 @@ export const reagentRequestContract = z.array(reagentRequest);
 
 export type reagentRequestType = z.infer<typeof reagentRequestContract>;
 
-export const getreagentRequest = async () => {
+export const getReagentRequest = async () => {
     const response = await request(`${base}/api/v1/reagent-request`, reagentRequestContract, {
         method: "GET",
     });
