@@ -4,7 +4,7 @@ import {
 } from "../../../shared/generated/zod/inputTypeSchemas";
 import { StorageLocationController } from "../controllers/storageLocationController";
 import { FastifyZodInstance, Roles } from "../types"; // Ensure Roles is imported
-import { StorageLocationSearchSchema } from "shared/zodSchemas";
+import { StorageLocationSearchSchema } from "../../../shared/zodSchemas";
 
 const storageLocationController = new StorageLocationController();
 
