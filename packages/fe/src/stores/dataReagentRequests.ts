@@ -1,10 +1,22 @@
+import { sample } from "effector";
+
 import { getreagentRequest, reagentRequestType } from "api/reagentRequest";
 import { genericDomain } from "logger";
 
-export const reagentRequestFx = genericDomain.createEffect(() => {
-    const response = getreagentRequest();
+export const reagentRequestFx = genericDomain.createEffect(async () => {
+    const response = await getreagentRequest();
+
+    if (response == null) {
+        throw new Error("Reagent requests fail");
+    }
+
     return response;
 });
 
 export const $reagentRequestStore = genericDomain.createStore<reagentRequestType>([]);
-$reagentRequestStore.on(reagentRequestFx.done, (_, { result }) => result);
+
+// writes the result of reagentRequestFx to $reagentRequestStore
+sample({
+    clock: reagentRequestFx.doneData,
+    target: $reagentRequestStore,
+});
