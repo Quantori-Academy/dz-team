@@ -5,8 +5,8 @@
     "type": "module",
     "scripts": {
         "dev": "vite",
-        "build": "tsc -b && cross-env NODE_ENV=production vite build",
-        "build:dev": "tsc -b && cross-env NODE_ENV=development vite build --mode development",
+        "build": "tsr generate && tsc -b && cross-env NODE_ENV=production vite build",
+        "build:dev": "tsr generate && tsc -b && cross-env NODE_ENV=development vite build --mode development",
         "preview": "yarn build:dev && vite preview",
         "prod": "yarn build && vite preview"
     },
