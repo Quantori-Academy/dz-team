@@ -5,7 +5,6 @@ import { Box, Typography } from "@mui/material";
 
 import { fetchServerConnection } from "api/apiCalls";
 import { ModalExample } from "components/example/ModalExample";
-import { MainList } from "components/pages/mainList/MainList";
 import { config } from "config";
 
 const logError = (err: unknown) => dev.info("{!offline}", err);
@@ -45,16 +44,6 @@ export function DevPage() {
                 >
                     Server connection: {connectionState ?? "no"}
                 </Typography>
-            </Box>
-            <Box
-                sx={{
-                    overflow: "auto",
-                    width: "100%",
-                    display: "table",
-                    tableLayout: "fixed",
-                }}
-            >
-                <MainList />
             </Box>
             <ModalExample />
         </>

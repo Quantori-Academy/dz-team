@@ -6,6 +6,8 @@ import { getNewReagents, ReagentsResponseType } from "api/newReagents";
 import { genericDomain } from "logger";
 import { Reagent } from "shared/generated/zod";
 
+import { deleteReagentEvent, updateReagentEvent } from "./reagents";
+
 export const searchableFields: (keyof Reagent)[] = [
     "name",
     "description",
@@ -98,7 +100,16 @@ sample({
 });
 
 sample({
-    clock: [setPagination, setSort, setQuery, setSearchByWithQueryEvent, MainListGate.open, search],
+    clock: [
+        setPagination,
+        setSort,
+        setQuery,
+        setSearchByWithQueryEvent,
+        MainListGate.open,
+        search,
+        deleteReagentEvent,
+        updateReagentEvent,
+    ],
     source: {
         pagination: $pagination,
         sort: $sort,

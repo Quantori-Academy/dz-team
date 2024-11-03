@@ -1,5 +1,6 @@
 import { Box, Button, Checkbox, FormControlLabel, TextField, Typography } from "@mui/material";
 import { DataGrid, GridColDef, GridSortModel, GridToolbar } from "@mui/x-data-grid";
+import { useNavigate } from "@tanstack/react-router";
 import { useGate, useUnit } from "effector-react";
 
 import {
@@ -40,6 +41,8 @@ const columns: GridColDef[] = [
 export const MainList = () => {
     useGate(MainListGate);
 
+    const navigate = useNavigate();
+
     const setPaginationModel = useUnit(setPagination);
     const paginationModel = useUnit($pagination);
 
@@ -68,6 +71,10 @@ export const MainList = () => {
 
     const handleSortModelChange = (sortModel: GridSortModel) => {
         setSortModel(sortModel);
+    };
+
+    const handleRowClick = (params: { row: { id: string } }) => {
+        navigate({ to: `/reagents/${params.row.id}`, replace: false });
     };
 
     return (
@@ -126,7 +133,6 @@ export const MainList = () => {
                     rows={result.data}
                     columns={columns}
                     slots={{ toolbar: GridToolbar }}
-                    checkboxSelection
                     pageSizeOptions={[5, 10, 25, 50, 100]}
                     paginationModel={paginationModel}
                     paginationMode="server"
@@ -142,6 +148,7 @@ export const MainList = () => {
                     loading={loading}
                     showColumnVerticalBorder
                     disableColumnFilter
+                    onRowClick={handleRowClick}
                 />
             </Box>
         </Box>
