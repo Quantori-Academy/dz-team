@@ -1,10 +1,12 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import { StorageLocationService } from "../services/storageLocationService";
+
 import {
     StorageLocationCreateInputSchema,
     StorageLocationUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
 import { idSchema, StorageLocationSearchSchema } from "../../../shared/zodSchemas";
+
+import { StorageLocationService } from "../services/storageLocationService";
 import { sendErrorResponse } from "../utils/handleErrors";
 
 const storageLocationService = new StorageLocationService();
