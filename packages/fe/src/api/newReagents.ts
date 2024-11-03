@@ -23,20 +23,14 @@ export const getNewReagents = async ({
     pageSize,
     sortBy,
     sortOrder,
-    category,
-    status,
     query,
-    storageLocation,
     searchBy,
 }: {
     page: number;
     pageSize: number;
     sortBy: string;
     sortOrder: GridSortDirection;
-    category?: string;
-    status?: string;
     query?: string;
-    storageLocation: string;
     searchBy: SearchBy;
 }) => {
     const searchParams = new URLSearchParams({
@@ -44,10 +38,7 @@ export const getNewReagents = async ({
         limit: pageSize.toString(),
         sortBy: sortBy,
         ...(sortOrder && { sortOrder }),
-        ...(category && { category }),
-        ...(status && { status }),
         ...(query && { query }),
-        storageLocation: storageLocation,
     });
 
     const searchByKeys = Object.entries(searchBy)

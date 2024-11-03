@@ -46,7 +46,6 @@ export function DevPage() {
                     Server connection: {connectionState ?? "no"}
                 </Typography>
             </Box>
-            <Typography variant="h4">Reagents (and Samples) List</Typography>
             <Box
                 sx={{
                     overflow: "auto",

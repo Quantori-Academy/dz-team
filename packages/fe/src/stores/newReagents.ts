@@ -24,10 +24,7 @@ export const MainListGate = createGate("MainList");
 
 export const setPagination = genericDomain.createEvent<{ page: number; pageSize: number }>();
 export const setSort = genericDomain.createEvent<GridSortModel>();
-export const setCategory = genericDomain.createEvent<string>();
-export const setStatus = genericDomain.createEvent<string>();
 export const setQuery = genericDomain.createEvent<string>();
-export const setStorageLocation = genericDomain.createEvent<string>();
 export const setSearchBy = genericDomain.createEvent<SearchBy>();
 export const search = genericDomain.createEvent();
 
@@ -37,20 +34,14 @@ export const newReagentsFx = genericDomain.createEffect(
         pageSize,
         sortBy,
         sortOrder,
-        category,
-        status,
         query,
-        storageLocation,
         searchBy,
     }: {
         page: number;
         pageSize: number;
         sortBy: string;
         sortOrder: GridSortDirection;
-        category?: string;
-        status?: string;
         query?: string;
-        storageLocation: string;
         searchBy: SearchBy;
     }) => {
         return getNewReagents({
@@ -58,10 +49,7 @@ export const newReagentsFx = genericDomain.createEffect(
             pageSize,
             sortBy,
             sortOrder,
-            category,
-            status,
             query,
-            storageLocation,
             searchBy,
         });
     },
@@ -86,10 +74,7 @@ export const $sort = genericDomain.createStore<GridSortModel>([
     },
 ]);
 
-export const $category = genericDomain.createStore("");
-export const $status = genericDomain.createStore("");
 export const $query = genericDomain.createStore("");
-export const $storageLocation = genericDomain.createStore("");
 export const $searchBy = genericDomain.createStore(
     searchableFields.reduce((acc, field) => ({ ...acc, [field]: true }), {} as SearchBy),
 );
@@ -97,42 +82,35 @@ export const $searchBy = genericDomain.createStore(
 $loading.on(newReagentsFx.pending, (_, pending) => pending);
 $pagination.on(setPagination, (_, result) => result);
 $sort.on(setSort, (_, result) => result);
-$category.on(setCategory, (_, result) => result);
-$status.on(setStatus, (_, result) => result);
+
 $query.on(setQuery, (_, result) => result);
-$storageLocation.on(setStorageLocation, (_, result) => result);
 $searchBy.on(setSearchBy, (_, result) => result);
 
+const setSearchByWithQueryEvent = genericDomain.createEvent();
+
 sample({
-    clock: [
-        setPagination,
-        setSort,
-        setCategory,
-        setStatus,
-        setQuery,
-        setStorageLocation,
-        setSearchBy,
-        MainListGate.open,
-        search,
-    ],
+    clock: [setSearchBy],
+    source: {
+        query: $query,
+    },
+    filter: ({ query }) => query !== "",
+    target: setSearchByWithQueryEvent,
+});
+
+sample({
+    clock: [setPagination, setSort, setQuery, setSearchByWithQueryEvent, MainListGate.open, search],
     source: {
         pagination: $pagination,
         sort: $sort,
-        category: $category,
-        status: $status,
         query: $query,
-        storageLocation: $storageLocation,
         searchBy: $searchBy,
     },
-    fn: ({ pagination, sort, category, status, query, storageLocation, searchBy }) => ({
+    fn: ({ pagination, sort, query, searchBy }) => ({
         page: pagination.page,
         pageSize: pagination.pageSize,
         sortBy: sort[0].field,
         sortOrder: sort[0].sort,
-        category: category,
-        status: status,
-        query: query,
-        storageLocation: storageLocation,
+        query,
         searchBy,
     }),
     target: newReagentsFx,

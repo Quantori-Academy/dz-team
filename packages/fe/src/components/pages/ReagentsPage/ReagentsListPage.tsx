@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Box, Button, Modal, Typography } from "@mui/material";
+import { Box, Button, Modal } from "@mui/material";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 import { useGate, useUnit } from "effector-react";
-import { theme } from "theme";
 
 import { $ReagentsList, fetchReagentsFx, ReagentsGate } from "stores/reagents";
 
@@ -51,9 +50,6 @@ export const ReagentsListPage = () => {
             <Box
                 sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "30px" }}
             >
-                <Typography variant="h3" sx={{ color: theme.palette.text.primary }}>
-                    Reagents List
-                </Typography>
                 <Button
                     variant="contained"
                     onClick={handleAddReagentClick}

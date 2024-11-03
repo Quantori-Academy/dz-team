@@ -1,36 +1,21 @@
-import {
-    Box,
-    Button,
-    Checkbox,
-    FormControlLabel,
-    MenuItem,
-    Select,
-    TextField,
-    Typography,
-} from "@mui/material";
+import { Box, Button, Checkbox, FormControlLabel, TextField, Typography } from "@mui/material";
 import { DataGrid, GridColDef, GridSortModel, GridToolbar } from "@mui/x-data-grid";
 import { useGate, useUnit } from "effector-react";
 
 import {
-    $category,
     $loading,
     $newReagents,
     $pagination,
     $query,
     $searchBy,
     $sort,
-    $status,
-    $storageLocation,
     MainListGate,
     search,
     searchableFields,
-    setCategory,
     setPagination,
     setQuery,
     setSearchBy,
     setSort,
-    setStatus,
-    setStorageLocation,
 } from "stores/newReagents";
 
 const columns: GridColDef[] = [
@@ -42,23 +27,15 @@ const columns: GridColDef[] = [
     { field: "unit", headerName: "Unit", width: 100, sortable: false },
     { field: "size", headerName: "Size", width: 100, sortable: false },
     { field: "expirationDate", headerName: "Expiration Date", width: 150 },
-    { field: "storageLocation", headerName: "Storage Location", width: 150 },
     { field: "cas", headerName: "CAS", width: 120 },
     { field: "producer", headerName: "Producer", width: 150 },
     { field: "catalogId", headerName: "Catalog ID", width: 120 },
     { field: "catalogLink", headerName: "Catalog Link", width: 150 },
     { field: "pricePerUnit", headerName: "Price Per Unit", width: 150 },
     { field: "category", headerName: "Category", width: 120 },
-    { field: "status", headerName: "Status", width: 120 },
     { field: "createdAt", headerName: "Created At", width: 150 },
     { field: "updatedAt", headerName: "Updated At", width: 150 },
 ];
-
-// currently requires server-side support
-const categoryOptions = ["reagent", "sample"];
-
-// to be discussed
-const statusOptions = ["available", "low_stock", "out_of_stock", "ordered", "not_available"];
 
 export const MainList = () => {
     useGate(MainListGate);
@@ -69,17 +46,8 @@ export const MainList = () => {
     const setSortModel = useUnit(setSort);
     const sortModel = useUnit($sort);
 
-    const setCategoryModel = useUnit(setCategory);
-    const categoryModel = useUnit($category);
-
-    const setStatusModel = useUnit(setStatus);
-    const statusModel = useUnit($status);
-
     const setQueryModel = useUnit(setQuery);
     const queryModel = useUnit($query);
-
-    const setStorageLocationModel = useUnit(setStorageLocation);
-    const storageLocationModel = useUnit($storageLocation);
 
     const setSearchByModel = useUnit(setSearchBy);
     const searchByModel = useUnit($searchBy);
@@ -110,39 +78,6 @@ export const MainList = () => {
                     variant="outlined"
                     value={queryModel}
                     onChange={(e) => setQueryModel(e.target.value)}
-                    sx={{ minWidth: 200 }}
-                />
-                <Select
-                    value={categoryModel}
-                    onChange={(e) => setCategoryModel(e.target.value)}
-                    displayEmpty
-                    sx={{ minWidth: 200 }}
-                >
-                    <MenuItem value="">All Categories</MenuItem>
-                    {categoryOptions.map((option) => (
-                        <MenuItem key={option} value={option}>
-                            {option.toUpperCase()}
-                        </MenuItem>
-                    ))}
-                </Select>
-                <Select
-                    value={statusModel}
-                    onChange={(e) => setStatusModel(e.target.value)}
-                    displayEmpty
-                    sx={{ minWidth: 200 }}
-                >
-                    <MenuItem value="">All Statuses</MenuItem>
-                    {statusOptions.map((option) => (
-                        <MenuItem key={option} value={option}>
-                            {option}
-                        </MenuItem>
-                    ))}
-                </Select>
-                <TextField
-                    label="Storage Location"
-                    variant="outlined"
-                    value={storageLocationModel}
-                    onChange={(e) => setStorageLocationModel(e.target.value)}
                     sx={{ minWidth: 200 }}
                 />
                 <Button
@@ -206,6 +141,7 @@ export const MainList = () => {
                     sortingOrder={["asc", "desc"]}
                     loading={loading}
                     showColumnVerticalBorder
+                    disableColumnFilter
                 />
             </Box>
         </Box>
