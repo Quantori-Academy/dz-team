@@ -72,6 +72,19 @@ model Reagent {
 
     // Many-to-Many relation with Sample
   samples         Sample[]   @relation("ReagentSamples")
+  // Many-to-One relation with StorageLocation
+  storageId       String            @db.Uuid /// @zod.string.uuid()
+  storage         StorageLocation   @relation(fields: [storageId], references: [id])
+}
+
+
+model StorageLocation {
+  id                    String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  room                  String        // room where the storage location is located (Autocomplete), e.g. Building 1, Room 12
+  name                  String        // exact location in the room(Autocomplete), e.g. Cabinet 1, shelf 3
+
+  // One-to-Many relation with Reagent
+  reagents              Reagent[]     @relation() // List of Reagents contained in the Storage
 }
 
 
@@ -110,5 +123,7 @@ model User {
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
 }
+
+
 
 
