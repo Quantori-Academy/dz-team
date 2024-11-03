@@ -1,5 +1,6 @@
-import { UserRole } from "api/self";
 import { useUnit } from "effector-react";
+
+import { UserRole } from "api/self";
 import { $auth } from "stores/auth";
 
 export const useSession = () => {

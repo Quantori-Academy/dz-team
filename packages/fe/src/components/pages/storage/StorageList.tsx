@@ -1,9 +1,8 @@
 import { Box } from "@mui/material";
 import { useGate, useUnit } from "effector-react";
 
-import { $StorageList, StorageGate } from "stores/storage";
-
 import { Grid } from "components/userDataGrid/Grid";
+import { $StorageList, StorageGate } from "stores/storage";
 
 const headers = [
     { field: "name", headerName: "Storage Name", width: 170 },

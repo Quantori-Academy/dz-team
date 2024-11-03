@@ -6,11 +6,12 @@ import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import { useUserForm } from "hooks/useUserForm";
 import PageviewIcon from "@mui/icons-material/Pageview";
 
+import { useSession } from "hooks/useSession";
+
 import { SupportedValue } from "utils/formatters";
 
 import { AddRecord } from "./Addrecord";
 import { AddUserForm } from "./AddUserForm";
-import { useSession } from "hooks/useSession";
 
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
@@ -70,7 +71,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                     <GridActionsCellItem
                         icon={<PageviewIcon />}
                         label="View"
-                        onClick={() => alert("View storage details")}
+                        onClick={() => alert("View item details")}
                         color="inherit"
                     />
 
