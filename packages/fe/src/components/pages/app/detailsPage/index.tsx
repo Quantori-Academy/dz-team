@@ -14,7 +14,7 @@ const $Typography = (props: React.PropsWithChildren) => (
 
 export function ReagentDetailsPage() {
     const [isEditing, setIsEditing] = useState(false);
-    const reagent = useLoaderData({ from: "/_app/reagents/$id" });
+    const reagent = useLoaderData({ from: "/_app/_researcherLayout/reagents/$id" });
     const isSmallScreen = useIsDesktop();
     const navigate = useNavigate();
 

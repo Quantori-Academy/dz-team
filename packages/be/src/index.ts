@@ -24,7 +24,7 @@ server.setSerializerCompiler(serializerCompiler);
 
 server.register(cors, {
     origin: corsOptions,
-    methods: ["GET", "POST"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
 });
 
 // Conditionally import the OpenAPI generator in non-production environments

@@ -20,12 +20,13 @@
         "effector": "^23.2.2",
         "effector-react": "^23.2.1",
         "immer": "^10.1.1",
+        "jwt-decode": "^4.0.0",
         "ky": "^1.7.2",
         "lodash": "^4.17.21",
         "patronum": "^2.2.0",
         "react": "^18.3.1",
         "react-dom": "^18.3.1",
-        "runtypes": "^6.7.0"
+        "zod": "^3.23.8"
     },
     "devDependencies": {
         "@tanstack/router-cli": "^1.74.2",
