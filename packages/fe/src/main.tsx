@@ -1,10 +1,13 @@
 import "./index.css";
 
-import { StrictMode } from "react";
+import { StrictMode, useEffect } from "react";
 import { createRoot } from "react-dom/client";
 import { createRouter, RouterProvider } from "@tanstack/react-router";
+import { useUnit } from "effector-react";
 import { NotFound } from "NotFound";
 import { routeTree } from "routeTree.gen.ts";
+
+import { $auth, sessionLoadFx } from "stores/auth";
 
 declare module "@tanstack/react-router" {
     interface Register {
@@ -15,14 +18,29 @@ declare module "@tanstack/react-router" {
 const router = createRouter({
     routeTree,
     defaultNotFoundComponent: () => <NotFound />,
+    context: {
+        auth: undefined!,
+    },
 });
 
 const rootEl = document.getElementById("root");
 if (!rootEl) {
     throw new Error("No root element found with id 'root'");
 }
-createRoot(rootEl).render(
-    <StrictMode>
-        <RouterProvider router={router} />
-    </StrictMode>,
-);
+
+export function Root() {
+    const auth = useUnit($auth);
+    const loadSession = useUnit(sessionLoadFx);
+
+    useEffect(() => {
+        loadSession();
+    }, [loadSession]);
+
+    return (
+        <StrictMode>
+            <RouterProvider router={router} context={{ auth }} />
+        </StrictMode>
+    );
+}
+
+createRoot(rootEl).render(<Root />);

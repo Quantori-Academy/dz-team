@@ -21,7 +21,6 @@ Project Luna is a Laboratory Information Management System (LIMS) for the [Mayfl
 5. Open `http://localhost:5173` in your browser to see the app
 6. For development with a local database, you need to follow the instructions in the **Database** section in the [backend README](packages/be/README.md) - short version is: install and start docker, run `yarn dev:db`, stop with `yarn stop:db`
 
-
 ## Vibes and mindset
 
 This project is a part of Quantori Academy JS course 2024, set to mimic a real-world project experience. **'Realistic'** means we're going for a quality product in a predefined time frame.
@@ -42,12 +41,15 @@ Here are a couple of things to keep in mind:
 -   Don't stop. Making mistakes fast is better than not moving at all. If you find yourself stuck on something for >30 minutes of active work, take a break, come back, look again and if no magic happens, ask for help.
 
 ## How to work with the project
+
 ### Project structure
+
 The project is a monorepo, which means it contains multiple packages in a single repository. So far we have `fe` and `be`, for frontend and backend respectively. Each package has its own `package.json` and `node_modules`, but they share the same `node_modules` in the root directory. See more in [Package manager and monorepo](#package-manager-and-monorepo) section.
 
 It is important(!) to open the project in the root directory, not in `packages/frontend` or `packages/backend`, as IDEs will not recognize the root linter and formatter configs if you open a subdirectory.
 
 ### Project scripts
+
 You can call scripts from packages with `yarn workspace <package-name> <script-name>`. For example, to run prisma migration, you can use `yarn workspace be migrate:dev`. Many scripts are already set up in the root `package.json` for convenience, with script names logic following the `command:option` pattern, where command is required, and option is most often just selected package. Commands are `dev` to start the development server, `build` for building, `preview` to check the build and `prod` for production, `lint` and `format` probably don't need explanation.'
 
 ## Workflow
@@ -96,18 +98,20 @@ It is important to use Yarn classic (1.x) - it is an industry standard and it's 
 Run `npm install yarn -g` to install Yarn classic globally. If you have Corepack enabled, you will have local package manager set to yarn classic as specified in `packageManager` field in `package.json`.
 
 ## Coding guidelines
+
 We use ESLint and Prettier for <!-- some --> code quality. They are set up in the root directory, so you can run `yarn lint` and `yarn format` to check and fix your code. We also have pre-commit hooks set up, so you don't have to worry about it - just commit your changes and they will be checked and fixed automatically.
 
 some preferences and good practices:
-* make your variable names semantic, use prefixes like `is-` or `has-` for booleans, verbs for functions, ie `get-` for functions that return a value, and so on
-* split your code into smaller parts, isolate logic, but don't shy away from larger functions if they 'make sense', ie they are bound by context, don't do too many things at once and are easy enough to understand
-* add JSDoc comments to your code when it's not immediately clear what it does, preferably only a general description with no details on parameters and return values - this should be clear from the types and the names
-* use `const` for everything, unless you need to reassign the variable
-* use arrow functions for everything, unless you need `this` or `arguments`
-* do not use `export default` - always use named exports
-* when declaring types in the same module as logic, declare them at the top of the file
-* use camelCase for variables and functions, PascalCase for types and classes
-* use camelCase for file names, and PascalCase for React component file names
+
+-   make your variable names semantic, use prefixes like `is-` or `has-` for booleans, verbs for functions, ie `get-` for functions that return a value, and so on
+-   split your code into smaller parts, isolate logic, but don't shy away from larger functions if they 'make sense', ie they are bound by context, don't do too many things at once and are easy enough to understand
+-   add JSDoc comments to your code when it's not immediately clear what it does, preferably only a general description with no details on parameters and return values - this should be clear from the types and the names
+-   use `const` for everything, unless you need to reassign the variable
+-   use arrow functions for everything, unless you need `this` or `arguments`
+-   do not use `export default` - always use named exports
+-   when declaring types in the same module as logic, declare them at the top of the file
+-   use camelCase for variables and functions, PascalCase for types and classes
+-   use camelCase for file names, and PascalCase for React component file names
 
 ## Possible issues
 

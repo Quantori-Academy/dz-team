@@ -1,6 +1,7 @@
-import { createEffect, sample } from "effector";
+import { createEffect, createEvent, sample } from "effector";
 import { createGate } from "effector-react";
 
+import { ReagentDetailsEdit } from "api/reagentDetails/contract";
 import { getReagentsApi, ReagentType } from "api/reagents";
 import { genericDomain as domain } from "logger";
 
@@ -14,8 +15,23 @@ export const fetchReagentsFx = createEffect(async () => {
 
 export const ReagentsGate = createGate({ domain });
 
+export const deleteReagentEvent = createEvent<string>();
+export const updateReagentEvent = createEvent<ReagentDetailsEdit>();
+// Update the store when a reagent is deleted
+$ReagentsList.on(deleteReagentEvent, (state, id) => state.filter((reagent) => reagent.id !== id));
+$ReagentsList.on(updateReagentEvent, (state, updatedReagent) =>
+    state.map((reagent) =>
+        reagent.id === updatedReagent.id ? { ...reagent, ...updatedReagent } : reagent,
+    ),
+);
+
 // save data from server
 sample({
     clock: fetchReagentsFx.doneData,
     target: $ReagentsList,
+});
+
+sample({
+    clock: ReagentsGate.open,
+    target: fetchReagentsFx,
 });

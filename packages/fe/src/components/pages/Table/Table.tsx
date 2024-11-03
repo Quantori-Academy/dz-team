@@ -16,9 +16,16 @@ interface TableProps {
     headers: Array<{ key: string; label: string }>;
     actionLabel?: string;
     onActionClick?: (row: Record<string, SupportedValue>) => void;
+    onRowClick?: (row: { id: string }) => void;
 }
 
-export const Table = ({ data, headers, actionLabel = "Action", onActionClick }: TableProps) => {
+export const Table = ({
+    data,
+    headers,
+    actionLabel = "Action",
+    onActionClick,
+    onRowClick,
+}: TableProps) => {
     const headerStyles = {
         background: "linear-gradient(0deg, #BFBFBF, #BFBFBF), #BFBFBF",
         color: "#000000",
@@ -47,7 +54,11 @@ export const Table = ({ data, headers, actionLabel = "Action", onActionClick }: 
                 </TableHead>
                 <TableBody>
                     {data.map((row, rowIndex) => (
-                        <TableRow key={rowIndex}>
+                        <TableRow
+                            key={typeof row.id === "string" ? row.id : `${rowIndex}`}
+                            onClick={() => onRowClick?.(row as { id: string })}
+                            sx={{ cursor: "pointer" }}
+                        >
                             {headers.map((header) => (
                                 <TableCell key={header.key}>
                                     {formatCellContent(row[header.key])}

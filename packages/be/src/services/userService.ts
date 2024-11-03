@@ -1,7 +1,6 @@
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
-import { RegisterUser, UpdateUser } from "shared/zodSchemas";
-import { UserSchema } from "shared/generated/zod/modelSchema/UserSchema";
+import { publicUserSchema, RegisterUser, UpdateUser } from "shared/zodSchemas";
 import { z } from "zod";
 
 const prisma = new PrismaClient();
@@ -11,11 +10,43 @@ export class UserService {
      * Get all users including passwords.
      * @returns {Promise<UserSchema[]>} A list of users including passwords.
      */
-    async getAllUsers(): Promise<z.infer<typeof UserSchema>[]> {
+    async getAllUsers(): Promise<z.infer<typeof publicUserSchema>[]> {
         const users = await prisma.user.findMany(); // Fetch all users
 
         // Validate the returned data with UserSchema
-        return users.map((user) => UserSchema.parse(user)); // Parse each user into UserSchema
+        return users.map((user) => publicUserSchema.parse(user)); // Parse each user into UserSchema
+    }
+
+    /**
+     * Get a single user by ID with role-based access control.
+     * @param userId - The ID of the user to retrieve.
+     * @param requesterId - The ID of the user making the request.
+     * @param requesterRole - The role of the user making the request.
+     * @returns The user data or null if not found.
+     */
+    async getSingleUser(
+        userId: string,
+        requesterId: string,
+        requesterRole: string,
+    ): Promise<z.infer<typeof publicUserSchema> | null> {
+        if (requesterRole === "admin") {
+            // Admin can access any user's data
+            const user = await prisma.user.findUnique({
+                where: { id: userId },
+            });
+            return user ? publicUserSchema.parse(user) : null;
+        } else if (requesterRole === "researcher" || requesterRole === "procurementOfficer") {
+            // Non-admin users can only access their own data
+            if (userId !== requesterId) {
+                throw new Error("Unauthorized: Insufficient permissions.");
+            }
+            const user = await prisma.user.findUnique({
+                where: { id: userId },
+            });
+            return user ? publicUserSchema.parse(user) : null;
+        } else {
+            throw new Error("Unauthorized: Insufficient permissions.");
+        }
     }
 
     // Check unique credentials
@@ -86,20 +117,25 @@ export class UserService {
         // Define updatable fields based on role
         const isSelfUpdate = userId === requesterId;
         if (requesterRole === "admin") {
-            // Admin can update all fields except 'username' and 'mustChangePassword'
-            if (userData.password) {
-                userData.password = await bcrypt.hash(userData.password, 10);
-                mustChangePassword = true; // Set mustChangePassword  if password is changed by admin
+            // Check if admin is updating their own profile or another user's profile
+            if (!isSelfUpdate) {
+                // Handle update for a different user
+                if (userData.password) {
+                    userData.password = await bcrypt.hash(userData.password, 10);
+                    mustChangePassword = true; // Set mustChangePassword if password is changed by admin
+                }
+            } else {
+                delete userData.role; // Prevent admins from changing their own role
             }
         } else if (requesterRole === "researcher" || requesterRole === "procurementOfficer") {
-            if (!isSelfUpdate) throw new Error("Unauthorized: Cannot update other users.");
+            if (!isSelfUpdate) throw new Error("Unauthorized: Insufficient permissions.");
 
             // Restrict fields for non-admins
             const { firstName, lastName, email, password } = userData;
             userData = { firstName, lastName, email };
             if (password) {
                 userData.password = await bcrypt.hash(password, 10);
-                mustChangePassword = false; // Set mustChangePassword  if password is changed by user
+                mustChangePassword = false; // Set mustChangePassword if password is changed by user
             }
         } else {
             throw new Error("Unauthorized: Insufficient permissions.");
@@ -135,6 +171,13 @@ export class UserService {
      * @returns {Promise<boolean>} True if the user was deleted, false if not found.
      */
     async deleteUser(userId: string): Promise<boolean> {
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (user?.role === "admin") {
+            const adminCount = await prisma.user.count({ where: { role: "admin" } });
+            if (adminCount === 1) {
+                return false;
+            }
+        }
         const deletedUser = await prisma.user.delete({
             where: { id: userId },
         });

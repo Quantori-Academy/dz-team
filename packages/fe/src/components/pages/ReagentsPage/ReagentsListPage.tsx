@@ -1,11 +1,13 @@
-import { useEffect } from "react";
-import { Box, Typography } from "@mui/material";
+import { useEffect, useState } from "react";
+import { Box, Button, Modal, Typography } from "@mui/material";
+import { Outlet, useNavigate } from "@tanstack/react-router";
 import { useGate, useUnit } from "effector-react";
 import { theme } from "theme";
 
 import { $ReagentsList, fetchReagentsFx, ReagentsGate } from "stores/reagents";
 
 import { Table } from "../Table/Table";
+import { AddReagentForm } from "./AddReagentForm";
 
 const header = [
     { key: "name", label: "Name" },
@@ -25,8 +27,17 @@ const header = [
 
 export const ReagentsListPage = () => {
     useGate(ReagentsGate);
+    const navigate = useNavigate();
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const handleAddReagentClick = () => setIsModalOpen(true);
+    const handleModalClose = () => setIsModalOpen(false);
+
     const handleActionClick = () => {
         alert(`click!`);
+    };
+
+    const handleRowClick = (row: { id: string }) => {
+        navigate({ to: `/reagents/${row.id}`, replace: false });
     };
 
     const reagents = useUnit($ReagentsList);
@@ -36,28 +47,44 @@ export const ReagentsListPage = () => {
     }, []);
 
     return (
-        <Box
-            sx={{
-                width: "100%",
-                padding: "30px",
-                display: "flex",
-                flexDirection: "column",
-                gap: "20px",
-            }}
-        >
+        <Box>
             <Box
                 sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "30px" }}
             >
                 <Typography variant="h3" sx={{ color: theme.palette.text.primary }}>
                     Reagents List
                 </Typography>
+                <Button
+                    variant="contained"
+                    onClick={handleAddReagentClick}
+                    sx={{
+                        width: "30%",
+                        bgcolor: "primary.main",
+                        borderRadius: "4px 4px 0 0",
+                        mb: -1,
+                        marginRight: "auto",
+                        background: "linear-gradient(0deg, #BFBFBF, #BFBFBF), #BFBFBF",
+                        color: "#000000",
+                        fontFamily: "Inter, sans-serif",
+                        fontWeight: 600,
+                        fontSize: "14px",
+                        lineHeight: "17px",
+                    }}
+                >
+                    Add Reagent
+                </Button>
             </Box>
             <Table
                 data={reagents}
                 headers={header}
                 actionLabel="Edit"
                 onActionClick={handleActionClick}
+                onRowClick={handleRowClick}
             />
+            <Modal open={isModalOpen} onClose={handleModalClose}>
+                <AddReagentForm onClose={handleModalClose} />
+            </Modal>
+            <Outlet />
         </Box>
     );
 };

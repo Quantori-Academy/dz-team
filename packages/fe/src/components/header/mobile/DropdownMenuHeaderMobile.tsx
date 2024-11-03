@@ -7,7 +7,10 @@ import Divider from "@mui/material/Divider";
 import Drawer from "@mui/material/Drawer";
 import ListItemIcon from "@mui/material/ListItemIcon";
 import { Link } from "@tanstack/react-router";
+import { useUnit } from "effector-react";
 import { theme } from "theme";
+
+import { sessionDeleteFx } from "stores/auth";
 
 type Props = {
     open: boolean;
@@ -15,6 +18,7 @@ type Props = {
 };
 
 export function DropdownMenuHeaderMobile({ open, setOpen }: Props) {
+    const deleteSession = useUnit(sessionDeleteFx);
     return (
         <Drawer anchor={"top"} open={open} onClose={() => setOpen(false)}>
             <Box role="presentation" onClick={() => setOpen(false)}>
@@ -72,7 +76,7 @@ export function DropdownMenuHeaderMobile({ open, setOpen }: Props) {
                     Settings
                 </MenuItem>
                 <Divider />
-                <Link to="/login" style={{ textDecoration: "none" }}>
+                <Link onClick={deleteSession} style={{ textDecoration: "none" }}>
                     <MenuItem
                         sx={{
                             color: theme.palette.text.primary,
