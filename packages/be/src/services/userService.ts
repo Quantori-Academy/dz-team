@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
-import { publicUserSchema, RegisterUser, UpdateUser } from "shared/zodSchemas";
+import { publicUserSchema, RegisterUser, UpdateUser } from "../../../shared/zodSchemas";
 import { z } from "zod";
 
 const prisma = new PrismaClient();

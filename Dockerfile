@@ -6,6 +6,8 @@ COPY . .
 
 RUN yarn --frozen-lockfile
 
+RUN yarn workspace be prisma generate
+
 RUN yarn build
 
 EXPOSE 1337
