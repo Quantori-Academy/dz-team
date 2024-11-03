@@ -5,9 +5,9 @@ import { useGate, useUnit } from "effector-react";
 
 import {
     $loading,
-    $newReagents,
     $pagination,
     $query,
+    $reagents,
     $searchBy,
     $sort,
     MainListGate,
@@ -17,7 +17,7 @@ import {
     setQuery,
     setSearchBy,
     setSort,
-} from "stores/newReagents";
+} from "stores/reagents";
 
 const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90, sortable: false },
@@ -59,7 +59,7 @@ export const MainList = () => {
 
     const searchHandleClick = useUnit(search);
 
-    const result = useUnit($newReagents);
+    const result = useUnit($reagents);
 
     const handlePaginationMetaChange = (currentPage: number) => {
         setPaginationModel({ ...paginationModel, page: currentPage });

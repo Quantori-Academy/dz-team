@@ -1,15 +1,11 @@
 import { useState } from "react";
 import { Box, Button, Modal } from "@mui/material";
 import { Outlet } from "@tanstack/react-router";
-import { useGate } from "effector-react";
-
-import { ReagentsGate } from "stores/reagents";
 
 import { MainList } from "../mainList/MainList";
 import { AddReagentForm } from "./AddReagentForm";
 
 export const ReagentsListPage = () => {
-    useGate(ReagentsGate);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const handleAddReagentClick = () => setIsModalOpen(true);
     const handleModalClose = () => setIsModalOpen(false);
