@@ -298,10 +298,19 @@
                         "description": "Default Response"
                     }
                 }
+            },
+            "patch": {
+                "tags": ["StorageLocation"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
             }
         },
         "/api/v1/storage-locations/{reagentId}/move": {
             "put": {
+                "tags": ["StorageLocation"],
                 "responses": {
                     "200": {
                         "description": "Default Response"

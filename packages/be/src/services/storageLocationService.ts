@@ -5,7 +5,7 @@ import {
     StorageLocationUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
 
-import { StorageLocation } from "../../../shared/generated/zod/modelSchema/StorageLocationSchema";
+import { StorageLocation } from "../../../shared/generated/zod";
 import { StorageLocationSearch } from "../../../shared/zodSchemas";
 
 const prisma = new PrismaClient();
@@ -123,10 +123,9 @@ export class StorageLocationService {
     }
 
     /**
-     * Delete a storage location by ID if it has no associated reagents.
-     *
+     * Soft delete a storage location by setting its deletedAt field to the current date.
      * @param {string} id - The ID of the storage location to delete.
-     * @returns {Promise<StorageLocation | { message: string }>} A promise that resolves to the deleted storage location or a warning message if it cannot be deleted.
+     * @returns {Promise<StorageLocation | { message: string }>} The soft-deleted storage location or a message if deletion is restricted.
      */
     async deleteStorageLocation(id: string): Promise<StorageLocation | { message: string }> {
         // Check for associated reagents
@@ -138,8 +137,23 @@ export class StorageLocationService {
             return { message: "Cannot delete storage location: It has associated reagents." };
         }
 
-        // Proceed with deletion if no associated reagents
-        return prisma.storageLocation.delete({ where: { id } });
+        // Update deletedAt to for soft deletion
+        return prisma.storageLocation.update({
+            where: { id },
+            data: { deletedAt: new Date() },
+        });
+    }
+
+    /**
+     * Undo the soft delete of a storage location by setting its deletedAt field to null.
+     * @param {string} id - The ID of the storage location to restore.
+     * @returns {Promise<StorageLocation>} The restored storage location.
+     */
+    async undoDeleteStorageLocation(id: string): Promise<StorageLocation> {
+        return prisma.storageLocation.update({
+            where: { id },
+            data: { deletedAt: null },
+        });
     }
 
     /**

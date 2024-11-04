@@ -117,6 +117,29 @@ export class StorageLocationController {
     }
 
     /**
+     * Undo the deletion of a storage location by ID.
+     * @param request - FastifyRequest containing the storage location ID in the parameters
+     * @param reply - FastifyReply
+     * @returns A promise that resolves to the restored StorageLocation object or a 404 response if not found.
+     */
+    async undoDeleteStorageLocation(
+        request: FastifyRequest<{ Params: { id: string } }>,
+        reply: FastifyReply,
+    ): Promise<void> {
+        try {
+            const validatedId = idSchema.parse(request.params.id);
+            const restoredLocation =
+                await storageLocationService.undoDeleteStorageLocation(validatedId);
+            if (!restoredLocation) {
+                return reply.status(404).send({ message: "Storage location not found" });
+            }
+            reply.send(restoredLocation);
+        } catch (error) {
+            sendErrorResponse(reply, error, "Failed to restore storage location");
+        }
+    }
+
+    /**
      * Handles the request to move a reagent to a new storage location.
      *
      * @param {FastifyRequest<{ Params: { reagentId: string }; Body: { newStorageLocationId: string } }>} request - The incoming request object containing the reagent ID and new storage location ID.

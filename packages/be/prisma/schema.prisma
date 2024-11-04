@@ -158,6 +158,7 @@ model StorageLocation {
   value3                String?       // level3 value
   level4                Storage?      // Level 4 storage type
   value4                String?       // level4 value
+  deletedAt             DateTime?  // Date and Time of soft deletion
   createdAt             DateTime    @default(now())
   updatedAt             DateTime    @updatedAt
   // One-to-Many relation with Reagent
