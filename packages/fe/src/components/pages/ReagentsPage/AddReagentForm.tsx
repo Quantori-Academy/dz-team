@@ -1,7 +1,9 @@
 import { forwardRef, useState } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
 
+import { CreateReagentType } from "api/reagents";
 import { base } from "api/request";
+import { addReagentEvent } from "stores/reagents";
 
 interface AddReagentFormProps {
     onClose: () => void;
@@ -23,7 +25,7 @@ const fields = [
 
 export const AddReagentForm = forwardRef<HTMLDivElement, AddReagentFormProps>(
     ({ onClose }, ref) => {
-        const [formData, setFormData] = useState({
+        const [formData, setFormData] = useState<CreateReagentType>({
             name: "",
             description: "",
             structure: "",
@@ -48,11 +50,15 @@ export const AddReagentForm = forwardRef<HTMLDivElement, AddReagentFormProps>(
 
         const handleSubmit = async () => {
             try {
-                await fetch(`${base}/api/v1/reagents`, {
+                const response = await fetch(`${base}/api/v1/reagents`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(formData),
                 });
+                const newReagent = await response.json();
+
+                // eslint-disable-next-line @typescript-eslint/no-unsafe-argument
+                addReagentEvent(newReagent);
                 alert("Reagent added successfully!");
                 onClose();
             } catch {

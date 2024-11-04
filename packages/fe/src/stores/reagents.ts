@@ -17,6 +17,7 @@ export const ReagentsGate = createGate({ domain });
 
 export const deleteReagentEvent = createEvent<string>();
 export const updateReagentEvent = createEvent<ReagentDetailsEdit>();
+export const addReagentEvent = createEvent<ReagentType>();
 // Update the store when a reagent is deleted
 $ReagentsList.on(deleteReagentEvent, (state, id) => state.filter((reagent) => reagent.id !== id));
 $ReagentsList.on(updateReagentEvent, (state, updatedReagent) =>
@@ -24,6 +25,7 @@ $ReagentsList.on(updateReagentEvent, (state, updatedReagent) =>
         reagent.id === updatedReagent.id ? { ...reagent, ...updatedReagent } : reagent,
     ),
 );
+$ReagentsList.on(addReagentEvent, (state, newReagent) => [...state, newReagent]);
 
 // save data from server
 sample({

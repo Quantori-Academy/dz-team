@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
-import { Box, Button, Modal, Typography } from "@mui/material";
+import { Box, Button, Modal } from "@mui/material";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 import { useGate, useUnit } from "effector-react";
-import { theme } from "theme";
 
 import { $ReagentsList, fetchReagentsFx, ReagentsGate } from "stores/reagents";
 
@@ -32,10 +31,6 @@ export const ReagentsListPage = () => {
     const handleAddReagentClick = () => setIsModalOpen(true);
     const handleModalClose = () => setIsModalOpen(false);
 
-    const handleActionClick = () => {
-        alert(`click!`);
-    };
-
     const handleRowClick = (row: { id: string }) => {
         navigate({ to: `/reagents/${row.id}`, replace: false });
     };
@@ -49,11 +44,14 @@ export const ReagentsListPage = () => {
     return (
         <Box>
             <Box
-                sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "30px" }}
+                sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    alignItems: "center",
+                    gap: "30px",
+                    marginTop: "5%",
+                }}
             >
-                <Typography variant="h3" sx={{ color: theme.palette.text.primary }}>
-                    Reagents List
-                </Typography>
                 <Button
                     variant="contained"
                     onClick={handleAddReagentClick}
@@ -74,13 +72,7 @@ export const ReagentsListPage = () => {
                     Add Reagent
                 </Button>
             </Box>
-            <Table
-                data={reagents}
-                headers={header}
-                actionLabel="Edit"
-                onActionClick={handleActionClick}
-                onRowClick={handleRowClick}
-            />
+            <Table data={reagents} headers={header} onRowClick={handleRowClick} />
             <Modal open={isModalOpen} onClose={handleModalClose}>
                 <AddReagentForm onClose={handleModalClose} />
             </Modal>
