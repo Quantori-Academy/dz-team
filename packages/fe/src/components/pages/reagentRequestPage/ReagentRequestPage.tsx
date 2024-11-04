@@ -1,23 +1,21 @@
 import { useEffect } from "react";
-import { Box, Button, Typography } from "@mui/material";
+import { Button } from "@mui/material";
+import { DataGrid, GridColDef } from "@mui/x-data-grid";
 import { Link } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
-import { theme } from "theme";
 
 import { $reagentRequestStore, reagentRequestFx } from "stores/dataReagentRequests";
 
-import { Table } from "../Table/Table";
-
-const reagentRequestHeaders = [
-    { key: "reagentName", label: "Reagent Name" },
-    { key: "structure", label: "Structure" },
-    { key: "casNumber", label: "CAS Number" },
-    { key: "desiredQuantity", label: "Desired Quantity" },
-    { key: "status", label: "Status" },
-    { key: "userComments", label: "User Comments" },
-    { key: "procurementComments", label: "Procurement Comments" },
-    { key: "creationDate", label: "Date Created" },
-    { key: "dateModified", label: "Date Modified" },
+const reagentRequestColumns: GridColDef[] = [
+    { field: "reagentName", headerName: "Reagent Name", width: 200 },
+    { field: "structure", headerName: "Structure", width: 200 },
+    { field: "casNumber", headerName: "CAS Number", width: 150 },
+    { field: "desiredQuantity", headerName: "Desired Quantity", width: 150 },
+    { field: "status", headerName: "Status", width: 150 },
+    { field: "userComments", headerName: "User Comments", width: 200 },
+    { field: "procurementComments", headerName: "Procurement Comments", width: 200 },
+    { field: "creationDate", headerName: "Date Created", width: 150 },
+    { field: "dateModified", headerName: "Date Modified", width: 150 },
 ];
 
 export function ReagentRequestPage() {
@@ -29,18 +27,14 @@ export function ReagentRequestPage() {
     }, [getReagentRequests]);
 
     return (
-        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-            <Typography variant="h4" sx={{ color: theme.palette.text.primary, mt: 5, mb: 5 }}>
-                Reagent Request Management
-            </Typography>
-
-            <Table data={dataReagentRequests} headers={reagentRequestHeaders} />
+        <>
+            <DataGrid rows={dataReagentRequests} columns={reagentRequestColumns} />
             {/* TODO: Add link when Create Reagent Request page is ready */}
             <Link>
-                <Button variant="contained" color="primary" sx={{ mt: 5 }}>
+                <Button variant="contained" color="primary" sx={{ mt: 2 }}>
                     Create a Reagent Request
                 </Button>
             </Link>
-        </Box>
+        </>
     );
 }
