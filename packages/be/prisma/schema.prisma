@@ -129,35 +129,12 @@ model Reagent {
   storage         StorageLocation?   @relation(fields: [storageId], references: [id])
 }
 
-enum Storage {
-  block
-  building
-  warehouse
-  room
-  cabinet
-  shelf
-  box
-  refrigerator
-  freezer
-  container
-  bag
-  desiccator
-  glovebox
-}
 
 model StorageLocation {
   id                    String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
   room                  String        // room where the storage location is located (Autocomplete), e.g. Building 1, Room 12
   name                  String        // exact location in the room(Autocomplete), e.g. Cabinet 1, shelf 3
-  description           String?       //
-  level1                Storage?      // Level 1 storage type
-  value1                String?       // level1 value. (ex: "Room 123", "Warehouse A")
-  level2                Storage?      // Level 2 storage type
-  value2                String?       // level2 value
-  level3                Storage?      // Level 3 storage type
-  value3                String?       // level3 value
-  level4                Storage?      // Level 4 storage type
-  value4                String?       // level4 value
+  description           String?
   deletedAt             DateTime?  // Date and Time of soft deletion
   createdAt             DateTime    @default(now())
   updatedAt             DateTime    @updatedAt

@@ -1,6 +1,6 @@
 import { FastifyZodInstance } from "../types";
 
-import { LoginUser, loginUserSchema } from "shared/zodSchemas";
+import { LoginUser, loginUserSchema } from "../../../shared/zodSchemas";
 
 import { AuthController } from "../controllers/authController";
 

@@ -1,5 +1,10 @@
 import { FastifyZodInstance, Roles } from "../types";
-import { RegisterUser, registerUserSchema, UpdateUser, updateUserSchema } from "shared/zodSchemas";
+import {
+    RegisterUser,
+    registerUserSchema,
+    UpdateUser,
+    updateUserSchema,
+} from "../../../shared/zodSchemas";
 import { UserController } from "../controllers/userController";
 import { checkAuthenticated, checkAuthenticatedAndRole } from "../utils/authCheck";
 
