@@ -23,12 +23,11 @@ export const StorageList = () => {
     const storage = useUnit($StorageList);
 
     const rows = storage.map((item) => {
-        const [room, name] = item.storageLocation.name.split(", ");
         return {
-            id: item.storageLocation.id,
-            room,
-            name,
-            description: item.storageLocation.description,
+            id: item.id,
+            room: item.room,
+            name: item.name,
+            description: item.description,
             reagentsCount: item.reagents.length,
         };
     });
