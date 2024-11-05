@@ -1,5 +1,23 @@
 import { z } from "zod";
 
+const storageReagnets = z.object({
+    id: z.string(),
+    name: z.string(),
+    structure: z.string(),
+    description: z.string(),
+    quantity: z.number(),
+    unit: z.string(),
+    size: z.number(),
+    expirationDate: z.string(),
+    cas: z.string(),
+    producer: z.string(),
+    catalogId: z.string(),
+    catalogLink: z.string().url(),
+    pricePerUnit: z.number(),
+    category: z.string(),
+    status: z.enum(["out_of_stock", "ordered", "available"]),
+});
+
 const StorageLocationTypes = z.object({
     id: z.string(),
     room: z.string(),
@@ -8,21 +26,14 @@ const StorageLocationTypes = z.object({
     deletedAt: z.string().nullable(),
     createdAt: z.string(),
     updatedAt: z.string(),
-    reagents: z.array(z.any()),
+    reagents: z.array(storageReagnets).nullable(),
 });
 
-// const StorageLocationTypes = z.object({
-//     id: z.string(),
-//     name: z.string(),
-//     description: z.string(),
-// });
+export const contractDetailedStorage = z.object({
+    storageLocation: StorageLocationTypes,
+});
 
-// export const StorageLocation = z.object({
-//     storageLocation: StorageLocationTypes,
-//     reagents: z.array(StorageReagentTypes),
-// });
+export const contractStorageType = z.array(StorageLocationTypes);
 
-export const ApiStorageType = z.array(StorageLocationTypes);
-
-// export type DetaileStorage = z.infer<typeof StorageLocation>;
-export type StorageType = z.infer<typeof ApiStorageType>;
+export type DetailedStorage = z.infer<typeof contractDetailedStorage>;
+export type StorageType = z.infer<typeof contractStorageType>;

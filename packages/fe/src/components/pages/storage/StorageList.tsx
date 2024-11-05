@@ -28,7 +28,7 @@ export const StorageList = () => {
             room: item.room,
             name: item.name,
             description: item.description,
-            reagentsCount: item.reagents.length,
+            reagentsCount: item.reagents?.length || null,
         };
     });
 

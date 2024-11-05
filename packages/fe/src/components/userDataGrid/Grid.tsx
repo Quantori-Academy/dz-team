@@ -1,13 +1,14 @@
 import { useMemo, useState } from "react";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
-import { Box, Modal, TextField, Typography } from "@mui/material";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-import { useUserForm } from "hooks/useUserForm";
 import PageviewIcon from "@mui/icons-material/Pageview";
+import { Box, Modal, TextField, Typography } from "@mui/material";
+import { DataGrid, GridActionsCellItem, GridRowParams } from "@mui/x-data-grid";
+import { useNavigate } from "@tanstack/react-router";
 
 import { useSession } from "hooks/useSession";
-
+import { useUserForm } from "hooks/useUserForm";
+import { fetchDetailedStorageFx } from "stores/storage";
 import { SupportedValue } from "utils/formatters";
 
 import { AddRecord } from "./Addrecord";
@@ -16,12 +17,16 @@ import { AddUserForm } from "./AddUserForm";
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
-    recordType: "user" | "storage";
+    recordType: "user" | "storage" | "detailedReagents";
+};
+type RowDataType = {
+    id: string;
 };
 
 export const Grid = ({ rows, headers, recordType }: GridProps) => {
     const { isAdmin } = useSession();
 
+    const navigate = useNavigate();
     const { handleDeleteClick } = useUserForm({});
     const [searchQuery, setSearchQuery] = useState("");
     const [isModalOpen, setModalOpen] = useState(false);
@@ -42,11 +47,11 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                 return Object.values(value).some(
                     (nestedValue) =>
                         typeof nestedValue === "string" &&
-                        nestedValue.toLowerCase().includes(searchQuery.toLowerCase()),
+                        nestedValue.toLowerCase().includes(searchQuery.toLowerCase())
                 );
             }
             return false;
-        }),
+        })
     );
 
     const handleModalClose = () => {
@@ -61,6 +66,12 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
         alert("new storage");
     };
 
+    const handleRowClick = (row: { id: string }) => {
+        const id = row?.id;
+        fetchDetailedStorageFx(id);
+        navigate({ to: `/storageDetail`, replace: false });
+    };
+
     const columns = useMemo(() => {
         const editColumn = {
             field: "actions",
@@ -68,12 +79,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
             width: 100,
             renderCell: (params: { row: { id: string } }) => (
                 <>
-                    <GridActionsCellItem
-                        icon={<PageviewIcon />}
-                        label="View"
-                        onClick={() => alert("View item details")}
-                        color="inherit"
-                    />
+                    <GridActionsCellItem icon={<PageviewIcon />} label="View" color="inherit" />
 
                     {isAdmin && (
                         <>
@@ -104,7 +110,9 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                 placeholder={
                     recordType === "user"
                         ? "Search by name, username, or email"
-                        : "Search  by room or shelf"
+                        : recordType === "detailedReagents"
+                        ? "Search Reagent"
+                        : "Search by room or shelf"
                 }
                 value={searchQuery}
                 onChange={handleSearch}
@@ -114,6 +122,9 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                 rows={filteredRows}
                 rowHeight={60}
                 // getRowId={(row) => row.id}
+                onRowClick={(params: GridRowParams<RowDataType>) => {
+                    handleRowClick(params.row);
+                }}
                 columns={columns}
                 disableRowSelectionOnClick
                 pageSizeOptions={[5, 15, 25, 50]}

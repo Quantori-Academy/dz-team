@@ -1,8 +1,8 @@
 import { base, request } from "../request";
-import { ApiStorageType } from "./contract";
+import { contractStorageType } from "./contract";
 
 export const getStorage = async () => {
-    const Storage = await request(`${base}/api/v1/storage-locations`, ApiStorageType);
+    const Storage = await request(`${base}/api/v1/storage-locations`, contractStorageType);
 
     return Storage;
 };
