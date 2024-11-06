@@ -219,6 +219,104 @@
                     }
                 }
             }
+        },
+        "/api/v1/storage-locations/": {
+            "get": {
+                "tags": ["StorageLocation"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "post": {
+                "tags": ["StorageLocation"],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "_def": {
+                                "unknownKeys": "strict",
+                                "catchall": {
+                                    "_def": {
+                                        "typeName": "ZodNever"
+                                    }
+                                },
+                                "typeName": "ZodObject"
+                            },
+                            "_cached": null
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/storage-locations/{id}": {
+            "get": {
+                "tags": ["StorageLocation"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["StorageLocation"],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "_def": {
+                                "unknownKeys": "strict",
+                                "catchall": {
+                                    "_def": {
+                                        "typeName": "ZodNever"
+                                    }
+                                },
+                                "typeName": "ZodObject"
+                            },
+                            "_cached": null
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["StorageLocation"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "patch": {
+                "tags": ["StorageLocation"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/storage-locations/{reagentId}/move": {
+            "put": {
+                "tags": ["StorageLocation"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
         }
     },
     "host": "localhost:1337",

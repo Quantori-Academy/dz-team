@@ -1,0 +1,4 @@
+-- AlterTable
+ALTER TABLE "StorageLocation" ALTER COLUMN "createdAt" DROP NOT NULL,
+ALTER COLUMN "updatedAt" DROP NOT NULL,
+ALTER COLUMN "level2" DROP DEFAULT;
