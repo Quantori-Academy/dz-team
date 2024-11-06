@@ -3,7 +3,7 @@ import { Button } from "@mui/material";
 import { GridToolbarContainer } from "@mui/x-data-grid";
 
 type AddRecordType = {
-    onAdd: (event: React.MouseEvent<HTMLButtonElement>) => void;
+    onAdd?: (event: React.MouseEvent<HTMLButtonElement>) => void;
     label?: string;
 };
 

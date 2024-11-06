@@ -21,6 +21,7 @@ import { Route as AppOrdersImport } from "./routes/_app/orders";
 import { Route as AppNewUserImport } from "./routes/_app/newUser";
 import { Route as AppDevImport } from "./routes/_app/dev";
 import { Route as AppReagentsIdImport } from "./routes/_app/reagents/$id";
+import { Route as AppOrderCreateImport } from "./routes/_app/order/create";
 
 // Create/Update Routes
 
@@ -81,6 +82,12 @@ const AppReagentsIdRoute = AppReagentsIdImport.update({
     id: "/$id",
     path: "/$id",
     getParentRoute: () => AppReagentsRoute,
+} as any);
+
+const AppOrderCreateRoute = AppOrderCreateImport.update({
+    id: "/order/create",
+    path: "/order/create",
+    getParentRoute: () => AppRoute,
 } as any);
 
 // Populate the FileRoutesByPath interface
@@ -150,6 +157,13 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof AppIndexImport;
             parentRoute: typeof AppImport;
         };
+        "/_app/order/create": {
+            id: "/_app/order/create";
+            path: "/order/create";
+            fullPath: "/order/create";
+            preLoaderRoute: typeof AppOrderCreateImport;
+            parentRoute: typeof AppImport;
+        };
         "/_app/reagents/$id": {
             id: "/_app/reagents/$id";
             path: "/$id";
@@ -180,6 +194,7 @@ interface AppRouteChildren {
     AppSamplesRoute: typeof AppSamplesRoute;
     AppUsersRoute: typeof AppUsersRoute;
     AppIndexRoute: typeof AppIndexRoute;
+    AppOrderCreateRoute: typeof AppOrderCreateRoute;
 }
 
 const AppRouteChildren: AppRouteChildren = {
@@ -190,6 +205,7 @@ const AppRouteChildren: AppRouteChildren = {
     AppSamplesRoute: AppSamplesRoute,
     AppUsersRoute: AppUsersRoute,
     AppIndexRoute: AppIndexRoute,
+    AppOrderCreateRoute: AppOrderCreateRoute,
 };
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren);
@@ -204,6 +220,7 @@ export interface FileRoutesByFullPath {
     "/samples": typeof AppSamplesRoute;
     "/users": typeof AppUsersRoute;
     "/": typeof AppIndexRoute;
+    "/order/create": typeof AppOrderCreateRoute;
     "/reagents/$id": typeof AppReagentsIdRoute;
 }
 
@@ -216,6 +233,7 @@ export interface FileRoutesByTo {
     "/samples": typeof AppSamplesRoute;
     "/users": typeof AppUsersRoute;
     "/": typeof AppIndexRoute;
+    "/order/create": typeof AppOrderCreateRoute;
     "/reagents/$id": typeof AppReagentsIdRoute;
 }
 
@@ -230,6 +248,7 @@ export interface FileRoutesById {
     "/_app/samples": typeof AppSamplesRoute;
     "/_app/users": typeof AppUsersRoute;
     "/_app/": typeof AppIndexRoute;
+    "/_app/order/create": typeof AppOrderCreateRoute;
     "/_app/reagents/$id": typeof AppReagentsIdRoute;
 }
 
@@ -245,6 +264,7 @@ export interface FileRouteTypes {
         | "/samples"
         | "/users"
         | "/"
+        | "/order/create"
         | "/reagents/$id";
     fileRoutesByTo: FileRoutesByTo;
     to:
@@ -256,6 +276,7 @@ export interface FileRouteTypes {
         | "/samples"
         | "/users"
         | "/"
+        | "/order/create"
         | "/reagents/$id";
     id:
         | "__root__"
@@ -268,6 +289,7 @@ export interface FileRouteTypes {
         | "/_app/samples"
         | "/_app/users"
         | "/_app/"
+        | "/_app/order/create"
         | "/_app/reagents/$id";
     fileRoutesById: FileRoutesById;
 }
@@ -307,7 +329,8 @@ export const routeTree = rootRoute
         "/_app/reagents",
         "/_app/samples",
         "/_app/users",
-        "/_app/"
+        "/_app/",
+        "/_app/order/create"
       ]
     },
     "/login": {
@@ -342,6 +365,10 @@ export const routeTree = rootRoute
     },
     "/_app/": {
       "filePath": "_app/index.tsx",
+      "parent": "/_app"
+    },
+    "/_app/order/create": {
+      "filePath": "_app/order/create.tsx",
       "parent": "/_app"
     },
     "/_app/reagents/$id": {

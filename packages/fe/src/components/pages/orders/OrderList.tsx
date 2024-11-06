@@ -1,12 +1,10 @@
-import { useState } from "react";
-import { Box, Modal, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
+import { useNavigate } from "@tanstack/react-router";
 import { useGate, useUnit } from "effector-react";
 
 import { ReusableGrid } from "components/dataGrid/ReusableGrid";
 import { OrdersGate } from "stores/orders/orderGate";
 import { $OrdersList } from "stores/orders/orderStore";
-
-import { AddOrderForm } from "./AddOrderForm";
 
 const headers = [
     { field: "id", headerName: "Order ID", width: 150 },
@@ -27,10 +25,11 @@ const boxStyles = {
 export const OrderList = () => {
     useGate(OrdersGate);
     const orders = useUnit($OrdersList);
-    const [isModalOpen, setIsModalOpen] = useState(false);
+    const navigate = useNavigate();
 
-    const handleOpenModal = () => setIsModalOpen(true);
-    const handleCloseModal = () => setIsModalOpen(false);
+    const handleClick = () => {
+        navigate({ to: "/order/create" });
+    };
 
     return (
         <Box sx={boxStyles}>
@@ -38,14 +37,10 @@ export const OrderList = () => {
             <ReusableGrid
                 rows={orders}
                 headers={headers}
-                onAddRecord={handleOpenModal}
+                onAddRecord={handleClick}
                 addRecordLabel="Add New Order"
                 placeholder={placeholder}
             />
-
-            <Modal open={isModalOpen} onClose={handleCloseModal}>
-                <AddOrderForm onClose={handleCloseModal} />
-            </Modal>
         </Box>
     );
 };
