@@ -1,4 +1,5 @@
-import { Box, Typography } from "@mui/material";
+import { useState } from "react";
+import { Alert, Box, Snackbar, Typography } from "@mui/material";
 import { useGate, useUnit } from "effector-react";
 
 import { $UsersList, deleteUserFx, UsersGate } from "stores/users";
@@ -20,20 +21,35 @@ const boxStyles = {
 };
 
 export const UserList = () => {
+    const [openSnackbar, setOpenSnackbar] = useState(false);
     useGate(UsersGate);
     const users = useUnit($UsersList);
 
     const handleDeleteClick = (id: string) => {
         const user = users.find((user) => user.id === id);
         if (user?.role === "admin") {
-            alert("You can't delete admin");
+            setOpenSnackbar(true);
             return;
         }
         deleteUserFx(id);
     };
 
+    const handleCloseSnackbar = () => {
+        setOpenSnackbar(false);
+    };
+
     return (
         <Box sx={boxStyles}>
+            <Snackbar
+                open={openSnackbar}
+                autoHideDuration={3000}
+                onClose={handleCloseSnackbar}
+                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+            >
+                <Alert onClose={handleCloseSnackbar} severity="warning" sx={{ width: "100%" }}>
+                    You can not delete an admin!
+                </Alert>
+            </Snackbar>
             <Typography variant="h5">User List</Typography>
             <Grid rows={users} headers={headers} handleDeleteClick={handleDeleteClick} />
         </Box>
