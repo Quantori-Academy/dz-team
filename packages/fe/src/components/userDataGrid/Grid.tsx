@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
+
 import PageviewIcon from "@mui/icons-material/Pageview";
 import { Box, Modal, TextField, Typography } from "@mui/material";
 import { DataGrid, GridActionsCellItem, GridRowParams } from "@mui/x-data-grid";
@@ -9,6 +10,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { useSession } from "hooks/useSession";
 import { useUserForm } from "hooks/useUserForm";
 import { fetchDetailedStorageFx } from "stores/storage";
+
 import { SupportedValue } from "utils/formatters";
 
 import { AddRecord } from "./Addrecord";
@@ -17,6 +19,7 @@ import { AddUserForm } from "./AddUserForm";
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
+
     recordType: "user" | "storage" | "detailedReagents";
 };
 type RowDataType = {
@@ -28,6 +31,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
 
     const navigate = useNavigate();
     const { handleDeleteClick } = useUserForm({});
+
     const [searchQuery, setSearchQuery] = useState("");
     const [isModalOpen, setModalOpen] = useState(false);
 
@@ -62,6 +66,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
         setModalOpen(true);
     };
 
+
     const handleADdStorageOpen = () => {
         alert("new storage");
     };
@@ -72,6 +77,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
         navigate({ to: `/storageDetail`, replace: false });
     };
 
+
     const columns = useMemo(() => {
         const editColumn = {
             field: "actions",
@@ -79,6 +85,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
             width: 100,
             renderCell: (params: { row: { id: string } }) => (
                 <>
+
                     <GridActionsCellItem icon={<PageviewIcon />} label="View" color="inherit" />
 
                     {isAdmin && (
@@ -97,16 +104,20 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                             />
                         </>
                     )}
+
                 </>
             ),
         };
         return [...headers, editColumn];
+
     }, [headers, handleDeleteClick, isAdmin]);
+
 
     return (
         <>
             <TextField
                 variant="outlined"
+
                 placeholder={
                     recordType === "user"
                         ? "Search by name, username, or email"
@@ -114,6 +125,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                         ? "Search Reagent"
                         : "Search by room or shelf"
                 }
+
                 value={searchQuery}
                 onChange={handleSearch}
                 sx={{ width: "350px", marginBottom: "16px" }}
@@ -121,10 +133,12 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
             <DataGrid
                 rows={filteredRows}
                 rowHeight={60}
+
                 // getRowId={(row) => row.id}
                 onRowClick={(params: GridRowParams<RowDataType>) => {
                     handleRowClick(params.row);
                 }}
+
                 columns={columns}
                 disableRowSelectionOnClick
                 pageSizeOptions={[5, 15, 25, 50]}
@@ -136,6 +150,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                     },
                 }}
                 slots={{
+
                     toolbar: isAdmin
                         ? () =>
                               recordType === "user" ? (
@@ -150,6 +165,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                                   />
                               )
                         : null,
+
                 }}
             />
             <Modal open={isModalOpen} onClose={handleModalClose}>
@@ -167,11 +183,13 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                         borderRadius: 1,
                     }}
                 >
+
                     {recordType === "user" ? (
                         <AddUserForm onClose={handleModalClose} />
                     ) : (
                         <Typography>storage form </Typography>
                     )}
+
                 </Box>
             </Modal>
         </>
