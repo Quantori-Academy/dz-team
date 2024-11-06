@@ -24,6 +24,11 @@ export const UserList = () => {
     const users = useUnit($UsersList);
 
     const handleDeleteClick = (id: string) => {
+        const user = users.find((user) => user.id === id);
+        if (user?.role === "admin") {
+            alert("You can't delete admin");
+            return;
+        }
         deleteUserFx(id);
     };
 
