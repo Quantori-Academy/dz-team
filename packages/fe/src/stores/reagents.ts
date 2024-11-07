@@ -1,5 +1,6 @@
 import { createEffect, createEvent, sample } from "effector";
 import { createGate } from "effector-react";
+import { produce } from "immer";
 
 import { ReagentDetailsEdit } from "api/reagentDetails/contract";
 import { CreateReagentType, getReagentsApi, ReagentType } from "api/reagents";
@@ -37,12 +38,11 @@ $ReagentsList.on(updateReagentEvent, (state, updatedReagent) =>
         reagent.id === updatedReagent.id ? { ...reagent, ...updatedReagent } : reagent,
     ),
 );
-// $ReagentsList.on(addReagentEvent, (state, newReagent) => [...state, newReagent]);
-// $ReagentsList.on(addReagentEvent, (state, newReagent) =>
-//   produce(state, (draft) => {
-//     draft.push(newReagent);
-//   })
-// );
+$ReagentsList.on(addReagentEvent, (state, newReagent) =>
+    produce(state, (draft) => {
+        draft.push(newReagent);
+    }),
+);
 
 // save data from server
 sample({
@@ -63,4 +63,8 @@ sample({
 sample({
     clock: submitReagentEvent,
     target: addReagentFx,
+});
+sample({
+    clock: [deleteReagentEvent, updateReagentEvent, addReagentEvent],
+    target: fetchReagentsFx,
 });

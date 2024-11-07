@@ -23,8 +23,7 @@ export const ReagentsListPage = () => {
 
     const reagents = useUnit($ReagentsList);
 
-    const [formData, setFormData] = useState<CreateReagentType>({
-        // id: "",
+    const initialFormData: CreateReagentType = {
         name: "",
         description: "",
         structure: "",
@@ -37,7 +36,9 @@ export const ReagentsListPage = () => {
         quantity: 0,
         expirationDate: new Date().toISOString().split("T")[0],
         storageLocation: "",
-    });
+    };
+
+    const [formData, setFormData] = useState<CreateReagentType>(initialFormData);
 
     useEffect(() => {
         fetchReagentsFx();
@@ -56,6 +57,7 @@ export const ReagentsListPage = () => {
     const handleSubmit = () => {
         submitReagent(formData);
         alert("Reagent added successfully!");
+        setFormData(initialFormData);
         handleModalClose();
     };
 

@@ -3,13 +3,13 @@ import { z } from "zod";
 import { base, request } from "./request";
 
 const Reagent = z.object({
-    id: z.string(),
+    id: z.string().optional(),
     name: z.string().nullable(),
     structure: z.string().nullable(),
     description: z.string().nullable(),
     quantity: z.number(),
     unit: z.string().nullable(),
-    size: z.number().nullable(),
+    size: z.number().nullable().optional(),
     expirationDate: z.string().nullable(),
     storageLocation: z.string(),
     cas: z.string().nullable(),
@@ -17,8 +17,8 @@ const Reagent = z.object({
     catalogId: z.string().nullable(),
     catalogLink: z.string().nullable(),
     pricePerUnit: z.number().nullable(),
-    createdAt: z.string().nullable(),
-    updatedAt: z.string().nullable(),
+    createdAt: z.string().nullable().optional(),
+    updatedAt: z.string().nullable().optional(),
 });
 
 export const _CreateReagentContract = z.object({
@@ -34,7 +34,7 @@ export const _CreateReagentContract = z.object({
     quantity: z.number(),
     expirationDate: z.string().nullable(),
     storageLocation: z.string(),
-    // id: z.string().nullable().optional(),
+    id: z.string().optional(),
     size: z.number().nullable().optional(),
     createdAt: z.string().nullable().optional(),
     updatedAt: z.string().nullable().optional(),
