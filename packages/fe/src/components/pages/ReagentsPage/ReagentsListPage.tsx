@@ -1,28 +1,14 @@
 import { useEffect, useState } from "react";
-import { Box, Button, Modal } from "@mui/material";
+import { Box } from "@mui/material";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 import { useGate, useUnit } from "effector-react";
 
-import { $ReagentsList, fetchReagentsFx, ReagentsGate } from "stores/reagents";
+import { CreateReagentType } from "api/reagents";
+import { $ReagentsList, fetchReagentsFx, ReagentsGate, submitReagentEvent } from "stores/reagents";
 
-import { Table } from "../Table/Table";
-import { AddReagentForm } from "./AddReagentForm";
-
-const header = [
-    { key: "name", label: "Name" },
-    { key: "structure", label: "Structure" },
-    { key: "description", label: "Description" },
-    { key: "quantity", label: "Quantity" },
-    { key: "unit", label: "Unit" },
-    { key: "size", label: "Size" },
-    { key: "expirationDate", label: "Expiration Date" },
-    { key: "storageLocation", label: "Storage Location" },
-    { key: "cas", label: "CAS" },
-    { key: "producer", label: "Producer" },
-    { key: "catalogId", label: "Catalog ID" },
-    { key: "catalogLink", label: "Catalog Link" },
-    { key: "pricePerUnit", label: "Price Per Unit" },
-];
+import { AddReagentButton } from "./AddReagentButton";
+import { ReagentFormModal } from "./ReagentFormModal";
+import { ReagentsTable } from "./ReagentsTable";
 
 export const ReagentsListPage = () => {
     useGate(ReagentsGate);
@@ -37,9 +23,41 @@ export const ReagentsListPage = () => {
 
     const reagents = useUnit($ReagentsList);
 
+    const [formData, setFormData] = useState<CreateReagentType>({
+        // id: "",
+        name: "",
+        description: "",
+        structure: "",
+        cas: "",
+        producer: "",
+        catalogId: "",
+        catalogLink: "",
+        pricePerUnit: 0,
+        unit: "",
+        quantity: 0,
+        expirationDate: new Date().toISOString().split("T")[0],
+        storageLocation: "",
+    });
+
     useEffect(() => {
         fetchReagentsFx();
     }, []);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: name === "quantity" || name === "pricePerUnit" ? Number(value) : value,
+        });
+    };
+
+    const submitReagent = useUnit(submitReagentEvent);
+
+    const handleSubmit = () => {
+        submitReagent(formData);
+        alert("Reagent added successfully!");
+        handleModalClose();
+    };
 
     return (
         <Box>
@@ -52,30 +70,16 @@ export const ReagentsListPage = () => {
                     marginTop: "5%",
                 }}
             >
-                <Button
-                    variant="contained"
-                    onClick={handleAddReagentClick}
-                    sx={{
-                        width: "30%",
-                        bgcolor: "primary.main",
-                        borderRadius: "4px 4px 0 0",
-                        mb: -1,
-                        marginRight: "auto",
-                        background: "linear-gradient(0deg, #BFBFBF, #BFBFBF), #BFBFBF",
-                        color: "#000000",
-                        fontFamily: "Inter, sans-serif",
-                        fontWeight: 600,
-                        fontSize: "14px",
-                        lineHeight: "17px",
-                    }}
-                >
-                    Add Reagent
-                </Button>
+                <AddReagentButton onClick={handleAddReagentClick} />
             </Box>
-            <Table data={reagents} headers={header} onRowClick={handleRowClick} />
-            <Modal open={isModalOpen} onClose={handleModalClose}>
-                <AddReagentForm onClose={handleModalClose} />
-            </Modal>
+            <ReagentsTable reagents={reagents} onRowClick={handleRowClick} />
+            <ReagentFormModal
+                isOpen={isModalOpen}
+                formData={formData}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+                handleModalClose={handleModalClose}
+            />
             <Outlet />
         </Box>
     );
