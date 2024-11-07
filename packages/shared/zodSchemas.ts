@@ -76,6 +76,38 @@ export const StorageLocationSearchSchema = z.object({
 // Type inference for StorageLocationSearch
 export type StorageLocationSearch = z.infer<typeof StorageLocationSearchSchema>;
 
+const OrderFieldEnum = z.enum([
+    "title",
+    "status",
+    "createdAt",
+    "updatedAt",
+    "seller",
+    "description",
+    "title",
+]);
+
+// Define the OrderSearch schema with additional optional fields
+export const OrderSearchSchema = z.object({
+    query: z.string().optional(),
+    page: z.coerce.number().int().positive().default(1),
+    limit: z.coerce.number().int().positive().max(100).default(10),
+    sortBy: z
+        .enum(["title", "seller", "description", "createdAt", "updatedAt"])
+        .default("createdAt"),
+    sortOrder: z.enum(["asc", "desc"]).default("asc"),
+    status: z.enum(["pending", "submitted", "fulfilled", "canceled"]).optional(),
+    searchBy: z
+        .union([
+            z.array(OrderFieldEnum), // Allows selection of multiple fields
+            OrderFieldEnum,
+        ])
+        .transform((val) => (Array.isArray(val) ? val : [val]))
+        .optional(), // Outputs an array with selected search fields
+});
+
+// Type inference for OrderSearch
+export type OrderSearch = z.infer<typeof OrderSearchSchema>;
+
 // New registration schema that includes confirmPassword
 export const registerUserSchema = z
     .object({
@@ -182,3 +214,21 @@ export const updateUserSchema = z.object({
 export type UpdateUser = z.infer<typeof updateUserSchema>;
 
 export const publicUserSchema = UserSchema.omit({ password: true });
+
+export const OrderReagentsSchema = z
+    .object({
+        id: z.string().uuid().optional(),
+        name: z.string().min(1, "Name is required"),
+        structure: z.string().optional(),
+        cas: z.string().optional(),
+        producer: z.string(),
+        catalogId: z.string().optional(),
+        catalogLink: z.string().url().optional(),
+        units: z.string().min(1, "Units are required"),
+        pricePerUnit: z.number(),
+        quantity: z.number().min(1, "Quantity must be at least 1"),
+        amount: z.number().min(1),
+    })
+    .strict(); // Ensure no additional fields are allowed
+
+export type OrderReagentType = z.infer<typeof OrderReagentsSchema>;
