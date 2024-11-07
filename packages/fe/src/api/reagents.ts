@@ -1,31 +1,60 @@
-import { Array, Number, Record, Static, String } from "runtypes";
+import { GridSortDirection } from "@mui/x-data-grid";
+import { z } from "zod";
 
-import { base, request } from "./request";
+import { base, request } from "api/request";
+import { ReagentSchema } from "shared/generated/zod";
+import { SearchBy } from "stores/reagents";
 
-const Reagent = Record({
-    id: String,
-    name: String.nullable(),
-    structure: String.nullable(),
-    description: String.nullable(),
-    quantity: Number,
-    unit: String.nullable(),
-    size: Number.nullable(),
-    expirationDate: String.nullable(),
-    storageLocation: String,
-    cas: String.nullable(),
-    producer: String.nullable(),
-    catalogId: String.nullable(),
-    catalogLink: String.nullable(),
-    pricePerUnit: Number.nullable(),
-    createdAt: String.nullable(),
-    updatedAt: String.nullable(),
+const ReagentsResponseSchema = z.object({
+    data: z.array(ReagentSchema),
+    meta: z.object({
+        currentPage: z.number(),
+        totalPages: z.number(),
+        totalCount: z.number(),
+        hasNextPage: z.boolean(),
+        hasPreviousPage: z.boolean(),
+    }),
 });
 
-const ReagentsResponse = Array(Reagent).optional();
-export type ReagentType = Static<typeof Reagent>;
+export type ReagentsResponseType = z.infer<typeof ReagentsResponseSchema>;
 
-export const getReagentsApi = async () => {
-    const reagents = await request(`${base}/api/v1/reagents`, ReagentsResponse);
+export const getReagents = async ({
+    page,
+    pageSize,
+    sortBy,
+    sortOrder,
+    query,
+    searchBy,
+}: {
+    page: number;
+    pageSize: number;
+    sortBy: string;
+    sortOrder: GridSortDirection;
+    query?: string;
+    searchBy: SearchBy;
+}) => {
+    const searchParams = new URLSearchParams({
+        page: (page + 1).toString(),
+        limit: pageSize.toString(),
+        sortBy: sortBy,
+        ...(sortOrder && { sortOrder }),
+        ...(query && { query }),
+    });
 
-    return reagents;
+    const searchByKeys = Object.entries(searchBy)
+        .filter(([_, value]) => value)
+        .map(([key]) => key);
+
+    searchByKeys.forEach((key) => {
+        searchParams.append("searchBy", key);
+    });
+
+    const response = await request(`${base}/api/v1/reagents`, ReagentsResponseSchema, {
+        method: "GET",
+        searchParams,
+        showErrorNotification: true,
+        throwOnError: true,
+    });
+
+    return response;
 };

@@ -1,6 +1,6 @@
 import { FastifyZodInstance } from "../types";
 
-import { RegisterUser, registerUserSchema } from "../../../shared/zodSchemas";
+import { LoginUser, loginUserSchema } from "../../../shared/zodSchemas";
 
 import { AuthController } from "../controllers/authController";
 
@@ -13,18 +13,26 @@ const authController = new AuthController();
  */
 export const authRoutes = async (app: FastifyZodInstance): Promise<void> => {
     /**
-     * @route POST /register
+     * @route POST /login
+     * @summary Log in a user.
      * @tags Auth
-     * @summary Register a new user.
-     * @param {RegisterUser} request.body.required - User data to register
-     * @returns {User} 201 - The created user
-     * @returns {Error} 400 - Validation error
+     * @param {object} request.body.required - User credentials for login
+     * @param {string} request.body.username.required - The username of the user
+     * @param {string} request.body.password.required - The user's password
+     * @returns {object} 200 - A JWT token if authentication is successful
+     * @returns {Error} 401 - Invalid username or password
+     * @returns {Error} 400 - Validation error for missing or incorrect fields
      */
-    app.post<{ Body: RegisterUser }>(
-        "/register",
-        { schema: { tags: ["Auth"], body: registerUserSchema } },
+    app.post<{ Body: LoginUser }>(
+        "/login",
+        {
+            schema: {
+                tags: ["Auth"],
+                body: loginUserSchema, // Use the Zod schema directly
+            },
+        },
         async (request, reply) => {
-            return await authController.register(request, reply);
+            return await authController.login(request, reply);
         },
     );
 };
