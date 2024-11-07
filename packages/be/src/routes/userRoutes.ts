@@ -70,7 +70,7 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
         "/",
         {
             schema: { tags: ["Users"], body: registerUserSchema },
-            // preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
+            preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
         },
         async (request, reply) => {
             return await userController.createUser(request, reply);

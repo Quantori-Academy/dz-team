@@ -230,5 +230,3 @@ export const OrderReagentsSchema = z
         amount: z.number().min(1),
     })
     .strict(); // Ensure no additional fields are allowed
-
-export type OrderReagentType = z.infer<typeof OrderReagentsSchema>;
