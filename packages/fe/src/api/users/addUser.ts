@@ -1,22 +1,13 @@
-import { z } from "zod";
+import { RegisterUser, registerUserSchema } from "shared/zodSchemas";
 
 import { base, request } from "../request";
 
-const AddUser = z.object({
-    username: z.string(),
-    firstName: z.string(),
-    lastName: z.string(),
-    email: z.string(),
-    password: z.string(),
-    confirmPassword: z.string(),
-    role: z.string(),
-});
-
 //TODO fix types
-export type NewUser = z.infer<typeof AddUser>;
-export const PostUsers = async (userData: NewUser) => {
-    await request(`${base}/api/v1/users`, AddUser, {
+
+export const PostUsers = async (userData: RegisterUser) => {
+    await request(`${base}/api/v1/users`, registerUserSchema, {
         method: "POST",
+
         json: userData,
     });
 };
