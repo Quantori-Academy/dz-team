@@ -7,14 +7,14 @@
 
 
 
-// ***NOTE: run `npx prisma generate` to generate new zod schemas in `shared/generated/zod` every time a model in this file is modified***
+// ***NOTE: run `yarn prisma generate` to generate new zod schemas in `shared/generated/zod` every time a model in this file is modified***
 
 
-
+// *********** SETUP ***********
 
 generator client {
   provider = "prisma-client-js"
-  previewFeatures = ["postgresqlExtensions"]
+  previewFeatures = ["postgresqlExtensions", "views"]
 }
 
 generator zod {
@@ -42,12 +42,8 @@ datasource db {
   extensions = [rdkit]
 }
 
-  // with `dbgenerated("gen_random_uuid()")` UUID is generated on the DB level in POSTGRES
-  // with `uuid()` UUID is generated on Prisma level
-  // see "Native database functions" in Prisma docs
+// ^^^^^^^^^^^
 
-  // zod-prisma-types "rich-comment" after three slashes adds "Field validators"
-  // see zod-prisma-types docs for the syntax and zod docs for validators
 enum Category {
   reagent
   sample
@@ -61,10 +57,11 @@ enum Currency {
   jpy
 }
 
-enum Container {
-  bottle
-  box
-  other
+enum OrderStatus {
+  pending
+  submitted
+  fulfilled
+  canceled
 }
 
 enum ReagentType {
@@ -88,6 +85,20 @@ enum ReagentStatus {
   notAvailable
 }
 
+enum RequestStatus {
+  pending
+  ordered
+  fulfilled
+  declined
+}
+
+enum Role {
+  admin
+  procurementOfficer
+  researcher
+}
+
+
 enum Unit {
   ml
   l
@@ -98,6 +109,12 @@ enum Unit {
 }
 
 
+  // with `dbgenerated("gen_random_uuid()")` UUID is generated on the DB level in POSTGRES
+  // with `uuid()` UUID is generated on Prisma level
+  // see "Native database functions" in Prisma docs
+
+  // zod-prisma-types "rich-comment" after three slashes adds "Field validators"
+  // see zod-prisma-types docs for the syntax and zod docs for validators
 model Reagent {
   id              String            @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
   name            String            // Name of the reagent
@@ -105,10 +122,8 @@ model Reagent {
   description     String            // Description of the reagent
   quantity        Float             // Quantity left in stock
   unit            Unit              @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
-  quantityInit     Float?            // Initial quantity of the reagent (e.g., 500 ml)
-  container       Container?        // Sample container ("bottle", "box", etc)
+  quantityInit    Float?            // Initial quantity of the reagent (e.g., 500 ml)
   expirationDate  DateTime?         // Expiry date of the reagent
-  storageLocation String?           // Storage location: Room, Cabinet, Shelf
   cas             String?           // CAS number for reagent-specific info
   producer        String?           // Manufacturer or supplier
   catalogId       String?           // Catalog identifier
@@ -124,9 +139,79 @@ model Reagent {
 
   // Many-to-Many relation with Sample
   samples         Sample[]          @relation("ReagentSamples") // List of Samples where Reagent is used
+  // Many-to-Many relation with Order
+  orders          Order[]           @relation("ReagentOrders") // List of Orders where Reagent is included
+  // Many-to-Many relation with Request
+  requests        Request[]         @relation("ReagentRequests") // List of Requests where Reagent is included
   // Many-to-One relation with StorageLocation
-  storageId       String?            @db.Uuid /// @zod.string.uuid() // Storage location of the Reagent
-  storage         StorageLocation?   @relation(fields: [storageId], references: [id])
+  storageId       String            @db.Uuid /// @zod.string.uuid() // Storage location of the Reagent 
+  storage         StorageLocation   @relation(fields: [storageId], references: [id])
+}
+
+
+model Sample {
+  id              String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  name            String      // Name of the sample
+  structure       String     // Chemical structure
+  description     String      // Description of the sample
+  quantity        Float       // Quantity left in stock
+  quantityInit    Float?      // Initial quantity of the sample (e.g., 500 ml)
+  unit            Unit        @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
+  expirationDate  DateTime?   // Expiry date of the reagent
+  category        Category    @default(sample) // Category ("sample")
+  deletedAt       DateTime?   // Date and Time of soft deletion
+  createdAt       DateTime    @default(now()) // Date and Time of Sample creation
+  updatedAt       DateTime    @updatedAt // Date and Time of Sample modification
+
+  // Many-to-Many relation with Reagent
+  reagents        Reagent[]  @relation("ReagentSamples") // List of Reagents used for the Sample
+  // Many-to-One relation with StorageLocation
+  storageId       String            @db.Uuid /// @zod.string.uuid() // Storage location of the Reagent 
+  storage         StorageLocation   @relation(fields: [storageId], references: [id])
+
+}
+
+
+view CombinedList {
+  id              String      @id @db.Uuid
+  category        String?
+  name            String?
+  structure       String?
+  description     String?
+  quantity        Float?
+  unit            Unit?
+  quantityInit    Float?
+  expirationDate  DateTime?
+  producer        String?
+  catalogId       String?
+  catalogLink     String?
+  pricePerUnit    Float?
+  currency        Currency?
+  type            ReagentType?
+  status          ReagentStatus?
+  cas             String?
+  storageLocation String?
+  deletedAt       DateTime?
+  createdAt       DateTime?
+  updatedAt       DateTime?
+}
+
+
+model Order {
+  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  description     String?       // Description of the order
+  creationDate    DateTime?     // the date and time the *request* was created 4.0. to be discussed
+  status          OrderStatus   @default(pending) // Status of the order ("pending", "submitted", "fulfilled", "canceled")
+  seller          String?       // Seller of the ordered reagents
+  deletedAt       DateTime?     // Date and Time of soft deletion
+  createdAt       DateTime      @default(now()) // Date and Time of Order creation 
+  updatedAt       DateTime      @updatedAt // Date and Time of Order modification
+  
+  // Many-to-Many relation with Reagent
+  reagents        Reagent[]     @relation("ReagentOrders") // List of ordered Reagents
+  // Many-to-One relation with User
+  userId          String        @db.Uuid /// @zod.string.uuid() // the ID of the who created the *request* 4.0. to be discussed
+  user            User          @relation(fields: [userId], references: [id]) // Procurement Officer who created the Order
 }
 
 
@@ -135,59 +220,75 @@ model StorageLocation {
   room                  String        // room where the storage location is located (Autocomplete), e.g. Building 1, Room 12
   name                  String        // exact location in the room(Autocomplete), e.g. Cabinet 1, shelf 3
   description           String?
-  deletedAt             DateTime?  // Date and Time of soft deletion
-  createdAt             DateTime    @default(now())
-  updatedAt             DateTime    @updatedAt
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  deletedAt             DateTime?     // Date and Time of soft deletion
   // One-to-Many relation with Reagent
   reagents              Reagent[]     @relation() // List of Reagents contained in the Storage
   // One-to-Many relation with Sample
   samples               Sample[]      @relation() // List of Samples contained in the Storage
-
 }
 
 
+model Comment {
+  id                    String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  contents              String
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  deletedAt             DateTime?     // Date and Time of soft deletion
 
-model Sample {
-  id              String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
-  name            String     // Name of the sample
-  structure       String?    // Chemical structure
-  description     String     // Description of the sample
-  quantity        Float      // Quantity left in stock
-  quantityInit    Float?     // Initial quantity of the sample (e.g., 500 ml)
-  unit            Unit       @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
-  storageLocation String?           // Storage location: Room, Cabinet, Shelf
-  category        Category   @default(sample) // Category ("sample")
-  container       Container? // Sample container ("bottle", "box", etc)
-  deletedAt       DateTime?  // Date and Time of soft deletion
-  createdAt       DateTime   @default(now()) // Date and Time of Sample creation
-  updatedAt       DateTime   @updatedAt // Date and Time of Sample modification
+  // Many-to-One relation with User
+  authorId                String        @db.Uuid /// @zod.string.uuid()
+  author                  User          @relation(fields: [authorId], references: [id]) // User who posted the Comment
+}
 
+
+model Request {
+  id                    String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  status                RequestStatus @default(pending) // Status of the request ("pending", "ordered", "fulfilled", "declined")
+  quantity              Float         // Desired quantity
+  unit                  Unit          @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
+  cas                   String?       // CAS number for reagent-specific info
+  commentsUser          String?       // Researcher comments
+  commentsProcurement   String?
+  deletedAt             DateTime?     // Date and Time of soft deletion
+  createdAt             DateTime      @default(now()) // Date and Time of Order creation 
+  updatedAt             DateTime      @updatedAt // Date and Time of Order modification
+  
   // Many-to-Many relation with Reagent
-  reagents        Reagent[]  @relation("ReagentSamples") // List of Reagents used for the Sample
-  // Many-to-One relation with StorageLocation
-  storageId       String            @db.Uuid /// @zod.string.uuid() // Storage location of the Reagent
-  storage         StorageLocation   @relation(fields: [storageId], references: [id])
+  reagents              Reagent[]     @relation("ReagentRequests") // List of requested Reagents
+  // Many-to-One relation with User
+  userId                String        @db.Uuid /// @zod.string.uuid()
+  user                  User          @relation(fields: [userId], references: [id]) // Researcher who created the Request
 }
 
-enum Role {
-  admin
-  procurementOfficer
-  researcher
-}
 
 model User {
-  id             String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
-  username       String   @unique // username an unique field
+  id             String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  username       String     @unique // username an unique field
   firstName      String
   lastName       String
-  email          String   @unique // email an unique field
+  email          String     @unique // email an unique field
   password       String
-  role           Role
+  role           Role       @default(researcher) // "admin", "procurementOfficer", "researcher"
   lastLoginDate  DateTime?
-  createdAt      DateTime @default(now())
-  updatedAt      DateTime @updatedAt
+  createdAt      DateTime   @default(now())
+  updatedAt      DateTime   @updatedAt
+
+  // One-to-Many relation with Orders
+  orders         Order[]    @relation() // List of Orders made by the Procurement Officer
+  // One-to-Many relation with Request
+  requests       Request[]  @relation() // List of Requests made by the Researcher
+  // One-to-Many relation with Request
+  comments       Comment[]  @relation() // List of Comments made by the User
 }
 
 
+model Profile {
+  id             String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
 
+  createdAt             DateTime      @default(now())
+  updatedAt             DateTime      @updatedAt
+  deletedAt             DateTime?     // Date and Time of soft deletion
 
+}
