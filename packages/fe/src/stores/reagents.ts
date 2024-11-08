@@ -1,4 +1,4 @@
-import { createEffect, createEvent, sample } from "effector";
+import { sample } from "effector";
 import { createGate } from "effector-react";
 import { produce } from "immer";
 
@@ -26,13 +26,13 @@ export const initialFormData: CreateReagentType = {
 export const $reagentsList = domain.createStore<ReagentType[]>([], { name: "$reagentsList" });
 
 export const $formData = domain.createStore<CreateReagentType>(initialFormData);
-export const setFormData = createEvent<CreateReagentType>();
+export const setFormData = domain.createEvent<CreateReagentType>();
 
-export const fetchReagentsFx = createEffect(async () => {
+export const fetchReagentsFx = domain.createEffect(async () => {
     const response = await getReagentsApi();
     return response ?? [];
 });
-export const addReagentFx = createEffect(async (data: CreateReagentType) => {
+export const addReagentFx = domain.createEffect(async (data: CreateReagentType) => {
     const response = await fetch(`${base}/api/v1/reagents`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -44,10 +44,10 @@ export const addReagentFx = createEffect(async (data: CreateReagentType) => {
 
 export const ReagentsGate = createGate({ domain });
 
-export const deleteReagentEvent = createEvent<string>();
-export const updateReagentEvent = createEvent<ReagentDetailsEdit>();
-export const addReagentEvent = createEvent<CreateReagentType>();
-export const submitReagentEvent = createEvent<CreateReagentType>();
+export const deleteReagentEvent = domain.createEvent<string>();
+export const updateReagentEvent = domain.createEvent<ReagentDetailsEdit>();
+export const addReagentEvent = domain.createEvent<CreateReagentType>();
+export const submitReagentEvent = domain.createEvent<CreateReagentType>();
 
 $formData.on(setFormData, (state, payload) => ({
     ...state,
