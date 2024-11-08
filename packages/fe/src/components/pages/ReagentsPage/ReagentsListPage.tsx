@@ -1,10 +1,16 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Box } from "@mui/material";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 import { useGate, useUnit } from "effector-react";
 
-import { CreateReagentType } from "api/reagents";
-import { $ReagentsList, fetchReagentsFx, ReagentsGate, submitReagentEvent } from "stores/reagents";
+import {
+    $formData,
+    $reagentsList,
+    initialFormData,
+    ReagentsGate,
+    setFormData,
+    submitReagentEvent,
+} from "stores/reagents";
 
 import { AddReagentButton } from "./AddReagentButton";
 import { ReagentFormModal } from "./ReagentFormModal";
@@ -21,28 +27,9 @@ export const ReagentsListPage = () => {
         navigate({ to: `/reagents/${row.id}`, replace: false });
     };
 
-    const reagents = useUnit($ReagentsList);
-
-    const initialFormData: CreateReagentType = {
-        name: "",
-        description: "",
-        structure: "",
-        cas: "",
-        producer: "",
-        catalogId: "",
-        catalogLink: "",
-        pricePerUnit: 0,
-        unit: "",
-        quantity: 0,
-        expirationDate: new Date().toISOString().split("T")[0],
-        storageLocation: "",
-    };
-
-    const [formData, setFormData] = useState<CreateReagentType>(initialFormData);
-
-    useEffect(() => {
-        fetchReagentsFx();
-    }, []);
+    const reagents = useUnit($reagentsList);
+    const formData = useUnit($formData);
+    const submitReagent = useUnit(submitReagentEvent);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -51,8 +38,6 @@ export const ReagentsListPage = () => {
             [name]: name === "quantity" || name === "pricePerUnit" ? Number(value) : value,
         });
     };
-
-    const submitReagent = useUnit(submitReagentEvent);
 
     const handleSubmit = () => {
         submitReagent(formData);

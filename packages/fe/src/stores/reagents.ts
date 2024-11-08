@@ -7,8 +7,26 @@ import { CreateReagentType, getReagentsApi, ReagentType } from "api/reagents";
 import { base } from "api/request";
 import { genericDomain as domain } from "logger";
 
+export const initialFormData: CreateReagentType = {
+    name: "",
+    description: "",
+    structure: "",
+    cas: "",
+    producer: "",
+    catalogId: "",
+    catalogLink: "",
+    pricePerUnit: 0,
+    unit: "",
+    quantity: 0,
+    expirationDate: new Date().toISOString().split("T")[0],
+    storageLocation: "",
+};
+
 // Store to hold the list of materials fetched
-export const $ReagentsList = domain.createStore<ReagentType[]>([], { name: "$ReagentsList" });
+export const $reagentsList = domain.createStore<ReagentType[]>([], { name: "$reagentsList" });
+
+export const $formData = domain.createStore<CreateReagentType>(initialFormData);
+export const setFormData = createEvent<CreateReagentType>();
 
 export const fetchReagentsFx = createEffect(async () => {
     const response = await getReagentsApi();
@@ -31,14 +49,26 @@ export const updateReagentEvent = createEvent<ReagentDetailsEdit>();
 export const addReagentEvent = createEvent<CreateReagentType>();
 export const submitReagentEvent = createEvent<CreateReagentType>();
 
+$formData.on(setFormData, (state, payload) => ({
+    ...state,
+    ...payload,
+}));
+
 // Update the store when a reagent is deleted
-$ReagentsList.on(deleteReagentEvent, (state, id) => state.filter((reagent) => reagent.id !== id));
-$ReagentsList.on(updateReagentEvent, (state, updatedReagent) =>
-    state.map((reagent) =>
-        reagent.id === updatedReagent.id ? { ...reagent, ...updatedReagent } : reagent,
-    ),
+$reagentsList.on(deleteReagentEvent, (state, id) =>
+    produce(state, (draft) => {
+        return draft.filter((reagent) => reagent.id !== id);
+    }),
 );
-$ReagentsList.on(addReagentEvent, (state, newReagent) =>
+$reagentsList.on(updateReagentEvent, (state, updatedReagent) =>
+    produce(state, (draft) => {
+        const index = draft.findIndex((reagent) => reagent.id === updatedReagent.id);
+        if (index !== -1) {
+            draft[index] = { ...draft[index], ...updatedReagent };
+        }
+    }),
+);
+$reagentsList.on(addReagentEvent, (state, newReagent) =>
     produce(state, (draft) => {
         draft.push(newReagent);
     }),
@@ -47,7 +77,7 @@ $ReagentsList.on(addReagentEvent, (state, newReagent) =>
 // save data from server
 sample({
     clock: fetchReagentsFx.doneData,
-    target: $ReagentsList,
+    target: $reagentsList,
 });
 
 sample({
