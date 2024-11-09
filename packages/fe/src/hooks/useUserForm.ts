@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { useUnit } from "effector-react";
 
-import { addUserFx } from "stores/users";
+import { $UsersList, addUserFx } from "stores/users";
 
 type FormErrors = {
     username?: string;
@@ -25,14 +26,23 @@ export type UserFormData = {
 export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElement> }) => {
     const [errors, setErrors] = useState<FormErrors>({});
 
+    const users = useUnit($UsersList);
+
     const validateForm = (formData: UserFormData) => {
         const newErrors: FormErrors = {};
 
-        if (formData.username.length > 50)
+        if (users.some((user) => user.username === formData.username)) {
+            newErrors.username = "Username already exists.";
+        } else if (formData.username.length > 50) {
             newErrors.username = "Username must not exceed 50 characters.";
+        }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(formData.email)) newErrors.email = "Invalid email format.";
+        if (users.some((user) => user.email === formData.email)) {
+            newErrors.email = "Email already exists.";
+        } else if (!emailRegex.test(formData.email)) {
+            newErrors.email = "Invalid email format.";
+        }
 
         if (formData.password.length < 8)
             newErrors.password = "Password must be at least 8 characters long.";
