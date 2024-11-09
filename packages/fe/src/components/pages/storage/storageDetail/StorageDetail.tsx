@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import { useGate, useUnit } from "effector-react";
 
 import { Grid } from "components/userDataGrid/Grid";
-import { $DetailedStorage, DetailedGate } from "stores/storage";
+import { $detailedStorage, DetailedGate } from "stores/storage";
 
 const headers = [
     { field: "id", headerName: "ID", width: 120 },
@@ -27,17 +27,20 @@ const boxStyle = { display: "flex", flexDirection: "column", gap: "20px" };
 export const StorageDetail = () => {
     useGate(DetailedGate);
 
-    const detailedStorage = useUnit($DetailedStorage);
+    const detailedStorage = useUnit($detailedStorage);
 
-    const storage = detailedStorage?.storageLocation;
-    const reagents = detailedStorage?.storageLocation?.reagents || [];
+    const reagents = detailedStorage?.reagents || [];
 
     return (
         <Box sx={boxStyle}>
-            <Typography variant="h5">{storage?.name}</Typography>
-            <Typography variant="h5">{storage?.room}</Typography>
-            <Typography>{storage?.description}</Typography>
-            <Grid rows={reagents} headers={headers} recordType="detailedReagents" />
+            <Typography variant="h5">{detailedStorage?.name}</Typography>
+            <Typography variant="h5">{detailedStorage?.room}</Typography>
+            <Typography>{detailedStorage?.description}</Typography>
+            {reagents.length > 0 ? (
+                <Grid rows={reagents} headers={headers} recordType="detailedReagents" />
+            ) : (
+                <Typography>Storage Is Empty</Typography>
+            )}
         </Box>
     );
 };

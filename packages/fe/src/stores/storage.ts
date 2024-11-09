@@ -11,32 +11,32 @@ export const fetchStorageFx = createEffect(async () => {
     return response ?? [];
 });
 
-// TODO emove unknown
-export const fetchDetailedStorageFx = createEffect(async (id: unknown) => {
-    const response = await getStorageDetail({ id });
+export const fetchDetailedStorageFx = createEffect(async (id: string) => {
+    const response = await getStorageDetail(id);
+
     return response;
 });
 
-export const $DetailedStorage = domain.createStore<DetailedStorage>({} as DetailedStorage, {
-    name: "$DetailedStorage",
+export const $detailedStorage = domain.createStore<DetailedStorage>({} as DetailedStorage, {
+    name: "$detailedStorage",
 });
 
-export const $StorageList = domain.createStore<StorageType>([], { name: "$StorageList" });
+export const $storageList = domain.createStore<StorageType["data"]>([], { name: "$StorageList" });
 
 export const StorageGate = createGate({ domain });
 export const DetailedGate = createGate({ domain });
 
-$DetailedStorage.on(fetchDetailedStorageFx.doneData, (_, payload) => payload);
+$detailedStorage.on(fetchDetailedStorageFx.doneData, (_, payload) => payload);
 
 sample({
     clock: DetailedGate.open,
+    source: $detailedStorage,
+    filter: (storage) => !!storage.id,
+    fn: (storage) => {
+        return storage.id;
+    },
     target: fetchDetailedStorageFx,
 });
-
-// sample({
-//     clock: fetchDetailedStorageFx.doneData,
-//     target: $DetailedStorage,
-// });
 
 sample({
     clock: StorageGate.open,
@@ -45,5 +45,5 @@ sample({
 
 sample({
     clock: fetchStorageFx.doneData,
-    target: $StorageList,
+    target: $storageList,
 });

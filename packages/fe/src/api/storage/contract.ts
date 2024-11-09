@@ -2,38 +2,40 @@ import { z } from "zod";
 
 const storageReagnets = z.object({
     id: z.string(),
-    name: z.string(),
-    structure: z.string(),
-    description: z.string(),
+    name: z.string().nullable(),
+    structure: z.string().nullable(),
+    description: z.string().nullable(),
     quantity: z.number(),
-    unit: z.string(),
-    size: z.number(),
-    expirationDate: z.string(),
-    cas: z.string(),
-    producer: z.string(),
-    catalogId: z.string(),
-    catalogLink: z.string().url(),
-    pricePerUnit: z.number(),
-    category: z.string(),
-    status: z.enum(["out_of_stock", "ordered", "available"]),
-});
-
-const StorageLocationTypes = z.object({
-    id: z.string(),
-    room: z.string(),
-    name: z.string(),
-    description: z.string(),
+    unit: z.string().nullable(),
+    size: z.number().nullable(),
+    expirationDate: z.string().nullable(),
+    storageLocation: z.string(),
+    cas: z.string().nullable(),
+    producer: z.string().nullable(),
+    catalogId: z.string().nullable(),
+    catalogLink: z.string().nullable(),
+    pricePerUnit: z.number().nullable(),
+    category: z.string().nullable(),
+    status: z.string().nullable(),
     deletedAt: z.string().nullable(),
     createdAt: z.string(),
     updatedAt: z.string(),
-    reagents: z.array(storageReagnets).nullable(),
 });
 
-export const contractDetailedStorage = z.object({
-    storageLocation: StorageLocationTypes,
+export const StorageLocationTypes = z.object({
+    id: z.string(),
+    room: z.string().nullable(),
+    name: z.string().nullable(),
+    description: z.string().nullable(),
+    deletedAt: z.string().nullable(),
+    createdAt: z.string().nullable(),
+    updatedAt: z.string().nullable(),
+    reagents: z.array(storageReagnets).nullable().optional(),
 });
 
-export const contractStorageType = z.array(StorageLocationTypes);
+export const contractStorageType = z.object({
+    data: z.array(StorageLocationTypes),
+});
 
-export type DetailedStorage = z.infer<typeof contractDetailedStorage>;
+export type DetailedStorage = z.infer<typeof StorageLocationTypes>;
 export type StorageType = z.infer<typeof contractStorageType>;

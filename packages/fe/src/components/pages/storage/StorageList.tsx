@@ -2,7 +2,7 @@ import { Box } from "@mui/material";
 import { useGate, useUnit } from "effector-react";
 
 import { Grid } from "components/userDataGrid/Grid";
-import { $StorageList, StorageGate } from "stores/storage";
+import { $storageList, StorageGate } from "stores/storage";
 
 const headers = [
     { field: "name", headerName: "Storage Name", width: 170 },
@@ -20,21 +20,18 @@ const BoxStyle = {
 export const StorageList = () => {
     useGate(StorageGate);
 
-    const storage = useUnit($StorageList);
+    const storage = useUnit($storageList);
 
-    const rows = storage.map((item) => {
-        return {
-            id: item.id,
-            room: item.room,
-            name: item.name,
-            description: item.description,
-            reagentsCount: item.reagents?.length || null,
-        };
-    });
+    const formattedStorage = storage.map((item) => ({
+        id: item.id,
+        name: item.name,
+        room: item.room,
+        description: item.description,
+    }));
 
     return (
         <Box sx={BoxStyle}>
-            <Grid rows={rows} headers={headers} recordType="storage" />
+            <Grid rows={formattedStorage} headers={headers} recordType="storage" />
         </Box>
     );
 };

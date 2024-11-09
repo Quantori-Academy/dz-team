@@ -1,16 +1,14 @@
-import { useMemo, useState } from "react";
+import { useCallback, useMemo, useState } from "react";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
-
 import PageviewIcon from "@mui/icons-material/Pageview";
 import { Box, Modal, TextField, Typography } from "@mui/material";
-import { DataGrid, GridActionsCellItem, GridRowParams } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import { useNavigate } from "@tanstack/react-router";
 
 import { useSession } from "hooks/useSession";
 import { useUserForm } from "hooks/useUserForm";
 import { fetchDetailedStorageFx } from "stores/storage";
-
 import { SupportedValue } from "utils/formatters";
 
 import { AddRecord } from "./Addrecord";
@@ -19,11 +17,13 @@ import { AddUserForm } from "./AddUserForm";
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
-
     recordType: "user" | "storage" | "detailedReagents";
 };
 type RowDataType = {
     id: string;
+    room: string;
+    name: string;
+    description: string;
 };
 
 export const Grid = ({ rows, headers, recordType }: GridProps) => {
@@ -51,11 +51,11 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                 return Object.values(value).some(
                     (nestedValue) =>
                         typeof nestedValue === "string" &&
-                        nestedValue.toLowerCase().includes(searchQuery.toLowerCase())
+                        nestedValue.toLowerCase().includes(searchQuery.toLowerCase()),
                 );
             }
             return false;
-        })
+        }),
     );
 
     const handleModalClose = () => {
@@ -66,27 +66,34 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
         setModalOpen(true);
     };
 
-
     const handleADdStorageOpen = () => {
         alert("new storage");
     };
 
-    const handleRowClick = (row: { id: string }) => {
-        const id = row?.id;
-        fetchDetailedStorageFx(id);
-        navigate({ to: `/storageDetail`, replace: false });
-    };
-
+    const handleRowClick = useCallback(
+        (id: string) => {
+            fetchDetailedStorageFx(id);
+            navigate({ to: `/storageDetail`, replace: false });
+        },
+        [navigate],
+    );
 
     const columns = useMemo(() => {
         const editColumn = {
             field: "actions",
             headerName: "Actions",
             width: 100,
-            renderCell: (params: { row: { id: string } }) => (
-                <>
 
-                    <GridActionsCellItem icon={<PageviewIcon />} label="View" color="inherit" />
+            renderCell: (params: { row: RowDataType }) => (
+                <>
+                    {recordType !== "detailedReagents" && !isAdmin && (
+                        <GridActionsCellItem
+                            icon={<PageviewIcon />}
+                            label="View"
+                            color="inherit"
+                            onClick={() => handleRowClick(params.row?.id)}
+                        />
+                    )}
 
                     {isAdmin && (
                         <>
@@ -104,28 +111,23 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                             />
                         </>
                     )}
-
                 </>
             ),
         };
         return [...headers, editColumn];
-
-    }, [headers, handleDeleteClick, isAdmin]);
-
+    }, [headers, handleDeleteClick, isAdmin, handleRowClick, recordType]);
 
     return (
         <>
             <TextField
                 variant="outlined"
-
                 placeholder={
                     recordType === "user"
                         ? "Search by name, username, or email"
                         : recordType === "detailedReagents"
-                        ? "Search Reagent"
-                        : "Search by room or shelf"
+                          ? "Search Reagent"
+                          : "Search by room or shelf"
                 }
-
                 value={searchQuery}
                 onChange={handleSearch}
                 sx={{ width: "350px", marginBottom: "16px" }}
@@ -133,12 +135,6 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
             <DataGrid
                 rows={filteredRows}
                 rowHeight={60}
-
-                // getRowId={(row) => row.id}
-                onRowClick={(params: GridRowParams<RowDataType>) => {
-                    handleRowClick(params.row);
-                }}
-
                 columns={columns}
                 disableRowSelectionOnClick
                 pageSizeOptions={[5, 15, 25, 50]}
@@ -150,7 +146,6 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                     },
                 }}
                 slots={{
-
                     toolbar: isAdmin
                         ? () =>
                               recordType === "user" ? (
@@ -165,7 +160,6 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                                   />
                               )
                         : null,
-
                 }}
             />
             <Modal open={isModalOpen} onClose={handleModalClose}>
@@ -183,13 +177,11 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                         borderRadius: 1,
                     }}
                 >
-
                     {recordType === "user" ? (
                         <AddUserForm onClose={handleModalClose} />
                     ) : (
                         <Typography>storage form </Typography>
                     )}
-
                 </Box>
             </Modal>
         </>
