@@ -1,4 +1,4 @@
-import { createEffect, sample } from "effector";
+import { sample } from "effector";
 import { createGate } from "effector-react";
 
 import { DetailedStorage, StorageType } from "api/storage/contract";
@@ -6,14 +6,13 @@ import { getStorage } from "api/storage/getStorage";
 import { getStorageDetail } from "api/storage/storageDetail";
 import { genericDomain as domain } from "logger";
 
-export const fetchStorageFx = createEffect(async () => {
+export const fetchStorageFx = domain.createEffect(async () => {
     const response = await getStorage();
     return response ?? [];
 });
 
-export const fetchDetailedStorageFx = createEffect(async (id: string) => {
+export const fetchDetailedStorageFx = domain.createEffect(async (id: string) => {
     const response = await getStorageDetail(id);
-
     return response;
 });
 
@@ -21,12 +20,17 @@ export const $detailedStorage = domain.createStore<DetailedStorage>({} as Detail
     name: "$detailedStorage",
 });
 
-export const $storageList = domain.createStore<StorageType["data"]>([], { name: "$StorageList" });
+export const $storageList = domain.createStore<StorageType["data"]>([], { name: "$storageList" });
 
 export const StorageGate = createGate({ domain });
 export const DetailedGate = createGate({ domain });
 
 $detailedStorage.on(fetchDetailedStorageFx.doneData, (_, payload) => payload);
+
+// sample({
+//     clock:fetchDetailedStorageFx.doneData,
+//     target:$detailedStorage
+// })
 
 sample({
     clock: DetailedGate.open,
