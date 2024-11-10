@@ -1,0 +1,954 @@
+[
+    {
+        "name": "Sample A1",
+        "structure": "C6H6",
+        "description": "Sample A1 - Benzene solution",
+        "unit": "ml",
+        "quantity": 50.0,
+        "quantityInit": 50.0
+    },
+    {
+        "name": "Sample B2",
+        "structure": "C2H5OH",
+        "description": "Sample B2 - Ethanol solution",
+        "unit": "ml",
+        "quantity": 200.0,
+        "quantityInit": 200.0
+    },
+    {
+        "name": "Sample C3",
+        "structure": "C3H6O",
+        "description": "Sample C3 - Acetone mixture",
+        "unit": "ml",
+        "quantity": 100.0,
+        "quantityInit": 100.0
+    },
+    {
+        "name": "Sample D4",
+        "structure": "CH3COOH",
+        "description": "Sample D4 - Acetic acid",
+        "unit": "ml",
+        "quantity": 75.0,
+        "quantityInit": 75.0
+    },
+    {
+        "name": "Sample E5",
+        "structure": "C12H22O11",
+        "description": "Sample E5 - Sucrose solution",
+        "unit": "g",
+        "quantity": 150.0,
+        "quantityInit": 150.0
+    },
+    {
+        "name": "Sample F6",
+        "structure": "C8H10N4O2",
+        "description": "Sample F6 - Caffeine solution",
+        "unit": "ml",
+        "quantity": 60.0,
+        "quantityInit": 60.0
+    },
+    {
+        "name": "Sample G7",
+        "structure": "NaCl",
+        "description": "Sample G7 - Sodium chloride solution",
+        "unit": "g",
+        "quantity": 50.0,
+        "quantityInit": 50.0
+    },
+    {
+        "name": "Sample H8",
+        "structure": "C4H10O",
+        "description": "Sample H8 - Butanol mixture",
+        "unit": "ml",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample I9",
+        "structure": "C2H6O2",
+        "description": "Sample I9 - Ethylene glycol",
+        "unit": "ml",
+        "quantity": 120.0,
+        "quantityInit": 120.0
+    },
+    {
+        "name": "Sample J10",
+        "structure": "C10H12O2",
+        "description": "Sample J10 - Vanillin solution",
+        "unit": "ml",
+        "quantity": 90.0,
+        "quantityInit": 90.0
+    },
+    {
+        "name": "Sample K11",
+        "structure": "C6H12O6",
+        "description": "Sample K11 - Glucose solution",
+        "unit": "g",
+        "quantity": 100.0,
+        "quantityInit": 100.0
+    },
+    {
+        "name": "Sample L12",
+        "structure": "C3H7NO2",
+        "description": "Sample L12 - Glycine solution",
+        "unit": "g",
+        "quantity": 50.0,
+        "quantityInit": 50.0
+    },
+    {
+        "name": "Sample M13",
+        "structure": "H2SO4",
+        "description": "Sample M13 - Sulfuric acid solution",
+        "unit": "ml",
+        "quantity": 40.0,
+        "quantityInit": 40.0
+    },
+    {
+        "name": "Sample N14",
+        "structure": "NaOH",
+        "description": "Sample N14 - Sodium hydroxide solution",
+        "unit": "g",
+        "quantity": 30.0,
+        "quantityInit": 30.0
+    },
+    {
+        "name": "Sample O15",
+        "structure": "C7H6O3",
+        "description": "Sample O15 - Salicylic acid solution",
+        "unit": "g",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample P16",
+        "structure": "CH3NH2",
+        "description": "Sample P16 - Methylamine solution",
+        "unit": "ml",
+        "quantity": 50.0,
+        "quantityInit": 50.0
+    },
+    {
+        "name": "Sample Q17",
+        "structure": "C4H6O3",
+        "description": "Sample Q17 - Maleic acid mixture",
+        "unit": "g",
+        "quantity": 60.0,
+        "quantityInit": 60.0
+    },
+    {
+        "name": "Sample R18",
+        "structure": "NaHCO3",
+        "description": "Sample R18 - Sodium bicarbonate solution",
+        "unit": "g",
+        "quantity": 100.0,
+        "quantityInit": 100.0
+    },
+    {
+        "name": "Sample S19",
+        "structure": "C5H10O2",
+        "description": "Sample S19 - Pentanol mixture",
+        "unit": "ml",
+        "quantity": 70.0,
+        "quantityInit": 70.0
+    },
+    {
+        "name": "Sample T20",
+        "structure": "C9H8O4",
+        "description": "Sample T20 - Aspirin solution",
+        "unit": "g",
+        "quantity": 40.0,
+        "quantityInit": 40.0
+    },
+    {
+        "name": "Sample U21",
+        "structure": "C4H8O2",
+        "description": "Sample U21 - Butyl acetate",
+        "unit": "ml",
+        "quantity": 110.0,
+        "quantityInit": 110.0
+    },
+    {
+        "name": "Sample V22",
+        "structure": "C10H14N2",
+        "description": "Sample V22 - Nicotine solution",
+        "unit": "ml",
+        "quantity": 30.0,
+        "quantityInit": 30.0
+    },
+    {
+        "name": "Sample W23",
+        "structure": "C9H20O2",
+        "description": "Sample W23 - Diethyl ether",
+        "unit": "ml",
+        "quantity": 100.0,
+        "quantityInit": 100.0
+    },
+    {
+        "name": "Sample X24",
+        "structure": "C8H10O",
+        "description": "Sample X24 - Toluene mixture",
+        "unit": "ml",
+        "quantity": 60.0,
+        "quantityInit": 60.0
+    },
+    {
+        "name": "Sample Y25",
+        "structure": "C6H12O2",
+        "description": "Sample Y25 - Hexanol solution",
+        "unit": "ml",
+        "quantity": 50.0,
+        "quantityInit": 50.0
+    },
+    {
+        "name": "Sample Z26",
+        "structure": "C7H6ClNO",
+        "description": "Sample Z26 - 2-Chlorobenzylamine solution",
+        "unit": "ml",
+        "quantity": 120.0,
+        "quantityInit": 120.0
+    },
+    {
+        "name": "Sample A27",
+        "structure": "C9H12O3",
+        "description": "Sample A27 - Phenylacetone solution",
+        "unit": "ml",
+        "quantity": 70.0,
+        "quantityInit": 70.0
+    },
+    {
+        "name": "Sample B28",
+        "structure": "C3H4O2",
+        "description": "Sample B28 - Acrylic acid mixture",
+        "unit": "ml",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample C29",
+        "structure": "C4H6O4",
+        "description": "Sample C29 - Maleic anhydride",
+        "unit": "g",
+        "quantity": 90.0,
+        "quantityInit": 90.0
+    },
+    {
+        "name": "Sample D30",
+        "structure": "C3H8O2",
+        "description": "Sample D30 - Propylene glycol solution",
+        "unit": "ml",
+        "quantity": 110.0,
+        "quantityInit": 110.0
+    },
+    {
+        "name": "Sample E31",
+        "structure": "C6H12O6",
+        "description": "Sample E31 - Fructose solution",
+        "unit": "g",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample F32",
+        "structure": "C10H14O",
+        "description": "Sample F32 - Anisole mixture",
+        "unit": "ml",
+        "quantity": 50.0,
+        "quantityInit": 50.0
+    },
+    {
+        "name": "Sample G33",
+        "structure": "C7H7NO",
+        "description": "Sample G33 - Aniline solution",
+        "unit": "ml",
+        "quantity": 60.0,
+        "quantityInit": 60.0
+    },
+    {
+        "name": "Sample H34",
+        "structure": "C8H10N2",
+        "description": "Sample H34 - Theobromine mixture",
+        "unit": "g",
+        "quantity": 40.0,
+        "quantityInit": 40.0
+    },
+    {
+        "name": "Sample I35",
+        "structure": "C6H8O6",
+        "description": "Sample I35 - Ascorbic acid solution",
+        "unit": "g",
+        "quantity": 90.0,
+        "quantityInit": 90.0
+    },
+    {
+        "name": "Sample J36",
+        "structure": "C10H8O4",
+        "description": "Sample J36 - Phthalic acid solution",
+        "unit": "g",
+        "quantity": 70.0,
+        "quantityInit": 70.0
+    },
+    {
+        "name": "Sample K37",
+        "structure": "C2H4Cl2",
+        "description": "Sample K37 - Ethylene dichloride solution",
+        "unit": "ml",
+        "quantity": 100.0,
+        "quantityInit": 100.0
+    },
+    {
+        "name": "Sample L38",
+        "structure": "C5H10O",
+        "description": "Sample L38 - Pentanol mixture",
+        "unit": "ml",
+        "quantity": 120.0,
+        "quantityInit": 120.0
+    },
+    {
+        "name": "Sample M39",
+        "structure": "C3H7Cl",
+        "description": "Sample M39 - 1-Chloropropane solution",
+        "unit": "ml",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample N40",
+        "structure": "C6H5COOH",
+        "description": "Sample N40 - Benzoic acid mixture",
+        "unit": "g",
+        "quantity": 60.0,
+        "quantityInit": 60.0
+    },
+    {
+        "name": "Sample O41",
+        "structure": "C3H6O3",
+        "description": "Sample O41 - Lactic acid solution",
+        "unit": "g",
+        "quantity": 75.0,
+        "quantityInit": 75.0
+    },
+    {
+        "name": "Sample P42",
+        "structure": "C6H5Cl",
+        "description": "Sample P42 - Chlorobenzene solution",
+        "unit": "ml",
+        "quantity": 100.0,
+        "quantityInit": 100.0
+    },
+    {
+        "name": "Sample Q43",
+        "structure": "C3H6O2",
+        "description": "Sample Q43 - Methyl acetate mixture",
+        "unit": "ml",
+        "quantity": 120.0,
+        "quantityInit": 120.0
+    },
+    {
+        "name": "Sample R44",
+        "structure": "C9H10O",
+        "description": "Sample R44 - Phenyl ethanol solution",
+        "unit": "ml",
+        "quantity": 70.0,
+        "quantityInit": 70.0
+    },
+    {
+        "name": "Sample S45",
+        "structure": "C10H16",
+        "description": "Sample S45 - Limonene mixture",
+        "unit": "ml",
+        "quantity": 60.0,
+        "quantityInit": 60.0
+    },
+    {
+        "name": "Sample T46",
+        "structure": "C7H6O2",
+        "description": "Sample T46 - Benzaldehyde solution",
+        "unit": "ml",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample U47",
+        "structure": "C3H8O",
+        "description": "Sample U47 - Isopropanol solution",
+        "unit": "ml",
+        "quantity": 100.0,
+        "quantityInit": 100.0
+    },
+    {
+        "name": "Sample V48",
+        "structure": "C5H12O2",
+        "description": "Sample V48 - Pentylene glycol mixture",
+        "unit": "ml",
+        "quantity": 50.0,
+        "quantityInit": 50.0
+    },
+    {
+        "name": "Sample W49",
+        "structure": "C4H10O2",
+        "description": "Sample W49 - Ethylene glycol monoethyl ether",
+        "unit": "ml",
+        "quantity": 70.0,
+        "quantityInit": 70.0
+    },
+    {
+        "name": "Sample X50",
+        "structure": "C8H10O2",
+        "description": "Sample X50 - Methyl benzoate solution",
+        "unit": "ml",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample Y51",
+        "structure": "C10H12O2",
+        "description": "Sample Y51 - Methyl cinnamate solution",
+        "unit": "ml",
+        "quantity": 90.0,
+        "quantityInit": 90.0
+    },
+    {
+        "name": "Sample Z52",
+        "structure": "C4H6O2",
+        "description": "Sample Z52 - Maleic acid mixture",
+        "unit": "g",
+        "quantity": 120.0,
+        "quantityInit": 120.0
+    },
+    {
+        "name": "Sample A53",
+        "structure": "C7H8O2",
+        "description": "Sample A53 - Methylsalicylate solution",
+        "unit": "ml",
+        "quantity": 50.0,
+        "quantityInit": 50.0
+    },
+    {
+        "name": "Sample B54",
+        "structure": "C6H5NO2",
+        "description": "Sample B54 - Nitrobenzene mixture",
+        "unit": "ml",
+        "quantity": 60.0,
+        "quantityInit": 60.0
+    },
+    {
+        "name": "Sample C55",
+        "structure": "C8H10N4O2",
+        "description": "Sample C55 - Theophylline solution",
+        "unit": "ml",
+        "quantity": 90.0,
+        "quantityInit": 90.0
+    },
+    {
+        "name": "Sample D56",
+        "structure": "C3H6O",
+        "description": "Sample D56 - Propylene oxide mixture",
+        "unit": "ml",
+        "quantity": 100.0,
+        "quantityInit": 100.0
+    },
+    {
+        "name": "Sample E57",
+        "structure": "C5H9NO2",
+        "description": "Sample E57 - Glutamic acid solution",
+        "unit": "g",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample F58",
+        "structure": "C10H14O2",
+        "description": "Sample F58 - Isoamyl acetate solution",
+        "unit": "ml",
+        "quantity": 120.0,
+        "quantityInit": 120.0
+    },
+    {
+        "name": "Sample G59",
+        "structure": "C8H8O2",
+        "description": "Sample G59 - Ethyl 4-hydroxybenzoate solution",
+        "unit": "ml",
+        "quantity": 70.0,
+        "quantityInit": 70.0
+    },
+    {
+        "name": "Sample H60",
+        "structure": "C6H5O2",
+        "description": "Sample H60 - Phenol mixture",
+        "unit": "g",
+        "quantity": 50.0,
+        "quantityInit": 50.0
+    },
+    {
+        "name": "Sample I61",
+        "structure": "C3H7NO2",
+        "description": "Sample I61 - Serine solution",
+        "unit": "g",
+        "quantity": 90.0,
+        "quantityInit": 90.0
+    },
+    {
+        "name": "Sample J62",
+        "structure": "C3H6O2",
+        "description": "Sample J62 - Methyl acetoacetate",
+        "unit": "ml",
+        "quantity": 60.0,
+        "quantityInit": 60.0
+    },
+    {
+        "name": "Sample K63",
+        "structure": "C7H10N2O2",
+        "description": "Sample K63 - 2,4-Diaminophenol solution",
+        "unit": "g",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample L64",
+        "structure": "C4H10N2O2",
+        "description": "Sample L64 - Urea solution",
+        "unit": "g",
+        "quantity": 90.0,
+        "quantityInit": 90.0
+    },
+    {
+        "name": "Sample M65",
+        "structure": "C4H10O2",
+        "description": "Sample M65 - Butyl alcohol solution",
+        "unit": "ml",
+        "quantity": 120.0,
+        "quantityInit": 120.0
+    },
+    {
+        "name": "Sample N66",
+        "structure": "C6H8O6",
+        "description": "Sample N66 - Ascorbic acid solution",
+        "unit": "g",
+        "quantity": 60.0,
+        "quantityInit": 60.0
+    },
+    {
+        "name": "Sample O67",
+        "structure": "C9H10O2",
+        "description": "Sample O67 - Benzyl alcohol",
+        "unit": "ml",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample P68",
+        "structure": "C3H6O3",
+        "description": "Sample P68 - Lactic acid solution",
+        "unit": "g",
+        "quantity": 100.0,
+        "quantityInit": 100.0
+    },
+    {
+        "name": "Sample Q69",
+        "structure": "C5H5NO2",
+        "description": "Sample Q69 - Pyrrole-2-carboxylic acid",
+        "unit": "g",
+        "quantity": 70.0,
+        "quantityInit": 70.0
+    },
+    {
+        "name": "Sample R70",
+        "structure": "C6H5NO2",
+        "description": "Sample R70 - Nitrobenzene",
+        "unit": "ml",
+        "quantity": 90.0,
+        "quantityInit": 90.0
+    },
+    {
+        "name": "Sample S71",
+        "structure": "C3H4O2",
+        "description": "Sample S71 - Acrylic acid",
+        "unit": "g",
+        "quantity": 110.0,
+        "quantityInit": 110.0
+    },
+    {
+        "name": "Sample T72",
+        "structure": "C9H8O",
+        "description": "Sample T72 - Phenylacetylene",
+        "unit": "ml",
+        "quantity": 100.0,
+        "quantityInit": 100.0
+    },
+    {
+        "name": "Sample U73",
+        "structure": "C2H6O2",
+        "description": "Sample U73 - Ethylene glycol solution",
+        "unit": "ml",
+        "quantity": 120.0,
+        "quantityInit": 120.0
+    },
+    {
+        "name": "Sample V74",
+        "structure": "C5H6O2",
+        "description": "Sample V74 - 2-Methylphenol",
+        "unit": "g",
+        "quantity": 50.0,
+        "quantityInit": 50.0
+    },
+    {
+        "name": "Sample W75",
+        "structure": "C5H9N",
+        "description": "Sample W75 - 1-Methylpyrrole",
+        "unit": "ml",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample X76",
+        "structure": "C2H5NO2",
+        "description": "Sample X76 - Glycine solution",
+        "unit": "g",
+        "quantity": 60.0,
+        "quantityInit": 60.0
+    },
+    {
+        "name": "Sample Y77",
+        "structure": "C9H10O",
+        "description": "Sample Y77 - 1-Phenylethanol",
+        "unit": "ml",
+        "quantity": 50.0,
+        "quantityInit": 50.0
+    },
+    {
+        "name": "Sample Z78",
+        "structure": "C2H5NO3",
+        "description": "Sample Z78 - Serine solution",
+        "unit": "g",
+        "quantity": 70.0,
+        "quantityInit": 70.0
+    },
+    {
+        "name": "Sample A79",
+        "structure": "C6H6O",
+        "description": "Sample A79 - Hydroquinone",
+        "unit": "g",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample B80",
+        "structure": "C8H8O3",
+        "description": "Sample B80 - Methyl salicylate",
+        "unit": "ml",
+        "quantity": 100.0,
+        "quantityInit": 100.0
+    },
+    {
+        "name": "Sample C81",
+        "structure": "C3H4O3",
+        "description": "Sample C81 - Fumaric acid",
+        "unit": "g",
+        "quantity": 90.0,
+        "quantityInit": 90.0
+    },
+    {
+        "name": "Sample D82",
+        "structure": "C4H8O4",
+        "description": "Sample D82 - Butane-1,4-diol",
+        "unit": "g",
+        "quantity": 50.0,
+        "quantityInit": 50.0
+    },
+    {
+        "name": "Sample E83",
+        "structure": "C6H10O",
+        "description": "Sample E83 - Cyclohexanol",
+        "unit": "ml",
+        "quantity": 70.0,
+        "quantityInit": 70.0
+    },
+    {
+        "name": "Sample F84",
+        "structure": "C7H6O3",
+        "description": "Sample F84 - Salicylic acid solution",
+        "unit": "g",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample G85",
+        "structure": "C4H6N4",
+        "description": "Sample G85 - Guanidine hydrochloride",
+        "unit": "g",
+        "quantity": 40.0,
+        "quantityInit": 40.0
+    },
+    {
+        "name": "Sample H86",
+        "structure": "C7H8O2",
+        "description": "Sample H86 - Methylphenol solution",
+        "unit": "ml",
+        "quantity": 100.0,
+        "quantityInit": 100.0
+    },
+    {
+        "name": "Sample I87",
+        "structure": "C2H4O2",
+        "description": "Sample I87 - Acetic acid solution",
+        "unit": "ml",
+        "quantity": 60.0,
+        "quantityInit": 60.0
+    },
+    {
+        "name": "Sample J88",
+        "structure": "C6H6O3",
+        "description": "Sample J88 - Resorcinol",
+        "unit": "g",
+        "quantity": 70.0,
+        "quantityInit": 70.0
+    },
+    {
+        "name": "Sample K89",
+        "structure": "C5H10O",
+        "description": "Sample K89 - Isoamyl acetate solution",
+        "unit": "ml",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample L90",
+        "structure": "C9H10O2",
+        "description": "Sample L90 - Styrene oxide",
+        "unit": "ml",
+        "quantity": 50.0,
+        "quantityInit": 50.0
+    },
+    {
+        "name": "Sample M91",
+        "structure": "C8H8O",
+        "description": "Sample M91 - Toluene solution",
+        "unit": "ml",
+        "quantity": 60.0,
+        "quantityInit": 60.0
+    },
+    {
+        "name": "Sample N92",
+        "structure": "C6H12O2",
+        "description": "Sample N92 - Ethylene glycol monomethyl ether",
+        "unit": "ml",
+        "quantity": 70.0,
+        "quantityInit": 70.0
+    },
+    {
+        "name": "Sample O93",
+        "structure": "C7H6O2",
+        "description": "Sample O93 - Benzoic acid solution",
+        "unit": "g",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample P94",
+        "structure": "C6H14N2",
+        "description": "Sample P94 - Hexamethylenediamine solution",
+        "unit": "g",
+        "quantity": 100.0,
+        "quantityInit": 100.0
+    },
+    {
+        "name": "Sample Q95",
+        "structure": "C5H6O2",
+        "description": "Sample Q95 - 2-Hydroxybenzaldehyde solution",
+        "unit": "g",
+        "quantity": 60.0,
+        "quantityInit": 60.0
+    },
+    {
+        "name": "Sample R96",
+        "structure": "C9H10N4O",
+        "description": "Sample R96 - Xanthine solution",
+        "unit": "g",
+        "quantity": 70.0,
+        "quantityInit": 70.0
+    },
+    {
+        "name": "Sample S97",
+        "structure": "C4H8O2",
+        "description": "Sample S97 - Butyric acid solution",
+        "unit": "ml",
+        "quantity": 50.0,
+        "quantityInit": 50.0
+    },
+    {
+        "name": "Sample T98",
+        "structure": "C6H8O4",
+        "description": "Sample T98 - Tartaric acid solution",
+        "unit": "g",
+        "quantity": 100.0,
+        "quantityInit": 100.0
+    },
+    {
+        "name": "Sample U99",
+        "structure": "C8H8O3",
+        "description": "Sample U99 - 2-Ethylphenol solution",
+        "unit": "ml",
+        "quantity": 60.0,
+        "quantityInit": 60.0
+    },
+    {
+        "name": "Sample V100",
+        "structure": "C7H6O3",
+        "description": "Sample V100 - Salicylic acid solution",
+        "unit": "g",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample W101",
+        "structure": "C5H12N2",
+        "description": "Sample W101 - Ethylenediamine solution",
+        "unit": "g",
+        "quantity": 50.0,
+        "quantityInit": 50.0
+    },
+    {
+        "name": "Sample X102",
+        "structure": "C6H14O2",
+        "description": "Sample X102 - 1,2-Ethanediol solution",
+        "unit": "ml",
+        "quantity": 90.0,
+        "quantityInit": 90.0
+    },
+    {
+        "name": "Sample Y103",
+        "structure": "C3H6O4",
+        "description": "Sample Y103 - Citric acid solution",
+        "unit": "g",
+        "quantity": 100.0,
+        "quantityInit": 100.0
+    },
+    {
+        "name": "Sample Z104",
+        "structure": "C7H8O2",
+        "description": "Sample Z104 - Methylphenol solution",
+        "unit": "ml",
+        "quantity": 110.0,
+        "quantityInit": 110.0
+    },
+    {
+        "name": "Sample A105",
+        "structure": "C9H12O3",
+        "description": "Sample A105 - Vanillin solution",
+        "unit": "g",
+        "quantity": 60.0,
+        "quantityInit": 60.0
+    },
+    {
+        "name": "Sample B106",
+        "structure": "C3H6N2O",
+        "description": "Sample B106 - 2-Aminopyridine solution",
+        "unit": "g",
+        "quantity": 40.0,
+        "quantityInit": 40.0
+    },
+    {
+        "name": "Sample C107",
+        "structure": "C4H9NO2",
+        "description": "Sample C107 - Butyramide solution",
+        "unit": "g",
+        "quantity": 90.0,
+        "quantityInit": 90.0
+    },
+    {
+        "name": "Sample D108",
+        "structure": "C5H12O2",
+        "description": "Sample D108 - 2-Methylbutanol solution",
+        "unit": "ml",
+        "quantity": 120.0,
+        "quantityInit": 120.0
+    },
+    {
+        "name": "Sample E109",
+        "structure": "C9H8O2",
+        "description": "Sample E109 - Acetylsalicylic acid (aspirin)",
+        "unit": "g",
+        "quantity": 100.0,
+        "quantityInit": 100.0
+    },
+    {
+        "name": "Sample F110",
+        "structure": "C7H6O2",
+        "description": "Sample F110 - Acetophenone solution",
+        "unit": "ml",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample G111",
+        "structure": "C6H12O6",
+        "description": "Sample G111 - D-Glucose solution",
+        "unit": "g",
+        "quantity": 100.0,
+        "quantityInit": 100.0
+    },
+    {
+        "name": "Sample H112",
+        "structure": "C4H6O3",
+        "description": "Sample H112 - Maleic acid solution",
+        "unit": "g",
+        "quantity": 60.0,
+        "quantityInit": 60.0
+    },
+    {
+        "name": "Sample I113",
+        "structure": "C3H4O2",
+        "description": "Sample I113 - Acrylic acid solution",
+        "unit": "ml",
+        "quantity": 120.0,
+        "quantityInit": 120.0
+    },
+    {
+        "name": "Sample J114",
+        "structure": "C8H10O2",
+        "description": "Sample J114 - Ethyl benzene solution",
+        "unit": "ml",
+        "quantity": 70.0,
+        "quantityInit": 70.0
+    },
+    {
+        "name": "Sample K115",
+        "structure": "C7H8O",
+        "description": "Sample K115 - Phenyl alcohol solution",
+        "unit": "ml",
+        "quantity": 50.0,
+        "quantityInit": 50.0
+    },
+    {
+        "name": "Sample L116",
+        "structure": "C5H8O3",
+        "description": "Sample L116 - Methyl 3-hydroxybutyrate solution",
+        "unit": "g",
+        "quantity": 80.0,
+        "quantityInit": 80.0
+    },
+    {
+        "name": "Sample M117",
+        "structure": "C6H4O2",
+        "description": "Sample M117 - Hydroquinone",
+        "unit": "g",
+        "quantity": 50.0,
+        "quantityInit": 50.0
+    },
+    {
+        "name": "Sample N118",
+        "structure": "C8H6N4O2",
+        "description": "Sample N118 - 2,6-Diaminopyridine solution",
+        "unit": "g",
+        "quantity": 60.0,
+        "quantityInit": 60.0
+    },
+    {
+        "name": "Sample O119",
+        "structure": "C3H6O2",
+        "description": "Sample O119 - Propionic acid solution",
+        "unit": "ml",
+        "quantity": 70.0,
+        "quantityInit": 70.0
+    }
+]
