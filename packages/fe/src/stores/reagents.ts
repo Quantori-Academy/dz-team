@@ -5,9 +5,9 @@ import { createGate } from "effector-react";
 import { ReagentDetailsEdit } from "api/reagentDetails/contract";
 import { getReagents, ReagentsResponseType } from "api/reagents";
 import { genericDomain } from "logger";
-import { Reagent } from "shared/generated/zod";
+import { CombinedList } from "shared/generated/zod";
 
-export const searchableFields: (keyof Reagent)[] = [
+export const searchableFields: (keyof CombinedList)[] = [
     "name",
     "description",
     "structure",
@@ -18,7 +18,7 @@ export const searchableFields: (keyof Reagent)[] = [
 ];
 
 export type SearchBy = {
-    [key in keyof Reagent]?: boolean;
+    [key in keyof CombinedList]?: boolean;
 };
 
 export const MainListGate = createGate("MainList");

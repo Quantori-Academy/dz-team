@@ -2,11 +2,11 @@ import { GridSortDirection } from "@mui/x-data-grid";
 import { z } from "zod";
 
 import { base, request } from "api/request";
-import { ReagentSchema } from "shared/generated/zod";
+import { CombinedListSchema } from "shared/generated/zod";
 import { SearchBy } from "stores/reagents";
 
 const ReagentsResponseSchema = z.object({
-    data: z.array(ReagentSchema),
+    data: z.array(CombinedListSchema),
     meta: z.object({
         currentPage: z.number(),
         totalPages: z.number(),
@@ -49,7 +49,7 @@ export const getReagents = async ({
         searchParams.append("searchBy", key);
     });
 
-    const response = await request(`${base}/api/v1/reagents`, ReagentsResponseSchema, {
+    const response = await request(`${base}/api/v1/list`, ReagentsResponseSchema, {
         method: "GET",
         searchParams,
         showErrorNotification: true,

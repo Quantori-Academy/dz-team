@@ -26,7 +26,6 @@ const columns: GridColDef[] = [
     { field: "description", headerName: "Description", width: 200 },
     { field: "quantity", headerName: "Quantity", width: 110 },
     { field: "unit", headerName: "Unit", width: 100, sortable: false },
-    { field: "size", headerName: "Size", width: 100, sortable: false },
     { field: "expirationDate", headerName: "Expiration Date", width: 150 },
     { field: "cas", headerName: "CAS", width: 120 },
     { field: "producer", headerName: "Producer", width: 150 },
