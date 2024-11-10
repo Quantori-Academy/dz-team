@@ -1,10 +1,11 @@
-import { saveResolve } from "./store";
+import { LabelsType, saveResolve } from "./store";
 
 type GenericModalDetails = {
     name: string;
     title: string;
-    message: string | React.ReactNode;
-    labels: [{ ok: string }, { cancel: string }];
+    message: React.ReactNode | ((resolve: () => void, reject: () => void) => React.ReactNode);
+    labels: LabelsType;
+    hideModalButtons?: boolean;
 };
 
 export function createModal({
@@ -12,13 +13,25 @@ export function createModal({
     title,
     message,
     labels,
+    hideModalButtons,
 }: GenericModalDetails): Promise<unknown> {
-    return new Promise((resolve, reject) => {
+    return new Promise<void>((resolve, reject) => {
+        const resolveWrapper = () => resolve();
+        const rejectWrapper = () => reject(new Error("Modal closed without action"));
+
         saveResolve({
             modal: name,
-            resolve: resolve as () => void,
-            reject,
-            modalData: { title, message, labels },
+            resolve: resolve as (value?: unknown) => void,
+            reject: reject as (reason?: unknown) => void,
+            modalData: {
+                title,
+                message:
+                    typeof message === "function"
+                        ? message(resolveWrapper, rejectWrapper)
+                        : message,
+                labels,
+                hideModalButtons,
+            },
         });
     });
 }
