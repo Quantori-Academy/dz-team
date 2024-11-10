@@ -86,12 +86,7 @@ export const MainList = () => {
                     onChange={(e) => setQueryModel(e.target.value)}
                     sx={{ minWidth: 200 }}
                 />
-                <Button
-                    variant="contained"
-                    onClick={() => {
-                        searchHandleClick();
-                    }}
-                >
+                <Button variant="contained" onClick={searchHandleClick}>
                     Search
                 </Button>
             </Box>

@@ -1,31 +1,37 @@
-import { useState } from "react";
-import { Box, Button, Modal } from "@mui/material";
+import { Box, Button } from "@mui/material";
 import { Outlet } from "@tanstack/react-router";
+
+import { createModal } from "components/modal/createModal";
+import { removeModal } from "components/modal/store";
 
 import { MainList } from "../mainList/MainList";
 import { AddReagentForm } from "./AddReagentForm";
 
 export const ReagentsListPage = () => {
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const handleAddReagentClick = () => setIsModalOpen(true);
-    const handleModalClose = () => setIsModalOpen(false);
+    const createReagent = async () => {
+        try {
+            await createModal({
+                name: "add_reagent",
+                title: "Add Reagent",
+                message: <AddReagentForm onClose={removeModal} />,
+            });
+            removeModal();
+        } catch {
+            removeModal();
+        }
+    };
 
     return (
         <Box>
             <MainList />
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-                <Button
-                    variant="contained"
-                    color="primary"
-                    sx={{ padding: 2, ml: 2 }}
-                    onClick={handleAddReagentClick}
-                >
-                    Add Reagent
-                </Button>
-            </Box>
-            <Modal open={isModalOpen} onClose={handleModalClose}>
-                <AddReagentForm onClose={handleModalClose} />
-            </Modal>
+            <Button
+                variant="contained"
+                color="primary"
+                sx={{ padding: 2, ml: 2 }}
+                onClick={createReagent}
+            >
+                Add Reagent
+            </Button>
             <Outlet />
         </Box>
     );

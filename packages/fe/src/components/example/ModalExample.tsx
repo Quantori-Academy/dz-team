@@ -13,13 +13,12 @@ export function ModalExample() {
                 name: "counter_modal",
                 title: "Make count higher",
                 message: "Are you sure you want to add 1 to the counter?",
-                labels: [{ ok: "Yes" }, { cancel: "No" }],
+                labels: { ok: "Yes", cancel: "No" },
             });
 
             setCount((prev) => prev + 1);
             removeModal();
         } catch (_) {
-            setCount((prev) => prev);
             removeModal();
         }
     };
