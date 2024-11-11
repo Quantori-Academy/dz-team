@@ -18,6 +18,8 @@ import { ReagentsTable } from "./ReagentsTable";
 // import { MainList } from "../mainList/MainList";
 
 export const ReagentsListPage = () => {
+    useGate(ReagentsGate);
+    const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const handleAddReagentClick = () => setIsModalOpen(true);
     const handleModalClose = () => setIsModalOpen(false);
@@ -47,7 +49,7 @@ export const ReagentsListPage = () => {
 
     return (
         <Box>
-<!--           <MainList /> -->
+            {/* <MainList /> */}
             <Box
                 sx={{
                     display: "flex",
