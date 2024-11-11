@@ -1,7 +1,9 @@
+import { GridSortDirection } from "@mui/x-data-grid";
 import { z } from "zod";
 
 import { base, request } from "api/request";
 import { ReagentSchema } from "shared/generated/zod";
+import { SearchBy } from "stores/reagents";
 
 const Reagent = z.object({
     id: z.string().optional(),
@@ -10,9 +12,13 @@ const Reagent = z.object({
     description: z.string().nullable(),
     quantity: z.number(),
     unit: z.string().nullable(),
-    size: z.number().nullable().optional(),
+    // size: z.number().nullable().optional(),
     expirationDate: z.string().nullable(),
-    storageLocation: z.string(),
+    // storageLocation: z.string().nullable(),
+    storageLocation: z
+        .string()
+        .nullable()
+        .transform((val) => val || ""),
     cas: z.string().nullable(),
     producer: z.string().nullable(),
     catalogId: z.string().nullable(),
@@ -36,12 +42,12 @@ export const _CreateReagentContract = z.object({
     expirationDate: z.string().nullable(),
     storageLocation: z.string(),
     id: z.string().optional(),
-    size: z.number().nullable().optional(),
+    // size: z.number().nullable().optional(),
     createdAt: z.string().nullable().optional(),
     updatedAt: z.string().nullable().optional(),
 });
 
-const _ReagentsResponseSchema = z.object({
+const ReagentsResponseSchema = z.object({
     data: z.array(ReagentSchema),
     meta: z.object({
         currentPage: z.number(),
@@ -56,51 +62,50 @@ const ReagentsResponse = z.object({ data: z.array(Reagent) });
 
 export type ReagentType = z.infer<typeof Reagent>;
 export type CreateReagentType = z.infer<typeof _CreateReagentContract>;
-export type ReagentsResponseType = z.infer<typeof _ReagentsResponseSchema>;
+export type ReagentsResponseType = z.infer<typeof ReagentsResponseSchema>;
 
-// export const getReagents = async ({
-//     page,
-//     pageSize,
-//     sortBy,
-//     sortOrder,
-//     query,
-//     searchBy,
-// }: {
-//     page: number;
-//     pageSize: number;
-//     sortBy: string;
-//     sortOrder: GridSortDirection;
-//     query?: string;
-//     searchBy: SearchBy;
-// }) => {
-//     const searchParams = new URLSearchParams({
-//         page: (page + 1).toString(),
-//         limit: pageSize.toString(),
-//         sortBy: sortBy,
-//         ...(sortOrder && { sortOrder }),
-//         ...(query && { query }),
-//     });
+export const getReagents = async ({
+    page,
+    pageSize,
+    sortBy,
+    sortOrder,
+    query,
+    searchBy,
+}: {
+    page: number;
+    pageSize: number;
+    sortBy: string;
+    sortOrder: GridSortDirection;
+    query?: string;
+    searchBy: SearchBy;
+}) => {
+    const searchParams = new URLSearchParams({
+        page: (page + 1).toString(),
+        limit: pageSize.toString(),
+        sortBy: sortBy,
+        ...(sortOrder && { sortOrder }),
+        ...(query && { query }),
+    });
 
-//     const searchByKeys = Object.entries(searchBy)
-//         .filter(([_, value]) => value)
-//         .map(([key]) => key);
+    const searchByKeys = Object.entries(searchBy)
+        .filter(([_, value]) => value)
+        .map(([key]) => key);
 
-//     searchByKeys.forEach((key) => {
-//         searchParams.append("searchBy", key);
-//     });
+    searchByKeys.forEach((key) => {
+        searchParams.append("searchBy", key);
+    });
 
-//     const response = await request(`${base}/api/v1/reagents`, ReagentsResponseSchema, {
-//         method: "GET",
-//         searchParams,
-//         showErrorNotification: true,
-//         throwOnError: true,
-//     });
+    const response = await request(`${base}/api/v1/reagents`, ReagentsResponseSchema, {
+        method: "GET",
+        searchParams,
+        showErrorNotification: true,
+        throwOnError: true,
+    });
 
-//     return response;
-// };
+    return response;
+};
 
 export const getReagentsApi = async () => {
     const reagents = await request(`${base}/api/v1/reagents`, ReagentsResponse);
-    // console.log("reagents")
     return reagents?.data;
 };

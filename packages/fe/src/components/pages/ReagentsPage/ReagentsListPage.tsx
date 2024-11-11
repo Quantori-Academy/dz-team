@@ -12,6 +12,7 @@ import {
     submitReagentEvent,
 } from "stores/reagents";
 
+import { MainList } from "../mainList/MainList";
 import { AddReagentButton } from "./AddReagentButton";
 import { ReagentFormModal } from "./ReagentFormModal";
 import { ReagentsTable } from "./ReagentsTable";
@@ -49,7 +50,7 @@ export const ReagentsListPage = () => {
 
     return (
         <Box>
-            {/* <MainList /> */}
+            <MainList />
             <Box
                 sx={{
                     display: "flex",

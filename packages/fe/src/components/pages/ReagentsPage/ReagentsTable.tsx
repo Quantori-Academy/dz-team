@@ -13,7 +13,6 @@ export const ReagentsTable = ({ reagents, onRowClick }: ReagentTableProps) => {
         { key: "description", label: "Description" },
         { key: "quantity", label: "Quantity" },
         { key: "unit", label: "Unit" },
-        { key: "size", label: "Size" },
         { key: "expirationDate", label: "Expiration Date" },
         { key: "storageLocation", label: "Storage Location" },
         { key: "cas", label: "CAS" },
