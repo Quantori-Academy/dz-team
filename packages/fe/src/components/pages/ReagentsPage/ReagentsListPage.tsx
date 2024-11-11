@@ -15,10 +15,9 @@ import {
 import { AddReagentButton } from "./AddReagentButton";
 import { ReagentFormModal } from "./ReagentFormModal";
 import { ReagentsTable } from "./ReagentsTable";
+// import { MainList } from "../mainList/MainList";
 
 export const ReagentsListPage = () => {
-    useGate(ReagentsGate);
-    const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const handleAddReagentClick = () => setIsModalOpen(true);
     const handleModalClose = () => setIsModalOpen(false);
@@ -48,6 +47,7 @@ export const ReagentsListPage = () => {
 
     return (
         <Box>
+<!--           <MainList /> -->
             <Box
                 sx={{
                     display: "flex",
@@ -67,6 +67,7 @@ export const ReagentsListPage = () => {
                 handleSubmit={handleSubmit}
                 handleModalClose={handleModalClose}
             />
+
             <Outlet />
         </Box>
     );

@@ -27,11 +27,8 @@ resolves #
 -   [ ] Your changes complete the task
 -   [ ] You have self-reviewed your branch for bugs, logical problems, visual regressions and typos
 -   [ ] Your code is linted and formatted correctly (handled by pre-commit hooks)
--   [ ] You have added documentation (if needed) <!-- PR is ready for review when all above are checked -->
--   [ ] You've moved the task to "In Review" in the project board
 -   [ ] Code review is passed
 -   [ ] All comments are resolved
 
 <!-- When all items are checked, the PR is ready for merge -->
 <!-- 🎉 Congrats! 🎉 -->
-<!-- Remember to share your success in the daily sync! -->
