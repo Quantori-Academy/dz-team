@@ -38,8 +38,7 @@ export const addReagentFx = domain.createEffect(async (data: CreateReagentType) 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
     });
-    const newReagent = await response.json();
-    return newReagent;
+    return await response.json();
 });
 
 export const ReagentsGate = createGate({ domain });
