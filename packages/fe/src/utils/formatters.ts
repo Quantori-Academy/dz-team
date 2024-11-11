@@ -9,6 +9,9 @@ export type SupportedValue =
     | { [key: string]: SupportedValue };
 
 export const formatCellContent = (value: SupportedValue): string => {
+    if (value === undefined) {
+        return "N/A";
+    }
     switch (typeof value) {
         case "boolean":
             return value ? "Yes" : "No";
