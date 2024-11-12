@@ -49,20 +49,6 @@ enum Category {
   sample
 }
 
-enum Currency {
-  usd
-  euro
-  rub
-  cny
-  jpy
-}
-
-enum OrderStatus {
-  pending
-  submitted
-  fulfilled
-  canceled
-}
 
 enum ReagentType {
   organic
@@ -85,12 +71,6 @@ enum ReagentStatus {
   notAvailable
 }
 
-enum RequestStatus {
-  pending
-  ordered
-  fulfilled
-  declined
-}
 
 enum Role {
   admin
@@ -98,15 +78,6 @@ enum Role {
   researcher
 }
 
-
-enum Unit {
-  ml
-  l
-  mg
-  g
-  oz
-  lb
-}
 
 
   // with `dbgenerated("gen_random_uuid()")` UUID is generated on the DB level in POSTGRES
@@ -121,7 +92,7 @@ model Reagent {
   structure       String?           // Stores the chemical structure
   description     String            // Description of the reagent
   quantity        Float             // Quantity left in stock
-  unit            Unit              @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
+  unit            String              @default("ml") // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
   quantityInit    Float?            // Initial quantity of the reagent (e.g., 500 ml)
   expirationDate  DateTime?         // Expiry date of the reagent
   cas             String?           // CAS number for reagent-specific info
@@ -129,7 +100,7 @@ model Reagent {
   catalogId       String?           // Catalog identifier
   catalogLink     String?           // URL to the product catalog
   pricePerUnit    Float?            // Price per unit
-  currency        Currency          @default(usd) // Currency used (usd, euro, etc..)
+  currency        String?             // Currency used (usd, euro, etc..)
   category        Category          @default(reagent) // Category ("reagent")
   type            ReagentType?      // Type of the reagent ("organic", "inorganic", "acidic", "basic", "oxidizing", "reducing", "precipitating", "complexing", "indicator", "other")
   status          ReagentStatus?    // Status of availability of the reagent ("available", "lowStock", "outOfStock", "ordered", "notAvailable")
@@ -139,10 +110,6 @@ model Reagent {
 
   // Many-to-Many relation with Sample
   samples         Sample[]          @relation("ReagentSamples") // List of Samples where Reagent is used
-  // Many-to-Many relation with Order
-  orders          Order[]           @relation("ReagentOrders") // List of Orders where Reagent is included
-  // Many-to-Many relation with Request
-  requests        Request[]         @relation("ReagentRequests") // List of Requests where Reagent is included
   // Many-to-One relation with StorageLocation
   storageId       String            @db.Uuid /// @zod.string.uuid() // Storage location of the Reagent 
   storage         StorageLocation   @relation(fields: [storageId], references: [id])
@@ -156,7 +123,7 @@ model Sample {
   description     String      // Description of the sample
   quantity        Float       // Quantity left in stock
   quantityInit    Float?      // Initial quantity of the sample (e.g., 500 ml)
-  unit            Unit        @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
+  unit            String        @default("ml") // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
   expirationDate  DateTime?   // Expiry date of the reagent
   category        Category    @default(sample) // Category ("sample")
   deletedAt       DateTime?   // Date and Time of soft deletion
@@ -179,14 +146,14 @@ view CombinedList {
   structure       String?
   description     String?
   quantity        Float?
-  unit            Unit?
+  unit            String?
   quantityInit    Float?
   expirationDate  DateTime?
   producer        String?
   catalogId       String?
   catalogLink     String?
   pricePerUnit    Float?
-  currency        Currency?
+  currency        String?
   type            ReagentType?
   status          ReagentStatus?
   cas             String?
@@ -197,22 +164,6 @@ view CombinedList {
 }
 
 
-model Order {
-  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
-  description     String?       // Description of the order
-  creationDate    DateTime?     // the date and time the *request* was created 4.0. to be discussed
-  status          OrderStatus   @default(pending) // Status of the order ("pending", "submitted", "fulfilled", "canceled")
-  seller          String?       // Seller of the ordered reagents
-  deletedAt       DateTime?     // Date and Time of soft deletion
-  createdAt       DateTime      @default(now()) // Date and Time of Order creation 
-  updatedAt       DateTime      @updatedAt // Date and Time of Order modification
-  
-  // Many-to-Many relation with Reagent
-  reagents        Reagent[]     @relation("ReagentOrders") // List of ordered Reagents
-  // Many-to-One relation with User
-  userId          String        @db.Uuid /// @zod.string.uuid() // the ID of the who created the *request* 4.0. to be discussed
-  user            User          @relation(fields: [userId], references: [id]) // Procurement Officer who created the Order
-}
 
 
 model StorageLocation {
@@ -230,38 +181,6 @@ model StorageLocation {
 }
 
 
-model Comment {
-  id                    String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
-  contents              String
-  createdAt             DateTime      @default(now())
-  updatedAt             DateTime      @updatedAt
-  deletedAt             DateTime?     // Date and Time of soft deletion
-
-  // Many-to-One relation with User
-  authorId                String        @db.Uuid /// @zod.string.uuid()
-  author                  User          @relation(fields: [authorId], references: [id]) // User who posted the Comment
-}
-
-
-model Request {
-  id                    String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
-  status                RequestStatus @default(pending) // Status of the request ("pending", "ordered", "fulfilled", "declined")
-  quantity              Float         // Desired quantity
-  unit                  Unit          @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
-  cas                   String?       // CAS number for reagent-specific info
-  commentsUser          String?       // Researcher comments
-  commentsProcurement   String?
-  deletedAt             DateTime?     // Date and Time of soft deletion
-  createdAt             DateTime      @default(now()) // Date and Time of Order creation 
-  updatedAt             DateTime      @updatedAt // Date and Time of Order modification
-  
-  // Many-to-Many relation with Reagent
-  reagents              Reagent[]     @relation("ReagentRequests") // List of requested Reagents
-  // Many-to-One relation with User
-  userId                String        @db.Uuid /// @zod.string.uuid()
-  user                  User          @relation(fields: [userId], references: [id]) // Researcher who created the Request
-}
-
 
 model User {
   id             String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
@@ -275,20 +194,5 @@ model User {
   createdAt      DateTime   @default(now())
   updatedAt      DateTime   @updatedAt
 
-  // One-to-Many relation with Orders
-  orders         Order[]    @relation() // List of Orders made by the Procurement Officer
-  // One-to-Many relation with Request
-  requests       Request[]  @relation() // List of Requests made by the Researcher
-  // One-to-Many relation with Request
-  comments       Comment[]  @relation() // List of Comments made by the User
 }
 
-
-model Profile {
-  id             String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
-
-  createdAt             DateTime      @default(now())
-  updatedAt             DateTime      @updatedAt
-  deletedAt             DateTime?     // Date and Time of soft deletion
-
-}

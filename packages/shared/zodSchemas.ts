@@ -107,7 +107,7 @@ export const ReagentSearchSchema = z.object({
         ])
         .transform((val) => (Array.isArray(val) ? val : [val]))
         .optional(), // output array of strings or a array with a single string
-    category: z.enum(["sample", "reagent"]).optional(),
+    category: z.enum(["sample", "reagent"]),
     status: z.enum(["available", "lowStock", "outOfStock", "ordered", "notAvailable"]).optional(),
     storageLocation: z.string().optional(),
 });

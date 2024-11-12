@@ -7,6 +7,16 @@
     },
     "definitions": {},
     "paths": {
+        "/api/v1/list/": {
+            "get": {
+                "tags": ["CombinedList"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
         "/api/v1/reagents/": {
             "get": {
                 "tags": ["Reagent"],
