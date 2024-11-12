@@ -219,6 +219,16 @@
                     }
                 }
             }
+        },
+        "/api/v1/users/me": {
+            "get": {
+                "tags": ["Users"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
         }
     },
     "host": "localhost:1337",

@@ -35,11 +35,11 @@ export const Grid = ({ rows, headers, handleDeleteClick }: GridProps) => {
                 return Object.values(value).some(
                     (nestedValue) =>
                         typeof nestedValue === "string" &&
-                        nestedValue.toLowerCase().includes(searchQuery.toLowerCase())
+                        nestedValue.toLowerCase().includes(searchQuery.toLowerCase()),
                 );
             }
             return false;
-        })
+        }),
     );
 
     const handleModalClose = () => {

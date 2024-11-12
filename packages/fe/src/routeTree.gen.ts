@@ -226,7 +226,7 @@ const AppAdminLayoutRouteChildren: AppAdminLayoutRouteChildren = {
 };
 
 const AppAdminLayoutRouteWithChildren = AppAdminLayoutRoute._addFileChildren(
-    AppAdminLayoutRouteChildren
+    AppAdminLayoutRouteChildren,
 );
 
 interface AppPOfficerLayoutRouteChildren {
@@ -240,7 +240,7 @@ const AppPOfficerLayoutRouteChildren: AppPOfficerLayoutRouteChildren = {
 };
 
 const AppPOfficerLayoutRouteWithChildren = AppPOfficerLayoutRoute._addFileChildren(
-    AppPOfficerLayoutRouteChildren
+    AppPOfficerLayoutRouteChildren,
 );
 
 interface AppResearcherLayoutReagentsRouteChildren {
@@ -269,7 +269,7 @@ const AppResearcherLayoutRouteChildren: AppResearcherLayoutRouteChildren = {
 };
 
 const AppResearcherLayoutRouteWithChildren = AppResearcherLayoutRoute._addFileChildren(
-    AppResearcherLayoutRouteChildren
+    AppResearcherLayoutRouteChildren,
 );
 
 interface AppRouteChildren {

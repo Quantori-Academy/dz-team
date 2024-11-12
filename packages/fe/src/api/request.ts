@@ -76,7 +76,7 @@ export async function request<TT extends ZodType, T = z.infer<TT>, K = T>(
         showErrorNotification?: boolean;
         throwOnError?: boolean;
         shouldAffectIsLoading?: boolean;
-    }
+    },
 ): Promise<T | K | undefined> {
     const auth = $auth.getState();
     const token = auth ? auth.token : null;
