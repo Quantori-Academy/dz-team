@@ -1,20 +1,26 @@
-import fastifySwagger from "@fastify/swagger";
-import { FastifyZodInstance } from "../types";
+import { FastifyInstance } from "fastify";
+import swagger from "@fastify/swagger";
+import swaggerUi from "@fastify/swagger-ui";
 
-export const registerSwagger = (server: FastifyZodInstance) => {
-    server.register(fastifySwagger, {
-        routePrefix: "/api/docs",
+export const registerSwagger = (server: FastifyInstance) => {
+    server.register(swagger, {
         swagger: {
             info: {
-                title: "Luna API Documentation",
-                description: "Fastify Swagger API",
+                title: "Fastify API",
+                description: "API documentation for Luna",
                 version: "1.0.0",
             },
-            host: "localhost:1337",
             schemes: ["http"],
             consumes: ["application/json"],
             produces: ["application/json"],
         },
-        exposeRoute: true,
+    });
+
+    server.register(swaggerUi, {
+        routePrefix: "/docs", // Set the route for Swagger UI
+        uiConfig: {
+            docExpansion: "full",
+            deepLinking: false,
+        },
     });
 };
