@@ -5,7 +5,7 @@ import { base, request } from "api/request";
 import { ReagentSchema } from "shared/generated/zod";
 import { SearchBy } from "stores/reagents";
 
-const Reagent = z.object({
+const _Reagent = z.object({
     id: z.string().optional(),
     name: z.string().nullable(),
     structure: z.string().nullable(),
@@ -55,9 +55,9 @@ const ReagentsResponseSchema = z.object({
     }),
 });
 
-const ReagentsResponse = z.object({ data: z.array(Reagent) });
+const ReagentsResponse = z.object({ data: z.array(ReagentSchema) });
 
-export type ReagentType = z.infer<typeof Reagent>;
+export type ReagentType = z.infer<typeof _Reagent>;
 export type CreateReagentType = z.infer<typeof _CreateReagentContract>;
 export type ReagentsResponseType = z.infer<typeof ReagentsResponseSchema>;
 
@@ -101,7 +101,7 @@ export const getReagents = async ({
 
     return response;
 };
-
+// TODO: remove after `search params` refactoring in `getResponse` function
 export const getReagentsApi = async () => {
     const reagents = await request(`${base}/api/v1/reagents`, ReagentsResponse);
     return reagents?.data;
