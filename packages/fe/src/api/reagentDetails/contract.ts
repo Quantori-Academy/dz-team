@@ -7,9 +7,11 @@ export const ReagentDetailsContract = z.object({
     description: z.string().nullable(),
     quantity: z.number(),
     unit: z.string().nullable(),
-    size: z.number().nullable(),
     expirationDate: z.string().nullable(),
-    storageLocation: z.string(),
+    storageLocation: z
+        .string()
+        .nullable()
+        .transform((val) => val || ""),
     cas: z.string().nullable(),
     producer: z.string().nullable(),
     catalogId: z.string().nullable(),
