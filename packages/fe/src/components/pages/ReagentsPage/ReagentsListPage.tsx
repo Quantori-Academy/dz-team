@@ -1,35 +1,18 @@
 import { useState } from "react";
-import { Box } from "@mui/material";
-import { Outlet, useNavigate } from "@tanstack/react-router";
-import { useGate, useUnit } from "effector-react";
+import { Outlet } from "@tanstack/react-router";
+import { useUnit } from "effector-react";
 
-import {
-    $formData,
-    $reagentsList,
-    initialFormData,
-    ReagentsGate,
-    setFormData,
-    submitReagentEvent,
-} from "stores/reagents";
+import { $formData, initialFormData, setFormData, submitReagentEvent } from "stores/reagents";
 
 import { MainList } from "../mainList/MainList";
 import { AddReagentButton } from "./AddReagentButton";
 import { ReagentFormModal } from "./ReagentFormModal";
-import { ReagentsTable } from "./ReagentsTable";
-// import { MainList } from "../mainList/MainList";
 
 export const ReagentsListPage = () => {
-    useGate(ReagentsGate);
-    const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const handleAddReagentClick = () => setIsModalOpen(true);
     const handleModalClose = () => setIsModalOpen(false);
 
-    const handleRowClick = (row: { id: string }) => {
-        navigate({ to: `/reagents/${row.id}`, replace: false });
-    };
-
-    const reagents = useUnit($reagentsList);
     const formData = useUnit($formData);
     const submitReagent = useUnit(submitReagentEvent);
 
@@ -49,20 +32,9 @@ export const ReagentsListPage = () => {
     };
 
     return (
-        <Box>
+        <>
             <MainList />
-            <Box
-                sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    alignItems: "center",
-                    gap: "30px",
-                    marginTop: "5%",
-                }}
-            >
-                <AddReagentButton onClick={handleAddReagentClick} />
-            </Box>
-            <ReagentsTable reagents={reagents} onRowClick={handleRowClick} />
+            <AddReagentButton onClick={handleAddReagentClick} />
             <ReagentFormModal
                 isOpen={isModalOpen}
                 formData={formData}
@@ -72,6 +44,6 @@ export const ReagentsListPage = () => {
             />
 
             <Outlet />
-        </Box>
+        </>
     );
 };

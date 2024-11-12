@@ -38,19 +38,37 @@ export const ReagentFormModal = ({
             isOpen={isOpen}
             message={
                 <Box>
-                    {fields.map((field, index) => (
-                        <TextField
-                            key={index}
-                            label={field.label}
-                            name={field.name}
-                            value={formData[field.name as keyof typeof formData] || ""}
-                            onChange={handleChange}
-                            fullWidth
-                            margin="normal"
-                            type={field.type || "text"}
-                            required
-                        />
-                    ))}
+                    {fields.map((field, index) => {
+                        if (field.name === "unit") {
+                            return (
+                                <TextField
+                                    key={index}
+                                    label="Unit"
+                                    name="unit"
+                                    value={formData.unit || ""}
+                                    onChange={handleChange}
+                                    fullWidth
+                                    margin="normal"
+                                    required
+                                    helperText="Please write of this: ml, l, mg, g, oz, lb."
+                                />
+                            );
+                        }
+
+                        return (
+                            <TextField
+                                key={index}
+                                label={field.label}
+                                name={field.name}
+                                value={formData[field.name as keyof typeof formData] || ""}
+                                onChange={handleChange}
+                                fullWidth
+                                margin="normal"
+                                type={field.type || "text"}
+                                required
+                            />
+                        );
+                    })}
                 </Box>
             }
             title="Add New Reagent"

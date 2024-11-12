@@ -12,9 +12,7 @@ const Reagent = z.object({
     description: z.string().nullable(),
     quantity: z.number(),
     unit: z.string().nullable(),
-    // size: z.number().nullable().optional(),
     expirationDate: z.string().nullable(),
-    // storageLocation: z.string().nullable(),
     storageLocation: z
         .string()
         .nullable()
@@ -42,7 +40,6 @@ export const _CreateReagentContract = z.object({
     expirationDate: z.string().nullable(),
     storageLocation: z.string(),
     id: z.string().optional(),
-    // size: z.number().nullable().optional(),
     createdAt: z.string().nullable().optional(),
     updatedAt: z.string().nullable().optional(),
 });

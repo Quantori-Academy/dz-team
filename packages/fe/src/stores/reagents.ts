@@ -222,5 +222,5 @@ sample({
     target: fetchReagentsFx,
 });
 
-// $reagents.on(reagentsFx.doneData, (_, result) => result);
-// reagentsFx.fail.watch((err) => dev.error("Error fetching reagents and samples data:", err));
+$reagents.on(reagentsFx.doneData, (_, result) => result);
+reagentsFx.fail.watch((err) => dev.error("Error fetching reagents and samples data:", err));
