@@ -1,8 +1,9 @@
 import { OrderCreateInputSchema, OrderUpdateInputSchema } from "../../../shared/generated/zod";
 import { FastifyZodInstance } from "../types";
 import { OrderController } from "../controllers/orderController";
-import { OrderSearchSchema } from "shared/zodSchemas";
+
 import { OrderStatus } from "@prisma/client";
+import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
 
 const orderController = new OrderController();
 
@@ -23,7 +24,9 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.get<{ Querystring: typeof OrderSearchSchema }>(
         "/",
         {
-            schema: { tags: ["Order"] },
+            schema: {
+                tags: ["Order"],
+            },
         },
         async (request, reply) => {
             return await orderController.getAllOrders(request, reply);
@@ -78,40 +81,6 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
         },
         async (request, reply) => {
             return await orderController.updateOrder(request, reply);
-        },
-    );
-
-    /**
-     * DELETE /:id - Deletes an order by its ID.
-     * Requires ADMIN role.
-     *
-     * @param {string} id - The ID of the order to delete.
-     * @returns {Promise<void>} A success message or error if the order is not found.
-     */
-    app.delete<{ Params: { id: string } }>(
-        "/:id",
-        {
-            schema: { tags: ["Order"] },
-        },
-        async (request, reply) => {
-            return await orderController.deleteOrder(request, reply);
-        },
-    );
-
-    /**
-     * PATCH /:id - Restores a previously deleted order by its ID.
-     * Requires ADMIN role.
-     *
-     * @param {string} id - The ID of the order to restore.
-     * @returns {Promise<void>} The restored order, if successful.
-     */
-    app.patch<{ Params: { id: string } }>(
-        "/:id",
-        {
-            schema: { tags: ["Order"] },
-        },
-        async (request, reply) => {
-            return await orderController.undoDeleteOrder(request, reply);
         },
     );
 

@@ -1,5 +1,6 @@
 const { PrismaClient } = require("@prisma/client");
 const reagents = require("./seedData/reagents.json");
+const orders = require("./seedData/orders.json");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -13,6 +14,7 @@ async function addAdmin() {
         const p4$$w0rd = await bcrypt.hash("admin123", 10);
         const admin = await prisma.user.create({
             data: {
+                id: "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
                 username: "admin",
                 password: p4$$w0rd,
                 role: "admin",
@@ -40,9 +42,22 @@ async function addReagents() {
     console.log("🥀 No new reagents were added.");
 }
 
+async function addOrders() {
+    const orderCount = await prisma.order.count();
+    if (!orderCount) {
+        const result = await prisma.order.createMany({
+            data: orders,
+            skipDuplicates: true,
+        });
+        console.log(`💉 Seeded database with ${result.count} order entries.`);
+    }
+    console.log("🥀 No new orders were added.");
+}
+
 async function main() {
     await addAdmin();
     await addReagents();
+    await addOrders();
 }
 
 main()

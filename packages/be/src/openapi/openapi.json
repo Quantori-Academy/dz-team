@@ -388,22 +388,6 @@
                         "description": "Default Response"
                     }
                 }
-            },
-            "delete": {
-                "tags": ["Order"],
-                "responses": {
-                    "200": {
-                        "description": "Default Response"
-                    }
-                }
-            },
-            "patch": {
-                "tags": ["Order"],
-                "responses": {
-                    "200": {
-                        "description": "Default Response"
-                    }
-                }
             }
         },
         "/api/v1/orders/{id}/status": {

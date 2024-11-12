@@ -3,9 +3,11 @@ import {
     OrderCreateInputSchema,
     OrderUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
+import { idSchema } from "../../../shared/zodSchemas/baseSchemas";
+import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
 import { OrderService } from "../services/orderService";
 import { sendErrorResponse } from "../utils/handleErrors";
-import { idSchema, OrderSearchSchema } from "shared/zodSchemas";
+
 import { OrderStatus } from "@prisma/client";
 
 const orderService = new OrderService();
@@ -91,50 +93,6 @@ export class OrderController {
             reply.send(order);
         } catch (error) {
             sendErrorResponse(reply, error, "Failed to update order");
-        }
-    }
-
-    /**
-     * Delete an order by ID.
-     * @param request - FastifyRequest containing the order ID in the parameters
-     * @param reply - FastifyReply
-     * @returns A promise that resolves to the deleted order object or a 404 response if not found.
-     */
-    async deleteOrder(
-        request: FastifyRequest<{ Params: { id: string } }>,
-        reply: FastifyReply,
-    ): Promise<void> {
-        try {
-            const validatedId = idSchema.parse(request.params.id);
-            const order = await orderService.deleteOrder(validatedId);
-            if (!order) {
-                return reply.status(404).send({ message: "Order not found" });
-            }
-            reply.send(order);
-        } catch (error) {
-            sendErrorResponse(reply, error, "Failed to delete order");
-        }
-    }
-
-    /**
-     * Undo the deletion of an order  by ID.
-     * @param request - FastifyRequest containing the order ID in the parameters
-     * @param reply - FastifyReply
-     * @returns A promise that resolves to the restored order object or a 404 response if not found.
-     */
-    async undoDeleteOrder(
-        request: FastifyRequest<{ Params: { id: string } }>,
-        reply: FastifyReply,
-    ): Promise<void> {
-        try {
-            const validatedId = idSchema.parse(request.params.id);
-            const restoredOrder = await orderService.undoDeleteOrder(validatedId);
-            if (!restoredOrder) {
-                return reply.status(404).send({ message: "Order not found" });
-            }
-            reply.send(restoredOrder);
-        } catch (error) {
-            sendErrorResponse(reply, error, "Failed to restore order");
         }
     }
 

@@ -6,7 +6,8 @@ import {
     OrderCreateInputSchema,
     OrderUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
-import { OrderReagentsSchema, OrderSearch } from "../../../shared/zodSchemas";
+import { OrderReagentsSchema } from "../../../shared/zodSchemas/order/orderReagentSchema";
+import { OrderSearch } from "../../../shared/zodSchemas/order/orderSearchSchema";
 
 const prisma = new PrismaClient();
 
@@ -38,14 +39,14 @@ export class OrderService {
                   { description: { contains: query, mode: Prisma.QueryMode.insensitive } },
                   { title: { contains: query, mode: Prisma.QueryMode.insensitive } },
               ]
-            : null;
+            : [];
 
-        // Build the `where` clause with optional filters for `status` and `orderId`
+        // Build the `where` clause with optional filters
         const where: Prisma.OrderWhereInput = {
             AND: [
                 status ? { status: { equals: status } } : {},
-                searchConditions ? { OR: searchConditions } : {},
-            ].filter(Boolean),
+                searchConditions.length > 0 ? { OR: searchConditions } : {},
+            ].filter(Boolean), // Remove empty objects
         };
 
         // Fetch paginated results and total count in parallel
@@ -149,47 +150,23 @@ export class OrderService {
     }
 
     /**
-     * Soft delete an order by setting its deletedAt field to the current date, only if status is 'pending'.
-     * @param {string} id - The ID of the order to delete.
-     * @returns {Promise<Order | { message: string }>} The soft-deleted order or an error message if deletion is restricted.
-     */
-    async deleteOrder(id: string): Promise<Order | { message: string }> {
-        // Check if the order status is 'pending' before allowing deletion
-        const existingOrder = await prisma.order.findUnique({
-            where: { id },
-        });
-
-        if (existingOrder?.status !== OrderStatus.pending) {
-            return { message: "Order can only be deleted if it is in 'pending' status." };
-        }
-
-        // Perform a soft delete by updating the `deletedAt` field
-        return prisma.order.update({
-            where: { id },
-            data: { deletedAt: new Date() },
-        });
-    }
-
-    /**
-     * Undo the soft delete of an order by setting its deletedAt field to null.
-     * @param {string} id - The ID of the order to restore.
-     * @returns {Promise<Order>} The restored order.
-     */
-    async undoDeleteOrder(id: string): Promise<Order> {
-        return prisma.order.update({
-            where: { id },
-            data: { deletedAt: null },
-        });
-    }
-
-    /**
      * Update the status of an order.
      *
      * @param {string} id - The ID of the order to update.
      * @param {string} status - The new status for the order.
      * @returns {Promise<Order>} A promise that resolves to the updated order object.
      */
-    async updateOrderStatus(id: string, status: OrderStatus): Promise<Order> {
+    async updateOrderStatus(id: string, status: OrderStatus): Promise<Order | { message: string }> {
+        const existingOrder = await prisma.order.findUnique({
+            where: { id },
+        });
+
+        // If the order is not 'pending', allow status updates (e.g., fulfilling the order, etc.)
+        if (existingOrder?.status === OrderStatus.pending) {
+            return { message: "Order status can only be updated after it is no longer 'pending'." };
+        }
+
+        // Update and return the order with the new status
         return prisma.order.update({
             where: { id },
             data: { status },
