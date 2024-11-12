@@ -49,7 +49,7 @@ export const CombinedListSearchSchema = z.object({
         ])
         .transform((val) => (Array.isArray(val) ? val : [val]))
         .optional(), // output array of strings or a array with a single string
-    category: z.enum(["reagent", "sample"]).optional(),
+    category: z.enum(["reagent", "sample"]),
     type: z
         .enum([
             "organic",
@@ -107,7 +107,7 @@ export const ReagentSearchSchema = z.object({
         ])
         .transform((val) => (Array.isArray(val) ? val : [val]))
         .optional(), // output array of strings or a array with a single string
-    category: z.enum(["sample", "reagent"]),
+    category: z.enum(["sample", "reagent"]).optional(),
     status: z.enum(["available", "lowStock", "outOfStock", "ordered", "notAvailable"]).optional(),
     storageLocation: z.string().optional(),
 });
