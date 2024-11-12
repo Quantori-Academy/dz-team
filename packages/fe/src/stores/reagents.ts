@@ -190,6 +190,7 @@ sample({
         search,
         deleteReagentEvent,
         updateReagentEvent,
+        addReagentFx.doneData,
     ],
     source: {
         pagination: $pagination,
@@ -212,7 +213,6 @@ sample({
     clock: addReagentFx.doneData,
     target: addReagentEvent,
 });
-
 sample({
     clock: submitReagentEvent,
     target: addReagentFx,
