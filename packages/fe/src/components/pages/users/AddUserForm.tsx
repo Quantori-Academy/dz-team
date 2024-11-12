@@ -28,7 +28,6 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
     return (
         <Box component="form" noValidate autoComplete="off" sx={boxStyle}>
             <Box sx={input}>
-                {" "}
                 <TextField
                     label="Username"
                     name="username"
@@ -51,7 +50,6 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                 />
             </Box>
             <Box sx={input}>
-                {" "}
                 <TextField
                     label="Last Name"
                     name="lastName"
@@ -75,7 +73,6 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                 />
             </Box>
             <Box sx={input}>
-                {" "}
                 <TextField
                     label="Password"
                     name="password"
@@ -118,7 +115,6 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                 ))}
             </TextField>
             <Box sx={boxStyle}>
-                {" "}
                 <Button sx={button} variant="contained" color="primary" onClick={handleSubmit}>
                     Save User
                 </Button>

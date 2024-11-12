@@ -1,4 +1,4 @@
-import { createEffect, createEvent, sample } from "effector";
+import { sample } from "effector";
 import { createGate } from "effector-react";
 
 import { NewUser, PostUsers } from "api/users/addUser";
@@ -7,38 +7,28 @@ import { getUsers, UserType } from "api/users/getUsers";
 import { genericDomain as domain } from "logger";
 
 // Store to hold the user list
-export const $UsersList = domain.createStore<UserType[]>([], { name: "$UserList" });
+export const $usersList = domain.createStore<UserType[]>([], { name: "$userList" });
 
-export const deleteUserFx = createEffect(async (id: string) => {
-    // TODO fix id types for validation
+export const deleteUserFx = domain.createEffect(async (id: string) => {
     const response = await deleteUser(id);
     return response;
 });
 
-export const fetchUsersFx = createEffect(async () => {
+export const fetchUsersFx = domain.createEffect(async () => {
     const response = await getUsers();
     return response ?? [];
 });
 
-export const addUserFx = createEffect(async (userData: NewUser) => {
+export const addUserFx = domain.createEffect(async (userData: NewUser) => {
     const response = await PostUsers(userData);
     return response;
 });
 
-export const deleteUserId = createEvent<string>("deleteUser");
-export const addNewUser = createEvent<NewUser>("addNewUser");
+export const deleteUserId = domain.createEvent<string>("deleteUser");
+export const addNewUser = domain.createEvent<NewUser>("addNewUser");
 
 // Update store after deleting and adding new user
-$UsersList.on(deleteUserId, (state, id) => state.filter((user) => user.id !== id));
-
-$UsersList.on(addNewUser, (state, newUser) => {
-    const userToAdd = {
-        ...newUser,
-        password: undefined,
-        confirmPassword: undefined,
-    };
-    return [...state, userToAdd as unknown as UserType];
-});
+$usersList.on(deleteUserId, (state, id) => state.filter((user) => user.id !== id));
 
 export const UsersGate = createGate({ domain });
 
@@ -67,5 +57,5 @@ sample({
 // save data from server
 sample({
     clock: fetchUsersFx.doneData,
-    target: $UsersList,
+    target: $usersList,
 });

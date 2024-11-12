@@ -6,19 +6,20 @@ import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
+import { useUserForm } from "hooks/useUserForm";
 import { SupportedValue } from "utils/formatters";
 
+import { AddUserForm } from "../pages/users/AddUserForm";
 import { AddRecord } from "./Addrecord";
-import { AddUserForm } from "./AddUserForm";
 
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
-    handleDeleteClick: (id: string) => void;
 };
 
-export const Grid = ({ rows, headers, handleDeleteClick }: GridProps) => {
+export const Grid = ({ rows, headers }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
+    const { handleDeleteClick } = useUserForm({});
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(event.target.value);
@@ -43,7 +44,7 @@ export const Grid = ({ rows, headers, handleDeleteClick }: GridProps) => {
         }),
     );
 
-    const handleAddUserOpen = async () => {
+    const handleAddFormOpen = async () => {
         try {
             await createModal({
                 name: "add_user_modal",
@@ -114,7 +115,7 @@ export const Grid = ({ rows, headers, handleDeleteClick }: GridProps) => {
                 }}
                 slots={{
                     toolbar: () => (
-                        <AddRecord buttonLabel="Add New User" onAddRecord={handleAddUserOpen} />
+                        <AddRecord buttonLabel="Add New User" onAddRecord={handleAddFormOpen} />
                     ),
                 }}
             />

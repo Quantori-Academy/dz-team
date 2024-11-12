@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { useUnit } from "effector-react";
 
-import { $UsersList, addUserFx } from "stores/users";
+import { NewUser } from "api/users/addUser";
+import { $usersList, addUserFx, deleteUserFx } from "stores/users";
 
 type FormErrors = {
     username?: string;
@@ -13,22 +14,28 @@ type FormErrors = {
     role?: string;
 };
 
-export type UserFormData = {
-    username: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    role: string;
-};
-
 export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElement> }) => {
     const [errors, setErrors] = useState<FormErrors>({});
 
-    const users = useUnit($UsersList);
+    const [openSnackbar, setOpenSnackbar] = useState(false);
 
-    const validateForm = (formData: UserFormData) => {
+    const users = useUnit($usersList);
+
+    const handleCloseSnackbar = () => {
+        setOpenSnackbar(false);
+    };
+
+    // delete function for user checks the role and opens the notification bar if role is admin
+    const handleDeleteClick = (id: string) => {
+        const user = users.find((user) => user.id === id);
+        if (user?.role === "admin") {
+            setOpenSnackbar(true);
+            return;
+        }
+        deleteUserFx(id);
+    };
+
+    const validateForm = (formData: NewUser) => {
         const newErrors: FormErrors = {};
 
         if (users.some((user) => user.username === formData.username)) {
@@ -44,8 +51,9 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
             newErrors.email = "Invalid email format.";
         }
 
-        if (formData.password.length < 8)
+        if ((formData.password ?? "").length < 8) {
             newErrors.password = "Password must be at least 8 characters long.";
+        }
 
         if (formData.confirmPassword !== formData.password)
             newErrors.confirmPassword = "Passwords do not match.";
@@ -57,14 +65,14 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
     };
 
     const handleSubmit = () => {
-        const formData: UserFormData = {
-            username: refs.username.current?.value || "",
-            firstName: refs.firstName.current?.value || "",
-            lastName: refs.lastName.current?.value || "",
-            email: refs.email.current?.value || "",
-            password: refs.password.current?.value || "",
-            confirmPassword: refs.confirmPassword.current?.value || "",
-            role: refs.role.current?.value || "",
+        const formData: NewUser = {
+            username: refs.username.current?.value as string,
+            firstName: refs.firstName.current?.value as string,
+            lastName: refs.lastName.current?.value as string,
+            email: refs.email.current?.value as string,
+            password: refs.password.current?.value as string,
+            confirmPassword: refs.confirmPassword.current?.value as string,
+            role: refs.role.current?.value as "admin" | "researcher" | "procurementOfficer",
         };
 
         if (validateForm(formData)) {
@@ -83,5 +91,9 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
     return {
         errors,
         handleSubmit,
+        handleDeleteClick,
+        handleCloseSnackbar,
+        openSnackbar,
+        users,
     };
 };

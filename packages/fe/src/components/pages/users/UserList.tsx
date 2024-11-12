@@ -1,10 +1,10 @@
-import { useState } from "react";
 import { Alert, Box, Snackbar, Typography } from "@mui/material";
-import { useGate, useUnit } from "effector-react";
+import { useGate } from "effector-react";
 
-import { $UsersList, deleteUserFx, UsersGate } from "stores/users";
+import { useUserForm } from "hooks/useUserForm";
+import { UsersGate } from "stores/users";
 
-import { Grid } from "../../userDataGrid/Grid";
+import { Grid } from "../../dataGrid/Grid";
 
 const headers = [
     { field: "username", headerName: "User Name", width: 150 },
@@ -21,22 +21,9 @@ const boxStyles = {
 };
 
 export const UserList = () => {
-    const [openSnackbar, setOpenSnackbar] = useState(false);
     useGate(UsersGate);
-    const users = useUnit($UsersList);
 
-    const handleDeleteClick = (id: string) => {
-        const user = users.find((user) => user.id === id);
-        if (user?.role === "admin") {
-            setOpenSnackbar(true);
-            return;
-        }
-        deleteUserFx(id);
-    };
-
-    const handleCloseSnackbar = () => {
-        setOpenSnackbar(false);
-    };
+    const { handleCloseSnackbar, openSnackbar, users } = useUserForm({});
 
     return (
         <Box sx={boxStyles}>
@@ -51,7 +38,7 @@ export const UserList = () => {
                 </Alert>
             </Snackbar>
             <Typography variant="h5">User List</Typography>
-            <Grid rows={users} headers={headers} handleDeleteClick={handleDeleteClick} />
+            <Grid rows={users} headers={headers} />
         </Box>
     );
 };
