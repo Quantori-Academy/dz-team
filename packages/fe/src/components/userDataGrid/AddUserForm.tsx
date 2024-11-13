@@ -9,9 +9,9 @@ const textfieldStyle = { width: "200px" };
 const button = { width: "250px" };
 const boxStyle = { display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" };
 const input = { display: "flex", alignItems: "center", gap: "10px" };
-interface AddUserFormProps {
+type AddUserFormProps = {
     onClose: () => void;
-}
+};
 export const AddUserForm = ({ onClose }: AddUserFormProps) => {
     const refs = {
         username: useRef<HTMLInputElement>(null),

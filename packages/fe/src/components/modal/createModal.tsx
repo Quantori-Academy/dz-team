@@ -1,11 +1,8 @@
-import { saveResolve } from "./store";
+import { ModalData, saveResolve } from "./store";
 
 type GenericModalDetails = {
     name: string;
-    title: string;
-    message: string | React.ReactNode;
-    labels: [{ ok: string }, { cancel: string }];
-};
+} & ModalData;
 
 export function createModal({
     name,

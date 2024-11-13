@@ -25,7 +25,7 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
     const users = useUnit($usersList);
 
     // user delete
-    const handleDeleteClick = (id: string) => {
+    const handleDeleteUser = (id: string) => {
         deleteUserFx(id);
     };
 
@@ -112,7 +112,7 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
         confirmPasswordError,
         roleError,
         handleSubmit,
-        handleDeleteClick,
+        handleDeleteUser,
         users,
     };
 };

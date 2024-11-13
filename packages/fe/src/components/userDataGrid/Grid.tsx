@@ -2,10 +2,13 @@ import { useCallback, useMemo, useState } from "react";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import PageviewIcon from "@mui/icons-material/Pageview";
-import { Box, Modal, TextField, Typography } from "@mui/material";
+import { TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import { useNavigate } from "@tanstack/react-router";
 
+import { removeModal } from "components/modal/store";
+import { StorageDialog } from "components/pages/storage/StorageDialog";
+import { useModal } from "hooks/useModal";
 import { useSession } from "hooks/useSession";
 import { useUserForm } from "hooks/useUserForm";
 import { fetchDetailedStorageFx } from "stores/storage";
@@ -28,12 +31,11 @@ type RowDataType = {
 
 export const Grid = ({ rows, headers, recordType }: GridProps) => {
     const { isAdmin } = useSession();
-
     const navigate = useNavigate();
-    const { handleDeleteClick } = useUserForm({});
+    const { handleDeleteUser } = useUserForm({});
+    const { openModal } = useModal();
 
     const [searchQuery, setSearchQuery] = useState("");
-    const [isModalOpen, setModalOpen] = useState(false);
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(event.target.value);
@@ -58,17 +60,21 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
         }),
     );
 
-    const handleModalClose = () => {
-        setModalOpen(false);
-    };
-
-    const handleAddUserOpen = () => {
-        setModalOpen(true);
-    };
-
-    const handleADdStorageOpen = () => {
-        alert("new storage");
-    };
+    const handleAddFormOpen = useCallback(() => {
+        if (recordType === "user") {
+            openModal({
+                name: "add_user_modal",
+                title: "Add New User",
+                message: <AddUserForm onClose={() => removeModal()} />,
+            });
+        } else if (recordType === "storage") {
+            openModal({
+                name: "add_storage_modal",
+                title: "Delete Storage",
+                message: <StorageDialog onClose={() => removeModal()} />,
+            });
+        }
+    }, [recordType, openModal]);
 
     const handleRowClick = useCallback(
         (id: string) => {
@@ -76,6 +82,14 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
             navigate({ to: `/storageDetail`, replace: false });
         },
         [navigate],
+    );
+
+    const handleDeleteStorage = useCallback(
+        (id: string) => {
+            fetchDetailedStorageFx(id);
+            handleAddFormOpen();
+        },
+        [handleAddFormOpen],
     );
 
     const columns = useMemo(() => {
@@ -106,7 +120,13 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                             <GridActionsCellItem
                                 icon={<DeleteIcon />}
                                 label="Delete"
-                                onClick={() => handleDeleteClick(params.row.id)}
+                                onClick={() => {
+                                    if (recordType === "user") {
+                                        handleDeleteUser(params.row.id);
+                                    } else if (recordType === "storage") {
+                                        handleDeleteStorage(params.row.id);
+                                    }
+                                }}
                                 color="inherit"
                             />
                         </>
@@ -115,7 +135,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
             ),
         };
         return [...headers, editColumn];
-    }, [headers, handleDeleteClick, isAdmin, handleRowClick, recordType]);
+    }, [headers, handleDeleteUser, handleDeleteStorage, isAdmin, handleRowClick, recordType]);
 
     return (
         <>
@@ -146,44 +166,11 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                     },
                 }}
                 slots={{
-                    toolbar: isAdmin
-                        ? () =>
-                              recordType === "user" ? (
-                                  <AddRecord
-                                      buttonLabel="Add New User"
-                                      onAddRecord={handleAddUserOpen}
-                                  />
-                              ) : (
-                                  <AddRecord
-                                      buttonLabel="Add New Storage"
-                                      onAddRecord={handleADdStorageOpen}
-                                  />
-                              )
-                        : null,
+                    toolbar: () => (
+                        <AddRecord buttonLabel="Add New User" onAddRecord={handleAddFormOpen} />
+                    ),
                 }}
             />
-            <Modal open={isModalOpen} onClose={handleModalClose}>
-                <Box
-                    sx={{
-                        width: "500px",
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "center",
-                        padding: 4,
-                        margin: "auto",
-                        marginTop: "10%",
-                        bgcolor: "background.paper",
-                        boxShadow: 24,
-                        borderRadius: 1,
-                    }}
-                >
-                    {recordType === "user" ? (
-                        <AddUserForm onClose={handleModalClose} />
-                    ) : (
-                        <Typography>storage form </Typography>
-                    )}
-                </Box>
-            </Modal>
         </>
     );
 };

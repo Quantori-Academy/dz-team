@@ -8,7 +8,6 @@ const headers = [
     { field: "name", headerName: "Storage Name", width: 170 },
     { field: "room", headerName: "Storage Room", width: 170 },
     { field: "description", headerName: "Storage Description", width: 170 },
-    { field: "reagentsCount", headerName: "Reagents number", width: 170 },
 ];
 
 const BoxStyle = {
@@ -22,13 +21,14 @@ export const StorageList = () => {
 
     const storage = useUnit($storageList);
 
-    const formattedStorage = storage.map((item) => ({
-        id: item.id,
-        name: item.name,
-        room: item.room,
-        description: item.description,
-    }));
-
+    const formattedStorage = storage
+        .filter((item) => !item.deletedAt)
+        .map((item) => ({
+            id: item.id,
+            name: item.name,
+            room: item.room,
+            description: item.description,
+        }));
     return (
         <Box sx={BoxStyle}>
             <Grid rows={formattedStorage} headers={headers} recordType="storage" />
