@@ -23,7 +23,16 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
         role: useRef<HTMLInputElement>(null),
     };
 
-    const { errors, handleSubmit } = useUserForm(refs);
+    const {
+        usernameError,
+        emailError,
+        passwordError,
+        confirmPasswordError,
+        roleError,
+        firstNameError,
+        lastNameError,
+        handleSubmit,
+    } = useUserForm(refs);
 
     return (
         <Box component="form" noValidate autoComplete="off" sx={boxStyle}>
@@ -32,8 +41,8 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     label="Username"
                     name="username"
                     inputRef={refs.username}
-                    error={!!errors.username}
-                    helperText={errors.username}
+                    error={!!usernameError}
+                    helperText={usernameError}
                     margin="normal"
                     sx={textfieldStyle}
                     required={true}
@@ -41,9 +50,9 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                 <TextField
                     label="First Name"
                     name="firstName"
+                    error={!!firstNameError}
+                    helperText={firstNameError}
                     inputRef={refs.firstName}
-                    error={!!errors.firstName}
-                    helperText={errors.firstName}
                     margin="normal"
                     sx={textfieldStyle}
                     required={true}
@@ -53,9 +62,9 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                 <TextField
                     label="Last Name"
                     name="lastName"
+                    error={!!lastNameError}
+                    helperText={lastNameError}
                     inputRef={refs.lastName}
-                    error={!!errors.lastName}
-                    helperText={errors.lastName}
                     margin="normal"
                     sx={textfieldStyle}
                     required={true}
@@ -64,8 +73,8 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     label="Email"
                     name="email"
                     inputRef={refs.email}
-                    error={!!errors.email}
-                    helperText={errors.email}
+                    error={!!emailError}
+                    helperText={emailError}
                     margin="normal"
                     sx={textfieldStyle}
                     required={true}
@@ -78,8 +87,8 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     name="password"
                     type="password"
                     inputRef={refs.password}
-                    error={!!errors.password}
-                    helperText={errors.password}
+                    error={!!passwordError}
+                    helperText={passwordError}
                     margin="normal"
                     sx={textfieldStyle}
                     required={true}
@@ -89,8 +98,8 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     name="confirmPassword"
                     type="password"
                     inputRef={refs.confirmPassword}
-                    error={!!errors.confirmPassword}
-                    helperText={errors.confirmPassword}
+                    error={!!confirmPasswordError}
+                    helperText={confirmPasswordError}
                     margin="normal"
                     sx={textfieldStyle}
                     required={true}
@@ -101,8 +110,8 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                 label="Role"
                 name="role"
                 inputRef={refs.role}
-                error={!!errors.role}
-                helperText={errors.role}
+                error={!!roleError}
+                helperText={roleError}
                 margin="normal"
                 defaultValue=""
                 sx={textfieldStyle}

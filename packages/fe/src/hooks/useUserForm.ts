@@ -1,67 +1,76 @@
 import { useState } from "react";
 import { useUnit } from "effector-react";
 
-import { NewUser } from "api/users/addUser";
 import { $usersList, addUserFx, deleteUserFx } from "stores/users";
 
-type FormErrors = {
-    username?: string;
-    firstName?: string;
-    lastName?: string;
-    email?: string;
-    password?: string;
-    confirmPassword?: string;
-    role?: string;
+export type NewUser = {
+    username: string;
+    firstName: string;
+    lastName: string;
+    email: string;
+    password: string;
+    confirmPassword: string;
+    role: string;
 };
 
 export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElement> }) => {
-    const [errors, setErrors] = useState<FormErrors>({});
-
-    const [openSnackbar, setOpenSnackbar] = useState(false);
+    const [usernameError, setUsernameError] = useState<string | null>(null);
+    const [firstNameError, setFirstNameError] = useState<string | null>(null);
+    const [lastNameError, setLastNameError] = useState<string | null>(null);
+    const [emailError, setEmailError] = useState<string | null>(null);
+    const [passwordError, setPasswordError] = useState<string | null>(null);
+    const [confirmPasswordError, setConfirmPasswordError] = useState<string | null>(null);
+    const [roleError, setRoleError] = useState<string | null>(null);
 
     const users = useUnit($usersList);
 
-    const handleCloseSnackbar = () => {
-        setOpenSnackbar(false);
-    };
-
-    // delete function for user checks the role and opens the notification bar if role is admin
+    // user delete
     const handleDeleteClick = (id: string) => {
-        const user = users.find((user) => user.id === id);
-        if (user?.role === "admin") {
-            setOpenSnackbar(true);
-            return;
-        }
         deleteUserFx(id);
     };
 
     const validateForm = (formData: NewUser) => {
-        const newErrors: FormErrors = {};
+        let isValid = true;
 
-        if (users.some((user) => user.username === formData.username)) {
-            newErrors.username = "Username already exists.";
-        } else if (formData.username.length > 50) {
-            newErrors.username = "Username must not exceed 50 characters.";
+        if (formData.username.length > 50) {
+            setUsernameError("Username must not exceed 50 characters.");
+            isValid = false;
+        } else if (!formData.username || formData.username.trim().length === 0) {
+            setUsernameError("User name is required");
+            isValid = false;
+        }
+
+        if (!formData.firstName || formData.firstName.trim().length === 0) {
+            setFirstNameError("First Name is required.");
+            isValid = false;
+        }
+        if (!formData.lastName || formData.lastName.trim().length === 0) {
+            setLastNameError("Last Name is required.");
+            isValid = false;
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (users.some((user) => user.email === formData.email)) {
-            newErrors.email = "Email already exists.";
-        } else if (!emailRegex.test(formData.email)) {
-            newErrors.email = "Invalid email format.";
+        if (!emailRegex.test(formData.email)) {
+            setEmailError("Invalid email format.");
+            isValid = false;
         }
 
         if ((formData.password ?? "").length < 8) {
-            newErrors.password = "Password must be at least 8 characters long.";
+            setPasswordError("Password must be at least 8 characters long.");
+            isValid = false;
         }
 
-        if (formData.confirmPassword !== formData.password)
-            newErrors.confirmPassword = "Passwords do not match.";
-        if (!formData.role) newErrors.role = "Role is required.";
+        if (formData.confirmPassword !== formData.password) {
+            setConfirmPasswordError("Passwords do not match.");
+            isValid = false;
+        }
 
-        setErrors(newErrors);
+        if (!formData.role) {
+            setRoleError("Role is required.");
+            isValid = false;
+        }
 
-        return Object.keys(newErrors).length === 0;
+        return isValid;
     };
 
     const handleSubmit = () => {
@@ -77,7 +86,13 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
 
         if (validateForm(formData)) {
             addUserFx(formData);
-            setErrors({});
+            setUsernameError(null);
+            setFirstNameError(null);
+            setLastNameError(null);
+            setEmailError(null);
+            setPasswordError(null);
+            setConfirmPasswordError(null);
+            setRoleError(null);
         }
         refs.username.current!.value = "";
         refs.firstName.current!.value = "";
@@ -89,11 +104,15 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
     };
 
     return {
-        errors,
+        usernameError,
+        firstNameError,
+        lastNameError,
+        emailError,
+        passwordError,
+        confirmPasswordError,
+        roleError,
         handleSubmit,
         handleDeleteClick,
-        handleCloseSnackbar,
-        openSnackbar,
         users,
     };
 };

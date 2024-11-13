@@ -1,20 +1,16 @@
 import { createEvent, createStore } from "effector";
 
-export type LabelsType = {
-    ok: string;
-    cancel: string;
+export type ModalData = {
+    title?: string;
+    message: string | React.ReactNode;
+    labels?: { ok: string; cancel: string };
 };
 
 type StoreType = {
     modal: string | null;
-    resolve: ((value?: unknown) => void) | null;
-    reject: ((reason?: unknown) => void) | null;
-    modalData: {
-        title: string;
-        message: React.ReactNode | ((resolve: () => void, reject: () => void) => React.ReactNode);
-        labels: { ok: string; cancel: string };
-        hideModalButtons?: boolean;
-    };
+    resolve: (() => void) | null;
+    reject: (() => void) | null;
+    modalData: ModalData;
 };
 
 const initialValue: StoreType = {
@@ -25,7 +21,6 @@ const initialValue: StoreType = {
         title: "",
         message: "",
         labels: { ok: "", cancel: "" },
-        hideModalButtons: false,
     },
 };
 

@@ -50,8 +50,6 @@ export const Grid = ({ rows, headers }: GridProps) => {
                 name: "add_user_modal",
                 title: "Add New User",
                 message: <AddUserForm onClose={() => removeModal()} />,
-                labels: { ok: "Save", cancel: "Cancel" },
-                hideModalButtons: true,
             });
             removeModal();
         } catch (_error) {

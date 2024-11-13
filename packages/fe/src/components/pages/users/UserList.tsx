@@ -1,4 +1,4 @@
-import { Alert, Box, Snackbar, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useGate } from "effector-react";
 
 import { useUserForm } from "hooks/useUserForm";
@@ -23,20 +23,10 @@ const boxStyles = {
 export const UserList = () => {
     useGate(UsersGate);
 
-    const { handleCloseSnackbar, openSnackbar, users } = useUserForm({});
+    const { users } = useUserForm({});
 
     return (
         <Box sx={boxStyles}>
-            <Snackbar
-                open={openSnackbar}
-                autoHideDuration={3000}
-                onClose={handleCloseSnackbar}
-                anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
-            >
-                <Alert onClose={handleCloseSnackbar} severity="warning" sx={{ width: "100%" }}>
-                    You can not delete an admin!
-                </Alert>
-            </Snackbar>
             <Typography variant="h5">User List</Typography>
             <Grid rows={users} headers={headers} />
         </Box>
