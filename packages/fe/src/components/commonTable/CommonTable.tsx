@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Box, Button, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import {
     DataGrid,
     GridColDef,
@@ -10,6 +10,7 @@ import {
 import { z } from "zod";
 
 import { search } from "api/search";
+import { AddRecord } from "components/userDataGrid/Addrecord";
 
 type FetchResponseType<T> = {
     data: T[];
@@ -85,35 +86,30 @@ export function CommonTable<T extends GridValidRowModel>({
         fetchRows();
     }, [pagination.page, pagination.pageSize, sort, query, url, schema, searchBy]);
 
-    const handlePaginationChange = (newPaginationModel: GridPaginationModel) => {
-        setPagination(newPaginationModel);
-    };
-
-    const handleSortChange = (newSortModel: GridSortModel) => {
-        setSort(newSortModel);
-    };
-
     return (
         <>
-            <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, mb: 2 }}>
-                <TextField
-                    label="Search"
-                    variant="outlined"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    sx={{ minWidth: 200 }}
-                />
-            </Box>
+            <TextField
+                label="Search"
+                variant="outlined"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                sx={{ minWidth: 200, mt: 2 }}
+            />
 
             <DataGrid
+                slots={{
+                    toolbar: onAdd
+                        ? () => <AddRecord buttonLabel={addButtonText} onAddRecord={onAdd} />
+                        : undefined,
+                }}
                 rows={result.data}
                 columns={columns}
                 paginationModel={pagination}
                 pageSizeOptions={[5, 10, 25, 50, 100]}
-                onPaginationModelChange={handlePaginationChange}
+                onPaginationModelChange={setPagination}
                 rowCount={result.meta.totalCount}
                 paginationMode="server"
-                onSortModelChange={handleSortChange}
+                onSortModelChange={setSort}
                 sortingOrder={["asc", "desc"]}
                 sortingMode="server"
                 filterMode="server"
@@ -122,11 +118,6 @@ export function CommonTable<T extends GridValidRowModel>({
                 disableColumnFilter
                 sx={{ mt: 2, minHeight: 300 }}
             />
-            {onAdd && (
-                <Button variant="contained" sx={{ mt: 2 }} onClick={onAdd}>
-                    {addButtonText}
-                </Button>
-            )}
         </>
     );
 }
