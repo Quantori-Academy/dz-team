@@ -121,7 +121,7 @@ export const CreateOrder = () => {
             <ReusableGrid
                 rows={reagents}
                 headers={headers}
-                addRecordLabel="Add chosen reagents to order"
+                addRecordLabel="Create a new reagent"
                 placeholder={placeholder}
                 onRowClick={(row) => handleRowClick(row as ReagentType)}
                 iconProps={{
