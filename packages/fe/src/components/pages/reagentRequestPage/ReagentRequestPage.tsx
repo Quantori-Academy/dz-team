@@ -1,8 +1,12 @@
 import { GridColDef } from "@mui/x-data-grid";
+import { Outlet, useNavigate } from "@tanstack/react-router";
+import { useUnit } from "effector-react";
 
 import { ReagentRequest, ReagentRequestType } from "api/reagentRequest";
 import { base } from "api/request";
+import { UserRole } from "api/self";
 import { CommonTable } from "components/commonTable/CommonTable";
+import { $auth } from "stores/auth";
 
 const reagentRequestColumns: GridColDef[] = [
     { field: "reagentName", headerName: "Reagent Name", width: 200 },
@@ -17,12 +21,28 @@ const reagentRequestColumns: GridColDef[] = [
 ];
 
 export function ReagentRequestPage() {
+    const authState = useUnit($auth);
+    const navigate = useNavigate();
+
     return (
         <>
             <CommonTable<ReagentRequestType>
                 columns={reagentRequestColumns}
                 url={`${base}/api/v1/reagent-request`}
                 schema={ReagentRequest}
+                onRowClick={(row) => {
+                    if (
+                        authState !== false &&
+                        authState?.self.role === UserRole.procurementOfficer
+                    ) {
+                        navigate({ to: `/allReagentRequests/${row.id}`, replace: false });
+                    } else if (
+                        authState !== false &&
+                        authState?.self.role === UserRole.researcher
+                    ) {
+                        navigate({ to: `/reagentRequests/${row.id}`, replace: false });
+                    }
+                }}
                 searchBy={{
                     name: true,
                     description: true,
@@ -35,6 +55,8 @@ export function ReagentRequestPage() {
                 // TODO: Add button when Create Reagent Request page is ready
                 addButtonText="Create a Reagent Request"
             />
+
+            <Outlet />
         </>
     );
 }
