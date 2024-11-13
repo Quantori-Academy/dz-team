@@ -4,10 +4,15 @@ import { createGate } from "effector-react";
 import { produce } from "immer";
 
 import { ReagentDetailsEdit } from "api/reagentDetails/contract";
-import { CreateReagentType, getReagentsApi, ReagentType } from "api/reagents";
+import {
+    CreateReagentType,
+    getReagents,
+    getReagentsApi,
+    ReagentsResponseType,
+    ReagentType,
+} from "api/reagents";
 import { base } from "api/request";
 import { genericDomain as domain } from "logger";
-import { getReagents, ReagentsResponseType } from "api/reagents";
 import { Reagent } from "shared/generated/zod";
 
 export const initialFormData: CreateReagentType = {
@@ -35,6 +40,7 @@ export const fetchReagentsFx = domain.createEffect(async () => {
     const response = await getReagentsApi();
     return response ?? [];
 });
+
 export const addReagentFx = domain.createEffect(async (data: CreateReagentType) => {
     const response = await fetch(`${base}/api/v1/reagents`, {
         method: "POST",
@@ -44,7 +50,7 @@ export const addReagentFx = domain.createEffect(async (data: CreateReagentType) 
     return await response.json();
 });
 
-
+export const ReagentsGate = createGate({ domain });
 
 export const searchableFields: (keyof Reagent)[] = [
     "name",
@@ -61,7 +67,6 @@ export type SearchBy = {
 };
 
 export const MainListGate = createGate("MainList");
-
 
 export const setPagination = domain.createEvent<{ page: number; pageSize: number }>();
 export const setSort = domain.createEvent<GridSortModel>();
@@ -97,6 +102,8 @@ $reagentsList.on(addReagentEvent, (state, newReagent) =>
     produce(state, (draft) => {
         draft.push(newReagent);
     }),
+);
+
 export const reagentsFx = domain.createEffect(
     ({
         page,
@@ -162,13 +169,16 @@ sample({
     target: $reagentsList,
 });
 sample({
+    clock: ReagentsGate.open,
+    target: fetchReagentsFx,
+});
+sample({
     clock: [setSearchBy],
     source: {
         query: $query,
     },
     filter: ({ query }) => query !== "",
     target: setSearchByWithQueryEvent,
-
 });
 
 sample({
@@ -180,6 +190,7 @@ sample({
         search,
         deleteReagentEvent,
         updateReagentEvent,
+        addReagentFx.doneData,
     ],
     source: {
         pagination: $pagination,
@@ -202,7 +213,6 @@ sample({
     clock: addReagentFx.doneData,
     target: addReagentEvent,
 });
-
 sample({
     clock: submitReagentEvent,
     target: addReagentFx,
@@ -214,4 +224,3 @@ sample({
 
 $reagents.on(reagentsFx.doneData, (_, result) => result);
 reagentsFx.fail.watch((err) => dev.error("Error fetching reagents and samples data:", err));
-
