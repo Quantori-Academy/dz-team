@@ -4,15 +4,29 @@ import swaggerUi from "@fastify/swagger-ui";
 
 export const registerSwagger = (server: FastifyInstance) => {
     server.register(swagger, {
-        swagger: {
+        openapi: {
             info: {
                 title: "Fastify API",
                 description: "API documentation for Luna",
                 version: "1.0.0",
             },
-            schemes: ["http"],
-            consumes: ["application/json"],
-            produces: ["application/json"],
+            components: {
+                securitySchemes: {
+                    BearerAuth: {
+                        type: "http",
+                        scheme: "bearer",
+                        bearerFormat: "JWT",
+                        description: "Enter JWT token in the format 'Bearer <token>'",
+                    },
+                },
+            },
+            security: [{ BearerAuth: [] }],
+            servers: [
+                {
+                    url: "http://localhost", // Adjust this to your server URL
+                    description: "Local server",
+                },
+            ],
         },
     });
 
