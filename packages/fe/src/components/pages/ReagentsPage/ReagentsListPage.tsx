@@ -1,89 +1,89 @@
-import { useEffect, useState } from "react";
-import { Box, Button, Modal, Typography } from "@mui/material";
+import { useState } from "react";
+import { Box } from "@mui/material";
+import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
-import { useGate, useUnit } from "effector-react";
-import { theme } from "theme";
+import { useUnit } from "effector-react";
 
-import { $ReagentsList, fetchReagentsFx, ReagentsGate } from "stores/reagents";
+import { base } from "api/request";
+import { CommonTable } from "components/commonTable/CommonTable";
+import { $formData, initialFormData, setFormData, submitReagentEvent } from "stores/reagents";
 
-import { Table } from "../Table/Table";
-import { AddReagentForm } from "./AddReagentForm";
+import { Reagent, ReagentSchema } from "../../../../../shared/generated/zod";
+import { ReagentFormModal } from "./ReagentFormModal";
 
-const header = [
-    { key: "name", label: "Name" },
-    { key: "structure", label: "Structure" },
-    { key: "description", label: "Description" },
-    { key: "quantity", label: "Quantity" },
-    { key: "unit", label: "Unit" },
-    { key: "size", label: "Size" },
-    { key: "expirationDate", label: "Expiration Date" },
-    { key: "storageLocation", label: "Storage Location" },
-    { key: "cas", label: "CAS" },
-    { key: "producer", label: "Producer" },
-    { key: "catalogId", label: "Catalog ID" },
-    { key: "catalogLink", label: "Catalog Link" },
-    { key: "pricePerUnit", label: "Price Per Unit" },
+const columns: GridColDef[] = [
+    { field: "id", headerName: "ID", width: 90, sortable: false },
+    { field: "name", headerName: "Name", width: 150 },
+    { field: "structure", headerName: "Structure", width: 150 },
+    { field: "description", headerName: "Description", width: 200 },
+    { field: "quantity", headerName: "Quantity", width: 110 },
+    { field: "unit", headerName: "Unit", width: 100, sortable: false },
+    { field: "size", headerName: "Size", width: 100, sortable: false },
+    { field: "expirationDate", headerName: "Expiration Date", width: 150 },
+    { field: "cas", headerName: "CAS", width: 120 },
+    { field: "producer", headerName: "Producer", width: 150 },
+    { field: "catalogId", headerName: "Catalog ID", width: 120 },
+    { field: "catalogLink", headerName: "Catalog Link", width: 150 },
+    { field: "pricePerUnit", headerName: "Price Per Unit", width: 150 },
+    { field: "category", headerName: "Category", width: 120 },
+    { field: "createdAt", headerName: "Created At", width: 150 },
+    { field: "updatedAt", headerName: "Updated At", width: 150 },
 ];
 
 export const ReagentsListPage = () => {
-    useGate(ReagentsGate);
-    const navigate = useNavigate();
     const [isModalOpen, setIsModalOpen] = useState(false);
     const handleAddReagentClick = () => setIsModalOpen(true);
     const handleModalClose = () => setIsModalOpen(false);
 
-    const handleActionClick = () => {
-        alert(`click!`);
+    const navigate = useNavigate();
+
+    const formData = useUnit($formData);
+    const submitReagent = useUnit(submitReagentEvent);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: name === "quantity" || name === "pricePerUnit" ? Number(value) : value,
+        });
     };
 
-    const handleRowClick = (row: { id: string }) => {
-        navigate({ to: `/reagents/${row.id}`, replace: false });
+    const handleSubmit = () => {
+        submitReagent(formData);
+        alert("Reagent added successfully!");
+        setFormData(initialFormData);
+        handleModalClose();
     };
-
-    const reagents = useUnit($ReagentsList);
-
-    useEffect(() => {
-        fetchReagentsFx();
-    }, []);
 
     return (
-        <Box>
-            <Box
-                sx={{ display: "flex", flexDirection: "column", alignItems: "center", gap: "30px" }}
-            >
-                <Typography variant="h3" sx={{ color: theme.palette.text.primary }}>
-                    Reagents List
-                </Typography>
-                <Button
-                    variant="contained"
-                    onClick={handleAddReagentClick}
-                    sx={{
-                        width: "30%",
-                        bgcolor: "primary.main",
-                        borderRadius: "4px 4px 0 0",
-                        mb: -1,
-                        marginRight: "auto",
-                        background: "linear-gradient(0deg, #BFBFBF, #BFBFBF), #BFBFBF",
-                        color: "#000000",
-                        fontFamily: "Inter, sans-serif",
-                        fontWeight: 600,
-                        fontSize: "14px",
-                        lineHeight: "17px",
-                    }}
-                >
-                    Add Reagent
-                </Button>
-            </Box>
-            <Table
-                data={reagents}
-                headers={header}
-                actionLabel="Edit"
-                onActionClick={handleActionClick}
-                onRowClick={handleRowClick}
+        <Box sx={{ mb: 5 }}>
+            <CommonTable<Reagent>
+                columns={columns}
+                url={`${base}/api/v1/reagents`}
+                schema={ReagentSchema}
+                onRowClick={(row) => {
+                    navigate({ to: `/reagents/${row.id}`, replace: false });
+                }}
+                searchBy={{
+                    name: true,
+                    description: true,
+                    structure: true,
+                    producer: true,
+                    cas: true,
+                    catalogId: true,
+                    catalogLink: true,
+                }}
+                onAdd={handleAddReagentClick}
+                addButtonText="add reagent"
             />
-            <Modal open={isModalOpen} onClose={handleModalClose}>
-                <AddReagentForm onClose={handleModalClose} />
-            </Modal>
+            <ReagentFormModal
+                isOpen={isModalOpen}
+                formData={formData}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+                handleModalClose={handleModalClose}
+            />
+
             <Outlet />
         </Box>
     );

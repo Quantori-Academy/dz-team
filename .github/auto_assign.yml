@@ -9,16 +9,15 @@ useReviewGroups: true
 
 reviewGroups:
     mentors:
-        - qdmitriyzhukov
-        - Salamdi
-        - KorovinQuantori
         - picassoq
+        - andreypoletaev2
+        - MaksimMordvintsev
+        - mkollen-quantori
     students:
-        - abe511
         - Adlet92
         - nechepurenkoV
         - TeaChareqishvili
-        - chubinaaa
+        - MkhitarSiradeghyan
         - Akimishvili
 
 # Set to true to add assignees to pull requests

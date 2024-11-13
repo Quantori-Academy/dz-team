@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
-import { publicUserSchema, RegisterUser, UpdateUser } from "shared/zodSchemas";
+import { publicUserSchema, RegisterUser, UpdateUser } from "../../../shared/zodSchemas";
 import { z } from "zod";
 
 const prisma = new PrismaClient();
@@ -171,6 +171,13 @@ export class UserService {
      * @returns {Promise<boolean>} True if the user was deleted, false if not found.
      */
     async deleteUser(userId: string): Promise<boolean> {
+        const user = await prisma.user.findUnique({ where: { id: userId } });
+        if (user?.role === "admin") {
+            const adminCount = await prisma.user.count({ where: { role: "admin" } });
+            if (adminCount === 1) {
+                return false;
+            }
+        }
         const deletedUser = await prisma.user.delete({
             where: { id: userId },
         });
