@@ -1,11 +1,21 @@
 {
-    "swagger": "2.0",
+    "openapi": "3.0.3",
     "info": {
         "title": "Fastify API",
         "description": "API documentation for Luna",
         "version": "1.0.0"
     },
-    "definitions": {},
+    "components": {
+        "securitySchemes": {
+            "BearerAuth": {
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT",
+                "description": "Enter JWT token in the format 'Bearer <token>'"
+            }
+        },
+        "schemas": {}
+    },
     "paths": {
         "/api/v1/reagents/": {
             "get": {
@@ -18,24 +28,24 @@
             },
             "post": {
                 "tags": ["Reagent"],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "_def": {
-                                "unknownKeys": "strict",
-                                "catchall": {
-                                    "_def": {
-                                        "typeName": "ZodNever"
-                                    }
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "_def": {
+                                    "unknownKeys": "strict",
+                                    "catchall": {
+                                        "_def": {
+                                            "typeName": "ZodNever"
+                                        }
+                                    },
+                                    "typeName": "ZodObject"
                                 },
-                                "typeName": "ZodObject"
-                            },
-                            "_cached": null
+                                "_cached": null
+                            }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -48,10 +58,12 @@
                 "tags": ["Reagent"],
                 "parameters": [
                     {
-                        "type": "string",
-                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
                         "in": "path",
-                        "name": "id"
+                        "name": "id",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -62,28 +74,32 @@
             },
             "put": {
                 "tags": ["Reagent"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "_def": {
+                                    "unknownKeys": "strict",
+                                    "catchall": {
+                                        "_def": {
+                                            "typeName": "ZodNever"
+                                        }
+                                    },
+                                    "typeName": "ZodObject"
+                                },
+                                "_cached": null
+                            }
+                        }
+                    }
+                },
                 "parameters": [
                     {
-                        "name": "body",
-                        "in": "body",
                         "schema": {
-                            "_def": {
-                                "unknownKeys": "strict",
-                                "catchall": {
-                                    "_def": {
-                                        "typeName": "ZodNever"
-                                    }
-                                },
-                                "typeName": "ZodObject"
-                            },
-                            "_cached": null
-                        }
-                    },
-                    {
-                        "type": "string",
-                        "required": true,
+                            "type": "string"
+                        },
                         "in": "path",
-                        "name": "id"
+                        "name": "id",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -96,10 +112,12 @@
                 "tags": ["Reagent"],
                 "parameters": [
                     {
-                        "type": "string",
-                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
                         "in": "path",
-                        "name": "id"
+                        "name": "id",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -112,10 +130,12 @@
                 "tags": ["Reagent"],
                 "parameters": [
                     {
-                        "type": "string",
-                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
                         "in": "path",
-                        "name": "id"
+                        "name": "id",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -137,24 +157,24 @@
         "/api/v1/auth/login": {
             "post": {
                 "tags": ["Auth"],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "_def": {
-                                "unknownKeys": "strip",
-                                "catchall": {
-                                    "_def": {
-                                        "typeName": "ZodNever"
-                                    }
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "_def": {
+                                    "unknownKeys": "strip",
+                                    "catchall": {
+                                        "_def": {
+                                            "typeName": "ZodNever"
+                                        }
+                                    },
+                                    "typeName": "ZodObject"
                                 },
-                                "typeName": "ZodObject"
-                            },
-                            "_cached": null
+                                "_cached": null
+                            }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -173,32 +193,32 @@
             },
             "post": {
                 "tags": ["Users"],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "_def": {
-                                "schema": {
-                                    "_def": {
-                                        "unknownKeys": "strip",
-                                        "catchall": {
-                                            "_def": {
-                                                "typeName": "ZodNever"
-                                            }
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "_def": {
+                                    "schema": {
+                                        "_def": {
+                                            "unknownKeys": "strip",
+                                            "catchall": {
+                                                "_def": {
+                                                    "typeName": "ZodNever"
+                                                }
+                                            },
+                                            "typeName": "ZodObject"
                                         },
-                                        "typeName": "ZodObject"
+                                        "_cached": null
                                     },
-                                    "_cached": null
-                                },
-                                "typeName": "ZodEffects",
-                                "effect": {
-                                    "type": "refinement"
+                                    "typeName": "ZodEffects",
+                                    "effect": {
+                                        "type": "refinement"
+                                    }
                                 }
                             }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -211,10 +231,12 @@
                 "tags": ["Users"],
                 "parameters": [
                     {
-                        "type": "string",
-                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
                         "in": "path",
-                        "name": "userId"
+                        "name": "userId",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -225,28 +247,32 @@
             },
             "put": {
                 "tags": ["Users"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "_def": {
+                                    "unknownKeys": "strip",
+                                    "catchall": {
+                                        "_def": {
+                                            "typeName": "ZodNever"
+                                        }
+                                    },
+                                    "typeName": "ZodObject"
+                                },
+                                "_cached": null
+                            }
+                        }
+                    }
+                },
                 "parameters": [
                     {
-                        "name": "body",
-                        "in": "body",
                         "schema": {
-                            "_def": {
-                                "unknownKeys": "strip",
-                                "catchall": {
-                                    "_def": {
-                                        "typeName": "ZodNever"
-                                    }
-                                },
-                                "typeName": "ZodObject"
-                            },
-                            "_cached": null
-                        }
-                    },
-                    {
-                        "type": "string",
-                        "required": true,
+                            "type": "string"
+                        },
                         "in": "path",
-                        "name": "userId"
+                        "name": "userId",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -259,10 +285,12 @@
                 "tags": ["Users"],
                 "parameters": [
                     {
-                        "type": "string",
-                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
                         "in": "path",
-                        "name": "userId"
+                        "name": "userId",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -283,24 +311,24 @@
             },
             "post": {
                 "tags": ["StorageLocation"],
-                "parameters": [
-                    {
-                        "name": "body",
-                        "in": "body",
-                        "schema": {
-                            "_def": {
-                                "unknownKeys": "strict",
-                                "catchall": {
-                                    "_def": {
-                                        "typeName": "ZodNever"
-                                    }
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "_def": {
+                                    "unknownKeys": "strict",
+                                    "catchall": {
+                                        "_def": {
+                                            "typeName": "ZodNever"
+                                        }
+                                    },
+                                    "typeName": "ZodObject"
                                 },
-                                "typeName": "ZodObject"
-                            },
-                            "_cached": null
+                                "_cached": null
+                            }
                         }
                     }
-                ],
+                },
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -313,10 +341,12 @@
                 "tags": ["StorageLocation"],
                 "parameters": [
                     {
-                        "type": "string",
-                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
                         "in": "path",
-                        "name": "id"
+                        "name": "id",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -327,28 +357,32 @@
             },
             "put": {
                 "tags": ["StorageLocation"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "_def": {
+                                    "unknownKeys": "strict",
+                                    "catchall": {
+                                        "_def": {
+                                            "typeName": "ZodNever"
+                                        }
+                                    },
+                                    "typeName": "ZodObject"
+                                },
+                                "_cached": null
+                            }
+                        }
+                    }
+                },
                 "parameters": [
                     {
-                        "name": "body",
-                        "in": "body",
                         "schema": {
-                            "_def": {
-                                "unknownKeys": "strict",
-                                "catchall": {
-                                    "_def": {
-                                        "typeName": "ZodNever"
-                                    }
-                                },
-                                "typeName": "ZodObject"
-                            },
-                            "_cached": null
-                        }
-                    },
-                    {
-                        "type": "string",
-                        "required": true,
+                            "type": "string"
+                        },
                         "in": "path",
-                        "name": "id"
+                        "name": "id",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -361,10 +395,12 @@
                 "tags": ["StorageLocation"],
                 "parameters": [
                     {
-                        "type": "string",
-                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
                         "in": "path",
-                        "name": "id"
+                        "name": "id",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -377,10 +413,12 @@
                 "tags": ["StorageLocation"],
                 "parameters": [
                     {
-                        "type": "string",
-                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
                         "in": "path",
-                        "name": "id"
+                        "name": "id",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -395,10 +433,12 @@
                 "tags": ["StorageLocation"],
                 "parameters": [
                     {
-                        "type": "string",
-                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
                         "in": "path",
-                        "name": "reagentId"
+                        "name": "reagentId",
+                        "required": true
                     }
                 ],
                 "responses": {
@@ -407,14 +447,6 @@
                     }
                 }
             }
-        }
-    },
-    "securityDefinitions": {
-        "BearerAuth": {
-            "type": "apiKey",
-            "name": "Authorization",
-            "in": "header",
-            "description": "Enter JWT token in the format 'Bearer <token>'"
         }
     },
     "security": [

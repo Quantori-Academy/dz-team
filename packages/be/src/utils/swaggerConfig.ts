@@ -21,12 +21,6 @@ export const registerSwagger = (server: FastifyInstance) => {
                 },
             },
             security: [{ BearerAuth: [] }],
-            servers: [
-                {
-                    url: "http://localhost", // Adjust this to your server URL
-                    description: "Local server",
-                },
-            ],
         },
     });
 
