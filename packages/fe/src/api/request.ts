@@ -25,7 +25,7 @@ const api = ky.create({
             async (request) => {
                 if (isProd) return request;
                 if (useMockData) {
-                    const url = request.url.toString().replace(base, "");
+                    const url = request.url.toString().replace(base, "").split("?")[0];
                     // eslint-disable-next-line no-console
                     console.warn("will use mock data for:", url);
                     const mockData = (await import("./data.json")).default;

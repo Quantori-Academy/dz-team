@@ -1,10 +1,8 @@
-import { useEffect } from "react";
-import { Button } from "@mui/material";
-import { DataGrid, GridColDef } from "@mui/x-data-grid";
-import { Link } from "@tanstack/react-router";
-import { useUnit } from "effector-react";
+import { GridColDef } from "@mui/x-data-grid";
 
-import { $reagentRequestStore, reagentRequestFx } from "stores/dataReagentRequests";
+import { ReagentRequest, ReagentRequestType } from "api/reagentRequest";
+import { base } from "api/request";
+import { CommonTable } from "components/commonTable/CommonTable";
 
 const reagentRequestColumns: GridColDef[] = [
     { field: "reagentName", headerName: "Reagent Name", width: 200 },
@@ -19,22 +17,24 @@ const reagentRequestColumns: GridColDef[] = [
 ];
 
 export function ReagentRequestPage() {
-    const dataReagentRequests = useUnit($reagentRequestStore);
-    const getReagentRequests = useUnit(reagentRequestFx);
-
-    useEffect(() => {
-        getReagentRequests();
-    }, [getReagentRequests]);
-
     return (
         <>
-            <DataGrid rows={dataReagentRequests} columns={reagentRequestColumns} />
-            {/* TODO: Add link when Create Reagent Request page is ready */}
-            <Link>
-                <Button variant="contained" color="primary" sx={{ mt: 2 }}>
-                    Create a Reagent Request
-                </Button>
-            </Link>
+            <CommonTable<ReagentRequestType>
+                columns={reagentRequestColumns}
+                url={`${base}/api/v1/reagent-request`}
+                schema={ReagentRequest}
+                searchBy={{
+                    name: true,
+                    description: true,
+                    structure: true,
+                    producer: true,
+                    cas: true,
+                    catalogId: true,
+                    catalogLink: true,
+                }}
+                // TODO: Add button when Create Reagent Request page is ready
+                addButtonText="Create a Reagent Request"
+            />
         </>
     );
 }

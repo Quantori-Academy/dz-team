@@ -1,8 +1,6 @@
 import { z } from "zod";
 
-import { base, request } from "api/request";
-
-export const reagentRequest = z.object({
+export const ReagentRequest = z.object({
     id: z.string(),
     userId: z.string(),
     reagentName: z.string(),
@@ -16,14 +14,4 @@ export const reagentRequest = z.object({
     dateModified: z.string(),
 });
 
-export const reagentRequestContract = z.array(reagentRequest);
-
-export type reagentRequestType = z.infer<typeof reagentRequestContract>;
-
-export const getReagentRequest = async () => {
-    const response = await request(`${base}/api/v1/reagent-request`, reagentRequestContract, {
-        method: "GET",
-    });
-
-    return response;
-};
+export type ReagentRequestType = z.infer<typeof ReagentRequest>;

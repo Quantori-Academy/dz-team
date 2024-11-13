@@ -197,6 +197,13 @@
                 "creationDate": "2024-10-28",
                 "dateModified": "2024-10-30"
             }
-        ]
+        ],
+        "meta": {
+            "currentPage": 1,
+            "totalPages": 1,
+            "totalCount": 2,
+            "hasNextPage": false,
+            "hasPreviousPage": false
+        }
     }
 }
