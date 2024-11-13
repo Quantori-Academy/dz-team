@@ -1,9 +1,8 @@
+import { Box, Typography } from "@mui/material";
+import { useGate } from "effector-react";
 
-import { Box } from "@mui/material";
-
-import { useGate, useUnit } from "effector-react";
-
-import { $UsersList, deleteUserFx, UsersGate } from "stores/users";
+import { useUserForm } from "hooks/useUserForm";
+import { UsersGate } from "stores/users";
 
 import { Grid } from "../../userDataGrid/Grid";
 
@@ -23,13 +22,13 @@ const boxStyles = {
 
 export const UserList = () => {
     useGate(UsersGate);
-    const users = useUnit($UsersList);
 
+    const { users } = useUserForm({});
 
     return (
         <Box sx={boxStyles}>
+            <Typography variant="h5">User List</Typography>
             <Grid rows={users} headers={headers} recordType="user" />
-
         </Box>
     );
 };
