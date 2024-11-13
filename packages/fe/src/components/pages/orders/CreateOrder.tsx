@@ -22,7 +22,6 @@ const headers = [
     { field: "description", headerName: "Description", width: 170 },
     { field: "quantity", headerName: "Quantity Left", width: 170 },
     { field: "unit", headerName: "Unit", width: 170 },
-    { field: "size", headerName: "Size", width: 150 },
     { field: "expirationDate", headerName: "Expiration Date", width: 150 },
     { field: "storageLocation", headerName: "Storage Location", width: 170 },
     { field: "cas", headerName: "CAS ", width: 170 },
@@ -124,7 +123,6 @@ export const CreateOrder = () => {
                 headers={headers}
                 addRecordLabel="Add chosen reagents to order"
                 placeholder={placeholder}
-                // onRowClick={handleRowClick}
                 onRowClick={(row) => handleRowClick(row as ReagentType)}
                 iconProps={{
                     badgeContent: basket.length,
@@ -163,7 +161,7 @@ export const CreateOrder = () => {
                 </Box>
             </Drawer>
             <Drawer anchor="right" open={basketDrawerOpen} onClose={toggleBasketDrawer}>
-                <Box sx={{ width: 400, p: 3 }}>
+                <Box sx={{ width: 600, p: 3 }}>
                     <Typography variant="h6">Basket</Typography>
                     {basket.length === 0 ? (
                         <Typography>Your basket is empty</Typography>
@@ -197,20 +195,100 @@ export const CreateOrder = () => {
                                     key={reagent.id}
                                     sx={{ display: "flex", alignItems: "center", mt: 2 }}
                                 >
-                                    <Typography sx={{ flexGrow: 1 }}>{reagent.name}</Typography>
-                                    <Button onClick={() => handleQuantityChange(reagent.id, -1)}>
-                                        -
-                                    </Button>
-                                    <Typography>{quantity}</Typography>
-                                    <Button
-                                        onClick={() => handleQuantityChange(reagent.id, 1)}
-                                        disabled={quantity >= reagent.quantity}
+                                    <Box
+                                        sx={{
+                                            flexGrow: 1,
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "center",
+                                        }}
                                     >
-                                        +
-                                    </Button>
-                                    <Typography sx={{ mx: 1 }}>
-                                        ${(reagent.pricePerUnit ?? 0).toFixed(2)}
-                                    </Typography>
+                                        <Typography
+                                            variant="caption"
+                                            sx={{ mb: 1, textAlign: "center" }}
+                                        >
+                                            Name
+                                        </Typography>
+                                        <Typography>{reagent.name}</Typography>
+                                    </Box>
+                                    <Box
+                                        sx={{
+                                            flexGrow: 1,
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <Typography
+                                            variant="caption"
+                                            sx={{ mb: 1, textAlign: "center" }}
+                                        >
+                                            Available Quantity
+                                        </Typography>
+                                        <Typography>{reagent.quantity}</Typography>
+                                    </Box>
+                                    <Box
+                                        sx={{
+                                            flexGrow: 1,
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <Typography
+                                            variant="caption"
+                                            sx={{ mb: 1, textAlign: "center" }}
+                                        >
+                                            Unit
+                                        </Typography>
+                                        <Typography>{reagent.unit}</Typography>
+                                    </Box>
+                                    <Box
+                                        sx={{
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            justifyContent: "center",
+                                        }}
+                                    >
+                                        <Typography
+                                            variant="caption"
+                                            sx={{ mb: 1, textAlign: "center" }}
+                                        >
+                                            Quantity
+                                        </Typography>
+                                        <Box sx={{ display: "flex", alignItems: "center" }}>
+                                            <Button
+                                                onClick={() => handleQuantityChange(reagent.id, -1)}
+                                            >
+                                                -
+                                            </Button>
+                                            <Typography sx={{ mx: 1 }}>{quantity}</Typography>
+                                            <Button
+                                                onClick={() => handleQuantityChange(reagent.id, 1)}
+                                                disabled={quantity >= reagent.quantity}
+                                            >
+                                                +
+                                            </Button>
+                                        </Box>
+                                    </Box>
+                                    <Box
+                                        sx={{
+                                            flexGrow: 1,
+                                            display: "flex",
+                                            flexDirection: "column",
+                                            alignItems: "center",
+                                        }}
+                                    >
+                                        <Typography
+                                            variant="caption"
+                                            sx={{ mb: 1, textAlign: "center" }}
+                                        >
+                                            Price
+                                        </Typography>
+                                        <Typography sx={{ mx: 1 }}>
+                                            ${(reagent.pricePerUnit ?? 0).toFixed(2)}
+                                        </Typography>
+                                    </Box>
                                     <IconButton onClick={() => handleDeleteFromBasket(reagent.id)}>
                                         <DeleteIcon />
                                     </IconButton>

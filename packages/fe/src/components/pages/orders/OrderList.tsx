@@ -8,7 +8,7 @@ import { $OrdersList } from "stores/orders/orderStore";
 
 const headers = [
     { field: "id", headerName: "Order ID", width: 150 },
-    { field: "reagentName", headerName: "Reagent Name", width: 150 },
+    // { field: "title", headerName: "Title", width: 150 },
     { field: "quantity", headerName: "Quantity", width: 170 },
     { field: "status", headerName: "Status ", width: 170 },
     { field: "creationDate", headerName: "Creation Date", width: 170 },

@@ -1,9 +1,7 @@
 import { useMemo, useState } from "react";
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import EditIcon from "@mui/icons-material/Edit";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { Badge, Box, IconButton, TextField } from "@mui/material";
-import { DataGrid, GridActionsCellItem, GridRowParams } from "@mui/x-data-grid";
+import { DataGrid, GridRowParams } from "@mui/x-data-grid";
 
 import { SupportedValue } from "utils/formatters";
 
@@ -47,23 +45,7 @@ export const ReusableGrid = ({
         ),
     );
 
-    const columns = useMemo(() => {
-        const editColumn = {
-            field: "actions",
-            headerName: "actions",
-            width: 100,
-            sortable: false,
-            filterable: false,
-            renderCell: (_params: { row: { id: string } }) => (
-                <>
-                    <GridActionsCellItem icon={<EditIcon />} label="Edit" color="inherit" />
-                    <GridActionsCellItem icon={<DeleteIcon />} label="Delete" color="inherit" />,
-                </>
-            ),
-        };
-        return [...headers, editColumn];
-    }, [headers]);
-
+    const columns = useMemo(() => headers, [headers]);
     const textFieldStyle = {
         width: "350px",
         marginRight: "16px",
@@ -98,7 +80,6 @@ export const ReusableGrid = ({
                 rows={filteredRows}
                 rowHeight={60}
                 columns={columns}
-                // onRowClick={(params) => onRowClick && onRowClick(params.row)}
                 onRowClick={(params: GridRowParams) =>
                     onRowClick && onRowClick(params.row as RowType)
                 }
