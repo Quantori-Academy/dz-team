@@ -171,8 +171,7 @@
             "description": "Storage for general lab chemicals",
             "deletedAt": null,
             "createdAt": "2024-11-04T11:35:10.101Z",
-            "updatedAt": "2024-11-04T12:45:20.250Z",
-            "reagents": []
+            "updatedAt": "2024-11-04T12:45:20.250Z"
         },
         {
             "id": "1f345a78-b123-4a67-8e2f-3ad56be67cfe",
@@ -181,8 +180,7 @@
             "description": "Storage for flammable chemicals",
             "deletedAt": null,
             "createdAt": "2024-11-04T11:40:12.403Z",
-            "updatedAt": "2024-11-04T12:48:35.624Z",
-            "reagents": []
+            "updatedAt": "2024-11-04T12:48:35.624Z"
         },
         {
             "id": "3cd98a24-a86b-4c51-85cd-5ff123e5abcd",
@@ -191,8 +189,7 @@
             "description": "Main storage for organic solvents",
             "deletedAt": null,
             "createdAt": "2024-11-04T11:50:45.879Z",
-            "updatedAt": "2024-11-04T12:55:47.906Z",
-            "reagents": []
+            "updatedAt": "2024-11-04T12:55:47.906Z"
         },
         {
             "id": "8be234f7-dc91-4ab3-8fd7-8e56bc3245ef",
@@ -201,8 +198,7 @@
             "description": "Storage for corrosive materials",
             "deletedAt": null,
             "createdAt": "2024-11-04T12:00:03.998Z",
-            "updatedAt": "2024-11-04T13:05:11.654Z",
-            "reagents": []
+            "updatedAt": "2024-11-04T13:05:11.654Z"
         }
     ],
     "/api/v1/storage-locations/2ecb0dc1-1cc6-44c8-93e3-ff1646ebadca": {

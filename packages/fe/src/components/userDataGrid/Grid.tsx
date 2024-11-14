@@ -22,12 +22,12 @@ type GridProps = {
     headers: Array<{ field: string; headerName: string }>;
     recordType: "user" | "storage" | "detailedReagents";
 };
-type RowDataType = {
-    id: string;
-    room: string;
-    name: string;
-    description: string;
-};
+// type RowDataType = {
+//     id: string;
+//     room: string;
+//     name: string;
+//     description: string;
+// };
 
 export const Grid = ({ rows, headers, recordType }: GridProps) => {
     const { isAdmin } = useSession();
@@ -53,11 +53,11 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                 return Object.values(value).some(
                     (nestedValue) =>
                         typeof nestedValue === "string" &&
-                        nestedValue.toLowerCase().includes(searchQuery.toLowerCase()),
+                        nestedValue.toLowerCase().includes(searchQuery.toLowerCase())
                 );
             }
             return false;
-        }),
+        })
     );
 
     const handleAddFormOpen = useCallback(() => {
@@ -81,7 +81,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
             fetchDetailedStorageFx(id);
             navigate({ to: `/storageDetail`, replace: false });
         },
-        [navigate],
+        [navigate]
     );
 
     const handleDeleteStorage = useCallback(
@@ -89,7 +89,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
             fetchDetailedStorageFx(id);
             handleAddFormOpen();
         },
-        [handleAddFormOpen],
+        [handleAddFormOpen]
     );
 
     const columns = useMemo(() => {
@@ -98,14 +98,15 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
             headerName: "Actions",
             width: 100,
 
-            renderCell: (params: { row: RowDataType }) => (
+            renderCell: (params: { row: { id: string } }) => (
+                // TODO whats wrong with id here
                 <>
                     {recordType !== "detailedReagents" && !isAdmin && (
                         <GridActionsCellItem
                             icon={<PageviewIcon />}
                             label="View"
                             color="inherit"
-                            onClick={() => handleRowClick(params.row?.id)}
+                            onClick={() => handleRowClick(params.row.id)}
                         />
                     )}
 
@@ -145,8 +146,8 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                     recordType === "user"
                         ? "Search by name, username, or email"
                         : recordType === "detailedReagents"
-                          ? "Search Reagent"
-                          : "Search by room or shelf"
+                        ? "Search Reagent"
+                        : "Search by room or shelf"
                 }
                 value={searchQuery}
                 onChange={handleSearch}
