@@ -2,12 +2,12 @@ import { Prisma, PrismaClient, Order, OrderStatus } from "@prisma/client";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 
-import {
-    OrderCreateInputSchema,
-    OrderUpdateInputSchema,
-} from "../../../shared/generated/zod/inputTypeSchemas";
 import { OrderReagentsSchema } from "../../../shared/zodSchemas/order/orderReagentSchema";
 import { OrderSearch } from "../../../shared/zodSchemas/order/orderSearchSchema";
+import {
+    OrderCreateWithUserIdInputSchema,
+    OrderUpdateWithUserIdInputSchema,
+} from "../../../shared/zodSchemas/order/extendedOrderSchemas";
 
 const prisma = new PrismaClient();
 
@@ -89,12 +89,12 @@ export class OrderService {
     /**
      * Create a new order.
      *
-     * @param {Prisma.OrderCreateInput} newOrderData - The data for the new order, including embedded reagent details.
+     * @param {OrderCreateWithUserIdInputSchema} newOrderData - The data for the new order, including embedded reagent details.
      * @returns {Promise<Order>} A promise that resolves to the created order object.
      */
-    async createOrder(newOrderData: Prisma.OrderCreateInput): Promise<Order> {
+    async createOrder(newOrderData: unknown): Promise<Order> {
         // Validate the general order data (excluding reagents)
-        const validatedData = OrderCreateInputSchema.parse(newOrderData);
+        const validatedData = OrderCreateWithUserIdInputSchema.parse(newOrderData);
 
         // Validate reagents array and add IDs if valid
         if (Array.isArray(validatedData.reagents)) {
@@ -119,10 +119,7 @@ export class OrderService {
      * @param {Prisma.OrderUpdateInput} updateOrderData - The data to update the order.
      * @returns {Promise<Order | { message: string }>} A promise that resolves to the updated order object.
      */
-    async updateOrder(
-        id: string,
-        updateOrderData: Prisma.OrderUpdateInput,
-    ): Promise<Order | { message: string }> {
+    async updateOrder(id: string, updateOrderData: unknown): Promise<Order | { message: string }> {
         const existingOrder = await prisma.order.findUnique({
             where: { id },
         });
@@ -131,7 +128,7 @@ export class OrderService {
             return { message: "Order can only be deleted if it is in 'pending' status." };
         }
         // Validate the general order data (excluding reagents)
-        const validatedData = OrderUpdateInputSchema.parse(updateOrderData);
+        const validatedData = OrderUpdateWithUserIdInputSchema.parse(updateOrderData);
 
         if (Array.isArray(validatedData.reagents)) {
             validatedData.reagents = validatedData.reagents.map(

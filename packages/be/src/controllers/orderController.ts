@@ -1,13 +1,12 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-import {
-    OrderCreateInputSchema,
-    OrderUpdateInputSchema,
-} from "../../../shared/generated/zod/inputTypeSchemas";
 import { idSchema } from "../../../shared/zodSchemas/baseSchemas";
 import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
 import { OrderService } from "../services/orderService";
 import { sendErrorResponse } from "../utils/handleErrors";
-
+import {
+    OrderCreateWithUserIdInputSchema,
+    OrderUpdateWithUserIdInputSchema,
+} from "../../../shared/zodSchemas/order/extendedOrderSchemas";
 import { OrderStatus } from "@prisma/client";
 
 const orderService = new OrderService();
@@ -58,12 +57,12 @@ export class OrderController {
      * @returns A promise that resolves to the created Order object.
      */
     async createOrder(
-        request: FastifyRequest<{ Body: unknown }>,
+        request: FastifyRequest<{ Body: typeof OrderCreateWithUserIdInputSchema }>,
         reply: FastifyReply,
     ): Promise<void> {
         try {
             // Validate the input data
-            const validatedData = OrderCreateInputSchema.parse(request.body);
+            const validatedData = OrderCreateWithUserIdInputSchema.parse(request.body);
 
             // Call the service to create the order
             const order = await orderService.createOrder(validatedData);
@@ -83,12 +82,15 @@ export class OrderController {
      * @returns A promise that resolves to the updated order object.
      */
     async updateOrder(
-        request: FastifyRequest<{ Params: { id: string }; Body: unknown }>,
+        request: FastifyRequest<{
+            Params: { id: string };
+            Body: typeof OrderUpdateWithUserIdInputSchema;
+        }>,
         reply: FastifyReply,
     ): Promise<void> {
         try {
             const validatedId = idSchema.parse(request.params.id);
-            const validatedData = OrderUpdateInputSchema.parse(request.body);
+            const validatedData = OrderUpdateWithUserIdInputSchema.parse(request.body);
             const order = await orderService.updateOrder(validatedId, validatedData);
             reply.send(order);
         } catch (error) {

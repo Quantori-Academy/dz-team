@@ -1,9 +1,12 @@
-import { OrderCreateInputSchema, OrderUpdateInputSchema } from "../../../shared/generated/zod";
 import { FastifyZodInstance } from "../types";
 import { OrderController } from "../controllers/orderController";
 
 import { OrderStatus } from "@prisma/client";
 import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
+import {
+    OrderCreateWithUserIdInputSchema,
+    OrderUpdateWithUserIdInputSchema,
+} from "../../../shared/zodSchemas/order/extendedOrderSchemas";
 
 const orderController = new OrderController();
 
@@ -58,9 +61,9 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
      * @returns {Reagent} 201 - The created Order
      * @returns {Error} 400 - Validation error
      */
-    app.post<{ Body: typeof OrderCreateInputSchema }>(
+    app.post<{ Body: typeof OrderCreateWithUserIdInputSchema }>(
         "/",
-        { schema: { tags: ["Order"], body: OrderCreateInputSchema } },
+        { schema: { tags: ["Order"], body: OrderCreateWithUserIdInputSchema } },
         async (request, reply) => {
             return await orderController.createOrder(request, reply);
         },
@@ -71,13 +74,13 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
      * Requires ADMIN role.
      *
      * @param {string} id - The ID of the order to update.
-     * @body {typeof OrderUpdateInputSchema} Body - The updated data for the  order.
+     * @body {typeof OrderUpdateWithUserIdInputSchema} Body - The updated data for the  order.
      * @returns {Promise<void>} The updated order.
      */
-    app.put<{ Params: { id: string }; Body: typeof OrderUpdateInputSchema }>(
+    app.put<{ Params: { id: string }; Body: typeof OrderUpdateWithUserIdInputSchema }>(
         "/:id",
         {
-            schema: { tags: ["Order"], body: OrderUpdateInputSchema },
+            schema: { tags: ["Order"], body: OrderUpdateWithUserIdInputSchema },
         },
         async (request, reply) => {
             return await orderController.updateOrder(request, reply);

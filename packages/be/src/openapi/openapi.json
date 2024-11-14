@@ -335,7 +335,7 @@
                         "in": "body",
                         "schema": {
                             "_def": {
-                                "unknownKeys": "strict",
+                                "unknownKeys": "strip",
                                 "catchall": {
                                     "_def": {
                                         "typeName": "ZodNever"
@@ -371,7 +371,7 @@
                         "in": "body",
                         "schema": {
                             "_def": {
-                                "unknownKeys": "strict",
+                                "unknownKeys": "strip",
                                 "catchall": {
                                     "_def": {
                                         "typeName": "ZodNever"

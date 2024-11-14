@@ -210,7 +210,7 @@ model Order {
 
   // Many-to-One relation with User
   userId          String        @db.Uuid /// @zod.string.uuid()
-  user            User         @relation(fields: [userId], references: [id]) // Procurement Officer who created the Order
+  user            User?        @relation(fields: [userId], references: [id]) // Procurement Officer who created the Order
 
   reagents        Json
 }
