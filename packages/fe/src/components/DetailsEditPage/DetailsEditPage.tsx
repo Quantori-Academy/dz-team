@@ -13,26 +13,26 @@ type FieldConfig = {
     disabled?: boolean;
 };
 
-type DetailsEditPageProps<T extends AnyRoute> = {
+type DetailsEditPageProps<T extends AnyRoute, TData> = {
     baseUrl: string;
     url: RouteIds<T>;
     fields: FieldConfig[];
-    onAction: (type: "submit" | "delete", data?: Partial<T>) => void;
+    onAction: (type: "submit" | "delete", data?: TData) => Promise<void>;
     editableFields?: string[];
 };
 
-export function DetailsEditPage<T extends AnyRoute>({
+export function DetailsEditPage<T extends AnyRoute, TData>({
     baseUrl,
     url,
     fields,
     onAction,
     editableFields = [],
-}: DetailsEditPageProps<T>) {
+}: DetailsEditPageProps<T, TData>) {
     const [isEditing, setIsEditing] = useState(false);
-    const data = useLoaderData<T>({ from: url }) as T;
+    const data = useLoaderData<T>({ from: url }) as TData;
     const navigate = useNavigate();
     const isSmallScreen = useIsDesktop();
-    const [modifiedFields, setModifiedFields] = useState<Partial<T>>(data);
+    const [modifiedFields, setModifiedFields] = useState<TData>(data);
 
     const handleCloseDetails = () => {
         navigate({ to: baseUrl, replace: false });
@@ -53,8 +53,8 @@ export function DetailsEditPage<T extends AnyRoute>({
             setModifiedFields((prev) => ({ ...prev, [name]: value }));
         };
 
-    const handleUpdate = () => {
-        onAction("submit", modifiedFields);
+    const handleUpdate = async () => {
+        await onAction("submit", modifiedFields);
         setIsEditing(false);
         setModifiedFields(data);
     };
