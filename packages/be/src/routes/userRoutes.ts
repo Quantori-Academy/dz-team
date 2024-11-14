@@ -29,7 +29,28 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.get(
         "/",
         {
-            schema: { tags: ["Users"] },
+            schema: {
+                tags: ["Users"],
+
+                response: {
+                    200: {
+                        example: [
+                            {
+                                role: "admin",
+                                id: "123e4567-e89b-12d3-a456-426614174000",
+                                username: "johndoe",
+                                firstName: "John",
+                                lastName: "Doe",
+                                email: "johndoe@example.com",
+                                password: "secure_password",
+                                lastLoginDate: null,
+                                createdAt: "2024-11-14T00:00:00.000Z",
+                                updatedAt: "2024-11-14T00:00:00.000Z",
+                            },
+                        ],
+                    },
+                },
+            },
             preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
         },
         async (request, reply) => {
