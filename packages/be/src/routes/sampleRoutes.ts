@@ -7,6 +7,15 @@ import { FastifyZodInstance } from "../types";
  * @param {FastifyZodInstance} app - The Fastify Zod instance to register routes on.
  * @returns {Promise<void>} A promise that resolves when the routes are registered.
  */
+
 export const sampleRoutes = async (app: FastifyZodInstance): Promise<void> => {
-    app.get("/", fetchAllSamples); // get all samples
+    app.get(
+        "/",
+        {
+            schema: {
+                tags: ["Sample"],
+            },
+        },
+        fetchAllSamples,
+    ); // get all samples
 };
