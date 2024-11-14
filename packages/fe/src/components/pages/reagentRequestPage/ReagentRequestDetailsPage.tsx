@@ -1,9 +1,11 @@
 import { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { useLoaderData, useNavigate } from "@tanstack/react-router";
-import { z } from "zod";
 
-import { ReagentRequestDetails } from "api/reagentRequestDetails/contract";
+import {
+    ReagentRequestDetails,
+    ReagentRequestDetailsContract,
+} from "api/reagentRequestDetails/contract";
 import { base, request } from "api/request";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
 
@@ -49,9 +51,13 @@ export function ReagentRequestDetailsPage({
 
     const handleAction = async (actionType: "submit" | "delete", data?: ReagentRequestDetails) => {
         if (actionType === "delete") {
-            await request(`${base}/api/v1/reagent-request/${reagentRequest.id}`, z.void(), {
-                method: "DELETE",
-            });
+            await request(
+                `${base}/api/v1/reagent-request/${reagentRequest.id}`,
+                ReagentRequestDetailsContract, // TODO: add correct contract when it's ready
+                {
+                    method: "DELETE",
+                },
+            );
             navigate({
                 to:
                     url === "/_app/_pOfficerLayout/allReagentRequests/$id"
@@ -60,10 +66,14 @@ export function ReagentRequestDetailsPage({
             });
         } else if (actionType === "submit" && data) {
             setIsEditing(false);
-            await request(`${base}/api/v1/reagent-request/${reagentRequest.id}`, z.void(), {
-                method: "PUT",
-                json: data,
-            });
+            await request(
+                `${base}/api/v1/reagent-request/${reagentRequest.id}`,
+                ReagentRequestDetailsContract, // TODO: add correct contract when it's ready
+                {
+                    method: "PUT",
+                    json: data,
+                },
+            );
         }
     };
 

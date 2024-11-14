@@ -116,6 +116,7 @@ export function CommonTable<T extends GridValidRowModel>({
                 loading={loading}
                 onRowClick={(params) => onRowClick?.(params.row as T)}
                 disableColumnFilter
+                disableRowSelectionOnClick
                 sx={{ mt: 2, minHeight: 300 }}
             />
         </>
