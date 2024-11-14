@@ -204,78 +204,30 @@
     },
 
     "/api/v1/reagent-request/1": {
-        "request": {
-            "id": "1",
-            "userId": "User-001",
-            "reagentName": "Hexane",
-            "structure": "SMILES data",
-            "casNumber": "110-54-3",
-            "desiredQuantity": "500 ml",
-            "userComments": "Urgent request",
-            "procurementComments": "",
-            "status": "Pending",
-            "creationDate": "2024-10-29",
-            "dateModified": "2024-10-30"
-        },
-        "user": {
-            "id": "User-001",
-            "firstName": "John",
-            "lastName": "Doe",
-            "username": "JohnDoe",
-            "email": "john.doe@example.com",
-            "reagent-requests": [
-                {
-                    "id": "a606b3a1-37c1-4d97-a13e-576434f60207",
-                    "name": "Benzene",
-                    "structure": "C2H5OH",
-                    "cas": "292-47-2979",
-                    "quantity": 832,
-                    "unit": "g",
-                    "status": "fulfilled",
-                    "commentsUser": ["Needed for next phase of experiment", "Double-check CAS"],
-                    "commentsProcurement": ["Urgent", "Pending approval"],
-                    "createdAt": "2022-12-31T00:00:00",
-                    "updatedAt": "2024-06-07T00:00:00"
-                }
-            ]
-        }
+        "id": "1",
+        "userId": "User-001",
+        "reagentName": "Hexane",
+        "structure": "SMILES data",
+        "casNumber": "110-54-3",
+        "desiredQuantity": "500 ml",
+        "userComments": "Urgent request",
+        "procurementComments": "",
+        "status": "Pending",
+        "creationDate": "2024-10-29",
+        "dateModified": "2024-10-30"
     },
 
     "/api/v1/reagent-request/2": {
-        "request": {
-            "id": "2",
-            "userId": "User-001",
-            "reagentName": "Hexane",
-            "structure": "SMILES data",
-            "casNumber": "110-54-3",
-            "desiredQuantity": "500 ml",
-            "userComments": "Urgent request",
-            "procurementComments": "",
-            "status": "Pending",
-            "creationDate": "2024-10-29",
-            "dateModified": "2024-10-30"
-        },
-        "user": {
-            "id": "User-001",
-            "firstName": "John",
-            "lastName": "Doe",
-            "username": "JohnDoe",
-            "email": "john.doe@example.com",
-            "reagent-requests": [
-                {
-                    "id": "a606b3a1-37c1-4d97-a13e-576434f60207",
-                    "name": "Benzene",
-                    "structure": "C2H5OH",
-                    "cas": "292-47-2979",
-                    "quantity": 832,
-                    "unit": "g",
-                    "status": "fulfilled",
-                    "commentsUser": ["Needed for next phase of experiment", "Double-check CAS"],
-                    "commentsProcurement": ["Urgent", "Pending approval"],
-                    "createdAt": "2022-12-31T00:00:00",
-                    "updatedAt": "2024-06-07T00:00:00"
-                }
-            ]
-        }
+        "id": "2",
+        "userId": "User-001",
+        "reagentName": "Hexane",
+        "structure": "SMILES data",
+        "casNumber": "110-54-3",
+        "desiredQuantity": "500 ml",
+        "userComments": "Urgent request",
+        "procurementComments": "",
+        "status": "Pending",
+        "creationDate": "2024-10-29",
+        "dateModified": "2024-10-30"
     }
 }
