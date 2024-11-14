@@ -1,21 +1,14 @@
 import { useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
-import { Box, Button, Drawer, IconButton, Modal, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useLoaderData, useNavigate } from "@tanstack/react-router";
 
-import { deleteReagent } from "utils/reagentActions";
-import { useIsDesktop } from "utils/useIsDesktop";
-
-import { ReagentForm } from "./ReagentForm";
-
-const $Typography = (props: React.PropsWithChildren) => (
-    <Typography sx={{ mb: 1 }}>{props.children}</Typography>
-);
+import { ReagentDetails } from "api/reagentDetails/contract";
+import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
+import { deleteReagent, updateReagent } from "utils/reagentActions";
 
 export function ReagentDetailsPage() {
-    const [isEditing, setIsEditing] = useState(false);
+    const [_isEditing, setIsEditing] = useState(false);
     const reagent = useLoaderData({ from: "/_app/_researcherLayout/reagents/$id" });
-    const isSmallScreen = useIsDesktop();
     const navigate = useNavigate();
 
     if (!reagent) {
@@ -34,109 +27,36 @@ export function ReagentDetailsPage() {
     }
 
     const fields = [
-        `ID: ${reagent.id}`,
-        `Name: ${reagent.name}`,
-        `Category: ${reagent.category}`,
-        `Description: ${reagent.description}`,
-        `CAS Number: ${reagent.cas}`,
-        `Producer: ${reagent.producer}`,
-        `Catalog ID: ${reagent.catalogId}`,
-        `Catalog Link: ${reagent.catalogLink}`,
-        `Price per Unit: $${reagent.pricePerUnit}`,
-        `Quantity: ${reagent.quantity}`,
-        `Units: ${reagent.unit}`,
+        { label: "ID", name: "id", disabled: true },
+        { label: "Name", name: "name" },
+        { label: "Category", name: "category" },
+        { label: "Description", name: "description" },
+        { label: "CAS Number", name: "cas" },
+        { label: "Producer", name: "producer" },
+        { label: "Catalog ID", name: "catalogId" },
+        { label: "Catalog Link", name: "catalogLink" },
+        { label: "Price per Unit", name: "pricePerUnit", type: "number" },
+        { label: "Quantity", name: "quantity", type: "number" },
+        { label: "Units", name: "unit" },
+        { label: "Storage Location", name: "storageLocation" },
     ];
 
-    const handleEditSubmit = () => {
-        setIsEditing(false);
-    };
-
-    const handleCloseDetails = () => {
-        navigate({ to: "/reagents", replace: false });
+    const handleAction = async (actionType: "submit" | "delete", data?: ReagentDetails) => {
+        if (actionType === "delete") {
+            deleteReagent(reagent.id, navigate);
+        } else if (actionType === "submit" && data) {
+            setIsEditing(false);
+            await updateReagent(data, navigate);
+        }
     };
 
     return (
-        <Drawer
-            anchor="right"
-            open={true}
-            onClose={handleCloseDetails}
-            variant="temporary"
-            elevation={0}
-            sx={{
-                transform: isSmallScreen ? "translateY(85px)" : "translateY(55px)",
-                borderTop: "1px solid rgba(0, 0, 0, 0.12)",
-            }}
-        >
-            <Box
-                sx={{
-                    width: {
-                        xs: "100%",
-                        md: 400,
-                    },
-                    p: 2,
-                }}
-            >
-                <IconButton
-                    aria-label="close"
-                    onClick={handleCloseDetails}
-                    sx={{ position: "absolute", top: 8, right: 8 }}
-                >
-                    <CloseIcon />
-                </IconButton>
-                <Box sx={{ pl: 2 }}>
-                    <Typography variant="h6" sx={{ fontSize: "1.25rem", mb: 2 }}>
-                        Reagent Details
-                    </Typography>
-                    {fields.map((field, index) => (
-                        <$Typography key={index}>{field}</$Typography>
-                    ))}
-                    <Box display="flex" justifyContent="flex-start" sx={{ mt: 2 }}>
-                        <Button
-                            variant="contained"
-                            sx={{ mt: 2 }}
-                            onClick={() => setIsEditing(true)}
-                        >
-                            Edit
-                        </Button>
-                        <Button
-                            variant="outlined"
-                            color="error"
-                            sx={{ mt: 2, ml: 2 }}
-                            onClick={() => deleteReagent(reagent.id, navigate)}
-                        >
-                            Delete
-                        </Button>
-                    </Box>
-                </Box>
-            </Box>
-
-            <Modal
-                open={isEditing}
-                onClose={() => setIsEditing(false)}
-                sx={{ display: "flex", alignItems: "center", justifyContent: "center" }}
-            >
-                <Box
-                    sx={{
-                        bgcolor: "background.paper",
-                        p: 4,
-                        borderRadius: 2,
-                        width: 500,
-                        position: "relative",
-                    }}
-                >
-                    <IconButton
-                        aria-label="close"
-                        onClick={() => setIsEditing(false)}
-                        sx={{ position: "absolute", top: 8, right: 8 }}
-                    >
-                        <CloseIcon />
-                    </IconButton>
-                    <Typography variant="h6" sx={{ mb: 2 }}>
-                        Edit Reagent
-                    </Typography>
-                    <ReagentForm initialData={reagent} onSubmit={handleEditSubmit} />
-                </Box>
-            </Modal>
-        </Drawer>
+        <DetailsEditPage
+            baseUrl="/reagents"
+            url="/_app/_researcherLayout/reagents/$id"
+            fields={fields}
+            onAction={handleAction}
+            editableFields={["quantity", "storageLocation"]}
+        />
     );
 }
