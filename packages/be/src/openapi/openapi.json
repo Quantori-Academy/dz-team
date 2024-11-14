@@ -147,6 +147,7 @@
         },
         "/api/v1/samples/": {
             "get": {
+                "tags": ["Sample"],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -175,9 +176,58 @@
                         }
                     }
                 },
+                "security": [],
                 "responses": {
                     "200": {
-                        "description": "Default Response"
+                        "description": "A JWT token if authentication is successful",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "A JWT token if authentication is successful",
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "example": {
+                                        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation error for missing or incorrect fields",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Validation error for missing or incorrect fields",
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Invalid username or password",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "description": "Invalid username or password",
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -187,7 +237,27 @@
                 "tags": ["Users"],
                 "responses": {
                     "200": {
-                        "description": "Default Response"
+                        "description": "Default Response",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "example": [
+                                        {
+                                            "role": "admin",
+                                            "id": "123e4567-e89b-12d3-a456-426614174000",
+                                            "username": "johndoe",
+                                            "firstName": "John",
+                                            "lastName": "Doe",
+                                            "email": "johndoe@example.com",
+                                            "password": "secure_password",
+                                            "lastLoginDate": null,
+                                            "createdAt": "2024-11-14T00:00:00.000Z",
+                                            "updatedAt": "2024-11-14T00:00:00.000Z"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
                     }
                 }
             },
