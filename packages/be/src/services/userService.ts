@@ -1,7 +1,10 @@
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
-import { publicUserSchema, RegisterUser, UpdateUser } from "../../../shared/zodSchemas";
+
 import { z } from "zod";
+import { publicUserSchema } from "shared/zodSchemas/user/publicUserSchema";
+import { RegisterUser } from "shared/zodSchemas/user/registerUserSchema";
+import { UpdateUser } from "shared/zodSchemas/user/updateUserSchema";
 
 const prisma = new PrismaClient();
 
@@ -183,5 +186,20 @@ export class UserService {
         });
 
         return !!deletedUser; // Return true if user is deleted, false otherwise
+    }
+
+    /**
+     * Get the current user's profile data using their ID from the token.
+     * @param requesterId - The ID of the user making the request (extracted from the token).
+     * @returns The user data or null if not found.
+     */
+    async getCurrentUser(requesterId: string): Promise<z.infer<typeof publicUserSchema> | null> {
+        // Fetch the user using the requesterId
+        const user = await prisma.user.findUnique({
+            where: { id: requesterId },
+        });
+
+        // Parse and return the user data without sensitive fields
+        return publicUserSchema.parse(user);
     }
 }

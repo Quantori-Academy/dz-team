@@ -4,7 +4,7 @@ import { useGate } from "effector-react";
 import { useUserForm } from "hooks/useUserForm";
 import { UsersGate } from "stores/users";
 
-import { Grid } from "../../userDataGrid/Grid";
+import { Grid } from "../../dataGrid/Grid";
 
 const headers = [
     { field: "username", headerName: "User Name", width: 150 },

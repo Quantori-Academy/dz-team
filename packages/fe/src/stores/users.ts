@@ -16,13 +16,11 @@ export const fetchUsersFx = domain.createEffect(async () => {
 });
 
 export const deleteUserFx = domain.createEffect(async (id: string) => {
-    const response = await deleteUser(id);
-    return response;
+    return await deleteUser(id);
 });
 
 export const addUserFx = domain.createEffect(async (userData: NewUser) => {
-    const response = await PostUsers(userData);
-    return response;
+    return await PostUsers(userData);
 });
 
 export const UsersGate = createGate({ domain });
@@ -39,14 +37,8 @@ sample({
     target: $usersList,
 });
 
-// trigger user request when user is deleted
+// trigger user request when user is deleted and added a new one
 sample({
-    clock: deleteUserFx.doneData,
-    target: fetchUsersFx,
-});
-
-// trigger user request when new user is added
-sample({
-    clock: addUserFx.doneData,
+    clock: [deleteUserFx.doneData, addUserFx.doneData],
     target: fetchUsersFx,
 });

@@ -4,7 +4,8 @@ import {
     StorageLocationCreateInputSchema,
     StorageLocationUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
-import { idSchema, StorageLocationSearchSchema } from "../../../shared/zodSchemas";
+import { idSchema } from "../../../shared/zodSchemas/baseSchemas";
+import { StorageLocationSearchSchema } from "../../../shared/zodSchemas/storageLocation/storageLocationSearchSchema";
 
 import { StorageLocationService } from "../services/storageLocationService";
 import { sendErrorResponse } from "../utils/handleErrors";

@@ -42,12 +42,12 @@ datasource db {
   extensions = [rdkit]
 }
 
-  // with `dbgenerated("gen_random_uuid()")` UUID is generated on the DB level in POSTGRES
-  // with `uuid()` UUID is generated on Prisma level
-  // see "Native database functions" in Prisma docs
+// with `dbgenerated("gen_random_uuid()")` UUID is generated on the DB level in POSTGRES
+// with `uuid()` UUID is generated on Prisma level
+// see "Native database functions" in Prisma docs
 
-  // zod-prisma-types "rich-comment" after three slashes adds "Field validators"
-  // see zod-prisma-types docs for the syntax and zod docs for validators
+// zod-prisma-types "rich-comment" after three slashes adds "Field validators"
+// see zod-prisma-types docs for the syntax and zod docs for validators
 enum Category {
   reagent
   sample
@@ -186,8 +186,31 @@ model User {
   lastLoginDate  DateTime?
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+
+  // One-to-Many relation with Orders
+  orders         Order[]    @relation() // List of Orders made by the Procurement Officer
 }
 
+enum OrderStatus {
+  pending
+  submitted
+  fulfilled
+  canceled
+}
 
+model Order {
+  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  title           String        // title of the order
+  description     String?       // Description of the order
+  status          OrderStatus   @default(pending) // Status of the order ("pending", "submitted", "fulfilled", "canceled")
+  seller          String       // Seller of the ordered reagents
+  deletedAt       DateTime?     // Date and Time of soft deletion
+  createdAt       DateTime      @default(now()) // Date and Time of Order creation
+  updatedAt       DateTime      @updatedAt // Date and Time of Order modification
 
+  // Many-to-One relation with User
+  userId          String        @db.Uuid /// @zod.string.uuid()
+  user            User?        @relation(fields: [userId], references: [id]) // Procurement Officer who created the Order
 
+  reagents        Json
+}

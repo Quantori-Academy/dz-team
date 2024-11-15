@@ -220,6 +220,16 @@
                 }
             }
         },
+        "/api/v1/users/me": {
+            "get": {
+                "tags": ["Users"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
         "/api/v1/storage-locations/": {
             "get": {
                 "tags": ["StorageLocation"],
@@ -311,6 +321,88 @@
         "/api/v1/storage-locations/{reagentId}/move": {
             "put": {
                 "tags": ["StorageLocation"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/orders/": {
+            "get": {
+                "tags": ["Order"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Order"],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "_def": {
+                                "unknownKeys": "strip",
+                                "catchall": {
+                                    "_def": {
+                                        "typeName": "ZodNever"
+                                    }
+                                },
+                                "typeName": "ZodObject"
+                            },
+                            "_cached": null
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/orders/{id}": {
+            "get": {
+                "tags": ["Order"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Order"],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "_def": {
+                                "unknownKeys": "strip",
+                                "catchall": {
+                                    "_def": {
+                                        "typeName": "ZodNever"
+                                    }
+                                },
+                                "typeName": "ZodObject"
+                            },
+                            "_cached": null
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/orders/{id}/status": {
+            "patch": {
+                "tags": ["Order"],
                 "responses": {
                     "200": {
                         "description": "Default Response"

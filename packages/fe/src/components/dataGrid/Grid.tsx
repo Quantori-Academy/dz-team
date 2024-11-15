@@ -16,12 +16,13 @@ import { useUserForm } from "hooks/useUserForm";
 import { fetchDetailedStorageFx } from "stores/storage";
 import { SupportedValue } from "utils/formatters";
 
+import { AddUserForm } from "../pages/users/AddUserForm";
 import { AddRecord } from "./Addrecord";
-import { AddUserForm } from "./AddUserForm";
 
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
+
     recordType: "user" | "storage" | "detailedStorage";
 };
 // type RowDataType = {
@@ -55,11 +56,11 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                 return Object.values(value).some(
                     (nestedValue) =>
                         typeof nestedValue === "string" &&
-                        nestedValue.toLowerCase().includes(searchQuery.toLowerCase())
+                        nestedValue.toLowerCase().includes(searchQuery.toLowerCase()),
                 );
             }
             return false;
-        })
+        }),
     );
 
     // opens modal for add user form and add storage form
@@ -103,7 +104,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
             fetchDetailedStorageFx(id);
             navigate({ to: `/storageDetail`, replace: false });
         },
-        [navigate]
+        [navigate],
     );
 
     // opens modal for edit storage form
@@ -112,7 +113,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
             fetchDetailedStorageFx(id);
             handleEditStorageLocation();
         },
-        [handleEditStorageLocation]
+        [handleEditStorageLocation],
     );
 
     // opens confilm message to delete storage
@@ -121,7 +122,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
             fetchDetailedStorageFx(id);
             handleDeleteStorageLocation();
         },
-        [handleDeleteStorageLocation]
+        [handleDeleteStorageLocation],
     );
 
     const columns = useMemo(() => {
@@ -192,8 +193,8 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                     recordType === "user"
                         ? "Search by name, username, or email"
                         : recordType === "detailedStorage"
-                        ? "Search Reagent"
-                        : "Search by room or shelf"
+                          ? "Search Reagent"
+                          : "Search by room or shelf"
                 }
                 value={searchQuery}
                 onChange={handleSearch}
@@ -219,8 +220,8 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                                 recordType === "user"
                                     ? "Add New User"
                                     : recordType === "storage"
-                                    ? "Add New Storage"
-                                    : "Add New Record"
+                                      ? "Add New Storage"
+                                      : "Add New Record"
                             }
                             onAddRecord={handleAddFormOpen}
                         />
