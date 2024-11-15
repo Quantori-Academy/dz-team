@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { base, request } from "../request";
 
-const User = z.object({
+export const User = z.object({
     id: z.string(),
     firstName: z.string().nullable(),
     lastName: z.string().nullable(),
@@ -13,12 +13,12 @@ const User = z.object({
 });
 
 const UsersResponse = z.array(User).optional();
+
 export type UserType = z.infer<typeof User>;
 
 export const getUsers = async () => {
     const Users = await request(`${base}/api/v1/users`, UsersResponse, {
         method: "GET",
     });
-
     return Users;
 };

@@ -27,9 +27,11 @@
         "bcrypt": "^5.1.1",
         "fastify": "^4.28.1",
         "fastify-type-provider-zod": "^4.0.2",
+        "init": "^0.1.2",
         "js-yaml": "^4.1.0",
         "jsonwebtoken": "^9.0.2",
-        "prisma": "^5.20.0"
+        "prisma": "^5.20.0",
+        "uuid": "^11.0.3"
     },
     "devDependencies": {
         "@types/node": "^22.5.2",

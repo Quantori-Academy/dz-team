@@ -4,10 +4,10 @@ import {
     StorageLocationCreateInputSchema,
     StorageLocationUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
-import { StorageLocationSearchSchema } from "../../../shared/zodSchemas";
 
 import { StorageLocationController } from "../controllers/storageLocationController";
 import { checkAuthenticated, checkAuthenticatedAndRole } from "../utils/authCheck";
+import { StorageLocationSearchSchema } from "../../../shared/zodSchemas/storageLocation/storageLocationSearchSchema";
 
 const storageLocationController = new StorageLocationController();
 
