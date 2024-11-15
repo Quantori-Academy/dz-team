@@ -7,6 +7,7 @@ import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import { useNavigate } from "@tanstack/react-router";
 
 import { removeModal } from "components/modal/store";
+import { StorageAddForm } from "components/pages/storage/StorageAddForm";
 import { StorageDialog } from "components/pages/storage/StorageDialog";
 import { useModal } from "hooks/useModal";
 import { useSession } from "hooks/useSession";
@@ -20,7 +21,7 @@ import { AddUserForm } from "./AddUserForm";
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
-    recordType: "user" | "storage" | "detailedReagents";
+    recordType: "user" | "storage" | "detailedStorage";
 };
 // type RowDataType = {
 //     id: string;
@@ -70,11 +71,19 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
         } else if (recordType === "storage") {
             openModal({
                 name: "add_storage_modal",
-                title: "Delete Storage",
-                message: <StorageDialog onClose={() => removeModal()} />,
+                title: "Add New Storage",
+                message: <StorageAddForm onClose={() => removeModal()} />,
             });
         }
     }, [recordType, openModal]);
+
+    const handleDeleteStorageLocation = useCallback(() => {
+        openModal({
+            name: "add_storage_modal",
+            title: "Delete Storage",
+            message: <StorageDialog onClose={() => removeModal()} />,
+        });
+    }, [openModal]);
 
     const handleRowClick = useCallback(
         (id: string) => {
@@ -87,9 +96,9 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
     const handleDeleteStorage = useCallback(
         (id: string) => {
             fetchDetailedStorageFx(id);
-            handleAddFormOpen();
+            handleDeleteStorageLocation();
         },
-        [handleAddFormOpen]
+        [handleDeleteStorageLocation]
     );
 
     const columns = useMemo(() => {
@@ -101,7 +110,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
             renderCell: (params: { row: { id: string } }) => (
                 // TODO whats wrong with id here
                 <>
-                    {recordType !== "detailedReagents" && !isAdmin && (
+                    {recordType !== "detailedStorage" && !isAdmin && (
                         <GridActionsCellItem
                             icon={<PageviewIcon />}
                             label="View"
@@ -145,7 +154,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                 placeholder={
                     recordType === "user"
                         ? "Search by name, username, or email"
-                        : recordType === "detailedReagents"
+                        : recordType === "detailedStorage"
                         ? "Search Reagent"
                         : "Search by room or shelf"
                 }
@@ -168,7 +177,16 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                 }}
                 slots={{
                     toolbar: () => (
-                        <AddRecord buttonLabel="Add New User" onAddRecord={handleAddFormOpen} />
+                        <AddRecord
+                            buttonLabel={
+                                recordType === "user"
+                                    ? "Add New User"
+                                    : recordType === "storage"
+                                    ? "Add New Storage"
+                                    : "Add New Record"
+                            }
+                            onAddRecord={handleAddFormOpen}
+                        />
                     ),
                 }}
             />

@@ -1,10 +1,12 @@
 import { sample } from "effector";
 import { createGate } from "effector-react";
 
+import { PostStorage } from "api/storage/addStorage";
 import { DetailedStorage, StorageType } from "api/storage/contract";
 import { deleteStorage } from "api/storage/deleteStorage";
 import { getStorage } from "api/storage/getStorage";
 import { getStorageDetail } from "api/storage/storageDetail";
+import { NewStorage } from "hooks/useStorage";
 import { genericDomain as domain } from "logger";
 
 export const fetchStorageFx = domain.createEffect(async () => {
@@ -14,6 +16,11 @@ export const fetchStorageFx = domain.createEffect(async () => {
 
 export const fetchDetailedStorageFx = domain.createEffect(async (id: string) => {
     const response = await getStorageDetail(id);
+    return response;
+});
+
+export const addStorageFx = domain.createEffect(async (storageData: NewStorage) => {
+    const response = await PostStorage(storageData);
     return response;
 });
 
@@ -37,9 +44,9 @@ $detailedStorage.on(fetchDetailedStorageFx.doneData, (_, payload) => payload);
 //     target:$detailedStorage
 // })
 
-// triger request when storage is deleted
+// triger storage request when new storage is added or deleted
 sample({
-    clock: deleteStorageFx.doneData,
+    clock: [addStorageFx.doneData, deleteStorageFx.doneData],
     target: fetchStorageFx,
 });
 

@@ -37,7 +37,7 @@ export const StorageDetail = () => {
             <Typography variant="h5">{detailedStorage?.room}</Typography>
             <Typography>{detailedStorage?.description}</Typography>
             {reagents.length > 0 ? (
-                <Grid rows={reagents} headers={headers} recordType="detailedReagents" />
+                <Grid rows={reagents} headers={headers} recordType="detailedStorage" />
             ) : (
                 <Typography>Storage Is Empty</Typography>
             )}
