@@ -4,7 +4,7 @@ import { useLoaderData, useNavigate } from "@tanstack/react-router";
 
 import { ReagentDetails } from "api/reagentDetails/contract";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
-import { deleteReagent, updateReagent } from "utils/reagentActions";
+import { deleteReagentAction, updateReagentAction } from "utils/reagentActions";
 
 export function ReagentDetailsPage() {
     const [_isEditing, setIsEditing] = useState(false);
@@ -43,10 +43,10 @@ export function ReagentDetailsPage() {
 
     const handleAction = async (actionType: "submit" | "delete", data?: ReagentDetails) => {
         if (actionType === "delete") {
-            deleteReagent(reagent.id, navigate);
+            await deleteReagentAction(reagent.id, navigate);
         } else if (actionType === "submit" && data) {
             setIsEditing(false);
-            await updateReagent(data, navigate);
+            await updateReagentAction(data, navigate);
         }
     };
 
