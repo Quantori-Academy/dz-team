@@ -1,11 +1,14 @@
 import { useRef } from "react";
-import { Box, Button, TextField } from "@mui/material";
+import { Box, Button, TextField, Typography } from "@mui/material";
+import { theme } from "theme";
 
 import { useStorage } from "hooks/useStorage";
 
 const textfieldStyle = { width: "200px" };
 const button = { width: "250px" };
 const boxStyle = { display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" };
+const errorStyle = { backgroundColor: "white", color: theme.palette.error.main };
+const successStyle = { color: theme.palette.success.main };
 
 type AddStorageFormProps = {
     onClose: () => void;
@@ -17,10 +20,14 @@ export const StorageAddForm = ({ onClose }: AddStorageFormProps) => {
         description: useRef<HTMLInputElement>(null),
     };
 
-    const { roomError, nameError, handleSubmit } = useStorage(refs);
+    const { roomError, nameError, handleSubmit, confirmMessage, errorMessage } = useStorage(refs);
 
     return (
         <Box component="form" noValidate autoComplete="off" sx={boxStyle}>
+            {confirmMessage && (
+                <Typography sx={successStyle}>Storage Sas Added Successfully</Typography>
+            )}
+            {errorMessage && <Typography sx={errorStyle}>Occured Error</Typography>}
             <TextField
                 label="Room"
                 name="room"

@@ -1,8 +1,6 @@
 import { useState } from "react";
-import { useUnit } from "effector-react";
 
 import { addStorageFx } from "stores/storage";
-import { $usersList } from "stores/users";
 
 export type NewStorage = {
     name: string;
@@ -13,8 +11,8 @@ export type NewStorage = {
 export const useStorage = (refs: { [key: string]: React.RefObject<HTMLInputElement> }) => {
     const [roomError, setRoomError] = useState<string | null>(null);
     const [nameError, setNameError] = useState<string | null>(null);
-
-    const users = useUnit($usersList);
+    const [confirmMessage, setConfirmMessage] = useState(false);
+    const [errorMessage, setErrorMessage] = useState(false);
 
     const validateForm = (formData: NewStorage) => {
         let isValid = true;
@@ -37,7 +35,7 @@ export const useStorage = (refs: { [key: string]: React.RefObject<HTMLInputEleme
         return isValid;
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const formData: NewStorage = {
             name: refs.name.current?.value as string,
             room: refs.room.current?.value as string,
@@ -45,9 +43,21 @@ export const useStorage = (refs: { [key: string]: React.RefObject<HTMLInputEleme
         };
 
         if (validateForm(formData)) {
-            addStorageFx(formData);
-            setRoomError(null);
-            setNameError(null);
+            try {
+                await addStorageFx(formData);
+                setRoomError(null);
+                setNameError(null);
+                setConfirmMessage(true);
+                setTimeout(() => {
+                    setConfirmMessage(false);
+                }, 2000);
+            } catch (_error) {
+                setErrorMessage(true);
+
+                setTimeout(() => {
+                    setErrorMessage(false);
+                }, 2000);
+            }
         }
         refs.name.current!.value = "";
         refs.room.current!.value = "";
@@ -58,6 +68,7 @@ export const useStorage = (refs: { [key: string]: React.RefObject<HTMLInputEleme
         roomError,
         nameError,
         handleSubmit,
-        users,
+        confirmMessage,
+        errorMessage,
     };
 };
