@@ -1,11 +1,56 @@
 import { GridSortDirection, GridSortModel } from "@mui/x-data-grid";
 import { sample } from "effector";
 import { createGate } from "effector-react";
+import { produce } from "immer";
 
 import { ReagentDetailsEdit } from "api/reagentDetails/contract";
-import { getReagents, ReagentsResponseType } from "api/reagents";
-import { genericDomain } from "logger";
+import {
+    CreateReagentType,
+    getReagents,
+    getReagentsApi,
+    ReagentsResponseType,
+    ReagentType,
+} from "api/reagents";
+import { base } from "api/request";
+import { genericDomain as domain } from "logger";
 import { Reagent } from "shared/generated/zod";
+
+export const initialFormData: CreateReagentType = {
+    name: "",
+    description: "",
+    structure: "",
+    cas: "",
+    producer: "",
+    catalogId: "",
+    catalogLink: "",
+    pricePerUnit: 0,
+    unit: "",
+    quantity: 0,
+    expirationDate: new Date().toISOString().split("T")[0],
+    storageLocation: "",
+};
+
+// Store to hold the list of materials fetched
+export const $reagentsList = domain.createStore<ReagentType[]>([], { name: "$reagentsList" });
+
+export const $formData = domain.createStore<CreateReagentType>(initialFormData);
+export const setFormData = domain.createEvent<CreateReagentType>();
+
+export const fetchReagentsFx = domain.createEffect(async () => {
+    const response = await getReagentsApi();
+    return response ?? [];
+});
+
+export const addReagentFx = domain.createEffect(async (data: CreateReagentType) => {
+    const response = await fetch(`${base}/api/v1/reagents`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+    });
+    return await response.json();
+});
+
+export const ReagentsGate = createGate({ domain });
 
 export const searchableFields: (keyof Reagent)[] = [
     "name",
@@ -23,13 +68,43 @@ export type SearchBy = {
 
 export const MainListGate = createGate("MainList");
 
-export const setPagination = genericDomain.createEvent<{ page: number; pageSize: number }>();
-export const setSort = genericDomain.createEvent<GridSortModel>();
-export const setQuery = genericDomain.createEvent<string>();
-export const setSearchBy = genericDomain.createEvent<SearchBy>();
-export const search = genericDomain.createEvent();
+export const setPagination = domain.createEvent<{ page: number; pageSize: number }>();
+export const setSort = domain.createEvent<GridSortModel>();
+export const setQuery = domain.createEvent<string>();
+export const setSearchBy = domain.createEvent<SearchBy>();
+export const search = domain.createEvent();
 
-export const reagentsFx = genericDomain.createEffect(
+export const deleteReagentEvent = domain.createEvent<string>();
+export const updateReagentEvent = domain.createEvent<ReagentDetailsEdit>();
+export const addReagentEvent = domain.createEvent<CreateReagentType>();
+export const submitReagentEvent = domain.createEvent<CreateReagentType>();
+
+$formData.on(setFormData, (state, payload) => ({
+    ...state,
+    ...payload,
+}));
+
+// Update the store when a reagent is deleted
+$reagentsList.on(deleteReagentEvent, (state, id) =>
+    produce(state, (draft) => {
+        return draft.filter((reagent) => reagent.id !== id);
+    })
+);
+$reagentsList.on(updateReagentEvent, (state, updatedReagent) =>
+    produce(state, (draft) => {
+        const index = draft.findIndex((reagent) => reagent.id === updatedReagent.id);
+        if (index !== -1) {
+            draft[index] = { ...draft[index], ...updatedReagent };
+        }
+    })
+);
+$reagentsList.on(addReagentEvent, (state, newReagent) =>
+    produce(state, (draft) => {
+        draft.push(newReagent);
+    })
+);
+
+export const reagentsFx = domain.createEffect(
     ({
         page,
         pageSize,
@@ -53,13 +128,10 @@ export const reagentsFx = genericDomain.createEffect(
             query,
             searchBy,
         });
-    },
+    }
 );
 
-export const deleteReagentEvent = genericDomain.createEvent<string>();
-export const updateReagentEvent = genericDomain.createEvent<ReagentDetailsEdit>();
-
-export const $reagents = genericDomain.createStore<ReagentsResponseType>({
+export const $reagents = domain.createStore<ReagentsResponseType>({
     data: [],
     meta: {
         currentPage: 1,
@@ -69,18 +141,18 @@ export const $reagents = genericDomain.createStore<ReagentsResponseType>({
         hasPreviousPage: false,
     },
 });
-export const $loading = genericDomain.createStore<boolean>(false);
-export const $pagination = genericDomain.createStore({ page: 0, pageSize: 25 });
-export const $sort = genericDomain.createStore<GridSortModel>([
+export const $loading = domain.createStore<boolean>(false);
+export const $pagination = domain.createStore({ page: 0, pageSize: 25 });
+export const $sort = domain.createStore<GridSortModel>([
     {
         field: "name",
         sort: "asc",
     },
 ]);
 
-export const $query = genericDomain.createStore("");
-export const $searchBy = genericDomain.createStore(
-    searchableFields.reduce((acc, field) => ({ ...acc, [field]: true }), {} as SearchBy),
+export const $query = domain.createStore("");
+export const $searchBy = domain.createStore(
+    searchableFields.reduce((acc, field) => ({ ...acc, [field]: true }), {} as SearchBy)
 );
 
 $loading.on(reagentsFx.pending, (_, pending) => pending);
@@ -90,8 +162,16 @@ $sort.on(setSort, (_, result) => result);
 $query.on(setQuery, (_, result) => result);
 $searchBy.on(setSearchBy, (_, result) => result);
 
-const setSearchByWithQueryEvent = genericDomain.createEvent();
+const setSearchByWithQueryEvent = domain.createEvent();
 
+sample({
+    clock: fetchReagentsFx.doneData,
+    target: $reagentsList,
+});
+sample({
+    clock: ReagentsGate.open,
+    target: fetchReagentsFx,
+});
 sample({
     clock: [setSearchBy],
     source: {
@@ -110,6 +190,7 @@ sample({
         search,
         deleteReagentEvent,
         updateReagentEvent,
+        addReagentFx.doneData,
     ],
     source: {
         pagination: $pagination,
@@ -126,6 +207,19 @@ sample({
         searchBy,
     }),
     target: reagentsFx,
+});
+
+sample({
+    clock: addReagentFx.doneData,
+    target: addReagentEvent,
+});
+sample({
+    clock: submitReagentEvent,
+    target: addReagentFx,
+});
+sample({
+    clock: [deleteReagentEvent, updateReagentEvent, addReagentEvent],
+    target: fetchReagentsFx,
 });
 
 $reagents.on(reagentsFx.doneData, (_, result) => result);

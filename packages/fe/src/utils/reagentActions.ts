@@ -17,7 +17,7 @@ export const deleteReagent = async (id: string, navigate: (options: { to: string
 
 export const updateReagent = async (
     data: formData,
-    navigate: (options: { to: string }) => void,
+    navigate: (options: { to: string }) => void
 ) => {
     try {
         await fetch(`${base}/api/v1/reagents/${data.id}`, {
@@ -29,17 +29,5 @@ export const updateReagent = async (
         navigate({ to: `/reagents/${data.id}` });
     } catch (_error) {
         alert("Failed to update reagent. Please try again later.");
-    }
-};
-
-export const addReagent = async (data: formData) => {
-    try {
-        await fetch(`${base}/api/v1/reagents`, {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-        });
-    } catch (_error) {
-        throw new Error("Failed to add reagent. Please try again.");
     }
 };

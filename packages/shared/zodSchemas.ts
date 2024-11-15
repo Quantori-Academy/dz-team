@@ -5,6 +5,7 @@ export const idSchema = z.string().uuid();
 
 const SearchFieldEnum = z.enum([
     "name",
+    "description",
     "room",
     "structure",
     "cas",

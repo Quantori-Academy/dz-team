@@ -90,7 +90,6 @@ export async function request<TT extends ZodType, T = z.infer<TT>, K = T>(
         };
 
         const response = await api<{ data: T[] }>(url, { ...options, headers }).json(); // TODO: fix type asserion
-
         const value = contract.parse(response) as T;
 
         return options?.mapper ? options.mapper(value) : value;
