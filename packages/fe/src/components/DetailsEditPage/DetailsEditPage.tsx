@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, Drawer, IconButton, TextField, Typography } from "@mui/material";
 import { AnyRoute, RouteIds, useLoaderData, useNavigate } from "@tanstack/react-router";
 
+import { ReagentsTableContext } from "components/pages/ReagentsPage/ReagentsListPage";
 import { useIsDesktop } from "utils/useIsDesktop";
 
 type FieldConfig = {
@@ -21,7 +22,15 @@ type DetailsEditPageProps<T extends AnyRoute, TData> = {
     editableFields?: string[];
 };
 
-export function DetailsEditPage<T extends AnyRoute, TData>({
+export const DetailsEditPage = (props) => {
+    return (
+        <ReagentsTableContext.Consumer>
+            {(e) => <DetailsEditPageInner {...props} />}
+        </ReagentsTableContext.Consumer>
+    );
+};
+
+export function DetailsEditPageInner<T extends AnyRoute, TData>({
     baseUrl,
     url,
     fields,
@@ -33,6 +42,8 @@ export function DetailsEditPage<T extends AnyRoute, TData>({
     const navigate = useNavigate();
     const isSmallScreen = useIsDesktop();
     const [modifiedFields, setModifiedFields] = useState<TData>(data);
+
+    const { ref } = useContext(ReagentsTableContext);
 
     const handleCloseDetails = () => {
         navigate({ to: baseUrl, replace: false });
@@ -57,10 +68,12 @@ export function DetailsEditPage<T extends AnyRoute, TData>({
         await onAction("submit", modifiedFields);
         setIsEditing(false);
         setModifiedFields(data);
+        ref.current?.refresh();
     };
     const handleCancel = () => {
         setIsEditing(false);
         setModifiedFields(data);
+        ref.current?.refresh();
     };
 
     return (

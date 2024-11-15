@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { createContext, useRef, useState } from "react";
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
@@ -10,6 +10,11 @@ import { $formData, initialFormData, setFormData, submitReagentEvent } from "sto
 
 import { Reagent, ReagentSchema } from "../../../../../shared/generated/zod";
 import { ReagentFormModal } from "./ReagentFormModal";
+
+type ReloadReagentsContext = {
+    ref: React.MutableRefObject<null>;
+};
+export const ReagentsTableContext = createContext<ReloadReagentsContext>({});
 
 const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90, sortable: false },
@@ -40,6 +45,8 @@ export const ReagentsListPage = () => {
     const formData = useUnit($formData);
     const submitReagent = useUnit(submitReagentEvent);
 
+    const tableRef = useRef(null);
+
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData({
@@ -56,35 +63,38 @@ export const ReagentsListPage = () => {
     };
 
     return (
-        <Box sx={{ mb: 5 }}>
-            <CommonTable<Reagent>
-                columns={columns}
-                url={`${base}/api/v1/reagents`}
-                schema={ReagentSchema}
-                onRowClick={(row) => {
-                    navigate({ to: `/reagents/${row.id}`, replace: false });
-                }}
-                searchBy={{
-                    name: true,
-                    description: true,
-                    structure: true,
-                    producer: true,
-                    cas: true,
-                    catalogId: true,
-                    catalogLink: true,
-                }}
-                onAdd={handleAddReagentClick}
-                addButtonText="add reagent"
-            />
-            <ReagentFormModal
-                isOpen={isModalOpen}
-                formData={formData}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-                handleModalClose={handleModalClose}
-            />
+        <ReagentsTableContext.Provider value={{ ref: tableRef }}>
+            <Box sx={{ mb: 5 }}>
+                <CommonTable<Reagent>
+                    ref={tableRef}
+                    columns={columns}
+                    url={`${base}/api/v1/reagents`}
+                    schema={ReagentSchema}
+                    onRowClick={(row) => {
+                        navigate({ to: `/reagents/${row.id}`, replace: false });
+                    }}
+                    searchBy={{
+                        name: true,
+                        /* description: true, */
+                        structure: true,
+                        producer: true,
+                        cas: true,
+                        catalogId: true,
+                        catalogLink: true,
+                    }}
+                    onAdd={handleAddReagentClick}
+                    addButtonText="add reagent"
+                />
+                <ReagentFormModal
+                    isOpen={isModalOpen}
+                    formData={formData}
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                    handleModalClose={handleModalClose}
+                />
 
-            <Outlet />
-        </Box>
+                <Outlet />
+            </Box>
+        </ReagentsTableContext.Provider>
     );
 };
