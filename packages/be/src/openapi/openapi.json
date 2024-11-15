@@ -399,6 +399,78 @@
                     }
                 }
             }
+        },
+        "/api/v1/sellers/": {
+            "get": {
+                "tags": ["Seller"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Seller"],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "_def": {
+                                "unknownKeys": "strict",
+                                "catchall": {
+                                    "_def": {
+                                        "typeName": "ZodNever"
+                                    }
+                                },
+                                "typeName": "ZodObject"
+                            },
+                            "_cached": null
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/sellers/{id}": {
+            "put": {
+                "tags": ["Seller"],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "_def": {
+                                "unknownKeys": "strict",
+                                "catchall": {
+                                    "_def": {
+                                        "typeName": "ZodNever"
+                                    }
+                                },
+                                "typeName": "ZodObject"
+                            },
+                            "_cached": null
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Seller"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
         }
     },
     "host": "localhost:1337",

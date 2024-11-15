@@ -16,14 +16,14 @@ export const OrderCreateWithUserIdInputSchema = z.object({
     title: z.string(),
     description: z.string().optional().nullable(),
     status: z.lazy(() => OrderStatusSchema),
-    seller: z.string(),
     deletedAt: z.coerce.date().optional().nullable(),
     createdAt: z.coerce.date().optional(),
     updatedAt: z.coerce.date().optional(),
     reagents: z.union([z.lazy(() => JsonNullValueInputSchema), InputJsonValueSchema]),
 
     // Add userId field
-    userId: z.string().uuid(), // userId is required now
+    userId: z.string().uuid(),
+    sellerId: z.string().uuid(),
 });
 
 export const OrderUpdateWithUserIdInputSchema = z.object({
@@ -38,7 +38,6 @@ export const OrderUpdateWithUserIdInputSchema = z.object({
             z.lazy(() => EnumOrderStatusFieldUpdateOperationsInputSchema),
         ])
         .optional(),
-    seller: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputSchema)]).optional(),
     deletedAt: z
         .union([z.coerce.date(), z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema)])
         .optional()
@@ -53,4 +52,5 @@ export const OrderUpdateWithUserIdInputSchema = z.object({
 
     // Optional userId field for updating the user associated with the order
     userId: z.string().uuid().optional(), // userId is optional here for updates
+    sellerId: z.string().uuid().optional(),
 });
