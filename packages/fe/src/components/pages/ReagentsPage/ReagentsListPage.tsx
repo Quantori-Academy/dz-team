@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { createContext, useRef, useState } from "react";
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
@@ -6,10 +6,17 @@ import { useUnit } from "effector-react";
 
 import { base } from "api/request";
 import { CommonTable } from "components/commonTable/CommonTable";
-import { $formData, initialFormData, setFormData, submitReagentEvent } from "stores/reagents";
+import { $formData, initialFormData, setFormData, submitReagent } from "stores/reagents";
 
-import { Reagent, ReagentSchema } from "../../../../../shared/generated/zod";
+import { ReagentSchema } from "../../../../../shared/generated/zod";
 import { ReagentFormModal } from "./ReagentFormModal";
+
+type ReloadReagentsContext = {
+    ref: React.MutableRefObject<{ refresh: () => void } | null>;
+};
+export const ReagentsTableContext = createContext<ReloadReagentsContext>({
+    ref: { current: null },
+});
 
 const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90, sortable: false },
@@ -38,7 +45,9 @@ export const ReagentsListPage = () => {
     const navigate = useNavigate();
 
     const formData = useUnit($formData);
-    const submitReagent = useUnit(submitReagentEvent);
+
+    const submitReagentEvent = useUnit(submitReagent);
+    const tableRef = useRef(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -49,42 +58,46 @@ export const ReagentsListPage = () => {
     };
 
     const handleSubmit = () => {
-        submitReagent(formData);
+        submitReagentEvent(formData);
         alert("Reagent added successfully!");
         setFormData(initialFormData);
         handleModalClose();
     };
 
     return (
-        <Box sx={{ mb: 5 }}>
-            <CommonTable<Reagent>
-                columns={columns}
-                url={`${base}/api/v1/reagents`}
-                schema={ReagentSchema}
-                onRowClick={(row) => {
-                    navigate({ to: `/reagents/${row.id}`, replace: false });
-                }}
-                searchBy={{
-                    name: true,
-                    description: true,
-                    structure: true,
-                    producer: true,
-                    cas: true,
-                    catalogId: true,
-                    catalogLink: true,
-                }}
-                onAdd={handleAddReagentClick}
-                addButtonText="add reagent"
-            />
-            <ReagentFormModal
-                isOpen={isModalOpen}
-                formData={formData}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-                handleModalClose={handleModalClose}
-            />
+        <ReagentsTableContext.Provider value={{ ref: tableRef }}>
+            <Box sx={{ mb: 5 }}>
+                <CommonTable
+                    ref={tableRef}
+                    columns={columns}
+                    url={`${base}/api/v1/reagents`}
+                    schema={ReagentSchema}
+                    onRowClick={(row) => {
+                        navigate({ to: `/reagents/${row.id}`, replace: false });
+                    }}
+                    searchBy={{
+                        name: true,
+                        // TODO: have an error with description
+                        // description: true,
+                        structure: true,
+                        producer: true,
+                        cas: true,
+                        catalogId: true,
+                        catalogLink: true,
+                    }}
+                    onAdd={handleAddReagentClick}
+                    addButtonText="add reagent"
+                />
+                <ReagentFormModal
+                    isOpen={isModalOpen}
+                    formData={formData}
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                    handleModalClose={handleModalClose}
+                />
 
-            <Outlet />
-        </Box>
+                <Outlet />
+            </Box>
+        </ReagentsTableContext.Provider>
     );
 };

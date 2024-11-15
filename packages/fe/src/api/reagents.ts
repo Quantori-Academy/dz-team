@@ -11,7 +11,10 @@ const _Reagent = z.object({
     structure: z.string().nullable(),
     description: z.string().nullable(),
     quantity: z.number(),
-    unit: z.string().nullable(),
+    unit: z
+        .string()
+        .nullable()
+        .transform((val) => val || "ml"),
     expirationDate: z.string().nullable(),
     storageLocation: z
         .string()
@@ -27,21 +30,38 @@ const _Reagent = z.object({
 });
 
 export const _CreateReagentContract = z.object({
-    name: z.string().nullable(),
-    description: z.string().nullable(),
+    name: z
+        .string()
+        .nullable()
+        .transform((val) => val || ""),
+    description: z
+        .string()
+        .nullable()
+        .transform((val) => val || ""),
     structure: z.string().nullable(),
     cas: z.string().nullable(),
     producer: z.string().nullable(),
     catalogId: z.string().nullable(),
     catalogLink: z.string().nullable(),
     pricePerUnit: z.number().nullable(),
-    unit: z.string().nullable(),
+    unit: z
+        .string()
+        .nullable()
+        .transform((val) => val || "ml"),
     quantity: z.number(),
     expirationDate: z.string().nullable(),
     storageLocation: z.string(),
     id: z.string().optional(),
     createdAt: z.string().nullable().optional(),
     updatedAt: z.string().nullable().optional(),
+    currency: z
+        .string()
+        .nullable()
+        .transform((val) => val || "usd"),
+    category: z
+        .string()
+        .nullable()
+        .transform((val) => val || "reagent"),
 });
 
 const ReagentsResponseSchema = z.object({
