@@ -7,6 +7,7 @@ import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import { useNavigate } from "@tanstack/react-router";
 
 import { removeModal } from "components/modal/store";
+import { StorageEditForm } from "components/pages/storage/EditStorage";
 import { StorageAddForm } from "components/pages/storage/StorageAddForm";
 import { StorageDialog } from "components/pages/storage/StorageDialog";
 import { useModal } from "hooks/useModal";
@@ -61,6 +62,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
         })
     );
 
+    // opens modal for add user form and add storage form
     const handleAddFormOpen = useCallback(() => {
         if (recordType === "user") {
             openModal({
@@ -77,6 +79,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
         }
     }, [recordType, openModal]);
 
+    // opens modal to delete storage
     const handleDeleteStorageLocation = useCallback(() => {
         openModal({
             name: "add_storage_modal",
@@ -85,6 +88,16 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
         });
     }, [openModal]);
 
+    // modal for edit storage form
+    const handleEditStorageLocation = useCallback(() => {
+        openModal({
+            name: "edit_storage_modal",
+            title: "Edit Storage",
+            message: <StorageEditForm onClose={() => removeModal()} />,
+        });
+    }, [openModal]);
+
+    // navigates to detailed storage page
     const handleRowClick = useCallback(
         (id: string) => {
             fetchDetailedStorageFx(id);
@@ -93,6 +106,16 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
         [navigate]
     );
 
+    // opens modal for edit storage form
+    const handleEditStorage = useCallback(
+        (id: string) => {
+            fetchDetailedStorageFx(id);
+            handleEditStorageLocation();
+        },
+        [handleEditStorageLocation]
+    );
+
+    // opens confilm message to delete storage
     const handleDeleteStorage = useCallback(
         (id: string) => {
             fetchDetailedStorageFx(id);
@@ -124,7 +147,13 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                             <GridActionsCellItem
                                 icon={<EditIcon />}
                                 label="Edit"
-                                onClick={() => alert("Edit item")}
+                                onClick={() => {
+                                    if (recordType === "user") {
+                                        alert("edit user");
+                                    } else if (recordType === "storage") {
+                                        handleEditStorage(params.row.id);
+                                    }
+                                }}
                                 color="inherit"
                             />
                             <GridActionsCellItem
@@ -145,7 +174,15 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
             ),
         };
         return [...headers, editColumn];
-    }, [headers, handleDeleteUser, handleDeleteStorage, isAdmin, handleRowClick, recordType]);
+    }, [
+        headers,
+        handleDeleteUser,
+        handleDeleteStorage,
+        isAdmin,
+        handleRowClick,
+        recordType,
+        handleEditStorage,
+    ]);
 
     return (
         <>
