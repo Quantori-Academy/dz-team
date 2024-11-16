@@ -9,6 +9,8 @@ import { ReagentsListSchema } from "../responseSchemas/reagents";
 import { publicUserSchema, registerUserSchema } from "shared/zodSchemas";
 import { SamplesListSchema } from "../responseSchemas/samples";
 import { UsersListSchema } from "../responseSchemas/users";
+import { storageLocationsListSchema } from "../responseSchemas/storageLocations";
+import storageLocationSchema from "shared/generated/zod/modelSchema/StorageLocationSchema";
 
 export const registerSwagger = (server: FastifyInstance) => {
     server.register(
@@ -30,6 +32,8 @@ export const registerSwagger = (server: FastifyInstance) => {
                         UserRegistration: convertZodToJsonSchema(registerUserSchema),
                         Sample: convertZodToJsonSchema(SampleSchema),
                         SamplesList: convertZodToJsonSchema(SamplesListSchema),
+                        StorageLocationsList: convertZodToJsonSchema(storageLocationsListSchema),
+                        StorageLocation: convertZodToJsonSchema(storageLocationSchema),
                     },
                     securitySchemes: {
                         BearerAuth: {
