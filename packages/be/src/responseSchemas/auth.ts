@@ -10,7 +10,7 @@ export const POST_USER_AUTH_SCHEMA: FastifyZodOpenApiSchema = {
     body: loginUserSchema,
     response: {
         200: {
-            description: "A JWT token if and only if authenticated successfully",
+            description: "Authorization JWT token",
             content: {
                 "application/json": {
                     schema: z.object({
