@@ -1,3 +1,4 @@
+import { validate as isValidUUID } from "uuid";
 import { FastifyRequest, FastifyReply } from "fastify";
 
 import { RegisterUser, registerUserSchema, UpdateUser } from "../../../shared/zodSchemas";
@@ -36,6 +37,9 @@ export class UserController {
     ): Promise<void> {
         try {
             const { userId } = request.params;
+            if (!isValidUUID(userId)) {
+                return reply.status(404).send({ message: "User not found" });
+            }
             const requesterId = request.userData?.userId;
             const requesterRole = request.userData?.role;
 
