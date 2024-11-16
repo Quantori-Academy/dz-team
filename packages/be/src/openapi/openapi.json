@@ -603,6 +603,110 @@
                     "additionalProperties": false
                 }
             },
+            "StorageLocationsList": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "id": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                },
+                                "room": {
+                                    "type": "string"
+                                },
+                                "name": {
+                                    "type": "string"
+                                },
+                                "description": {
+                                    "type": "string",
+                                    "nullable": true
+                                },
+                                "deletedAt": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "nullable": true
+                                },
+                                "createdAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                },
+                                "updatedAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                }
+                            },
+                            "required": ["id", "room", "name", "createdAt", "updatedAt"],
+                            "additionalProperties": false
+                        }
+                    },
+                    "meta": {
+                        "type": "object",
+                        "properties": {
+                            "currentPage": {
+                                "type": "number",
+                                "default": 1
+                            },
+                            "totalPages": {
+                                "type": "number",
+                                "default": 4
+                            },
+                            "totalCount": {
+                                "type": "number",
+                                "default": 2
+                            },
+                            "hasNextPage": {
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "hasPreviousPage": {
+                                "type": "boolean",
+                                "default": false
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                },
+                "required": ["data", "meta"],
+                "additionalProperties": false
+            },
+            "StorageLocation": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "room": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "description": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "deletedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": ["id", "room", "name", "createdAt", "updatedAt"],
+                "additionalProperties": false
+            },
             "UserLogin": {
                 "type": "object",
                 "properties": {
@@ -2341,17 +2445,220 @@
         },
         "/api/v1/storage-locations/": {
             "get": {
-                "tags": ["StorageLocation"],
+                "summary": "Retrieves available storage locations with metadata for available pages",
+                "tags": ["Storage Locations"],
+                "description": "Retrieve available storage locations.",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "query",
+                        "description": "A general search term to filter storage locations."
+                    },
+                    {
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "default": 1
+                        },
+                        "in": "query",
+                        "name": "page",
+                        "description": "The page number for pagination. Default is 1."
+                    },
+                    {
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "maximum": 100,
+                            "default": 10
+                        },
+                        "in": "query",
+                        "name": "limit",
+                        "description": "The number of results per page. Default is 10, max is 100."
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": ["name", "room", "description", "createdAt", "updatedAt"],
+                            "default": "name"
+                        },
+                        "in": "query",
+                        "name": "sortBy",
+                        "description": "The field to sort results by. Default is 'name'."
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": ["asc", "desc"],
+                            "default": "asc"
+                        },
+                        "in": "query",
+                        "name": "sortOrder",
+                        "description": "The sort order, either 'asc' for ascending or 'desc' for descending. Default is 'asc'."
+                    },
+                    {
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "enum": ["name", "room", "description"]
+                                    }
+                                },
+                                {
+                                    "type": "string",
+                                    "enum": ["name", "room", "description"]
+                                }
+                            ]
+                        },
+                        "in": "query",
+                        "name": "searchBy",
+                        "description": "Specific fields to search within. Can be a single field or an array of fields."
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "room",
+                        "description": "Filter results by room name or identifier."
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "name",
+                        "description": "Filter results by the name of the storage location."
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Default Response"
+                        "description": "Locations list.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "format": "uuid"
+                                                    },
+                                                    "room": {
+                                                        "type": "string"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "deletedAt": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "createdAt": {
+                                                        "type": "string"
+                                                    },
+                                                    "updatedAt": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "id",
+                                                    "room",
+                                                    "name",
+                                                    "createdAt",
+                                                    "updatedAt"
+                                                ]
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "currentPage": {
+                                                    "type": "number",
+                                                    "default": 1
+                                                },
+                                                "totalPages": {
+                                                    "type": "number",
+                                                    "default": 4
+                                                },
+                                                "totalCount": {
+                                                    "type": "number",
+                                                    "default": 2
+                                                },
+                                                "hasNextPage": {
+                                                    "type": "boolean",
+                                                    "default": true
+                                                },
+                                                "hasPreviousPage": {
+                                                    "type": "boolean",
+                                                    "default": false
+                                                }
+                                            },
+                                            "required": [
+                                                "currentPage",
+                                                "totalPages",
+                                                "totalCount",
+                                                "hasNextPage",
+                                                "hasPreviousPage"
+                                            ]
+                                        }
+                                    },
+                                    "required": ["data", "meta"]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error - Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "default": 401
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "default": "FST_JWT_NO_AUTHORIZATION_IN_HEADER"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "default": "Unauthorized"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "default": "No Authorization was found in request.headers"
+                                        }
+                                    },
+                                    "required": ["statusCode", "code", "error", "message"]
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "/api/v1/storage-locations/{id}": {
             "get": {
-                "tags": ["StorageLocation"],
+                "summary": "Retrieves specific storage location by id",
+                "tags": ["Storage Locations"],
+                "description": "Retrieve a specific storage location by id.",
                 "parameters": [
                     {
                         "schema": {
@@ -2359,12 +2666,384 @@
                         },
                         "in": "path",
                         "name": "id",
-                        "required": true
+                        "required": true,
+                        "description": "Storage location UUID."
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Default Response"
+                        "description": "Storage location data.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "room": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "deletedAt": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": ["id", "room", "name", "createdAt", "updatedAt"]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error - Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Validation error"
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "validation": {
+                                                        "type": "string",
+                                                        "default": "uuid"
+                                                    },
+                                                    "code": {
+                                                        "type": "string",
+                                                        "default": "invalid_string"
+                                                    },
+                                                    "message": {
+                                                        "type": "string",
+                                                        "default": "Invalid uuid"
+                                                    },
+                                                    "path": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                },
+                                                "required": [
+                                                    "validation",
+                                                    "code",
+                                                    "message",
+                                                    "path"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "required": ["message", "errors"]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error - Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "default": 401
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "default": "FST_JWT_NO_AUTHORIZATION_IN_HEADER"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "default": "Unauthorized"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "default": "No Authorization was found in request.headers"
+                                        }
+                                    },
+                                    "required": ["statusCode", "code", "error", "message"]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error - Not Found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Storage location not found"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "summary": "Soft deletes storage location by id",
+                "tags": ["Storage Locations"],
+                "description": "Soft delete of storage location by id.",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Storage location UUID."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Storage location data with updated or same 'deletedAt' field.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "room": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "deletedAt": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": ["id", "room", "name", "createdAt", "updatedAt"]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error - Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Validation error"
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "validation": {
+                                                        "type": "string",
+                                                        "default": "uuid"
+                                                    },
+                                                    "code": {
+                                                        "type": "string",
+                                                        "default": "invalid_string"
+                                                    },
+                                                    "message": {
+                                                        "type": "string",
+                                                        "default": "Invalid uuid"
+                                                    },
+                                                    "path": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                },
+                                                "required": [
+                                                    "validation",
+                                                    "code",
+                                                    "message",
+                                                    "path"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "required": ["message", "errors"]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error - Not Found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Storage location not found"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "patch": {
+                "summary": "Reverts the soft delete of a storage location by ID",
+                "tags": ["Storage Locations"],
+                "description": "Revert soft delete of storage location by id.",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Storage location UUID."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Storage location data with nullified 'deletedAt' field.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "room": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "deletedAt": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": ["id", "room", "name", "createdAt", "updatedAt"]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error - Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Validation error"
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "validation": {
+                                                        "type": "string",
+                                                        "default": "uuid"
+                                                    },
+                                                    "code": {
+                                                        "type": "string",
+                                                        "default": "invalid_string"
+                                                    },
+                                                    "message": {
+                                                        "type": "string",
+                                                        "default": "Invalid uuid"
+                                                    },
+                                                    "path": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                },
+                                                "required": [
+                                                    "validation",
+                                                    "code",
+                                                    "message",
+                                                    "path"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "required": ["message", "errors"]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error - Not Found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Storage location not found"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
                     }
                 }
             }
