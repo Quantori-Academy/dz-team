@@ -122,12 +122,14 @@ export class ReagentController {
     ): Promise<void> {
         try {
             const validatedId = idSchema.parse(request.params.id);
+            const findReagentById = await reagentService.getReagent(validatedId);
 
-            const reagent = await reagentService.deleteReagent(validatedId);
-            if (!reagent) {
+            if (findReagentById === null) {
                 return reply.status(404).send({ message: "Reagent not found" });
+            } else {
+                const reagent = await reagentService.deleteReagent(validatedId);
+                reply.send(reagent);
             }
-            reply.send(reagent);
         } catch (error) {
             if (error instanceof z.ZodError) {
                 return reply
