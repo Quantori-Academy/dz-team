@@ -77,7 +77,7 @@ export const ReagentsListPage = () => {
                     }}
                     searchBy={{
                         name: true,
-                        description: true,
+                        // description: true,
                         structure: true,
                         producer: true,
                         cas: true,

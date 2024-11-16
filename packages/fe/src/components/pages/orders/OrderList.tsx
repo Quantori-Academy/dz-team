@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import { useNavigate } from "@tanstack/react-router";
+import { Outlet, useNavigate } from "@tanstack/react-router";
 import { useGate, useUnit } from "effector-react";
 
 import { ReusableGrid } from "components/dataGrid/ReusableGrid";
@@ -32,15 +32,18 @@ export const OrderList = () => {
     };
 
     return (
-        <Box sx={boxStyles}>
-            <Typography variant="h5">Order List</Typography>
-            <ReusableGrid
-                rows={orders}
-                headers={headers}
-                onAddRecord={handleClick}
-                addRecordLabel="Add New Order"
-                placeholder={placeholder}
-            />
-        </Box>
+        <>
+            <Box sx={boxStyles}>
+                <Typography variant="h5">Order List</Typography>
+                <ReusableGrid
+                    rows={orders}
+                    headers={headers}
+                    onAddRecord={handleClick}
+                    addRecordLabel="Add New Order"
+                    placeholder={placeholder}
+                />
+            </Box>
+            <Outlet />
+        </>
     );
 };
