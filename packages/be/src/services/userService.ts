@@ -132,7 +132,7 @@ export class UserService {
 
             // Restrict fields for non-admins
             const { firstName, lastName, email, password } = userData;
-            userData = { firstName, lastName, email };
+            userData = { firstName, lastName, password, email };
             if (password) {
                 userData.password = await bcrypt.hash(password, 10);
                 mustChangePassword = false; // Set mustChangePassword if password is changed by user
@@ -160,8 +160,8 @@ export class UserService {
         });
 
         // Return updated user without password and the mustChangePassword flag
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { password, ...userWithoutPassword } = updatedUser;
+
+        const { ...userWithoutPassword } = updatedUser;
         return { user: userWithoutPassword, mustChangePassword };
     }
 
