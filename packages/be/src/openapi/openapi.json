@@ -14,48 +14,944 @@
                 "description": "Enter JWT token in the format 'Bearer <token>'"
             }
         },
-        "schemas": {}
+        "schemas": {
+            "Reagent": {
+                "type": "object",
+                "properties": {
+                    "unit": {
+                        "type": "string",
+                        "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                    },
+                    "container": {
+                        "type": "string",
+                        "enum": ["bottle", "box", "other"],
+                        "nullable": true
+                    },
+                    "currency": {
+                        "type": "string",
+                        "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                    },
+                    "category": {
+                        "type": "string",
+                        "enum": ["reagent", "sample"]
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "organic",
+                            "inorganic",
+                            "acidic",
+                            "basic",
+                            "oxidizing",
+                            "reducing",
+                            "precipitating",
+                            "complexing",
+                            "indicator",
+                            "other"
+                        ],
+                        "nullable": true
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": ["available", "lowStock", "outOfStock", "ordered", "notAvailable"],
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "structure": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "type": "number"
+                    },
+                    "quantityInit": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "expirationDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "storageLocation": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "cas": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "producer": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "catalogId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "catalogLink": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "pricePerUnit": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "deletedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "storageId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "nullable": true
+                    }
+                },
+                "required": [
+                    "unit",
+                    "currency",
+                    "category",
+                    "id",
+                    "name",
+                    "description",
+                    "quantity",
+                    "createdAt",
+                    "updatedAt"
+                ],
+                "additionalProperties": false
+            },
+            "ReagentsList": {
+                "type": "object",
+                "properties": {
+                    "data": {
+                        "type": "array",
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "unit": {
+                                    "type": "string",
+                                    "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                },
+                                "container": {
+                                    "type": "string",
+                                    "enum": ["bottle", "box", "other"],
+                                    "nullable": true
+                                },
+                                "currency": {
+                                    "type": "string",
+                                    "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                                },
+                                "category": {
+                                    "type": "string",
+                                    "enum": ["reagent", "sample"]
+                                },
+                                "type": {
+                                    "type": "string",
+                                    "enum": [
+                                        "organic",
+                                        "inorganic",
+                                        "acidic",
+                                        "basic",
+                                        "oxidizing",
+                                        "reducing",
+                                        "precipitating",
+                                        "complexing",
+                                        "indicator",
+                                        "other"
+                                    ],
+                                    "nullable": true
+                                },
+                                "status": {
+                                    "type": "string",
+                                    "enum": [
+                                        "available",
+                                        "lowStock",
+                                        "outOfStock",
+                                        "ordered",
+                                        "notAvailable"
+                                    ],
+                                    "nullable": true
+                                },
+                                "id": {
+                                    "type": "string",
+                                    "format": "uuid"
+                                },
+                                "name": {
+                                    "type": "string"
+                                },
+                                "structure": {
+                                    "type": "string",
+                                    "nullable": true
+                                },
+                                "description": {
+                                    "type": "string"
+                                },
+                                "quantity": {
+                                    "type": "number"
+                                },
+                                "quantityInit": {
+                                    "type": "number",
+                                    "nullable": true
+                                },
+                                "expirationDate": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "nullable": true
+                                },
+                                "storageLocation": {
+                                    "type": "string",
+                                    "nullable": true
+                                },
+                                "cas": {
+                                    "type": "string",
+                                    "nullable": true
+                                },
+                                "producer": {
+                                    "type": "string",
+                                    "nullable": true
+                                },
+                                "catalogId": {
+                                    "type": "string",
+                                    "nullable": true
+                                },
+                                "catalogLink": {
+                                    "type": "string",
+                                    "nullable": true
+                                },
+                                "pricePerUnit": {
+                                    "type": "number",
+                                    "nullable": true
+                                },
+                                "deletedAt": {
+                                    "type": "string",
+                                    "format": "date-time",
+                                    "nullable": true
+                                },
+                                "createdAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                },
+                                "updatedAt": {
+                                    "type": "string",
+                                    "format": "date-time"
+                                },
+                                "storageId": {
+                                    "type": "string",
+                                    "format": "uuid",
+                                    "nullable": true
+                                }
+                            },
+                            "required": [
+                                "unit",
+                                "currency",
+                                "category",
+                                "id",
+                                "name",
+                                "description",
+                                "quantity",
+                                "createdAt",
+                                "updatedAt"
+                            ],
+                            "additionalProperties": false
+                        }
+                    },
+                    "meta": {
+                        "type": "object",
+                        "properties": {
+                            "currentPage": {
+                                "type": "number",
+                                "default": 1
+                            },
+                            "totalPages": {
+                                "type": "number",
+                                "default": 4
+                            },
+                            "totalCount": {
+                                "type": "number",
+                                "default": 2
+                            },
+                            "hasNextPage": {
+                                "type": "boolean",
+                                "default": true
+                            },
+                            "hasPreviousPage": {
+                                "type": "boolean",
+                                "default": false
+                            }
+                        },
+                        "additionalProperties": false
+                    }
+                },
+                "required": ["data", "meta"],
+                "additionalProperties": false
+            },
+            "User": {
+                "type": "object",
+                "properties": {
+                    "role": {
+                        "type": "string",
+                        "enum": ["admin", "procurementOfficer", "researcher"]
+                    },
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "username": {
+                        "type": "string"
+                    },
+                    "firstName": {
+                        "type": "string"
+                    },
+                    "lastName": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    },
+                    "lastLoginDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "role",
+                    "id",
+                    "username",
+                    "firstName",
+                    "lastName",
+                    "email",
+                    "createdAt",
+                    "updatedAt"
+                ],
+                "additionalProperties": false
+            },
+            "UsersList": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "role": {
+                            "type": "string",
+                            "enum": ["admin", "procurementOfficer", "researcher"]
+                        },
+                        "id": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "username": {
+                            "type": "string"
+                        },
+                        "firstName": {
+                            "type": "string"
+                        },
+                        "lastName": {
+                            "type": "string"
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "lastLoginDate": {
+                            "type": "string",
+                            "format": "date-time",
+                            "nullable": true
+                        },
+                        "createdAt": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "updatedAt": {
+                            "type": "string",
+                            "format": "date-time"
+                        }
+                    },
+                    "required": [
+                        "role",
+                        "id",
+                        "username",
+                        "firstName",
+                        "lastName",
+                        "email",
+                        "createdAt",
+                        "updatedAt"
+                    ],
+                    "additionalProperties": false
+                }
+            },
+            "UserRegistration": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 50
+                    },
+                    "firstName": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "type": "string",
+                        "minLength": 8
+                    },
+                    "confirmPassword": {
+                        "type": "string",
+                        "minLength": 8
+                    },
+                    "role": {
+                        "type": "string",
+                        "enum": ["admin", "researcher", "procurementOfficer"]
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    }
+                },
+                "required": [
+                    "username",
+                    "firstName",
+                    "lastName",
+                    "email",
+                    "password",
+                    "confirmPassword",
+                    "role"
+                ],
+                "additionalProperties": false
+            },
+            "Sample": {
+                "type": "object",
+                "properties": {
+                    "unit": {
+                        "type": "string",
+                        "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                    },
+                    "category": {
+                        "type": "string",
+                        "enum": ["reagent", "sample"]
+                    },
+                    "container": {
+                        "type": "string",
+                        "enum": ["bottle", "box", "other"],
+                        "nullable": true
+                    },
+                    "id": {
+                        "type": "string",
+                        "format": "uuid"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "structure": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "type": "number"
+                    },
+                    "quantityInit": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "storageLocation": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "deletedAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "createdAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "updatedAt": {
+                        "type": "string",
+                        "format": "date-time"
+                    },
+                    "storageId": {
+                        "type": "string",
+                        "format": "uuid"
+                    }
+                },
+                "required": [
+                    "unit",
+                    "category",
+                    "id",
+                    "name",
+                    "description",
+                    "quantity",
+                    "createdAt",
+                    "updatedAt",
+                    "storageId"
+                ],
+                "additionalProperties": false
+            },
+            "SamplesList": {
+                "type": "array",
+                "items": {
+                    "type": "object",
+                    "properties": {
+                        "unit": {
+                            "type": "string",
+                            "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                        },
+                        "category": {
+                            "type": "string",
+                            "enum": ["reagent", "sample"]
+                        },
+                        "container": {
+                            "type": "string",
+                            "enum": ["bottle", "box", "other"],
+                            "nullable": true
+                        },
+                        "id": {
+                            "type": "string",
+                            "format": "uuid"
+                        },
+                        "name": {
+                            "type": "string"
+                        },
+                        "structure": {
+                            "type": "string",
+                            "nullable": true
+                        },
+                        "description": {
+                            "type": "string"
+                        },
+                        "quantity": {
+                            "type": "number"
+                        },
+                        "quantityInit": {
+                            "type": "number",
+                            "nullable": true
+                        },
+                        "storageLocation": {
+                            "type": "string",
+                            "nullable": true
+                        },
+                        "deletedAt": {
+                            "type": "string",
+                            "format": "date-time",
+                            "nullable": true
+                        },
+                        "createdAt": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "updatedAt": {
+                            "type": "string",
+                            "format": "date-time"
+                        },
+                        "storageId": {
+                            "type": "string",
+                            "format": "uuid"
+                        }
+                    },
+                    "required": [
+                        "unit",
+                        "category",
+                        "id",
+                        "name",
+                        "description",
+                        "quantity",
+                        "createdAt",
+                        "updatedAt",
+                        "storageId"
+                    ],
+                    "additionalProperties": false
+                }
+            },
+            "UserLogin": {
+                "type": "object",
+                "properties": {
+                    "username": {
+                        "type": "string",
+                        "minLength": 1,
+                        "maxLength": 50,
+                        "description": "Username",
+                        "example": "admin"
+                    },
+                    "password": {
+                        "type": "string",
+                        "minLength": 8,
+                        "description": "User password",
+                        "example": "password"
+                    }
+                },
+                "required": ["username", "password"]
+            }
+        }
     },
     "paths": {
         "/api/v1/reagents/": {
             "get": {
-                "tags": ["Reagent"],
+                "summary": "Retrieves a list of reagents with metadata for available pages",
+                "tags": ["Reagents"],
+                "description": "Retrieve a list of available reagents.",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "query",
+                        "description": "A search query to filter reagents by name, description, etc."
+                    },
+                    {
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "default": 1
+                        },
+                        "in": "query",
+                        "name": "page",
+                        "description": "The page number for pagination. Default is 1."
+                    },
+                    {
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "maximum": 100,
+                            "default": 10
+                        },
+                        "in": "query",
+                        "name": "limit",
+                        "description": "The number of results per page. Max is 100. Default is 10."
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "name",
+                                "description",
+                                "structure",
+                                "category",
+                                "quantity",
+                                "status",
+                                "expirationDate",
+                                "storageLocation",
+                                "cas",
+                                "producer",
+                                "catalogId",
+                                "catalogLink",
+                                "pricePerUnit",
+                                "createdAt",
+                                "updatedAt"
+                            ],
+                            "default": "name"
+                        },
+                        "in": "query",
+                        "name": "sortBy",
+                        "description": "The field by which the results should be sorted. Default is 'name'."
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": ["asc", "desc"],
+                            "default": "asc"
+                        },
+                        "in": "query",
+                        "name": "sortOrder",
+                        "description": "The sort order: 'asc' for ascending, 'desc' for descending. Default is 'asc'."
+                    },
+                    {
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "enum": [
+                                            "name",
+                                            "description",
+                                            "room",
+                                            "structure",
+                                            "cas",
+                                            "producer",
+                                            "catalogId",
+                                            "catalogLink"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "string",
+                                    "enum": [
+                                        "name",
+                                        "description",
+                                        "room",
+                                        "structure",
+                                        "cas",
+                                        "producer",
+                                        "catalogId",
+                                        "catalogLink"
+                                    ]
+                                }
+                            ]
+                        },
+                        "in": "query",
+                        "name": "searchBy",
+                        "description": "Fields to search by. Can be a single value or an array of values."
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": ["sample", "reagent"]
+                        },
+                        "in": "query",
+                        "name": "category",
+                        "description": "Filter reagents by category, such as 'sample' or 'reagent'."
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "available",
+                                "lowStock",
+                                "outOfStock",
+                                "ordered",
+                                "notAvailable"
+                            ]
+                        },
+                        "in": "query",
+                        "name": "status",
+                        "description": "Filter reagents by status. Options include 'available', 'lowStock', 'outOfStock', 'ordered', or 'notAvailable'."
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "storageLocation",
+                        "description": "Filter reagents by their storage location."
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Default Response"
-                    }
-                }
-            },
-            "post": {
-                "tags": ["Reagent"],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "_def": {
-                                    "unknownKeys": "strict",
-                                    "catchall": {
-                                        "_def": {
-                                            "typeName": "ZodNever"
+                        "description": "Reagents list with metadata.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "unit": {
+                                                        "type": "string",
+                                                        "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                                    },
+                                                    "container": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": ["bottle", "box", "other", null]
+                                                    },
+                                                    "currency": {
+                                                        "type": "string",
+                                                        "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                                                    },
+                                                    "category": {
+                                                        "type": "string",
+                                                        "enum": ["reagent", "sample"]
+                                                    },
+                                                    "type": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": [
+                                                            "organic",
+                                                            "inorganic",
+                                                            "acidic",
+                                                            "basic",
+                                                            "oxidizing",
+                                                            "reducing",
+                                                            "precipitating",
+                                                            "complexing",
+                                                            "indicator",
+                                                            "other",
+                                                            null
+                                                        ]
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": [
+                                                            "available",
+                                                            "lowStock",
+                                                            "outOfStock",
+                                                            "ordered",
+                                                            "notAvailable",
+                                                            null
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "format": "uuid"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "structure": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "description": {
+                                                        "type": "string"
+                                                    },
+                                                    "quantity": {
+                                                        "type": "number"
+                                                    },
+                                                    "quantityInit": {
+                                                        "type": "number",
+                                                        "nullable": true
+                                                    },
+                                                    "expirationDate": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "storageLocation": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "cas": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "producer": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "catalogId": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "catalogLink": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "pricePerUnit": {
+                                                        "type": "number",
+                                                        "nullable": true
+                                                    },
+                                                    "deletedAt": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "createdAt": {
+                                                        "type": "string"
+                                                    },
+                                                    "updatedAt": {
+                                                        "type": "string"
+                                                    },
+                                                    "storageId": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "format": "uuid"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "unit",
+                                                    "currency",
+                                                    "category",
+                                                    "id",
+                                                    "name",
+                                                    "description",
+                                                    "quantity",
+                                                    "createdAt",
+                                                    "updatedAt"
+                                                ]
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "currentPage": {
+                                                    "type": "number",
+                                                    "default": 1
+                                                },
+                                                "totalPages": {
+                                                    "type": "number",
+                                                    "default": 4
+                                                },
+                                                "totalCount": {
+                                                    "type": "number",
+                                                    "default": 2
+                                                },
+                                                "hasNextPage": {
+                                                    "type": "boolean",
+                                                    "default": true
+                                                },
+                                                "hasPreviousPage": {
+                                                    "type": "boolean",
+                                                    "default": false
+                                                }
+                                            },
+                                            "required": [
+                                                "currentPage",
+                                                "totalPages",
+                                                "totalCount",
+                                                "hasNextPage",
+                                                "hasPreviousPage"
+                                            ]
                                         }
                                     },
-                                    "typeName": "ZodObject"
-                                },
-                                "_cached": null
+                                    "required": ["data", "meta"]
+                                }
                             }
                         }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Default Response"
                     }
                 }
             }
         },
         "/api/v1/reagents/{id}": {
             "get": {
-                "tags": ["Reagent"],
+                "summary": "Retrieves a specific reagent by ID",
+                "tags": ["Reagents"],
+                "description": "Retrieve reagent data by id.",
                 "parameters": [
                     {
                         "schema": {
@@ -63,53 +959,184 @@
                         },
                         "in": "path",
                         "name": "id",
-                        "required": true
+                        "required": true,
+                        "description": "Reagent's UUID."
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Default Response"
-                    }
-                }
-            },
-            "put": {
-                "tags": ["Reagent"],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "_def": {
-                                    "unknownKeys": "strict",
-                                    "catchall": {
-                                        "_def": {
-                                            "typeName": "ZodNever"
+                        "description": "The requested reagent.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "unit": {
+                                            "type": "string",
+                                            "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                        },
+                                        "container": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": ["bottle", "box", "other", null]
+                                        },
+                                        "currency": {
+                                            "type": "string",
+                                            "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                                        },
+                                        "category": {
+                                            "type": "string",
+                                            "enum": ["reagent", "sample"]
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": [
+                                                "organic",
+                                                "inorganic",
+                                                "acidic",
+                                                "basic",
+                                                "oxidizing",
+                                                "reducing",
+                                                "precipitating",
+                                                "complexing",
+                                                "indicator",
+                                                "other",
+                                                null
+                                            ]
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": [
+                                                "available",
+                                                "lowStock",
+                                                "outOfStock",
+                                                "ordered",
+                                                "notAvailable",
+                                                null
+                                            ]
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "structure": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "quantity": {
+                                            "type": "number"
+                                        },
+                                        "quantityInit": {
+                                            "type": "number",
+                                            "nullable": true
+                                        },
+                                        "expirationDate": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "storageLocation": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "cas": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "producer": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "catalogId": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "catalogLink": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "pricePerUnit": {
+                                            "type": "number",
+                                            "nullable": true
+                                        },
+                                        "deletedAt": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        },
+                                        "storageId": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "format": "uuid"
                                         }
                                     },
-                                    "typeName": "ZodObject"
-                                },
-                                "_cached": null
+                                    "required": [
+                                        "unit",
+                                        "currency",
+                                        "category",
+                                        "id",
+                                        "name",
+                                        "description",
+                                        "quantity",
+                                        "createdAt",
+                                        "updatedAt"
+                                    ]
+                                }
                             }
                         }
-                    }
-                },
-                "parameters": [
-                    {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "in": "path",
-                        "name": "id",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Default Response"
+                    },
+                    "400": {
+                        "description": "Validation Error - Invalid id.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Validation error"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The requested reagent was not found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Reagent not found"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
-                "tags": ["Reagent"],
+                "summary": "Soft deletes reagent by id",
+                "tags": ["Reagents"],
+                "description": "Soft delete reagent by id.",
                 "parameters": [
                     {
                         "schema": {
@@ -117,17 +1144,184 @@
                         },
                         "in": "path",
                         "name": "id",
-                        "required": true
+                        "required": true,
+                        "description": "Reagent's UUID."
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Default Response"
+                        "description": "Reagent data with updated 'deletedAt' field.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "unit": {
+                                            "type": "string",
+                                            "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                        },
+                                        "container": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": ["bottle", "box", "other", null]
+                                        },
+                                        "currency": {
+                                            "type": "string",
+                                            "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                                        },
+                                        "category": {
+                                            "type": "string",
+                                            "enum": ["reagent", "sample"]
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": [
+                                                "organic",
+                                                "inorganic",
+                                                "acidic",
+                                                "basic",
+                                                "oxidizing",
+                                                "reducing",
+                                                "precipitating",
+                                                "complexing",
+                                                "indicator",
+                                                "other",
+                                                null
+                                            ]
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": [
+                                                "available",
+                                                "lowStock",
+                                                "outOfStock",
+                                                "ordered",
+                                                "notAvailable",
+                                                null
+                                            ]
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "structure": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "quantity": {
+                                            "type": "number"
+                                        },
+                                        "quantityInit": {
+                                            "type": "number",
+                                            "nullable": true
+                                        },
+                                        "expirationDate": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "storageLocation": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "cas": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "producer": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "catalogId": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "catalogLink": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "pricePerUnit": {
+                                            "type": "number",
+                                            "nullable": true
+                                        },
+                                        "deletedAt": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        },
+                                        "storageId": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "format": "uuid"
+                                        }
+                                    },
+                                    "required": [
+                                        "unit",
+                                        "currency",
+                                        "category",
+                                        "id",
+                                        "name",
+                                        "description",
+                                        "quantity",
+                                        "createdAt",
+                                        "updatedAt"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation Error - Invalid id.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Validation error"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The requested reagent was not found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Reagent not found"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
                     }
                 }
             },
             "patch": {
-                "tags": ["Reagent"],
+                "summary": "Reverts the soft delete of a reagent by ID",
+                "tags": ["Reagents"],
+                "description": "Revert soft delete reagent by id.",
                 "parameters": [
                     {
                         "schema": {
@@ -135,43 +1329,278 @@
                         },
                         "in": "path",
                         "name": "id",
-                        "required": true
+                        "required": true,
+                        "description": "Reagent's UUID."
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Default Response"
+                        "description": "Reagent data with nullified 'deletedAt' field.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "unit": {
+                                            "type": "string",
+                                            "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                        },
+                                        "container": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": ["bottle", "box", "other", null]
+                                        },
+                                        "currency": {
+                                            "type": "string",
+                                            "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                                        },
+                                        "category": {
+                                            "type": "string",
+                                            "enum": ["reagent", "sample"]
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": [
+                                                "organic",
+                                                "inorganic",
+                                                "acidic",
+                                                "basic",
+                                                "oxidizing",
+                                                "reducing",
+                                                "precipitating",
+                                                "complexing",
+                                                "indicator",
+                                                "other",
+                                                null
+                                            ]
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": [
+                                                "available",
+                                                "lowStock",
+                                                "outOfStock",
+                                                "ordered",
+                                                "notAvailable",
+                                                null
+                                            ]
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "structure": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "quantity": {
+                                            "type": "number"
+                                        },
+                                        "quantityInit": {
+                                            "type": "number",
+                                            "nullable": true
+                                        },
+                                        "expirationDate": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "storageLocation": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "cas": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "producer": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "catalogId": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "catalogLink": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "pricePerUnit": {
+                                            "type": "number",
+                                            "nullable": true
+                                        },
+                                        "deletedAt": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        },
+                                        "storageId": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "format": "uuid"
+                                        }
+                                    },
+                                    "required": [
+                                        "unit",
+                                        "currency",
+                                        "category",
+                                        "id",
+                                        "name",
+                                        "description",
+                                        "quantity",
+                                        "createdAt",
+                                        "updatedAt"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation Error - Invalid id.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Validation error"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The requested reagent was not found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Reagent not found"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "/api/v1/samples/": {
             "get": {
-                "tags": ["Sample"],
+                "summary": "Retrieves a list of samples",
+                "tags": ["Samples"],
+                "description": "Retrieve a list of available samples.",
                 "responses": {
                     "200": {
-                        "description": "Default Response"
+                        "description": "Samples list.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "unit": {
+                                                "type": "string",
+                                                "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                            },
+                                            "category": {
+                                                "type": "string",
+                                                "enum": ["reagent", "sample"]
+                                            },
+                                            "container": {
+                                                "type": "string",
+                                                "nullable": true,
+                                                "enum": ["bottle", "box", "other", null]
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "format": "uuid"
+                                            },
+                                            "name": {
+                                                "type": "string"
+                                            },
+                                            "structure": {
+                                                "type": "string",
+                                                "nullable": true
+                                            },
+                                            "description": {
+                                                "type": "string"
+                                            },
+                                            "quantity": {
+                                                "type": "number"
+                                            },
+                                            "quantityInit": {
+                                                "type": "number",
+                                                "nullable": true
+                                            },
+                                            "storageLocation": {
+                                                "type": "string",
+                                                "nullable": true
+                                            },
+                                            "deletedAt": {
+                                                "type": "string",
+                                                "nullable": true
+                                            },
+                                            "createdAt": {
+                                                "type": "string"
+                                            },
+                                            "updatedAt": {
+                                                "type": "string"
+                                            },
+                                            "storageId": {
+                                                "type": "string",
+                                                "format": "uuid"
+                                            }
+                                        },
+                                        "required": [
+                                            "unit",
+                                            "category",
+                                            "id",
+                                            "name",
+                                            "description",
+                                            "quantity",
+                                            "createdAt",
+                                            "updatedAt",
+                                            "storageId"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "/api/v1/auth/login": {
             "post": {
+                "summary": "Generates access token for user.",
                 "tags": ["Auth"],
+                "description": "Log in a user.",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "_def": {
-                                    "unknownKeys": "strip",
-                                    "catchall": {
-                                        "_def": {
-                                            "typeName": "ZodNever"
-                                        }
-                                    },
-                                    "typeName": "ZodObject"
-                                },
-                                "_cached": null
+                                "$ref": "#/components/schemas/UserLogin"
                             }
                         }
                     }
@@ -179,52 +1608,64 @@
                 "security": [],
                 "responses": {
                     "200": {
-                        "description": "A JWT token if authentication is successful",
+                        "description": "Authorization JWT token",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "description": "A JWT token if authentication is successful",
                                     "type": "object",
                                     "properties": {
                                         "token": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiIzMmI0YTM2Ni0wYzFjLTQ3MWMtOTYyNS1jMmE4NGQyNzZlZGMiLCJyb2xlIjoiYWRtaW4iLCJpYXQiOjE3MzE3NzQ5MzcsImV4cCI6MTczMTc3ODUzN30.EH7O3eh1NK3wGaA0G7Iee31fuZYyCmrUspz_71zdqKc"
                                         }
                                     },
-                                    "example": {
-                                        "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c"
-                                    }
+                                    "required": ["token"]
                                 }
                             }
                         }
                     },
                     "400": {
-                        "description": "Validation error for missing or incorrect fields",
+                        "description": "Validation Error - Missing fields",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "description": "Validation error for missing or incorrect fields",
                                     "type": "object",
                                     "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "default": 400
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "default": "FST_ERR_VALIDATION"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "default": "Bad Request"
+                                        },
                                         "message": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "body/username Required"
                                         }
-                                    }
+                                    },
+                                    "required": ["statusCode", "code", "error", "message"]
                                 }
                             }
                         }
                     },
                     "401": {
-                        "description": "Invalid username or password",
+                        "description": "Incorrect credentials",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "description": "Invalid username or password",
                                     "type": "object",
                                     "properties": {
                                         "message": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "default": "Invalid username or password."
                                         }
-                                    }
+                                    },
+                                    "required": ["message"]
                                 }
                             }
                         }
@@ -234,27 +1675,94 @@
         },
         "/api/v1/users/": {
             "get": {
+                "summary": "Retrieves a list of users",
                 "tags": ["Users"],
+                "description": "Retrieve all available users in the system.",
                 "responses": {
                     "200": {
-                        "description": "Default Response",
+                        "description": "List of users.",
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "example": [
-                                        {
-                                            "role": "admin",
-                                            "id": "123e4567-e89b-12d3-a456-426614174000",
-                                            "username": "johndoe",
-                                            "firstName": "John",
-                                            "lastName": "Doe",
-                                            "email": "johndoe@example.com",
-                                            "password": "secure_password",
-                                            "lastLoginDate": null,
-                                            "createdAt": "2024-11-14T00:00:00.000Z",
-                                            "updatedAt": "2024-11-14T00:00:00.000Z"
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "role": {
+                                                "type": "string",
+                                                "enum": [
+                                                    "admin",
+                                                    "procurementOfficer",
+                                                    "researcher"
+                                                ]
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "format": "uuid"
+                                            },
+                                            "username": {
+                                                "type": "string"
+                                            },
+                                            "firstName": {
+                                                "type": "string"
+                                            },
+                                            "lastName": {
+                                                "type": "string"
+                                            },
+                                            "email": {
+                                                "type": "string"
+                                            },
+                                            "lastLoginDate": {
+                                                "type": "string",
+                                                "nullable": true
+                                            },
+                                            "createdAt": {
+                                                "type": "string"
+                                            },
+                                            "updatedAt": {
+                                                "type": "string"
+                                            }
+                                        },
+                                        "required": [
+                                            "role",
+                                            "id",
+                                            "username",
+                                            "firstName",
+                                            "lastName",
+                                            "email",
+                                            "createdAt",
+                                            "updatedAt"
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error - Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "default": 401
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "default": "FST_JWT_NO_AUTHORIZATION_IN_HEADER"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "default": "Unauthorized"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "default": "No Authorization was found in request.headers"
                                         }
-                                    ]
+                                    },
+                                    "required": ["statusCode", "code", "error", "message"]
                                 }
                             }
                         }
@@ -262,43 +1770,186 @@
                 }
             },
             "post": {
+                "summary": "Creates new user",
                 "tags": ["Users"],
+                "description": "Create user in the system.",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "_def": {
-                                    "schema": {
-                                        "_def": {
-                                            "unknownKeys": "strip",
-                                            "catchall": {
-                                                "_def": {
-                                                    "typeName": "ZodNever"
-                                                }
-                                            },
-                                            "typeName": "ZodObject"
-                                        },
-                                        "_cached": null
+                                "type": "object",
+                                "properties": {
+                                    "username": {
+                                        "type": "string",
+                                        "minLength": 1,
+                                        "maxLength": 50
                                     },
-                                    "typeName": "ZodEffects",
-                                    "effect": {
-                                        "type": "refinement"
+                                    "firstName": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "lastName": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "minLength": 8,
+                                        "example": "password"
+                                    },
+                                    "confirmPassword": {
+                                        "type": "string",
+                                        "minLength": 8,
+                                        "example": "confirmPassword"
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "enum": ["admin", "researcher", "procurementOfficer"]
+                                    },
+                                    "createdAt": {
+                                        "type": "string"
+                                    },
+                                    "updatedAt": {
+                                        "type": "string"
                                     }
+                                },
+                                "required": [
+                                    "username",
+                                    "firstName",
+                                    "lastName",
+                                    "email",
+                                    "password",
+                                    "confirmPassword",
+                                    "role"
+                                ]
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created user's details.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "role": {
+                                            "type": "string",
+                                            "enum": ["admin", "procurementOfficer", "researcher"]
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "username": {
+                                            "type": "string"
+                                        },
+                                        "firstName": {
+                                            "type": "string"
+                                        },
+                                        "lastName": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "lastLoginDate": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "role",
+                                        "id",
+                                        "username",
+                                        "firstName",
+                                        "lastName",
+                                        "email",
+                                        "createdAt",
+                                        "updatedAt"
+                                    ]
                                 }
                             }
                         }
-                    }
-                },
-                "responses": {
-                    "200": {
-                        "description": "Default Response"
+                    },
+                    "400": {
+                        "description": "Error - Bad request.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "default": 400
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "default": "FST_ERR_VALIDATION"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "default": "Bad Request"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "default": "body/password Password must be at least 8 characters long."
+                                        }
+                                    },
+                                    "required": ["statusCode", "code", "error", "message"]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error - Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "default": 401
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "default": "FST_JWT_NO_AUTHORIZATION_IN_HEADER"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "default": "Unauthorized"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "default": "No Authorization was found in request.headers"
+                                        }
+                                    },
+                                    "required": ["statusCode", "code", "error", "message"]
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "/api/v1/users/{userId}": {
             "get": {
+                "summary": "Retrieves user by id",
                 "tags": ["Users"],
+                "description": "Retrieve a specific user by id.",
                 "parameters": [
                     {
                         "schema": {
@@ -306,31 +1957,144 @@
                         },
                         "in": "path",
                         "name": "userId",
-                        "required": true
+                        "required": true,
+                        "description": "User's UUID."
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Default Response"
+                        "description": "User's details.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "role": {
+                                            "type": "string",
+                                            "enum": ["admin", "procurementOfficer", "researcher"]
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "username": {
+                                            "type": "string"
+                                        },
+                                        "firstName": {
+                                            "type": "string"
+                                        },
+                                        "lastName": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "lastLoginDate": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "role",
+                                        "id",
+                                        "username",
+                                        "firstName",
+                                        "lastName",
+                                        "email",
+                                        "createdAt",
+                                        "updatedAt"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error - Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "default": 401
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "default": "FST_JWT_NO_AUTHORIZATION_IN_HEADER"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "default": "Unauthorized"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "default": "No Authorization was found in request.headers"
+                                        }
+                                    },
+                                    "required": ["statusCode", "code", "error", "message"]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error - User not found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "User not found"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "summary": "Updates user details by id",
                 "tags": ["Users"],
+                "description": "Update user information by id.",
                 "requestBody": {
                     "content": {
                         "application/json": {
                             "schema": {
-                                "_def": {
-                                    "unknownKeys": "strip",
-                                    "catchall": {
-                                        "_def": {
-                                            "typeName": "ZodNever"
-                                        }
+                                "type": "object",
+                                "properties": {
+                                    "firstName": {
+                                        "type": "string",
+                                        "minLength": 1
                                     },
-                                    "typeName": "ZodObject"
-                                },
-                                "_cached": null
+                                    "lastName": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "format": "email",
+                                        "default": "newEmail@example.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "minLength": 8,
+                                        "default": "newPassword"
+                                    },
+                                    "role": {
+                                        "type": "string",
+                                        "enum": ["admin", "researcher", "procurementOfficer"]
+                                    }
+                                }
                             }
                         }
                     }
@@ -342,17 +2106,161 @@
                         },
                         "in": "path",
                         "name": "userId",
-                        "required": true
+                        "required": true,
+                        "description": "User's UUID."
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Default Response"
+                        "description": "Updated user information.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "role": {
+                                            "type": "string",
+                                            "enum": ["admin", "procurementOfficer", "researcher"]
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "username": {
+                                            "type": "string"
+                                        },
+                                        "firstName": {
+                                            "type": "string"
+                                        },
+                                        "lastName": {
+                                            "type": "string"
+                                        },
+                                        "email": {
+                                            "type": "string"
+                                        },
+                                        "lastLoginDate": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": [
+                                        "role",
+                                        "id",
+                                        "username",
+                                        "firstName",
+                                        "lastName",
+                                        "email",
+                                        "createdAt",
+                                        "updatedAt"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error - Bad request.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "default": 400
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "default": "FST_ERR_VALIDATION"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "default": "Bad Request"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "default": "body/password Password must be at least 8 characters long."
+                                        }
+                                    },
+                                    "required": ["statusCode", "code", "error", "message"]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error - Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "default": 401
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "default": "FST_JWT_NO_AUTHORIZATION_IN_HEADER"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "default": "Unauthorized"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "default": "No Authorization was found in request.headers"
+                                        }
+                                    },
+                                    "required": ["statusCode", "code", "error", "message"]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error - User not found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "User not found"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error - Update failed.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "User update failed"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
                     }
                 }
             },
             "delete": {
+                "summary": "Deletes user by id",
                 "tags": ["Users"],
+                "description": "Delete a specific user by id.",
                 "parameters": [
                     {
                         "schema": {
@@ -360,12 +2268,73 @@
                         },
                         "in": "path",
                         "name": "userId",
-                        "required": true
+                        "required": true,
+                        "description": "User's UUID."
                     }
                 ],
                 "responses": {
-                    "200": {
-                        "description": "Default Response"
+                    "204": {
+                        "description": "User deleted successfully.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "User deleted successfully"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error - Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "default": 401
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "default": "FST_JWT_NO_AUTHORIZATION_IN_HEADER"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "default": "Unauthorized"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "default": "No Authorization was found in request.headers"
+                                        }
+                                    },
+                                    "required": ["statusCode", "code", "error", "message"]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error - User not found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "User not found"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -373,32 +2342,6 @@
         "/api/v1/storage-locations/": {
             "get": {
                 "tags": ["StorageLocation"],
-                "responses": {
-                    "200": {
-                        "description": "Default Response"
-                    }
-                }
-            },
-            "post": {
-                "tags": ["StorageLocation"],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "_def": {
-                                    "unknownKeys": "strict",
-                                    "catchall": {
-                                        "_def": {
-                                            "typeName": "ZodNever"
-                                        }
-                                    },
-                                    "typeName": "ZodObject"
-                                },
-                                "_cached": null
-                            }
-                        }
-                    }
-                },
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -416,98 +2359,6 @@
                         },
                         "in": "path",
                         "name": "id",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Default Response"
-                    }
-                }
-            },
-            "put": {
-                "tags": ["StorageLocation"],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "_def": {
-                                    "unknownKeys": "strict",
-                                    "catchall": {
-                                        "_def": {
-                                            "typeName": "ZodNever"
-                                        }
-                                    },
-                                    "typeName": "ZodObject"
-                                },
-                                "_cached": null
-                            }
-                        }
-                    }
-                },
-                "parameters": [
-                    {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "in": "path",
-                        "name": "id",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Default Response"
-                    }
-                }
-            },
-            "delete": {
-                "tags": ["StorageLocation"],
-                "parameters": [
-                    {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "in": "path",
-                        "name": "id",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Default Response"
-                    }
-                }
-            },
-            "patch": {
-                "tags": ["StorageLocation"],
-                "parameters": [
-                    {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "in": "path",
-                        "name": "id",
-                        "required": true
-                    }
-                ],
-                "responses": {
-                    "200": {
-                        "description": "Default Response"
-                    }
-                }
-            }
-        },
-        "/api/v1/storage-locations/{reagentId}/move": {
-            "put": {
-                "tags": ["StorageLocation"],
-                "parameters": [
-                    {
-                        "schema": {
-                            "type": "string"
-                        },
-                        "in": "path",
-                        "name": "reagentId",
                         "required": true
                     }
                 ],
