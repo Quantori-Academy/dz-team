@@ -97,6 +97,9 @@ export class UserController {
     ): Promise<void> {
         try {
             const { userId } = request.params;
+            if (!isValidUUID(userId)) {
+                return reply.status(404).send({ message: "User not found" });
+            }
             const { body: userData } = request;
             const requesterId = request.userData?.userId;
             const requesterRole = request.userData?.role;
