@@ -6,7 +6,7 @@ import { fastifyZodOpenApiTransform, fastifyZodOpenApiTransformObject } from "fa
 import { ReagentSchema, SampleSchema } from "shared/generated/zod";
 import { convertZodToJsonSchema } from "fastify-type-provider-zod/dist/src/zod-to-json";
 import { ReagentsListSchema } from "../responseSchemas/reagents";
-import { publicUserSchema } from "shared/zodSchemas";
+import { publicUserSchema, registerUserSchema } from "shared/zodSchemas";
 import { SamplesListSchema } from "../responseSchemas/samples";
 import { UsersListSchema } from "../responseSchemas/users";
 
@@ -27,6 +27,7 @@ export const registerSwagger = (server: FastifyInstance) => {
                         ReagentsList: convertZodToJsonSchema(ReagentsListSchema),
                         User: convertZodToJsonSchema(publicUserSchema),
                         UsersList: convertZodToJsonSchema(UsersListSchema),
+                        UserRegistration: convertZodToJsonSchema(registerUserSchema),
                         Sample: convertZodToJsonSchema(SampleSchema),
                         SamplesList: convertZodToJsonSchema(SamplesListSchema),
                     },
