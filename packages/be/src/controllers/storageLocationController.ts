@@ -1,5 +1,4 @@
 import { FastifyRequest, FastifyReply } from "fastify";
-
 import {
     StorageLocationCreateInputSchema,
     StorageLocationUpdateInputSchema,
