@@ -1,7 +1,8 @@
 import { FastifyZodInstance } from "../types";
-import { LoginUser, loginUserSchema } from "shared/zodSchemas";
+import { LoginUser } from "shared/zodSchemas";
 import { AuthController } from "../controllers/authController";
-
+import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
+import { POST_USER_AUTH_SCHEMA } from "../responseSchemas/auth";
 const authController = new AuthController();
 
 /**
@@ -23,38 +24,9 @@ export const authRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.post<{ Body: LoginUser }>(
         "/login",
+
         {
-            schema: {
-                tags: ["Auth"],
-                security: [], // Ensures that endpoint won't be locked
-                body: loginUserSchema,
-                response: {
-                    200: {
-                        description: "A JWT token if authentication is successful",
-                        type: "object",
-                        properties: {
-                            token: { type: "string" },
-                        },
-                        example: {
-                            token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c",
-                        },
-                    },
-                    400: {
-                        description: "Validation error for missing or incorrect fields",
-                        type: "object",
-                        properties: {
-                            message: { type: "string" },
-                        },
-                    },
-                    401: {
-                        description: "Invalid username or password",
-                        type: "object",
-                        properties: {
-                            message: { type: "string" },
-                        },
-                    },
-                },
-            },
+            schema: POST_USER_AUTH_SCHEMA satisfies FastifyZodOpenApiSchema,
         },
         async (request, reply) => {
             return await authController.login(request, reply);

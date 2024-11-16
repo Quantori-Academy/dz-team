@@ -1,5 +1,7 @@
 import { fetchAllSamples } from "../controllers/sampleController";
 import { FastifyZodInstance } from "../types";
+import { GET_SAMPLES_SCHEMA } from "../responseSchemas/samples";
+import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 
 /**
  * Registers the sample routes.
@@ -12,9 +14,7 @@ export const sampleRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.get(
         "/",
         {
-            schema: {
-                tags: ["Sample"],
-            },
+            schema: GET_SAMPLES_SCHEMA satisfies FastifyZodOpenApiSchema,
         },
         fetchAllSamples,
     ); // get all samples

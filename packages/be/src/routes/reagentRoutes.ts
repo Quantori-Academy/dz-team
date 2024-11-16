@@ -1,7 +1,17 @@
-import { ReagentCreateInputSchema, ReagentUpdateInputSchema } from "../../../shared/generated/zod";
 import { ReagentController } from "../controllers/reagentController";
 import { FastifyZodInstance } from "../types";
-import { ReagentSearch } from "../../../shared/zodSchemas";
+import { ReagentSearch } from "shared/zodSchemas";
+import {
+    DELETE_REAGENT_BY_ID_SCHEMA,
+    GET_REAGENT_BY_ID_SCHEMA,
+    GET_REAGENTS_SCHEMA,
+    PATCH_REAGENT_BY_ID_SCHEMA,
+} from "../responseSchemas/reagents";
+import { FastifyZodOpenApiSchema, FastifyZodOpenApiTypeProvider } from "fastify-zod-openapi";
+// import { ReagentCreateInputSchema, ReagentUpdateInputSchema } from "shared/generated/zod";
+// import { z } from "zod";
+// import { components, RegisteredSchemas, schema } from "../responseSchemas/schemas";
+// import reagentCreateInputSchema from "shared/generated/zod/inputTypeSchemas/ReagentCreateInputSchema";
 
 const reagentController = new ReagentController();
 
@@ -27,7 +37,7 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
      * @property {number} [page] - The page number for pagination.
      * @property {number} [limit] - The number of results per page.
      * @property {string} [sortBy] - The field to sort the results by.
-     * @property {'asc' | 'desc'} [sortOrder] - The order to sort the results.
+     * @property {"asc" | "desc"} [sortOrder] - The order to sort the results.
      * @property {string} [category] - The category of reagents to filter by.
      * @property {string} [status] - The status of reagents to filter by.
      * @property {string} [storageLocation] - The storage location to filter by.
@@ -37,9 +47,11 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
      * // Example query
      * GET /?page=1&limit=20&sortBy=name&sortBy=structure&sortOrder=asc
      */
-    app.get<{ Querystring: ReagentSearch }>(
+    app.withTypeProvider<FastifyZodOpenApiTypeProvider>().get<{ Querystring: ReagentSearch }>(
         "/",
-        { schema: { tags: ["Reagent"] } },
+        {
+            schema: GET_REAGENTS_SCHEMA satisfies FastifyZodOpenApiSchema,
+        },
         async (request, reply) => {
             return await reagentController.getReagents(request, reply);
         },
@@ -55,11 +67,13 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.get<{ Params: { id: string } }>(
         "/:id",
-        { schema: { tags: ["Reagent"] } },
+        { schema: GET_REAGENT_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema },
         async (request, reply) => {
             return await reagentController.getReagent(request, reply);
         },
     );
+
+    //TODO circular dependency fix
 
     /**
      * @route POST /
@@ -69,32 +83,37 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
      * @returns {Reagent} 201 - The created reagent
      * @returns {Error} 400 - Validation error
      */
-    app.post<{ Body: typeof ReagentCreateInputSchema }>(
-        "/",
-        { schema: { tags: ["Reagent"], body: ReagentCreateInputSchema } },
-        async (request, reply) => {
-            return await reagentController.createReagent(request, reply);
-        },
-    );
-
-    /**
-     * @route PUT /:id
-     * @tags Reagent
-     * @summary Update an existing reagent by ID.
-     * @param {string} id.params.required - Reagent ID
-     * @param {ReagentUpdateInputSchema} request.body.required - Data to update the reagent
-     * @returns {Reagent} 200 - The updated reagent
-     * @returns {Error} 404 - Reagent not found
-     * @returns {Error} 400 - Validation error
-     */
-    app.put<{ Params: { id: string }; Body: typeof ReagentUpdateInputSchema }>(
-        "/:id",
-        { schema: { tags: ["Reagent"], body: ReagentUpdateInputSchema } },
-        async (request, reply) => {
-            return await reagentController.updateReagent(request, reply);
-        },
-    );
-
+    // app.post<{ Body: typeof ReagentCreateInputSchema }>(
+    //     "/",
+    //     {
+    //         schema: {
+    //             tags: ["Reagent"],
+    //             body: { "$ref": "ReagentCreationSchema" },
+    //         } satisfies FastifyZodOpenApiSchema,
+    //     },
+    //     async (request, reply) => {
+    //         return await reagentController.createReagent(request, reply);
+    //     }
+    // );
+    //
+    // /**
+    //  * @route PUT /:id
+    //  * @tags Reagent
+    //  * @summary Update an existing reagent by ID.
+    //  * @param {string} id.params.required - Reagent ID
+    //  * @param {ReagentUpdateInputSchema} request.body.required - Data to update the reagent
+    //  * @returns {Reagent} 200 - The updated reagent
+    //  * @returns {Error} 404 - Reagent not found
+    //  * @returns {Error} 400 - Validation error
+    //  */
+    // app.put<{ Params: { id: string }; Body: typeof ReagentUpdateInputSchema }>(
+    //     "/:id",
+    //     { schema: { tags: ["Reagent"], body: ReagentUpdateInputSchema } },
+    //     async (request, reply) => {
+    //         return await reagentController.updateReagent(request, reply);
+    //     }
+    // );
+    //
     /**
      * @route DELETE /:id
      * @tags Reagent
@@ -105,7 +124,7 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.delete<{ Params: { id: string } }>(
         "/:id",
-        { schema: { tags: ["Reagent"] } },
+        { schema: DELETE_REAGENT_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema },
         async (request, reply) => {
             return await reagentController.deleteReagent(request, reply);
         },
@@ -121,7 +140,7 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.patch<{ Params: { id: string } }>(
         "/:id",
-        { schema: { tags: ["Reagent"] } },
+        { schema: PATCH_REAGENT_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema },
         async (response, reply) => {
             return await reagentController.undoDeleteReagent(response, reply);
         },
