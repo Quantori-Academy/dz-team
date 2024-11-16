@@ -1,7 +1,14 @@
-import { FastifyZodInstance } from "../types";
+import { FastifyZodInstance, Roles } from "../types";
 import { StorageLocationSearchSchema } from "shared/zodSchemas";
-import { checkAuthenticated } from "../utils/authCheck";
+import { checkAuthenticated, checkAuthenticatedAndRole } from "../utils/authCheck";
 import { StorageLocationController } from "../controllers/storageLocationController";
+import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
+import {
+    DELETE_STORAGE_LOCATION_BY_ID_SCHEMA,
+    GET_STORAGE_LOCATION_BY_ID_SCHEMA,
+    GET_STORAGE_LOCATIONS_SCHEMA,
+    PATCH_STORAGE_LOCATION_BY_ID_SCHEMA,
+} from "../responseSchemas/storageLocations";
 //
 // import {
 //     StorageLocationCreateInputSchema,
@@ -30,7 +37,7 @@ export const storageLocationRoutes = async (app: FastifyZodInstance): Promise<vo
     app.get<{ Querystring: typeof StorageLocationSearchSchema }>(
         "/",
         {
-            schema: { tags: ["StorageLocation"] },
+            schema: GET_STORAGE_LOCATIONS_SCHEMA satisfies FastifyZodOpenApiSchema,
             preHandler: [checkAuthenticated()],
         },
         async (request, reply) => {
@@ -48,7 +55,7 @@ export const storageLocationRoutes = async (app: FastifyZodInstance): Promise<vo
     app.get<{ Params: { id: string } }>(
         "/:id",
         {
-            schema: { tags: ["StorageLocation"] },
+            schema: GET_STORAGE_LOCATION_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
             preHandler: [checkAuthenticated()],
         },
         async (request, reply) => {
@@ -95,42 +102,42 @@ export const storageLocationRoutes = async (app: FastifyZodInstance): Promise<vo
     //     },
     // );
     //
-    // /**
-    //  * DELETE /:id - Deletes a storage location by its ID.
-    //  * Requires ADMIN role.
-    //  *
-    //  * @param {string} id - The ID of the storage location to delete.
-    //  * @returns {Promise<void>} A success message or error if the location is not found.
-    //  */
-    // app.delete<{ Params: { id: string } }>(
-    //     "/:id",
-    //     {
-    //         schema: { tags: ["StorageLocation"] },
-    //         preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
-    //     },
-    //     async (request, reply) => {
-    //         return await storageLocationController.deleteStorageLocation(request, reply);
-    //     },
-    // );
-    //
-    // /**
-    //  * PATCH /:id - Restores a previously deleted storage location by its ID.
-    //  * Requires ADMIN role.
-    //  *
-    //  * @param {string} id - The ID of the storage location to restore.
-    //  * @returns {Promise<void>} The restored storage location, if successful.
-    //  */
-    // app.patch<{ Params: { id: string } }>(
-    //     "/:id",
-    //     {
-    //         schema: { tags: ["StorageLocation"] },
-    //         preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
-    //     },
-    //     async (request, reply) => {
-    //         return await storageLocationController.undoDeleteStorageLocation(request, reply);
-    //     },
-    // );
-    //
+    /**
+     * DELETE /:id - Deletes a storage location by its ID.
+     * Requires ADMIN role.
+     *
+     * @param {string} id - The ID of the storage location to delete.
+     * @returns {Promise<void>} A success message or error if the location is not found.
+     */
+    app.delete<{ Params: { id: string } }>(
+        "/:id",
+        {
+            schema: DELETE_STORAGE_LOCATION_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+            preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
+        },
+        async (request, reply) => {
+            return await storageLocationController.deleteStorageLocation(request, reply);
+        },
+    );
+
+    /**
+     * PATCH /:id - Restores a previously deleted storage location by its ID.
+     * Requires ADMIN role.
+     *
+     * @param {string} id - The ID of the storage location to restore.
+     * @returns {Promise<void>} The restored storage location, if successful.
+     */
+    app.patch<{ Params: { id: string } }>(
+        "/:id",
+        {
+            schema: PATCH_STORAGE_LOCATION_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+            preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
+        },
+        async (request, reply) => {
+            return await storageLocationController.undoDeleteStorageLocation(request, reply);
+        },
+    );
+
     // /**
     //  * PUT /:reagentId/move - Moves a reagent to a new storage location.
     //  * Requires ADMIN role.
