@@ -25,6 +25,7 @@ export default tseslint.config(
             "@typescript-eslint/require-await": "off",
             "@typescript-eslint/explicit-module-boundary-types": "off",
             "@typescript-eslint/no-floating-promises": ["error", { ignoreVoid: true }],
+            "@typescript-eslint/no-unused-vars": ["error", { ignoreRestSiblings: true }],
         },
     },
     {
@@ -87,6 +88,7 @@ export default tseslint.config(
                     argsIgnorePattern: "^_",
                     varsIgnorePattern: "^_",
                     caughtErrorsIgnorePattern: "^_",
+                    ignoreRestSiblings: true,
                 },
             ],
             // react

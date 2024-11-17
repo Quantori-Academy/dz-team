@@ -79,7 +79,6 @@ export class UserService {
         const hashedPassword = await bcrypt.hash(userData.password, 10);
 
         // Make new user data without confirm password
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { confirmPassword, ...userDataWithoutConfirmPassword } = userData;
 
         // Create the user in the database with the hashed password
@@ -91,7 +90,6 @@ export class UserService {
         });
 
         // Return the created user without password
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { password, ...userWithoutPassword } = newUser;
         return userWithoutPassword;
     }
@@ -163,7 +161,6 @@ export class UserService {
         });
 
         // Remove sensitive data (e.g., password) from the result
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { password, ...userWithoutPassword } = updatedUser;
 
         // Return the updated object along with mustChangePassword
