@@ -107,7 +107,7 @@ export class UserService {
         userData: UpdateUser,
         requesterId: string,
         requesterRole: string,
-    ): Promise<UpdateUser & { mustChangePassword: boolean }> {
+    ) {
         const userToUpdate = await prisma.user.findUnique({ where: { id: userId } });
 
         if (!userToUpdate) throw new Error("User not found.");
@@ -162,9 +162,10 @@ export class UserService {
 
         // Return updated user without password and the mustChangePassword flag
 
-        const { ...userWithoutPassword } = updatedUser;
-        return { user: userWithoutPassword, mustChangePassword };
+        const { password, ...userWithoutPassword } = updatedUser;
 
+        // Return the updated object along with mustChangePassword
+        return { ...userWithoutPassword, mustChangePassword };
     }
 
     /**
