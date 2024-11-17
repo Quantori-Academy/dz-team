@@ -1,15 +1,7 @@
 import { BaseTextFieldProps, Box, TextField } from "@mui/material";
+import { useUnit } from "effector-react";
 
-import { CreateReagentType } from "api/reagents";
-import { Modal } from "components/modal/Modal";
-
-type ReagentFormModalProps = {
-    isOpen: boolean;
-    formData: CreateReagentType;
-    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    handleSubmit: () => void;
-    handleModalClose: () => void;
-};
+import { $formData, setFormData } from "stores/reagents";
 
 const fields: BaseTextFieldProps[] = [
     { label: "Name", name: "name" },
@@ -32,40 +24,35 @@ const fields: BaseTextFieldProps[] = [
     { label: "Storage Location", name: "storageLocation" },
 ];
 
-export const ReagentFormModal = ({
-    isOpen,
-    formData,
-    handleChange,
-    handleSubmit,
-    handleModalClose,
-}: ReagentFormModalProps) => {
+export const ReagentFormModal = () => {
+    const formData = useUnit($formData);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: name === "quantity" || name === "pricePerUnit" ? Number(value) : value,
+        });
+    };
+
     return (
-        <Modal
-            isOpen={isOpen}
-            message={
-                <Box>
-                    {fields.map((field, index) => {
-                        return (
-                            <TextField
-                                key={index}
-                                label={field.label}
-                                name={field.name}
-                                value={formData[field.name as keyof typeof formData] || ""}
-                                onChange={handleChange}
-                                fullWidth
-                                margin="normal"
-                                type={field.type || "text"}
-                                helperText={field.helperText}
-                                required
-                            />
-                        );
-                    })}
-                </Box>
-            }
-            title="Add New Reagent"
-            labels={{ ok: "Submit", cancel: "Cancel" }}
-            resolve={handleSubmit}
-            reject={handleModalClose}
-        />
+        <Box>
+            {fields.map((field, index) => {
+                return (
+                    <TextField
+                        key={index}
+                        label={field.label}
+                        name={field.name}
+                        value={formData[field.name as keyof typeof formData] || ""}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                        type={field.type || "text"}
+                        helperText={field.helperText}
+                        required
+                    />
+                );
+            })}
+        </Box>
     );
 };

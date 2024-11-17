@@ -28,6 +28,7 @@ export const DetailsEditPage = <T extends AnyRoute, TData>(
     const { ref } = useContext(TableContext);
     return <DetailsEditPageInner {...props} tableRef={ref} />;
 };
+
 export function DetailsEditPageInner<T extends AnyRoute, TData>({
     baseUrl,
     url,
@@ -45,6 +46,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
     const handleCloseDetails = () => {
         navigate({ to: baseUrl, replace: false });
     };
+
     const handleFieldChange =
         (field: FieldConfig) => (event: React.ChangeEvent<HTMLInputElement>) => {
             const { name, type } = field;
