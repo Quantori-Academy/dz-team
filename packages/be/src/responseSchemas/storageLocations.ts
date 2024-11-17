@@ -1,6 +1,8 @@
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import { z } from "zod";
-import storageLocationSchema from "shared/generated/zod/modelSchema/StorageLocationSchema";
+import storageLocationSchema, {
+    StorageLocationSchema,
+} from "shared/generated/zod/modelSchema/StorageLocationSchema";
 import { StorageLocationSearchSchema } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
 import { ReagentSchema } from "shared/generated/zod";
 
@@ -11,7 +13,11 @@ export const reagentIdParam = z.object({
     reagentId: z.string().describe("Reagent UUID."),
 });
 
-export const storageLocationsListSchema = z.object({
+export const StorageLocationCreation = z.object({
+    room: z.string().describe("Storage Location room."),
+    name: z.string().describe("Storage Location place name"),
+});
+export const StorageLocationsListSchema = z.object({
     data: z.array(storageLocationSchema),
     meta: z.object({
         currentPage: z.number().default(1),
@@ -87,6 +93,39 @@ const unauthorizedResponse = {
     },
 };
 
+const fieldRequiredBadRequest = {
+    description: "Error - Bad Request.",
+    content: {
+        "application/json": {
+            schema: z.object({
+                statusCode: z.number().default(400),
+                code: z.string().default("FST_ERR_VALIDATION"),
+                error: z.string().default("Bad Request"),
+                message: z.string().default("body/name Required"),
+            }),
+        },
+    },
+};
+
+export const POST_STORAGE_LOCATION_SCHEMA: FastifyZodOpenApiSchema = {
+    summary: "Creates new storage location",
+    description: "Create new storage location.",
+    tags: ["Storage Locations"],
+    body: StorageLocationCreation,
+    response: {
+        200: {
+            description: "Created storage location.",
+            content: {
+                "application/json": {
+                    schema: StorageLocationSchema,
+                },
+            },
+        },
+        400: fieldRequiredBadRequest,
+        401: unauthorizedResponse,
+    },
+};
+
 export const GET_STORAGE_LOCATIONS_SCHEMA: FastifyZodOpenApiSchema = {
     summary: "Retrieves available storage locations with metadata for available pages",
     description: "Retrieve available storage locations.",
@@ -97,7 +136,7 @@ export const GET_STORAGE_LOCATIONS_SCHEMA: FastifyZodOpenApiSchema = {
             description: "Locations list.",
             content: {
                 "application/json": {
-                    schema: storageLocationsListSchema,
+                    schema: StorageLocationsListSchema,
                 },
             },
         },
