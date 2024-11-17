@@ -831,6 +831,21 @@
                 "required": ["id", "room", "name", "createdAt", "updatedAt"],
                 "additionalProperties": false
             },
+            "StorageLocationCreation": {
+                "type": "object",
+                "properties": {
+                    "room": {
+                        "type": "string",
+                        "description": "Storage Location room."
+                    },
+                    "name": {
+                        "type": "string",
+                        "description": "Storage Location place name"
+                    }
+                },
+                "required": ["room", "name"],
+                "additionalProperties": false
+            },
             "UserLogin": {
                 "type": "object",
                 "properties": {
@@ -3000,6 +3015,129 @@
                                         }
                                     },
                                     "required": ["data", "meta"]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error - Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "default": 401
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "default": "FST_JWT_NO_AUTHORIZATION_IN_HEADER"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "default": "Unauthorized"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "default": "No Authorization was found in request.headers"
+                                        }
+                                    },
+                                    "required": ["statusCode", "code", "error", "message"]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Creates new storage location",
+                "tags": ["Storage Locations"],
+                "description": "Create new storage location.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "room": {
+                                        "type": "string",
+                                        "description": "Storage Location room."
+                                    },
+                                    "name": {
+                                        "type": "string",
+                                        "description": "Storage Location place name"
+                                    }
+                                },
+                                "required": ["room", "name"]
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Created storage location.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "room": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "deletedAt": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": ["id", "room", "name", "createdAt", "updatedAt"]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error - Bad Request.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "default": 400
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "default": "FST_ERR_VALIDATION"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "default": "Bad Request"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "default": "body/name Required"
+                                        }
+                                    },
+                                    "required": ["statusCode", "code", "error", "message"]
                                 }
                             }
                         }
