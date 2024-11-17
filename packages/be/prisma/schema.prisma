@@ -178,8 +178,9 @@ model User {
   updatedAt          DateTime  @updatedAt
 
   // One-to-Many relation with Orders
-  orders         Order[]          @relation() // List of Orders made by the Procurement Officer
-  ReagentRequest ReagentRequest[]
+  orders                Order[]                 @relation() // List of Orders made by the Procurement Officer
+  ReagentRequest        ReagentRequest[]
+  ReagentRequestComment ReagentRequestComment[]
 }
 
 model ReagentRequest {
@@ -193,9 +194,22 @@ model ReagentRequest {
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
 
-  user       User    @relation(fields: [careatedBy], references: [id])
-  careatedBy String // User who created order
-  Order      Order[]
+  user     User   @relation(fields: [careated], references: [id])
+  careated String // User who created order
+
+  Order                 Order[]
+  ReagentRequestComment ReagentRequestComment[]
+}
+
+model ReagentRequestComment {
+  id      String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  comment String // Content of comment
+
+  request   ReagentRequest @relation(fields: [requestId], references: [id])
+  requestId String //Reference to specific reagent request.
+
+  commenter   User   @relation(fields: [commenterId], references: [id])
+  commenterId String // Id of the person who left the comment for request.
 }
 
 enum RequestStatus {
