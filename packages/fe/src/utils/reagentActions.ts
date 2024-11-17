@@ -1,6 +1,10 @@
 import { ReagentDetails } from "api/reagentDetails/contract";
 import { base } from "api/request";
 import { deleteReagent, updateReagent } from "stores/reagents";
+
+// These cannot be considered utility functions, as they are tightly coupled with the application's business logic.
+// TODO: rewrite to use `request` and schemas from `shared`, move to `api/reagentDetails`
+
 export type formData = Pick<
     ReagentDetails,
     "id" | "name" | "cas" | "producer" | "pricePerUnit" | "quantity" | "unit" | "storageLocation"
