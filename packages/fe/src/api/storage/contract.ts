@@ -37,5 +37,6 @@ export const contractStorageType = z.object({
     data: z.array(StorageLocationTypes),
 });
 
+export type ContractStorageType = z.infer<typeof contractStorageType>;
 export type DetailedStorage = z.infer<typeof StorageLocationTypes>;
 export type StorageType = z.infer<typeof contractStorageType>;

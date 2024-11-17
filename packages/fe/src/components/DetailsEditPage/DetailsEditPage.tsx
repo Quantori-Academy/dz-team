@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { PropsWithChildren, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, Drawer, IconButton, TextField, Typography } from "@mui/material";
 import { AnyRoute, RouteIds, useLoaderData, useNavigate } from "@tanstack/react-router";
@@ -13,13 +13,13 @@ type FieldConfig = {
     disabled?: boolean;
 };
 
-type DetailsEditPageProps<T extends AnyRoute, TData> = {
+export type DetailsEditPageProps<T extends AnyRoute, TData> = PropsWithChildren<{
     baseUrl: string;
     url: RouteIds<T>;
     fields: FieldConfig[];
     onAction: (type: "submit" | "delete", data?: TData) => Promise<void>;
     editableFields?: string[];
-};
+}>;
 
 export function DetailsEditPage<T extends AnyRoute, TData>({
     baseUrl,
@@ -27,6 +27,7 @@ export function DetailsEditPage<T extends AnyRoute, TData>({
     fields,
     onAction,
     editableFields = [],
+    children,
 }: DetailsEditPageProps<T, TData>) {
     const [isEditing, setIsEditing] = useState(false);
     const data = useLoaderData<T>({ from: url }) as TData;
@@ -133,6 +134,7 @@ export function DetailsEditPage<T extends AnyRoute, TData>({
                         </>
                     )}
                 </Box>
+                {children}
             </Box>
         </Drawer>
     );

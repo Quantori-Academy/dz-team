@@ -4,7 +4,6 @@ import EditIcon from "@mui/icons-material/Edit";
 import PageviewIcon from "@mui/icons-material/Pageview";
 import { TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-import { useNavigate } from "@tanstack/react-router";
 
 import { removeModal } from "components/modal/store";
 import { StorageEditForm } from "components/pages/storage/EditStorage";
@@ -34,7 +33,7 @@ type GridProps = {
 
 export const Grid = ({ rows, headers, recordType }: GridProps) => {
     const { isAdmin } = useSession();
-    const navigate = useNavigate();
+
     const { handleDeleteUser } = useUserForm({});
     const { openModal } = useModal();
 
@@ -99,13 +98,13 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
     }, [openModal]);
 
     // navigates to detailed storage page
-    const handleRowClick = useCallback(
-        (id: string) => {
-            fetchDetailedStorageFx(id);
-            navigate({ to: `/storageDetail`, replace: false });
-        },
-        [navigate],
-    );
+    // const handleRowClick = useCallback(
+    //     (id: string) => {
+    //         fetchDetailedStorageFx(id);
+    //         navigate({ to: `/storageDetail`, replace: false });
+    //     },
+    //     [navigate],
+    // );
 
     // opens modal for edit storage form
     const handleEditStorage = useCallback(
@@ -139,7 +138,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                             icon={<PageviewIcon />}
                             label="View"
                             color="inherit"
-                            onClick={() => handleRowClick(params.row.id)}
+                            // onClick={() => handleRowClick(params.row.id)}
                         />
                     )}
 
@@ -180,7 +179,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
         handleDeleteUser,
         handleDeleteStorage,
         isAdmin,
-        handleRowClick,
+        // handleRowClick,
         recordType,
         handleEditStorage,
     ]);
