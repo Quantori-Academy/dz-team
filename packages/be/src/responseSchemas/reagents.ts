@@ -1,16 +1,107 @@
 import "zod-openapi/extend";
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import { z } from "zod";
-import reagentSchema from "shared/generated/zod/modelSchema/ReagentSchema";
+import reagentSchema, { ReagentSchema } from "shared/generated/zod/modelSchema/ReagentSchema";
 import {
     CategorySchema,
     ContainerSchema,
     CurrencySchema,
+    EnumCategoryFieldUpdateOperationsInputSchema,
+    EnumCurrencyFieldUpdateOperationsInputSchema,
+    EnumUnitFieldUpdateOperationsInputSchema,
+    FloatFieldUpdateOperationsInputSchema,
+    NullableDateTimeFieldUpdateOperationsInputSchema,
+    NullableEnumContainerFieldUpdateOperationsInputSchema,
+    NullableEnumReagentStatusFieldUpdateOperationsInputSchema,
+    NullableEnumReagentTypeFieldUpdateOperationsInputSchema,
+    NullableFloatFieldUpdateOperationsInputSchema,
+    NullableStringFieldUpdateOperationsInputSchema,
     ReagentStatusSchema,
     ReagentTypeSchema,
+    StringFieldUpdateOperationsInputSchema,
     UnitSchema,
 } from "shared/generated/zod";
 import { ReagentSearchSchema } from "shared/zodSchemas/reagent/reagentSearchSchema";
+
+export const ReagentUpdateSchema = z.object({
+    name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputSchema)]).optional(),
+    structure: z
+        .union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputSchema)])
+        .optional()
+        .nullable(),
+    description: z
+        .union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputSchema)])
+        .optional(),
+    quantity: z.union([z.number(), z.lazy(() => FloatFieldUpdateOperationsInputSchema)]).optional(),
+    unit: z
+        .union([z.lazy(() => UnitSchema), z.lazy(() => EnumUnitFieldUpdateOperationsInputSchema)])
+        .optional(),
+    quantityInit: z
+        .union([z.number(), z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema)])
+        .optional()
+        .nullable(),
+    container: z
+        .union([
+            z.lazy(() => ContainerSchema),
+            z.lazy(() => NullableEnumContainerFieldUpdateOperationsInputSchema),
+        ])
+        .optional()
+        .nullable(),
+    expirationDate: z
+        .union([z.coerce.date(), z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema)])
+        .optional()
+        .nullable(),
+    storageLocation: z
+        .union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputSchema)])
+        .optional()
+        .nullable(),
+    cas: z
+        .union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputSchema)])
+        .optional()
+        .nullable(),
+    producer: z
+        .union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputSchema)])
+        .optional()
+        .nullable(),
+    catalogId: z
+        .union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputSchema)])
+        .optional()
+        .nullable(),
+    catalogLink: z
+        .union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputSchema)])
+        .optional()
+        .nullable(),
+    pricePerUnit: z
+        .union([z.number(), z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema)])
+        .optional()
+        .nullable(),
+    currency: z
+        .union([
+            z.lazy(() => CurrencySchema),
+            z.lazy(() => EnumCurrencyFieldUpdateOperationsInputSchema),
+        ])
+        .optional(),
+    category: z
+        .union([
+            z.lazy(() => CategorySchema),
+            z.lazy(() => EnumCategoryFieldUpdateOperationsInputSchema),
+        ])
+        .optional(),
+    type: z
+        .union([
+            z.lazy(() => ReagentTypeSchema),
+            z.lazy(() => NullableEnumReagentTypeFieldUpdateOperationsInputSchema),
+        ])
+        .optional()
+        .nullable(),
+    status: z
+        .union([
+            z.lazy(() => ReagentStatusSchema),
+            z.lazy(() => NullableEnumReagentStatusFieldUpdateOperationsInputSchema),
+        ])
+        .optional()
+        .nullable(),
+});
 
 export const ReagentCreationSchema = z.object({
     name: z.string(),
@@ -142,6 +233,26 @@ export const GET_REAGENT_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
             content: {
                 "application/json": {
                     schema: reagentSchema,
+                },
+            },
+        },
+        400: validationErrorResponse,
+        404: notFoundErrorResponse,
+    },
+};
+
+export const PUT_REAGENT_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
+    summary: "Updates an existing reagent by ID",
+    description: "Update reagent information by ID.",
+    params: reagentIdParam,
+    tags: ["Reagents"],
+    body: ReagentUpdateSchema,
+    response: {
+        200: {
+            description: "Updated reagent data.",
+            content: {
+                "application/json": {
+                    schema: ReagentSchema,
                 },
             },
         },
