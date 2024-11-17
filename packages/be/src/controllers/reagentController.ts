@@ -97,6 +97,10 @@ export class ReagentController {
     ): Promise<void> {
         try {
             const validatedId = idSchema.parse(request.params.id);
+            const isValidReagent = await reagentService.getReagent(validatedId);
+            if (!isValidReagent) {
+                return reply.status(404).send({ message: "Reagent not found" });
+            }
             const validatedData = ReagentUpdateInputSchema.parse(request.body);
 
             const reagent = await reagentService.updateReagent(validatedId, validatedData);
