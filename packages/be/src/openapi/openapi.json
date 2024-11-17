@@ -1446,7 +1446,7 @@
                         "in": "path",
                         "name": "id",
                         "required": true,
-                        "description": "Reagent's UUID."
+                        "description": "Reagent UUID."
                     }
                 ],
                 "responses": {
@@ -1631,7 +1631,7 @@
                         "in": "path",
                         "name": "id",
                         "required": true,
-                        "description": "Reagent's UUID."
+                        "description": "Reagent UUID."
                     }
                 ],
                 "responses": {
@@ -1816,7 +1816,7 @@
                         "in": "path",
                         "name": "id",
                         "required": true,
-                        "description": "Reagent's UUID."
+                        "description": "Reagent UUID."
                     }
                 ],
                 "responses": {
@@ -3420,6 +3420,256 @@
                                         "message": {
                                             "type": "string",
                                             "default": "Storage location not found"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/v1/storage-locations/{reagentId}/move": {
+            "put": {
+                "summary": "Moves a reagent to a new storage location",
+                "tags": ["Storage Locations"],
+                "description": "Move reagent to new storage location.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "newStorageLocationId": {
+                                        "type": "string",
+                                        "format": "uuid"
+                                    }
+                                },
+                                "required": ["newStorageLocationId"]
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "reagentId",
+                        "required": true,
+                        "description": "Reagent UUID."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Updated reagent location information.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "unit": {
+                                            "type": "string",
+                                            "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                        },
+                                        "container": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": ["bottle", "box", "other", null]
+                                        },
+                                        "currency": {
+                                            "type": "string",
+                                            "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                                        },
+                                        "category": {
+                                            "type": "string",
+                                            "enum": ["reagent", "sample"]
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": [
+                                                "organic",
+                                                "inorganic",
+                                                "acidic",
+                                                "basic",
+                                                "oxidizing",
+                                                "reducing",
+                                                "precipitating",
+                                                "complexing",
+                                                "indicator",
+                                                "other",
+                                                null
+                                            ]
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": [
+                                                "available",
+                                                "lowStock",
+                                                "outOfStock",
+                                                "ordered",
+                                                "notAvailable",
+                                                null
+                                            ]
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "structure": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "quantity": {
+                                            "type": "number"
+                                        },
+                                        "quantityInit": {
+                                            "type": "number",
+                                            "nullable": true
+                                        },
+                                        "expirationDate": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "storageLocation": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "cas": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "producer": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "catalogId": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "catalogLink": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "pricePerUnit": {
+                                            "type": "number",
+                                            "nullable": true
+                                        },
+                                        "deletedAt": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        },
+                                        "storageId": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "format": "uuid"
+                                        }
+                                    },
+                                    "required": [
+                                        "unit",
+                                        "currency",
+                                        "category",
+                                        "id",
+                                        "name",
+                                        "description",
+                                        "quantity",
+                                        "createdAt",
+                                        "updatedAt"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error - Bad Request.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Invalid UUID"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error - Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "default": 401
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "default": "FST_JWT_NO_AUTHORIZATION_IN_HEADER"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "default": "Unauthorized"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "default": "No Authorization was found in request.headers"
+                                        }
+                                    },
+                                    "required": ["statusCode", "code", "error", "message"]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error - Not Found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Storage location not found"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error - Couldn't move reagent",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Failed to move reagent"
                                         }
                                     },
                                     "required": ["message"]
