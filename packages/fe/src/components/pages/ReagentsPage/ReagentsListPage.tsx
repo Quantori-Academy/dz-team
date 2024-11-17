@@ -44,6 +44,13 @@ export const ReagentsListPage = () => {
     const tableRef = useRef(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // it's called every time a user types in the input field
+        // console.log("handleChange");
+        // and it causes the re-render of the component
+        //! including the table, causing the table to re-request the data
+        // it's not only unnecessary rerenders, but unnecessary calls to the server
+
+        // TODO: prevent re-rendering of the table
         const { name, value } = e.target;
         setFormData({
             ...formData,
@@ -53,7 +60,6 @@ export const ReagentsListPage = () => {
 
     const handleSubmit = () => {
         submitReagentEvent(formData);
-        alert("Reagent added successfully!");
         setFormData(initialFormData);
         handleModalClose();
     };

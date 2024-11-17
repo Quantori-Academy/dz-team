@@ -1,7 +1,10 @@
 import { BaseTextFieldProps, Box, TextField } from "@mui/material";
+import { z } from "zod";
 
-import { CreateReagentType } from "api/reagents";
 import { Modal } from "components/modal/Modal";
+import { ReagentCreateInputSchema } from "shared/generated/zod";
+
+export type CreateReagentType = z.infer<typeof ReagentCreateInputSchema>;
 
 type ReagentFormModalProps = {
     isOpen: boolean;
