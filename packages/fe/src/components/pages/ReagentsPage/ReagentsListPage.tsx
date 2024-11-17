@@ -67,6 +67,7 @@ export const ReagentsListPage = () => {
     return (
         <ReagentsTableContext.Provider value={{ ref: tableRef }}>
             <Box sx={{ mb: 5 }}>
+                {/* <CommonTable<Reagent> */}
                 <CommonTable
                     ref={tableRef}
                     columns={columns}

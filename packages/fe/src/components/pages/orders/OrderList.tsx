@@ -1,19 +1,18 @@
 import { Box, Typography } from "@mui/material";
 import { Outlet, useNavigate } from "@tanstack/react-router";
-import { useGate, useUnit } from "effector-react";
 
-import { ReusableGrid } from "components/dataGrid/ReusableGrid";
-import { OrdersGate } from "stores/orders/orderGate";
-import { $OrdersList } from "stores/orders/orderStore";
+import { base } from "api/request";
+import { CommonTable } from "components/commonTable/CommonTable";
+import { OrderSchema } from "shared/generated/zod";
 
 const headers = [
-    { field: "id", headerName: "Order ID", width: 150 },
-    // { field: "title", headerName: "Title", width: 150 },
-    { field: "quantity", headerName: "Quantity", width: 170 },
-    { field: "status", headerName: "Status ", width: 170 },
-    { field: "creationDate", headerName: "Creation Date", width: 170 },
+    { field: "title", headerName: "Title", width: 150 },
+    { field: "seller", headerName: "Seller", width: 170 },
+    { field: "description", headerName: "Description ", width: 170 },
+    { field: "createdAt", headerName: "Created Date", width: 170 },
+    { field: "updatedAt", headerName: "Updated Date", width: 170 },
 ];
-const placeholder = "Search by seller, status";
+// const placeholder = "Search by seller, status";
 
 const boxStyles = {
     padding: "40px",
@@ -23,9 +22,11 @@ const boxStyles = {
 };
 
 export const OrderList = () => {
-    useGate(OrdersGate);
-    const orders = useUnit($OrdersList);
+    // useGate(OrdersGate);
+    // const orders = useUnit($OrdersList);
     const navigate = useNavigate();
+
+    // console.log("orders", orders)
 
     const handleClick = () => {
         navigate({ to: "/orders/create" });
@@ -35,12 +36,23 @@ export const OrderList = () => {
         <>
             <Box sx={boxStyles}>
                 <Typography variant="h5">Order List</Typography>
-                <ReusableGrid
-                    rows={orders}
-                    headers={headers}
-                    onAddRecord={handleClick}
-                    addRecordLabel="Add New Order"
-                    placeholder={placeholder}
+                <CommonTable
+                    // ref={tableRef}
+                    columns={headers}
+                    url={`${base}/api/v1/orders`}
+                    schema={OrderSchema}
+                    onRowClick={(row) => {
+                        navigate({ to: `/orders/${row.id}`, replace: false });
+                    }}
+                    searchBy={{
+                        title: true,
+                        description: true,
+                        seller: true,
+                        createdAt: true,
+                        updatedAt: true,
+                    }}
+                    onAdd={handleClick}
+                    addButtonText="Create a new order"
                 />
             </Box>
             <Outlet />
