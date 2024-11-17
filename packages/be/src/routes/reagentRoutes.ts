@@ -6,14 +6,12 @@ import {
     GET_REAGENTS_SCHEMA,
     PATCH_REAGENT_BY_ID_SCHEMA,
     POST_REAGENTS_SCHEMA,
+    PUT_REAGENT_BY_ID_SCHEMA,
 } from "../responseSchemas/reagents";
 import { FastifyZodOpenApiSchema, FastifyZodOpenApiTypeProvider } from "fastify-zod-openapi";
 import ReagentCreateManyInputSchema from "shared/generated/zod/inputTypeSchemas/ReagentCreateManyInputSchema";
 import { ReagentSearch } from "shared/zodSchemas/reagent/reagentSearchSchema";
-// import { ReagentCreateInputSchema, ReagentUpdateInputSchema } from "shared/generated/zod";
-// import { z } from "zod";
-// import { components, RegisteredSchemas, schema } from "../responseSchemas/schemas";
-// import reagentCreateInputSchema from "shared/generated/zod/inputTypeSchemas/ReagentCreateInputSchema";
+import { ReagentUpdateManyMutationInputSchema } from "shared/generated/zod";
 
 const reagentController = new ReagentController();
 
@@ -75,8 +73,6 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
         },
     );
 
-    //TODO circular dependency fix
-
     /**
      * @route POST /
      * @tags Reagent
@@ -95,24 +91,24 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
         },
     );
 
-    // /**
-    //  * @route PUT /:id
-    //  * @tags Reagent
-    //  * @summary Update an existing reagent by ID.
-    //  * @param {string} id.params.required - Reagent ID
-    //  * @param {ReagentUpdateInputSchema} request.body.required - Data to update the reagent
-    //  * @returns {Reagent} 200 - The updated reagent
-    //  * @returns {Error} 404 - Reagent not found
-    //  * @returns {Error} 400 - Validation error
-    //  */
-    // app.put<{ Params: { id: string }; Body: typeof ReagentUpdateInputSchema }>(
-    //     "/:id",
-    //     { schema: { tags: ["Reagent"], body: ReagentUpdateInputSchema } },
-    //     async (request, reply) => {
-    //         return await reagentController.updateReagent(request, reply);
-    //     }
-    // );
-    //
+    /**
+     * @route PUT /:id
+     * @tags Reagent
+     * @summary Update an existing reagent by ID.
+     * @param {string} id.params.required - Reagent ID
+     * @param {ReagentUpdateManyMutationInputSchema} request.body.required - Data to update the reagent
+     * @returns {Reagent} 200 - The updated reagent
+     * @returns {Error} 404 - Reagent not found
+     * @returns {Error} 400 - Validation error
+     */
+    app.put<{ Params: { id: string }; Body: typeof ReagentUpdateManyMutationInputSchema }>(
+        "/:id",
+        { schema: PUT_REAGENT_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema },
+        async (request, reply) => {
+            return await reagentController.updateReagent(request, reply);
+        },
+    );
+
     /**
      * @route DELETE /:id
      * @tags Reagent
