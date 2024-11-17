@@ -1,13 +1,13 @@
 import { Box, Typography } from "@mui/material";
-import { useNavigate } from "@tanstack/react-router";
-import { useGate, useUnit } from "effector-react";
-import { storageDetailRoute } from "routes/_app/_researcherLayout/storage/$id";
+import { useLoaderData, useNavigate } from "@tanstack/react-router";
+import { useGate /* , useUnit */ } from "effector-react";
+import { Route as storageDetailRoute } from "routes/_app/_researcherLayout/storage/$id";
 
 import { deleteStorage } from "api/storage/deleteStorage";
 import { Grid } from "components/dataGrid/Grid";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
 import { Reagent, StorageLocation } from "shared/generated/zod";
-import { $detailedStorage, DetailedGate } from "stores/storage";
+import { /* $detailedStorage, */ DetailedGate } from "stores/storage";
 
 const reagentColumns = [
     { field: "id", headerName: "ID", width: 120 },
@@ -27,14 +27,25 @@ const reagentColumns = [
     { field: "status", headerName: "Status", width: 120 },
 ];
 
+const fields = [
+    { label: "ID", name: "id", disabled: true },
+    { label: "Name", name: "name", required: true },
+    { label: "Room", name: "room", required: true },
+    { label: "Number of Reagents", name: "reagentsCount", disabled: true },
+    { label: "Created At", name: "createdAt", disabled: true },
+    { label: "Updated At", name: "updatedAt", disabled: true },
+    { label: "Deleted At", name: "deletedAt", disabled: true },
+    { label: "Description", name: "description", required: false },
+];
 const boxStyle = { display: "flex", flexDirection: "column", gap: "20px" };
 
 export const StorageDetail = () => {
     useGate(DetailedGate);
     const navigate = useNavigate();
-    const detailedStorage = useUnit($detailedStorage);
 
-    const reagents = detailedStorage?.reagents || [];
+    const { reagents } = useLoaderData({
+        from: "/_app/_researcherLayout/storage/$id",
+    });
 
     const handleAction = async (
         type: "submit" | "delete",
@@ -48,17 +59,6 @@ export const StorageDetail = () => {
             navigate({ to: "/storage", replace: true }); // Navigate back to storage list
         }
     };
-
-    const fields = [
-        { label: "ID", name: "id", disabled: true },
-        { label: "Name", name: "name", required: true },
-        { label: "Room", name: "room", required: true },
-        { label: "Number of Reagents", name: "reagentsCount", disabled: true },
-        { label: "Created At", name: "createdAt", disabled: true },
-        { label: "Updated At", name: "updatedAt", disabled: true },
-        { label: "Deleted At", name: "deletedAt", disabled: true },
-        { label: "Description", name: "description", required: false },
-    ];
 
     return (
         <Box sx={boxStyle}>
