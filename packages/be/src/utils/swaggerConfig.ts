@@ -5,7 +5,11 @@ import { withRefResolver } from "fastify-zod";
 import { fastifyZodOpenApiTransform, fastifyZodOpenApiTransformObject } from "fastify-zod-openapi";
 import { ReagentSchema, SampleSchema } from "shared/generated/zod";
 import { convertZodToJsonSchema } from "fastify-type-provider-zod/dist/src/zod-to-json";
-import { ReagentCreationSchema, ReagentsListSchema } from "../responseSchemas/reagents";
+import {
+    ReagentCreationSchema,
+    ReagentsListSchema,
+    ReagentUpdateSchema,
+} from "../responseSchemas/reagents";
 import { SamplesListSchema } from "../responseSchemas/samples";
 import { UsersListSchema } from "../responseSchemas/users";
 import {
@@ -33,6 +37,7 @@ export const registerSwagger = (server: FastifyInstance) => {
                         Reagent: convertZodToJsonSchema(ReagentSchema),
                         ReagentsList: convertZodToJsonSchema(ReagentsListSchema),
                         ReagentCreation: convertZodToJsonSchema(ReagentCreationSchema),
+                        ReagentUpdate: convertZodToJsonSchema(ReagentUpdateSchema),
                         User: convertZodToJsonSchema(publicUserSchema),
                         UserUpdate: convertZodToJsonSchema(updateUserSchema),
                         UsersList: convertZodToJsonSchema(UsersListSchema),
