@@ -6,8 +6,8 @@ import {
 
 import { StorageLocationService } from "../services/storageLocationService";
 import { sendErrorResponse } from "../utils/handleErrors";
-import { idSchema } from "shared/zodSchemas/baseSchema";
 import { StorageLocationSearchSchema } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
+import { idSchema } from "shared/zodSchemas/baseSchemas";
 
 const storageLocationService = new StorageLocationService();
 
