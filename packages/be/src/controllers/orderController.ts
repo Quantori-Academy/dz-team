@@ -114,11 +114,14 @@ export class OrderController {
     ): Promise<void> {
         try {
             const validatedId = idSchema.parse(request.params.id);
+            if (!isValidUUID(validatedId)) {
+                return reply.status(400).send({ message: "Invalid order status" });
+            }
             const { status } = request.body;
 
             // Check if the status is valid according to the OrderStatus enum
             if (!Object.values(OrderStatus).includes(status)) {
-                return reply.status(400).send({ error: "Invalid order status" });
+                return reply.status(400).send({ message: "Invalid order status" });
             }
 
             const updatedOrder = await orderService.updateOrderStatus(validatedId, status);
