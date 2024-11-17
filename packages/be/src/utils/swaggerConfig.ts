@@ -21,6 +21,7 @@ import storageLocationSchema from "shared/generated/zod/modelSchema/StorageLocat
 import { publicUserSchema } from "shared/zodSchemas/user/publicUserSchema";
 import { registerUserSchema } from "shared/zodSchemas/user/registerUserSchema";
 import { updateUserSchema } from "shared/zodSchemas/user/updateUserSchema";
+import { OrderSchema, OrdersListSchema } from "../responseSchemas/orders";
 
 export const registerSwagger = (server: FastifyInstance) => {
     server.register(
@@ -51,6 +52,8 @@ export const registerSwagger = (server: FastifyInstance) => {
                             StorageLocationCreationSchema,
                         ),
                         StorageLocationUpdate: convertZodToJsonSchema(StorageLocationUpdateSchema),
+                        OrderSchema: convertZodToJsonSchema(OrderSchema),
+                        OrdersList: convertZodToJsonSchema(OrdersListSchema),
                     },
                     securitySchemes: {
                         BearerAuth: {
