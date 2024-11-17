@@ -3,7 +3,45 @@ import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import { z } from "zod";
 import { ReagentSearchSchema } from "shared/zodSchemas";
 import reagentSchema from "shared/generated/zod/modelSchema/ReagentSchema";
+import {
+    CategorySchema,
+    ContainerSchema,
+    CurrencySchema,
+    ReagentStatusSchema,
+    ReagentTypeSchema,
+    UnitSchema,
+} from "shared/generated/zod";
 
+export const ReagentCreationSchema = z.object({
+    name: z.string(),
+    structure: z.string().optional().nullable(),
+    description: z.string(),
+    quantity: z.number(),
+    unit: z.lazy(() => UnitSchema).optional(),
+    quantityInit: z.number().optional().nullable(),
+    container: z
+        .lazy(() => ContainerSchema)
+        .optional()
+        .nullable(),
+    expirationDate: z.coerce.date().optional().nullable(),
+    storageLocation: z.string().optional().nullable(),
+    cas: z.string().optional().nullable(),
+    producer: z.string().optional().nullable(),
+    catalogId: z.string().optional().nullable(),
+    catalogLink: z.string().optional().nullable(),
+    pricePerUnit: z.number().optional().nullable(),
+    currency: z.lazy(() => CurrencySchema).optional(),
+    category: z.lazy(() => CategorySchema).optional(),
+    type: z
+        .lazy(() => ReagentTypeSchema)
+        .optional()
+        .nullable(),
+    status: z
+        .lazy(() => ReagentStatusSchema)
+        .optional()
+        .nullable(),
+    storageId: z.string().uuid().optional().nullable(),
+});
 export const ReagentsListSchema = z.object({
     data: z.array(reagentSchema),
     meta: z.object({
@@ -29,6 +67,20 @@ const validationErrorResponse = {
         },
     },
 };
+
+const badRequestResponse = {
+    description: "Error - Bad Request.",
+    content: {
+        "application/json": {
+            schema: z.object({
+                statusCode: z.number().default(400),
+                code: z.string().default("FST_ERR_VALIDATION"),
+                error: z.string().default("Bad Request"),
+                message: z.string().default("body/expirationDate Invalid date"),
+            }),
+        },
+    },
+};
 const notFoundErrorResponse = {
     description: "The requested reagent was not found.",
     content: {
@@ -37,6 +89,28 @@ const notFoundErrorResponse = {
                 message: z.string().default("Reagent not found"),
             }),
         },
+    },
+};
+
+export const POST_REAGENTS_SCHEMA: FastifyZodOpenApiSchema = {
+    summary: "Creates new reagent in the system",
+    description: "Create new reagent.",
+    tags: ["Reagents"],
+    body: ReagentCreationSchema,
+    response: {
+        200: {
+            description: "Created reagent data.",
+            content: {
+                "application/json": {
+                    schema: z
+                        .object({
+                            id: z.string().uuid(),
+                        })
+                        .merge(ReagentCreationSchema),
+                },
+            },
+        },
+        400: badRequestResponse,
     },
 };
 
