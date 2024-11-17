@@ -45,11 +45,6 @@ const rolesNavLists: RoleToNavList = {
             title: "Samples",
             details: "Explore existing samples or create new ones",
         },
-        {
-            href: "/dev",
-            title: "Dev",
-            details: "Dev route",
-        },
     ],
 };
 

@@ -1,7 +1,14 @@
+import { ReagentDetails } from "api/reagentDetails/contract";
 import { base } from "api/request";
 import { deleteReagentEvent, updateReagentEvent } from "stores/reagents";
 
-import { formData } from "../components/pages/app/detailsPage/ReagentForm";
+// These cannot be considered utility functions, as they are tightly coupled with the application's business logic.
+// TODO: rewrite to use `request` and schemas from `shared`, move to `api/reagentDetails`
+
+export type formData = Pick<
+    ReagentDetails,
+    "id" | "name" | "cas" | "producer" | "pricePerUnit" | "quantity" | "unit" | "storageLocation"
+>;
 
 export const deleteReagent = async (id: string, navigate: (options: { to: string }) => void) => {
     try {
