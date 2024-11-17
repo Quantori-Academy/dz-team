@@ -4,7 +4,11 @@ import storageLocationSchema, {
     StorageLocationSchema,
 } from "shared/generated/zod/modelSchema/StorageLocationSchema";
 import { StorageLocationSearchSchema } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
-import { ReagentSchema } from "shared/generated/zod";
+import {
+    NullableStringFieldUpdateOperationsInputSchema,
+    ReagentSchema,
+    StringFieldUpdateOperationsInputSchema,
+} from "shared/generated/zod";
 
 export const storageLocationIdParam = z.object({
     id: z.string().describe("Storage location UUID."),
@@ -13,10 +17,21 @@ export const reagentIdParam = z.object({
     reagentId: z.string().describe("Reagent UUID."),
 });
 
-export const StorageLocationCreation = z.object({
+export const StorageLocationCreationSchema = z.object({
     room: z.string().describe("Storage Location room."),
     name: z.string().describe("Storage Location place name"),
+    description: z.string().describe("Storage Location description"),
 });
+
+export const StorageLocationUpdateSchema = z.object({
+    room: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputSchema)]).optional(),
+    name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputSchema)]).optional(),
+    description: z
+        .union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputSchema)])
+        .optional()
+        .nullable(),
+});
+
 export const StorageLocationsListSchema = z.object({
     data: z.array(storageLocationSchema),
     meta: z.object({
@@ -111,7 +126,7 @@ export const POST_STORAGE_LOCATION_SCHEMA: FastifyZodOpenApiSchema = {
     summary: "Creates new storage location",
     description: "Create new storage location.",
     tags: ["Storage Locations"],
-    body: StorageLocationCreation,
+    body: StorageLocationCreationSchema,
     response: {
         200: {
             description: "Created storage location.",
@@ -123,6 +138,27 @@ export const POST_STORAGE_LOCATION_SCHEMA: FastifyZodOpenApiSchema = {
         },
         400: fieldRequiredBadRequest,
         401: unauthorizedResponse,
+    },
+};
+
+export const PUT_STORAGE_LOCATION_BY_ID: FastifyZodOpenApiSchema = {
+    summary: "Updates an existing storage location by its id",
+    description: "Update storage location by id.",
+    tags: ["Storage Locations"],
+    body: StorageLocationUpdateSchema,
+    params: storageLocationIdParam,
+    response: {
+        200: {
+            description: "Updated storage location data.",
+            content: {
+                "application/json": {
+                    schema: StorageLocationSchema,
+                },
+            },
+        },
+        400: badRequestResponse,
+        401: unauthorizedResponse,
+        404: notFoundResponse,
     },
 };
 
@@ -184,7 +220,7 @@ export const DELETE_STORAGE_LOCATION_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
 };
 
 export const PATCH_STORAGE_LOCATION_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
-    summary: "Reverts the soft delete of a storage location by ID",
+    summary: "Reverts the soft delete of a storage location by id",
     description: "Revert soft delete of storage location by id.",
     tags: ["Storage Locations"],
     params: storageLocationIdParam,
