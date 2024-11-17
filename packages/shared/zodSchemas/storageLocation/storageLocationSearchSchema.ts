@@ -1,29 +1,10 @@
 import { z } from "zod";
+import { BaseSearchSchema } from "../baseSchemas";
 
 const StorageLocationFieldEnum = z.enum(["name", "room", "description"]);
 
 // Define the StorageLocationSearch schema
-export const StorageLocationSearchSchema = z.object({
-    // General search query string (used for searching across all relevant fields).
-    query: z.string().optional().describe("A general search term to filter storage locations."),
-
-    // The page number for paginated results.
-    page: z.coerce
-        .number()
-        .int()
-        .positive()
-        .default(1)
-        .describe("The page number for pagination. Default is 1."),
-
-    // The number of items to display per page (with a maximum limit of 100).
-    limit: z.coerce
-        .number()
-        .int()
-        .positive()
-        .max(100)
-        .default(10)
-        .describe("The number of results per page. Default is 10, max is 100."),
-
+export const StorageLocationSearchSchema =BaseSearchSchema.extend({
     // Field by which the results will be sorted.
     sortBy: z
         .enum(["name", "room", "description", "createdAt", "updatedAt"])

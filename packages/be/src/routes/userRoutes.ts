@@ -12,6 +12,7 @@ import {
 import { RegisterUser } from "shared/zodSchemas/user/registerUserSchema";
 import { UpdateUser } from "shared/zodSchemas/user/updateUserSchema";
 
+
 const userController = new UserController();
 
 /**
@@ -120,6 +121,39 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
         },
         async (request, reply) => {
             return await userController.deleteUser(request, reply);
+        },
+    );
+
+    /**
+     * GET / - Retrieve current users.
+     *
+     * @summary Get current user.
+     * @tags Users
+     * @security JWT
+     * @returns {Promise<User>} 200 - An array of users.
+     */
+    app.get(
+        "/me",
+        {
+            schema: { tags: ["Users"] },
+            preHandler: [
+                async (request, reply) => {
+                    // Ensure verifyJWT and verifyRole exist, otherwise block the request
+                    if (!app.verifyJWT) {
+                        reply.code(500).send({
+                            error: "Authentication or authorization method not available",
+                        });
+                        throw new Error(
+                            "Required authentication or authorization method not registered.",
+                        );
+                    }
+
+                    await app.verifyJWT(request, reply);
+                },
+            ],
+        },
+        async (request, reply) => {
+            return await userController.getCurrentUser(request, reply);
         },
     );
 };

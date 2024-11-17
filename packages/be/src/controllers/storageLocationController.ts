@@ -5,6 +5,7 @@ import {
     StorageLocationUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
 
+
 import { StorageLocationService } from "../services/storageLocationService";
 import { sendErrorResponse } from "../utils/handleErrors";
 import { StorageLocationSearchSchema } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";

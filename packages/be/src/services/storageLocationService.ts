@@ -7,6 +7,7 @@ import {
 
 import { StorageLocation } from "../../../shared/generated/zod";
 import { StorageLocationSearch } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
+
 const prisma = new PrismaClient();
 
 type SearchResults = {
