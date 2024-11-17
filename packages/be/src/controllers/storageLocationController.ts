@@ -1,3 +1,4 @@
+import { validate as isValidUUID } from "uuid";
 import { FastifyRequest, FastifyReply } from "fastify";
 import {
     StorageLocationCreateInputSchema,
@@ -157,6 +158,9 @@ export class StorageLocationController {
         try {
             const { reagentId } = request.params;
             const { newStorageLocationId } = request.body;
+            if (!isValidUUID(reagentId) || !isValidUUID(newStorageLocationId)) {
+                return reply.status(400).send({ message: "Invalid UUID" });
+            }
             const movedReagent = await storageLocationService.moveReagent(
                 reagentId,
                 newStorageLocationId,
