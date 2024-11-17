@@ -2,10 +2,22 @@ import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import { OrderSearchSchema } from "shared/zodSchemas/order/orderSearchSchema";
 import { z } from "zod";
 import { OrderStatusSchema, ReagentSchema } from "shared/generated/zod";
+import { unauthorizedResponse } from "./storageLocations";
 
 export const orderIdParam = z.object({
     id: z.string().describe("Order UUID."),
 });
+
+const couldNotUpdateResponse = {
+    description: "Error - Unsatisfactory status.",
+    content: {
+        "application/json": {
+            schema: z.object({
+                message: z.string().default("Failed to update order status"),
+            }),
+        },
+    },
+};
 
 export const badRequestResponse = {
     description: "Error - Bad Request",
@@ -86,5 +98,27 @@ export const GET_ORDER_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
         },
         400: badRequestResponse,
         404: notFoundResponse,
+    },
+};
+
+export const PATCH_ORDER_STATUS_SCHEMA: FastifyZodOpenApiSchema = {
+    summary: "Updates the status of an order by its id",
+    description: "Update order status by id.",
+    params: orderIdParam,
+    tags: ["Orders"],
+    body: z.object({ status: OrderStatusSchema }),
+    response: {
+        200: {
+            description: "Updated order details.",
+            content: {
+                "application/json": {
+                    schema: OrderSchema,
+                },
+            },
+        },
+        400: badRequestResponse,
+        404: notFoundResponse,
+        401: unauthorizedResponse,
+        500: couldNotUpdateResponse,
     },
 };
