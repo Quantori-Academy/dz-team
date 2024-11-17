@@ -90,7 +90,7 @@ export const storageLocationRoutes = async (app: FastifyZodInstance): Promise<vo
         "/:id",
         {
             schema: PUT_STORAGE_LOCATION_BY_ID satisfies FastifyZodOpenApiSchema,
-            // preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
+            preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
         },
         async (request, reply) => {
             return await storageLocationController.updateStorageLocation(request, reply);
