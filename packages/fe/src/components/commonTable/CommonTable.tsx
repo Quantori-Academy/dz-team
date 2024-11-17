@@ -4,6 +4,7 @@ import {
     DataGrid,
     GridColDef,
     GridPaginationModel,
+    GridRowParams,
     GridSortModel,
     GridValidRowModel,
 } from "@mui/x-data-grid";
@@ -88,7 +89,7 @@ const fetchRows = async <T extends GridValidRowModel>({
  * @param addButtonText - Custom text for the add button, defaulting to "ADD"
  * @example
  * ```tsx
- * <CommonTable
+ * <CommonTable<TestType>
  *    columns={[
  *       { field: "name", headerName: "Name", width: 150 },
  *       { field: "inStock", headerName: "In stock?" },
@@ -107,7 +108,7 @@ const fetchRows = async <T extends GridValidRowModel>({
  *  />
  * ```
  */
-export const CommonTable = forwardRef(
+export const CommonTable: ForwardRefWithGenerics = forwardRef(
     <T extends GridValidRowModel>(
         { columns, url, schema, searchBy, onRowClick, onAdd, addButtonText = "ADD" }: GridProps<T>,
         ref: React.Ref<CommonTableRef>,
@@ -191,7 +192,7 @@ export const CommonTable = forwardRef(
                     sortingMode="server"
                     filterMode="server"
                     loading={loading}
-                    onRowClick={(params) => onRowClick?.(params.row as T)}
+                    onRowClick={(params: GridRowParams<T>) => onRowClick?.(params.row)}
                     disableColumnFilter
                     sx={{ mt: 2, minHeight: 300 }}
                 />

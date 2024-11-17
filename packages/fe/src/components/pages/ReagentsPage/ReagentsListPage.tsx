@@ -8,11 +8,11 @@ import { base } from "api/request";
 import { CommonTable } from "components/commonTable/CommonTable";
 import { $formData, initialFormData, setFormData, submitReagent } from "stores/reagents";
 
-import { ReagentSchema } from "../../../../../shared/generated/zod";
+import { Reagent, ReagentSchema } from "../../../../../shared/generated/zod";
 import { TableContext } from "../../commonTable/TableContext";
 import { ReagentFormModal } from "./ReagentFormModal";
 
-const columns: GridColDef[] = [
+const columns: GridColDef<Reagent>[] = [
     { field: "id", headerName: "ID", width: 90, sortable: false },
     { field: "name", headerName: "Name", width: 150 },
     { field: "structure", headerName: "Structure", width: 150 },
@@ -61,12 +61,12 @@ export const ReagentsListPage = () => {
     return (
         <TableContext.Provider value={{ ref: tableRef }}>
             <Box sx={{ mb: 5 }}>
-                <CommonTable
+                <CommonTable<Reagent>
                     ref={tableRef}
                     columns={columns}
                     url={`${base}/api/v1/reagents`}
                     schema={ReagentSchema}
-                    onRowClick={(row) => {
+                    onRowClick={(row: Reagent) => {
                         navigate({ to: `/reagents/${row.id}`, replace: false });
                     }}
                     searchBy={{
