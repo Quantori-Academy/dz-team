@@ -3,7 +3,7 @@
     "info": {
         "title": "Fastify API",
         "description": "API documentation for Luna",
-        "version": "1.0.0"
+        "version": "3.0.0"
     },
     "components": {
         "securitySchemes": {
@@ -301,6 +301,102 @@
                     }
                 },
                 "required": ["data", "meta"],
+                "additionalProperties": false
+            },
+            "ReagentCreation": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "type": "string"
+                    },
+                    "structure": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "description": {
+                        "type": "string"
+                    },
+                    "quantity": {
+                        "type": "number"
+                    },
+                    "unit": {
+                        "type": "string",
+                        "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                    },
+                    "quantityInit": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "container": {
+                        "type": "string",
+                        "enum": ["bottle", "box", "other"],
+                        "nullable": true
+                    },
+                    "expirationDate": {
+                        "type": "string",
+                        "format": "date-time",
+                        "nullable": true
+                    },
+                    "storageLocation": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "cas": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "producer": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "catalogId": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "catalogLink": {
+                        "type": "string",
+                        "nullable": true
+                    },
+                    "pricePerUnit": {
+                        "type": "number",
+                        "nullable": true
+                    },
+                    "currency": {
+                        "type": "string",
+                        "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                    },
+                    "category": {
+                        "type": "string",
+                        "enum": ["reagent", "sample"]
+                    },
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "organic",
+                            "inorganic",
+                            "acidic",
+                            "basic",
+                            "oxidizing",
+                            "reducing",
+                            "precipitating",
+                            "complexing",
+                            "indicator",
+                            "other"
+                        ],
+                        "nullable": true
+                    },
+                    "status": {
+                        "type": "string",
+                        "enum": ["available", "lowStock", "outOfStock", "ordered", "notAvailable"],
+                        "nullable": true
+                    },
+                    "storageId": {
+                        "type": "string",
+                        "format": "uuid",
+                        "nullable": true
+                    }
+                },
+                "required": ["name", "description", "quantity"],
                 "additionalProperties": false
             },
             "User": {
@@ -1044,6 +1140,264 @@
                                         }
                                     },
                                     "required": ["data", "meta"]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "summary": "Creates new reagent in the system",
+                "tags": ["Reagents"],
+                "description": "Create new reagent.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "structure": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "description": {
+                                        "type": "string"
+                                    },
+                                    "quantity": {
+                                        "type": "number"
+                                    },
+                                    "unit": {
+                                        "type": "string",
+                                        "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                    },
+                                    "quantityInit": {
+                                        "type": "number",
+                                        "nullable": true
+                                    },
+                                    "container": {
+                                        "type": "string",
+                                        "nullable": true,
+                                        "enum": ["bottle", "box", "other", null]
+                                    },
+                                    "expirationDate": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "storageLocation": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "cas": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "producer": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "catalogId": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "catalogLink": {
+                                        "type": "string",
+                                        "nullable": true
+                                    },
+                                    "pricePerUnit": {
+                                        "type": "number",
+                                        "nullable": true
+                                    },
+                                    "currency": {
+                                        "type": "string",
+                                        "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                                    },
+                                    "category": {
+                                        "type": "string",
+                                        "enum": ["reagent", "sample"]
+                                    },
+                                    "type": {
+                                        "type": "string",
+                                        "nullable": true,
+                                        "enum": [
+                                            "organic",
+                                            "inorganic",
+                                            "acidic",
+                                            "basic",
+                                            "oxidizing",
+                                            "reducing",
+                                            "precipitating",
+                                            "complexing",
+                                            "indicator",
+                                            "other",
+                                            null
+                                        ]
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "nullable": true,
+                                        "enum": [
+                                            "available",
+                                            "lowStock",
+                                            "outOfStock",
+                                            "ordered",
+                                            "notAvailable",
+                                            null
+                                        ]
+                                    },
+                                    "storageId": {
+                                        "type": "string",
+                                        "nullable": true,
+                                        "format": "uuid"
+                                    }
+                                },
+                                "required": ["name", "description", "quantity"]
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Created reagent data.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "structure": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "quantity": {
+                                            "type": "number"
+                                        },
+                                        "unit": {
+                                            "type": "string",
+                                            "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                        },
+                                        "quantityInit": {
+                                            "type": "number",
+                                            "nullable": true
+                                        },
+                                        "container": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": ["bottle", "box", "other", null]
+                                        },
+                                        "expirationDate": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "storageLocation": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "cas": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "producer": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "catalogId": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "catalogLink": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "pricePerUnit": {
+                                            "type": "number",
+                                            "nullable": true
+                                        },
+                                        "currency": {
+                                            "type": "string",
+                                            "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                                        },
+                                        "category": {
+                                            "type": "string",
+                                            "enum": ["reagent", "sample"]
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": [
+                                                "organic",
+                                                "inorganic",
+                                                "acidic",
+                                                "basic",
+                                                "oxidizing",
+                                                "reducing",
+                                                "precipitating",
+                                                "complexing",
+                                                "indicator",
+                                                "other",
+                                                null
+                                            ]
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": [
+                                                "available",
+                                                "lowStock",
+                                                "outOfStock",
+                                                "ordered",
+                                                "notAvailable",
+                                                null
+                                            ]
+                                        },
+                                        "storageId": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "format": "uuid"
+                                        }
+                                    },
+                                    "required": ["id", "name", "description", "quantity"]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error - Bad Request.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "default": 400
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "default": "FST_ERR_VALIDATION"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "default": "Bad Request"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "default": "body/expirationDate Invalid date"
+                                        }
+                                    },
+                                    "required": ["statusCode", "code", "error", "message"]
                                 }
                             }
                         }
