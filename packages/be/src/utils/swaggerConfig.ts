@@ -5,7 +5,7 @@ import { withRefResolver } from "fastify-zod";
 import { fastifyZodOpenApiTransform, fastifyZodOpenApiTransformObject } from "fastify-zod-openapi";
 import { ReagentSchema, SampleSchema } from "shared/generated/zod";
 import { convertZodToJsonSchema } from "fastify-type-provider-zod/dist/src/zod-to-json";
-import { ReagentsListSchema } from "../responseSchemas/reagents";
+import { ReagentCreationSchema, ReagentsListSchema } from "../responseSchemas/reagents";
 import { publicUserSchema, registerUserSchema } from "shared/zodSchemas";
 import { SamplesListSchema } from "../responseSchemas/samples";
 import { UsersListSchema } from "../responseSchemas/users";
@@ -21,12 +21,13 @@ export const registerSwagger = (server: FastifyInstance) => {
                 info: {
                     title: "Fastify API",
                     description: "API documentation for Luna",
-                    version: "1.0.0",
+                    version: "3.0.0",
                 },
                 components: {
                     schemas: {
                         Reagent: convertZodToJsonSchema(ReagentSchema),
                         ReagentsList: convertZodToJsonSchema(ReagentsListSchema),
+                        ReagentCreation: convertZodToJsonSchema(ReagentCreationSchema),
                         User: convertZodToJsonSchema(publicUserSchema),
                         UsersList: convertZodToJsonSchema(UsersListSchema),
                         UserRegistration: convertZodToJsonSchema(registerUserSchema),
