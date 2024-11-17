@@ -165,31 +165,37 @@ enum Role {
 }
 
 model User {
-  id             String           @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
-  username       String           @unique // username an unique field
-  firstName      String
-  lastName       String
-  email          String           @unique // email an unique field
-  password       String
-  role           Role
-  lastLoginDate  DateTime?
-  createdAt      DateTime         @default(now())
-  updatedAt      DateTime         @updatedAt
+  id                 String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  username           String    @unique // username an unique field
+  firstName          String
+  lastName           String
+  email              String    @unique // email an unique field
+  password           String
+  role               Role
+  lastLoginDate      DateTime?
+  mustChangePassword Boolean   @default(false)
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+
+  // One-to-Many relation with Orders
+  orders         Order[]          @relation() // List of Orders made by the Procurement Officer
   ReagentRequest ReagentRequest[]
 }
 
 model ReagentRequest {
-  id         String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
-  user       User          @relation(fields: [careatedBy], references: [id])
+  id        String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  name      String // Name of the reagent
+  structure String // Stores the chemical structure
+  cas       String // CAS number for reagent-specific info
+  quantity  Float // Requested quantity
+  unit      Unit          @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
+  status    RequestStatus @default(PENDING)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  user       User    @relation(fields: [careatedBy], references: [id])
   careatedBy String // User who created order
-  name       String // Name of the reagent
-  structure  String // Stores the chemical structure
-  cas        String // CAS number for reagent-specific info
-  quantity   Float // Requested quantity
-  unit       Unit          @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
-  status     RequestStatus @default(PENDING)
-  createdAt  DateTime      @default(now())
-  updatedAt  DateTime      @updatedAt
+  Order      Order[]
 }
 
 enum RequestStatus {
@@ -197,4 +203,32 @@ enum RequestStatus {
   ORDERED
   DECLINED
   COMPLETED
+}
+
+enum OrderStatus {
+  pending
+  submitted
+  fulfilled
+  canceled
+}
+
+model Order {
+  id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  title       String // title of the order
+  description String? // Description of the order
+  status      OrderStatus @default(pending) // Status of the order ("pending", "submitted", "fulfilled", "canceled")
+  seller      String // Seller of the ordered reagents
+  deletedAt   DateTime? // Date and Time of soft deletion
+  createdAt   DateTime    @default(now()) // Date and Time of Order creation
+  updatedAt   DateTime    @updatedAt // Date and Time of Order modification
+
+  // Many-to-One relation with ReagentRequest
+  request          ReagentRequest @relation(fields: [reagentRequestId], references: [id])
+  reagentRequestId String
+
+  // Many-to-One relation with User
+  userId String @db.Uuid /// @zod.string.uuid()
+  user   User?  @relation(fields: [userId], references: [id]) // Procurement Officer who created the Order
+
+  reagents Json
 }
