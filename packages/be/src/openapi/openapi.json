@@ -448,6 +448,34 @@
                 ],
                 "additionalProperties": false
             },
+            "UserUpdate": {
+                "type": "object",
+                "properties": {
+                    "firstName": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "lastName": {
+                        "type": "string",
+                        "minLength": 1
+                    },
+                    "email": {
+                        "type": "string",
+                        "format": "email",
+                        "default": "newEmail@example.com"
+                    },
+                    "password": {
+                        "type": "string",
+                        "minLength": 8,
+                        "default": "newPassword"
+                    },
+                    "role": {
+                        "type": "string",
+                        "enum": ["admin", "researcher", "procurementOfficer"]
+                    }
+                },
+                "additionalProperties": false
+            },
             "UsersList": {
                 "type": "array",
                 "items": {
