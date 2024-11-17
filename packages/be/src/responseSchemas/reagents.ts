@@ -54,7 +54,7 @@ export const ReagentsListSchema = z.object({
 });
 
 const reagentIdParam = z.object({
-    id: z.string().describe("Reagent's UUID."),
+    id: z.string().describe("Reagent UUID."),
 });
 
 const validationErrorResponse = {
