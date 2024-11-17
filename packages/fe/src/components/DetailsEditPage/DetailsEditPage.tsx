@@ -22,21 +22,13 @@ type DetailsEditPageProps<T extends AnyRoute, TData> = {
     editableFields?: string[];
 };
 
-export const DetailsEditPage = <T extends AnyRoute, TData>({
-    baseUrl,
-    url,
-    fields,
-    onAction,
-    editableFields,
-}: DetailsEditPageProps<T, TData>) => {
+export const DetailsEditPage = <T extends AnyRoute, TData>(
+    props: DetailsEditPageProps<T, TData>,
+) => {
     const { ref } = useContext(TableContext);
-    return (
-        <DetailsEditPageInner
-            {...{ baseUrl, url, fields, onAction, editableFields }}
-            tableRef={ref}
-        />
-    );
+    return <DetailsEditPageInner {...props} tableRef={ref} />;
 };
+
 export function DetailsEditPageInner<T extends AnyRoute, TData>({
     baseUrl,
     url,
@@ -54,6 +46,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
     const handleCloseDetails = () => {
         navigate({ to: baseUrl, replace: false });
     };
+
     const handleFieldChange =
         (field: FieldConfig) => (event: React.ChangeEvent<HTMLInputElement>) => {
             const { name, type } = field;
