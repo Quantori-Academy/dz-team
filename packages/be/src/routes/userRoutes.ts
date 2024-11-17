@@ -4,6 +4,7 @@ import { checkAuthenticated, checkAuthenticatedAndRole } from "../utils/authChec
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import {
     DELETE_USER_BY_SCHEMA,
+    GET_CURRENT_USER_SCHEMA,
     GET_USER_BY_ID_SCHEMA,
     GET_USERS_SCHEMA,
     POST_NEW_USER_SCHEMA,
@@ -11,7 +12,6 @@ import {
 } from "../responseSchemas/users";
 import { RegisterUser } from "shared/zodSchemas/user/registerUserSchema";
 import { UpdateUser } from "shared/zodSchemas/user/updateUserSchema";
-
 
 const userController = new UserController();
 
@@ -135,7 +135,7 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.get(
         "/me",
         {
-            schema: { tags: ["Users"] },
+            schema: GET_CURRENT_USER_SCHEMA satisfies FastifyZodOpenApiSchema,
             preHandler: [
                 async (request, reply) => {
                     // Ensure verifyJWT and verifyRole exist, otherwise block the request

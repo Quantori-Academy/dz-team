@@ -153,3 +153,21 @@ export const DELETE_USER_BY_SCHEMA: FastifyZodOpenApiSchema = {
         404: userNotFoundResponse,
     },
 };
+
+export const GET_CURRENT_USER_SCHEMA: FastifyZodOpenApiSchema = {
+    summary: "Retrieves current user",
+    description: "Get currently logged in user.",
+    tags: ["Users"],
+    response: {
+        200: {
+            description: "Current user data.",
+            content: {
+                "application/json": {
+                    schema: publicUserSchema,
+                },
+            },
+        },
+        401: unauthorizedResponse,
+        404: userNotFoundResponse,
+    },
+};
