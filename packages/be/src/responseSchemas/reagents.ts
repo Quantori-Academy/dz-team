@@ -223,7 +223,7 @@ export const GET_REAGENTS_SCHEMA: FastifyZodOpenApiSchema = {
 };
 
 export const GET_REAGENT_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
-    summary: "Retrieves a specific reagent by ID",
+    summary: "Retrieves a specific reagent by id",
     description: "Retrieve reagent data by id.",
     tags: ["Reagents"],
     params: reagentIdParam,
@@ -242,8 +242,8 @@ export const GET_REAGENT_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
 };
 
 export const PUT_REAGENT_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
-    summary: "Updates an existing reagent by ID",
-    description: "Update reagent information by ID.",
+    summary: "Updates an existing reagent by id",
+    description: "Update reagent information by id.",
     params: reagentIdParam,
     tags: ["Reagents"],
     body: ReagentUpdateSchema,
@@ -281,7 +281,7 @@ export const DELETE_REAGENT_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
 };
 
 export const PATCH_REAGENT_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
-    summary: "Reverts the soft delete of a reagent by ID",
+    summary: "Reverts the soft delete of a reagent by id",
     description: "Revert soft delete reagent by id.",
     tags: ["Reagents"],
     params: reagentIdParam,

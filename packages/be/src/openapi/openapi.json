@@ -399,6 +399,408 @@
                 "required": ["name", "description", "quantity"],
                 "additionalProperties": false
             },
+            "ReagentUpdate": {
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string"
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ]
+                    },
+                    "structure": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ],
+                        "nullable": true
+                    },
+                    "description": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string"
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ]
+                    },
+                    "quantity": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "number"
+                                    },
+                                    "increment": {
+                                        "type": "number"
+                                    },
+                                    "decrement": {
+                                        "type": "number"
+                                    },
+                                    "multiply": {
+                                        "type": "number"
+                                    },
+                                    "divide": {
+                                        "type": "number"
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ]
+                    },
+                    "unit": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string",
+                                        "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ]
+                    },
+                    "quantityInit": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "number",
+                                        "nullable": true
+                                    },
+                                    "increment": {
+                                        "type": "number"
+                                    },
+                                    "decrement": {
+                                        "type": "number"
+                                    },
+                                    "multiply": {
+                                        "type": "number"
+                                    },
+                                    "divide": {
+                                        "type": "number"
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ],
+                        "nullable": true
+                    },
+                    "container": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "enum": ["bottle", "box", "other"]
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string",
+                                        "enum": ["bottle", "box", "other"],
+                                        "nullable": true
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ],
+                        "nullable": true
+                    },
+                    "expirationDate": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "format": "date-time"
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string",
+                                        "format": "date-time",
+                                        "nullable": true
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ],
+                        "nullable": true
+                    },
+                    "storageLocation": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ],
+                        "nullable": true
+                    },
+                    "cas": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ],
+                        "nullable": true
+                    },
+                    "producer": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ],
+                        "nullable": true
+                    },
+                    "catalogId": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ],
+                        "nullable": true
+                    },
+                    "catalogLink": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ],
+                        "nullable": true
+                    },
+                    "pricePerUnit": {
+                        "anyOf": [
+                            {
+                                "type": "number"
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "number",
+                                        "nullable": true
+                                    },
+                                    "increment": {
+                                        "type": "number"
+                                    },
+                                    "decrement": {
+                                        "type": "number"
+                                    },
+                                    "multiply": {
+                                        "type": "number"
+                                    },
+                                    "divide": {
+                                        "type": "number"
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ],
+                        "nullable": true
+                    },
+                    "currency": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string",
+                                        "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ]
+                    },
+                    "category": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "enum": ["reagent", "sample"]
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string",
+                                        "enum": ["reagent", "sample"]
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ]
+                    },
+                    "type": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "enum": [
+                                    "organic",
+                                    "inorganic",
+                                    "acidic",
+                                    "basic",
+                                    "oxidizing",
+                                    "reducing",
+                                    "precipitating",
+                                    "complexing",
+                                    "indicator",
+                                    "other"
+                                ]
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string",
+                                        "enum": [
+                                            "organic",
+                                            "inorganic",
+                                            "acidic",
+                                            "basic",
+                                            "oxidizing",
+                                            "reducing",
+                                            "precipitating",
+                                            "complexing",
+                                            "indicator",
+                                            "other"
+                                        ],
+                                        "nullable": true
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ],
+                        "nullable": true
+                    },
+                    "status": {
+                        "anyOf": [
+                            {
+                                "type": "string",
+                                "enum": [
+                                    "available",
+                                    "lowStock",
+                                    "outOfStock",
+                                    "ordered",
+                                    "notAvailable"
+                                ]
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string",
+                                        "enum": [
+                                            "available",
+                                            "lowStock",
+                                            "outOfStock",
+                                            "ordered",
+                                            "notAvailable"
+                                        ],
+                                        "nullable": true
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ],
+                        "nullable": true
+                    }
+                },
+                "additionalProperties": false
+            },
             "User": {
                 "type": "object",
                 "properties": {
@@ -841,9 +1243,69 @@
                     "name": {
                         "type": "string",
                         "description": "Storage Location place name"
+                    },
+                    "description": {
+                        "type": "string",
+                        "description": "Storage Location description"
                     }
                 },
-                "required": ["room", "name"],
+                "required": ["room", "name", "description"],
+                "additionalProperties": false
+            },
+            "StorageLocationUpdate": {
+                "type": "object",
+                "properties": {
+                    "room": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string"
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ]
+                    },
+                    "name": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string"
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ]
+                    },
+                    "description": {
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "object",
+                                "properties": {
+                                    "set": {
+                                        "type": "string",
+                                        "nullable": true
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        ],
+                        "nullable": true
+                    }
+                },
                 "additionalProperties": false
             },
             "UserLogin": {
@@ -1450,7 +1912,7 @@
         },
         "/api/v1/reagents/{id}": {
             "get": {
-                "summary": "Retrieves a specific reagent by ID",
+                "summary": "Retrieves a specific reagent by id",
                 "tags": ["Reagents"],
                 "description": "Retrieve reagent data by id.",
                 "parameters": [
@@ -1467,6 +1929,598 @@
                 "responses": {
                     "200": {
                         "description": "The requested reagent.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "unit": {
+                                            "type": "string",
+                                            "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                        },
+                                        "container": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": ["bottle", "box", "other", null]
+                                        },
+                                        "currency": {
+                                            "type": "string",
+                                            "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                                        },
+                                        "category": {
+                                            "type": "string",
+                                            "enum": ["reagent", "sample"]
+                                        },
+                                        "type": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": [
+                                                "organic",
+                                                "inorganic",
+                                                "acidic",
+                                                "basic",
+                                                "oxidizing",
+                                                "reducing",
+                                                "precipitating",
+                                                "complexing",
+                                                "indicator",
+                                                "other",
+                                                null
+                                            ]
+                                        },
+                                        "status": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "enum": [
+                                                "available",
+                                                "lowStock",
+                                                "outOfStock",
+                                                "ordered",
+                                                "notAvailable",
+                                                null
+                                            ]
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "structure": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "description": {
+                                            "type": "string"
+                                        },
+                                        "quantity": {
+                                            "type": "number"
+                                        },
+                                        "quantityInit": {
+                                            "type": "number",
+                                            "nullable": true
+                                        },
+                                        "expirationDate": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "storageLocation": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "cas": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "producer": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "catalogId": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "catalogLink": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "pricePerUnit": {
+                                            "type": "number",
+                                            "nullable": true
+                                        },
+                                        "deletedAt": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        },
+                                        "storageId": {
+                                            "type": "string",
+                                            "nullable": true,
+                                            "format": "uuid"
+                                        }
+                                    },
+                                    "required": [
+                                        "unit",
+                                        "currency",
+                                        "category",
+                                        "id",
+                                        "name",
+                                        "description",
+                                        "quantity",
+                                        "createdAt",
+                                        "updatedAt"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Validation Error - Invalid id.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Validation error"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "The requested reagent was not found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Reagent not found"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "put": {
+                "summary": "Updates an existing reagent by id",
+                "tags": ["Reagents"],
+                "description": "Update reagent information by id.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "structure": {
+                                        "nullable": true,
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "description": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "quantity": {
+                                        "anyOf": [
+                                            {
+                                                "type": "number"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "number"
+                                                    },
+                                                    "increment": {
+                                                        "type": "number"
+                                                    },
+                                                    "decrement": {
+                                                        "type": "number"
+                                                    },
+                                                    "multiply": {
+                                                        "type": "number"
+                                                    },
+                                                    "divide": {
+                                                        "type": "number"
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "unit": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string",
+                                                "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string",
+                                                        "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "quantityInit": {
+                                        "nullable": true,
+                                        "anyOf": [
+                                            {
+                                                "type": "number"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "number",
+                                                        "nullable": true
+                                                    },
+                                                    "increment": {
+                                                        "type": "number"
+                                                    },
+                                                    "decrement": {
+                                                        "type": "number"
+                                                    },
+                                                    "multiply": {
+                                                        "type": "number"
+                                                    },
+                                                    "divide": {
+                                                        "type": "number"
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "container": {
+                                        "nullable": true,
+                                        "anyOf": [
+                                            {
+                                                "type": "string",
+                                                "enum": ["bottle", "box", "other"]
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": ["bottle", "box", "other", null]
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "expirationDate": {
+                                        "nullable": true,
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "storageLocation": {
+                                        "nullable": true,
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "cas": {
+                                        "nullable": true,
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "producer": {
+                                        "nullable": true,
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "catalogId": {
+                                        "nullable": true,
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "catalogLink": {
+                                        "nullable": true,
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "pricePerUnit": {
+                                        "nullable": true,
+                                        "anyOf": [
+                                            {
+                                                "type": "number"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "number",
+                                                        "nullable": true
+                                                    },
+                                                    "increment": {
+                                                        "type": "number"
+                                                    },
+                                                    "decrement": {
+                                                        "type": "number"
+                                                    },
+                                                    "multiply": {
+                                                        "type": "number"
+                                                    },
+                                                    "divide": {
+                                                        "type": "number"
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "currency": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string",
+                                                "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string",
+                                                        "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "category": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string",
+                                                "enum": ["reagent", "sample"]
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string",
+                                                        "enum": ["reagent", "sample"]
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "type": {
+                                        "nullable": true,
+                                        "anyOf": [
+                                            {
+                                                "type": "string",
+                                                "enum": [
+                                                    "organic",
+                                                    "inorganic",
+                                                    "acidic",
+                                                    "basic",
+                                                    "oxidizing",
+                                                    "reducing",
+                                                    "precipitating",
+                                                    "complexing",
+                                                    "indicator",
+                                                    "other"
+                                                ]
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": [
+                                                            "organic",
+                                                            "inorganic",
+                                                            "acidic",
+                                                            "basic",
+                                                            "oxidizing",
+                                                            "reducing",
+                                                            "precipitating",
+                                                            "complexing",
+                                                            "indicator",
+                                                            "other",
+                                                            null
+                                                        ]
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "status": {
+                                        "nullable": true,
+                                        "anyOf": [
+                                            {
+                                                "type": "string",
+                                                "enum": [
+                                                    "available",
+                                                    "lowStock",
+                                                    "outOfStock",
+                                                    "ordered",
+                                                    "notAvailable"
+                                                ]
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": [
+                                                            "available",
+                                                            "lowStock",
+                                                            "outOfStock",
+                                                            "ordered",
+                                                            "notAvailable",
+                                                            null
+                                                        ]
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Reagent UUID."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Updated reagent data.",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -1820,7 +2874,7 @@
                 }
             },
             "patch": {
-                "summary": "Reverts the soft delete of a reagent by ID",
+                "summary": "Reverts the soft delete of a reagent by id",
                 "tags": ["Reagents"],
                 "description": "Revert soft delete reagent by id.",
                 "parameters": [
@@ -3067,9 +4121,13 @@
                                     "name": {
                                         "type": "string",
                                         "description": "Storage Location place name"
+                                    },
+                                    "description": {
+                                        "type": "string",
+                                        "description": "Storage Location description"
                                     }
                                 },
-                                "required": ["room", "name"]
+                                "required": ["room", "name", "description"]
                             }
                         }
                     },
@@ -3325,6 +4383,168 @@
                     }
                 }
             },
+            "put": {
+                "summary": "Updates an existing storage location by its id",
+                "tags": ["Storage Locations"],
+                "description": "Update storage location by id.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "room": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "name": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "description": {
+                                        "nullable": true,
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "id",
+                        "required": true,
+                        "description": "Storage location UUID."
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Updated storage location data.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "room": {
+                                            "type": "string"
+                                        },
+                                        "name": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "deletedAt": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "required": ["id", "room", "name", "createdAt", "updatedAt"]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error - Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "default": 401
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "default": "FST_JWT_NO_AUTHORIZATION_IN_HEADER"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "default": "Unauthorized"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "default": "No Authorization was found in request.headers"
+                                        }
+                                    },
+                                    "required": ["statusCode", "code", "error", "message"]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error - Not Found.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Storage location not found"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
             "delete": {
                 "summary": "Soft deletes storage location by id",
                 "tags": ["Storage Locations"],
@@ -3447,7 +4667,7 @@
                 }
             },
             "patch": {
-                "summary": "Reverts the soft delete of a storage location by ID",
+                "summary": "Reverts the soft delete of a storage location by id",
                 "tags": ["Storage Locations"],
                 "description": "Revert soft delete of storage location by id.",
                 "parameters": [
