@@ -36,6 +36,7 @@ type GridProps<T extends GridValidRowModel> = {
 export interface CommonTableRef {
     refresh: () => void;
 }
+
 const fetchRows = async <T extends GridValidRowModel>({
     url,
     schema,
@@ -74,6 +75,38 @@ const fetchRows = async <T extends GridValidRowModel>({
         setLoading(false);
     }
 };
+
+/**
+ * CommonTable component is a wrapper around MUI DataGrid component with server-side pagination, sorting, and filtering.
+ * Requires a ref to be passed to the component to be able to refresh the table data.
+ * @param columns - Array of MUI GridColDef objects - see [MUI DataGrid docs](https://mui.com/x/api/data-grid/grid-col-def/)
+ * @param url - API endpoint for fetching table data
+ * @param schema - Zod schema used to validate the response data (preferably from [`shared` package](../../../../shared))
+ * @param onRowClick - Callback function that is triggered when a row is clicked (commonly navigation to a detailed view page based on the row’s id)
+ * @param searchBy - Object defining which fields can be searched
+ * @param onAdd - Callback function for the add button; button is shown only if this prop is provided
+ * @param addButtonText - Custom text for the add button, defaulting to "ADD"
+ * @example
+ * ```tsx
+ * <CommonTable
+ *    columns={[
+ *       { field: "name", headerName: "Name", width: 150 },
+ *       { field: "inStock", headerName: "In stock?" },
+ *       ]}
+ *      url={`${base}/api/v1/test`}
+ *      schema={z.object({
+ *          id: z.string(),
+ *          name: z.number(),
+ *          inStock: z.boolean(),
+ *      })}
+ *      searchBy={{
+ *        name: true,
+ *      }}
+ *      onRowClick={(row)=>openDetailedView(row.id)}
+ *      onAdd={handleAdd}
+ *  />
+ * ```
+ */
 export const CommonTable = forwardRef(
     <T extends GridValidRowModel>(
         { columns, url, schema, searchBy, onRowClick, onAdd, addButtonText = "ADD" }: GridProps<T>,
@@ -116,6 +149,7 @@ export const CommonTable = forwardRef(
                 });
             },
         }));
+
         useEffect(() => {
             fetchRows({
                 url,
