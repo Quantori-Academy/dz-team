@@ -1,15 +1,26 @@
 import { sample } from "effector";
 import { jwtDecode } from "jwt-decode";
+import { z } from "zod";
 
 import { getUser, SelfType } from "api/self";
+import { getCurrentUser } from "api/users/getCurrentUser";
 import { genericDomain } from "logger";
 
+import { publicUserSchema } from "./../../../shared/zodSchemas";
 import { loginFx } from "./login";
 
 export type Auth = { token: string; self: SelfType };
+export type Me = z.infer<typeof publicUserSchema>;
 export type AuthStoreValue = Auth | null | false;
+export type MeStoreValue = Me | null;
 
 export const $auth = genericDomain.createStore<AuthStoreValue>(false);
+export const $me = genericDomain.createStore<MeStoreValue>(null);
+
+export const getCurrentUserFx = genericDomain.createEffect(async () => {
+    const response = await getCurrentUser();
+    return response;
+});
 
 export const getUserFx = genericDomain.createEffect(
     ({ token, userId }: { token: string; userId: string }) => {
@@ -45,6 +56,7 @@ export const sessionSaveFx = genericDomain.createEffect((auth: AuthStoreValue) =
 });
 
 $auth.on(sessionLoadFx.done, (_, { result }) => result);
+$me.on(getCurrentUserFx, (_, response) => response);
 
 // save auth when auth value updates
 sample({
@@ -78,4 +90,9 @@ sample({
     clock: sessionDeleteFx.done,
     fn: () => null,
     target: $auth,
+});
+sample({
+    clock: getCurrentUserFx.doneData,
+    fn: (response) => response,
+    target: $me,
 });
