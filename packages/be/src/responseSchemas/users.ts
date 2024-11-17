@@ -1,6 +1,8 @@
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import { z } from "zod";
-import { publicUserSchema, registerUserSchema, updateUserSchema } from "shared/zodSchemas";
+import { publicUserSchema } from "shared/zodSchemas/user/publicUserSchema";
+import { registerUserSchema } from "shared/zodSchemas/user/registerUserSchema";
+import { updateUserSchema } from "shared/zodSchemas/user/updateUserSchema";
 
 const userIdParam = z.object({ userId: z.string().describe("User's UUID.") });
 

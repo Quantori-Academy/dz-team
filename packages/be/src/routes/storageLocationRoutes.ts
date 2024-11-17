@@ -1,5 +1,4 @@
 import { FastifyZodInstance, Roles } from "../types";
-import { StorageLocationSearchSchema } from "shared/zodSchemas";
 import { checkAuthenticated, checkAuthenticatedAndRole } from "../utils/authCheck";
 import { StorageLocationController } from "../controllers/storageLocationController";
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
@@ -9,6 +8,7 @@ import {
     GET_STORAGE_LOCATIONS_SCHEMA,
     PATCH_STORAGE_LOCATION_BY_ID_SCHEMA,
 } from "../responseSchemas/storageLocations";
+import { StorageLocationSearchSchema } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
 //
 // import {
 //     StorageLocationCreateInputSchema,

@@ -3,10 +3,11 @@ import {
     StorageLocationCreateInputSchema,
     StorageLocationUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
-import { idSchema, StorageLocationSearchSchema } from "../../../shared/zodSchemas";
 
 import { StorageLocationService } from "../services/storageLocationService";
 import { sendErrorResponse } from "../utils/handleErrors";
+import { idSchema } from "shared/zodSchemas/baseSchema";
+import { StorageLocationSearchSchema } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
 
 const storageLocationService = new StorageLocationService();
 

@@ -1,7 +1,7 @@
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import { z } from "zod";
-import { StorageLocationSearchSchema } from "shared/zodSchemas";
 import storageLocationSchema from "shared/generated/zod/modelSchema/StorageLocationSchema";
+import { StorageLocationSearchSchema } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
 
 export const storageLocationIdParam = z.object({
     id: z.string().describe("Storage location UUID."),

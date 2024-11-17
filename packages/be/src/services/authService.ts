@@ -1,7 +1,7 @@
 import bcrypt from "bcrypt";
 import { PrismaClient } from "@prisma/client";
-import { LoginUser } from "../../../shared/zodSchemas";
 import { JwtPayload } from "../types";
+import { LoginUser } from "shared/zodSchemas/user/loginUserSchema";
 
 const prisma = new PrismaClient();
 

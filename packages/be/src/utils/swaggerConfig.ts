@@ -6,11 +6,13 @@ import { fastifyZodOpenApiTransform, fastifyZodOpenApiTransformObject } from "fa
 import { ReagentSchema, SampleSchema } from "shared/generated/zod";
 import { convertZodToJsonSchema } from "fastify-type-provider-zod/dist/src/zod-to-json";
 import { ReagentCreationSchema, ReagentsListSchema } from "../responseSchemas/reagents";
-import { publicUserSchema, registerUserSchema } from "shared/zodSchemas";
 import { SamplesListSchema } from "../responseSchemas/samples";
 import { UsersListSchema } from "../responseSchemas/users";
 import { storageLocationsListSchema } from "../responseSchemas/storageLocations";
 import storageLocationSchema from "shared/generated/zod/modelSchema/StorageLocationSchema";
+import { publicUserSchema } from "shared/zodSchemas/user/publicUserSchema";
+import { registerUserSchema } from "shared/zodSchemas/user/registerUserSchema";
+import { updateUserSchema } from "shared/zodSchemas/user/updateUserSchema";
 
 export const registerSwagger = (server: FastifyInstance) => {
     server.register(
@@ -29,6 +31,7 @@ export const registerSwagger = (server: FastifyInstance) => {
                         ReagentsList: convertZodToJsonSchema(ReagentsListSchema),
                         ReagentCreation: convertZodToJsonSchema(ReagentCreationSchema),
                         User: convertZodToJsonSchema(publicUserSchema),
+                        UserUpdate: convertZodToJsonSchema(updateUserSchema),
                         UsersList: convertZodToJsonSchema(UsersListSchema),
                         UserRegistration: convertZodToJsonSchema(registerUserSchema),
                         Sample: convertZodToJsonSchema(SampleSchema),

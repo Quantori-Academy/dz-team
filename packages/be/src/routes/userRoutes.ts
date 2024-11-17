@@ -1,5 +1,4 @@
 import { FastifyZodInstance, Roles } from "../types";
-import { RegisterUser, UpdateUser } from "../../../shared/zodSchemas";
 import { UserController } from "../controllers/userController";
 import { checkAuthenticated, checkAuthenticatedAndRole } from "../utils/authCheck";
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
@@ -10,6 +9,8 @@ import {
     POST_NEW_USER_SCHEMA,
     UPDATE_USER_BY_ID_SCHEMA,
 } from "../responseSchemas/users";
+import { RegisterUser } from "shared/zodSchemas/user/registerUserSchema";
+import { UpdateUser } from "shared/zodSchemas/user/updateUserSchema";
 
 const userController = new UserController();
 

@@ -1,6 +1,5 @@
 import { ReagentController } from "../controllers/reagentController";
 import { FastifyZodInstance } from "../types";
-import { ReagentSearch } from "shared/zodSchemas";
 import {
     DELETE_REAGENT_BY_ID_SCHEMA,
     GET_REAGENT_BY_ID_SCHEMA,
@@ -10,6 +9,7 @@ import {
 } from "../responseSchemas/reagents";
 import { FastifyZodOpenApiSchema, FastifyZodOpenApiTypeProvider } from "fastify-zod-openapi";
 import ReagentCreateManyInputSchema from "shared/generated/zod/inputTypeSchemas/ReagentCreateManyInputSchema";
+import { ReagentSearch } from "shared/zodSchemas/reagent/reagentSearchSchema";
 // import { ReagentCreateInputSchema, ReagentUpdateInputSchema } from "shared/generated/zod";
 // import { z } from "zod";
 // import { components, RegisteredSchemas, schema } from "../responseSchemas/schemas";
@@ -30,7 +30,7 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
      * @name GetReagents
      * @function
      * @memberof module:routes
-     * @param {import("shared/zodSchemas").ReagentSearch} request.query - The search parameters for filtering reagents.
+     * @param {import("shared/zodSchemas/reagent/reagentSearchSchema").ReagentSearch} request.query - The search parameters for filtering reagents.
      * @param {Object} reply - The reply object.
      * @returns {Promise<Object>} The list of reagents and metadata.
      * @throws {Error} Throws an error if there is an issue retrieving reagents.

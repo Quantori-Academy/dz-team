@@ -1,7 +1,6 @@
 import "zod-openapi/extend";
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import { z } from "zod";
-import { ReagentSearchSchema } from "shared/zodSchemas";
 import reagentSchema from "shared/generated/zod/modelSchema/ReagentSchema";
 import {
     CategorySchema,
@@ -11,6 +10,7 @@ import {
     ReagentTypeSchema,
     UnitSchema,
 } from "shared/generated/zod";
+import { ReagentSearchSchema } from "shared/zodSchemas/reagent/reagentSearchSchema";
 
 export const ReagentCreationSchema = z.object({
     name: z.string(),

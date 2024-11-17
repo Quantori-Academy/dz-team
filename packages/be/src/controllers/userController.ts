@@ -1,11 +1,9 @@
 import { validate as isValidUUID } from "uuid";
 import { FastifyRequest, FastifyReply } from "fastify";
-
-import { RegisterUser, registerUserSchema, UpdateUser } from "../../../shared/zodSchemas";
-
 import { UserService } from "../services/userService";
-
 import { sendErrorResponse } from "../utils/handleErrors";
+import { RegisterUser, registerUserSchema } from "shared/zodSchemas/user/registerUserSchema";
+import { UpdateUser } from "shared/zodSchemas/user/updateUserSchema";
 
 const userService = new UserService();
 

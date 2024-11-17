@@ -1,6 +1,6 @@
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import { z } from "zod";
-import { loginUserSchema } from "shared/zodSchemas";
+import { loginUserSchema } from "shared/zodSchemas/user/loginUserSchema";
 
 export const POST_USER_AUTH_SCHEMA: FastifyZodOpenApiSchema = {
     summary: "Generates access token for user.",
