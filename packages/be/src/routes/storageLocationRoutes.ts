@@ -7,7 +7,9 @@ import {
     GET_STORAGE_LOCATION_BY_ID_SCHEMA,
     GET_STORAGE_LOCATIONS_SCHEMA,
     PATCH_STORAGE_LOCATION_BY_ID_SCHEMA,
+    POST_STORAGE_LOCATION_SCHEMA,
     PUT_MOVE_STORAGE_LOCATION_SCHEMA,
+    StorageLocationCreation,
 } from "../responseSchemas/storageLocations";
 import { StorageLocationSearchSchema } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
 //
@@ -64,26 +66,24 @@ export const storageLocationRoutes = async (app: FastifyZodInstance): Promise<vo
         },
     );
 
-    // TODO CIRCULAR DEPENDENCY FIX
-    //
-    // /**
-    //  * POST / - Creates a new storage location.
-    //  * Requires ADMIN role.
-    //  *
-    //  * @body {typeof StorageLocationCreateInputSchema} Body - The data to create a storage location.
-    //  * @returns {Promise<void>} The created storage location.
-    //  */
-    // app.post<{ Body: typeof StorageLocationCreateInputSchema }>(
-    //     "/",
-    //     {
-    //         schema: { tags: ["StorageLocation"], body: StorageLocationCreateInputSchema },
-    //         preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
-    //     },
-    //     async (request, reply) => {
-    //         return await storageLocationController.createStorageLocation(request, reply);
-    //     },
-    // );
-    //
+    /**
+     * POST / - Creates a new storage location.
+     * Requires ADMIN role.
+     *
+     * @body {typeof StorageLocationCreateInputSchema} Body - The data to create a storage location.
+     * @returns {Promise<void>} The created storage location.
+     */
+    app.post<{ Body: typeof StorageLocationCreation }>(
+        "/",
+        {
+            schema: POST_STORAGE_LOCATION_SCHEMA satisfies FastifyZodOpenApiSchema,
+            preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
+        },
+        async (request, reply) => {
+            return await storageLocationController.createStorageLocation(request, reply);
+        },
+    );
+
     // /**
     //  * PUT /:id - Updates an existing storage location by its ID.
     //  * Requires ADMIN role.
