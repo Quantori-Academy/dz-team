@@ -14,7 +14,7 @@ type ReagentFormModalProps = {
 const fields: BaseTextFieldProps[] = [
     { label: "Name", name: "name" },
     { label: "Description", name: "description" },
-    { label: "Category", name: "category", helperText: "Please write of this: reagent, sample" },
+    { label: "Category", name: "category", helperText: "Available options are: reagent, sample" },
     { label: "Structure", name: "structure" },
     { label: "CAS Number", name: "cas" },
     { label: "Producer", name: "producer" },
@@ -24,9 +24,9 @@ const fields: BaseTextFieldProps[] = [
     {
         label: "Currency",
         name: "currency",
-        helperText: "Please write of this: usd, euro, rub, cny, jpy",
+        helperText: "Available options are: usd, euro, rub, cny, jpy",
     },
-    { label: "Unit", name: "unit", helperText: "Please write of this: ml, l, mg, g, oz, lb." },
+    { label: "Unit", name: "unit", helperText: "Available options are: ml, l, mg, g, oz, lb." },
     { label: "Quantity", name: "quantity", type: "number" },
     { label: "Expiration Date", name: "expirationDate", type: "date" },
     { label: "Storage Location", name: "storageLocation" },

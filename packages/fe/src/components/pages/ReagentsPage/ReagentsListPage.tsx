@@ -1,4 +1,4 @@
-import { createContext, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
@@ -9,14 +9,8 @@ import { CommonTable } from "components/commonTable/CommonTable";
 import { $formData, initialFormData, setFormData, submitReagent } from "stores/reagents";
 
 import { ReagentSchema } from "../../../../../shared/generated/zod";
+import { TableContext } from "../../commonTable/TableContext";
 import { ReagentFormModal } from "./ReagentFormModal";
-
-type ReloadReagentsContext = {
-    ref: React.MutableRefObject<{ refresh: () => void } | null>;
-};
-export const ReagentsTableContext = createContext<ReloadReagentsContext>({
-    ref: { current: null },
-});
 
 const columns: GridColDef[] = [
     { field: "id", headerName: "ID", width: 90, sortable: false },
@@ -65,7 +59,7 @@ export const ReagentsListPage = () => {
     };
 
     return (
-        <ReagentsTableContext.Provider value={{ ref: tableRef }}>
+        <TableContext.Provider value={{ ref: tableRef }}>
             <Box sx={{ mb: 5 }}>
                 <CommonTable
                     ref={tableRef}
@@ -98,6 +92,6 @@ export const ReagentsListPage = () => {
 
                 <Outlet />
             </Box>
-        </ReagentsTableContext.Provider>
+        </TableContext.Provider>
     );
 };
