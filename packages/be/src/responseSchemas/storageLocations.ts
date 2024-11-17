@@ -2,9 +2,13 @@ import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import { z } from "zod";
 import storageLocationSchema from "shared/generated/zod/modelSchema/StorageLocationSchema";
 import { StorageLocationSearchSchema } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
+import { ReagentSchema } from "shared/generated/zod";
 
 export const storageLocationIdParam = z.object({
     id: z.string().describe("Storage location UUID."),
+});
+export const reagentIdParam = z.object({
+    reagentId: z.string().describe("Reagent UUID."),
 });
 
 export const storageLocationsListSchema = z.object({
@@ -32,6 +36,28 @@ const badRequestResponse = {
                         path: z.array(z.string()),
                     }),
                 ),
+            }),
+        },
+    },
+};
+
+export const couldNotMoveResponse = {
+    description: "Error - Couldn't move reagent",
+    content: {
+        "application/json": {
+            schema: z.object({
+                message: z.string().default("Failed to move reagent"),
+            }),
+        },
+    },
+};
+
+const invalidUUIDResponse = {
+    description: "Error - Bad Request.",
+    content: {
+        "application/json": {
+            schema: z.object({
+                message: z.string().default("Invalid UUID"),
             }),
         },
     },
@@ -138,3 +164,27 @@ export const PATCH_STORAGE_LOCATION_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
 };
 
 //98b44bb2-167a-449e-9892-0c998b4b9730
+
+export const PUT_MOVE_STORAGE_LOCATION_SCHEMA: FastifyZodOpenApiSchema = {
+    summary: "Moves a reagent to a new storage location",
+    description: "Move reagent to new storage location.",
+    params: reagentIdParam,
+    tags: ["Storage Locations"],
+    body: z.object({
+        newStorageLocationId: z.string().uuid(),
+    }),
+    response: {
+        200: {
+            description: "Updated reagent location information.",
+            content: {
+                "application/json": {
+                    schema: ReagentSchema,
+                },
+            },
+        },
+        400: invalidUUIDResponse,
+        401: unauthorizedResponse,
+        404: notFoundResponse,
+        500: couldNotMoveResponse,
+    },
+};
