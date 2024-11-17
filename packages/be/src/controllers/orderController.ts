@@ -1,3 +1,4 @@
+import { validate as isValidUUID } from "uuid";
 import { FastifyRequest, FastifyReply } from "fastify";
 import { idSchema } from "../../../shared/zodSchemas/baseSchemas";
 import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
@@ -40,6 +41,9 @@ export class OrderController {
     ): Promise<void> {
         try {
             const validatedId = idSchema.parse(request.params.id);
+            if (!isValidUUID(validatedId)) {
+                return reply.status(400).send({ message: "Invalid UUID" });
+            }
             const order = await orderService.getOrder(validatedId);
             if (!order) {
                 return reply.status(404).send({ message: "Order not found" });
