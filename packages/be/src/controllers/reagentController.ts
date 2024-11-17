@@ -2,7 +2,7 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
 import { ReagentService } from "../services/reagentService";
 import {
-    ReagentCreateInputSchema,
+    ReagentCreateManyInputSchema,
     ReagentUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
 import { idSchema, ReagentSearchSchema } from "shared/zodSchemas";
@@ -70,7 +70,7 @@ export class ReagentController {
         reply: FastifyReply,
     ): Promise<void> {
         try {
-            const validatedData = ReagentCreateInputSchema.parse(request.body);
+            const validatedData = ReagentCreateManyInputSchema.parse(request.body);
 
             const reagent = await reagentService.createReagent(validatedData);
             reply.send(reagent);
