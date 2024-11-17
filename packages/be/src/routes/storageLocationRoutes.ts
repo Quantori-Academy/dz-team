@@ -7,6 +7,7 @@ import {
     GET_STORAGE_LOCATION_BY_ID_SCHEMA,
     GET_STORAGE_LOCATIONS_SCHEMA,
     PATCH_STORAGE_LOCATION_BY_ID_SCHEMA,
+    PUT_MOVE_STORAGE_LOCATION_SCHEMA,
 } from "../responseSchemas/storageLocations";
 import { StorageLocationSearchSchema } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
 //
@@ -138,23 +139,23 @@ export const storageLocationRoutes = async (app: FastifyZodInstance): Promise<vo
         },
     );
 
-    // /**
-    //  * PUT /:reagentId/move - Moves a reagent to a new storage location.
-    //  * Requires ADMIN role.
-    //  *
-    //  * @param {string} reagentId - The ID of the reagent to move.
-    //  * @body {Object} Body - Contains the ID of the new storage location.
-    //  * @body {string} Body.newStorageLocationId - The ID of the new storage location.
-    //  * @returns {Promise<void>} The updated reagent location information.
-    //  */
-    // app.put<{ Params: { reagentId: string }; Body: { newStorageLocationId: string } }>(
-    //     "/:reagentId/move",
-    //     {
-    //         schema: { tags: ["StorageLocation"] },
-    //         preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
-    //     },
-    //     async (request, reply) => {
-    //         return await storageLocationController.moveReagent(request, reply);
-    //     },
-    // );
+    /**
+     * PUT /:reagentId/move - Moves a reagent to a new storage location.
+     * Requires ADMIN role.
+     *
+     * @param {string} reagentId - The ID of the reagent to move.
+     * @body {Object} Body - Contains the ID of the new storage location.
+     * @body {string} Body.newStorageLocationId - The ID of the new storage location.
+     * @returns {Promise<void>} The updated reagent location information.
+     */
+    app.put<{ Params: { reagentId: string }; Body: { newStorageLocationId: string } }>(
+        "/:reagentId/move",
+        {
+            schema: PUT_MOVE_STORAGE_LOCATION_SCHEMA satisfies FastifyZodOpenApiSchema,
+            preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
+        },
+        async (request, reply) => {
+            return await storageLocationController.moveReagent(request, reply);
+        },
+    );
 };
