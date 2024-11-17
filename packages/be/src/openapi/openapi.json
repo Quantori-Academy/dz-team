@@ -4497,6 +4497,55 @@
                             }
                         }
                     },
+                    "400": {
+                        "description": "Error - Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Validation error"
+                                        },
+                                        "errors": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "validation": {
+                                                        "type": "string",
+                                                        "default": "uuid"
+                                                    },
+                                                    "code": {
+                                                        "type": "string",
+                                                        "default": "invalid_string"
+                                                    },
+                                                    "message": {
+                                                        "type": "string",
+                                                        "default": "Invalid uuid"
+                                                    },
+                                                    "path": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        }
+                                                    }
+                                                },
+                                                "required": [
+                                                    "validation",
+                                                    "code",
+                                                    "message",
+                                                    "path"
+                                                ]
+                                            }
+                                        }
+                                    },
+                                    "required": ["message", "errors"]
+                                }
+                            }
+                        }
+                    },
                     "401": {
                         "description": "Error - Unauthorized.",
                         "content": {
