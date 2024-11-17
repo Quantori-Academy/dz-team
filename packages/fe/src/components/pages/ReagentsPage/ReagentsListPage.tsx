@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
@@ -6,12 +6,13 @@ import { useUnit } from "effector-react";
 
 import { base } from "api/request";
 import { CommonTable } from "components/commonTable/CommonTable";
-import { $formData, initialFormData, setFormData, submitReagentEvent } from "stores/reagents";
+import { $formData, initialFormData, setFormData, submitReagent } from "stores/reagents";
 
 import { Reagent, ReagentSchema } from "../../../../../shared/generated/zod";
+import { TableContext } from "../../commonTable/TableContext";
 import { ReagentFormModal } from "./ReagentFormModal";
 
-const columns: GridColDef[] = [
+const columns: GridColDef<Reagent>[] = [
     { field: "id", headerName: "ID", width: 90, sortable: false },
     { field: "name", headerName: "Name", width: 150 },
     { field: "structure", headerName: "Structure", width: 150 },
@@ -38,7 +39,9 @@ export const ReagentsListPage = () => {
     const navigate = useNavigate();
 
     const formData = useUnit($formData);
-    const submitReagent = useUnit(submitReagentEvent);
+
+    const submitReagentEvent = useUnit(submitReagent);
+    const tableRef = useRef(null);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -49,42 +52,45 @@ export const ReagentsListPage = () => {
     };
 
     const handleSubmit = () => {
-        submitReagent(formData);
+        submitReagentEvent(formData);
         alert("Reagent added successfully!");
         setFormData(initialFormData);
         handleModalClose();
     };
 
     return (
-        <Box sx={{ mb: 5 }}>
-            <CommonTable<Reagent>
-                columns={columns}
-                url={`${base}/api/v1/reagents`}
-                schema={ReagentSchema}
-                onRowClick={(row) => {
-                    navigate({ to: `/reagents/${row.id}`, replace: false });
-                }}
-                searchBy={{
-                    name: true,
-                    description: true,
-                    structure: true,
-                    producer: true,
-                    cas: true,
-                    catalogId: true,
-                    catalogLink: true,
-                }}
-                onAdd={handleAddReagentClick}
-                addButtonText="add reagent"
-            />
-            <ReagentFormModal
-                isOpen={isModalOpen}
-                formData={formData}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-                handleModalClose={handleModalClose}
-            />
+        <TableContext.Provider value={{ ref: tableRef }}>
+            <Box sx={{ mb: 5 }}>
+                <CommonTable<Reagent>
+                    ref={tableRef}
+                    columns={columns}
+                    url={`${base}/api/v1/reagents`}
+                    schema={ReagentSchema}
+                    onRowClick={(row: Reagent) => {
+                        navigate({ to: `/reagents/${row.id}`, replace: false });
+                    }}
+                    searchBy={{
+                        name: true,
+                        description: true,
+                        structure: true,
+                        producer: true,
+                        cas: true,
+                        catalogId: true,
+                        catalogLink: true,
+                    }}
+                    onAdd={handleAddReagentClick}
+                    addButtonText="add reagent"
+                />
+                <ReagentFormModal
+                    isOpen={isModalOpen}
+                    formData={formData}
+                    handleChange={handleChange}
+                    handleSubmit={handleSubmit}
+                    handleModalClose={handleModalClose}
+                />
 
-            <Outlet />
-        </Box>
+                <Outlet />
+            </Box>
+        </TableContext.Provider>
     );
 };
