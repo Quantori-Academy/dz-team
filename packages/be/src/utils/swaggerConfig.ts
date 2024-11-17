@@ -52,7 +52,7 @@ export const registerSwagger = (server: FastifyInstance) => {
                             StorageLocationCreationSchema,
                         ),
                         StorageLocationUpdate: convertZodToJsonSchema(StorageLocationUpdateSchema),
-                        OrderSchema: convertZodToJsonSchema(OrderSchema),
+                        Order: convertZodToJsonSchema(OrderSchema),
                         OrdersList: convertZodToJsonSchema(OrdersListSchema),
                     },
                     securitySchemes: {
