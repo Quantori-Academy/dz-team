@@ -4,20 +4,12 @@ import { BaseSearchSchema } from "../baseSchemas";
 const StorageLocationFieldEnum = z.enum(["name", "room", "description"]);
 
 // Define the StorageLocationSearch schema
-export const StorageLocationSearchSchema =BaseSearchSchema.extend({
+export const StorageLocationSearchSchema = BaseSearchSchema.extend({
     // Field by which the results will be sorted.
     sortBy: z
         .enum(["name", "room", "description", "createdAt", "updatedAt"])
         .default("name")
         .describe("The field to sort results by. Default is 'name'."),
-
-    // Order in which results will be sorted (ascending or descending).
-    sortOrder: z
-        .enum(["asc", "desc"])
-        .default("asc")
-        .describe(
-            "The sort order, either 'asc' for ascending or 'desc' for descending. Default is 'asc'.",
-        ),
 
     // Fields to limit the search scope (can be a single field or multiple fields).
     searchBy: z

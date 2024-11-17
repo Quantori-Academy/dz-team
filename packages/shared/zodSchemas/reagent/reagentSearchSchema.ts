@@ -36,11 +36,6 @@ export const ReagentSearchSchema = BaseSearchSchema.extend({
         .default("name")
         .describe("The field by which the results should be sorted. Default is 'name'."),
 
-    sortOrder: z
-        .enum(["asc", "desc"])
-        .default("asc")
-        .describe("The sort order: 'asc' for ascending, 'desc' for descending. Default is 'asc'."),
-
     searchBy: z
         .union([
             z.array(SearchFieldEnum), // allows multiple fields for search
