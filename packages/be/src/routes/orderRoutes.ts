@@ -4,7 +4,7 @@ import { OrderController } from "../controllers/orderController";
 import { OrderStatus } from "@prisma/client";
 import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
-import { GET_ORDERS_SCHEMA } from "../responseSchemas/orders";
+import { GET_ORDER_BY_ID_SCHEMA, GET_ORDERS_SCHEMA } from "../responseSchemas/orders";
 // import {
 //     OrderCreateWithUserIdInputSchema,
 //     OrderUpdateWithUserIdInputSchema,
@@ -46,7 +46,7 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.get<{ Params: { id: string } }>(
         "/:id",
         {
-            schema: { tags: ["Order"] },
+            schema: GET_ORDER_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
         },
         async (request, reply) => {
             return await orderController.getOrder(request, reply);
@@ -98,7 +98,7 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.patch<{ Params: { id: string }; Body: { status: OrderStatus } }>(
         "/:id/status",
         {
-            schema: { tags: ["Order"] },
+            schema: { tags: ["Orders"] },
         },
         async (request, reply) => {
             return await orderController.updateOrderStatus(request, reply);
