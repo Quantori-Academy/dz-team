@@ -9,18 +9,12 @@ import {
     PATCH_STORAGE_LOCATION_BY_ID_SCHEMA,
     POST_STORAGE_LOCATION_SCHEMA,
     PUT_MOVE_STORAGE_LOCATION_SCHEMA,
-    StorageLocationCreation,
+    PUT_STORAGE_LOCATION_BY_ID,
+    StorageLocationCreationSchema,
+    StorageLocationUpdateSchema,
 } from "../responseSchemas/storageLocations";
 import { StorageLocationSearchSchema } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
-//
-// import {
-//     StorageLocationCreateInputSchema,
-//     StorageLocationUpdateInputSchema,
-// } from "../../../shared/generated/zod/inputTypeSchemas";
-// import { StorageLocationSearchSchema } from "../../../shared/zodSchemas";
-//
-// import { checkAuthenticated, checkAuthenticatedAndRole } from "../utils/authCheck";
-//
+
 const storageLocationController = new StorageLocationController();
 
 /**
@@ -70,10 +64,10 @@ export const storageLocationRoutes = async (app: FastifyZodInstance): Promise<vo
      * POST / - Creates a new storage location.
      * Requires ADMIN role.
      *
-     * @body {typeof StorageLocationCreateInputSchema} Body - The data to create a storage location.
+     * @body {typeof StorageLocationCreationSchema} Body - The data to create a storage location.
      * @returns {Promise<void>} The created storage location.
      */
-    app.post<{ Body: typeof StorageLocationCreation }>(
+    app.post<{ Body: typeof StorageLocationCreationSchema }>(
         "/",
         {
             schema: POST_STORAGE_LOCATION_SCHEMA satisfies FastifyZodOpenApiSchema,
@@ -84,25 +78,25 @@ export const storageLocationRoutes = async (app: FastifyZodInstance): Promise<vo
         },
     );
 
-    // /**
-    //  * PUT /:id - Updates an existing storage location by its ID.
-    //  * Requires ADMIN role.
-    //  *
-    //  * @param {string} id - The ID of the storage location to update.
-    //  * @body {typeof StorageLocationUpdateInputSchema} Body - The updated data for the storage location.
-    //  * @returns {Promise<void>} The updated storage location.
-    //  */
-    // app.put<{ Params: { id: string }; Body: typeof StorageLocationUpdateInputSchema }>(
-    //     "/:id",
-    //     {
-    //         schema: { tags: ["StorageLocation"], body: StorageLocationUpdateInputSchema },
-    //         preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
-    //     },
-    //     async (request, reply) => {
-    //         return await storageLocationController.updateStorageLocation(request, reply);
-    //     },
-    // );
-    //
+    /**
+     * PUT /:id - Updates an existing storage location by its ID.
+     * Requires ADMIN role.
+     *
+     * @param {string} id - The ID of the storage location to update.
+     * @body {typeof StorageLocationUpdateSchema} Body - The updated data for the storage location.
+     * @returns {Promise<void>} The updated storage location.
+     */
+    app.put<{ Params: { id: string }; Body: typeof StorageLocationUpdateSchema }>(
+        "/:id",
+        {
+            schema: PUT_STORAGE_LOCATION_BY_ID satisfies FastifyZodOpenApiSchema,
+            // preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
+        },
+        async (request, reply) => {
+            return await storageLocationController.updateStorageLocation(request, reply);
+        },
+    );
+
     /**
      * DELETE /:id - Deletes a storage location by its ID.
      * Requires ADMIN role.
