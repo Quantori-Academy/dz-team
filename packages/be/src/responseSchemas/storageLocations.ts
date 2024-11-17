@@ -94,7 +94,7 @@ const notFoundResponse = {
     },
 };
 
-const unauthorizedResponse = {
+export const unauthorizedResponse = {
     description: "Error - Unauthorized.",
     content: {
         "application/json": {
