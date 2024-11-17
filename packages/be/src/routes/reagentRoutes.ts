@@ -6,8 +6,10 @@ import {
     GET_REAGENT_BY_ID_SCHEMA,
     GET_REAGENTS_SCHEMA,
     PATCH_REAGENT_BY_ID_SCHEMA,
+    POST_REAGENTS_SCHEMA,
 } from "../responseSchemas/reagents";
 import { FastifyZodOpenApiSchema, FastifyZodOpenApiTypeProvider } from "fastify-zod-openapi";
+import ReagentCreateManyInputSchema from "shared/generated/zod/inputTypeSchemas/ReagentCreateManyInputSchema";
 // import { ReagentCreateInputSchema, ReagentUpdateInputSchema } from "shared/generated/zod";
 // import { z } from "zod";
 // import { components, RegisteredSchemas, schema } from "../responseSchemas/schemas";
@@ -79,23 +81,20 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
      * @route POST /
      * @tags Reagent
      * @summary Create a new reagent.
-     * @param {ReagentCreateInputSchema} request.body.required - Reagent data to create
+     * @param {ReagentSchema} request.body.required - Reagent data to create
      * @returns {Reagent} 201 - The created reagent
      * @returns {Error} 400 - Validation error
      */
-    // app.post<{ Body: typeof ReagentCreateInputSchema }>(
-    //     "/",
-    //     {
-    //         schema: {
-    //             tags: ["Reagent"],
-    //             body: { "$ref": "ReagentCreationSchema" },
-    //         } satisfies FastifyZodOpenApiSchema,
-    //     },
-    //     async (request, reply) => {
-    //         return await reagentController.createReagent(request, reply);
-    //     }
-    // );
-    //
+    app.post<{ Body: typeof ReagentCreateManyInputSchema }>(
+        "/",
+        {
+            schema: POST_REAGENTS_SCHEMA satisfies FastifyZodOpenApiSchema,
+        },
+        async (request, reply) => {
+            return await reagentController.createReagent(request, reply);
+        },
+    );
+
     // /**
     //  * @route PUT /:id
     //  * @tags Reagent
