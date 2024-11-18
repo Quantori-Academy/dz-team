@@ -1,23 +1,98 @@
 import bcrypt from "bcrypt";
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 
 import { z } from "zod";
 import { publicUserSchema } from "shared/zodSchemas/user/publicUserSchema";
 import { RegisterUser } from "shared/zodSchemas/user/registerUserSchema";
 import { UpdateUser } from "shared/zodSchemas/user/updateUserSchema";
+import { UserSearch } from "shared/zodSchemas/user/userSearchSchema";
 
 const prisma = new PrismaClient();
 
+type SearchResults = {
+    data: z.infer<typeof publicUserSchema>[];
+    meta: {
+        currentPage: number;
+        totalPages: number;
+        totalCount: number;
+        hasNextPage: boolean;
+        hasPreviousPage: boolean;
+    };
+};
+
 export class UserService {
     /**
-     * Get all users including passwords.
-     * @returns {Promise<UserSchema[]>} A list of users including passwords.
+     * Retrieve all users with optional filtering, pagination, and sorting.
+     *
+     * @param {UserSearch} queryString - The search parameters, including optional filters for pagination and sorting.
+     * @returns {Promise<SearchResults>} A promise that resolves to an object containing users and metadata about the results.
      */
-    async getAllUsers(): Promise<z.infer<typeof publicUserSchema>[]> {
-        const users = await prisma.user.findMany(); // Fetch all users
+    async getAllUsers(queryString: UserSearch): Promise<SearchResults> {
+        const {
+            query,
+            page,
+            limit,
+            sortBy,
+            sortOrder,
+            searchBy,
+            firstName,
+            lastName,
+            username,
+            role,
+        } = queryString;
 
-        // Validate the returned data with UserSchema
-        return users.map((user) => publicUserSchema.parse(user)); // Parse each user into UserSchema
+        // Construct search conditions if `query` is provided
+        const searchConditions: Prisma.UserWhereInput[] = query
+            ? searchBy?.map((field) => ({
+                  [field]: { contains: query, mode: Prisma.QueryMode.insensitive },
+              })) || [] // Ensure it's always an array
+            : []; // Default to empty array if no query is provided
+
+        // Combine filter and search conditions for a query
+        const where: Prisma.UserWhereInput = {
+            AND: [
+                // FILTER CONDITIONS
+                firstName
+                    ? { firstName: { contains: firstName, mode: Prisma.QueryMode.insensitive } }
+                    : {},
+                lastName
+                    ? { lastName: { contains: lastName, mode: Prisma.QueryMode.insensitive } }
+                    : {},
+                username
+                    ? { username: { contains: username, mode: Prisma.QueryMode.insensitive } }
+                    : {},
+                role ? { role } : {},
+                searchConditions.length > 0 ? { OR: searchConditions } : {},
+            ].filter(Boolean),
+        };
+
+        // Fetch users with the given conditions, pagination, and sorting
+        const [users, totalCount] = await Promise.all([
+            prisma.user.findMany({
+                where,
+                skip: (page - 1) * limit,
+                take: limit,
+                orderBy: { [sortBy]: sortOrder },
+            }),
+            prisma.user.count({ where }),
+        ]);
+
+        // Calculate total pages for pagination
+        const totalPages = Math.ceil(totalCount / limit);
+
+        // Construct the result with pagination metadata
+        const result = {
+            data: users,
+            meta: {
+                currentPage: page,
+                totalPages,
+                totalCount,
+                hasNextPage: page < totalPages,
+                hasPreviousPage: page > 1,
+            },
+        };
+
+        return result;
     }
 
     /**

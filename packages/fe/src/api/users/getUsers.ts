@@ -1,23 +1,18 @@
 import { z } from "zod";
 
+import { publicUserSchema } from "shared/zodSchemas/user/publicUserSchema";
+
 import { base, request } from "../request";
 
-export const User = z.object({
-    id: z.string(),
-    firstName: z.string().nullable(),
-    lastName: z.string().nullable(),
-    email: z.string().nullable(),
-    role: z.string().nullable(),
-    lastLoginDate: z.string().nullable(),
-    username: z.string().nullable(),
+const UsersResponseContract = z.object({
+    data: publicUserSchema.array(),
+    meta: z.any(),
 });
 
-const UsersResponse = z.array(User).optional();
-
-export type UserType = z.infer<typeof User>;
+export type UserType = z.infer<typeof publicUserSchema>;
 
 export const getUsers = async () => {
-    const Users = await request(`${base}/api/v1/users`, UsersResponse, {
+    const Users = await request(`${base}/api/v1/users`, UsersResponseContract, {
         method: "GET",
     });
     return Users;
