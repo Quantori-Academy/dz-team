@@ -192,12 +192,76 @@
                 "status": "Ordered",
                 "creationDate": "2024-10-28",
                 "dateModified": "2024-10-30"
+            },
+            {
+                "id": "3",
+                "userId": "User-002",
+                "reagentName": "Acetone",
+                "structure": "SMILES data",
+                "casNumber": "67-64-1",
+                "desiredQuantity": "200 ml",
+                "userComments": "Need it by tomorrow",
+                "procurementComments": "",
+                "status": "Ordered",
+                "creationDate": "2024-10-28",
+                "dateModified": "2024-10-30"
+            },
+            {
+                "id": "4",
+                "userId": "User-002",
+                "reagentName": "Acetone",
+                "structure": "SMILES data",
+                "casNumber": "67-64-1",
+                "desiredQuantity": "200 ml",
+                "userComments": "Need it by tomorrow",
+                "procurementComments": "",
+                "status": "Ordered",
+                "creationDate": "2024-10-28",
+                "dateModified": "2024-10-30"
+            },
+            {
+                "id": "5",
+                "userId": "User-002",
+                "reagentName": "Acetone",
+                "structure": "SMILES data",
+                "casNumber": "67-64-1",
+                "desiredQuantity": "200 ml",
+                "userComments": "Need it by tomorrow",
+                "procurementComments": "",
+                "status": "Ordered",
+                "creationDate": "2024-10-28",
+                "dateModified": "2024-10-30"
             }
         ],
         "meta": {
             "currentPage": 1,
             "totalPages": 1,
-            "totalCount": 2,
+            "totalCount": 5,
+            "hasNextPage": false,
+            "hasPreviousPage": false
+        }
+    },
+
+    "/api/v1/reagent-request-res": {
+        "data": [
+            {
+                "id": "1",
+                "userId": "User-001",
+                "reagentName": "Hexane",
+                "structure": "SMILES data",
+                "casNumber": "110-54-3",
+                "desiredQuantity": "500 ml",
+                "userComments": "Urgent request",
+                "procurementComments": "",
+                "status": "Pending",
+                "creationDate": "2024-10-29",
+                "dateModified": "2024-10-30"
+            }
+        ],
+        "meta": {
+            "currentPage": 1,
+            "totalPages": 1,
+            "totalCount": 1,
             "hasNextPage": false,
             "hasPreviousPage": false
         }
