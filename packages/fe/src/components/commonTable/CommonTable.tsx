@@ -1,13 +1,13 @@
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { TextField } from "@mui/material";
 import {
-    DataGrid,
-    GridColDef,
-    GridPaginationModel,
-    GridRowParams,
-    GridSortModel,
-    GridValidRowModel,
+  DataGrid,
+  GridColDef,
+  GridPaginationModel,
+  GridRowParams,
+  GridSortModel,
+  GridValidRowModel,
 } from "@mui/x-data-grid";
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { z } from "zod";
 
 import { search } from "api/search";
@@ -200,5 +200,4 @@ export const CommonTable: ForwardRefWithGenerics = forwardRef(
         );
     },
 );
-// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 CommonTable.displayName = "CommonTable";

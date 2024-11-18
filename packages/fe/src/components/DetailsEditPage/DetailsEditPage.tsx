@@ -1,7 +1,7 @@
-import { useContext, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, Drawer, IconButton, TextField, Typography } from "@mui/material";
 import { AnyRoute, RouteIds, useLoaderData, useNavigate } from "@tanstack/react-router";
+import { useContext, useState } from "react";
 
 import { TableContext, TableContextType } from "components/commonTable/TableContext";
 import { useIsDesktop } from "utils/useIsDesktop";
@@ -28,7 +28,6 @@ export const DetailsEditPage = <T extends AnyRoute, TData>(
     const { ref } = useContext(TableContext);
     return <DetailsEditPageInner {...props} tableRef={ref} />;
 };
-
 export function DetailsEditPageInner<T extends AnyRoute, TData>({
     baseUrl,
     url,
