@@ -4,6 +4,7 @@ import {
     DataGrid,
     GridColDef,
     GridPaginationModel,
+    GridRowParams,
     GridSortModel,
     GridValidRowModel,
 } from "@mui/x-data-grid";
@@ -36,6 +37,7 @@ type GridProps<T extends GridValidRowModel> = {
 export interface CommonTableRef {
     refresh: () => void;
 }
+
 const fetchRows = async <T extends GridValidRowModel>({
     url,
     schema,
@@ -74,7 +76,39 @@ const fetchRows = async <T extends GridValidRowModel>({
         setLoading(false);
     }
 };
-export const CommonTable = forwardRef(
+
+/**
+ * CommonTable component is a wrapper around MUI DataGrid component with server-side pagination, sorting, and filtering.
+ * Requires a ref to be passed to the component to be able to refresh the table data.
+ * @param columns - Array of MUI GridColDef objects - see [MUI DataGrid docs](https://mui.com/x/api/data-grid/grid-col-def/)
+ * @param url - API endpoint for fetching table data
+ * @param schema - Zod schema used to validate the response data (preferably from [`shared` package](../../../../shared))
+ * @param onRowClick - Callback function that is triggered when a row is clicked (commonly navigation to a detailed view page based on the row’s id)
+ * @param searchBy - Object defining which fields can be searched
+ * @param onAdd - Callback function for the add button; button is shown only if this prop is provided
+ * @param addButtonText - Custom text for the add button, defaulting to "ADD"
+ * @example
+ * ```tsx
+ * <CommonTable<TestType>
+ *    columns={[
+ *       { field: "name", headerName: "Name", width: 150 },
+ *       { field: "inStock", headerName: "In stock?" },
+ *       ]}
+ *      url={`${base}/api/v1/test`}
+ *      schema={z.object({
+ *          id: z.string(),
+ *          name: z.number(),
+ *          inStock: z.boolean(),
+ *      })}
+ *      searchBy={{
+ *        name: true,
+ *      }}
+ *      onRowClick={(row)=>openDetailedView(row.id)}
+ *      onAdd={handleAdd}
+ *  />
+ * ```
+ */
+export const CommonTable: ForwardRefWithGenerics = forwardRef(
     <T extends GridValidRowModel>(
         { columns, url, schema, searchBy, onRowClick, onAdd, addButtonText = "ADD" }: GridProps<T>,
         ref: React.Ref<CommonTableRef>,
@@ -97,7 +131,6 @@ export const CommonTable = forwardRef(
         const [sort, setSort] = useState<GridSortModel>([
             {
                 field: "name",
-                // field: "title",
                 sort: "asc",
             },
         ]);
@@ -117,6 +150,7 @@ export const CommonTable = forwardRef(
                 });
             },
         }));
+
         useEffect(() => {
             fetchRows({
                 url,
@@ -158,7 +192,7 @@ export const CommonTable = forwardRef(
                     sortingMode="server"
                     filterMode="server"
                     loading={loading}
-                    onRowClick={(params) => onRowClick?.(params.row as T)}
+                    onRowClick={(params: GridRowParams<T>) => onRowClick?.(params.row)}
                     disableColumnFilter
                     sx={{ mt: 2, minHeight: 300 }}
                 />
@@ -166,4 +200,5 @@ export const CommonTable = forwardRef(
         );
     },
 );
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 CommonTable.displayName = "CommonTable";
