@@ -37,7 +37,7 @@ Once you run the application, you can view the API documentation at:
 
 To manually register new schemas as Swagger models, you need to modify `utils/swaggerConfig.ts`.
 
-#### Steps to Register a Schema:
+#### Steps to Register a Schema(Model):
 
 1. Locate the `components` object within the configuration file.
 2. Under `components`, find `schemas`.
