@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-const storageReagnets = z.object({
+const storageReagents = z.object({
     id: z.string(),
     name: z.string().nullable(),
     structure: z.string().nullable(),
@@ -30,13 +30,12 @@ export const StorageLocationTypes = z.object({
     deletedAt: z.string().nullable(),
     createdAt: z.string().nullable(),
     updatedAt: z.string().nullable(),
-    reagents: z.array(storageReagnets).nullable().optional(),
+    reagents: z.array(storageReagents).nullable().optional(),
 });
 
 export const contractStorageType = z.object({
     data: z.array(StorageLocationTypes),
 });
 
-export type ContractStorageType = z.infer<typeof contractStorageType>;
 export type DetailedStorage = z.infer<typeof StorageLocationTypes>;
 export type StorageType = z.infer<typeof contractStorageType>;
