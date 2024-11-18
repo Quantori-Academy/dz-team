@@ -79,7 +79,6 @@ export class UserService {
         const hashedPassword = await bcrypt.hash(userData.password, 10);
 
         // Make new user data without confirm password
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { confirmPassword, ...userDataWithoutConfirmPassword } = userData;
 
         // Create the user in the database with the hashed password
@@ -91,7 +90,6 @@ export class UserService {
         });
 
         // Return the created user without password
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { password, ...userWithoutPassword } = newUser;
         return userWithoutPassword;
     }
@@ -109,20 +107,19 @@ export class UserService {
         userData: UpdateUser,
         requesterId: string,
         requesterRole: string,
-    ): Promise<{ user: UpdateUser | null; mustChangePassword: boolean }> {
+    ): Promise<UpdateUser & { mustChangePassword: boolean }> {
         const userToUpdate = await prisma.user.findUnique({ where: { id: userId } });
 
         if (!userToUpdate) throw new Error("User not found.");
 
-        // Initialize the mustChangePassword
-        let mustChangePassword = false;
+        // Initialize the mustChangePassword flag
+        let mustChangePassword = userToUpdate.mustChangePassword;
 
         // Define updatable fields based on role
         const isSelfUpdate = userId === requesterId;
         if (requesterRole === "admin") {
-            // Check if admin is updating their own profile or another user's profile
             if (!isSelfUpdate) {
-                // Handle update for a different user
+                // Admin updating another user's profile
                 if (userData.password) {
                     userData.password = await bcrypt.hash(userData.password, 10);
                     mustChangePassword = true; // Set mustChangePassword if password is changed by admin
@@ -130,7 +127,7 @@ export class UserService {
             } else {
                 delete userData.role; // Prevent admins from changing their own role
             }
-        } else if (requesterRole === "researcher" || requesterRole === "procurementOfficer") {
+        } else if (["researcher", "procurementOfficer"].includes(requesterRole)) {
             if (!isSelfUpdate) throw new Error("Unauthorized: Insufficient permissions.");
 
             // Restrict fields for non-admins
@@ -138,7 +135,7 @@ export class UserService {
             userData = { firstName, lastName, email };
             if (password) {
                 userData.password = await bcrypt.hash(password, 10);
-                mustChangePassword = false; // Set mustChangePassword if password is changed by user
+                mustChangePassword = false; // Users don't force password change on self-update
             }
         } else {
             throw new Error("Unauthorized: Insufficient permissions.");
@@ -159,13 +156,15 @@ export class UserService {
             where: { id: userId },
             data: {
                 ...userData,
+                mustChangePassword, // Update the mustChangePassword field
             },
         });
 
-        // Return updated user without password and the mustChangePassword flag
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        // Remove sensitive data (e.g., password) from the result
         const { password, ...userWithoutPassword } = updatedUser;
-        return { user: userWithoutPassword, mustChangePassword };
+
+        // Return the updated object along with mustChangePassword
+        return { ...userWithoutPassword, mustChangePassword };
     }
 
     /**
