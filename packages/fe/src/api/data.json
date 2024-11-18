@@ -293,5 +293,44 @@
         "status": "Pending",
         "creationDate": "2024-10-29",
         "dateModified": "2024-10-30"
+    },
+    "/api/v1/reagent-request/3": {
+        "id": "3",
+        "userId": "User-001",
+        "reagentName": "Hexane",
+        "structure": "SMILES data",
+        "casNumber": "110-54-3",
+        "desiredQuantity": "500 ml",
+        "userComments": "Urgent request",
+        "procurementComments": "",
+        "status": "Pending",
+        "creationDate": "2024-10-29",
+        "dateModified": "2024-10-30"
+    },
+    "/api/v1/reagent-request/4": {
+        "id": "4",
+        "userId": "User-001",
+        "reagentName": "Hexane",
+        "structure": "SMILES data",
+        "casNumber": "110-54-3",
+        "desiredQuantity": "500 ml",
+        "userComments": "Urgent request",
+        "procurementComments": "",
+        "status": "Pending",
+        "creationDate": "2024-10-29",
+        "dateModified": "2024-10-30"
+    },
+    "/api/v1/reagent-request/5": {
+        "id": "5",
+        "userId": "User-001",
+        "reagentName": "Hexane",
+        "structure": "SMILES data",
+        "casNumber": "110-54-3",
+        "desiredQuantity": "500 ml",
+        "userComments": "Urgent request",
+        "procurementComments": "",
+        "status": "Pending",
+        "creationDate": "2024-10-29",
+        "dateModified": "2024-10-30"
     }
 }
