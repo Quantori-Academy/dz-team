@@ -16,7 +16,7 @@ const userService = new UserService();
 
 export class UserController {
     /**
-     * Get all users including passwords.
+     * Get all users including passwords
      * @param request - FastifyRequest
      * @param reply - FastifyReply
      * @returns A promise that resolves to a list of users including passwords.
