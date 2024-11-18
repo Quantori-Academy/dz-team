@@ -54,7 +54,7 @@ export const ReagentRequestFormModal = ({
                 </Box>
             }
             title="Add New Reagent Request"
-            labels={[{ ok: "Submit" }, { cancel: "Cancel" }]}
+            labels={{ ok: "Submit", cancel: "Cancel" }}
             resolve={handleSubmit}
             reject={handleModalClose}
         />

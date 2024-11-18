@@ -56,7 +56,6 @@ export function ReagentRequestPage() {
 
     const handleSubmit = () => {
         submitReagentRequest(formData);
-        alert("Reagent request added successfully!");
         setFormData(initialFormData);
         handleModalClose();
     };
