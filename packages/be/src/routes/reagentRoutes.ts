@@ -1,7 +1,7 @@
 import { ReagentCreateInputSchema, ReagentUpdateInputSchema } from "../../../shared/generated/zod";
 import { ReagentController } from "../controllers/reagentController";
 import { FastifyZodInstance } from "../types";
-import { ReagentSearch } from "../../../shared/zodSchemas";
+import { ReagentSearch } from "../../../shared/zodSchemas/reagent/reagentSearchSchema";
 
 const reagentController = new ReagentController();
 
