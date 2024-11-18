@@ -1,6 +1,6 @@
 import { base, request } from "api/request";
 
-import { StorageLocationTypes } from "./contract";
+import { StorageLocationContract } from "./storageDetail";
 
 export const editStorage = async (data: {
     id: string;
@@ -9,7 +9,7 @@ export const editStorage = async (data: {
     description: string;
 }) => {
     const { id, ...updateData } = data;
-    await request(`${base}/api/v1/storage-locations/${id}`, StorageLocationTypes, {
+    await request(`${base}/api/v1/storage-locations/${id}`, StorageLocationContract, {
         method: "PUT",
         json: updateData,
     });

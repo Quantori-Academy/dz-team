@@ -12,13 +12,17 @@ type FieldConfig = {
     required?: boolean;
     disabled?: boolean;
 };
-
+type Permissions = {
+    canEdit: boolean;
+    canDelete: boolean;
+};
 export type DetailsEditPageProps<T extends AnyRoute, TData> = PropsWithChildren<{
     baseUrl: string;
     url: RouteIds<T>;
     fields: FieldConfig[];
-    onAction: (type: "submit" | "delete", data?: TData) => Promise<void>;
+    onAction?: (type: "submit" | "delete", data?: TData) => Promise<void>;
     editableFields?: string[];
+    permissions?: Permissions;
 }>;
 
 export function DetailsEditPage<T extends AnyRoute, TData>({
@@ -28,13 +32,13 @@ export function DetailsEditPage<T extends AnyRoute, TData>({
     onAction,
     editableFields = [],
     children,
+    permissions = { canEdit: true, canDelete: true },
 }: DetailsEditPageProps<T, TData>) {
     const [isEditing, setIsEditing] = useState(false);
     const data = useLoaderData<T>({ from: url }) as TData;
     const navigate = useNavigate();
     const isSmallScreen = useIsDesktop();
     const [modifiedFields, setModifiedFields] = useState<TData>(data);
-
     const handleCloseDetails = () => {
         navigate({ to: baseUrl, replace: false });
     };
@@ -55,7 +59,9 @@ export function DetailsEditPage<T extends AnyRoute, TData>({
         };
 
     const handleUpdate = async () => {
-        await onAction("submit", modifiedFields);
+        if (onAction) {
+            await onAction("submit", modifiedFields);
+        }
         setIsEditing(false);
         setModifiedFields(data);
     };
@@ -78,7 +84,7 @@ export function DetailsEditPage<T extends AnyRoute, TData>({
                 borderTop: "1px solid rgba(0, 0, 0, 0.12)",
             }}
         >
-            <Box sx={{ width: 400, p: 2 }}>
+            <Box sx={{ width: 600, p: 2 }}>
                 <IconButton
                     aria-label="close"
                     onClick={handleCloseDetails}
@@ -104,34 +110,46 @@ export function DetailsEditPage<T extends AnyRoute, TData>({
                     />
                 ))}
                 <Box display="flex" justifyContent="flex-start" sx={{ mt: 2 }}>
-                    {isEditing ? (
+                    {permissions.canEdit && (
                         <>
-                            <Button variant="contained" color="primary" onClick={handleUpdate}>
-                                Update
-                            </Button>
-                            <Button
-                                variant="outlined"
-                                color="error"
-                                sx={{ ml: 2 }}
-                                onClick={handleCancel}
-                            >
-                                Cancel
-                            </Button>
+                            {isEditing ? (
+                                <>
+                                    <Button
+                                        variant="contained"
+                                        color="primary"
+                                        onClick={handleUpdate}
+                                    >
+                                        Save
+                                    </Button>
+                                    <Button
+                                        variant="outlined"
+                                        color="error"
+                                        sx={{ ml: 2 }}
+                                        onClick={handleCancel}
+                                    >
+                                        Cancel
+                                    </Button>
+                                </>
+                            ) : (
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() => setIsEditing(true)}
+                                >
+                                    Edit
+                                </Button>
+                            )}
                         </>
-                    ) : (
-                        <>
-                            <Button variant="contained" onClick={() => setIsEditing(true)}>
-                                Edit
-                            </Button>
-                            <Button
-                                variant="outlined"
-                                color="error"
-                                sx={{ ml: 2 }}
-                                onClick={() => onAction("delete")}
-                            >
-                                Delete
-                            </Button>
-                        </>
+                    )}
+                    {permissions.canDelete && (
+                        <Button
+                            variant="outlined"
+                            color="error"
+                            sx={{ ml: 2 }}
+                            onClick={() => onAction && onAction("delete", modifiedFields)}
+                        >
+                            Delete
+                        </Button>
                     )}
                 </Box>
                 {children}

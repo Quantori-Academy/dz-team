@@ -6,13 +6,10 @@ import { TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
 import { removeModal } from "components/modal/store";
-import { StorageEditForm } from "components/pages/storage/EditStorage";
 import { StorageAddForm } from "components/pages/storage/StorageAddForm";
-import { StorageDialog } from "components/pages/storage/StorageDialog";
 import { useModal } from "hooks/useModal";
 import { useSession } from "hooks/useSession";
 import { useUserForm } from "hooks/useUserForm";
-import { fetchDetailedStorageFx } from "stores/storage";
 import { SupportedValue } from "utils/formatters";
 
 import { AddUserForm } from "../pages/users/AddUserForm";
@@ -24,12 +21,6 @@ type GridProps = {
 
     recordType: "user" | "storage" | "detailedStorage";
 };
-// type RowDataType = {
-//     id: string;
-//     room: string;
-//     name: string;
-//     description: string;
-// };
 
 export const Grid = ({ rows, headers, recordType }: GridProps) => {
     const { isAdmin } = useSession();
@@ -79,51 +70,6 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
         }
     }, [recordType, openModal]);
 
-    // opens modal to delete storage
-    const handleDeleteStorageLocation = useCallback(() => {
-        openModal({
-            name: "add_storage_modal",
-            title: "Delete Storage",
-            message: <StorageDialog onClose={() => removeModal()} />,
-        });
-    }, [openModal]);
-
-    // modal for edit storage form
-    const handleEditStorageLocation = useCallback(() => {
-        openModal({
-            name: "edit_storage_modal",
-            title: "Edit Storage",
-            message: <StorageEditForm onClose={() => removeModal()} />,
-        });
-    }, [openModal]);
-
-    // navigates to detailed storage page
-    // const handleRowClick = useCallback(
-    //     (id: string) => {
-    //         fetchDetailedStorageFx(id);
-    //         navigate({ to: `/storageDetail`, replace: false });
-    //     },
-    //     [navigate],
-    // );
-
-    // opens modal for edit storage form
-    const handleEditStorage = useCallback(
-        (id: string) => {
-            fetchDetailedStorageFx(id);
-            handleEditStorageLocation();
-        },
-        [handleEditStorageLocation],
-    );
-
-    // opens confilm message to delete storage
-    const handleDeleteStorage = useCallback(
-        (id: string) => {
-            fetchDetailedStorageFx(id);
-            handleDeleteStorageLocation();
-        },
-        [handleDeleteStorageLocation],
-    );
-
     const columns = useMemo(() => {
         const editColumn = {
             field: "actions",
@@ -150,8 +96,6 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                                 onClick={() => {
                                     if (recordType === "user") {
                                         alert("edit user");
-                                    } else if (recordType === "storage") {
-                                        handleEditStorage(params.row.id);
                                     }
                                 }}
                                 color="inherit"
@@ -162,8 +106,6 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                                 onClick={() => {
                                     if (recordType === "user") {
                                         handleDeleteUser(params.row.id);
-                                    } else if (recordType === "storage") {
-                                        handleDeleteStorage(params.row.id);
                                     }
                                 }}
                                 color="inherit"
@@ -174,31 +116,22 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
             ),
         };
         return [...headers, editColumn];
-    }, [
-        headers,
-        handleDeleteUser,
-        handleDeleteStorage,
-        isAdmin,
-        // handleRowClick,
-        recordType,
-        handleEditStorage,
-    ]);
+    }, [headers, handleDeleteUser, isAdmin, recordType]);
 
     return (
         <>
-            <TextField
-                variant="outlined"
-                placeholder={
-                    recordType === "user"
-                        ? "Search by name, username, or email"
-                        : recordType === "detailedStorage"
-                          ? "Search Reagent"
-                          : "Search by room or shelf"
-                }
-                value={searchQuery}
-                onChange={handleSearch}
-                sx={{ width: "350px", marginBottom: "16px" }}
-            />
+            {recordType !== "detailedStorage" && (
+                <TextField
+                    variant="outlined"
+                    placeholder={
+                        recordType === "user"
+                            ? "Search by name, username, or email"
+                            : "Search by room or shelf"
+                    }
+                    value={searchQuery}
+                    onChange={handleSearch}
+                />
+            )}
             <DataGrid
                 rows={filteredRows}
                 rowHeight={60}
@@ -220,7 +153,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                                     ? "Add New User"
                                     : recordType === "storage"
                                       ? "Add New Storage"
-                                      : "Add New Record"
+                                      : null
                             }
                             onAddRecord={handleAddFormOpen}
                         />

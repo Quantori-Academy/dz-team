@@ -2,7 +2,6 @@ import { useCallback } from "react";
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
-import { useGate } from "effector-react";
 
 import { base } from "api/request";
 import { CommonTable } from "components/commonTable/CommonTable";
@@ -10,7 +9,6 @@ import { removeModal } from "components/modal/store";
 import { useModal } from "hooks/useModal";
 import { useSession } from "hooks/useSession";
 import { StorageLocation, StorageLocationSchema } from "shared/generated/zod";
-import { StorageGate } from "stores/storage";
 
 import { StorageAddForm } from "./StorageAddForm";
 
@@ -35,11 +33,10 @@ export const StorageList = () => {
             message: <StorageAddForm onClose={() => removeModal()} />,
         });
     }, [openModal]);
-    useGate(StorageGate);
+
     const navigate = useNavigate();
 
     const { isAdmin } = useSession();
-    // const storage = useUnit($storageList);
 
     return (
         <Box sx={BoxStyle}>
@@ -52,7 +49,6 @@ export const StorageList = () => {
                 }}
                 searchBy={{
                     name: true,
-                    // description: true,
                     room: true,
                 }}
                 {...(isAdmin && {
