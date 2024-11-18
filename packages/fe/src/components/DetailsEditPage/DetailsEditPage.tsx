@@ -125,7 +125,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                         disabled={
                             !isEditing || field.disabled || !editableFields.includes(field.name)
                         }
-                        sx={{ mb: 2 }}
+                        sx={{ mb: 2, display: "flex", flexDirection: "column" }}
                         onChange={handleFieldChange(field)}
                     />
                 ))}

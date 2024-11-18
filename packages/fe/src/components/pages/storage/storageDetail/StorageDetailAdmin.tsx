@@ -23,7 +23,6 @@ const reagentColumns = [
 const fields = [
     { label: "Name", name: "name", required: true },
     { label: "Room", name: "room", required: true },
-    { label: "Number of Reagents", name: "reagentsCount", disabled: true },
     { label: "Created At", name: "createdAt", disabled: true },
     { label: "Updated At", name: "updatedAt", disabled: true },
     { label: "Description", name: "description", required: false },
