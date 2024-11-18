@@ -10,7 +10,7 @@ import { UserService } from "../services/userService";
 
 import { sendErrorResponse } from "../utils/handleErrors";
 
-import { UserSearchSchema } from "shared/zodSchemas/user/userSearchSchema";
+import { UserSearchSchema } from "../../../shared/zodSchemas/user/userSearchSchema";
 
 const userService = new UserService();
 
