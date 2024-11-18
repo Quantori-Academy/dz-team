@@ -51,7 +51,7 @@ export function ReagentRequestPage() {
             json: data,
             throwOnError: true,
         });
-        return response!;
+        return response;
     };
 
     const handleSubmit = () => {
@@ -60,25 +60,21 @@ export function ReagentRequestPage() {
         handleModalClose();
     };
 
+    const handleRowClick = (row: ReagentRequestType) => {
+        if (authState !== false && authState?.self.role === UserRole.procurementOfficer) {
+            navigate({ to: `/allReagentRequests/${row.id}`, replace: false });
+        } else if (authState !== false && authState?.self.role === UserRole.researcher) {
+            navigate({ to: `/myReagentRequests/${row.id}`, replace: false });
+        }
+    };
+
     return (
         <>
             <CommonTable<ReagentRequestType>
                 columns={reagentRequestColumns}
                 url={`${base}/api/v1/reagent-request`}
                 schema={ReagentRequest}
-                onRowClick={(row: ReagentRequestType) => {
-                    if (
-                        authState !== false &&
-                        authState?.self.role === UserRole.procurementOfficer
-                    ) {
-                        navigate({ to: `/allReagentRequests/${row.id}`, replace: false });
-                    } else if (
-                        authState !== false &&
-                        authState?.self.role === UserRole.researcher
-                    ) {
-                        navigate({ to: `/reagentRequests/${row.id}`, replace: false });
-                    }
-                }}
+                onRowClick={handleRowClick}
                 searchBy={{
                     name: true,
                     description: true,

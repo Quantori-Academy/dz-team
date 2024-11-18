@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { useLoaderData, useNavigate } from "@tanstack/react-router";
 
@@ -14,9 +13,8 @@ export function ReagentRequestDetailsPage({
 }: {
     url:
         | "/_app/_pOfficerLayout/allReagentRequests/$id"
-        | "/_app/_researcherLayout/reagentRequests/$id";
+        | "/_app/_researcherLayout/myReagentRequests/$id";
 }) {
-    const [, setIsEditing] = useState(false);
     const navigate = useNavigate();
     const reagentRequest = useLoaderData({ from: url });
 
@@ -62,10 +60,9 @@ export function ReagentRequestDetailsPage({
                 to:
                     url === "/_app/_pOfficerLayout/allReagentRequests/$id"
                         ? "/allReagentRequests"
-                        : "/reagentRequests",
+                        : "/myReagentRequests",
             });
         } else if (actionType === "submit" && data) {
-            setIsEditing(false);
             await request(
                 `${base}/api/v1/reagent-request/${reagentRequest.id}`,
                 ReagentRequestDetailsContract, // TODO: add correct contract when it's ready
@@ -83,7 +80,7 @@ export function ReagentRequestDetailsPage({
                 baseUrl={
                     url === "/_app/_pOfficerLayout/allReagentRequests/$id"
                         ? "/allReagentRequests"
-                        : "/reagentRequests"
+                        : "/myReagentRequests"
                 }
                 url={url}
                 fields={fields}
