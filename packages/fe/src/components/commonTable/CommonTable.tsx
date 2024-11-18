@@ -10,7 +10,7 @@ import {
 import { z } from "zod";
 
 import { search } from "api/search";
-import { AddRecord } from "components/userDataGrid/Addrecord";
+import { AddRecord } from "components/dataGrid/Addrecord";
 
 type FetchResponseType<T> = {
     data: T[];
