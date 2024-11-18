@@ -242,31 +242,6 @@
         }
     },
 
-    "/api/v1/reagent-request-res": {
-        "data": [
-            {
-                "id": "1",
-                "userId": "User-001",
-                "reagentName": "Hexane",
-                "structure": "SMILES data",
-                "casNumber": "110-54-3",
-                "desiredQuantity": "500 ml",
-                "userComments": "Urgent request",
-                "procurementComments": "",
-                "status": "Pending",
-                "creationDate": "2024-10-29",
-                "dateModified": "2024-10-30"
-            }
-        ],
-        "meta": {
-            "currentPage": 1,
-            "totalPages": 1,
-            "totalCount": 1,
-            "hasNextPage": false,
-            "hasPreviousPage": false
-        }
-    },
-
     "/api/v1/reagent-request/1": {
         "id": "1",
         "userId": "User-001",

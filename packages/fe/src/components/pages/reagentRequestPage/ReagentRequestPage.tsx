@@ -64,11 +64,7 @@ export function ReagentRequestPage() {
         <>
             <CommonTable<ReagentRequestType>
                 columns={reagentRequestColumns}
-                url={
-                    authState !== false && authState?.self.role === UserRole.procurementOfficer
-                        ? `${base}/api/v1/reagent-request`
-                        : `${base}/api/v1/reagent-request-res`
-                }
+                url={`${base}/api/v1/reagent-request`}
                 schema={ReagentRequest}
                 onRowClick={(row: ReagentRequestType) => {
                     if (
