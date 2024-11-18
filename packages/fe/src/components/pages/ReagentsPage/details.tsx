@@ -4,7 +4,22 @@ import { useLoaderData, useNavigate } from "@tanstack/react-router";
 
 import { ReagentDetails } from "api/reagentDetails/contract";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
-import { deleteReagent, updateReagent } from "utils/reagentActions";
+import { deleteReagentAction, updateReagentAction } from "utils/reagentActions";
+
+const fields = [
+    { label: "ID", name: "id", disabled: true },
+    { label: "Name", name: "name" },
+    { label: "Category", name: "category" },
+    { label: "Description", name: "description" },
+    { label: "CAS Number", name: "cas" },
+    { label: "Producer", name: "producer" },
+    { label: "Catalog ID", name: "catalogId" },
+    { label: "Catalog Link", name: "catalogLink" },
+    { label: "Price per Unit", name: "pricePerUnit", type: "number" },
+    { label: "Quantity", name: "quantity", type: "number" },
+    { label: "Units", name: "unit" },
+    { label: "Storage Location", name: "storageLocation" },
+];
 
 export function ReagentDetailsPage() {
     const [_isEditing, setIsEditing] = useState(false);
@@ -26,27 +41,12 @@ export function ReagentDetailsPage() {
         );
     }
 
-    const fields = [
-        { label: "ID", name: "id", disabled: true },
-        { label: "Name", name: "name" },
-        { label: "Category", name: "category" },
-        { label: "Description", name: "description" },
-        { label: "CAS Number", name: "cas" },
-        { label: "Producer", name: "producer" },
-        { label: "Catalog ID", name: "catalogId" },
-        { label: "Catalog Link", name: "catalogLink" },
-        { label: "Price per Unit", name: "pricePerUnit", type: "number" },
-        { label: "Quantity", name: "quantity", type: "number" },
-        { label: "Units", name: "unit" },
-        { label: "Storage Location", name: "storageLocation" },
-    ];
-
     const handleAction = async (actionType: "submit" | "delete", data?: ReagentDetails) => {
         if (actionType === "delete") {
-            deleteReagent(reagent.id, navigate);
+            await deleteReagentAction(reagent.id, navigate);
         } else if (actionType === "submit" && data) {
             setIsEditing(false);
-            await updateReagent(data, navigate);
+            await updateReagentAction(data, navigate);
         }
     };
 

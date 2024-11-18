@@ -20,7 +20,6 @@ import { Route as AppResearcherLayoutIndexImport } from "./routes/_app/_research
 import { Route as AppResearcherLayoutSamplesImport } from "./routes/_app/_researcherLayout/samples";
 import { Route as AppResearcherLayoutReagentsImport } from "./routes/_app/_researcherLayout/reagents";
 import { Route as AppResearcherLayoutReagentRequestsImport } from "./routes/_app/_researcherLayout/reagentRequests";
-import { Route as AppResearcherLayoutDevImport } from "./routes/_app/_researcherLayout/dev";
 import { Route as AppPOfficerLayoutPOfficerImport } from "./routes/_app/_pOfficerLayout/pOfficer";
 import { Route as AppPOfficerLayoutOrdersImport } from "./routes/_app/_pOfficerLayout/orders";
 import { Route as AppPOfficerLayoutAllReagentRequestsImport } from "./routes/_app/_pOfficerLayout/allReagentRequests";
@@ -77,12 +76,6 @@ const AppResearcherLayoutReagentsRoute = AppResearcherLayoutReagentsImport.updat
 const AppResearcherLayoutReagentRequestsRoute = AppResearcherLayoutReagentRequestsImport.update({
     id: "/reagentRequests",
     path: "/reagentRequests",
-    getParentRoute: () => AppResearcherLayoutRoute,
-} as any);
-
-const AppResearcherLayoutDevRoute = AppResearcherLayoutDevImport.update({
-    id: "/dev",
-    path: "/dev",
     getParentRoute: () => AppResearcherLayoutRoute,
 } as any);
 
@@ -196,13 +189,6 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof AppPOfficerLayoutPOfficerImport;
             parentRoute: typeof AppPOfficerLayoutImport;
         };
-        "/_app/_researcherLayout/dev": {
-            id: "/_app/_researcherLayout/dev";
-            path: "/dev";
-            fullPath: "/dev";
-            preLoaderRoute: typeof AppResearcherLayoutDevImport;
-            parentRoute: typeof AppResearcherLayoutImport;
-        };
         "/_app/_researcherLayout/reagentRequests": {
             id: "/_app/_researcherLayout/reagentRequests";
             path: "/reagentRequests";
@@ -285,7 +271,6 @@ const AppResearcherLayoutReagentsRouteWithChildren =
     AppResearcherLayoutReagentsRoute._addFileChildren(AppResearcherLayoutReagentsRouteChildren);
 
 interface AppResearcherLayoutRouteChildren {
-    AppResearcherLayoutDevRoute: typeof AppResearcherLayoutDevRoute;
     AppResearcherLayoutReagentRequestsRoute: typeof AppResearcherLayoutReagentRequestsRoute;
     AppResearcherLayoutReagentsRoute: typeof AppResearcherLayoutReagentsRouteWithChildren;
     AppResearcherLayoutSamplesRoute: typeof AppResearcherLayoutSamplesRoute;
@@ -293,7 +278,6 @@ interface AppResearcherLayoutRouteChildren {
 }
 
 const AppResearcherLayoutRouteChildren: AppResearcherLayoutRouteChildren = {
-    AppResearcherLayoutDevRoute: AppResearcherLayoutDevRoute,
     AppResearcherLayoutReagentRequestsRoute: AppResearcherLayoutReagentRequestsRoute,
     AppResearcherLayoutReagentsRoute: AppResearcherLayoutReagentsRouteWithChildren,
     AppResearcherLayoutSamplesRoute: AppResearcherLayoutSamplesRoute,
@@ -326,7 +310,6 @@ export interface FileRoutesByFullPath {
     "/allReagentRequests": typeof AppPOfficerLayoutAllReagentRequestsRoute;
     "/orders": typeof AppPOfficerLayoutOrdersRoute;
     "/pOfficer": typeof AppPOfficerLayoutPOfficerRoute;
-    "/dev": typeof AppResearcherLayoutDevRoute;
     "/reagentRequests": typeof AppResearcherLayoutReagentRequestsRoute;
     "/reagents": typeof AppResearcherLayoutReagentsRouteWithChildren;
     "/samples": typeof AppResearcherLayoutSamplesRoute;
@@ -342,7 +325,6 @@ export interface FileRoutesByTo {
     "/allReagentRequests": typeof AppPOfficerLayoutAllReagentRequestsRoute;
     "/orders": typeof AppPOfficerLayoutOrdersRoute;
     "/pOfficer": typeof AppPOfficerLayoutPOfficerRoute;
-    "/dev": typeof AppResearcherLayoutDevRoute;
     "/reagentRequests": typeof AppResearcherLayoutReagentRequestsRoute;
     "/reagents": typeof AppResearcherLayoutReagentsRouteWithChildren;
     "/samples": typeof AppResearcherLayoutSamplesRoute;
@@ -362,7 +344,6 @@ export interface FileRoutesById {
     "/_app/_pOfficerLayout/allReagentRequests": typeof AppPOfficerLayoutAllReagentRequestsRoute;
     "/_app/_pOfficerLayout/orders": typeof AppPOfficerLayoutOrdersRoute;
     "/_app/_pOfficerLayout/pOfficer": typeof AppPOfficerLayoutPOfficerRoute;
-    "/_app/_researcherLayout/dev": typeof AppResearcherLayoutDevRoute;
     "/_app/_researcherLayout/reagentRequests": typeof AppResearcherLayoutReagentRequestsRoute;
     "/_app/_researcherLayout/reagents": typeof AppResearcherLayoutReagentsRouteWithChildren;
     "/_app/_researcherLayout/samples": typeof AppResearcherLayoutSamplesRoute;
@@ -380,7 +361,6 @@ export interface FileRouteTypes {
         | "/allReagentRequests"
         | "/orders"
         | "/pOfficer"
-        | "/dev"
         | "/reagentRequests"
         | "/reagents"
         | "/samples"
@@ -395,7 +375,6 @@ export interface FileRouteTypes {
         | "/allReagentRequests"
         | "/orders"
         | "/pOfficer"
-        | "/dev"
         | "/reagentRequests"
         | "/reagents"
         | "/samples"
@@ -413,7 +392,6 @@ export interface FileRouteTypes {
         | "/_app/_pOfficerLayout/allReagentRequests"
         | "/_app/_pOfficerLayout/orders"
         | "/_app/_pOfficerLayout/pOfficer"
-        | "/_app/_researcherLayout/dev"
         | "/_app/_researcherLayout/reagentRequests"
         | "/_app/_researcherLayout/reagents"
         | "/_app/_researcherLayout/samples"
@@ -480,7 +458,6 @@ export const routeTree = rootRoute
       "filePath": "_app/_researcherLayout.tsx",
       "parent": "/_app",
       "children": [
-        "/_app/_researcherLayout/dev",
         "/_app/_researcherLayout/reagentRequests",
         "/_app/_researcherLayout/reagents",
         "/_app/_researcherLayout/samples",
@@ -506,10 +483,6 @@ export const routeTree = rootRoute
     "/_app/_pOfficerLayout/pOfficer": {
       "filePath": "_app/_pOfficerLayout/pOfficer.tsx",
       "parent": "/_app/_pOfficerLayout"
-    },
-    "/_app/_researcherLayout/dev": {
-      "filePath": "_app/_researcherLayout/dev.tsx",
-      "parent": "/_app/_researcherLayout"
     },
     "/_app/_researcherLayout/reagentRequests": {
       "filePath": "_app/_researcherLayout/reagentRequests.tsx",

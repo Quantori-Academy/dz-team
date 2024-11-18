@@ -1,6 +1,10 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 
-import { RegisterUser, registerUserSchema, UpdateUser } from "../../../shared/zodSchemas";
+import {
+    RegisterUser,
+    registerUserSchema,
+} from "../../../shared/zodSchemas/user/registerUserSchema";
+import { UpdateUser } from "../../../shared/zodSchemas/user/updateUserSchema";
 
 import { UserService } from "../services/userService";
 
@@ -137,6 +141,34 @@ export class UserController {
             }
         } catch (error) {
             sendErrorResponse(reply, error, "User deletion failed");
+        }
+    }
+
+    /**
+     * Get the current user's profile data based on the token's user ID.
+     * @param request - FastifyRequest with userData from token middleware.
+     * @param reply - FastifyReply
+     * @returns A promise that resolves to the current user's data or an error.
+     */
+    async getCurrentUser(request: FastifyRequest, reply: FastifyReply): Promise<void> {
+        try {
+            const requesterId = request.userData?.userId;
+
+            // Ensure requesterId and role are available
+            if (!requesterId) {
+                return reply.status(401).send({ message: "Unauthorized" });
+            }
+
+            // Retrieve the current user's data using the UserService
+            const user = await userService.getCurrentUser(requesterId);
+
+            if (user) {
+                return reply.status(200).send(user);
+            } else {
+                return reply.status(404).send({ message: "User not found" });
+            }
+        } catch (error) {
+            sendErrorResponse(reply, error, "Failed to retrieve current user data");
         }
     }
 }

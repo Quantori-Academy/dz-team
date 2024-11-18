@@ -4,9 +4,9 @@ interface Props {
     isOpen: boolean;
     resolve: (value?: unknown) => void | null;
     reject: (reason?: unknown) => void | null;
-    title: string;
-    message: string | React.ReactNode;
-    labels: [{ ok: string }, { cancel: string }];
+    title?: string;
+    message?: string | React.ReactNode;
+    labels?: { ok: string; cancel: string };
 }
 
 export function Modal({ isOpen, message, title, labels, resolve, reject }: Props) {
@@ -30,12 +30,16 @@ export function Modal({ isOpen, message, title, labels, resolve, reject }: Props
                         gap: "8px",
                     }}
                 >
-                    <Button variant="contained" onClick={resolve}>
-                        {labels[0].ok}
-                    </Button>
-                    <Button variant="outlined" onClick={reject}>
-                        {labels[1].cancel}
-                    </Button>
+                    {labels?.ok && (
+                        <Button variant="contained" onClick={resolve}>
+                            {labels.ok}
+                        </Button>
+                    )}
+                    {labels?.cancel && (
+                        <Button variant="outlined" onClick={reject}>
+                            {labels.cancel}
+                        </Button>
+                    )}
                 </Box>
             </Box>
         </Dialog>

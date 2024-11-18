@@ -4,7 +4,7 @@ import {
     ReagentUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
 import { Reagent } from "../../../shared/generated/zod/modelSchema";
-import { ReagentSearch } from "../../../shared/zodSchemas";
+import { ReagentSearch } from "../../../shared/zodSchemas/reagent/reagentSearchSchema";
 
 const prisma = new PrismaClient();
 
