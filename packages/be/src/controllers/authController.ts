@@ -2,7 +2,7 @@ import { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
 
 import { AuthService } from "../services/authService";
-import { LoginUser, loginUserSchema } from "shared/zodSchemas/user/loginUserSchema";
+import { LoginUser, loginUserSchema } from "../../../shared/zodSchemas/user/loginUserSchema";
 
 const authService = new AuthService();
 
