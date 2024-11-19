@@ -159,6 +159,17 @@ const validationErrorResponse = {
     },
 };
 
+const internalErrorResponse = {
+    description: "Server Error - Could not create reagent.",
+    content: {
+        "application/json": {
+            schema: z.object({
+                message: z.string().default("Internal Server Error"),
+            }),
+        },
+    },
+};
+
 const badRequestResponse = {
     description: "Error - Bad Request.",
     content: {
@@ -202,6 +213,7 @@ export const POST_REAGENTS_SCHEMA: FastifyZodOpenApiSchema = {
             },
         },
         400: badRequestResponse,
+        500: internalErrorResponse,
     },
 };
 
