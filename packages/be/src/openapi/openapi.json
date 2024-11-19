@@ -2316,6 +2316,23 @@
                                 }
                             }
                         }
+                    },
+                    "500": {
+                        "description": "Server Error - Could not create reagent.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Internal Server Error"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
                     }
                 }
             }
