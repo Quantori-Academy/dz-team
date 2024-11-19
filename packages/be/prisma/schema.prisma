@@ -185,20 +185,20 @@ model User {
 
 model ReagentRequest {
   id        String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
-  name      String // Name of the reagent
-  structure String // Stores the chemical structure
-  cas       String // CAS number for reagent-specific info
-  quantity  Float // Requested quantity
+  name      String        // Name of the reagent
+  structure String        // Stores the chemical structure
+  cas       String        // CAS number for reagent-specific info
+  quantity  Float         // Requested quantity
   unit      Unit          @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
   status    RequestStatus @default(pending) // Status of the request ("pending", "ordered", "declined", "declined", "completed")
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
 
-  user     User   @relation(fields: [careated], references: [id])
-  careated String // User who created order
+  userId   String          @db.Uuid /// @zod.string.uuid()
+  user     User   @relation(fields: [userId], references: [id])
 
-  order   Order  @relation(fields: [orderId], references: [id])
-  orderId String @db.Uuid // Id of the order this request belongs to.
+  orderId String  @db.Uuid // Id of the order this request belongs to.
+  order   Order   @relation(fields: [orderId], references: [id])
 
   reagentRequestComments ReagentRequestComment[]
 }
@@ -207,11 +207,12 @@ model ReagentRequestComment {
   id      String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
   comment String // Content of comment
 
+  reagentRequestId String         @db.Uuid /// @zod.string.uuid()  // Id of the request this cooment belongs to.
   request          ReagentRequest @relation(fields: [reagentRequestId], references: [id])
-  reagentRequestId String         @db.Uuid // Id of the request this cooment belongs to.
 
-  commenter   User   @relation(fields: [commenterId], references: [id])
-  commenterId String // Id of the person who left the comment for request.
+
+  userId  String          @db.Uuid /// @zod.string.uuid()
+  user    User   @relation(fields: [userId], references: [id])
 }
 
 enum RequestStatus {
