@@ -12,7 +12,7 @@ export const $usersList = domain.createStore<UserType[]>([], { name: "$userList"
 
 export const fetchUsersFx = domain.createEffect(async () => {
     const response = await getUsers();
-    return response ?? [];
+    return response?.data ?? [];
 });
 
 export const deleteUserFx = domain.createEffect(async (id: string) => {

@@ -128,12 +128,7 @@ export const CommonTable: ForwardRefWithGenerics = forwardRef(
             page: 0,
             pageSize: 25,
         });
-        const [sort, setSort] = useState<GridSortModel>([
-            {
-                field: "name",
-                sort: "asc",
-            },
-        ]);
+        const [sort, setSort] = useState<GridSortModel>([]);
         const [query, setQuery] = useState<string>("");
 
         useImperativeHandle(ref, () => ({
