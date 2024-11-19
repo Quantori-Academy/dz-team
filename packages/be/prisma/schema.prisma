@@ -179,8 +179,8 @@ model User {
 
   // One-to-Many relation with Orders
   orders                Order[]                 @relation() // List of Orders made by the Procurement Officer
-  ReagentRequest        ReagentRequest[]
-  ReagentRequestComment ReagentRequestComment[]
+  reagentRequest        ReagentRequest[]
+  reagentRequestComment ReagentRequestComment[]
 }
 
 model ReagentRequest {
@@ -190,33 +190,35 @@ model ReagentRequest {
   cas       String // CAS number for reagent-specific info
   quantity  Float // Requested quantity
   unit      Unit          @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
-  status    RequestStatus @default(PENDING)
+  status    RequestStatus @default(pending) // Status of the request ("pending", "ordered", "declined", "declined", "completed")
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
 
   user     User   @relation(fields: [careated], references: [id])
   careated String // User who created order
 
-  Order                 Order[]
-  ReagentRequestComment ReagentRequestComment[]
+  order   Order  @relation(fields: [orderId], references: [id])
+  orderId String @db.Uuid // Id of the order this request belongs to.
+
+  reagentRequestComments ReagentRequestComment[]
 }
 
 model ReagentRequestComment {
   id      String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
   comment String // Content of comment
 
-  request   ReagentRequest @relation(fields: [requestId], references: [id])
-  requestId String //Reference to specific reagent request.
+  request          ReagentRequest @relation(fields: [reagentRequestId], references: [id])
+  reagentRequestId String         @db.Uuid // Id of the request this cooment belongs to.
 
   commenter   User   @relation(fields: [commenterId], references: [id])
   commenterId String // Id of the person who left the comment for request.
 }
 
 enum RequestStatus {
-  PENDING
-  ORDERED
-  DECLINED
-  COMPLETED
+  pending
+  ordered
+  declined
+  completed
 }
 
 enum OrderStatus {
@@ -236,9 +238,8 @@ model Order {
   createdAt   DateTime    @default(now()) // Date and Time of Order creation
   updatedAt   DateTime    @updatedAt // Date and Time of Order modification
 
-  // Many-to-One relation with ReagentRequest
-  request          ReagentRequest @relation(fields: [reagentRequestId], references: [id])
-  reagentRequestId String
+  // One-to-many relation with ReagentRequest
+  requests ReagentRequest[]
 
   // Many-to-One relation with User
   userId String @db.Uuid /// @zod.string.uuid()
