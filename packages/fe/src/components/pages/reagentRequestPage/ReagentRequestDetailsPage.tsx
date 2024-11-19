@@ -47,6 +47,11 @@ export function ReagentRequestDetailsPage({
         { label: "Date Modified", name: "dateModified", type: "date" },
     ];
 
+    const reagentRequestsPagePath =
+        url === "/_app/_pOfficerLayout/allReagentRequests/$id"
+            ? "/allReagentRequests"
+            : "/myReagentRequests";
+
     const handleAction = async (actionType: "submit" | "delete", data?: ReagentRequestDetails) => {
         if (actionType === "delete") {
             await request(
@@ -57,10 +62,7 @@ export function ReagentRequestDetailsPage({
                 },
             );
             navigate({
-                to:
-                    url === "/_app/_pOfficerLayout/allReagentRequests/$id"
-                        ? "/allReagentRequests"
-                        : "/myReagentRequests",
+                to: reagentRequestsPagePath,
             });
         } else if (actionType === "submit" && data) {
             await request(
@@ -77,11 +79,7 @@ export function ReagentRequestDetailsPage({
     return (
         <>
             <DetailsEditPage
-                baseUrl={
-                    url === "/_app/_pOfficerLayout/allReagentRequests/$id"
-                        ? "/allReagentRequests"
-                        : "/myReagentRequests"
-                }
+                baseUrl={reagentRequestsPagePath}
                 url={url}
                 fields={fields}
                 onAction={handleAction}
