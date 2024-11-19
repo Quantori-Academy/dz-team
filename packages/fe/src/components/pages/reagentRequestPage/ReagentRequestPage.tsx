@@ -1,20 +1,12 @@
-import { useState } from "react";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 
-import {
-    CreateReagentRequestType,
-    initialFormData,
-    ReagentRequest,
-    ReagentRequestType,
-} from "api/reagentRequest";
-import { base, request } from "api/request";
+import { ReagentRequest, ReagentRequestType } from "api/reagentRequest";
+import { base } from "api/request";
 import { UserRole } from "api/self";
 import { CommonTable } from "components/commonTable/CommonTable";
 import { $auth } from "stores/auth";
-
-import { ReagentRequestFormModal } from "./ReagentRequestFormModal";
 
 const reagentRequestColumns: GridColDef[] = [
     { field: "reagentName", headerName: "Reagent Name", width: 200 },
@@ -31,34 +23,6 @@ const reagentRequestColumns: GridColDef[] = [
 export function ReagentRequestPage() {
     const authState = useUnit($auth);
     const navigate = useNavigate();
-
-    const [isModalOpen, setIsModalOpen] = useState(false);
-    const [formData, setFormData] = useState<CreateReagentRequestType>(initialFormData);
-    const handleModalClose = () => setIsModalOpen(false);
-    const handleAddReagentRequestClick = () => setIsModalOpen(true);
-
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: name === "quantity" || name === "pricePerUnit" ? Number(value) : value,
-        });
-    };
-
-    const submitReagentRequest = async (data: CreateReagentRequestType) => {
-        const response = await request(`${base}/api/v1/reagent-request`, ReagentRequest, {
-            method: "POST",
-            json: data,
-            throwOnError: true,
-        });
-        return response;
-    };
-
-    const handleSubmit = () => {
-        submitReagentRequest(formData);
-        setFormData(initialFormData);
-        handleModalClose();
-    };
 
     const handleRowClick = (row: ReagentRequestType) => {
         if (authState !== false && authState?.self.role === UserRole.procurementOfficer) {
@@ -84,16 +48,8 @@ export function ReagentRequestPage() {
                     catalogId: true,
                     catalogLink: true,
                 }}
-                onAdd={handleAddReagentRequestClick}
+                // TODO: Add button when Create Reagent Request page is ready
                 addButtonText="Create a Reagent Request"
-            />
-
-            <ReagentRequestFormModal
-                isOpen={isModalOpen}
-                formData={formData}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-                handleModalClose={handleModalClose}
             />
 
             <Outlet />
