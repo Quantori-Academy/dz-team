@@ -19,7 +19,6 @@ const fields: BaseTextFieldProps[] = [
     { label: "User Comments", name: "commentsUser", type: "array" },
     { label: "Procurement Comments", name: "commentsProcurement", type: "array", disabled: true },
     { label: "Status", name: "status", disabled: true, defaultValue: "Pending" },
-    { label: "User ID", name: "userId" },
 ];
 
 export const ReagentRequestFormModal = ({
