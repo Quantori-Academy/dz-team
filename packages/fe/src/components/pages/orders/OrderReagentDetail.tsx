@@ -3,14 +3,14 @@ import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, Drawer, IconButton, Typography } from "@mui/material";
 import { useNavigate, useParams } from "@tanstack/react-router";
 
-import { OrderReagentType } from "api/reagents";
+import { ReagentDetailsOrder } from "api/reagentDetails/contract";
 
 import { mockData } from "./mockData";
 
 export function OrderReagentDetail() {
     const { id } = useParams({ from: "/_app/_pOfficerLayout/create-order/$id" });
     const [isDrawerOpen, setIsDrawerOpen] = useState(true);
-    const [selectedReagent, setSelectedReagent] = useState<OrderReagentType | null>(null);
+    const [selectedReagent, setSelectedReagent] = useState<ReagentDetailsOrder | null>(null);
     const navigate = useNavigate();
 
     // Uncommented for now. It will be used for Detail/Edit page component

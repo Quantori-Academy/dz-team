@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { ReagentDetailsOrderContract } from "api/reagentDetails/contract";
+import { ReagentOrderContract } from "api/reagentDetails/contract";
 
 export const OrderDetailsContract = z.object({
     id: z.string(),
@@ -11,7 +11,7 @@ export const OrderDetailsContract = z.object({
     deletedAt: z.string().nullable(),
     createdAt: z.string().nullable(),
     userId: z.string().nullable(),
-    reagents: z.array(ReagentDetailsOrderContract),
+    reagents: z.array(ReagentOrderContract),
 });
 
 export type OrderDetails = z.infer<typeof OrderDetailsContract>;
