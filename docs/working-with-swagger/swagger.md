@@ -1,7 +1,7 @@
 ## API Documentation with Swagger
 
 Once you run the application, you can view the API documentation at:  
-**[127.0.0.1:1337/docs](http://127.0.0.1:1337/docs)**
+**[127.0.0.1:1337/docs](http://127.0.0.1:1337/docs) or [localhost:1337/docs](http://localhost:1337/docs)**
 
 ### Step 1: Registering New Schemas
 
@@ -152,4 +152,4 @@ app.GET<{ querystring; body }>(
 
 ### Step 5: Final Steps
 
-Once you've completed the schema registration and route updates, the API documentation will automatically be generated and available in Swagger at [127.0.0.1:1337/docs](http://127.0.0.1:1337/docs).
+Once you've completed the schema registration and route updates, the API documentation will automatically be generated and available in Swagger at [127.0.0.1:1337/docs](http://127.0.0.1:1337/docs) or [localhost:1337/docs](http://localhost:1337/docs).
