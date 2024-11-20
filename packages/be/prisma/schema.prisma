@@ -180,7 +180,6 @@ model User {
   // One-to-Many relation with Orders
   orders                Order[]                 @relation() // List of Orders made by the Procurement Officer
   reagentRequest        ReagentRequest[]
-  reagentRequestComment ReagentRequestComment[]
 }
 
 model ReagentRequest {
@@ -191,28 +190,19 @@ model ReagentRequest {
   quantity  Float // Requested quantity
   unit      Unit          @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
   status    RequestStatus @default(pending) // Status of the request ("pending", "ordered", "declined", "declined", "completed")
+  commentsUser  String[]
+  commentsProcurement String[]
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
 
-  user     User   @relation(fields: [careated], references: [id])
-  careated String // User who created order
+  userId String @db.Uuid /// @zod.string.uuid() // User who created order
+  user     User   @relation(fields: [userId], references: [id])
 
+  orderId String @db.Uuid /// @zod.string.uuid() // Id of the order this request belongs to.
   order   Order  @relation(fields: [orderId], references: [id])
-  orderId String @db.Uuid // Id of the order this request belongs to.
 
-  reagentRequestComments ReagentRequestComment[]
 }
 
-model ReagentRequestComment {
-  id      String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
-  comment String // Content of comment
-
-  request          ReagentRequest @relation(fields: [reagentRequestId], references: [id])
-  reagentRequestId String         @db.Uuid // Id of the request this cooment belongs to.
-
-  commenter   User   @relation(fields: [commenterId], references: [id])
-  commenterId String // Id of the person who left the comment for request.
-}
 
 enum RequestStatus {
   pending
@@ -238,12 +228,10 @@ model Order {
   createdAt   DateTime    @default(now()) // Date and Time of Order creation
   updatedAt   DateTime    @updatedAt // Date and Time of Order modification
 
-  // One-to-many relation with ReagentRequest
-  requests ReagentRequest[]
-
   // Many-to-One relation with User
   userId String @db.Uuid /// @zod.string.uuid()
   user   User?  @relation(fields: [userId], references: [id]) // Procurement Officer who created the Order
 
   reagents Json
+  reagentRequest   ReagentRequest[]
 }
