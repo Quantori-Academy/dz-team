@@ -8,13 +8,7 @@ import {
 import { base, request } from "api/request";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
 
-export function ReagentRequestDetailsPage({
-    url,
-}: {
-    url:
-        | "/_app/_pOfficerLayout/allReagentRequests/$id"
-        | "/_app/_researcherLayout/myReagentRequests/$id";
-}) {
+export function ReagentRequestDetailsPage({ url }: { url: "/_app/reagentRequests/$id" }) {
     const navigate = useNavigate();
     const reagentRequest = useLoaderData({ from: url });
 
@@ -47,10 +41,7 @@ export function ReagentRequestDetailsPage({
         { label: "Date Modified", name: "dateModified", type: "date" },
     ];
 
-    const reagentRequestsPagePath =
-        url === "/_app/_pOfficerLayout/allReagentRequests/$id"
-            ? "/allReagentRequests"
-            : "/myReagentRequests";
+    const reagentRequestsPagePath = "/reagentRequests";
 
     const handleAction = async (actionType: "submit" | "delete", data?: ReagentRequestDetails) => {
         if (actionType === "delete") {
