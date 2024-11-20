@@ -73,15 +73,25 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
         };
 
     const handleUpdate = async () => {
-        await onAction?.("submit", modifiedFields);
-        handleCancel();
-        tableRef?.current?.refresh();
+        if (onAction) {
+            await onAction("submit", modifiedFields);
+        }
+        setIsEditing(false);
+        setModifiedFields(data);
+        if (tableRef?.current) {
+            tableRef.current.refresh();
+        }
     };
 
     const handleDelete = async () => {
-        await onAction?.("delete", modifiedFields);
-        handleCancel();
-        tableRef?.current?.refresh();
+        if (onAction) {
+            await onAction("delete", modifiedFields);
+        }
+        setIsEditing(false);
+        setModifiedFields(data);
+        if (tableRef?.current) {
+            tableRef.current.refresh();
+        }
     };
 
     const handleCancel = () => {

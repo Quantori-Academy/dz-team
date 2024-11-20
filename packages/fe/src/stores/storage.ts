@@ -28,7 +28,7 @@ export const editStorageFx = domain.createEffect(
         return await editStorage(data);
     },
 );
-
+export const updateStorageList = domain.createEvent<void>("updateStorageList");
 export const $storageList = domain.createStore<StorageType["data"]>([], { name: "$storageList" });
 
 export const StorageGate = createGate({ domain });

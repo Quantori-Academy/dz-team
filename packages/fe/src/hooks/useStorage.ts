@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { useUnit } from "effector-react";
 
-import { addStorageFx } from "stores/storage";
+import { addStorageFx, updateStorageList } from "stores/storage";
 
 export type NewStorage = {
     name: string;
@@ -19,6 +20,7 @@ export const useStorage = ({ name, room, description }: HookTypes) => {
     const [confirmMessage, setConfirmMessage] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
 
+    const updateListEvent = useUnit(updateStorageList);
     const validateForm = (formData: NewStorage) => {
         let isValid = true;
 
@@ -66,6 +68,7 @@ export const useStorage = ({ name, room, description }: HookTypes) => {
                 }, 2000);
             }
         }
+        updateListEvent();
     };
 
     return {

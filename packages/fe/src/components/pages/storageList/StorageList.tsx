@@ -1,10 +1,11 @@
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 
 import { base } from "api/request";
-import { CommonTable } from "components/commonTable/CommonTable";
+import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
+import { TableContext } from "components/commonTable/TableContext";
 import { removeModal } from "components/modal/store";
 import { useModal } from "hooks/useModal";
 import { useSession } from "hooks/useSession";
@@ -27,7 +28,7 @@ const BoxStyle = {
 export const StorageList = () => {
     const { openModal } = useModal();
 
-    // const tableRef = useRef<CommonTableRef | null>(null);
+    const tableRef = useRef<CommonTableRef | null>(null);
 
     const handleAddFormOpen = useCallback(() => {
         openModal({
@@ -35,9 +36,10 @@ export const StorageList = () => {
             title: "Add New Storage",
             message: <StorageAddForm onClose={() => removeModal()} />,
         });
-        // if (tableRef.current?.refresh) {
-        //     tableRef.current.refresh();
-        // }
+        // TODO fix refresh
+        if (tableRef.current?.refresh) {
+            tableRef.current.refresh();
+        }
     }, [openModal]);
 
     const navigate = useNavigate();
@@ -45,25 +47,27 @@ export const StorageList = () => {
     const { isAdmin } = useSession();
 
     return (
-        // <TableContext.Provider value={{ ref: tableRef }}>
-        <Box sx={BoxStyle}>
-            <CommonTable<StorageLocation>
-                columns={columns}
-                url={`${base}/api/v1/storage-locations`}
-                schema={StorageLocationSchema}
-                onRowClick={(row: StorageLocation) => {
-                    navigate({ to: `/storageList/${row.id}`, replace: false });
-                }}
-                searchBy={{
-                    name: true,
-                    room: true,
-                }}
-                {...(isAdmin && {
-                    onAdd: handleAddFormOpen,
-                    addButtonText: "Add Storage",
-                })}
-            />
-            <Outlet />
-        </Box>
+        <TableContext.Provider value={{ ref: tableRef }}>
+            <Box sx={BoxStyle}>
+                <CommonTable<StorageLocation>
+                    ref={tableRef}
+                    columns={columns}
+                    url={`${base}/api/v1/storage-locations`}
+                    schema={StorageLocationSchema}
+                    onRowClick={(row: StorageLocation) => {
+                        navigate({ to: `/storageList/${row.id}`, replace: false });
+                    }}
+                    searchBy={{
+                        name: true,
+                        room: true,
+                    }}
+                    {...(isAdmin && {
+                        onAdd: handleAddFormOpen,
+                        addButtonText: "Add Storage",
+                    })}
+                />
+                <Outlet />
+            </Box>
+        </TableContext.Provider>
     );
 };
