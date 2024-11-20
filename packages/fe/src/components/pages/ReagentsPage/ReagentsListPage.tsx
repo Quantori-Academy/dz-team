@@ -1,8 +1,8 @@
+import { useRef } from "react";
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
-import { useRef } from "react";
 
 import { base } from "api/request";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
