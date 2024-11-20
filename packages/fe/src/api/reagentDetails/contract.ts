@@ -38,5 +38,18 @@ export const ReagentDetailsEditContract = z.object({
         .transform((val) => val || ""),
 });
 
+export const ReagentDetailsOrderContract = z.object({
+    id: z.string(),
+    name: z.string().nullable(),
+    structure: z.string().nullable(),
+    quantity: z.number(),
+    cas: z.string().nullable(),
+    producer: z.string().nullable(),
+    catalogId: z.string().nullable(),
+    catalogLink: z.string().nullable(),
+    pricePerUnit: z.number().nullable(),
+});
+
 export type ReagentDetails = z.infer<typeof ReagentDetailsContract>;
 export type ReagentDetailsEdit = z.infer<typeof ReagentDetailsEditContract>;
+export type ReagentDetailsOrder = z.infer<typeof ReagentDetailsOrderContract>;

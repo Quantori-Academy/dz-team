@@ -64,6 +64,31 @@ export const _CreateReagentContract = z.object({
         .transform((val) => val || "reagent"),
 });
 
+const _OrderReagent = z.object({
+    id: z.string().optional(),
+    name: z.string().nullable(),
+    structure: z.string().nullable(),
+    description: z.string().nullable(),
+    quantity: z.number(),
+    unit: z
+        .string()
+        .nullable()
+        .transform((val) => val || "ml"),
+    expirationDate: z.string().nullable(),
+    storageLocation: z
+        .string()
+        .nullable()
+        .transform((val) => val || ""),
+    cas: z.string().nullable(),
+    producer: z.string().nullable(),
+    catalogId: z.string().nullable(),
+    catalogLink: z.string().nullable(),
+    pricePerUnit: z.number().nullable(),
+    createdAt: z.string().nullable().optional(),
+    updatedAt: z.string().nullable().optional(),
+    amount: z.number().nullable().optional(),
+});
+
 const ReagentsResponseSchema = z.object({
     data: z.array(ReagentSchema),
     meta: z.object({
@@ -80,6 +105,7 @@ const ReagentsResponse = z.object({ data: z.array(ReagentSchema) });
 export type ReagentType = z.infer<typeof _Reagent>;
 export type CreateReagentType = z.infer<typeof _CreateReagentContract>;
 export type ReagentsResponseType = z.infer<typeof ReagentsResponseSchema>;
+export type OrderReagentType = z.infer<typeof _OrderReagent>;
 
 export const getReagents = async ({
     page,

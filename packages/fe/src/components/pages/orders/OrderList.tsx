@@ -3,7 +3,7 @@ import { Outlet, useNavigate } from "@tanstack/react-router";
 
 import { base } from "api/request";
 import { CommonTable } from "components/commonTable/CommonTable";
-import { OrderSchema } from "shared/generated/zod";
+import { Order, OrderSchema } from "shared/generated/zod";
 
 const headers = [
     { field: "title", headerName: "Title", width: 150 },
@@ -11,8 +11,16 @@ const headers = [
     { field: "description", headerName: "Description ", width: 170 },
     { field: "createdAt", headerName: "Created Date", width: 170 },
     { field: "updatedAt", headerName: "Updated Date", width: 170 },
+    {
+        field: "reagents",
+        headerName: "Reagents",
+        width: 300,
+        renderCell: (params: { value: { id: string; name: string }[] }) => {
+            const reagents = params.value as Array<{ id: string; name: string }>;
+            return reagents.map((reagent) => reagent.name).join(", ");
+        },
+    },
 ];
-// const placeholder = "Search by seller, status";
 
 const boxStyles = {
     padding: "40px",
@@ -22,26 +30,21 @@ const boxStyles = {
 };
 
 export const OrderList = () => {
-    // useGate(OrdersGate);
-    // const orders = useUnit($OrdersList);
     const navigate = useNavigate();
-
-    // console.log("orders", orders)
-
     const handleClick = () => {
-        navigate({ to: "/orders/create" });
+        navigate({ to: "/create-order" });
     };
 
     return (
         <>
             <Box sx={boxStyles}>
                 <Typography variant="h5">Order List</Typography>
-                <CommonTable
+                <CommonTable<Order>
                     // ref={tableRef}
                     columns={headers}
                     url={`${base}/api/v1/orders`}
                     schema={OrderSchema}
-                    onRowClick={(row) => {
+                    onRowClick={(row: Order) => {
                         navigate({ to: `/orders/${row.id}`, replace: false });
                     }}
                     searchBy={{

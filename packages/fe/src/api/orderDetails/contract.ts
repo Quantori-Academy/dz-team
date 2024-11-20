@@ -1,17 +1,17 @@
-import { Number, Record, Static, String } from "runtypes";
+import { z } from "zod";
 
-export const OrderDetailsContract = Record({
-    id: String,
-    name: String,
-    structure: String.nullable(),
-    structureImage: String.nullable(),
-    cas: String.nullable(),
-    producer: String.nullable(),
-    catalogId: String.nullable(),
-    catalogLink: String.nullable(),
-    unit: String,
-    pricePerUnit: Number.nullable(),
-    quantity: Number,
+import { ReagentDetailsOrderContract } from "api/reagentDetails/contract";
+
+export const OrderDetailsContract = z.object({
+    id: z.string(),
+    title: z.string().nullable(),
+    description: z.string().nullable(),
+    status: z.string().nullable(),
+    seller: z.string().nullable(),
+    deletedAt: z.string().nullable(),
+    createdAt: z.string().nullable(),
+    userId: z.string().nullable(),
+    reagents: z.array(ReagentDetailsOrderContract),
 });
 
-export type OrderDetails = Static<typeof OrderDetailsContract>;
+export type OrderDetails = z.infer<typeof OrderDetailsContract>;

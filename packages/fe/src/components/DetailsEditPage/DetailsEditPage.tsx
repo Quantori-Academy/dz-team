@@ -1,11 +1,18 @@
+import { useContext, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, Drawer, IconButton, TextField, Typography } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
 import { AnyRoute, RouteIds, useLoaderData, useNavigate } from "@tanstack/react-router";
-import { useContext, useState } from "react";
 
 import { TableContext, TableContextType } from "components/commonTable/TableContext";
+import { SupportedValue } from "utils/formatters";
 import { useIsDesktop } from "utils/useIsDesktop";
 
+type DataGridProps = {
+    rows: Array<Record<string, SupportedValue>>;
+    headers: Array<{ field: string; headerName: string }>;
+    height?: number;
+};
 type FieldConfig = {
     label: string;
     name: string;
@@ -20,6 +27,7 @@ type DetailsEditPageProps<T extends AnyRoute, TData> = {
     fields: FieldConfig[];
     onAction: (type: "submit" | "delete", data?: TData) => Promise<void>;
     editableFields?: string[];
+    dataGridProps?: DataGridProps;
 };
 
 export const DetailsEditPage = <T extends AnyRoute, TData>(
@@ -35,6 +43,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
     onAction,
     editableFields = [],
     tableRef,
+    dataGridProps,
 }: DetailsEditPageProps<T, TData> & { tableRef: TableContextType["ref"] }) {
     const [isEditing, setIsEditing] = useState(false);
     const data = useLoaderData<T>({ from: url }) as TData;
@@ -97,7 +106,12 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                 borderTop: "1px solid rgba(0, 0, 0, 0.12)",
             }}
         >
-            <Box sx={{ width: 400, p: 2 }}>
+            <Box
+                sx={{
+                    width: dataGridProps ? 600 : 400,
+                    p: 2,
+                }}
+            >
                 <IconButton
                     aria-label="close"
                     onClick={handleCloseDetails}
@@ -122,6 +136,16 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                         onChange={handleFieldChange(field)}
                     />
                 ))}
+                {dataGridProps && (
+                    <Box sx={{ mt: 4 }}>
+                        <Typography variant="h6">Reagents</Typography>
+                        <DataGrid
+                            rows={dataGridProps.rows}
+                            columns={dataGridProps.headers}
+                            sx={{ mt: 2 }}
+                        />
+                    </Box>
+                )}
                 <Box display="flex" justifyContent="flex-start" sx={{ mt: 2 }}>
                     {isEditing ? (
                         <>

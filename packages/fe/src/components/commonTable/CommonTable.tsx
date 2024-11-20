@@ -1,13 +1,13 @@
+import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { TextField } from "@mui/material";
 import {
-  DataGrid,
-  GridColDef,
-  GridPaginationModel,
-  GridRowParams,
-  GridSortModel,
-  GridValidRowModel,
+    DataGrid,
+    GridColDef,
+    GridPaginationModel,
+    GridRowParams,
+    GridSortModel,
+    GridValidRowModel,
 } from "@mui/x-data-grid";
-import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
 import { z } from "zod";
 
 import { search } from "api/search";
@@ -32,6 +32,7 @@ type GridProps<T extends GridValidRowModel> = {
     onRowClick?: (row: T) => void;
     onAdd?: () => void;
     addButtonText?: string;
+    data?: T[];
 };
 
 export interface CommonTableRef {
@@ -57,6 +58,7 @@ const fetchRows = async <T extends GridValidRowModel>({
     setLoading: (loading: boolean) => void;
     setResult: (result: FetchResponseType<T>) => void;
 }) => {
+    if (!url) return;
     setLoading(true);
     try {
         const result = await search({
@@ -110,15 +112,25 @@ const fetchRows = async <T extends GridValidRowModel>({
  */
 export const CommonTable: ForwardRefWithGenerics = forwardRef(
     <T extends GridValidRowModel>(
-        { columns, url, schema, searchBy, onRowClick, onAdd, addButtonText = "ADD" }: GridProps<T>,
+        {
+            columns,
+            url,
+            schema,
+            searchBy,
+            onRowClick,
+            onAdd,
+            addButtonText = "ADD",
+            data,
+        }: GridProps<T>,
         ref: React.Ref<CommonTableRef>,
     ) => {
         const [result, setResult] = useState<FetchResponseType<T>>({
-            data: [],
+            data: data || [],
             meta: {
                 currentPage: 1,
                 totalPages: 1,
-                totalCount: 0,
+                // totalCount: 0,
+                totalCount: data?.length || 0,
                 hasNextPage: false,
                 hasPreviousPage: false,
             },
@@ -128,12 +140,7 @@ export const CommonTable: ForwardRefWithGenerics = forwardRef(
             page: 0,
             pageSize: 25,
         });
-        const [sort, setSort] = useState<GridSortModel>([
-            {
-                field: "name",
-                sort: "asc",
-            },
-        ]);
+        const [sort, setSort] = useState<GridSortModel>([]);
         const [query, setQuery] = useState<string>("");
 
         useImperativeHandle(ref, () => ({
@@ -180,7 +187,7 @@ export const CommonTable: ForwardRefWithGenerics = forwardRef(
                             ? () => <AddRecord buttonLabel={addButtonText} onAddRecord={onAdd} />
                             : undefined,
                     }}
-                    rows={result.data}
+                    rows={data || result.data}
                     columns={columns}
                     paginationModel={pagination}
                     pageSizeOptions={[5, 10, 25, 50, 100]}
