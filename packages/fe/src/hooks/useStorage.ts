@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
-import { useUnit } from "effector-react";
+import { useState } from "react";
 
-import { $detailedStorage, addStorageFx, editStorageFx } from "stores/storage";
+import { addStorageFx } from "stores/storage";
 
 export type NewStorage = {
     name: string;
@@ -9,22 +8,16 @@ export type NewStorage = {
     description: string;
 };
 
-export const useStorage = (refs: { [key: string]: React.RefObject<HTMLInputElement> }) => {
+type HookTypes = {
+    name: React.RefObject<HTMLInputElement>;
+    room: React.RefObject<HTMLInputElement>;
+    description: React.RefObject<HTMLInputElement>;
+};
+export const useStorage = ({ name, room, description }: HookTypes) => {
     const [roomError, setRoomError] = useState<string | null>(null);
     const [nameError, setNameError] = useState<string | null>(null);
     const [confirmMessage, setConfirmMessage] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
-
-    const detailedStorage = useUnit($detailedStorage);
-
-    // Initialize the input fields with the current storage details
-    useEffect(() => {
-        if (detailedStorage) {
-            refs.name.current!.value = detailedStorage.name || "";
-            refs.room.current!.value = detailedStorage.room || "";
-            refs.description.current!.value = detailedStorage.description || "";
-        }
-    }, [detailedStorage, refs.name, refs.room, refs.description]);
 
     const validateForm = (formData: NewStorage) => {
         let isValid = true;
@@ -49,43 +42,19 @@ export const useStorage = (refs: { [key: string]: React.RefObject<HTMLInputEleme
 
     const handleSubmit = async () => {
         const formData: NewStorage = {
-            name: refs.name.current?.value as string,
-            room: refs.room.current?.value as string,
-            description: refs.description.current?.value as string,
+            name: name.current?.value || "",
+            room: room.current?.value || "",
+            description: description.current?.value || "",
         };
 
         if (validateForm(formData)) {
+            if (name.current) name.current.value = "";
+            if (room.current) room.current.value = "";
+            if (description.current) description.current.value = "";
             try {
                 await addStorageFx(formData);
                 setRoomError(null);
                 setNameError(null);
-                setConfirmMessage(true);
-                setTimeout(() => {
-                    setConfirmMessage(false);
-                }, 2000);
-            } catch (_error) {
-                setErrorMessage(true);
-                setTimeout(() => {
-                    setErrorMessage(false);
-                }, 2000);
-            }
-        }
-
-        refs.name.current!.value = "";
-        refs.room.current!.value = "";
-        refs.description.current!.value = "";
-    };
-
-    const handleEdit = async () => {
-        const formData: NewStorage = {
-            name: refs.name.current?.value as string,
-            room: refs.room.current?.value as string,
-            description: refs.description.current?.value as string,
-        };
-
-        if (validateForm(formData)) {
-            try {
-                await editStorageFx({ ...formData, id: detailedStorage.id });
                 setConfirmMessage(true);
                 setTimeout(() => {
                     setConfirmMessage(false);
@@ -103,9 +72,7 @@ export const useStorage = (refs: { [key: string]: React.RefObject<HTMLInputEleme
         roomError,
         nameError,
         handleSubmit,
-        handleEdit,
         confirmMessage,
         errorMessage,
-        detailedStorage,
     };
 };

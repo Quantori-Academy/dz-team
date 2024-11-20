@@ -21,7 +21,7 @@ const rolesNavLists: RoleToNavList = {
         { href: "/admin", title: "Home", details: "Entry point of application" },
         { href: "/users", title: "User list", details: "View the list of users" },
         {
-            href: "/storageList/storageList",
+            href: "/storageList",
             title: "Storage",
             details: "View Storage locations list",
         },
@@ -38,7 +38,7 @@ const rolesNavLists: RoleToNavList = {
             details: "Create a new request, view request statuses",
         },
         {
-            href: "/storageList/storageList",
+            href: "/storageList",
             title: "Storage",
             details: "View Storage locations list",
         },
@@ -56,7 +56,7 @@ const rolesNavLists: RoleToNavList = {
             details: "Explore existing samples or create new ones",
         },
         {
-            href: "/storageList/storageList",
+            href: "/storageList",
             title: "Storage",
             details: "View Storage locations list",
         },

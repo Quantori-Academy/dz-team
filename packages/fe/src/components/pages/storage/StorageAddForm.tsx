@@ -14,13 +14,15 @@ type AddStorageFormProps = {
     onClose: () => void;
 };
 export const StorageAddForm = ({ onClose }: AddStorageFormProps) => {
-    const refs = {
-        name: useRef<HTMLInputElement>(null),
-        room: useRef<HTMLInputElement>(null),
-        description: useRef<HTMLInputElement>(null),
-    };
+    const name = useRef<HTMLInputElement>(null);
+    const room = useRef<HTMLInputElement>(null);
+    const description = useRef<HTMLInputElement>(null);
 
-    const { roomError, nameError, handleSubmit, confirmMessage, errorMessage } = useStorage(refs);
+    const { roomError, nameError, handleSubmit, confirmMessage, errorMessage } = useStorage({
+        name,
+        room,
+        description,
+    });
 
     return (
         <Box component="form" noValidate autoComplete="off" sx={boxStyle}>
@@ -31,7 +33,7 @@ export const StorageAddForm = ({ onClose }: AddStorageFormProps) => {
             <TextField
                 label="Room"
                 name="room"
-                inputRef={refs.room}
+                inputRef={room}
                 error={!!roomError}
                 helperText={roomError}
                 margin="normal"
@@ -43,7 +45,7 @@ export const StorageAddForm = ({ onClose }: AddStorageFormProps) => {
                 name="name"
                 error={!!nameError}
                 helperText={nameError}
-                inputRef={refs.name}
+                inputRef={name}
                 margin="normal"
                 sx={textfieldStyle}
                 required={true}
@@ -51,10 +53,9 @@ export const StorageAddForm = ({ onClose }: AddStorageFormProps) => {
             <TextField
                 label="Description"
                 name="Description"
-                inputRef={refs.description}
+                inputRef={description}
                 margin="normal"
                 sx={textfieldStyle}
-                required={true}
             />
             <Box sx={boxStyle}>
                 <Button sx={button} variant="contained" color="primary" onClick={handleSubmit}>

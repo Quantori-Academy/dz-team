@@ -103,7 +103,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                 borderTop: "1px solid rgba(0, 0, 0, 0.12)",
             }}
         >
-            <Box sx={{ width: 600, p: 2 }}>
+            <Box sx={{ width: 400, p: 2 }}>
                 <IconButton
                     aria-label="close"
                     onClick={handleCloseDetails}

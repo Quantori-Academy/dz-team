@@ -17,7 +17,6 @@
         "@mui/material": "^6.1.1",
         "@mui/x-data-grid": "^7.21.0",
         "@tanstack/react-router": "^1.67.0",
-        "date-fns": "^4.1.0",
         "effector": "^23.2.2",
         "effector-react": "^23.2.1",
         "immer": "^10.1.1",

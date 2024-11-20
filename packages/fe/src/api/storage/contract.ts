@@ -1,41 +1,28 @@
 import { z } from "zod";
 
-const storageReagents = z.object({
-    id: z.string(),
-    name: z.string().nullable(),
-    structure: z.string().nullable(),
-    description: z.string().nullable(),
-    quantity: z.number(),
-    unit: z.string().nullable(),
-    size: z.number().nullable(),
-    expirationDate: z.string().nullable(),
-    storageLocation: z.string(),
-    cas: z.string().nullable(),
-    producer: z.string().nullable(),
-    catalogId: z.string().nullable(),
-    catalogLink: z.string().nullable(),
-    pricePerUnit: z.number().nullable(),
-    category: z.string().nullable(),
-    status: z.string().nullable(),
-    deletedAt: z.string().nullable(),
-    createdAt: z.string(),
-    updatedAt: z.string(),
-});
+import { ReagentSchema, StorageLocationSchema } from "shared/generated/zod";
 
-export const StorageLocationTypes = z.object({
+const StorageLocationContract = z.object({
     id: z.string(),
-    room: z.string().nullable(),
-    name: z.string().nullable(),
-    description: z.string().nullable(),
-    deletedAt: z.string().nullable(),
-    createdAt: z.string().nullable(),
-    updatedAt: z.string().nullable(),
-    reagents: z.array(storageReagents).nullable().optional(),
+    room: z.string().nullable().optional(),
+    name: z.string().nullable().optional(),
+    description: z.string().nullable().optional(),
+    deletedAt: z.string().nullable().optional(),
+    createdAt: z.string().nullable().optional(),
+    updatedAt: z.string().nullable().optional(),
+    reagents: z.array(ReagentSchema).nullable().optional(),
 });
 
 export const contractStorageType = z.object({
-    data: z.array(StorageLocationTypes),
+    data: z.array(StorageLocationContract),
 });
 
-export type DetailedStorage = z.infer<typeof StorageLocationTypes>;
 export type StorageType = z.infer<typeof contractStorageType>;
+
+export const StorageLocationDetailContract = StorageLocationSchema.merge(
+    z.object({
+        reagents: z.array(ReagentSchema),
+    }),
+);
+
+export type StorageLocationDetailContractType = z.infer<typeof StorageLocationDetailContract>;

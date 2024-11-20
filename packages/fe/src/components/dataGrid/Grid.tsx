@@ -1,12 +1,9 @@
 import { useCallback, useMemo, useState } from "react";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
-import PageviewIcon from "@mui/icons-material/Pageview";
-import { TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
 import { removeModal } from "components/modal/store";
-import { StorageAddForm } from "components/pages/storage/StorageAddForm";
 import { useModal } from "hooks/useModal";
 import { useSession } from "hooks/useSession";
 import { useUserForm } from "hooks/useUserForm";
@@ -14,12 +11,12 @@ import { SupportedValue } from "utils/formatters";
 
 import { AddUserForm } from "../pages/users/AddUserForm";
 import { AddRecord } from "./Addrecord";
+import { SearchField } from "./SearcheField";
 
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
-
-    recordType: "user" | "storage" | "detailedStorage";
+    recordType: "user" | "detailedStorage";
 };
 
 export const Grid = ({ rows, headers, recordType }: GridProps) => {
@@ -53,19 +50,13 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
         }),
     );
 
-    // opens modal for add user form and add storage form
+    // opens modal for add user form
     const handleAddFormOpen = useCallback(() => {
         if (recordType === "user") {
             openModal({
                 name: "add_user_modal",
                 title: "Add New User",
                 message: <AddUserForm onClose={() => removeModal()} />,
-            });
-        } else if (recordType === "storage") {
-            openModal({
-                name: "add_storage_modal",
-                title: "Add New Storage",
-                message: <StorageAddForm onClose={() => removeModal()} />,
             });
         }
     }, [recordType, openModal]);
@@ -77,29 +68,10 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
             width: 100,
 
             renderCell: (params: { row: { id: string } }) => (
-                // TODO whats wrong with id here
                 <>
-                    {recordType !== "detailedStorage" && !isAdmin && (
-                        <GridActionsCellItem
-                            icon={<PageviewIcon />}
-                            label="View"
-                            color="inherit"
-                            // onClick={() => handleRowClick(params.row.id)}
-                        />
-                    )}
-
                     {isAdmin && (
                         <>
-                            <GridActionsCellItem
-                                icon={<EditIcon />}
-                                label="Edit"
-                                onClick={() => {
-                                    if (recordType === "user") {
-                                        alert("edit user");
-                                    }
-                                }}
-                                color="inherit"
-                            />
+                            <GridActionsCellItem icon={<EditIcon />} label="Edit" color="inherit" />
                             <GridActionsCellItem
                                 icon={<DeleteIcon />}
                                 label="Delete"
@@ -120,18 +92,11 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
 
     return (
         <>
-            {recordType !== "detailedStorage" && (
-                <TextField
-                    variant="outlined"
-                    placeholder={
-                        recordType === "user"
-                            ? "Search by name, username, or email"
-                            : "Search by room or shelf"
-                    }
-                    value={searchQuery}
-                    onChange={handleSearch}
-                />
-            )}
+            <SearchField
+                recordType={recordType}
+                searchQuery={searchQuery}
+                onSearch={handleSearch}
+            />
             <DataGrid
                 rows={filteredRows}
                 rowHeight={60}
@@ -148,13 +113,7 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                 slots={{
                     toolbar: () => (
                         <AddRecord
-                            buttonLabel={
-                                recordType === "user"
-                                    ? "Add New User"
-                                    : recordType === "storage"
-                                      ? "Add New Storage"
-                                      : null
-                            }
+                            buttonLabel={recordType === "user" ? "Add New User" : null}
                             onAddRecord={handleAddFormOpen}
                         />
                     ),
