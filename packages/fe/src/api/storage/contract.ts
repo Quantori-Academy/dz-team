@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { ReagentSchema, StorageLocationSchema } from "shared/generated/zod";
 
-const StorageLocationContract = z.object({
+export const StorageLocationContract = z.object({
     id: z.string(),
     room: z.string().nullable().optional(),
     name: z.string().nullable().optional(),
