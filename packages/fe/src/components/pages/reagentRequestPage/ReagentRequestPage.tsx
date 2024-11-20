@@ -1,12 +1,9 @@
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
-import { useUnit } from "effector-react";
 
 import { ReagentRequest, ReagentRequestType } from "api/reagentRequest";
 import { base } from "api/request";
-import { UserRole } from "api/self";
 import { CommonTable } from "components/commonTable/CommonTable";
-import { $auth } from "stores/auth";
 
 const reagentRequestColumns: GridColDef[] = [
     { field: "reagentName", headerName: "Reagent Name", width: 200 },
@@ -21,15 +18,10 @@ const reagentRequestColumns: GridColDef[] = [
 ];
 
 export function ReagentRequestPage() {
-    const authState = useUnit($auth);
     const navigate = useNavigate();
 
     const handleRowClick = (row: ReagentRequestType) => {
-        if (authState !== false && authState?.self.role === UserRole.procurementOfficer) {
-            navigate({ to: `/allReagentRequests/${row.id}`, replace: false });
-        } else if (authState !== false && authState?.self.role === UserRole.researcher) {
-            navigate({ to: `/myReagentRequests/${row.id}`, replace: false });
-        }
+        navigate({ to: `/reagentRequests/${row.id}`, replace: false });
     };
 
     return (
