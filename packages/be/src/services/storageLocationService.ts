@@ -46,6 +46,7 @@ export class StorageLocationService {
                 room ? { room: { contains: room, mode: Prisma.QueryMode.insensitive } } : {},
                 name ? { name: { contains: name, mode: Prisma.QueryMode.insensitive } } : {},
                 searchConditions ? { OR: searchConditions } : {},
+                { deletedAt: null },
             ].filter(Boolean),
         };
 
@@ -84,7 +85,10 @@ export class StorageLocationService {
         id: string,
     ): Promise<(StorageLocation & { reagents: Reagent[] }) | null> {
         return prisma.storageLocation.findUnique({
-            where: { id },
+            where: {
+                id,
+                deletedAt: null,
+            },
             include: {
                 reagents: true,
             },
