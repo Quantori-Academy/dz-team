@@ -1,15 +1,18 @@
-import { useCallback, useRef } from "react";
+import { useRef } from "react";
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
+import { useUnit } from "effector-react";
 
 import { base } from "api/request";
+import { UserRole } from "api/self";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { TableContext } from "components/commonTable/TableContext";
+import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
-import { useModal } from "hooks/useModal";
-import { useSession } from "hooks/useSession";
 import { StorageLocation, StorageLocationSchema } from "shared/generated/zod";
+import { $auth } from "stores/auth";
+import { updateStorageList } from "stores/storage";
 
 import { StorageAddForm } from "../storage/StorageAddForm";
 
@@ -26,25 +29,31 @@ const BoxStyle = {
 };
 
 export const StorageList = () => {
-    const { openModal } = useModal();
-
+    const updateListEvent = useUnit(updateStorageList);
     const tableRef = useRef<CommonTableRef | null>(null);
+    const auth = useUnit($auth);
+    const role = auth && (auth.self.role as UserRole);
+    const isAdmin = role === UserRole.admin;
 
-    const handleAddFormOpen = useCallback(() => {
-        openModal({
-            name: "add_storage_modal",
-            title: "Add New Storage",
-            message: <StorageAddForm onClose={() => removeModal()} />,
-        });
-        // TODO fix refresh
-        if (tableRef.current?.refresh) {
-            tableRef.current.refresh();
+    const handleAddFormOpen = async () => {
+        try {
+            await createModal({
+                name: "storage_modal",
+                title: "Add New Storage",
+                message: <StorageAddForm onClose={() => removeModal()} />,
+            });
+            // TODO fix refresh invoke
+            updateListEvent();
+            if (tableRef.current?.refresh) {
+                tableRef.current.refresh();
+            }
+            removeModal();
+        } catch (_) {
+            removeModal();
         }
-    }, [openModal]);
+    };
 
     const navigate = useNavigate();
-
-    const { isAdmin } = useSession();
 
     return (
         <TableContext.Provider value={{ ref: tableRef }}>
@@ -63,7 +72,7 @@ export const StorageList = () => {
                     }}
                     {...(isAdmin && {
                         onAdd: handleAddFormOpen,
-                        addButtonText: "Add Storage",
+                        addButtonText: "Add New Storage",
                     })}
                 />
                 <Outlet />

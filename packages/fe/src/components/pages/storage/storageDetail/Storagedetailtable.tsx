@@ -1,12 +1,14 @@
 import { Box, Typography } from "@mui/material";
+import { useUnit } from "effector-react";
 
+import { UserRole } from "api/self";
 import { StorageLocationDetailContractType } from "api/storage/contract";
 import { Grid } from "components/dataGrid/Grid";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
-import { useSession } from "hooks/useSession";
 import { Reagent } from "shared/generated/zod";
+import { $auth } from "stores/auth";
 
-const boxStyle = { display: "flex", flexDirection: "column", gap: "20px" };
+const boxStyle = { display: "flex", flexDirection: "column", gap: "20px", marginTop: "15px" };
 
 const reagentColumns = [
     { field: "name", headerName: "Name", width: 120 },
@@ -38,12 +40,16 @@ type TableType = {
 };
 
 export const StorageDetailTable = ({ handleAction, reagents }: TableType) => {
-    const { isProcurementOfficer, isAdmin, isResearcher } = useSession();
-
+    const auth = useUnit($auth);
+    const role = auth && (auth.self.role as UserRole);
+    const isAdmin = role === UserRole.admin;
+    const isProcurementOfficer = role === UserRole.procurementOfficer;
+    const isResearcher = role === UserRole.researcher;
     const permissions = {
         canEdit: !isResearcher,
         canDelete: !isResearcher,
     };
+
     return (
         <>
             {isAdmin || isProcurementOfficer ? (

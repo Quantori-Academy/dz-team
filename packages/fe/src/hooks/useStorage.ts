@@ -1,7 +1,6 @@
 import { useState } from "react";
-import { useUnit } from "effector-react";
 
-import { addStorageFx, updateStorageList } from "stores/storage";
+import { addStorageFx } from "stores/storage";
 
 export type NewStorage = {
     name: string;
@@ -20,11 +19,10 @@ export const useStorage = ({ name, room, description }: HookTypes) => {
     const [confirmMessage, setConfirmMessage] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
 
-    const updateListEvent = useUnit(updateStorageList);
     const validateForm = (formData: NewStorage) => {
         let isValid = true;
 
-        if (formData.room.length > 300) {
+        if (formData.room?.length > 300) {
             setRoomError("Room must not exceed 300 characters.");
             isValid = false;
         } else if (!formData.room || formData.room.trim().length === 0) {
@@ -46,9 +44,8 @@ export const useStorage = ({ name, room, description }: HookTypes) => {
         const formData: NewStorage = {
             name: name.current?.value || "",
             room: room.current?.value || "",
-            description: description.current?.value || "",
+            description: description?.current?.value || "",
         };
-
         if (validateForm(formData)) {
             if (name.current) name.current.value = "";
             if (room.current) room.current.value = "";
@@ -68,7 +65,6 @@ export const useStorage = ({ name, room, description }: HookTypes) => {
                 }, 2000);
             }
         }
-        updateListEvent();
     };
 
     return {

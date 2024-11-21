@@ -5,7 +5,6 @@ import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
 import { removeModal } from "components/modal/store";
 import { useModal } from "hooks/useModal";
-import { useSession } from "hooks/useSession";
 import { useUserForm } from "hooks/useUserForm";
 import { SupportedValue } from "utils/formatters";
 
@@ -20,8 +19,6 @@ type GridProps = {
 };
 
 export const Grid = ({ rows, headers, recordType }: GridProps) => {
-    const { isAdmin } = useSession();
-
     const { handleDeleteUser } = useUserForm({});
     const { openModal } = useModal();
 
@@ -69,26 +66,24 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
 
             renderCell: (params: { row: { id: string } }) => (
                 <>
-                    {isAdmin && (
-                        <>
-                            <GridActionsCellItem icon={<EditIcon />} label="Edit" color="inherit" />
-                            <GridActionsCellItem
-                                icon={<DeleteIcon />}
-                                label="Delete"
-                                onClick={() => {
-                                    if (recordType === "user") {
-                                        handleDeleteUser(params.row.id);
-                                    }
-                                }}
-                                color="inherit"
-                            />
-                        </>
-                    )}
+                    <>
+                        <GridActionsCellItem icon={<EditIcon />} label="Edit" color="inherit" />
+                        <GridActionsCellItem
+                            icon={<DeleteIcon />}
+                            label="Delete"
+                            onClick={() => {
+                                if (recordType === "user") {
+                                    handleDeleteUser(params.row.id);
+                                }
+                            }}
+                            color="inherit"
+                        />
+                    </>
                 </>
             ),
         };
         return [...headers, editColumn];
-    }, [headers, handleDeleteUser, isAdmin, recordType]);
+    }, [headers, handleDeleteUser, recordType]);
 
     return (
         <>

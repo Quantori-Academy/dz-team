@@ -9,6 +9,15 @@ import { editStorage } from "api/storage/editStorage";
 import { StorageDetailTable } from "./Storagedetailtable";
 
 const boxStyle = { display: "flex", flexDirection: "column", gap: "20px" };
+const alertStyle = {
+    width: "90%",
+    maxWidth: "300px",
+    position: "fixed",
+    top: "50%",
+    left: "50%",
+    transform: "translate(-50%, -50%)",
+    textAlign: "center",
+};
 
 export const StorageDetailPage = () => {
     const { reagents } = useLoaderData({
@@ -72,7 +81,7 @@ export const StorageDetailPage = () => {
                     <Alert
                         onClose={() => setNotification(null)}
                         severity={notification.type}
-                        sx={{ width: "100%" }}
+                        sx={alertStyle}
                     >
                         {notification.message}
                     </Alert>

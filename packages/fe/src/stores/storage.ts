@@ -15,8 +15,7 @@ export const fetchStorageFx = domain.createEffect(async () => {
 });
 
 export const addStorageFx = domain.createEffect(async (storageData: NewStorage) => {
-    const response = await postStorage(storageData);
-    return response;
+    return await postStorage(storageData);
 });
 
 export const deleteStorageFx = domain.createEffect(async (id: string) => {
@@ -28,23 +27,36 @@ export const editStorageFx = domain.createEffect(
         return await editStorage(data);
     },
 );
+
 export const updateStorageList = domain.createEvent<void>("updateStorageList");
 export const $storageList = domain.createStore<StorageType["data"]>([], { name: "$storageList" });
 
 export const StorageGate = createGate({ domain });
-
-// triger storage request when new storage is added,  deleted or edited
-sample({
-    clock: [addStorageFx.doneData, deleteStorageFx.doneData, editStorageFx],
-    target: fetchStorageFx,
-});
 
 sample({
     clock: StorageGate.open,
     target: fetchStorageFx,
 });
 
+// Update storage list  after fetch
 sample({
     clock: fetchStorageFx.doneData,
     target: $storageList,
+});
+
+// Trigger fetch when storage  after add, edit and delete
+sample({
+    clock: [
+        addStorageFx.doneData,
+        deleteStorageFx.doneData,
+        editStorageFx.doneData,
+        updateStorageList,
+    ],
+    target: fetchStorageFx,
+});
+
+// Trigger updateStorageList after adding a new storage item
+sample({
+    clock: addStorageFx.doneData,
+    target: updateStorageList,
 });
