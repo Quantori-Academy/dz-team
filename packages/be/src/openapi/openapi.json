@@ -46,6 +46,14 @@
         "/api/v1/reagents/{id}": {
             "get": {
                 "tags": ["Reagent"],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "required": true,
+                        "in": "path",
+                        "name": "id"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -70,6 +78,12 @@
                             },
                             "_cached": null
                         }
+                    },
+                    {
+                        "type": "string",
+                        "required": true,
+                        "in": "path",
+                        "name": "id"
                     }
                 ],
                 "responses": {
@@ -80,6 +94,14 @@
             },
             "delete": {
                 "tags": ["Reagent"],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "required": true,
+                        "in": "path",
+                        "name": "id"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -88,6 +110,14 @@
             },
             "patch": {
                 "tags": ["Reagent"],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "required": true,
+                        "in": "path",
+                        "name": "id"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -179,6 +209,14 @@
         "/api/v1/users/{userId}": {
             "get": {
                 "tags": ["Users"],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "required": true,
+                        "in": "path",
+                        "name": "userId"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -203,6 +241,12 @@
                             },
                             "_cached": null
                         }
+                    },
+                    {
+                        "type": "string",
+                        "required": true,
+                        "in": "path",
+                        "name": "userId"
                     }
                 ],
                 "responses": {
@@ -212,6 +256,24 @@
                 }
             },
             "delete": {
+                "tags": ["Users"],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "required": true,
+                        "in": "path",
+                        "name": "userId"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/users/me": {
+            "get": {
                 "tags": ["Users"],
                 "responses": {
                     "200": {
@@ -259,6 +321,14 @@
         "/api/v1/storage-locations/{id}": {
             "get": {
                 "tags": ["StorageLocation"],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "required": true,
+                        "in": "path",
+                        "name": "id"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -283,6 +353,12 @@
                             },
                             "_cached": null
                         }
+                    },
+                    {
+                        "type": "string",
+                        "required": true,
+                        "in": "path",
+                        "name": "id"
                     }
                 ],
                 "responses": {
@@ -293,6 +369,14 @@
             },
             "delete": {
                 "tags": ["StorageLocation"],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "required": true,
+                        "in": "path",
+                        "name": "id"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -301,6 +385,14 @@
             },
             "patch": {
                 "tags": ["StorageLocation"],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "required": true,
+                        "in": "path",
+                        "name": "id"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -311,6 +403,14 @@
         "/api/v1/storage-locations/{reagentId}/move": {
             "put": {
                 "tags": ["StorageLocation"],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "required": true,
+                        "in": "path",
+                        "name": "reagentId"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -357,6 +457,14 @@
         "/api/v1/orders/{id}": {
             "get": {
                 "tags": ["Order"],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "required": true,
+                        "in": "path",
+                        "name": "id"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -381,6 +489,12 @@
                             },
                             "_cached": null
                         }
+                    },
+                    {
+                        "type": "string",
+                        "required": true,
+                        "in": "path",
+                        "name": "id"
                     }
                 ],
                 "responses": {
@@ -393,6 +507,14 @@
         "/api/v1/orders/{id}/status": {
             "patch": {
                 "tags": ["Order"],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "required": true,
+                        "in": "path",
+                        "name": "id"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -455,6 +577,12 @@
                             },
                             "_cached": null
                         }
+                    },
+                    {
+                        "type": "string",
+                        "required": true,
+                        "in": "path",
+                        "name": "id"
                     }
                 ],
                 "responses": {
@@ -465,6 +593,14 @@
             },
             "delete": {
                 "tags": ["Seller"],
+                "parameters": [
+                    {
+                        "type": "string",
+                        "required": true,
+                        "in": "path",
+                        "name": "id"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"

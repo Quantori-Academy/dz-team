@@ -8,7 +8,9 @@ import {
     OrderUpdateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
 import { OrderStatus } from "@prisma/client";
+import { SellerService } from "../services/sellerService";
 
+const sellerService = new SellerService();
 const orderService = new OrderService();
 
 export class OrderController {
@@ -63,6 +65,10 @@ export class OrderController {
         try {
             // Validate the input data
             const validatedData = OrderCreateWithUserIdInputSchema.parse(request.body);
+
+            if (validatedData.seller) {
+                await sellerService.createSeller({ name: validatedData.seller });
+            }
 
             // Call the service to create the order
             const order = await orderService.createOrder(validatedData);

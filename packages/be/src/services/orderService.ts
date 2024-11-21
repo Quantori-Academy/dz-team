@@ -30,7 +30,7 @@ export class OrderService {
      * @returns {Promise<OrderSearchResults>} A promise that resolves to an object containing orders and metadata about the results.
      */
     async getAllOrders(queryString: OrderSearch): Promise<OrderSearchResults> {
-        const { query, page, limit, sortBy, sortOrder, status, sellerName } = queryString;
+        const { query, page, limit, sortBy, sortOrder, status } = queryString;
 
         // Define search conditions based on query
         const searchConditions = query
@@ -44,16 +44,6 @@ export class OrderService {
         const where: Prisma.OrderWhereInput = {
             AND: [
                 status ? { status: { equals: status } } : {},
-                sellerName
-                    ? {
-                          seller: {
-                              name: {
-                                  contains: sellerName, // Filter by seller name
-                                  mode: Prisma.QueryMode.insensitive,
-                              },
-                          },
-                      }
-                    : {},
                 searchConditions.length > 0 ? { OR: searchConditions } : {},
             ].filter(Boolean), // Remove empty objects
         };
@@ -65,9 +55,6 @@ export class OrderService {
                 skip: (page - 1) * limit,
                 take: limit,
                 orderBy: { [sortBy]: sortOrder },
-                include: {
-                    seller: true, // Include the seller data
-                },
             }),
             prisma.order.count({ where }),
         ]);

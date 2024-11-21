@@ -98,15 +98,6 @@ export class SellerService {
         updateSellerData: Prisma.SellerUpdateInput,
     ): Promise<Seller | { id: string }> {
         const validatedData = SellerUpdateInputSchema.parse(updateSellerData);
-        const { name } = validatedData;
-
-        // Check if a seller with the new name exists
-        const existingSeller = await this.findSellerByName(name as string);
-
-        if (existingSeller && existingSeller.id !== id) {
-            // If another seller exists with the same name, return that seller's ID
-            return { id: existingSeller.id };
-        }
 
         // If the name is unique or updating the same seller, proceed with update
         return prisma.seller.update({

@@ -7,12 +7,14 @@ const OrderFieldEnum = z.enum([
     "createdAt",
     "updatedAt",
     "description",
-    "title",
+    "seller",
 ]);
 
 // Define the OrderSearch schema with additional optional fields
 export const OrderSearchSchema = BaseSearchSchema.extend({
-    sortBy: z.enum(["title", "description", "createdAt", "updatedAt"]).default("createdAt"),
+    sortBy: z
+        .enum(["title", "description", "seller", "createdAt", "updatedAt"])
+        .default("createdAt"),
     status: z.enum(["pending", "submitted", "fulfilled", "canceled"]).optional(),
     searchBy: z
         .union([
@@ -21,7 +23,6 @@ export const OrderSearchSchema = BaseSearchSchema.extend({
         ])
         .transform((val) => (Array.isArray(val) ? val : [val]))
         .optional(), // Outputs an array with selected search fields
-    sellerName: z.string().optional(),
 });
 
 // Type inference for OrderSearch

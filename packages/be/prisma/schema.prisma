@@ -203,6 +203,7 @@ model Order {
   title           String        // title of the order
   description     String?       // Description of the order
   status          OrderStatus   @default(pending) // Status of the order ("pending", "submitted", "fulfilled", "canceled")
+  seller          String?
   deletedAt       DateTime?     // Date and Time of soft deletion
   createdAt       DateTime      @default(now()) // Date and Time of Order creation
   updatedAt       DateTime      @updatedAt // Date and Time of Order modification
@@ -211,10 +212,6 @@ model Order {
   userId          String        @db.Uuid /// @zod.string.uuid()
   user            User?        @relation(fields: [userId], references: [id]) // Procurement Officer who created the Order
 
-  // Many-to-One relation with User
-  sellerId          String        @db.Uuid /// @zod.string.uuid()
-  seller            Seller?        @relation(fields: [sellerId], references: [id])
-
   reagents        Json
 }
 
@@ -222,6 +219,4 @@ model Seller {
   id     String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
   name   String        @unique
 
-  // One-to-Many relation with Orders
-  orders         Order[]    @relation()
 }
