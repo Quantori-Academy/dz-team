@@ -33,10 +33,10 @@ export const ReagentRequestFormModal = ({
             isOpen={isOpen}
             message={
                 <Box>
-                    {fields.map((field, index) => {
+                    {fields.map((field) => {
                         return (
                             <TextField
-                                key={index}
+                                key={field.name}
                                 label={field.label}
                                 name={field.name}
                                 value={formData[field.name as keyof typeof formData] || ""}
