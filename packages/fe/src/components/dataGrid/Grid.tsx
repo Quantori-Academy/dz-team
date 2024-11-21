@@ -1,23 +1,26 @@
 import { useMemo, useState } from "react";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
-import { TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
+import { useSession } from "hooks/useSession";
 import { useUserForm } from "hooks/useUserForm";
 import { SupportedValue } from "utils/formatters";
 
 import { AddUserForm } from "../pages/users/AddUserForm";
 import { AddRecord } from "./Addrecord";
+import { SearchField } from "./SearcheField";
 
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
+    recordType: "user" | "detailedStorage" | "detailedOrder";
 };
 
-export const Grid = ({ rows, headers }: GridProps) => {
+export const Grid = ({ rows, headers, recordType }: GridProps) => {
+    const { isAdmin } = useSession();
     const [searchQuery, setSearchQuery] = useState("");
     const { handleDeleteClick } = useUserForm({});
 
@@ -73,23 +76,25 @@ export const Grid = ({ rows, headers }: GridProps) => {
                     <GridActionsCellItem
                         icon={<DeleteIcon />}
                         label="Delete"
-                        onClick={() => handleDeleteClick(params.row.id)}
+                        onClick={() => {
+                            if (recordType === "user") {
+                                handleDeleteClick(params.row.id);
+                            }
+                        }}
                         color="inherit"
                     />
                 </>
             ),
         };
-        return [...headers, editColumn];
-    }, [headers, handleDeleteClick]);
+        return isAdmin ? [...headers, editColumn] : headers;
+    }, [headers, handleDeleteClick, isAdmin, recordType]);
 
     return (
         <>
-            <TextField
-                variant="outlined"
-                placeholder="Search by name, username, or email"
-                value={searchQuery}
-                onChange={handleSearch}
-                sx={{ width: "350px", marginBottom: "16px" }}
+            <SearchField
+                recordType={recordType}
+                searchQuery={searchQuery}
+                onSearch={handleSearch}
             />
             <DataGrid
                 rows={filteredRows}
@@ -113,7 +118,10 @@ export const Grid = ({ rows, headers }: GridProps) => {
                 }}
                 slots={{
                     toolbar: () => (
-                        <AddRecord buttonLabel="Add New User" onAddRecord={handleAddFormOpen} />
+                        <AddRecord
+                            buttonLabel={recordType === "user" ? "Add New User" : null}
+                            onAddRecord={handleAddFormOpen}
+                        />
                     ),
                 }}
             />

@@ -21,12 +21,12 @@ import { Route as AppResearcherLayoutSamplesImport } from "./routes/_app/_resear
 import { Route as AppResearcherLayoutReagentsImport } from "./routes/_app/_researcherLayout/reagents";
 import { Route as AppPOfficerLayoutPOfficerImport } from "./routes/_app/_pOfficerLayout/pOfficer";
 import { Route as AppPOfficerLayoutOrdersImport } from "./routes/_app/_pOfficerLayout/orders";
-import { Route as AppPOfficerLayoutCreateOrderImport } from "./routes/_app/_pOfficerLayout/create-order";
+import { Route as AppPOfficerLayoutCreateOrderImport } from "./routes/_app/_pOfficerLayout/createOrder";
 import { Route as AppAdminLayoutUsersImport } from "./routes/_app/_adminLayout/users";
 import { Route as AppAdminLayoutAdminImport } from "./routes/_app/_adminLayout/admin";
 import { Route as AppResearcherLayoutReagentsIdImport } from "./routes/_app/_researcherLayout/reagents/$id";
 import { Route as AppPOfficerLayoutOrdersIdImport } from "./routes/_app/_pOfficerLayout/orders/$id";
-import { Route as AppPOfficerLayoutCreateOrderIdImport } from "./routes/_app/_pOfficerLayout/create-order/$id";
+import { Route as AppPOfficerLayoutCreateOrderIdImport } from "./routes/_app/_pOfficerLayout/createOrder/$id";
 
 // Create/Update Routes
 
@@ -87,8 +87,8 @@ const AppPOfficerLayoutOrdersRoute = AppPOfficerLayoutOrdersImport.update({
 } as any);
 
 const AppPOfficerLayoutCreateOrderRoute = AppPOfficerLayoutCreateOrderImport.update({
-    id: "/create-order",
-    path: "/create-order",
+    id: "/createOrder",
+    path: "/createOrder",
     getParentRoute: () => AppPOfficerLayoutRoute,
 } as any);
 
@@ -175,10 +175,10 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof AppAdminLayoutUsersImport;
             parentRoute: typeof AppAdminLayoutImport;
         };
-        "/_app/_pOfficerLayout/create-order": {
-            id: "/_app/_pOfficerLayout/create-order";
-            path: "/create-order";
-            fullPath: "/create-order";
+        "/_app/_pOfficerLayout/createOrder": {
+            id: "/_app/_pOfficerLayout/createOrder";
+            path: "/createOrder";
+            fullPath: "/createOrder";
             preLoaderRoute: typeof AppPOfficerLayoutCreateOrderImport;
             parentRoute: typeof AppPOfficerLayoutImport;
         };
@@ -217,10 +217,10 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof AppResearcherLayoutIndexImport;
             parentRoute: typeof AppResearcherLayoutImport;
         };
-        "/_app/_pOfficerLayout/create-order/$id": {
-            id: "/_app/_pOfficerLayout/create-order/$id";
+        "/_app/_pOfficerLayout/createOrder/$id": {
+            id: "/_app/_pOfficerLayout/createOrder/$id";
             path: "/$id";
-            fullPath: "/create-order/$id";
+            fullPath: "/createOrder/$id";
             preLoaderRoute: typeof AppPOfficerLayoutCreateOrderIdImport;
             parentRoute: typeof AppPOfficerLayoutCreateOrderImport;
         };
@@ -342,13 +342,13 @@ export interface FileRoutesByFullPath {
     "/login": typeof LoginRoute;
     "/admin": typeof AppAdminLayoutAdminRoute;
     "/users": typeof AppAdminLayoutUsersRoute;
-    "/create-order": typeof AppPOfficerLayoutCreateOrderRouteWithChildren;
+    "/createOrder": typeof AppPOfficerLayoutCreateOrderRouteWithChildren;
     "/orders": typeof AppPOfficerLayoutOrdersRouteWithChildren;
     "/pOfficer": typeof AppPOfficerLayoutPOfficerRoute;
     "/reagents": typeof AppResearcherLayoutReagentsRouteWithChildren;
     "/samples": typeof AppResearcherLayoutSamplesRoute;
     "/": typeof AppResearcherLayoutIndexRoute;
-    "/create-order/$id": typeof AppPOfficerLayoutCreateOrderIdRoute;
+    "/createOrder/$id": typeof AppPOfficerLayoutCreateOrderIdRoute;
     "/orders/$id": typeof AppPOfficerLayoutOrdersIdRoute;
     "/reagents/$id": typeof AppResearcherLayoutReagentsIdRoute;
 }
@@ -358,13 +358,13 @@ export interface FileRoutesByTo {
     "/login": typeof LoginRoute;
     "/admin": typeof AppAdminLayoutAdminRoute;
     "/users": typeof AppAdminLayoutUsersRoute;
-    "/create-order": typeof AppPOfficerLayoutCreateOrderRouteWithChildren;
+    "/createOrder": typeof AppPOfficerLayoutCreateOrderRouteWithChildren;
     "/orders": typeof AppPOfficerLayoutOrdersRouteWithChildren;
     "/pOfficer": typeof AppPOfficerLayoutPOfficerRoute;
     "/reagents": typeof AppResearcherLayoutReagentsRouteWithChildren;
     "/samples": typeof AppResearcherLayoutSamplesRoute;
     "/": typeof AppResearcherLayoutIndexRoute;
-    "/create-order/$id": typeof AppPOfficerLayoutCreateOrderIdRoute;
+    "/createOrder/$id": typeof AppPOfficerLayoutCreateOrderIdRoute;
     "/orders/$id": typeof AppPOfficerLayoutOrdersIdRoute;
     "/reagents/$id": typeof AppResearcherLayoutReagentsIdRoute;
 }
@@ -378,13 +378,13 @@ export interface FileRoutesById {
     "/_app/_researcherLayout": typeof AppResearcherLayoutRouteWithChildren;
     "/_app/_adminLayout/admin": typeof AppAdminLayoutAdminRoute;
     "/_app/_adminLayout/users": typeof AppAdminLayoutUsersRoute;
-    "/_app/_pOfficerLayout/create-order": typeof AppPOfficerLayoutCreateOrderRouteWithChildren;
+    "/_app/_pOfficerLayout/createOrder": typeof AppPOfficerLayoutCreateOrderRouteWithChildren;
     "/_app/_pOfficerLayout/orders": typeof AppPOfficerLayoutOrdersRouteWithChildren;
     "/_app/_pOfficerLayout/pOfficer": typeof AppPOfficerLayoutPOfficerRoute;
     "/_app/_researcherLayout/reagents": typeof AppResearcherLayoutReagentsRouteWithChildren;
     "/_app/_researcherLayout/samples": typeof AppResearcherLayoutSamplesRoute;
     "/_app/_researcherLayout/": typeof AppResearcherLayoutIndexRoute;
-    "/_app/_pOfficerLayout/create-order/$id": typeof AppPOfficerLayoutCreateOrderIdRoute;
+    "/_app/_pOfficerLayout/createOrder/$id": typeof AppPOfficerLayoutCreateOrderIdRoute;
     "/_app/_pOfficerLayout/orders/$id": typeof AppPOfficerLayoutOrdersIdRoute;
     "/_app/_researcherLayout/reagents/$id": typeof AppResearcherLayoutReagentsIdRoute;
 }
@@ -396,13 +396,13 @@ export interface FileRouteTypes {
         | "/login"
         | "/admin"
         | "/users"
-        | "/create-order"
+        | "/createOrder"
         | "/orders"
         | "/pOfficer"
         | "/reagents"
         | "/samples"
         | "/"
-        | "/create-order/$id"
+        | "/createOrder/$id"
         | "/orders/$id"
         | "/reagents/$id";
     fileRoutesByTo: FileRoutesByTo;
@@ -411,13 +411,13 @@ export interface FileRouteTypes {
         | "/login"
         | "/admin"
         | "/users"
-        | "/create-order"
+        | "/createOrder"
         | "/orders"
         | "/pOfficer"
         | "/reagents"
         | "/samples"
         | "/"
-        | "/create-order/$id"
+        | "/createOrder/$id"
         | "/orders/$id"
         | "/reagents/$id";
     id:
@@ -429,13 +429,13 @@ export interface FileRouteTypes {
         | "/_app/_researcherLayout"
         | "/_app/_adminLayout/admin"
         | "/_app/_adminLayout/users"
-        | "/_app/_pOfficerLayout/create-order"
+        | "/_app/_pOfficerLayout/createOrder"
         | "/_app/_pOfficerLayout/orders"
         | "/_app/_pOfficerLayout/pOfficer"
         | "/_app/_researcherLayout/reagents"
         | "/_app/_researcherLayout/samples"
         | "/_app/_researcherLayout/"
-        | "/_app/_pOfficerLayout/create-order/$id"
+        | "/_app/_pOfficerLayout/createOrder/$id"
         | "/_app/_pOfficerLayout/orders/$id"
         | "/_app/_researcherLayout/reagents/$id";
     fileRoutesById: FileRoutesById;
@@ -490,7 +490,7 @@ export const routeTree = rootRoute
       "filePath": "_app/_pOfficerLayout.tsx",
       "parent": "/_app",
       "children": [
-        "/_app/_pOfficerLayout/create-order",
+        "/_app/_pOfficerLayout/createOrder",
         "/_app/_pOfficerLayout/orders",
         "/_app/_pOfficerLayout/pOfficer"
       ]
@@ -512,11 +512,11 @@ export const routeTree = rootRoute
       "filePath": "_app/_adminLayout/users.tsx",
       "parent": "/_app/_adminLayout"
     },
-    "/_app/_pOfficerLayout/create-order": {
-      "filePath": "_app/_pOfficerLayout/create-order.tsx",
+    "/_app/_pOfficerLayout/createOrder": {
+      "filePath": "_app/_pOfficerLayout/createOrder.tsx",
       "parent": "/_app/_pOfficerLayout",
       "children": [
-        "/_app/_pOfficerLayout/create-order/$id"
+        "/_app/_pOfficerLayout/createOrder/$id"
       ]
     },
     "/_app/_pOfficerLayout/orders": {
@@ -545,9 +545,9 @@ export const routeTree = rootRoute
       "filePath": "_app/_researcherLayout/index.tsx",
       "parent": "/_app/_researcherLayout"
     },
-    "/_app/_pOfficerLayout/create-order/$id": {
-      "filePath": "_app/_pOfficerLayout/create-order/$id.tsx",
-      "parent": "/_app/_pOfficerLayout/create-order"
+    "/_app/_pOfficerLayout/createOrder/$id": {
+      "filePath": "_app/_pOfficerLayout/createOrder/$id.tsx",
+      "parent": "/_app/_pOfficerLayout/createOrder"
     },
     "/_app/_pOfficerLayout/orders/$id": {
       "filePath": "_app/_pOfficerLayout/orders/$id.tsx",
