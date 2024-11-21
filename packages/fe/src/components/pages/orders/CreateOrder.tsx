@@ -50,7 +50,7 @@ export const CreateOrder = () => {
                     columns={headers}
                     schema={OrderSchema}
                     onRowClick={(row: Reagent) => {
-                        navigate({ to: `/create-order/${row.id}`, replace: false });
+                        navigate({ to: `/createOrder/${row.id}`, replace: false });
                     }}
                     searchBy={{
                         name: true,

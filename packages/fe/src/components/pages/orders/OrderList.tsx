@@ -26,7 +26,7 @@ const headers = [
 export const OrderList = () => {
     const navigate = useNavigate();
     const handleClick = () => {
-        navigate({ to: "/create-order" });
+        navigate({ to: "/createOrder" });
     };
 
     return (
