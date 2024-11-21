@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Box } from "@mui/material";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 
@@ -6,8 +7,7 @@ import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
 import { OrderSchema, Reagent } from "shared/generated/zod";
 
-import { ReagentFormModal } from "../ReagentsPage/ReagentFormModal";
-import { mockData } from "./mockData";
+import { OrderReagentFormModal } from "./OrderReagentFormModal";
 
 const headers = [
     { field: "id", headerName: "id", width: 150 },
@@ -31,6 +31,7 @@ const boxStyles = {
 };
 
 export const CreateOrder = () => {
+    const [reagents, setReagents] = useState<Reagent[]>([]);
     const navigate = useNavigate();
 
     // TODO: function doesnt work yet.
@@ -39,14 +40,18 @@ export const CreateOrder = () => {
             await createModal({
                 name: "reagent_modal",
                 title: "Add new Reagent",
-                message: <ReagentFormModal />,
-                labels: { ok: "Submit", cancel: "Cancel" },
+                message: (
+                    <OrderReagentFormModal
+                        onSubmit={(newReagent) => {
+                            setReagents((prevReagents) => [...prevReagents, newReagent]);
+                            removeModal();
+                        }}
+                        onCancel={() => {
+                            removeModal();
+                        }}
+                    />
+                ),
             });
-            // submitReagentEvent();
-            // if (tableRef.current?.refresh) {
-            //     tableRef.current.refresh();
-            // }
-            removeModal();
         } catch (_) {
             removeModal();
         }
@@ -57,7 +62,7 @@ export const CreateOrder = () => {
             <Box sx={boxStyles}>
                 <CommonTable<Reagent>
                     columns={headers}
-                    data={mockData}
+                    data={reagents}
                     schema={OrderSchema}
                     onRowClick={(row: Reagent) => {
                         navigate({ to: `/create-order/${row.id}`, replace: false });
