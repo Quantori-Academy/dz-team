@@ -1,23 +1,23 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
 import { getReagentRequestDetailsApi } from "api/reagentRequestDetails/getReagentRequestDetails";
+import { UserRole } from "api/self";
 import { ReagentRequestDetailsPage } from "components/pages/reagentRequestPage/ReagentRequestDetailsPage";
-import { useSession } from "hooks/useSession";
 import { rolesRoutes } from "utils/roles";
 
 export const Route = createFileRoute("/_app/reagentRequests/$id")({
     loader: async ({ params }) => await getReagentRequestDetailsApi({ id: params.id }),
-    /* eslint-disable react-hooks/rules-of-hooks */
-    component: () => {
-        const navigate = useNavigate();
-        const { session, isProcurementOfficer, isResearcher } = useSession();
-        if (isProcurementOfficer || isResearcher) {
-            return <ReagentRequestDetailsPage url={Route.id} />;
-        } else {
-            navigate({
-                to: session ? rolesRoutes[session] : "/",
+    beforeLoad: ({ context }) => {
+        if (
+            context.auth !== false &&
+            context.auth &&
+            context.auth.self.role !== UserRole.procurementOfficer &&
+            context.auth.self.role !== UserRole.researcher
+        ) {
+            throw redirect({
+                to: rolesRoutes[context.auth.self.role],
             });
-            return null;
         }
     },
+    component: () => <ReagentRequestDetailsPage url={Route.id} />,
 });

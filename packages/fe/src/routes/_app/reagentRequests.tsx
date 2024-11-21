@@ -1,21 +1,21 @@
-import { createFileRoute, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, redirect } from "@tanstack/react-router";
 
+import { UserRole } from "api/self";
 import { ReagentRequestPage } from "components/pages/reagentRequestPage/ReagentRequestPage";
-import { useSession } from "hooks/useSession";
 import { rolesRoutes } from "utils/roles";
 
 export const Route = createFileRoute("/_app/reagentRequests")({
-    /* eslint-disable react-hooks/rules-of-hooks */
-    component: () => {
-        const navigate = useNavigate();
-        const { session, isProcurementOfficer, isResearcher } = useSession();
-        if (isProcurementOfficer || isResearcher) {
-            return <ReagentRequestPage />;
-        } else {
-            navigate({
-                to: session ? rolesRoutes[session] : "/",
+    beforeLoad: ({ context }) => {
+        if (
+            context.auth !== false &&
+            context.auth &&
+            context.auth.self.role !== UserRole.procurementOfficer &&
+            context.auth.self.role !== UserRole.researcher
+        ) {
+            throw redirect({
+                to: rolesRoutes[context.auth.self.role],
             });
-            return null;
         }
     },
+    component: () => <ReagentRequestPage />,
 });
