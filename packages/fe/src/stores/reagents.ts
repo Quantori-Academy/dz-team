@@ -25,6 +25,7 @@ export const initialFormData: CreateReagentType = {
 };
 
 export const $formData = domain.createStore<CreateReagentType>(initialFormData);
+export const $formDataErrors = domain.createStore<Record<string, string>>({});
 export const setFormData = domain.createEvent<CreateReagentType>();
 
 $formData.on(setFormData, (state, payload) => ({
@@ -44,6 +45,23 @@ export const addReagentFx = domain.createEffect(async () => {
     });
     setFormData(initialFormData);
     return await response.json();
+});
+
+// Processes form data, validates it with the schema, and stores errors in $formDataErrors
+sample({
+    clock: $formData,
+    fn: (formData) => {
+        const result = ReagentCreateInputSchema.safeParse(formData);
+
+        return (
+            result.error?.issues.reduce((acc, issue) => {
+                const key = issue.path.join(".");
+                acc[key] = issue.message;
+                return acc;
+            }, {} as Record<string, string>) ?? {}
+        );
+    },
+    target: $formDataErrors,
 });
 
 // post added reagent on submit
