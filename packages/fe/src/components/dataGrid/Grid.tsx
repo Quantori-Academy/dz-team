@@ -5,7 +5,6 @@ import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
-import { useSession } from "hooks/useSession";
 import { useUserForm } from "hooks/useUserForm";
 import { SupportedValue } from "utils/formatters";
 
@@ -20,7 +19,6 @@ type GridProps = {
 };
 
 export const Grid = ({ rows, headers, recordType }: GridProps) => {
-    const { isAdmin } = useSession();
     const [searchQuery, setSearchQuery] = useState("");
     const { handleDeleteClick } = useUserForm({});
 
@@ -76,18 +74,14 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                     <GridActionsCellItem
                         icon={<DeleteIcon />}
                         label="Delete"
-                        onClick={() => {
-                            if (recordType === "user") {
-                                handleDeleteClick(params.row.id);
-                            }
-                        }}
+                        onClick={() => handleDeleteClick(params.row.id)}
                         color="inherit"
                     />
                 </>
             ),
         };
-        return isAdmin ? [...headers, editColumn] : headers;
-    }, [headers, handleDeleteClick, isAdmin, recordType]);
+        return [...headers, editColumn];
+    }, [headers, handleDeleteClick]);
 
     return (
         <>
