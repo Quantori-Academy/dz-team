@@ -32,7 +32,6 @@ type GridProps<T extends GridValidRowModel> = {
     onRowClick?: (row: T) => void;
     onAdd?: () => void;
     addButtonText?: string;
-    data?: T[];
 };
 
 export interface CommonTableRef {
@@ -112,25 +111,15 @@ const fetchRows = async <T extends GridValidRowModel>({
  */
 export const CommonTable: ForwardRefWithGenerics = forwardRef(
     <T extends GridValidRowModel>(
-        {
-            columns,
-            url,
-            schema,
-            searchBy,
-            onRowClick,
-            onAdd,
-            addButtonText = "ADD",
-            data,
-        }: GridProps<T>,
+        { columns, url, schema, searchBy, onRowClick, onAdd, addButtonText = "ADD" }: GridProps<T>,
         ref: React.Ref<CommonTableRef>,
     ) => {
         const [result, setResult] = useState<FetchResponseType<T>>({
-            data: data || [],
+            data: [],
             meta: {
                 currentPage: 1,
                 totalPages: 1,
-                // totalCount: 0,
-                totalCount: data?.length || 0,
+                totalCount: 0,
                 hasNextPage: false,
                 hasPreviousPage: false,
             },
@@ -187,7 +176,7 @@ export const CommonTable: ForwardRefWithGenerics = forwardRef(
                             ? () => <AddRecord buttonLabel={addButtonText} onAddRecord={onAdd} />
                             : undefined,
                     }}
-                    rows={data || result.data}
+                    rows={result.data}
                     columns={columns}
                     paginationModel={pagination}
                     pageSizeOptions={[5, 10, 25, 50, 100]}

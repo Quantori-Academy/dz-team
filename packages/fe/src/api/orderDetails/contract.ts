@@ -1,17 +1,28 @@
 import { z } from "zod";
 
-import { ReagentOrderContract } from "api/reagentDetails/contract";
-
-export const OrderDetailsContract = z.object({
-    id: z.string(),
-    title: z.string().nullable(),
+export const ReagentDetailsOrderContract = z.object({
+    id: z.string().optional(),
+    name: z.string().nullable(),
+    structure: z.string().nullable(),
     description: z.string().nullable(),
-    status: z.string().nullable(),
-    seller: z.string().nullable(),
-    deletedAt: z.string().nullable(),
-    createdAt: z.string().nullable(),
-    userId: z.string().nullable(),
-    reagents: z.array(ReagentOrderContract),
+    quantity: z.number(),
+    unit: z
+        .string()
+        .nullable()
+        .transform((val) => val || "ml"),
+    expirationDate: z.string().nullable(),
+    storageLocation: z
+        .string()
+        .nullable()
+        .transform((val) => val || ""),
+    cas: z.string().nullable(),
+    producer: z.string().nullable(),
+    catalogId: z.string().nullable(),
+    catalogLink: z.string().nullable(),
+    pricePerUnit: z.number().nullable(),
+    createdAt: z.string().nullable().optional(),
+    updatedAt: z.string().nullable().optional(),
+    amount: z.number().nullable().optional(),
 });
 
-export type OrderDetails = z.infer<typeof OrderDetailsContract>;
+export type ReagentDetailsOrder = z.infer<typeof ReagentDetailsOrderContract>;

@@ -1,7 +1,6 @@
 import { useMemo, useState } from "react";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
-import { TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
 import { createModal } from "components/modal/createModal";
@@ -11,13 +10,15 @@ import { SupportedValue } from "utils/formatters";
 
 import { AddUserForm } from "../pages/users/AddUserForm";
 import { AddRecord } from "./Addrecord";
+import { SearchField } from "./SearcheField";
 
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
+    recordType: "user" | "detailedStorage" | "detailedOrder";
 };
 
-export const Grid = ({ rows, headers }: GridProps) => {
+export const Grid = ({ rows, headers, recordType }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
     const { handleDeleteClick } = useUserForm({});
 
@@ -84,12 +85,10 @@ export const Grid = ({ rows, headers }: GridProps) => {
 
     return (
         <>
-            <TextField
-                variant="outlined"
-                placeholder="Search by name, username, or email"
-                value={searchQuery}
-                onChange={handleSearch}
-                sx={{ width: "350px", marginBottom: "16px" }}
+            <SearchField
+                recordType={recordType}
+                searchQuery={searchQuery}
+                onSearch={handleSearch}
             />
             <DataGrid
                 rows={filteredRows}
@@ -113,7 +112,10 @@ export const Grid = ({ rows, headers }: GridProps) => {
                 }}
                 slots={{
                     toolbar: () => (
-                        <AddRecord buttonLabel="Add New User" onAddRecord={handleAddFormOpen} />
+                        <AddRecord
+                            buttonLabel={recordType === "user" ? "Add New User" : null}
+                            onAddRecord={handleAddFormOpen}
+                        />
                     ),
                 }}
             />

@@ -1,18 +1,11 @@
-import { useContext, useState } from "react";
+import { PropsWithChildren, useContext, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, Drawer, IconButton, TextField, Typography } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
 import { AnyRoute, RouteIds, useLoaderData, useNavigate } from "@tanstack/react-router";
 
 import { TableContext, TableContextType } from "components/commonTable/TableContext";
-import { SupportedValue } from "utils/formatters";
 import { useIsDesktop } from "utils/useIsDesktop";
 
-type DataGridProps = {
-    rows: Array<Record<string, SupportedValue>>;
-    headers: Array<{ field: string; headerName: string }>;
-    height?: number;
-};
 type FieldConfig = {
     label: string;
     name: string;
@@ -21,14 +14,13 @@ type FieldConfig = {
     disabled?: boolean;
 };
 
-type DetailsEditPageProps<T extends AnyRoute, TData> = {
+type DetailsEditPageProps<T extends AnyRoute, TData> = PropsWithChildren<{
     baseUrl: string;
     url: RouteIds<T>;
     fields: FieldConfig[];
     onAction: (type: "submit" | "delete", data?: TData) => Promise<void>;
     editableFields?: string[];
-    dataGridProps?: DataGridProps;
-};
+}>;
 
 export const DetailsEditPage = <T extends AnyRoute, TData>(
     props: DetailsEditPageProps<T, TData>,
@@ -44,7 +36,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
     onAction,
     editableFields = [],
     tableRef,
-    dataGridProps,
+    children,
 }: DetailsEditPageProps<T, TData> & { tableRef: TableContextType["ref"] }) {
     const [isEditing, setIsEditing] = useState(false);
     const data = useLoaderData<T>({ from: url }) as TData;
@@ -101,7 +93,6 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
             variant="temporary"
             elevation={0}
             sx={{
-                height: "90vh",
                 overflowY: "auto",
                 transform: isSmallScreen ? "translateY(85px)" : "translateY(55px)",
                 borderTop: "1px solid rgba(0, 0, 0, 0.12)",
@@ -109,7 +100,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
         >
             <Box
                 sx={{
-                    width: dataGridProps ? 600 : 400,
+                    width: 400,
                     p: 2,
                 }}
             >
@@ -137,16 +128,6 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                         onChange={handleFieldChange(field)}
                     />
                 ))}
-                {dataGridProps && (
-                    <Box sx={{ mt: 4 }}>
-                        <Typography variant="h6">Reagents</Typography>
-                        <DataGrid
-                            rows={dataGridProps.rows}
-                            columns={dataGridProps.headers}
-                            sx={{ mt: 2 }}
-                        />
-                    </Box>
-                )}
                 <Box display="flex" justifyContent="flex-start" sx={{ mt: 2 }}>
                     {isEditing ? (
                         <>
@@ -178,6 +159,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                         </>
                     )}
                 </Box>
+                {children}
             </Box>
         </Drawer>
     );

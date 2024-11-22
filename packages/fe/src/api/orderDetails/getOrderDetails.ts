@@ -1,6 +1,5 @@
 import { base, request } from "api/request";
-
-import { OrderDetailsContract } from "./contract";
+import { OrderSchema } from "shared/generated/zod/modelSchema";
 
 export const getOrdersDetailsApi = async ({ id }: { id: string }) =>
-    await request(`${base}/api/v1/orders/${id}`, OrderDetailsContract);
+    await request(`${base}/api/v1/orders/${id}`, OrderSchema);

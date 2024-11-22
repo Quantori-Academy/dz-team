@@ -1,8 +1,10 @@
 import { Box, Typography } from "@mui/material";
 import { useLoaderData } from "@tanstack/react-router";
 
-import { OrderDetails } from "api/orderDetails/contract";
+import { Grid } from "components/dataGrid/Grid";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
+import { Order } from "shared/generated/zod/modelSchema";
+import { SupportedValue } from "utils/formatters";
 
 const reagentColumns = [
     { field: "id", headerName: "ID", width: 120 },
@@ -16,50 +18,28 @@ const reagentColumns = [
     { field: "pricePerUnit", headerName: "Price per unit", width: 180 },
 ];
 
+const fields = [
+    { label: "ID", name: "id", disabled: true },
+    { label: "Title", name: "title" },
+    { label: "Description", name: "description" },
+    { label: "Status", name: "status" },
+    { label: "Seller", name: "seller" },
+    { label: "Deleted at", name: "deletedAt" },
+    { label: "Created at", name: "createdAt" },
+    { label: "User Id", name: "userId" },
+];
+
+const boxStyle = { display: "flex", flexDirection: "column", gap: "20px" };
+
 export function OrderDetailsPage() {
-    const { reagents } = useLoaderData({ from: "/_app/_pOfficerLayout/orders/$id" });
+    const { reagents }: { reagents: Record<string, SupportedValue>[] | null } = useLoaderData({
+        from: "/_app/_pOfficerLayout/orders/$id",
+    });
+    const reagentData = Array.isArray(reagents) ? reagents : [];
 
-    if (!reagents) {
-        return (
-            <Box
-                sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    height: "100vh",
-                }}
-            >
-                <Typography variant="h6">Order not found.</Typography>
-            </Box>
-        );
-    }
-
-    const fields = [
-        { label: "ID", name: "id", disabled: true },
-        { label: "Title", name: "title" },
-        { label: "Description", name: "description" },
-        { label: "Status", name: "status" },
-        { label: "Seller", name: "seller" },
-        { label: "Deleted at", name: "deletedAt" },
-        { label: "Created at", name: "createdAt" },
-        { label: "User Id", name: "userId" },
-    ];
-
-    const handleAction = async (_actionType: "submit" | "delete", _data?: OrderDetails) => {
-        // if (actionType === "delete") {
-        //     await deleteReagentAction(order.id, navigate);
-        // } else if (actionType === "submit" && data) {
-        //     setIsEditing(false);
-        //     await updateReagentAction(data, navigate);
-        // }
+    const handleAction = async (_actionType: "submit" | "delete", _data?: Order) => {
+        // TODO: action buttons will be done in the other branch
     };
-
-    const dataGridProps = reagents?.length
-        ? {
-              rows: reagents,
-              headers: reagentColumns,
-          }
-        : undefined;
 
     return (
         <DetailsEditPage
@@ -67,7 +47,19 @@ export function OrderDetailsPage() {
             url="/_app/_pOfficerLayout/orders/$id"
             fields={fields}
             onAction={handleAction}
-            dataGridProps={dataGridProps}
-        />
+        >
+            {reagentData.length > 0 ? (
+                <Box sx={boxStyle}>
+                    <Typography variant="h6" sx={{ mt: 2 }}>
+                        Reagents
+                    </Typography>
+                    <Grid rows={reagentData} headers={reagentColumns} recordType="detailedOrder" />
+                </Box>
+            ) : (
+                <Box sx={boxStyle}>
+                    <Typography>No reagents in this order.</Typography>
+                </Box>
+            )}
+        </DetailsEditPage>
     );
 }

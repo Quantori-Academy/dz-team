@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { Box } from "@mui/material";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 
 import { CommonTable } from "components/commonTable/CommonTable";
+import LayoutBox from "components/LayoutBox/LayoutBox";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
 import { OrderSchema, Reagent } from "shared/generated/zod";
@@ -22,14 +22,6 @@ const headers = [
     { field: "quantity", headerName: "Quantity", width: 170 },
     { field: "amount", headerName: "Amount", width: 170 },
 ];
-
-const boxStyles = {
-    padding: "40px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px",
-};
-
 export const CreateOrder = () => {
     const [reagents, setReagents] = useState<Reagent[]>([]);
     const navigate = useNavigate();
@@ -59,21 +51,21 @@ export const CreateOrder = () => {
 
     return (
         <>
-            <Box sx={boxStyles}>
+            <LayoutBox>
                 <CommonTable<Reagent>
                     columns={headers}
                     data={reagents}
                     schema={OrderSchema}
                     onRowClick={(row: Reagent) => {
-                        navigate({ to: `/create-order/${row.id}`, replace: false });
+                        navigate({ to: `/createOrder/${row.id}`, replace: false });
                     }}
                     searchBy={{
                         name: true,
                     }}
                     onAdd={openAddModal}
-                    addButtonText="Create a new reagent"
+                    addButtonText="Create a new reagent for an order"
                 />
-            </Box>
+            </LayoutBox>
             <Outlet />
         </>
     );
