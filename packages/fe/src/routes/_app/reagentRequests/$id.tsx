@@ -9,7 +9,6 @@ export const Route = createFileRoute("/_app/reagentRequests/$id")({
     loader: async ({ params }) => await getReagentRequestDetailsApi({ id: params.id }),
     beforeLoad: ({ context }) => {
         if (
-            context.auth !== false &&
             context.auth &&
             context.auth.self.role !== UserRole.procurementOfficer &&
             context.auth.self.role !== UserRole.researcher
