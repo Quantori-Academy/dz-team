@@ -1,10 +1,10 @@
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
+import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
-import { useModal } from "hooks/useModal";
 import { useUserForm } from "hooks/useUserForm";
 import { SupportedValue } from "utils/formatters";
 
@@ -20,7 +20,6 @@ type GridProps = {
 
 export const Grid = ({ rows, headers, recordType }: GridProps) => {
     const { handleDeleteUser } = useUserForm({});
-    const { openModal } = useModal();
 
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -47,16 +46,19 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
         }),
     );
 
-    // opens modal for add user form
-    const handleAddFormOpen = useCallback(() => {
-        if (recordType === "user") {
-            openModal({
+    const handleAddFormOpen = async () => {
+        try {
+            await createModal({
                 name: "add_user_modal",
                 title: "Add New User",
                 message: <AddUserForm onClose={() => removeModal()} />,
             });
+
+            removeModal();
+        } catch (_) {
+            removeModal();
         }
-    }, [recordType, openModal]);
+    };
 
     const columns = useMemo(() => {
         const editColumn = {
