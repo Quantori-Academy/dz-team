@@ -3,9 +3,10 @@ const reagents = require("./seedData/reagents.json");
 const samples = require("./seedData/samples.json");
 const storage = require("./seedData/storage_db.json");
 const orders = require("./seedData/orders.json");
+const reagentRequests = require("./seedData/requests.json");
+const users = require("./seedData/users.json");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-
 const prisma = new PrismaClient();
 
 const secret = process.env.JWT_SECRET || "b82359e8-f0a5-41d4-8677-2180f836d8cd";
@@ -32,6 +33,28 @@ async function addAdmin() {
     }
 }
 
+async function addUsers() {
+    for (const user of users) {
+        const existingUser = await prisma.user.findFirst({
+            where: { OR: [{ email: user.email }, { username: user.username }] },
+        });
+
+        if (!existingUser) {
+            const hashedPassword = await bcrypt.hash(user.password, 10);
+            await prisma.user.create({
+                data: {
+                    ...user,
+                    password: hashedPassword,
+                },
+            });
+            console.log(`👤 User ${user.username} added.`);
+        } else {
+            console.log(
+                `📍 User with email ${user.email} or username ${user.username} already exists.`,
+            );
+        }
+    }
+}
 async function addStorage() {
     let storageCount = await prisma.storageLocation.count();
     if (!storageCount) {
@@ -91,11 +114,10 @@ async function addSamples(storageCount) {
     console.log("🥀 No new samples were added.");
 }
 
-
 async function addOrders() {
     const orderCount = await prisma.order.count();
     if (!orderCount) {
-        const results = orders.map(order => ({
+        const results = orders.map((order) => ({
             ...order,
         }));
         const table = await prisma.order.createMany({
@@ -105,6 +127,40 @@ async function addOrders() {
         console.log(`📦 Seeded database with ${table.count} order records.`);
     } else {
         console.log("🥀 No new orders were added.");
+    }
+}
+
+async function addReagentRequests() {
+    const reagentRequestCount = await prisma.reagentRequest.count();
+
+    const defaultUser = await prisma.user.findFirst({
+        where: { role: "admin" },
+    });
+
+    if (!defaultUser) {
+        console.error("❌ No user found to associate reagent requests.");
+        return;
+    }
+
+    const validRequestStatuses = ["pending", "ordered", "declined", "completed"];
+
+    if (!reagentRequestCount) {
+        const results = reagentRequests.map((req) => ({
+            ...req,
+            userId: req.userId || defaultUser.id, // Ensure a valid userId
+            orderId: req.orderId || null, // Allow null if optional
+            status: validRequestStatuses.includes(req.status) ? req.status : "pending", // Validate or default status
+            createdAt: new Date(req.createdAt).toISOString(),
+            updatedAt: new Date(req.updatedAt).toISOString(),
+        }));
+
+        const table = await prisma.reagentRequest.createMany({
+            data: results,
+            skipDuplicates: true,
+        });
+        console.log(`📄 Seeded database with ${table.count} reagent request records.`);
+    } else {
+        console.log("🥀 No new reagent requests were added.");
     }
 }
 
@@ -148,9 +204,11 @@ async function main() {
                 "Reagents and samples require storage locations. No reagents or samples created.",
             );
         } else {
+            await addUsers();
             await addReagents(storageCount);
             await addSamples(storageCount);
             await addOrders();
+            await addReagentRequests();
         }
     }
 }

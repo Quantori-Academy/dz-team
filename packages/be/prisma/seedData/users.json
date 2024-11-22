@@ -1,0 +1,20 @@
+[
+    {
+        "id": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f705",
+        "username": "researcher1",
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "researcher1@example.com",
+        "password": "researcher1",
+        "role": "researcher"
+    },
+    {
+        "id": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f706",
+        "username": "procurement1",
+        "firstName": "Jane",
+        "lastName": "Smith",
+        "email": "procurement1@example.com",
+        "password": "procurement1",
+        "role": "procurementOfficer"
+    }
+]
