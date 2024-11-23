@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-export const ReagentDetailsOrderContract = z.object({
+const _ReagentDetailsOrderContract = z.object({
     id: z.string().optional(),
     name: z.string().nullable(),
     structure: z.string().nullable(),
@@ -25,4 +25,50 @@ export const ReagentDetailsOrderContract = z.object({
     amount: z.number().nullable().optional(),
 });
 
-export type ReagentDetailsOrder = z.infer<typeof ReagentDetailsOrderContract>;
+const _CreateOrderReagentContract = z.object({
+    id: z.string(),
+    name: z
+        .string()
+        .nullable()
+        .transform((val) => val || ""),
+    structure: z
+        .string()
+        .nullable()
+        .transform((val) => val || ""),
+    description: z
+        .string()
+        .nullable()
+        .transform((val) => val || ""),
+    quantity: z
+        .number()
+        .nullable()
+        .transform((val) => val || 0),
+    units: z
+        .string()
+        .nullable()
+        .transform((val) => val || "ml"),
+    cas: z
+        .string()
+        .nullable()
+        .transform((val) => val || ""),
+    producer: z
+        .string()
+        .nullable()
+        .transform((val) => val || ""),
+    catalogId: z
+        .string()
+        .nullable()
+        .transform((val) => val || ""),
+    catalogLink: z.string().url().optional(),
+    pricePerUnit: z
+        .number()
+        .nullable()
+        .transform((val) => val || 0),
+    amount: z
+        .number()
+        .nullable()
+        .transform((val) => val || 0),
+});
+
+export type ReagentDetailsOrder = z.infer<typeof _ReagentDetailsOrderContract>;
+export type CreateOrderReagent = z.infer<typeof _CreateOrderReagentContract>;

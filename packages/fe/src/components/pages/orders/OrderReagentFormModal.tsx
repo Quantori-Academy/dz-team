@@ -3,24 +3,22 @@ import { Box, Button, TextField } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 
-import { OrderReagentsSchema } from "shared/zodSchemas/order/orderReagentSchema";
+import { CreateOrderReagent } from "api/orderDetails/contract";
 
 type OrderReagentFormModalProps = {
-    onSubmit: (reagent: z.infer<typeof OrderReagentsSchema>) => void;
+    onSubmit: (reagent: CreateOrderReagent) => void;
     onCancel: () => void;
 };
 const fields = [
     { name: "name", label: "Name", width: 150 },
-    { name: "category", label: "Category", width: 170 },
     { name: "description", label: "Description", width: 170 },
     { name: "structure", label: "Structure", width: 170 },
     { name: "cas", label: "Cas", width: 170 },
     { name: "producer", label: "Producer", width: 170 },
     { name: "catalogId", label: "Catalog Id", width: 150 },
-    // { name: "catalogLink", label: "Catalog Link", width: 170 },
-    { name: "unit", label: "Units ", width: 170 },
+    { name: "catalogLink", label: "Catalog Link", width: 170 },
+    { name: "units", label: "Units ", width: 170 },
     { name: "pricePerUnit", label: "Price Per Unit", width: 170, type: "number" },
-    { name: "currency", label: "Currency", width: 170 },
     { name: "quantity", label: "Quantity", width: 170, type: "number" },
     { name: "amount", label: "Amount", width: 170, type: "number" },
 ];
@@ -29,19 +27,15 @@ export const OrderReagentFormModal = ({ onSubmit, onCancel }: OrderReagentFormMo
     const [formData, setFormData] = useState({
         name: "",
         description: "",
-        category: "reagent",
         structure: "",
         cas: "",
         producer: "",
         catalogId: "",
-        // catalogLink: "",
-        pricePerUnit: "",
-        currency: "usd",
-        unit: "ml",
-        quantity: "",
-        amount: "",
-        // expirationDate: "",
-        // storageLocation: "",
+        catalogLink: "",
+        pricePerUnit: 0,
+        units: "ml",
+        quantity: 0,
+        amount: 0,
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,21 +45,21 @@ export const OrderReagentFormModal = ({ onSubmit, onCancel }: OrderReagentFormMo
 
     const handleSubmit = () => {
         try {
-            const parsedData = {
+            const parsedData: CreateOrderReagent = {
                 ...formData,
+                name: formData.name || "",
                 quantity: Number(formData.quantity),
                 pricePerUnit: Number(formData.pricePerUnit),
                 amount: Number(formData.amount),
                 id: uuidv4(),
             };
-            const validatedData = OrderReagentsSchema.parse(parsedData);
-            onSubmit(validatedData);
-        } catch (_error) {
-            // if (error instanceof z.ZodError) {
-            //   console.error("Validation errors:", error.errors);
-            // } else {
-            //   console.error("An unexpected error occurred:", error);
-            // }
+            onSubmit(parsedData);
+        } catch (error) {
+            if (error instanceof z.ZodError) {
+                alert("Validation errors");
+            } else {
+                alert("An unexpected error occurred");
+            }
         }
     };
 
