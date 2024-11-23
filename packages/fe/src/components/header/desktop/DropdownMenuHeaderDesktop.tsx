@@ -79,7 +79,7 @@ export function DropdownMenuHeaderDesktop({ handleClose, open, anchorEl }: Props
                 <ListItemIcon>
                     <PersonIcon fontSize="medium" />
                 </ListItemIcon>
-                <Link styles={{ color: inherit, textDecoration: "none" }} to="/profile">
+                <Link style={{ color: "inherit", textDecoration: "none" }} to="/profile">
                     Account
                 </Link>
             </MenuItem>

@@ -1,9 +1,12 @@
-import { UpdateUser, updateUserSchema } from "shared/zodSchemas";
+import { publicUserSchema, PublicUserType } from "shared/zodSchemas/user/publicUserSchema";
+import { UpdateUser } from "shared/zodSchemas/user/updateUserSchema";
 
 import { base, request } from "../request";
+
 export const updateUser = async (id: string, updatedData: UpdateUser) => {
-    await request(`${base}/api/v1/users/updateUser/${id}`, updateUserSchema, {
+    const res = await request(`${base}/api/v1/users/${id}`, publicUserSchema, {
         method: "PUT",
         json: updatedData,
     });
+    return res as PublicUserType;
 };

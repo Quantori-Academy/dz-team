@@ -2,6 +2,7 @@ const { PrismaClient } = require("@prisma/client");
 const reagents = require("./seedData/reagents.json");
 const samples = require("./seedData/samples.json");
 const storage = require("./seedData/storage_db.json");
+const orders = require("./seedData/orders.json");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -15,6 +16,7 @@ async function addAdmin() {
         const p4$$w0rd = await bcrypt.hash("admin123", 10);
         const admin = await prisma.user.create({
             data: {
+                id: "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
                 username: "admin",
                 password: p4$$w0rd,
                 role: "admin",
@@ -89,6 +91,23 @@ async function addSamples(storageCount) {
     console.log("🥀 No new samples were added.");
 }
 
+
+async function addOrders() {
+    const orderCount = await prisma.order.count();
+    if (!orderCount) {
+        const results = orders.map(order => ({
+            ...order,
+        }));
+        const table = await prisma.order.createMany({
+            data: results,
+            skipDuplicates: true,
+        });
+        console.log(`📦 Seeded database with ${table.count} order records.`);
+    } else {
+        console.log("🥀 No new orders were added.");
+    }
+}
+
 async function cleanup(reagents, samples, storage) {
     const reagentCount = await prisma.reagent.count();
     const sampleCount = await prisma.sample.count();
@@ -131,6 +150,7 @@ async function main() {
         } else {
             await addReagents(storageCount);
             await addSamples(storageCount);
+            await addOrders();
         }
     }
 }

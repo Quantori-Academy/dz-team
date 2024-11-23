@@ -3,10 +3,13 @@ import { Box, Button, MenuItem, TextField } from "@mui/material";
 import { useUnit } from "effector-react";
 
 import { useUserUpdate } from "hooks/useUserUpdate";
+import { PublicUserType } from "shared/zodSchemas/user/publicUserSchema";
 import { $me } from "stores/auth";
 
 export const ProfilePage = () => {
-    const currentUserInfo = useUnit($me);
+    const me = useUnit($me);
+    const currentUserInfo = me as PublicUserType | null;
+    const isAdmin = currentUserInfo?.role === "admin";
     const textfieldStyle = { width: "400px" };
     const button = { width: "400px", minHeight: "56px" };
     const boxStyle = {
@@ -17,6 +20,7 @@ export const ProfilePage = () => {
     };
     const roles = ["admin", "researcher", "procurementOfficer"];
     const refs = {
+        id: useRef<HTMLInputElement>(null),
         username: useRef<HTMLInputElement>(null),
         firstName: useRef<HTMLInputElement>(null),
         lastName: useRef<HTMLInputElement>(null),
@@ -25,9 +29,22 @@ export const ProfilePage = () => {
         confirmPassword: useRef<HTMLInputElement>(null),
         role: useRef<HTMLInputElement>(null),
     };
-    const { errors, handleSubmit } = useUserUpdate(currentUserInfo?.id ?? "123", refs);
+    const { errors, handleSubmit } = useUserUpdate(currentUserInfo, refs);
     return (
         <Box component="form" noValidate autoComplete="off" sx={boxStyle}>
+            {isAdmin && (
+                <TextField
+                    label="User Id"
+                    name="id"
+                    inputRef={refs.id}
+                    error={!!errors.id}
+                    helperText={errors.id}
+                    margin="normal"
+                    sx={textfieldStyle}
+                    disabled={!isAdmin}
+                    required={true}
+                />
+            )}
             <TextField
                 label="First Name"
                 name="firstName"
@@ -70,24 +87,26 @@ export const ProfilePage = () => {
                 sx={textfieldStyle}
                 required={true}
             />
-            <TextField
-                select
-                label="Role"
-                name="role"
-                inputRef={refs.role}
-                error={!!errors.role}
-                helperText={errors.role}
-                margin="normal"
-                defaultValue=""
-                sx={textfieldStyle}
-                required={true}
-            >
-                {roles.map((role) => (
-                    <MenuItem key={role} value={role}>
-                        {role}
-                    </MenuItem>
-                ))}
-            </TextField>
+            {isAdmin && (
+                <TextField
+                    select
+                    label="Role"
+                    name="role"
+                    inputRef={refs.role}
+                    error={!!errors.role}
+                    helperText={errors.role}
+                    margin="normal"
+                    defaultValue=""
+                    sx={textfieldStyle}
+                    required={true}
+                >
+                    {roles.map((role) => (
+                        <MenuItem key={role} value={role}>
+                            {role}
+                        </MenuItem>
+                    ))}
+                </TextField>
+            )}
             <Button sx={button} variant="contained" color="primary" onClick={handleSubmit}>
                 Save User
             </Button>

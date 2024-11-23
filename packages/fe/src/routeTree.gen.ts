@@ -11,6 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from "./routes/__root";
+import { Route as ProfileImport } from "./routes/profile";
 import { Route as LoginImport } from "./routes/login";
 import { Route as AppImport } from "./routes/_app";
 import { Route as AppResearcherLayoutImport } from "./routes/_app/_researcherLayout";
@@ -23,11 +24,16 @@ import { Route as AppResearcherLayoutDevImport } from "./routes/_app/_researcher
 import { Route as AppPOfficerLayoutPOfficerImport } from "./routes/_app/_pOfficerLayout/pOfficer";
 import { Route as AppPOfficerLayoutOrdersImport } from "./routes/_app/_pOfficerLayout/orders";
 import { Route as AppAdminLayoutUsersImport } from "./routes/_app/_adminLayout/users";
-import { Route as AppAdminLayoutProfileImport } from "./routes/_app/_adminLayout/profile";
 import { Route as AppAdminLayoutAdminImport } from "./routes/_app/_adminLayout/admin";
 import { Route as AppResearcherLayoutReagentsIdImport } from "./routes/_app/_researcherLayout/reagents/$id";
 
 // Create/Update Routes
+
+const ProfileRoute = ProfileImport.update({
+    id: "/profile",
+    path: "/profile",
+    getParentRoute: () => rootRoute,
+} as any);
 
 const LoginRoute = LoginImport.update({
     id: "/login",
@@ -97,12 +103,6 @@ const AppAdminLayoutUsersRoute = AppAdminLayoutUsersImport.update({
     getParentRoute: () => AppAdminLayoutRoute,
 } as any);
 
-const AppAdminLayoutProfileRoute = AppAdminLayoutProfileImport.update({
-    id: "/profile",
-    path: "/profile",
-    getParentRoute: () => AppAdminLayoutRoute,
-} as any);
-
 const AppAdminLayoutAdminRoute = AppAdminLayoutAdminImport.update({
     id: "/admin",
     path: "/admin",
@@ -133,6 +133,13 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof LoginImport;
             parentRoute: typeof rootRoute;
         };
+        "/profile": {
+            id: "/profile";
+            path: "/profile";
+            fullPath: "/profile";
+            preLoaderRoute: typeof ProfileImport;
+            parentRoute: typeof rootRoute;
+        };
         "/_app/_adminLayout": {
             id: "/_app/_adminLayout";
             path: "";
@@ -159,13 +166,6 @@ declare module "@tanstack/react-router" {
             path: "/admin";
             fullPath: "/admin";
             preLoaderRoute: typeof AppAdminLayoutAdminImport;
-            parentRoute: typeof AppAdminLayoutImport;
-        };
-        "/_app/_adminLayout/profile": {
-            id: "/_app/_adminLayout/profile";
-            path: "/profile";
-            fullPath: "/profile";
-            preLoaderRoute: typeof AppAdminLayoutProfileImport;
             parentRoute: typeof AppAdminLayoutImport;
         };
         "/_app/_adminLayout/users": {
@@ -231,13 +231,11 @@ declare module "@tanstack/react-router" {
 
 interface AppAdminLayoutRouteChildren {
     AppAdminLayoutAdminRoute: typeof AppAdminLayoutAdminRoute;
-    AppAdminLayoutProfileRoute: typeof AppAdminLayoutProfileRoute;
     AppAdminLayoutUsersRoute: typeof AppAdminLayoutUsersRoute;
 }
 
 const AppAdminLayoutRouteChildren: AppAdminLayoutRouteChildren = {
     AppAdminLayoutAdminRoute: AppAdminLayoutAdminRoute,
-    AppAdminLayoutProfileRoute: AppAdminLayoutProfileRoute,
     AppAdminLayoutUsersRoute: AppAdminLayoutUsersRoute,
 };
 
@@ -305,8 +303,8 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren);
 export interface FileRoutesByFullPath {
     "": typeof AppResearcherLayoutRouteWithChildren;
     "/login": typeof LoginRoute;
+    "/profile": typeof ProfileRoute;
     "/admin": typeof AppAdminLayoutAdminRoute;
-    "/profile": typeof AppAdminLayoutProfileRoute;
     "/users": typeof AppAdminLayoutUsersRoute;
     "/orders": typeof AppPOfficerLayoutOrdersRoute;
     "/pOfficer": typeof AppPOfficerLayoutPOfficerRoute;
@@ -320,8 +318,8 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
     "": typeof AppPOfficerLayoutRouteWithChildren;
     "/login": typeof LoginRoute;
+    "/profile": typeof ProfileRoute;
     "/admin": typeof AppAdminLayoutAdminRoute;
-    "/profile": typeof AppAdminLayoutProfileRoute;
     "/users": typeof AppAdminLayoutUsersRoute;
     "/orders": typeof AppPOfficerLayoutOrdersRoute;
     "/pOfficer": typeof AppPOfficerLayoutPOfficerRoute;
@@ -336,11 +334,11 @@ export interface FileRoutesById {
     __root__: typeof rootRoute;
     "/_app": typeof AppRouteWithChildren;
     "/login": typeof LoginRoute;
+    "/profile": typeof ProfileRoute;
     "/_app/_adminLayout": typeof AppAdminLayoutRouteWithChildren;
     "/_app/_pOfficerLayout": typeof AppPOfficerLayoutRouteWithChildren;
     "/_app/_researcherLayout": typeof AppResearcherLayoutRouteWithChildren;
     "/_app/_adminLayout/admin": typeof AppAdminLayoutAdminRoute;
-    "/_app/_adminLayout/profile": typeof AppAdminLayoutProfileRoute;
     "/_app/_adminLayout/users": typeof AppAdminLayoutUsersRoute;
     "/_app/_pOfficerLayout/orders": typeof AppPOfficerLayoutOrdersRoute;
     "/_app/_pOfficerLayout/pOfficer": typeof AppPOfficerLayoutPOfficerRoute;
@@ -356,8 +354,8 @@ export interface FileRouteTypes {
     fullPaths:
         | ""
         | "/login"
-        | "/admin"
         | "/profile"
+        | "/admin"
         | "/users"
         | "/orders"
         | "/pOfficer"
@@ -370,8 +368,8 @@ export interface FileRouteTypes {
     to:
         | ""
         | "/login"
-        | "/admin"
         | "/profile"
+        | "/admin"
         | "/users"
         | "/orders"
         | "/pOfficer"
@@ -384,11 +382,11 @@ export interface FileRouteTypes {
         | "__root__"
         | "/_app"
         | "/login"
+        | "/profile"
         | "/_app/_adminLayout"
         | "/_app/_pOfficerLayout"
         | "/_app/_researcherLayout"
         | "/_app/_adminLayout/admin"
-        | "/_app/_adminLayout/profile"
         | "/_app/_adminLayout/users"
         | "/_app/_pOfficerLayout/orders"
         | "/_app/_pOfficerLayout/pOfficer"
@@ -403,11 +401,13 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
     AppRoute: typeof AppRouteWithChildren;
     LoginRoute: typeof LoginRoute;
+    ProfileRoute: typeof ProfileRoute;
 }
 
 const rootRouteChildren: RootRouteChildren = {
     AppRoute: AppRouteWithChildren,
     LoginRoute: LoginRoute,
+    ProfileRoute: ProfileRoute,
 };
 
 export const routeTree = rootRoute
@@ -423,7 +423,8 @@ export const routeTree = rootRoute
       "filePath": "__root.tsx",
       "children": [
         "/_app",
-        "/login"
+        "/login",
+        "/profile"
       ]
     },
     "/_app": {
@@ -437,12 +438,14 @@ export const routeTree = rootRoute
     "/login": {
       "filePath": "login.tsx"
     },
+    "/profile": {
+      "filePath": "profile.tsx"
+    },
     "/_app/_adminLayout": {
       "filePath": "_app/_adminLayout.tsx",
       "parent": "/_app",
       "children": [
         "/_app/_adminLayout/admin",
-        "/_app/_adminLayout/profile",
         "/_app/_adminLayout/users"
       ]
     },
@@ -466,10 +469,6 @@ export const routeTree = rootRoute
     },
     "/_app/_adminLayout/admin": {
       "filePath": "_app/_adminLayout/admin.tsx",
-      "parent": "/_app/_adminLayout"
-    },
-    "/_app/_adminLayout/profile": {
-      "filePath": "_app/_adminLayout/profile.tsx",
       "parent": "/_app/_adminLayout"
     },
     "/_app/_adminLayout/users": {

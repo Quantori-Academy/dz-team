@@ -5,7 +5,8 @@ import {
     ReagentCreateInputSchema,
     ReagentUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
-import { idSchema, ReagentSearchSchema } from "../../../shared/zodSchemas";
+import { idSchema } from "../../../shared/zodSchemas/baseSchemas";
+import { ReagentSearchSchema } from "../../../shared/zodSchemas/reagent/reagentSearchSchema";
 
 const reagentService = new ReagentService();
 

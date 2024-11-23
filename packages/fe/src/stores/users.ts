@@ -1,13 +1,14 @@
 import { createEffect, createEvent, sample } from "effector";
 import { createGate } from "effector-react";
 
-import { NewUser, PostUsers } from "api/users/addUser";
+import { PostUsers } from "api/users/addUser";
 import { deleteUser } from "api/users/deleteUser";
 import { getUsers, UserType } from "api/users/getUsers";
 import { updateUser } from "api/users/updateUser";
+import { NewUser } from "hooks/useUserForm";
 import { genericDomain as domain } from "logger";
 
-import { UpdateUser } from "./../../../shared/zodSchemas";
+import { UpdateUser } from "./../../../shared/zodSchemas/user/updateUserSchema";
 
 // Store to hold the user list
 export const $UsersList = domain.createStore<UserType[]>([], { name: "$UserList" });
