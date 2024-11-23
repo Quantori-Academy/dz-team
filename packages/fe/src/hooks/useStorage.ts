@@ -1,6 +1,6 @@
 import { useState } from "react";
 
-import { addStorageFx } from "stores/storage";
+import { addStorageFx, setFormData } from "stores/storage";
 
 export type NewStorage = {
     name: string;
@@ -40,29 +40,52 @@ export const useStorage = ({ name, room, description }: HookTypes) => {
         return isValid;
     };
 
+    // const handleSubmit = async () => {
+    //     const formData: NewStorage = {
+    //         name: name.current?.value || "",
+    //         room: room.current?.value || "",
+    //         description: description?.current?.value || "",
+    //     };
+    //     if (validateForm(formData)) {
+    //         if (name.current) name.current.value = "";
+    //         if (room.current) room.current.value = "";
+    //         if (description.current) description.current.value = "";
+    //         try {
+    //             await addStorageFx(formData);
+    //             setRoomError(null);
+    //             setNameError(null);
+    //             setConfirmMessage(true);
+    //             setTimeout(() => {
+    //                 setConfirmMessage(false);
+    //             }, 2000);
+    //         } catch (_error) {
+    //             setErrorMessage(true);
+    //             setTimeout(() => {
+    //                 setErrorMessage(false);
+    //             }, 2000);
+    //         }
+    //     }
+    // };
     const handleSubmit = async () => {
-        const formData: NewStorage = {
+        const currentFormData: NewStorage = {
             name: name.current?.value || "",
             room: room.current?.value || "",
             description: description?.current?.value || "",
         };
-        if (validateForm(formData)) {
-            if (name.current) name.current.value = "";
-            if (room.current) room.current.value = "";
-            if (description.current) description.current.value = "";
+
+        if (validateForm(currentFormData)) {
+            setFormData(currentFormData);
+
             try {
-                await addStorageFx(formData);
+                await addStorageFx();
+                setFormData({ name: "", room: "", description: "" });
                 setRoomError(null);
                 setNameError(null);
                 setConfirmMessage(true);
-                setTimeout(() => {
-                    setConfirmMessage(false);
-                }, 2000);
-            } catch (_error) {
+                setTimeout(() => setConfirmMessage(false), 2000);
+            } catch (_) {
                 setErrorMessage(true);
-                setTimeout(() => {
-                    setErrorMessage(false);
-                }, 2000);
+                setTimeout(() => setErrorMessage(false), 2000);
             }
         }
     };

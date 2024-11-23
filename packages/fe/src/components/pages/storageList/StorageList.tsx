@@ -43,6 +43,7 @@ export const StorageList = () => {
                 message: <StorageAddForm onClose={() => removeModal()} />,
             });
             // TODO fix refresh invoke
+
             updateListEvent();
             if (tableRef.current?.refresh) {
                 tableRef.current.refresh();
