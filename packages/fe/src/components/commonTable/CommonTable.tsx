@@ -1,5 +1,5 @@
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import { Badge, IconButton, TextField } from "@mui/material";
+import { Badge, Box, IconButton, TextField } from "@mui/material";
 import {
     GridColDef,
     GridPaginationModel,
@@ -204,20 +204,22 @@ export const CommonTable: ForwardRefWithGenerics = forwardRef(
 
         return (
             <>
-                {icon && iconProps && (
-                    <IconButton onClick={iconProps.onClick}>
-                        <Badge badgeContent={iconProps.badgeContent} color={iconProps.color}>
-                            {icon}
-                        </Badge>
-                    </IconButton>
-                )}
-                <TextField
-                    label="Search"
-                    variant="outlined"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    sx={{ minWidth: 200, mt: 2 }}
-                />
+                <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
+                    <TextField
+                        label="Search"
+                        variant="outlined"
+                        value={query}
+                        onChange={(e) => setQuery(e.target.value)}
+                        sx={{ minWidth: 200, flex: 1, mt: 2 }}
+                    />
+                    {icon && iconProps && (
+                        <IconButton onClick={iconProps.onClick}>
+                            <Badge badgeContent={iconProps.badgeContent} color={iconProps.color}>
+                                {icon}
+                            </Badge>
+                        </IconButton>
+                    )}
+                </Box>
                 <PureTable
                     columns={columns}
                     rows={result.data}
