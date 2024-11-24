@@ -10,6 +10,7 @@ import { SupportedValue } from "utils/formatters";
 
 import { AddUserForm } from "../pages/users/AddUserForm";
 import { AddRecord } from "./Addrecord";
+import { MoveReagent } from "./MoveReagent";
 import { SearchField } from "./SearcheField";
 
 type GridProps = {
@@ -69,17 +70,28 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
             renderCell: (params: { row: { id: string } }) => (
                 <>
                     <>
-                        <GridActionsCellItem icon={<EditIcon />} label="Edit" color="inherit" />
-                        <GridActionsCellItem
-                            icon={<DeleteIcon />}
-                            label="Delete"
-                            onClick={() => {
-                                if (recordType === "user") {
-                                    handleDeleteUser(params.row.id);
-                                }
-                            }}
-                            color="inherit"
-                        />
+                        {recordType !== "detailedStorage" && (
+                            <>
+                                <GridActionsCellItem
+                                    icon={<EditIcon />}
+                                    label="Edit"
+                                    color="inherit"
+                                />
+                                <GridActionsCellItem
+                                    icon={<DeleteIcon />}
+                                    label="Delete"
+                                    onClick={() => {
+                                        if (recordType === "user") {
+                                            handleDeleteUser(params.row.id);
+                                        }
+                                    }}
+                                    color="inherit"
+                                />
+                            </>
+                        )}
+                        {recordType === "detailedStorage" && (
+                            <MoveReagent storeId={params.row.id} />
+                        )}
                     </>
                 </>
             ),
