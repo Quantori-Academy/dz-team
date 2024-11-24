@@ -1,10 +1,13 @@
 import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
+import { useGate } from "effector-react";
 
 import { base } from "api/request";
 import { CommonTable } from "components/commonTable/CommonTable";
-import { contractSampleType, Sample } from "shared/generated/zod";
+// import { Grid } from "components/dataGrid/Grid";
+import { Sample, sampleSchemaContract } from "shared/generated/zod/modelSchema/SampleSchema";
+import { SamplesGate } from "stores/samples";
 
 const columns: GridColDef<Sample>[] = [
     { field: "id", headerName: "ID", width: 90, sortable: false },
@@ -23,17 +26,24 @@ const columns: GridColDef<Sample>[] = [
 ];
 
 export const SamplesList = () => {
+    useGate(SamplesGate);
+    // const samples = useUnit($samplesList);
+
     return (
         <Box sx={{ mb: 5 }}>
+            {/* <Grid rows={samples} headers={headers} /> */}
             <CommonTable<Sample>
                 columns={columns}
                 url={`${base}/api/v1/samples`}
-                schema={contractSampleType}
-                // onRowClick={(row: Reagent) => {
-                //     navigate({ to: `/reagents/${row.id}`, replace: false });
-                // }}
+                schema={sampleSchemaContract}
                 searchBy={{
                     name: true,
+                    description: true,
+                    structure: true,
+                    producer: true,
+                    cas: true,
+                    catalogId: true,
+                    catalogLink: true,
                 }}
                 addButtonText="add reagent"
             />
