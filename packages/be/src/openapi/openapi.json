@@ -46,14 +46,6 @@
         "/api/v1/reagents/{id}": {
             "get": {
                 "tags": ["Reagent"],
-                "parameters": [
-                    {
-                        "type": "string",
-                        "required": true,
-                        "in": "path",
-                        "name": "id"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -78,12 +70,6 @@
                             },
                             "_cached": null
                         }
-                    },
-                    {
-                        "type": "string",
-                        "required": true,
-                        "in": "path",
-                        "name": "id"
                     }
                 ],
                 "responses": {
@@ -94,14 +80,6 @@
             },
             "delete": {
                 "tags": ["Reagent"],
-                "parameters": [
-                    {
-                        "type": "string",
-                        "required": true,
-                        "in": "path",
-                        "name": "id"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -110,14 +88,6 @@
             },
             "patch": {
                 "tags": ["Reagent"],
-                "parameters": [
-                    {
-                        "type": "string",
-                        "required": true,
-                        "in": "path",
-                        "name": "id"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -127,6 +97,85 @@
         },
         "/api/v1/samples/": {
             "get": {
+                "tags": ["Sample"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Sample"],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "_def": {
+                                "unknownKeys": "strict",
+                                "catchall": {
+                                    "_def": {
+                                        "typeName": "ZodNever"
+                                    }
+                                },
+                                "typeName": "ZodObject"
+                            },
+                            "_cached": null
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/samples/{id}": {
+            "get": {
+                "tags": ["Sample"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Sample"],
+                "parameters": [
+                    {
+                        "name": "body",
+                        "in": "body",
+                        "schema": {
+                            "_def": {
+                                "unknownKeys": "strict",
+                                "catchall": {
+                                    "_def": {
+                                        "typeName": "ZodNever"
+                                    }
+                                },
+                                "typeName": "ZodObject"
+                            },
+                            "_cached": null
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Sample"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "patch": {
+                "tags": ["Sample"],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -209,14 +258,6 @@
         "/api/v1/users/{userId}": {
             "get": {
                 "tags": ["Users"],
-                "parameters": [
-                    {
-                        "type": "string",
-                        "required": true,
-                        "in": "path",
-                        "name": "userId"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -241,12 +282,6 @@
                             },
                             "_cached": null
                         }
-                    },
-                    {
-                        "type": "string",
-                        "required": true,
-                        "in": "path",
-                        "name": "userId"
                     }
                 ],
                 "responses": {
@@ -257,14 +292,6 @@
             },
             "delete": {
                 "tags": ["Users"],
-                "parameters": [
-                    {
-                        "type": "string",
-                        "required": true,
-                        "in": "path",
-                        "name": "userId"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -321,14 +348,6 @@
         "/api/v1/storage-locations/{id}": {
             "get": {
                 "tags": ["StorageLocation"],
-                "parameters": [
-                    {
-                        "type": "string",
-                        "required": true,
-                        "in": "path",
-                        "name": "id"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -353,12 +372,6 @@
                             },
                             "_cached": null
                         }
-                    },
-                    {
-                        "type": "string",
-                        "required": true,
-                        "in": "path",
-                        "name": "id"
                     }
                 ],
                 "responses": {
@@ -369,14 +382,6 @@
             },
             "delete": {
                 "tags": ["StorageLocation"],
-                "parameters": [
-                    {
-                        "type": "string",
-                        "required": true,
-                        "in": "path",
-                        "name": "id"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -385,14 +390,6 @@
             },
             "patch": {
                 "tags": ["StorageLocation"],
-                "parameters": [
-                    {
-                        "type": "string",
-                        "required": true,
-                        "in": "path",
-                        "name": "id"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -403,14 +400,6 @@
         "/api/v1/storage-locations/{reagentId}/move": {
             "put": {
                 "tags": ["StorageLocation"],
-                "parameters": [
-                    {
-                        "type": "string",
-                        "required": true,
-                        "in": "path",
-                        "name": "reagentId"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -457,14 +446,6 @@
         "/api/v1/orders/{id}": {
             "get": {
                 "tags": ["Order"],
-                "parameters": [
-                    {
-                        "type": "string",
-                        "required": true,
-                        "in": "path",
-                        "name": "id"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -489,12 +470,6 @@
                             },
                             "_cached": null
                         }
-                    },
-                    {
-                        "type": "string",
-                        "required": true,
-                        "in": "path",
-                        "name": "id"
                     }
                 ],
                 "responses": {
@@ -507,14 +482,6 @@
         "/api/v1/orders/{id}/status": {
             "patch": {
                 "tags": ["Order"],
-                "parameters": [
-                    {
-                        "type": "string",
-                        "required": true,
-                        "in": "path",
-                        "name": "id"
-                    }
-                ],
                 "responses": {
                     "200": {
                         "description": "Default Response"
