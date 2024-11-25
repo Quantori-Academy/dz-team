@@ -1,35 +1,37 @@
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 
-import { ReagentRequest, ReagentRequestType } from "api/reagentRequest";
 import { base } from "api/request";
 import { CommonTable } from "components/commonTable/CommonTable";
 
+import { ReagentRequest, ReagentRequestSchema } from "../../../../../shared/generated/zod";
+
 const reagentRequestColumns: GridColDef[] = [
-    { field: "reagentName", headerName: "Reagent Name", width: 200 },
+    { field: "name", headerName: "Reagent Name", width: 200 },
     { field: "structure", headerName: "Structure", width: 200 },
-    { field: "casNumber", headerName: "CAS Number", width: 150 },
-    { field: "desiredQuantity", headerName: "Desired Quantity", width: 150 },
+    { field: "cas", headerName: "CAS Number", width: 150 },
+    { field: "quantity", headerName: "Desired Quantity", width: 150 },
+    { field: "unit", headerName: "Unit", width: 150 },
     { field: "status", headerName: "Status", width: 150 },
     { field: "userComments", headerName: "User Comments", width: 200 },
     { field: "procurementComments", headerName: "Procurement Comments", width: 200 },
-    { field: "creationDate", headerName: "Date Created", width: 150 },
-    { field: "dateModified", headerName: "Date Modified", width: 150 },
+    { field: "createdAt", headerName: "Date Created", width: 150 },
+    { field: "updatedAt", headerName: "Date Modified", width: 150 },
 ];
 
 export function ReagentRequestPage() {
     const navigate = useNavigate();
 
-    const handleRowClick = (row: ReagentRequestType) => {
+    const handleRowClick = (row: ReagentRequest) => {
         navigate({ to: `/reagentRequests/${row.id}`, replace: false });
     };
 
     return (
         <>
-            <CommonTable<ReagentRequestType>
+            <CommonTable<ReagentRequest>
                 columns={reagentRequestColumns}
                 url={`${base}/api/v1/reagent-request`}
-                schema={ReagentRequest}
+                schema={ReagentRequestSchema}
                 onRowClick={handleRowClick}
                 searchBy={{
                     name: true,
