@@ -163,11 +163,6 @@ export class OrderService {
             return { message: "Order not found." };
         }
 
-        // If the order is still 'pending', restrict status updates
-        if (existingOrder.status === OrderStatus.pending) {
-            return { message: "Order status can only be updated after it is no longer 'pending'." };
-        }
-
         // Check if reagents are already moved in DB
         if (status === OrderStatus.fulfilled) {
             console.log("fulfilled order");
