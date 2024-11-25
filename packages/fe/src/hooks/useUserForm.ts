@@ -24,68 +24,85 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
 
     const users = useUnit($usersList);
 
-    // user delete
+    // User delete handler
     const handleDeleteClick = (id: string) => {
         deleteUserFx(id);
     };
 
+    // Form validation
     const validateForm = (formData: NewUser) => {
-        let isValid = true;
+        const errors: Partial<Record<keyof NewUser, string>> = {};
 
         if (formData.username.length > 50) {
-            setUsernameError("Username must not exceed 50 characters.");
-            isValid = false;
+            errors.username = "Username must not exceed 50 characters.";
         } else if (!formData.username || formData.username.trim().length === 0) {
-            setUsernameError("User name is required");
-            isValid = false;
+            errors.username = "Username is required.";
         }
 
         if (!formData.firstName || formData.firstName.trim().length === 0) {
-            setFirstNameError("First Name is required.");
-            isValid = false;
+            errors.firstName = "First Name is required.";
         }
+
         if (!formData.lastName || formData.lastName.trim().length === 0) {
-            setLastNameError("Last Name is required.");
-            isValid = false;
+            errors.lastName = "Last Name is required.";
         }
 
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(formData.email)) {
-            setEmailError("Invalid email format.");
-            isValid = false;
+            errors.email = "Invalid email format.";
         }
 
         if ((formData.password ?? "").length < 8) {
-            setPasswordError("Password must be at least 8 characters long.");
-            isValid = false;
+            errors.password = "Password must be at least 8 characters long.";
         }
 
         if (formData.confirmPassword !== formData.password) {
-            setConfirmPasswordError("Passwords do not match.");
-            isValid = false;
+            errors.confirmPassword = "Passwords do not match.";
         }
 
         if (!formData.role) {
-            setRoleError("Role is required.");
-            isValid = false;
+            errors.role = "Role is required.";
         }
 
-        return isValid;
+        return errors;
     };
 
+    // Submit handler
     const handleSubmit = () => {
         const formData: NewUser = {
-            username: refs.username.current?.value as string,
-            firstName: refs.firstName.current?.value as string,
-            lastName: refs.lastName.current?.value as string,
-            email: refs.email.current?.value as string,
-            password: refs.password.current?.value as string,
-            confirmPassword: refs.confirmPassword.current?.value as string,
-            role: refs.role.current?.value as "admin" | "researcher" | "procurementOfficer",
+            username: refs.username.current?.value || "",
+            firstName: refs.firstName.current?.value || "",
+            lastName: refs.lastName.current?.value || "",
+            email: refs.email.current?.value || "",
+            password: refs.password.current?.value || "",
+            confirmPassword: refs.confirmPassword.current?.value || "",
+            role: refs.role.current?.value || "",
         };
 
-        if (validateForm(formData)) {
+        const errors = validateForm(formData);
+
+        // Set individual errors
+        setUsernameError(errors.username || null);
+        setFirstNameError(errors.firstName || null);
+        setLastNameError(errors.lastName || null);
+        setEmailError(errors.email || null);
+        setPasswordError(errors.password || null);
+        setConfirmPasswordError(errors.confirmPassword || null);
+        setRoleError(errors.role || null);
+
+        if (Object.keys(errors).length === 0) {
             addUserFx(formData);
+
+            // Clear all input fields if the form is valid
+            refs.username.current!.value = "";
+            refs.firstName.current!.value = "";
+            refs.lastName.current!.value = "";
+            refs.email.current!.value = "";
+            refs.password.current!.value = "";
+            refs.confirmPassword.current!.value = "";
+            refs.role.current!.value = "";
+
+            // Clear errors after successful submission
             setUsernameError(null);
             setFirstNameError(null);
             setLastNameError(null);
@@ -94,13 +111,6 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
             setConfirmPasswordError(null);
             setRoleError(null);
         }
-        refs.username.current!.value = "";
-        refs.firstName.current!.value = "";
-        refs.lastName.current!.value = "";
-        refs.email.current!.value = "";
-        refs.password.current!.value = "";
-        refs.confirmPassword.current!.value = "";
-        refs.role.current!.value = "";
     };
 
     return {

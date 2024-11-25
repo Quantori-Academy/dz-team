@@ -9,9 +9,11 @@ const textfieldStyle = { width: "200px" };
 const button = { width: "250px" };
 const boxStyle = { display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" };
 const input = { display: "flex", alignItems: "center", gap: "10px" };
+
 interface AddUserFormProps {
     onClose: () => void;
 }
+
 export const AddUserForm = ({ onClose }: AddUserFormProps) => {
     const refs = {
         username: useRef<HTMLInputElement>(null),
@@ -25,12 +27,12 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
 
     const {
         usernameError,
+        firstNameError,
+        lastNameError,
         emailError,
         passwordError,
         confirmPasswordError,
         roleError,
-        firstNameError,
-        lastNameError,
         handleSubmit,
     } = useUserForm(refs);
 
@@ -45,7 +47,7 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     helperText={usernameError}
                     margin="normal"
                     sx={textfieldStyle}
-                    required={true}
+                    required
                 />
                 <TextField
                     label="First Name"
@@ -55,7 +57,7 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     inputRef={refs.firstName}
                     margin="normal"
                     sx={textfieldStyle}
-                    required={true}
+                    required
                 />
             </Box>
             <Box sx={input}>
@@ -67,7 +69,7 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     inputRef={refs.lastName}
                     margin="normal"
                     sx={textfieldStyle}
-                    required={true}
+                    required
                 />
                 <TextField
                     label="Email"
@@ -77,7 +79,7 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     helperText={emailError}
                     margin="normal"
                     sx={textfieldStyle}
-                    required={true}
+                    required
                     type="email"
                 />
             </Box>
@@ -91,7 +93,7 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     helperText={passwordError}
                     margin="normal"
                     sx={textfieldStyle}
-                    required={true}
+                    required
                 />
                 <TextField
                     label="Confirm Password"
@@ -102,7 +104,7 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     helperText={confirmPasswordError}
                     margin="normal"
                     sx={textfieldStyle}
-                    required={true}
+                    required
                 />
             </Box>
             <TextField
@@ -115,7 +117,7 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                 margin="normal"
                 defaultValue=""
                 sx={textfieldStyle}
-                required={true}
+                required
             >
                 {roles.map((role) => (
                     <MenuItem key={role} value={role}>
