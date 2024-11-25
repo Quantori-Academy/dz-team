@@ -1,14 +1,12 @@
+import { validate as isValidUUID } from "uuid";
 import { FastifyRequest, FastifyReply } from "fastify";
-
+import { UserService } from "../services/userService";
+import { sendErrorResponse } from "../utils/handleErrors";
 import {
     RegisterUser,
     registerUserSchema,
 } from "../../../shared/zodSchemas/user/registerUserSchema";
-import { UpdateUser } from "../../../shared/zodSchemas/user/updateUserSchema";
-
-import { UserService } from "../services/userService";
-
-import { sendErrorResponse } from "../utils/handleErrors";
+import { UpdateUser } from "shared/zodSchemas/user/updateUserSchema";
 
 import { UserSearchSchema } from "../../../shared/zodSchemas/user/userSearchSchema";
 
@@ -43,6 +41,9 @@ export class UserController {
     ): Promise<void> {
         try {
             const { userId } = request.params;
+            if (!isValidUUID(userId)) {
+                return reply.status(404).send({ message: "User not found" });
+            }
             const requesterId = request.userData?.userId;
             const requesterRole = request.userData?.role;
 
@@ -100,6 +101,9 @@ export class UserController {
     ): Promise<void> {
         try {
             const { userId } = request.params;
+            if (!isValidUUID(userId)) {
+                return reply.status(404).send({ message: "User not found" });
+            }
             const { body: userData } = request;
             const requesterId = request.userData?.userId;
             const requesterRole = request.userData?.role;
