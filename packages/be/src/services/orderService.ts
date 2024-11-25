@@ -142,7 +142,7 @@ export class OrderService {
         // Update and return the updated order
         return prisma.order.update({
             where: { id },
-            data: validatedData,
+            data: { ...validatedData, status: "pending" },
         });
     }
 
@@ -158,9 +158,37 @@ export class OrderService {
             where: { id },
         });
 
-        // If the order is not 'pending', allow status updates (e.g., fulfilling the order, etc.)
-        if (existingOrder?.status === OrderStatus.pending) {
+        // If no order exists, return an error
+        if (!existingOrder) {
+            return { message: "Order not found." };
+        }
+
+        // If the order is still 'pending', restrict status updates
+        if (existingOrder.status === OrderStatus.pending) {
             return { message: "Order status can only be updated after it is no longer 'pending'." };
+        }
+
+        // Check if reagents are already moved in DB
+        if (status === OrderStatus.fulfilled) {
+            console.log("fulfilled order");
+            // Check if reagents is an array
+            const reagents = existingOrder.reagents as { id: string }[] | undefined;
+
+            if (!reagents || reagents.length === 0) {
+                return { message: "No reagents associated with this order." };
+            }
+
+            // Check if all reagents are moved to the reagents table
+            const reagentsExist = await prisma.reagent.findMany({
+                where: { id: { in: reagents.map((reagent) => reagent.id) } },
+            });
+
+            if (reagentsExist.length !== reagents.length) {
+                return {
+                    message:
+                        "Not all reagents have been created. Please create reagents before fulfilling the order.",
+                };
+            }
         }
 
         // Update and return the order with the new status
