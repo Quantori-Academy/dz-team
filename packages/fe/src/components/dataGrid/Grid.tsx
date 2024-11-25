@@ -3,10 +3,13 @@ import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import { TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import { useUnit } from "effector-react";
 
+import { UserRole } from "api/self";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
 import { useUserForm } from "hooks/useUserForm";
+import { $auth } from "stores/auth";
 import { SupportedValue } from "utils/formatters";
 
 import { AddUserForm } from "../pages/users/AddUserForm";
@@ -20,6 +23,10 @@ type GridProps = {
 export const Grid = ({ rows, headers }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
     const { handleDeleteClick } = useUserForm({});
+
+    const auth = useUnit($auth);
+    const role = auth && (auth.self.role as UserRole);
+    const isAdmin = role === UserRole.admin;
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(event.target.value);
@@ -57,6 +64,19 @@ export const Grid = ({ rows, headers }: GridProps) => {
         }
     };
 
+    const handleAddFormOpenSample = async () => {
+        try {
+            await createModal({
+                name: "add_user_modal",
+                title: "Add New User",
+                message: "add sample",
+            });
+            removeModal();
+        } catch (_error) {
+            removeModal();
+        }
+    };
+
     const columns = useMemo(() => {
         const editColumn = {
             field: "actions",
@@ -86,7 +106,7 @@ export const Grid = ({ rows, headers }: GridProps) => {
         <>
             <TextField
                 variant="outlined"
-                placeholder="Search by name, username, or email"
+                placeholder="Search by name"
                 value={searchQuery}
                 onChange={handleSearch}
                 sx={{ width: "350px", marginBottom: "16px" }}
@@ -113,7 +133,10 @@ export const Grid = ({ rows, headers }: GridProps) => {
                 }}
                 slots={{
                     toolbar: () => (
-                        <AddRecord buttonLabel="Add New User" onAddRecord={handleAddFormOpen} />
+                        <AddRecord
+                            buttonLabel={isAdmin ? "Add New User" : "Add New Sample"}
+                            onAddRecord={isAdmin ? handleAddFormOpen : handleAddFormOpenSample}
+                        />
                     ),
                 }}
             />

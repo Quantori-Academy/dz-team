@@ -1,15 +1,10 @@
-import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
-import { GridColDef } from "@mui/x-data-grid";
-import { useGate } from "effector-react";
+import { useGate, useUnit } from "effector-react";
 
-import { base } from "api/request";
-import { CommonTable } from "components/commonTable/CommonTable";
-// import { Grid } from "components/dataGrid/Grid";
-import { Sample, sampleSchemaContract } from "shared/generated/zod/modelSchema/SampleSchema";
-import { SamplesGate } from "stores/samples";
+import { Grid } from "components/dataGrid/Grid";
+import { $samplesList, SamplesGate } from "stores/samples";
 
-const columns: GridColDef<Sample>[] = [
+const columns = [
     { field: "id", headerName: "ID", width: 90, sortable: false },
     { field: "name", headerName: "Name", width: 150 },
     { field: "structure", headerName: "Structure", width: 150 },
@@ -27,27 +22,25 @@ const columns: GridColDef<Sample>[] = [
 
 export const SamplesList = () => {
     useGate(SamplesGate);
-    // const samples = useUnit($samplesList);
+    const samples = useUnit($samplesList);
+
+    // in common table i pass the same structure of contract but it throws same error always
 
     return (
         <Box sx={{ mb: 5 }}>
-            {/* <Grid rows={samples} headers={headers} /> */}
-            <CommonTable<Sample>
+            <Grid rows={samples} headers={columns} />
+            {/* <CommonTable<Sample>
                 columns={columns}
                 url={`${base}/api/v1/samples`}
-                schema={sampleSchemaContract}
+                schema={SampleSchema}
                 searchBy={{
                     name: true,
                     description: true,
                     structure: true,
-                    producer: true,
-                    cas: true,
-                    catalogId: true,
-                    catalogLink: true,
                 }}
-                addButtonText="add reagent"
+                addButtonText="add sample"
             />
-            <Outlet />
+            <Outlet /> */}
         </Box>
     );
 };
