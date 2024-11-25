@@ -189,7 +189,7 @@ model ReagentRequest {
   cas       String? // CAS number for reagent-specific info
   quantity  Float // Requested quantity
   unit      Unit          @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
-  status    RequestStatus @default(pending) // Status of the request ("pending", "ordered", "declined", "declined", "completed")
+  status    RequestStatus @default(pending) // Status of the request ("pending", "ordered", "declined", "fulfilled ")
   commentsUser  String[]
   commentsProcurement String[]
   deletedAt DateTime? // Date and Time of  deletion
@@ -209,7 +209,7 @@ enum RequestStatus {
   pending
   ordered
   declined
-  completed
+  fulfilled 
 }
 
 enum OrderStatus {
