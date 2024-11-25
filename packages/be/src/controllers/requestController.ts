@@ -4,8 +4,7 @@ import { sendErrorResponse } from "../utils/handleErrors";
 import {
     RequestCreationBodySchema,
     RequestUpdateBodySchema,
-    CommentRequestBodySchema,
-    StatusUpdateBodySchema,
+    RequestSearch,
 } from "../../../shared/zodSchemas/request/requestSchemas";
 
 const requestService = new RequestService();
@@ -17,15 +16,15 @@ export class RequestController {
      * @param reply - FastifyReply
      * @returns A promise that resolves to an array of requests.
      */
-    async getAllRequests(_: FastifyRequest, reply: FastifyReply): Promise<void> {
+    async getAllRequests(request: FastifyRequest, reply: FastifyReply): Promise<void> {
         try {
-            const requests = await requestService.getAllRequests();
+            const queryString: RequestSearch = request.query as RequestSearch;
+            const requests = await requestService.getAllRequests(queryString);
             reply.send(requests);
         } catch (error) {
             sendErrorResponse(reply, error, "Failed to get requests");
         }
     }
-
     /**
      * Get requests by user ID.
      * @param request - FastifyRequest containing the user ID in the parameters
@@ -99,58 +98,6 @@ export class RequestController {
             reply.status(204).send();
         } catch (error) {
             sendErrorResponse(reply, error, "Failed to update request");
-        }
-    }
-
-    /**
-     * Decline a request.
-     * @param request - FastifyRequest containing the request ID in the parameters and comment data in the body
-     * @param reply - FastifyReply
-     * @returns A promise that resolves when request is declined or a 401 response if unauthorized.
-     */
-    async declineRequest(
-        request: FastifyRequest<{
-            Params: { requestId: string };
-            Body: typeof CommentRequestBodySchema;
-        }>,
-        reply: FastifyReply,
-    ): Promise<void> {
-        try {
-            if (!request.userData || !request.userData.userId) {
-                return reply.status(401).send({ message: "Unauthorized" });
-            }
-            const requestId = request.params.requestId;
-            const commentData = CommentRequestBodySchema.parse(request.body);
-            await requestService.declineRequest(requestId, commentData);
-            reply.status(204).send();
-        } catch (error) {
-            sendErrorResponse(reply, error, "Failed to decline request");
-        }
-    }
-
-    /**
-     * Update the status of a request.
-     * @param request - FastifyRequest containing the request ID in the parameters and new status in the body
-     * @param reply - FastifyReply
-     * @returns A promise that resolves to the updated request with new status or a 401 response if unauthorized.
-     */
-    async updateRequestStatus(
-        request: FastifyRequest<{
-            Params: { requestId: string };
-            Body: typeof StatusUpdateBodySchema;
-        }>,
-        reply: FastifyReply,
-    ): Promise<void> {
-        try {
-            if (!request.userData || !request.userData.userId) {
-                return reply.status(401).send({ message: "Unauthorized" });
-            }
-            const requestId = request.params.requestId;
-            const statusData = StatusUpdateBodySchema.parse(request.body);
-            await requestService.updateRequestStatus(requestId, statusData);
-            reply.status(204).send();
-        } catch (error) {
-            sendErrorResponse(reply, error, "Failed to update request status");
         }
     }
 }
