@@ -1,14 +1,15 @@
+import { validate as isValidUUID } from "uuid";
 import { FastifyRequest, FastifyReply } from "fastify";
-
 import {
     StorageLocationCreateInputSchema,
     StorageLocationUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
-import { idSchema } from "../../../shared/zodSchemas/baseSchemas";
-import { StorageLocationSearchSchema } from "../../../shared/zodSchemas/storageLocation/storageLocationSearchSchema";
+
 
 import { StorageLocationService } from "../services/storageLocationService";
 import { sendErrorResponse } from "../utils/handleErrors";
+import { StorageLocationSearchSchema } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
+import { idSchema } from "shared/zodSchemas/baseSchemas";
 
 const storageLocationService = new StorageLocationService();
 
@@ -158,6 +159,9 @@ export class StorageLocationController {
         try {
             const { reagentId } = request.params;
             const { newStorageLocationId } = request.body;
+            if (!isValidUUID(reagentId) || !isValidUUID(newStorageLocationId)) {
+                return reply.status(400).send({ message: "Invalid UUID" });
+            }
             const movedReagent = await storageLocationService.moveReagent(
                 reagentId,
                 newStorageLocationId,
