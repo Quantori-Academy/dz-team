@@ -2,27 +2,24 @@ import { useState } from "react";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 
-import {
-    CreateReagentRequestType,
-    initialFormData,
-    ReagentRequest,
-    ReagentRequestType,
-} from "api/reagentRequest";
+import { CreateReagentRequestType, initialFormData } from "api/reagentRequest";
 import { base, request } from "api/request";
 import { CommonTable } from "components/commonTable/CommonTable";
 
+import { ReagentRequest, ReagentRequestSchema } from "../../../../../shared/generated/zod";
 import { ReagentRequestFormModal } from "./ReagentRequestFormModal";
 
 const reagentRequestColumns: GridColDef[] = [
-    { field: "reagentName", headerName: "Reagent Name", width: 200 },
+    { field: "name", headerName: "Reagent Name", width: 200 },
     { field: "structure", headerName: "Structure", width: 200 },
-    { field: "casNumber", headerName: "CAS Number", width: 150 },
-    { field: "desiredQuantity", headerName: "Desired Quantity", width: 150 },
+    { field: "cas", headerName: "CAS Number", width: 150 },
+    { field: "quantity", headerName: "Desired Quantity", width: 150 },
+    { field: "unit", headerName: "Unit", width: 150 },
     { field: "status", headerName: "Status", width: 150 },
     { field: "userComments", headerName: "User Comments", width: 200 },
     { field: "procurementComments", headerName: "Procurement Comments", width: 200 },
-    { field: "creationDate", headerName: "Date Created", width: 150 },
-    { field: "dateModified", headerName: "Date Modified", width: 150 },
+    { field: "createdAt", headerName: "Date Created", width: 150 },
+    { field: "updatedAt", headerName: "Date Modified", width: 150 },
 ];
 
 export function ReagentRequestPage() {
@@ -42,7 +39,7 @@ export function ReagentRequestPage() {
     };
 
     const submitReagentRequest = async (data: CreateReagentRequestType) => {
-        const response = await request(`${base}/api/v1/reagent-request`, ReagentRequest, {
+        const response = await request(`${base}/api/v1/reagent-request`, ReagentRequestSchema, {
             method: "POST",
             json: data,
             throwOnError: true,
@@ -56,16 +53,16 @@ export function ReagentRequestPage() {
         handleModalClose();
     };
 
-    const handleRowClick = (row: ReagentRequestType) => {
+    const handleRowClick = (row: ReagentRequest) => {
         navigate({ to: `/reagentRequests/${row.id}`, replace: false });
     };
 
     return (
         <>
-            <CommonTable<ReagentRequestType>
+            <CommonTable<ReagentRequest>
                 columns={reagentRequestColumns}
                 url={`${base}/api/v1/reagent-request`}
-                schema={ReagentRequest}
+                schema={ReagentRequestSchema}
                 onRowClick={handleRowClick}
                 searchBy={{
                     name: true,
