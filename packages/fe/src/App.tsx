@@ -7,7 +7,11 @@ import { theme } from "theme";
 
 export function App() {
     return (
-        <SnackbarProvider anchorOrigin={{ vertical: "top", horizontal: "right" }}>
+        <SnackbarProvider
+            autoHideDuration={10000}
+            maxSnack={10}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
             <ThemeProvider theme={theme}>
                 <Outlet />
             </ThemeProvider>
