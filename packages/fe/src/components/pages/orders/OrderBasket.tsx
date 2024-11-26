@@ -1,27 +1,23 @@
 import DeleteIcon from "@mui/icons-material/Delete";
-import {
-    Autocomplete,
-    Box,
-    Button,
-    Drawer,
-    IconButton,
-    TextField,
-    Typography,
-} from "@mui/material";
+import { Box, Button, Drawer, IconButton, TextField, Typography } from "@mui/material";
+import { useUnit } from "effector-react";
+import { jwtDecode } from "jwt-decode";
 
 import { CreateOrderReagent } from "api/orderDetails/contract";
+import { $auth } from "stores/auth";
+import { OrderStatus, setOrderData, submitOrder } from "stores/order";
 
 type BasketProps = {
     basket: { reagent: CreateOrderReagent; quantity: number }[];
     title: string;
-    seller: string | null;
+    seller: string;
+    description: string;
     setTitle: (title: string) => void;
-    setSeller: (seller: string | null) => void;
-    handleQuantityChange: (id: string, change: number) => void;
+    setSeller: (seller: string) => void;
+    setDescription: (seller: string) => void;
     handleDeleteFromBasket: (id: string) => void;
     handleClearBasket: () => void;
     errorMessage: string;
-    sellerOptions: string[];
     open: boolean;
     onClose: () => void;
 };
@@ -29,16 +25,59 @@ export function OrderBasket({
     basket,
     title,
     seller,
+    description,
     setTitle,
     setSeller,
-    handleQuantityChange,
+    setDescription,
     handleDeleteFromBasket,
     handleClearBasket,
     errorMessage,
-    sellerOptions,
     open,
     onClose,
 }: BasketProps) {
+    const submitOrderEvent = useUnit(submitOrder);
+
+    const auth = useUnit($auth);
+    let userId = null;
+
+    if (auth && auth.self) {
+        const token = auth.token;
+        const decodedToken = jwtDecode(token);
+
+        if (decodedToken?.userId) {
+            userId = decodedToken.userId;
+        } else {
+            alert("User ID not found in the token");
+        }
+    }
+
+    const handleCreateOrder = () => {
+        const orderData = {
+            title,
+            seller: seller || "",
+            status: OrderStatus.pending,
+            userId: userId,
+            description,
+            reagents: basket.map(({ reagent }) => ({
+                id: reagent.id,
+                name: reagent.name || "",
+                structure: reagent.structure || "",
+                quantity: reagent.quantity || 0,
+                units: reagent.units || "ml",
+                cas: reagent.cas || "",
+                producer: reagent.producer || "",
+                catalogId: reagent.catalogId || "",
+                catalogLink: reagent.catalogLink || "https://www.example.com/catalog/product-123",
+                pricePerUnit: reagent.pricePerUnit || 0,
+                amount: reagent.amount,
+            })),
+        };
+        setOrderData(orderData);
+        submitOrderEvent();
+        onClose();
+        handleClearBasket();
+    };
+
     return (
         <Drawer anchor="right" open={open} onClose={onClose}>
             <Box sx={{ width: 600, p: 3 }}>
@@ -56,20 +95,25 @@ export function OrderBasket({
                             required
                             sx={{ mt: 2 }}
                         />
-                        <Autocomplete
-                            options={sellerOptions}
+                        <TextField
+                            label="Seller"
                             value={seller}
-                            onChange={(_event, newValue) => setSeller(newValue)}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="Seller"
-                                    variant="outlined"
-                                    sx={{ mt: 2 }}
-                                />
-                            )}
+                            onChange={(e) => setSeller(e.target.value)}
+                            variant="outlined"
+                            fullWidth
+                            required
+                            sx={{ mt: 2 }}
                         />
-                        {basket.map(({ reagent, quantity }) => (
+                        <TextField
+                            label="Description"
+                            value={description}
+                            onChange={(e) => setDescription(e.target.value)}
+                            variant="outlined"
+                            fullWidth
+                            required
+                            sx={{ mt: 2 }}
+                        />
+                        {basket.map(({ reagent }) => (
                             <Box
                                 key={reagent.id}
                                 sx={{ display: "flex", alignItems: "center", mt: 2 }}
@@ -98,22 +142,11 @@ export function OrderBasket({
                                     }}
                                 >
                                     <Typography variant="caption" sx={{ textAlign: "center" }}>
-                                        Quantity
+                                        Amount
                                     </Typography>
-                                    <Box sx={{ display: "flex", alignItems: "center" }}>
-                                        <Button
-                                            onClick={() => handleQuantityChange(reagent.id, -1)}
-                                        >
-                                            -
-                                        </Button>
-                                        <Typography sx={{ mx: 1 }}>{quantity}</Typography>
-                                        <Button
-                                            onClick={() => handleQuantityChange(reagent.id, 1)}
-                                            disabled={quantity >= reagent.quantity}
-                                        >
-                                            +
-                                        </Button>
-                                    </Box>
+                                    <Typography sx={{ mt: 1, textAlign: "center" }}>
+                                        {reagent.amount}
+                                    </Typography>
                                 </Box>
                                 <Box
                                     sx={{
@@ -177,7 +210,12 @@ export function OrderBasket({
                         >
                             Clear All
                         </Button>
-                        <Button variant="contained" color="primary" sx={{ mt: 2 }}>
+                        <Button
+                            variant="contained"
+                            color="primary"
+                            onClick={handleCreateOrder}
+                            sx={{ mt: 2 }}
+                        >
                             Create Order
                         </Button>
                     </>

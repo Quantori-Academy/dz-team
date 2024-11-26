@@ -14,17 +14,17 @@ import { OrderReagentDetail } from "./OrderReagentDetailPage";
 import { OrderReagentFormModal } from "./OrderReagentFormModal";
 
 const headers = [
-    { field: "id", headerName: "id", width: 150 },
-    { field: "name", headerName: "Name", width: 150 },
-    { field: "structure", headerName: "Structure", width: 170 },
-    { field: "cas", headerName: "Cas", width: 170 },
-    { field: "producer", headerName: "Producer", width: 170 },
-    { field: "catalogId", headerName: "Catalog Id", width: 150 },
-    { field: "catalogLink", headerName: "Catalog Link", width: 170 },
-    { field: "units", headerName: "Units ", width: 170 },
-    { field: "pricePerUnit", headerName: "Price Per Unit", width: 170 },
-    { field: "quantity", headerName: "Quantity", width: 170 },
-    { field: "amount", headerName: "Amount", width: 170 },
+    { field: "id", headerName: "id", width: 150, editable: false },
+    { field: "name", headerName: "Name", width: 150, editable: true },
+    { field: "structure", headerName: "Structure", width: 170, editable: true },
+    { field: "cas", headerName: "Cas", width: 170, editable: true },
+    { field: "producer", headerName: "Producer", width: 170, editable: true },
+    { field: "catalogId", headerName: "Catalog Id", width: 150, editable: true },
+    { field: "catalogLink", headerName: "Catalog Link", width: 170, editable: true },
+    { field: "units", headerName: "Units ", width: 170, editable: true },
+    { field: "pricePerUnit", headerName: "Price Per Unit", width: 170, editable: true },
+    { field: "quantity", headerName: "Quantity", width: 17, editable: true },
+    { field: "amount", headerName: "Amount", width: 170, editable: true },
 ];
 export const CreateOrder = () => {
     const [reagents, setReagents] = useState<CreateOrderReagent[]>([]);
@@ -33,10 +33,10 @@ export const CreateOrder = () => {
     const [basketDrawerOpen, setBasketDrawerOpen] = useState(false);
     const [basket, setBasket] = useState<{ reagent: CreateOrderReagent; quantity: number }[]>([]);
     const [title, setTitle] = useState("");
-    const [seller, setSeller] = useState<string | null>(null);
+    const [seller, setSeller] = useState("");
+    const [description, setDescription] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
     const toggleBasketDrawer = () => setBasketDrawerOpen(!basketDrawerOpen);
-    const sellerOptions = ["Seller A", "Seller B", "Seller C", "Seller D"];
 
     const handleRowClick = (row: CreateOrderReagent) => {
         setSelectedReagent(row);
@@ -56,6 +56,7 @@ export const CreateOrder = () => {
                         onCancel={() => {
                             removeModal();
                         }}
+                        onAddToOrder={handleAddToOrder}
                     />
                 ),
             });
@@ -63,44 +64,48 @@ export const CreateOrder = () => {
             removeModal();
         }
     };
-    const handleAddToOrder = () => {
-        if (selectedReagent) {
-            setBasket((prevBasket) => {
-                const existingItem = prevBasket.find(
-                    (item) => item.reagent.id === selectedReagent.id,
+    const handleAddToOrder = (newReagent: CreateOrderReagent) => {
+        setBasket((prevBasket) => {
+            const existingItem = prevBasket.find((item) => item.reagent.id === newReagent.id);
+            if (existingItem) {
+                return prevBasket.map((item) =>
+                    item.reagent.id === newReagent.id
+                        ? { ...item, quantity: item.quantity + 1 }
+                        : item,
                 );
-                if (existingItem) {
-                    return prevBasket.map((item) =>
-                        item.reagent.id === selectedReagent.id
-                            ? { ...item, quantity: item.quantity + 1 }
-                            : item,
-                    );
-                }
-                return [...prevBasket, { reagent: selectedReagent, quantity: 1 }];
-            });
+            }
+            return [...prevBasket, { reagent: newReagent, quantity: 1 }];
+        });
+        setIsDrawerOpen(false);
+        setTitle("");
+        setSeller("");
+        setDescription("");
+    };
+    const handleDeleteReagent = () => {
+        if (selectedReagent) {
+            setReagents((prevReagents) =>
+                prevReagents.filter((reagent) => reagent.id !== selectedReagent.id),
+            );
+            setBasket((prevBasket) =>
+                prevBasket.filter((item) => item.reagent.id !== selectedReagent.id),
+            );
             setIsDrawerOpen(false);
-            setTitle("");
-            setSeller("");
         }
     };
-    const handleQuantityChange = (id: string, change: number) => {
-        setBasket((prevBasket) => {
-            return prevBasket.map((item) => {
-                if (item.reagent.id === id) {
-                    const newQuantity = item.quantity + change;
-                    if (newQuantity > item.reagent.quantity) {
-                        setErrorMessage(
-                            `Cannot exceed available quantity of ${item.reagent.quantity}.`,
-                        );
-                        return item;
-                    } else {
-                        setErrorMessage("");
-                        return { ...item, quantity: Math.max(1, newQuantity) };
-                    }
-                }
-                return item;
-            });
-        });
+    const handleEditReagent = (updatedReagent: CreateOrderReagent) => {
+        setReagents((prevReagents) =>
+            prevReagents.map((reagent) =>
+                reagent.id === updatedReagent.id ? updatedReagent : reagent,
+            ),
+        );
+        setSelectedReagent(updatedReagent);
+    };
+    const handleUpdateBasketReagent = (updatedReagent: CreateOrderReagent) => {
+        setBasket((prevBasket) =>
+            prevBasket.map((item) =>
+                item.reagent.id === updatedReagent.id ? { ...item, reagent: updatedReagent } : item,
+            ),
+        );
     };
 
     const handleDeleteFromBasket = (id: string) => {
@@ -116,6 +121,7 @@ export const CreateOrder = () => {
         setSelectedReagent(null);
         setTitle("");
         setSeller("");
+        setDescription("");
         setErrorMessage("");
     };
 
@@ -141,22 +147,26 @@ export const CreateOrder = () => {
                 />
                 <OrderReagentDetail
                     selectedReagent={selectedReagent}
-                    onAddToOrder={handleAddToOrder}
                     onClose={handleDrawerClose}
                     open={isDrawerOpen}
                     fields={headers}
+                    onDeleteReagent={handleDeleteReagent}
+                    onEditReagent={(updatedReagent) => {
+                        handleEditReagent(updatedReagent);
+                        handleUpdateBasketReagent(updatedReagent);
+                    }}
                 />
                 <OrderBasket
                     basket={basket}
                     title={title}
                     seller={seller}
+                    description={description}
                     setTitle={setTitle}
                     setSeller={setSeller}
-                    handleQuantityChange={handleQuantityChange}
+                    setDescription={setDescription}
                     handleDeleteFromBasket={handleDeleteFromBasket}
                     handleClearBasket={handleClearBasket}
                     errorMessage={errorMessage}
-                    sellerOptions={sellerOptions}
                     open={basketDrawerOpen}
                     onClose={toggleBasketDrawer}
                 />

@@ -16,6 +16,7 @@ const reagentColumns = [
     { field: "catalogId", headerName: "Catalog Id", width: 120 },
     { field: "catalogLink", headerName: "Catalog Link", width: 120 },
     { field: "pricePerUnit", headerName: "Price per unit", width: 180 },
+    { field: "amount", headerName: "Amount", width: 180 },
 ];
 
 const fields = [

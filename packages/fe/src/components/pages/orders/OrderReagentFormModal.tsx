@@ -8,10 +8,10 @@ import { CreateOrderReagent } from "api/orderDetails/contract";
 type OrderReagentFormModalProps = {
     onSubmit: (reagent: CreateOrderReagent) => void;
     onCancel: () => void;
+    onAddToOrder: (newReagent: CreateOrderReagent) => void;
 };
 const fields = [
     { name: "name", label: "Name", width: 150 },
-    { name: "description", label: "Description", width: 170 },
     { name: "structure", label: "Structure", width: 170 },
     { name: "cas", label: "Cas", width: 170 },
     { name: "producer", label: "Producer", width: 170 },
@@ -23,10 +23,13 @@ const fields = [
     { name: "amount", label: "Amount", width: 170, type: "number" },
 ];
 
-export const OrderReagentFormModal = ({ onSubmit, onCancel }: OrderReagentFormModalProps) => {
+export const OrderReagentFormModal = ({
+    onSubmit,
+    onCancel,
+    onAddToOrder,
+}: OrderReagentFormModalProps) => {
     const [formData, setFormData] = useState({
         name: "",
-        description: "",
         structure: "",
         cas: "",
         producer: "",
@@ -35,7 +38,7 @@ export const OrderReagentFormModal = ({ onSubmit, onCancel }: OrderReagentFormMo
         pricePerUnit: 0,
         units: "ml",
         quantity: 0,
-        amount: 0,
+        amount: 1,
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -54,6 +57,7 @@ export const OrderReagentFormModal = ({ onSubmit, onCancel }: OrderReagentFormMo
                 id: uuidv4(),
             };
             onSubmit(parsedData);
+            onAddToOrder(parsedData);
         } catch (error) {
             if (error instanceof z.ZodError) {
                 alert("Validation errors");

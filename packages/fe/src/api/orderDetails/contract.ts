@@ -35,10 +35,6 @@ const _CreateOrderReagentContract = z.object({
         .string()
         .nullable()
         .transform((val) => val || ""),
-    description: z
-        .string()
-        .nullable()
-        .transform((val) => val || ""),
     quantity: z
         .number()
         .nullable()
