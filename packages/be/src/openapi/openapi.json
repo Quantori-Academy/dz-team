@@ -5718,8 +5718,7 @@
                                             "createdAt",
                                             "updatedAt",
                                             "seller",
-                                            "description",
-                                            "title"
+                                            "description"
                                         ]
                                     }
                                 },
@@ -5731,8 +5730,7 @@
                                         "createdAt",
                                         "updatedAt",
                                         "seller",
-                                        "description",
-                                        "title"
+                                        "description"
                                     ]
                                 }
                             ]
