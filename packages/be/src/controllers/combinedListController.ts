@@ -10,7 +10,7 @@ export class CombinedListController {
      * Get all reagents and samples.
      * @param request - FastifyRequest
      * @param reply - FastifyReply
-     * @returns A promise that resolves to an array of Reagents and Samples.
+     * @returns A promise that resolves to an array of Reagents and Samples
      */
     async getCombinedList(request: FastifyRequest, reply: FastifyReply): Promise<void> {
         try {

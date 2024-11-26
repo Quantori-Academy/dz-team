@@ -8,7 +8,7 @@ const combinedListController = new CombinedListController();
  * Registers the combined list route with the provided Fastify instance.
  *
  * @param {FastifyZodInstance} app - The Fastify instance to register the routes with.
- * @returns {Promise<void>} A promise that resolves when the routes have been registered.
+ * @returns {Promise<void>} A promise that resolves when the routes have been registered
  */
 export const combinedListRoutes = async (app: FastifyZodInstance): Promise<void> => {
     /**

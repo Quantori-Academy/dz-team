@@ -18,7 +18,7 @@ type SearchResults = {
 export class CombinedListService {
     /**
      * Get all reagents and samples that are not deleted.
-     * @returns {Promise<CombinedList[]>} An array of all non-deleted reagents and samples.
+     * @returns {Promise<CombinedList[]>} An array of all non-deleted reagents and samples
      */
     async getAllItems(queryString: CombinedListSearch): Promise<SearchResults> {
         const {
