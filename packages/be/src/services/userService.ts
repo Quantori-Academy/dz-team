@@ -91,7 +91,6 @@ export class UserService {
                 hasPreviousPage: page > 1,
             },
         };
-
         return result;
     }
 
