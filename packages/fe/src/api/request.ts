@@ -40,6 +40,17 @@ const api = ky.create({
                 return request;
             },
         ],
+        beforeError: [
+            async (error) => {
+                const { response } = error;
+                const body: { message: string } = await response.json();
+                if (body) {
+                    error.message = body.message;
+                }
+
+                return error;
+            },
+        ],
     },
 });
 
@@ -105,7 +116,7 @@ export async function request<TT extends ZodType, T = z.infer<TT>, K = T>(
         showErrorNotification?: boolean;
         throwOnError?: boolean;
         shouldAffectIsLoading?: boolean;
-    }
+    },
 ): Promise<T | K | undefined> {
     const auth = $auth.getState();
     const token = auth ? auth.token : null;
