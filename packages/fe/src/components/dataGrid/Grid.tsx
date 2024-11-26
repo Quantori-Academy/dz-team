@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
-import { TextField } from "@mui/material";
+import { Alert, Snackbar, TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import { useUnit } from "effector-react";
 
@@ -22,7 +22,7 @@ type GridProps = {
 
 export const Grid = ({ rows, headers }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
-    const { handleDeleteClick } = useUserForm({});
+    const { handleDeleteClick, handleClose, notification } = useUserForm({});
 
     const auth = useUnit($auth);
     const role = auth && (auth.self.role as UserRole);
@@ -114,13 +114,13 @@ export const Grid = ({ rows, headers }: GridProps) => {
             <DataGrid
                 rows={filteredRows}
                 rowHeight={60}
-                getRowId={(row) =>
-                    typeof row.id === "string" || typeof row.id === "number"
-                        ? row.id
-                        : `${String(row.username ?? "unknown")}-${Math.random()
-                              .toString(36)
-                              .substring(2, 9)}`
-                }
+                // getRowId={(row) =>
+                //     typeof row.id === "string" || typeof row.id === "number"
+                //         ? row.id
+                //         : `${String(row.username ?? "unknown")}-${Math.random()
+                //               .toString(36)
+                //               .substring(2, 9)}`
+                // }
                 columns={columns}
                 disableRowSelectionOnClick
                 pageSizeOptions={[5, 15, 25, 50]}
@@ -140,6 +140,16 @@ export const Grid = ({ rows, headers }: GridProps) => {
                     ),
                 }}
             />
+            <Snackbar
+                open={notification.open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+                <Alert onClose={handleClose} severity={notification.type}>
+                    {notification.message}
+                </Alert>
+            </Snackbar>
         </>
     );
 };

@@ -12,6 +12,11 @@ export type NewUser = {
     confirmPassword: string;
     role: string;
 };
+type Notification = {
+    message: string;
+    type: "error" | "success";
+    open: boolean;
+};
 
 export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElement> }) => {
     const [usernameError, setUsernameError] = useState<string | null>(null);
@@ -24,10 +29,22 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
 
     const users = useUnit($usersList);
 
+    const [notification, setNotification] = useState<Notification>({
+        message: "",
+        type: "success",
+        open: false,
+    });
+
     // User delete handler
-    const handleDeleteClick = (id: string) => {
-        deleteUserFx(id);
+    const handleDeleteClick = async (id: string) => {
+        try {
+            await deleteUserFx(id);
+            setNotification({ message: "User deleted successfully!", type: "success", open: true });
+        } catch {
+            setNotification({ message: "Failed to delete the user.", type: "error", open: true });
+        }
     };
+    const handleClose = () => setNotification({ ...notification, open: false });
 
     // Form validation
     const validateForm = (formData: NewUser) => {
@@ -124,5 +141,7 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
         handleSubmit,
         handleDeleteClick,
         users,
+        notification,
+        handleClose,
     };
 };
