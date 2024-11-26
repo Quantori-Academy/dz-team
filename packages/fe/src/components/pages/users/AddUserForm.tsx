@@ -7,10 +7,16 @@ const roles = ["admin", "researcher", "procurementOfficer"];
 
 const textfieldStyle = {
     width: "200px",
+    height: "70px",
 };
 const button = { width: "250px" };
 const boxStyle = { display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" };
-const input = { display: "flex", alignItems: "center", gap: "10px" };
+const input = {
+    display: "flex",
+    alignItems: "center",
+    gap: "10px",
+    flexDirection: { xs: "column", sm: "row" },
+};
 
 interface AddUserFormProps {
     onClose: () => void;
