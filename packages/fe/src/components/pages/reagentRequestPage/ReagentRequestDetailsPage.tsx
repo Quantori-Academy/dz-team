@@ -28,18 +28,18 @@ export function ReagentRequestDetailsPage({ url }: { url: "/_app/reagentRequests
     }
 
     const fields = [
-        { label: "id", name: "id", disabled: true },
-        { label: "userId", name: "userId" },
-        { label: "name", name: "reagentName" },
-        { label: "structure", name: "structure" },
-        { label: "cas", name: "casNumber" },
-        { label: "quantity", name: "desiredQuantity" },
-        { label: "unit", name: "Unit" },
-        { label: "userComments", name: "userComments" },
-        { label: "procurementComments", name: "procurementComments" },
-        { label: "status", name: "status" },
-        { label: "createdAt", name: "", type: "date" },
-        { label: "updatedAt", name: "", type: "date" },
+        { label: "ID", name: "id", disabled: true },
+        { label: "User ID", name: "userId" },
+        { label: "Name", name: "name" },
+        { label: "Structure", name: "structure" },
+        { label: "CAS", name: "cas" },
+        { label: "Quantity", name: "quantity" },
+        { label: "Unit", name: "unit" },
+        { label: "User Comments", name: "userComments" },
+        { label: "Procurement Comments", name: "procurementComments" },
+        { label: "Status", name: "status" },
+        { label: "Creation Date", name: "createdAt" },
+        { label: "Update Date", name: "updatedAt" },
     ];
 
     const reagentRequestsPagePath = "/reagentRequests";
