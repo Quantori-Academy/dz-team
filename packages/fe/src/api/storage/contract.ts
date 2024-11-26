@@ -10,7 +10,7 @@ export const StorageLocationContract = z.object({
     deletedAt: z.string().nullable().optional(),
     createdAt: z.string().nullable().optional(),
     updatedAt: z.string().nullable().optional(),
-    reagents: z.array(ReagentSchema).nullable().optional(),
+    reagents: z.array(ReagentSchema).optional(),
 });
 
 export const contractStorageType = z.object({

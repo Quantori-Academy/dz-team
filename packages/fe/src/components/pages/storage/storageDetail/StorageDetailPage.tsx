@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Alert, Box, Snackbar } from "@mui/material";
-import { useLoaderData } from "@tanstack/react-router";
 
 import { StorageLocationDetailContractType } from "api/storage/contract";
 import { deleteStorage } from "api/storage/deleteStorage";
@@ -20,9 +19,9 @@ const alertStyle = {
 };
 
 export const StorageDetailPage = () => {
-    const { reagents } = useLoaderData({
-        from: "/_app/storageList/$id",
-    });
+    // const { reagents } = useLoaderData({
+    //     from: "/_app/storageList/$id",
+    // });
 
     const [notification, setNotification] = useState<{
         type: "success" | "error" | "warning";
@@ -47,13 +46,13 @@ export const StorageDetailPage = () => {
                 });
             }
         } else if (type === "delete" && data) {
-            if (reagents.length > 0) {
-                setNotification({
-                    type: "warning",
-                    message: "Cannot delete storage with existing reagents.",
-                });
-                return;
-            }
+            // if (reagents?.length > 0) {
+            //     setNotification({
+            //         type: "warning",
+            //         message: "Cannot delete storage with existing reagents.",
+            //     });
+            //     return;
+            // }
             try {
                 await deleteStorage(data.id);
                 setNotification({
@@ -71,7 +70,7 @@ export const StorageDetailPage = () => {
 
     return (
         <Box sx={boxStyle}>
-            <StorageDetailTable handleAction={handleAction} reagents={reagents} />
+            <StorageDetailTable handleAction={handleAction} />
             {notification && (
                 <Snackbar
                     open={!!notification}
