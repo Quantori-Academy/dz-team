@@ -1,12 +1,14 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 
-import { base } from "api/request";
+import { CreateReagentRequestType, initialFormData } from "api/reagentRequest";
+import { base, request } from "api/request";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { TableContext } from "components/commonTable/TableContext";
 
 import { ReagentRequest, ReagentRequestSchema } from "../../../../../shared/generated/zod";
+import { ReagentRequestFormModal } from "./ReagentRequestFormModal";
 
 const reagentRequestColumns: GridColDef[] = [
     { field: "name", headerName: "Reagent Name", width: 200 },
@@ -25,6 +27,34 @@ const reagentRequestColumns: GridColDef[] = [
 export function ReagentRequestPage() {
     const navigate = useNavigate();
     const tableRef = useRef<CommonTableRef | null>(null);
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [formData, setFormData] = useState<CreateReagentRequestType>(initialFormData);
+    const handleModalClose = () => setIsModalOpen(false);
+    const handleAddReagentRequestClick = () => setIsModalOpen(true);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: name === "quantity" || name === "pricePerUnit" ? Number(value) : value,
+        });
+    };
+
+    const submitReagentRequest = async (data: CreateReagentRequestType) => {
+        const response = await request(`${base}/api/v1/reagent-request`, ReagentRequestSchema, {
+            method: "POST",
+            json: data,
+            throwOnError: true,
+        });
+        return response;
+    };
+
+    const handleSubmit = () => {
+        submitReagentRequest(formData);
+        setFormData(initialFormData);
+        handleModalClose();
+    };
 
     const handleRowClick = (row: ReagentRequest) => {
         navigate({ to: `/reagentRequests/${row.id}`, replace: false });
@@ -47,8 +77,16 @@ export function ReagentRequestPage() {
                     catalogId: true,
                     catalogLink: true,
                 }}
-                // TODO: Add button when Create Reagent Request page is ready
+                onAdd={handleAddReagentRequestClick}
                 addButtonText="Create a Reagent Request"
+            />
+
+            <ReagentRequestFormModal
+                isOpen={isModalOpen}
+                formData={formData}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+                handleModalClose={handleModalClose}
             />
 
             <Outlet />
