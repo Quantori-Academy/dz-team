@@ -18,68 +18,69 @@ type SearchResults = {
 export class CombinedListService {
     /**
      * Get all reagents and samples that are not deleted.
-     * @returns {Promise<CombinedList[]>} An array of all non-deleted reagents and samples
+     * @returns {Promise<SearchResults>} Combined list of reagents and samples.
      */
-    async getAllItems(queryString: CombinedListSearch): Promise<SearchResults> {
+    async getAllItems(queryParams: CombinedListSearch): Promise<SearchResults> {
         const {
             query,
-            page,
-            limit,
-            sortBy,
-            sortOrder,
+            page = 1,
+            limit = 10,
+            sortBy = "name",
+            sortOrder = "asc",
             searchBy,
-            type,
-            status,
             category,
             storageLocation,
-        } = queryString;
+            status,
+        } = queryParams;
 
-        // conditionally construct search conditions
-        const searchConditions = query
-            ? searchBy?.map((field) => {
-                  return { [field]: { contains: query, mode: Prisma.QueryMode.insensitive } };
-              })
+        // Build search filters
+        const searchFilters = query
+            ? searchBy?.map((field) => ({
+                  [field]: { contains: query, mode: Prisma.QueryMode.insensitive },
+              }))
             : null;
 
-        // combine filter and search conditions for a query
-        // <category> AND <status> AND <storageLocation> AND <query>[<name> OR <structure> OR ...]
-        const where: Prisma.CombinedListWhereInput = {
-            // FILTER CONDITIONS
+        const filterConditions = {
             AND: [
-                type ? { type } : {},
                 category ? { category } : {},
-                status ? { status } : {},
                 storageLocation ? { storageLocation } : {},
-                // SEARCH CONDITIONS
-                // include OR condition only if there are search conditions
-                searchConditions && searchConditions.length > 0 ? { OR: searchConditions } : {},
-            ].filter(Boolean), // remove all {} conditions from AND condition
-            deletedAt: null, // exclude soft-deleted records
+                status ? { status } : {},
+                searchFilters && searchFilters.length > 0 ? { OR: searchFilters } : {},
+            ].filter(Boolean),
+            deletedAt: null, // Exclude soft-deleted records
         };
 
-        const [items, totalCount] = await Promise.all([
-            prisma.combinedList.findMany({
-                where,
-                skip: (page - 1) * limit,
-                take: limit,
-                orderBy: { [sortBy]: sortOrder },
-            }),
-            prisma.combinedList.count({ where }),
+        // Fetch data for reagents and samples
+        const [reagents, samples] = await Promise.all([
+            prisma.reagent.findMany({ where: filterConditions }),
+            prisma.sample.findMany({ where: filterConditions }),
         ]);
 
-        const totalPages = Math.ceil(totalCount / limit);
+        // Combine and sort results
+        const combinedResults = [...reagents, ...samples];
+        combinedResults.sort((itemA, itemB) => {
+            const fieldA = String(itemA[sortBy as keyof typeof itemA] ?? "");
+            const fieldB = String(itemB[sortBy as keyof typeof itemB] ?? "");
+            return sortOrder === "asc"
+                ? fieldA.localeCompare(fieldB)
+                : fieldB.localeCompare(fieldA);
+        });
 
-        const result = {
-            data: items,
+        // Paginate results
+        const totalItems = combinedResults.length;
+        const totalPages = Math.ceil(totalItems / limit);
+        const paginatedResults = combinedResults.slice((page - 1) * limit, page * limit);
+
+        // Construct response
+        return {
+            data: paginatedResults,
             meta: {
                 currentPage: page,
                 totalPages,
-                totalCount,
+                totalCount: totalItems,
                 hasNextPage: page < totalPages,
                 hasPreviousPage: page > 1,
             },
         };
-
-        return result;
     }
 }
