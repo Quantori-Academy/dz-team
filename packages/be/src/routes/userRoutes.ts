@@ -38,6 +38,7 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
             preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
         },
         async (request, reply) => {
+            console.log("okk");
             return await userController.getAllUsers(request, reply);
         },
     );

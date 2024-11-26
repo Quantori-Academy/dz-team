@@ -3666,60 +3666,98 @@
                         "content": {
                             "application/json": {
                                 "schema": {
-                                    "type": "array",
-                                    "items": {
-                                        "type": "object",
-                                        "properties": {
-                                            "role": {
-                                                "type": "string",
-                                                "enum": [
-                                                    "admin",
-                                                    "procurementOfficer",
-                                                    "researcher"
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "role": {
+                                                        "type": "string",
+                                                        "enum": [
+                                                            "admin",
+                                                            "procurementOfficer",
+                                                            "researcher"
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "format": "uuid"
+                                                    },
+                                                    "username": {
+                                                        "type": "string"
+                                                    },
+                                                    "firstName": {
+                                                        "type": "string"
+                                                    },
+                                                    "lastName": {
+                                                        "type": "string"
+                                                    },
+                                                    "email": {
+                                                        "type": "string"
+                                                    },
+                                                    "lastLoginDate": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "mustChangePassword": {
+                                                        "type": "boolean"
+                                                    },
+                                                    "createdAt": {
+                                                        "type": "string"
+                                                    },
+                                                    "updatedAt": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "role",
+                                                    "id",
+                                                    "username",
+                                                    "firstName",
+                                                    "lastName",
+                                                    "email",
+                                                    "mustChangePassword",
+                                                    "createdAt",
+                                                    "updatedAt"
                                                 ]
-                                            },
-                                            "id": {
-                                                "type": "string",
-                                                "format": "uuid"
-                                            },
-                                            "username": {
-                                                "type": "string"
-                                            },
-                                            "firstName": {
-                                                "type": "string"
-                                            },
-                                            "lastName": {
-                                                "type": "string"
-                                            },
-                                            "email": {
-                                                "type": "string"
-                                            },
-                                            "lastLoginDate": {
-                                                "type": "string",
-                                                "nullable": true
-                                            },
-                                            "mustChangePassword": {
-                                                "type": "boolean"
-                                            },
-                                            "createdAt": {
-                                                "type": "string"
-                                            },
-                                            "updatedAt": {
-                                                "type": "string"
                                             }
                                         },
-                                        "required": [
-                                            "role",
-                                            "id",
-                                            "username",
-                                            "firstName",
-                                            "lastName",
-                                            "email",
-                                            "mustChangePassword",
-                                            "createdAt",
-                                            "updatedAt"
-                                        ]
-                                    }
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "currentPage": {
+                                                    "type": "number",
+                                                    "default": 1
+                                                },
+                                                "totalPages": {
+                                                    "type": "number",
+                                                    "default": 4
+                                                },
+                                                "totalCount": {
+                                                    "type": "number",
+                                                    "default": 2
+                                                },
+                                                "hasNextPage": {
+                                                    "type": "boolean",
+                                                    "default": true
+                                                },
+                                                "hasPreviousPage": {
+                                                    "type": "boolean",
+                                                    "default": false
+                                                }
+                                            },
+                                            "required": [
+                                                "currentPage",
+                                                "totalPages",
+                                                "totalCount",
+                                                "hasNextPage",
+                                                "hasPreviousPage"
+                                            ]
+                                        }
+                                    },
+                                    "required": ["data", "meta"]
                                 }
                             }
                         }
