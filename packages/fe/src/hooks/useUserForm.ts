@@ -108,25 +108,39 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
         setRoleError(errors.role || null);
 
         if (Object.keys(errors).length === 0) {
-            addUserFx(formData);
+            try {
+                addUserFx(formData);
 
-            // Clear all input fields if the form is valid
-            refs.username.current!.value = "";
-            refs.firstName.current!.value = "";
-            refs.lastName.current!.value = "";
-            refs.email.current!.value = "";
-            refs.password.current!.value = "";
-            refs.confirmPassword.current!.value = "";
-            refs.role.current!.value = "";
+                // Clear all input fields if the form is valid
+                refs.username.current!.value = "";
+                refs.firstName.current!.value = "";
+                refs.lastName.current!.value = "";
+                refs.email.current!.value = "";
+                refs.password.current!.value = "";
+                refs.confirmPassword.current!.value = "";
+                refs.role.current!.value = "";
 
-            // Clear errors after successful submission
-            setUsernameError(null);
-            setFirstNameError(null);
-            setLastNameError(null);
-            setEmailError(null);
-            setPasswordError(null);
-            setConfirmPasswordError(null);
-            setRoleError(null);
+                // Clear errors after successful submission
+                setUsernameError(null);
+                setFirstNameError(null);
+                setLastNameError(null);
+                setEmailError(null);
+                setPasswordError(null);
+                setConfirmPasswordError(null);
+                setRoleError(null);
+
+                setNotification({
+                    open: true,
+                    message: "User added successfully!",
+                    type: "success",
+                });
+            } catch (_) {
+                setNotification({
+                    open: true,
+                    message: "Failed to add user. Please try again.",
+                    type: "error",
+                });
+            }
         }
     };
 

@@ -1,11 +1,13 @@
 import { useRef } from "react";
-import { Box, Button, MenuItem, TextField } from "@mui/material";
+import { Alert, Box, Button, MenuItem, Snackbar, TextField } from "@mui/material";
 
 import { useUserForm } from "hooks/useUserForm";
 
 const roles = ["admin", "researcher", "procurementOfficer"];
 
-const textfieldStyle = { width: "200px" };
+const textfieldStyle = {
+    width: "200px",
+};
 const button = { width: "250px" };
 const boxStyle = { display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" };
 const input = { display: "flex", alignItems: "center", gap: "10px" };
@@ -34,10 +36,22 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
         confirmPasswordError,
         roleError,
         handleSubmit,
+        notification,
+        handleClose,
     } = useUserForm(refs);
 
     return (
         <Box component="form" noValidate autoComplete="off" sx={boxStyle}>
+            <Snackbar
+                open={notification.open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            >
+                <Alert onClose={handleClose} severity={notification.type}>
+                    {notification.message}
+                </Alert>
+            </Snackbar>
             <Box sx={input}>
                 <TextField
                     label="Username"
