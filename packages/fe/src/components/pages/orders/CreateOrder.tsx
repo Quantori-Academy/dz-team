@@ -1,15 +1,9 @@
-import { Outlet, useNavigate } from "@tanstack/react-router";
+import { Box } from "@mui/material";
+import { Outlet } from "@tanstack/react-router";
 
-import { CommonTable } from "components/commonTable/CommonTable";
-import LayoutBox from "components/LayoutBox/LayoutBox";
-import { createModal } from "components/modal/createModal";
-import { removeModal } from "components/modal/store";
-import { OrderSchema, Reagent } from "shared/generated/zod";
-
-import { ReagentFormModal } from "../ReagentsPage/ReagentFormModal";
+import { Grid } from "components/dataGrid/Grid";
 
 const headers = [
-    { field: "id", headerName: "id", width: 150 },
     { field: "name", headerName: "Name", width: 150 },
     { field: "structure", headerName: "Structure", width: 170 },
     { field: "cas", headerName: "Cas", width: 170 },
@@ -22,43 +16,25 @@ const headers = [
     { field: "amount", headerName: "Amount", width: 170 },
 ];
 export const CreateOrder = () => {
-    const navigate = useNavigate();
-
-    // TODO: function doesnt work yet.
-    const openAddModal = async () => {
-        try {
-            await createModal({
-                name: "reagent_modal",
-                title: "Add new Reagent",
-                message: <ReagentFormModal />,
-                labels: { ok: "Submit", cancel: "Cancel" },
-            });
-            // submitReagentEvent();
-            // if (tableRef.current?.refresh) {
-            //     tableRef.current.refresh();
-            // }
-            removeModal();
-        } catch (_) {
-            removeModal();
-        }
-    };
-
+    // TODO: this table create button and rows will be implemented in the other branch
     return (
         <>
-            <LayoutBox>
-                <CommonTable<Reagent>
-                    columns={headers}
-                    schema={OrderSchema}
-                    onRowClick={(row: Reagent) => {
-                        navigate({ to: `/createOrder/${row.id}`, replace: false });
-                    }}
-                    searchBy={{
-                        name: true,
-                    }}
-                    onAdd={openAddModal}
-                    addButtonText="Create a new reagent for an order"
+            <Box
+                sx={{
+                    padding: "40px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "20px",
+                }}
+            >
+                <Grid
+                    rows={[]}
+                    headers={headers}
+                    showSearchField={false}
+                    showAddRecord={true}
+                    buttonLabel="Create a new reagent for an order"
                 />
-            </LayoutBox>
+            </Box>
             <Outlet />
         </>
     );
