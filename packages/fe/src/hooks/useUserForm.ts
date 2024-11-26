@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useUnit } from "effector-react";
 
+import { removeModal } from "components/modal/store";
 import { $usersList, addUserFx, deleteUserFx } from "stores/users";
 
 export type NewUser = {
@@ -54,6 +55,8 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
             errors.username = "Username must not exceed 50 characters.";
         } else if (!formData.username || formData.username.trim().length === 0) {
             errors.username = "Username is required.";
+        } else if (users.some((user) => user.username === formData.username)) {
+            errors.username = "Username already exists.";
         }
 
         if (!formData.firstName || formData.firstName.trim().length === 0) {
@@ -67,6 +70,8 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(formData.email)) {
             errors.email = "Invalid email format.";
+        } else if (users.some((user) => user.email === formData.email)) {
+            errors.email = "Email already exists.";
         }
 
         if ((formData.password ?? "").length < 8) {
@@ -118,7 +123,9 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
                 refs.email.current!.value = "";
                 refs.password.current!.value = "";
                 refs.confirmPassword.current!.value = "";
-                refs.role.current!.value = "";
+                if (errors.role) {
+                    refs.role.current!.value = "";
+                }
 
                 // Clear errors after successful submission
                 setUsernameError(null);
@@ -134,6 +141,9 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
                     message: "User added successfully!",
                     type: "success",
                 });
+                setTimeout(() => {
+                    removeModal();
+                }, 2500);
             } catch (_) {
                 setNotification({
                     open: true,
