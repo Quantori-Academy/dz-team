@@ -40,6 +40,7 @@ export class OrderController {
     ): Promise<void> {
         try {
             const validatedId = idSchema.parse(request.params.id);
+
             const order = await orderService.getOrder(validatedId);
             if (!order) {
                 return reply.status(404).send({ message: "Order not found" });
@@ -110,11 +111,12 @@ export class OrderController {
     ): Promise<void> {
         try {
             const validatedId = idSchema.parse(request.params.id);
+
             const { status } = request.body;
 
             // Check if the status is valid according to the OrderStatus enum
             if (!Object.values(OrderStatus).includes(status)) {
-                return reply.status(400).send({ error: "Invalid order status" });
+                return reply.status(400).send({ message: "Invalid order status" });
             }
 
             const updatedOrder = await orderService.updateOrderStatus(validatedId, status);

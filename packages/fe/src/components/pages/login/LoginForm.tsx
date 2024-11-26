@@ -90,7 +90,6 @@ export function LoginForm() {
                     borderRadius: 1,
                     zIndex: 2,
                     p: 7,
-                    mt: 15,
                 }}
             >
                 <Typography sx={{ fontSize: 24 }}>Log In</Typography>

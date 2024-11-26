@@ -25,7 +25,7 @@ const api = ky.create({
             async (request) => {
                 if (isProd) return request;
                 if (useMockData) {
-                    const url = request.url.toString().replace(base, "");
+                    const url = request.url.toString().replace(base, "").split("?")[0];
                     // eslint-disable-next-line no-console
                     console.warn("will use mock data for:", url);
                     const mockData = (await import("./data.json")).default;
@@ -51,6 +51,14 @@ const api = ky.create({
  * @template T - The static type inferred from the zod schema (default is `z.infer<TT>`).
  * @template K - The type returned by the mapper function (default is `T`).
  *
+ * Overloads:
+ * 1. When `throwOnError` is explicitly set to `false`:
+ *    - @returns {Promise<T | K | undefined>} The result of the request, transformed by the mapper if provided,
+ *      or `undefined` if an error occurs.
+ * 2. When `throwOnError` is explicitly set to `true` or not specified:
+ *    - @returns {Promise<T | K>} The result of the request, transformed by the mapper if provided.
+ *      Throws an error if one occurs.
+ *
  * @param {Input} url - The URL or object to be used for the request.
  * @param {TT} contract - The zod contract used to validate the response.
  * @param {Options & {
@@ -61,13 +69,34 @@ const api = ky.create({
  *}} [options] - Additional options for configuring the request.
  * @param {function(T): K} [options.mapper] - A function to transform the response data.
  * @param {boolean} [options.showErrorNotification=false] -  Whether to show an error notification.
- * @param {boolean} [options.throwOnError=true] - Whether to throw an error if one occurs.
+ * @param {boolean} [options.throwOnError=true] - If `true`, throws an error on failure. If `false`, returns `undefined` on failure.
  * @param {boolean} [options.shouldAffectIsLoading=false] - Whether the request should affect loading state.
  *
- * @returns {Promise<T | K | undefined>} - Returns the result of the request or a transformed value (if mapper is provided).
+ * @returns {Promise<T | K | undefined>} - Depending on the overload, returns the response data or transformed result,
+ * or `undefined` if `throwOnError` is set to `false` and an error occurs.
  *
- * @throws {Error} - Throws an error if `throwOnError` is set to true.
+ * @throws {Error} - Throws an error if `throwOnError` is `true` or not specified and a failure occurs.
  */
+export async function request<TT extends ZodType, T = z.infer<TT>, K = T>(
+    url: Input,
+    contract: TT,
+    options: Options & {
+        mapper?: (val: T) => K;
+        showErrorNotification?: boolean;
+        throwOnError: false;
+        shouldAffectIsLoading?: boolean;
+    },
+): Promise<T | K | undefined>;
+export async function request<TT extends ZodType, T = z.infer<TT>, K = T>(
+    url: Input,
+    contract: TT,
+    options?: Options & {
+        mapper?: (val: T) => K;
+        showErrorNotification?: boolean;
+        throwOnError?: true;
+        shouldAffectIsLoading?: boolean;
+    },
+): Promise<T | K>;
 export async function request<TT extends ZodType, T = z.infer<TT>, K = T>(
     url: Input,
     contract: TT,
@@ -76,7 +105,7 @@ export async function request<TT extends ZodType, T = z.infer<TT>, K = T>(
         showErrorNotification?: boolean;
         throwOnError?: boolean;
         shouldAffectIsLoading?: boolean;
-    },
+    }
 ): Promise<T | K | undefined> {
     const auth = $auth.getState();
     const token = auth ? auth.token : null;
@@ -95,7 +124,6 @@ export async function request<TT extends ZodType, T = z.infer<TT>, K = T>(
         return options?.mapper ? options.mapper(value) : value;
     } catch (err) {
         if (options?.showErrorNotification ?? !isProd) {
-            // TODO: notification is not implemented yet
             handleError(err as Error, url, options);
         }
 
