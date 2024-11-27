@@ -4697,30 +4697,155 @@
                                     "properties": {
                                         "id": {
                                             "type": "string",
-                                            "format": "uuid"
+                                            "format": "uuid",
+                                            "description": "Storage location UUID."
                                         },
                                         "room": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "description": "Room name."
                                         },
                                         "name": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "description": "Storage location name."
                                         },
                                         "description": {
                                             "type": "string",
-                                            "nullable": true
+                                            "nullable": true,
+                                            "description": "Description of the storage location."
                                         },
-                                        "deletedAt": {
-                                            "type": "string",
-                                            "nullable": true
-                                        },
-                                        "createdAt": {
-                                            "type": "string"
-                                        },
-                                        "updatedAt": {
-                                            "type": "string"
+                                        "reagents": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "unit": {
+                                                        "type": "string",
+                                                        "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                                    },
+                                                    "container": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": ["bottle", "box", "other", null]
+                                                    },
+                                                    "currency": {
+                                                        "type": "string",
+                                                        "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                                                    },
+                                                    "category": {
+                                                        "type": "string",
+                                                        "enum": ["reagent", "sample"]
+                                                    },
+                                                    "type": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": [
+                                                            "organic",
+                                                            "inorganic",
+                                                            "acidic",
+                                                            "basic",
+                                                            "oxidizing",
+                                                            "reducing",
+                                                            "precipitating",
+                                                            "complexing",
+                                                            "indicator",
+                                                            "other",
+                                                            null
+                                                        ]
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": [
+                                                            "available",
+                                                            "lowStock",
+                                                            "outOfStock",
+                                                            "ordered",
+                                                            "notAvailable",
+                                                            null
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "format": "uuid"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "structure": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "description": {
+                                                        "type": "string"
+                                                    },
+                                                    "quantity": {
+                                                        "type": "number"
+                                                    },
+                                                    "quantityInit": {
+                                                        "type": "number",
+                                                        "nullable": true
+                                                    },
+                                                    "expirationDate": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "storageLocation": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "cas": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "producer": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "catalogId": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "catalogLink": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "pricePerUnit": {
+                                                        "type": "number",
+                                                        "nullable": true
+                                                    },
+                                                    "deletedAt": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "createdAt": {
+                                                        "type": "string"
+                                                    },
+                                                    "updatedAt": {
+                                                        "type": "string"
+                                                    },
+                                                    "storageId": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "format": "uuid"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "unit",
+                                                    "currency",
+                                                    "category",
+                                                    "id",
+                                                    "name",
+                                                    "description",
+                                                    "quantity",
+                                                    "createdAt",
+                                                    "updatedAt"
+                                                ]
+                                            },
+                                            "default": [],
+                                            "description": "List of associated reagents."
                                         }
                                     },
-                                    "required": ["id", "room", "name", "createdAt", "updatedAt"]
+                                    "required": ["id", "room", "name", "description", "reagents"]
                                 }
                             }
                         }
@@ -4812,30 +4937,155 @@
                                     "properties": {
                                         "id": {
                                             "type": "string",
-                                            "format": "uuid"
+                                            "format": "uuid",
+                                            "description": "Storage location UUID."
                                         },
                                         "room": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "description": "Room name."
                                         },
                                         "name": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "description": "Storage location name."
                                         },
                                         "description": {
                                             "type": "string",
-                                            "nullable": true
+                                            "nullable": true,
+                                            "description": "Description of the storage location."
                                         },
-                                        "deletedAt": {
-                                            "type": "string",
-                                            "nullable": true
-                                        },
-                                        "createdAt": {
-                                            "type": "string"
-                                        },
-                                        "updatedAt": {
-                                            "type": "string"
+                                        "reagents": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "unit": {
+                                                        "type": "string",
+                                                        "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                                    },
+                                                    "container": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": ["bottle", "box", "other", null]
+                                                    },
+                                                    "currency": {
+                                                        "type": "string",
+                                                        "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                                                    },
+                                                    "category": {
+                                                        "type": "string",
+                                                        "enum": ["reagent", "sample"]
+                                                    },
+                                                    "type": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": [
+                                                            "organic",
+                                                            "inorganic",
+                                                            "acidic",
+                                                            "basic",
+                                                            "oxidizing",
+                                                            "reducing",
+                                                            "precipitating",
+                                                            "complexing",
+                                                            "indicator",
+                                                            "other",
+                                                            null
+                                                        ]
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": [
+                                                            "available",
+                                                            "lowStock",
+                                                            "outOfStock",
+                                                            "ordered",
+                                                            "notAvailable",
+                                                            null
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "format": "uuid"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "structure": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "description": {
+                                                        "type": "string"
+                                                    },
+                                                    "quantity": {
+                                                        "type": "number"
+                                                    },
+                                                    "quantityInit": {
+                                                        "type": "number",
+                                                        "nullable": true
+                                                    },
+                                                    "expirationDate": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "storageLocation": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "cas": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "producer": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "catalogId": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "catalogLink": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "pricePerUnit": {
+                                                        "type": "number",
+                                                        "nullable": true
+                                                    },
+                                                    "deletedAt": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "createdAt": {
+                                                        "type": "string"
+                                                    },
+                                                    "updatedAt": {
+                                                        "type": "string"
+                                                    },
+                                                    "storageId": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "format": "uuid"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "unit",
+                                                    "currency",
+                                                    "category",
+                                                    "id",
+                                                    "name",
+                                                    "description",
+                                                    "quantity",
+                                                    "createdAt",
+                                                    "updatedAt"
+                                                ]
+                                            },
+                                            "default": [],
+                                            "description": "List of associated reagents."
                                         }
                                     },
-                                    "required": ["id", "room", "name", "createdAt", "updatedAt"]
+                                    "required": ["id", "room", "name", "description", "reagents"]
                                 }
                             }
                         }
@@ -5023,30 +5273,155 @@
                                     "properties": {
                                         "id": {
                                             "type": "string",
-                                            "format": "uuid"
+                                            "format": "uuid",
+                                            "description": "Storage location UUID."
                                         },
                                         "room": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "description": "Room name."
                                         },
                                         "name": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "description": "Storage location name."
                                         },
                                         "description": {
                                             "type": "string",
-                                            "nullable": true
+                                            "nullable": true,
+                                            "description": "Description of the storage location."
                                         },
-                                        "deletedAt": {
-                                            "type": "string",
-                                            "nullable": true
-                                        },
-                                        "createdAt": {
-                                            "type": "string"
-                                        },
-                                        "updatedAt": {
-                                            "type": "string"
+                                        "reagents": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "unit": {
+                                                        "type": "string",
+                                                        "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                                    },
+                                                    "container": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": ["bottle", "box", "other", null]
+                                                    },
+                                                    "currency": {
+                                                        "type": "string",
+                                                        "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                                                    },
+                                                    "category": {
+                                                        "type": "string",
+                                                        "enum": ["reagent", "sample"]
+                                                    },
+                                                    "type": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": [
+                                                            "organic",
+                                                            "inorganic",
+                                                            "acidic",
+                                                            "basic",
+                                                            "oxidizing",
+                                                            "reducing",
+                                                            "precipitating",
+                                                            "complexing",
+                                                            "indicator",
+                                                            "other",
+                                                            null
+                                                        ]
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": [
+                                                            "available",
+                                                            "lowStock",
+                                                            "outOfStock",
+                                                            "ordered",
+                                                            "notAvailable",
+                                                            null
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "format": "uuid"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "structure": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "description": {
+                                                        "type": "string"
+                                                    },
+                                                    "quantity": {
+                                                        "type": "number"
+                                                    },
+                                                    "quantityInit": {
+                                                        "type": "number",
+                                                        "nullable": true
+                                                    },
+                                                    "expirationDate": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "storageLocation": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "cas": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "producer": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "catalogId": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "catalogLink": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "pricePerUnit": {
+                                                        "type": "number",
+                                                        "nullable": true
+                                                    },
+                                                    "deletedAt": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "createdAt": {
+                                                        "type": "string"
+                                                    },
+                                                    "updatedAt": {
+                                                        "type": "string"
+                                                    },
+                                                    "storageId": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "format": "uuid"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "unit",
+                                                    "currency",
+                                                    "category",
+                                                    "id",
+                                                    "name",
+                                                    "description",
+                                                    "quantity",
+                                                    "createdAt",
+                                                    "updatedAt"
+                                                ]
+                                            },
+                                            "default": [],
+                                            "description": "List of associated reagents."
                                         }
                                     },
-                                    "required": ["id", "room", "name", "createdAt", "updatedAt"]
+                                    "required": ["id", "room", "name", "description", "reagents"]
                                 }
                             }
                         }
