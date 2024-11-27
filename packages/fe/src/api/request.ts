@@ -43,8 +43,13 @@ const api = ky.create({
         beforeError: [
             async (error) => {
                 const { response } = error;
-                const body: { message: string } = await response.json();
-                if (body && body.message) {
+                const body = await response.json();
+                if (
+                    body &&
+                    typeof body === "object" &&
+                    "message" in body &&
+                    typeof body.message === "string"
+                ) {
                     error.message = body.message;
                 }
 

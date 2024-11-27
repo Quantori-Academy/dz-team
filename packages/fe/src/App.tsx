@@ -10,8 +10,14 @@ export function App() {
     return (
         <>
             <ThemeProvider theme={theme}>
-                <ToastContainer autoClose={10000} limit={10} position="top-right" closeOnClick />
                 <Outlet />
+                <ToastContainer
+                    autoClose={10000}
+                    limit={10}
+                    position="top-right"
+                    closeOnClick
+                    toastStyle={{ backgroundColor: "#FFEFEF", color: "#662727" }}
+                />
             </ThemeProvider>
         </>
     );
