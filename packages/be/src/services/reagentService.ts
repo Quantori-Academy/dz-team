@@ -102,6 +102,10 @@ export class ReagentService {
     async createReagent(newReagentData: Prisma.ReagentCreateInput): Promise<Reagent> {
         const validatedData = ReagentCreateInputSchema.parse(newReagentData);
 
+        if (validatedData.pricePerUnit === 0 || validatedData.quantityInit === 0) {
+            throw new Error("Invalid reagent data");
+        }
+
         return await prisma.reagent.create({ data: validatedData });
     }
 
