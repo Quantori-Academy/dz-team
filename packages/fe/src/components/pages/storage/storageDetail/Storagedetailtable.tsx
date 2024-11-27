@@ -44,8 +44,7 @@ export const StorageDetailTable = ({ handleAction, reagents }: TableType) => {
     const isProcurementOfficer = role === UserRole.procurementOfficer;
     const isResearcher = role === UserRole.researcher;
     const permissions = {
-        canEdit: !isResearcher,
-        canDelete: !isResearcher,
+        allowPermission: !isResearcher,
     };
 
     return (
@@ -56,7 +55,9 @@ export const StorageDetailTable = ({ handleAction, reagents }: TableType) => {
                     url="/_app/storageList/$id"
                     fields={fields}
                     onAction={handleAction}
-                    editableFields={permissions.canEdit ? ["name", "room", "description"] : []}
+                    editableFields={
+                        permissions.allowPermission ? ["name", "room", "description"] : []
+                    }
                     permissions={permissions}
                 >
                     {reagents?.length > 0 ? (

@@ -22,50 +22,26 @@ export const useStorage = ({ name, room, description }: HookTypes) => {
     const validateForm = (formData: NewStorage) => {
         let isValid = true;
 
-        if (formData.room?.length > 300) {
-            setRoomError("Room must not exceed 300 characters.");
-            isValid = false;
-        } else if (!formData.room || formData.room.trim().length === 0) {
-            setRoomError("Room is required");
-            isValid = false;
-        }
-
-        if (!formData.name || formData.name.trim().length === 0) {
-            setNameError("Name is required.");
-            isValid = false;
-        } else if (formData.name.length > 300) {
-            setNameError("Name must not exceed 300 characters");
-        }
-
+        (["room", "name"] as const).forEach((field) => {
+            if (!formData[field] || formData[field].trim().length === 0) {
+                if (field === "room") {
+                    setRoomError("Room is required");
+                } else {
+                    setNameError("Name is required");
+                }
+                isValid = false;
+            } else if (formData[field].length > 300) {
+                if (field === "room") {
+                    setRoomError("Room must not exceed 300 characters.");
+                } else {
+                    setNameError("Name must not exceed 300 characters.");
+                }
+                isValid = false;
+            }
+        });
         return isValid;
     };
 
-    // const handleSubmit = async () => {
-    //     const formData: NewStorage = {
-    //         name: name.current?.value || "",
-    //         room: room.current?.value || "",
-    //         description: description?.current?.value || "",
-    //     };
-    //     if (validateForm(formData)) {
-    //         if (name.current) name.current.value = "";
-    //         if (room.current) room.current.value = "";
-    //         if (description.current) description.current.value = "";
-    //         try {
-    //             await addStorageFx(formData);
-    //             setRoomError(null);
-    //             setNameError(null);
-    //             setConfirmMessage(true);
-    //             setTimeout(() => {
-    //                 setConfirmMessage(false);
-    //             }, 2000);
-    //         } catch (_error) {
-    //             setErrorMessage(true);
-    //             setTimeout(() => {
-    //                 setErrorMessage(false);
-    //             }, 2000);
-    //         }
-    //     }
-    // };
     const handleSubmit = async () => {
         const currentFormData: NewStorage = {
             name: name.current?.value || "",
@@ -74,6 +50,9 @@ export const useStorage = ({ name, room, description }: HookTypes) => {
         };
 
         if (validateForm(currentFormData)) {
+            if (name.current) name.current.value = "";
+            if (room.current) room.current.value = "";
+            if (description.current) description.current.value = "";
             setFormData(currentFormData);
 
             try {
