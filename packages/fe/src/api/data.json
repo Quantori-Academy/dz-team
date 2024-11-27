@@ -265,5 +265,169 @@
     "/api/v1/auth/login": {
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcklkIjoiMTIzIiwiaWF0IjoxNTE2MjM5MDIyfQ.13w-xbkD5hYBV-LR73LTz3KOw1JijATmXIebjS6Y2Ww"
     },
-    "/api/v1/users/123": { "role": "admin" }
+    "/api/v1/users/123": { "role": "admin" },
+
+    "/api/v1/reagent-request": {
+        "data": [
+            {
+                "id": "ef088d37-c40b-47b9-a737-2cc07c5f55d3",
+                "userId": "de64e59e-2088-4311-9cd8-3ce68bb106c1",
+                "orderId": "1",
+                "name": "Hexane",
+                "structure": "SMILES data",
+                "cas": "110-54-3",
+                "quantity": 500,
+                "unit": "ml",
+                "userComments": "Urgent request",
+                "procurementComments": "",
+                "status": "pending",
+                "createdAt": "2024-10-29",
+                "updatedAt": "2024-10-30"
+            },
+            {
+                "id": "de64e59e-7088-4311-9cd8-3ce68bb106c1",
+                "userId": "de64e59e-3088-4311-9cd8-3ce68bb106c1",
+                "orderId": "2",
+                "name": "Acetone",
+                "structure": "SMILES data",
+                "cas": "67-64-1",
+                "quantity": 200,
+                "unit": "ml",
+                "userComments": "Need it by tomorrow",
+                "procurementComments": "",
+                "status": "ordered",
+                "createdAt": "2024-10-28",
+                "updatedAt": "2024-10-30"
+            },
+            {
+                "id": "de64e59e-7088-4311-9cd8-3ce68bb106c0",
+                "userId": "de64e59e-4088-4311-9cd8-3ce68bb106c1",
+                "orderId": "3",
+                "name": "Acetone",
+                "structure": "SMILES data",
+                "cas": "67-64-1",
+                "quantity": 200,
+                "unit": "ml",
+                "userComments": "Need it by tomorrow",
+                "procurementComments": "",
+                "status": "ordered",
+                "createdAt": "2024-10-28",
+                "updatedAt": "2024-10-30"
+            },
+            {
+                "id": "de64e59e-7088-4311-9cd8-3ce68bb106c7",
+                "userId": "de64e59e-5088-4311-9cd8-3ce68bb106c1",
+                "orderId": "4",
+                "name": "Acetone",
+                "structure": "SMILES data",
+                "cas": "67-64-1",
+                "quantity": 200,
+                "unit": "ml",
+                "userComments": "Need it by tomorrow",
+                "procurementComments": "",
+                "status": "ordered",
+                "createdAt": "2024-10-28",
+                "updatedAt": "2024-10-30"
+            },
+            {
+                "id": "de64e59e-7088-4311-9cd8-3ce68bb156c1",
+                "userId": "de64e59e-6088-4311-9cd8-3ce68bb106c1",
+                "orderId": "5",
+                "name": "Acetone",
+                "structure": "SMILES data",
+                "cas": "67-64-1",
+                "quantity": 200,
+                "unit": "ml",
+                "userComments": "Need it by tomorrow",
+                "procurementComments": "",
+                "status": "ordered",
+                "createdAt": "2024-10-28",
+                "updatedAt": "2024-10-30"
+            }
+        ],
+        "meta": {
+            "currentPage": 1,
+            "totalPages": 1,
+            "totalCount": 5,
+            "hasNextPage": false,
+            "hasPreviousPage": false
+        }
+    },
+
+    "/api/v1/reagent-request/ef088d37-c40b-47b9-a737-2cc07c5f55d3": {
+        "id": "ef088d37-c40b-47b9-a737-2cc07c5f55d3",
+        "userId": "de64e59e-2088-4311-9cd8-3ce68bb106c1",
+        "orderId": "1",
+        "name": "Hexane",
+        "structure": "SMILES data",
+        "cas": "110-54-3",
+        "quantity": 500,
+        "unit": "ml",
+        "userComments": "Urgent request",
+        "procurementComments": "",
+        "status": "pending",
+        "createdAt": "2024-10-29",
+        "updatedAt": "2024-10-30"
+    },
+
+    "/api/v1/reagent-request/de64e59e-7088-4311-9cd8-3ce68bb106c1": {
+        "id": "de64e59e-7088-4311-9cd8-3ce68bb106c1",
+        "userId": "de64e59e-3088-4311-9cd8-3ce68bb106c1",
+        "orderId": "2",
+        "name": "Acetone",
+        "structure": "SMILES data",
+        "cas": "67-64-1",
+        "quantity": 200,
+        "unit": "ml",
+        "userComments": "Need it by tomorrow",
+        "procurementComments": "",
+        "status": "ordered",
+        "createdAt": "2024-10-28",
+        "updatedAt": "2024-10-30"
+    },
+    "/api/v1/reagent-request/de64e59e-7088-4311-9cd8-3ce68bb106c0": {
+        "id": "de64e59e-7088-4311-9cd8-3ce68bb106c0",
+        "userId": "de64e59e-4088-4311-9cd8-3ce68bb106c1",
+        "orderId": "3",
+        "name": "Acetone",
+        "structure": "SMILES data",
+        "cas": "67-64-1",
+        "quantity": 200,
+        "unit": "ml",
+        "userComments": "Need it by tomorrow",
+        "procurementComments": "",
+        "status": "ordered",
+        "createdAt": "2024-10-28",
+        "updatedAt": "2024-10-30"
+    },
+    "/api/v1/reagent-request/de64e59e-7088-4311-9cd8-3ce68bb106c7": {
+        "id": "de64e59e-7088-4311-9cd8-3ce68bb106c7",
+        "userId": "de64e59e-5088-4311-9cd8-3ce68bb106c1",
+        "orderId": "4",
+        "name": "Acetone",
+        "structure": "SMILES data",
+        "cas": "67-64-1",
+        "quantity": 200,
+        "unit": "ml",
+        "userComments": "Need it by tomorrow",
+        "procurementComments": "",
+        "status": "ordered",
+        "createdAt": "2024-10-28",
+        "updatedAt": "2024-10-30"
+    },
+    "/api/v1/reagent-request/de64e59e-7088-4311-9cd8-3ce68bb156c1": {
+        "id": "de64e59e-7088-4311-9cd8-3ce68bb156c1",
+        "userId": "de64e59e-6088-4311-9cd8-3ce68bb106c1",
+        "orderId": "5",
+        "name": "Acetone",
+        "structure": "SMILES data",
+        "cas": "67-64-1",
+        "quantity": 200,
+        "unit": "ml",
+        "userComments": "Need it by tomorrow",
+        "procurementComments": "",
+        "status": "ordered",
+        "createdAt": "2024-10-28",
+        "updatedAt": "2024-10-30"
+    }
 }

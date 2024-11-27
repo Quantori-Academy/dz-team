@@ -1,9 +1,7 @@
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import { z } from "zod";
-import storageLocationSchema, {
-    StorageLocationSchema,
-} from "shared/generated/zod/modelSchema/StorageLocationSchema";
-import { StorageLocationSearchSchema } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
+import storageLocationSchema from "../../../shared/generated/zod/modelSchema/StorageLocationSchema";
+import { StorageLocationSearchSchema } from "../../../shared/zodSchemas/storageLocation/storageLocationSearchSchema";
 import {
     NullableStringFieldUpdateOperationsInputSchema,
     ReagentSchema,
@@ -30,6 +28,14 @@ export const StorageLocationUpdateSchema = z.object({
         .union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputSchema)])
         .optional()
         .nullable(),
+});
+
+const StorageLocationSchema = z.object({
+    id: z.string().uuid().describe("Storage location UUID."),
+    room: z.string().describe("Room name."),
+    name: z.string().describe("Storage location name."),
+    description: z.string().nullable().describe("Description of the storage location."),
+    reagents: z.array(ReagentSchema).default([]).describe("List of associated reagents."),
 });
 
 export const StorageLocationsListSchema = z.object({
@@ -190,7 +196,7 @@ export const GET_STORAGE_LOCATION_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
             description: "Storage location data.",
             content: {
                 "application/json": {
-                    schema: storageLocationSchema,
+                    schema: StorageLocationSchema,
                 },
             },
         },

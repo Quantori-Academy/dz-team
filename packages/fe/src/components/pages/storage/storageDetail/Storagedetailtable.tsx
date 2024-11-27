@@ -1,31 +1,29 @@
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useUnit } from "effector-react";
 
 import { UserRole } from "api/self";
 import { StorageLocationDetailContractType } from "api/storage/contract";
+import { Grid } from "components/dataGrid/Grid";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
+import { Reagent } from "shared/generated/zod";
 import { $auth } from "stores/auth";
 
-// when i make sure about reagents these commited lines should be uncommited
+const boxStyle = { display: "flex", flexDirection: "column", gap: "20px", marginTop: "15px" };
 
-// const boxStyle = { display: "flex", flexDirection: "column", gap: "20px", marginTop: "15px" };
-
-// const reagentColumns = [
-//     { field: "name", headerName: "Name", width: 120 },
-//     { field: "structure", headerName: "Structure", width: 120 },
-//     { field: "description", headerName: "Description", width: 120 },
-//     { field: "quantity", headerName: "Quantity", width: 120 },
-//     { field: "expirationDate", headerName: "Expiration Date", width: 120 },
-//     { field: "producer", headerName: "Producer", width: 120 },
-//     { field: "category", headerName: "Category", width: 120 },
-//     { field: "status", headerName: "Status", width: 120 },
-// ];
+const reagentColumns = [
+    { field: "name", headerName: "Name", width: 120 },
+    { field: "structure", headerName: "Structure", width: 120 },
+    { field: "description", headerName: "Description", width: 120 },
+    { field: "quantity", headerName: "Quantity", width: 120 },
+    { field: "expirationDate", headerName: "Expiration Date", width: 120 },
+    { field: "producer", headerName: "Producer", width: 120 },
+    { field: "category", headerName: "Category", width: 120 },
+    { field: "status", headerName: "Status", width: 120 },
+];
 
 const fields = [
     { label: "Name", name: "name", required: true },
     { label: "Room", name: "room", required: true },
-    { label: "CreatedAt", name: "createdAt", disabled: true },
-    { label: "UpdatedAt", name: "updatedAt", disabled: true },
     { label: "Description", name: "description", required: false },
 ];
 
@@ -35,10 +33,11 @@ type HandleAction = (
 ) => Promise<void>;
 
 type TableType = {
+    reagents: Reagent[];
     handleAction: HandleAction;
 };
 
-export const StorageDetailTable = ({ handleAction }: TableType) => {
+export const StorageDetailTable = ({ handleAction, reagents }: TableType) => {
     const auth = useUnit($auth);
     const role = auth && (auth.self.role as UserRole);
     const isAdmin = role === UserRole.admin;
@@ -60,8 +59,7 @@ export const StorageDetailTable = ({ handleAction }: TableType) => {
                     editableFields={permissions.canEdit ? ["name", "room", "description"] : []}
                     permissions={permissions}
                 >
-                    <Typography>No reagents available for this storage.</Typography>
-                    {/* {reagents?.length > 0 ? (
+                    {reagents?.length > 0 ? (
                         <Box sx={boxStyle}>
                             <Typography variant="h6">Reagents</Typography>
                             <Grid
@@ -74,7 +72,7 @@ export const StorageDetailTable = ({ handleAction }: TableType) => {
                         <Box sx={boxStyle}>
                             <Typography>No reagents in this storage.</Typography>
                         </Box>
-                    )} */}
+                    )}
                 </DetailsEditPage>
             ) : (
                 <DetailsEditPage
@@ -83,8 +81,7 @@ export const StorageDetailTable = ({ handleAction }: TableType) => {
                     fields={fields}
                     permissions={permissions}
                 >
-                    <Typography>No reagents available for this storage.</Typography>
-                    {/* {reagents?.length > 0 ? (
+                    {reagents?.length > 0 ? (
                         <Box sx={boxStyle}>
                             <Typography variant="h6">Reagents</Typography>
                             <Grid
@@ -95,7 +92,7 @@ export const StorageDetailTable = ({ handleAction }: TableType) => {
                         </Box>
                     ) : (
                         <Typography>No reagents available for this storage.</Typography>
-                    )} */}
+                    )}
                 </DetailsEditPage>
             )}
         </>
