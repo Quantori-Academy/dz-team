@@ -86,7 +86,7 @@ export const StorageDetailTable = ({ handleAction, reagents }: TableType) => {
                     {reagents?.length > 0 ? (
                         <Box sx={boxStyle}>
                             <Typography variant="h6">Reagents</Typography>
-                            <Grid rows={reagents} headers={reagentColumns} />
+                            <Grid rows={reagents} headers={reagentColumns} showToolbar={false} />
                         </Box>
                     ) : (
                         <Typography>No reagents available for this storage.</Typography>

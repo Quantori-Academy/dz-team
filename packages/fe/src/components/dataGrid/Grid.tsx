@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+import { Box } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 import { createModal } from "components/modal/createModal";
@@ -97,30 +98,32 @@ export const Grid = ({
                 searchQuery={searchQuery}
                 onSearch={handleSearch}
             />
-            <DataGrid
-                rows={filteredRows}
-                columns={columns}
-                rowHeight={60}
-                disableRowSelectionOnClick
-                pageSizeOptions={[5, 15, 25, 50]}
-                initialState={{
-                    pagination: {
-                        paginationModel: {
-                            pageSize: 5,
+            <Box sx={{ height: "300px", width: "100%" }}>
+                <DataGrid
+                    rows={filteredRows}
+                    columns={columns}
+                    rowHeight={60}
+                    disableRowSelectionOnClick
+                    pageSizeOptions={[5, 15, 25, 50]}
+                    initialState={{
+                        pagination: {
+                            paginationModel: {
+                                pageSize: 5,
+                            },
                         },
-                    },
-                }}
-                slots={{
-                    toolbar: showToolbar
-                        ? () => (
-                              <AddRecord
-                                  buttonLabel="Add New Record"
-                                  onAddRecord={handleAddRecord}
-                              />
-                          )
-                        : undefined,
-                }}
-            />
+                    }}
+                    slots={{
+                        toolbar: showToolbar
+                            ? () => (
+                                  <AddRecord
+                                      buttonLabel="Add New Record"
+                                      onAddRecord={handleAddRecord}
+                                  />
+                              )
+                            : undefined,
+                    }}
+                />
+            </Box>
         </>
     );
 };
