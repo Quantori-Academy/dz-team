@@ -58,5 +58,5 @@ export const search = async <T, Z extends z.ZodType<T>>({
         throwOnError: true,
     });
 
-    return response!;
+    return response;
 };

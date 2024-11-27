@@ -189,6 +189,7 @@ export const CommonTable: ForwardRefWithGenerics = forwardRef(
                     loading={loading}
                     onRowClick={(params: GridRowParams<T>) => onRowClick?.(params.row)}
                     disableColumnFilter
+                    disableRowSelectionOnClick
                     sx={{ mt: 2, minHeight: 300 }}
                 />
             </>
