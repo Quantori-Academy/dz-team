@@ -3,13 +3,10 @@ import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import { Alert, Snackbar, TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-import { useUnit } from "effector-react";
 
-import { UserRole } from "api/self";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
 import { useUserForm } from "hooks/useUserForm";
-import { $auth } from "stores/auth";
 import { SupportedValue } from "utils/formatters";
 
 import { AddUserForm } from "../pages/users/AddUserForm";
@@ -23,10 +20,6 @@ type GridProps = {
 export const Grid = ({ rows, headers }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
     const { handleDeleteClick, handleClose, notification } = useUserForm({});
-
-    const auth = useUnit($auth);
-    const role = auth && (auth.self.role as UserRole);
-    const isAdmin = role === UserRole.admin;
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(event.target.value);
@@ -57,19 +50,6 @@ export const Grid = ({ rows, headers }: GridProps) => {
                 name: "add_user_modal",
                 title: "Add New User",
                 message: <AddUserForm onClose={() => removeModal()} />,
-            });
-            removeModal();
-        } catch (_error) {
-            removeModal();
-        }
-    };
-
-    const handleAddFormOpenSample = async () => {
-        try {
-            await createModal({
-                name: "add_user_modal",
-                title: "Add New User",
-                message: "add sample",
             });
             removeModal();
         } catch (_error) {
@@ -114,13 +94,7 @@ export const Grid = ({ rows, headers }: GridProps) => {
             <DataGrid
                 rows={filteredRows}
                 rowHeight={60}
-                // getRowId={(row) =>
-                //     typeof row.id === "string" || typeof row.id === "number"
-                //         ? row.id
-                //         : `${String(row.username ?? "unknown")}-${Math.random()
-                //               .toString(36)
-                //               .substring(2, 9)}`
-                // }
+                getRowId={(row) => row.id as string}
                 columns={columns}
                 disableRowSelectionOnClick
                 pageSizeOptions={[5, 15, 25, 50]}
@@ -133,10 +107,7 @@ export const Grid = ({ rows, headers }: GridProps) => {
                 }}
                 slots={{
                     toolbar: () => (
-                        <AddRecord
-                            buttonLabel={isAdmin ? "Add New User" : "Add New Sample"}
-                            onAddRecord={isAdmin ? handleAddFormOpen : handleAddFormOpenSample}
-                        />
+                        <AddRecord buttonLabel={"Add New User"} onAddRecord={handleAddFormOpen} />
                     ),
                 }}
             />
