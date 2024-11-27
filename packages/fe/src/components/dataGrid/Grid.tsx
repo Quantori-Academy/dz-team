@@ -4,9 +4,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import { TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
-import { createModal } from "components/modal/createModal";
-import { removeModal } from "components/modal/store";
+import { CommonModal } from "components/modal/CommonModal";
 import { useUserForm } from "hooks/useUserForm";
+import { User } from "shared/generated/zod";
 import { SupportedValue } from "utils/formatters";
 
 import { AddUserForm } from "../pages/users/AddUserForm";
@@ -24,6 +24,10 @@ export const Grid = ({ rows, headers }: GridProps) => {
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         setSearchQuery(event.target.value);
     };
+
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
 
     const filteredRows = rows.filter((row) =>
         Object.values(row).some((value) => {
@@ -44,17 +48,8 @@ export const Grid = ({ rows, headers }: GridProps) => {
         }),
     );
 
-    const handleAddFormOpen = async () => {
-        try {
-            await createModal({
-                name: "add_user_modal",
-                title: "Add New User",
-                message: <AddUserForm onClose={() => removeModal()} />,
-            });
-            removeModal();
-        } catch (_error) {
-            removeModal();
-        }
+    const onSubmit = () => {
+        handleClose();
     };
 
     const columns = useMemo(() => {
@@ -92,9 +87,9 @@ export const Grid = ({ rows, headers }: GridProps) => {
                 sx={{ width: "350px", marginBottom: "16px" }}
             />
             <DataGrid
-                rows={filteredRows}
+                rows={filteredRows as User[]}
                 rowHeight={60}
-                getRowId={(row) =>
+                getRowId={(row: User) =>
                     typeof row.id === "string" || typeof row.id === "number"
                         ? row.id
                         : `${String(row.username ?? "unknown")}-${Math.random()
@@ -113,10 +108,20 @@ export const Grid = ({ rows, headers }: GridProps) => {
                 }}
                 slots={{
                     toolbar: () => (
-                        <AddRecord buttonLabel="Add New User" onAddRecord={handleAddFormOpen} />
+                        <AddRecord buttonLabel="Add New User" onAddRecord={handleOpen} />
                     ),
                 }}
             />
+            <CommonModal
+                isOpen={open}
+                title={"Add New User"}
+                onSubmit={onSubmit}
+                onCancel={handleClose}
+                submitLabel={"Submit"}
+                cancelLabel={"Cancel"}
+            >
+                <AddUserForm onClose={() => handleClose()} />
+            </CommonModal>
         </>
     );
 };

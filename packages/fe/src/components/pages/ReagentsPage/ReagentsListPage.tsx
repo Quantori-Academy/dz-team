@@ -1,4 +1,4 @@
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
@@ -6,8 +6,7 @@ import { useUnit } from "effector-react";
 
 import { base } from "api/request";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
-import { createModal } from "components/modal/createModal";
-import { removeModal } from "components/modal/store";
+import { CommonModal } from "components/modal/CommonModal";
 import { submitReagent } from "stores/reagents";
 
 import { Reagent, ReagentSchema } from "../../../../../shared/generated/zod";
@@ -34,28 +33,22 @@ const columns: GridColDef<Reagent>[] = [
 ];
 
 export const ReagentsListPage = () => {
+    const [open, setOpen] = useState(false);
+    const handleOpen = () => setOpen(true);
+    const handleClose = () => setOpen(false);
+
     const navigate = useNavigate();
 
     const tableRef = useRef<CommonTableRef | null>(null);
 
     const submitReagentEvent = useUnit(submitReagent);
 
-    const openAddModal = async () => {
-        try {
-            await createModal({
-                name: "reagent_modal",
-                title: "Add new Reagent",
-                message: <ReagentFormModal />,
-                labels: { ok: "Submit", cancel: "Cancel" },
-            });
-            submitReagentEvent();
-            if (tableRef.current?.refresh) {
-                tableRef.current.refresh();
-            }
-            removeModal();
-        } catch (_) {
-            removeModal();
+    const onSubmit = () => {
+        submitReagentEvent();
+        if (tableRef.current?.refresh) {
+            tableRef.current.refresh();
         }
+        handleClose();
     };
 
     return (
@@ -78,11 +71,21 @@ export const ReagentsListPage = () => {
                         catalogId: true,
                         catalogLink: true,
                     }}
-                    onAdd={openAddModal}
+                    onAdd={handleOpen}
                     addButtonText="add reagent"
                 />
                 <Outlet />
             </Box>
+            <CommonModal
+                isOpen={open}
+                title={"Add new Reagent"}
+                onSubmit={onSubmit}
+                onCancel={handleClose}
+                submitLabel={"Submit"}
+                cancelLabel={"Cancel"}
+            >
+                <ReagentFormModal />
+            </CommonModal>
         </TableContext.Provider>
     );
 };

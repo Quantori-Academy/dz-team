@@ -6,6 +6,7 @@ import { CreateReagentRequestType, initialFormData } from "api/reagentRequest";
 import { base, request } from "api/request";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { TableContext } from "components/commonTable/TableContext";
+import { CommonModal } from "components/modal/CommonModal";
 
 import { ReagentRequest, ReagentRequestSchema } from "../../../../../shared/generated/zod";
 import { ReagentRequestFormModal } from "./ReagentRequestFormModal";
@@ -81,13 +82,16 @@ export function ReagentRequestPage() {
                 addButtonText="Create a Reagent Request"
             />
 
-            <ReagentRequestFormModal
+            <CommonModal
                 isOpen={isModalOpen}
-                formData={formData}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-                handleModalClose={handleModalClose}
-            />
+                title={"Add New Reagent Request"}
+                onSubmit={handleSubmit}
+                onCancel={handleModalClose}
+                submitLabel={"Submit"}
+                cancelLabel={"Cancel"}
+            >
+                <ReagentRequestFormModal formData={formData} handleChange={handleChange} />
+            </CommonModal>
 
             <Outlet />
         </TableContext.Provider>
