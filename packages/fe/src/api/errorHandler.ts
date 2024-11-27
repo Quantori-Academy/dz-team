@@ -10,5 +10,5 @@ Options: ${JSON.stringify(options, null, 2)}
 `;
 
     dev.error(`Full error information:\n${errorDetails}`);
-    toast(err.message, { type: "error" });
+    toast.error(err.message);
 }
