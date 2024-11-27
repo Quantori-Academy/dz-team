@@ -42,16 +42,12 @@ export const CommonModal = ({
                         gap: "8px",
                     }}
                 >
-                    {submitLabel && (
-                        <Button variant="contained" onClick={onSubmit}>
-                            {submitLabel}
-                        </Button>
-                    )}
-                    {cancelLabel && (
-                        <Button variant="outlined" onClick={onCancel}>
-                            {cancelLabel}
-                        </Button>
-                    )}
+                    <Button variant="contained" onClick={onSubmit}>
+                        {submitLabel}
+                    </Button>
+                    <Button variant="outlined" onClick={onCancel}>
+                        {cancelLabel}
+                    </Button>
                 </Box>
             </Box>
         </Dialog>
