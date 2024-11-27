@@ -19,6 +19,7 @@ type GridProps = {
     modalContent?: JSX.Element;
     onAddRecordSuccess?: () => void;
     showToolbar?: boolean;
+    addButtonLabel: string;
 };
 
 export const Grid = ({
@@ -31,6 +32,7 @@ export const Grid = ({
     modalContent,
     onAddRecordSuccess,
     showToolbar = true,
+    addButtonLabel = "Add New Record",
 }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -116,7 +118,7 @@ export const Grid = ({
                         toolbar: showToolbar
                             ? () => (
                                   <AddRecord
-                                      buttonLabel="Add New Record"
+                                      buttonLabel={addButtonLabel}
                                       onAddRecord={handleAddRecord}
                                   />
                               )

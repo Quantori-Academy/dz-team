@@ -55,6 +55,7 @@ export const UserList = () => {
                 searchPlaceholder="Search users by name, email, or role"
                 renderActions={renderActions}
                 modalTitle="Add New User"
+                addButtonLabel="Add New User"
                 modalContent={<AddUserForm onClose={() => removeModal()} />}
             />
         </Box>
