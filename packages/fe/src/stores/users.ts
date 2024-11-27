@@ -27,7 +27,7 @@ export const updateUserFx = createEffect(
 
 export const fetchUsersFx = createEffect(async () => {
     const response = await getUsers();
-    return response ?? [];
+    return response?.data ?? [];
 });
 
 export const addUserFx = createEffect(async (userData: NewUser) => {

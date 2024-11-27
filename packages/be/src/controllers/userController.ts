@@ -1,27 +1,28 @@
+import { validate as isValidUUID } from "uuid";
 import { FastifyRequest, FastifyReply } from "fastify";
-
+import { UserService } from "../services/userService";
+import { sendErrorResponse } from "../utils/handleErrors";
 import {
     RegisterUser,
     registerUserSchema,
 } from "../../../shared/zodSchemas/user/registerUserSchema";
-import { UpdateUser } from "../../../shared/zodSchemas/user/updateUserSchema";
+import { UpdateUser } from "shared/zodSchemas/user/updateUserSchema";
 
-import { UserService } from "../services/userService";
-
-import { sendErrorResponse } from "../utils/handleErrors";
+import { UserSearchSchema } from "../../../shared/zodSchemas/user/userSearchSchema";
 
 const userService = new UserService();
 
 export class UserController {
     /**
-     * Get all users including passwords.
-     * @param _request - FastifyRequest
+     * Get all users including passwords
+     * @param request - FastifyRequest
      * @param reply - FastifyReply
      * @returns A promise that resolves to a list of users including passwords.
      */
-    async getAllUsers(_request: FastifyRequest, reply: FastifyReply): Promise<void> {
+    async getAllUsers(request: FastifyRequest, reply: FastifyReply): Promise<void> {
         try {
-            const users = await userService.getAllUsers(); // Call the UserService to get all users
+            const validatedData = UserSearchSchema.parse(request.query);
+            const users = await userService.getAllUsers(validatedData); // Call the UserService to get all users
             reply.status(200).send(users); // Respond with the list of users
         } catch (error) {
             sendErrorResponse(reply, error, "Failed to retrieve users");
@@ -40,6 +41,9 @@ export class UserController {
     ): Promise<void> {
         try {
             const { userId } = request.params;
+            if (!isValidUUID(userId)) {
+                return reply.status(404).send({ message: "User not found" });
+            }
             const requesterId = request.userData?.userId;
             const requesterRole = request.userData?.role;
 
@@ -97,6 +101,9 @@ export class UserController {
     ): Promise<void> {
         try {
             const { userId } = request.params;
+            if (!isValidUUID(userId)) {
+                return reply.status(404).send({ message: "User not found" });
+            }
             const { body: userData } = request;
             const requesterId = request.userData?.userId;
             const requesterRole = request.userData?.role;
