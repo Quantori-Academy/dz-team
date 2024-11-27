@@ -1,103 +1,106 @@
 import { useMemo, useState } from "react";
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import EditIcon from "@mui/icons-material/Edit";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import { DataGrid } from "@mui/x-data-grid";
 
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
-import { useUserForm } from "hooks/useUserForm";
 import { SupportedValue } from "utils/formatters";
 
-import { AddUserForm } from "../pages/users/AddUserForm";
 import { AddRecord } from "./Addrecord";
 import { SearchField } from "./SearcheField";
 
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
-    recordType: "user" | "detailedStorage";
+    searchPlaceholder?: string;
+    onSearch?: (query: string) => void;
+    renderActions?: (row: Record<string, SupportedValue>) => JSX.Element;
+    modalTitle?: string;
+    modalContent?: JSX.Element;
+    onAddRecordSuccess?: () => void;
+    showToolbar?: boolean;
 };
 
-export const Grid = ({ rows, headers, recordType }: GridProps) => {
-    const { handleDeleteUser } = useUserForm({});
-
+export const Grid = ({
+    rows,
+    headers,
+    searchPlaceholder = "Search...",
+    onSearch,
+    renderActions,
+    modalTitle = "Add New Record",
+    modalContent,
+    onAddRecordSuccess,
+    showToolbar = true,
+}: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchQuery(event.target.value);
+        const query = event.target.value;
+        setSearchQuery(query);
+        onSearch?.(query);
     };
 
-    const filteredRows = rows.filter((row) =>
-        Object.values(row).some((value) => {
-            if (typeof value === "string") {
-                return value.toLowerCase().includes(searchQuery.toLowerCase());
-            }
-            if (typeof value === "number") {
-                return value.toString().includes(searchQuery.toLowerCase());
-            }
-            if (value && typeof value === "object") {
-                return Object.values(value).some(
-                    (nestedValue) =>
-                        typeof nestedValue === "string" &&
-                        nestedValue.toLowerCase().includes(searchQuery.toLowerCase()),
-                );
-            }
-            return false;
-        }),
-    );
+    const filteredRows = useMemo(() => {
+        if (!searchQuery) return rows;
 
-    const handleAddFormOpen = async () => {
+        return rows.filter((row) =>
+            Object.values(row).some((value) => {
+                if (typeof value === "string") {
+                    return value.toLowerCase().includes(searchQuery.toLowerCase());
+                }
+                if (typeof value === "number") {
+                    return value.toString().includes(searchQuery.toLowerCase());
+                }
+                if (value && typeof value === "object") {
+                    return Object.values(value).some(
+                        (nestedValue) =>
+                            typeof nestedValue === "string" &&
+                            nestedValue.toLowerCase().includes(searchQuery.toLowerCase()),
+                    );
+                }
+                return false;
+            }),
+        );
+    }, [rows, searchQuery]);
+
+    const handleAddRecord = async () => {
+        if (!modalContent) return;
+
         try {
             await createModal({
-                name: "add_user_modal",
-                title: "Add New User",
-                message: <AddUserForm onClose={() => removeModal()} />,
+                name: "add_record_modal",
+                title: modalTitle,
+                message: modalContent,
             });
-
             removeModal();
+            onAddRecordSuccess?.();
         } catch (_) {
             removeModal();
         }
     };
 
     const columns = useMemo(() => {
-        const editColumn = {
+        const actionsColumn = {
             field: "actions",
             headerName: "Actions",
             width: 100,
-
-            renderCell: (params: { row: { id: string } }) => (
-                <>
-                    <>
-                        <GridActionsCellItem icon={<EditIcon />} label="Edit" color="inherit" />
-                        <GridActionsCellItem
-                            icon={<DeleteIcon />}
-                            label="Delete"
-                            onClick={() => {
-                                if (recordType === "user") {
-                                    handleDeleteUser(params.row.id);
-                                }
-                            }}
-                            color="inherit"
-                        />
-                    </>
-                </>
-            ),
+            renderCell: (params: { row: { id: string } }) =>
+                renderActions ? renderActions(params.row) : null,
         };
-        return [...headers, editColumn];
-    }, [headers, handleDeleteUser, recordType]);
+
+        return [...headers, actionsColumn];
+    }, [headers, renderActions]);
 
     return (
         <>
             <SearchField
-                recordType={recordType}
+                placeholder={searchPlaceholder}
                 searchQuery={searchQuery}
                 onSearch={handleSearch}
             />
             <DataGrid
                 rows={filteredRows}
-                rowHeight={60}
                 columns={columns}
+                rowHeight={60}
                 disableRowSelectionOnClick
                 pageSizeOptions={[5, 15, 25, 50]}
                 initialState={{
@@ -108,12 +111,14 @@ export const Grid = ({ rows, headers, recordType }: GridProps) => {
                     },
                 }}
                 slots={{
-                    toolbar: () => (
-                        <AddRecord
-                            buttonLabel={recordType === "user" ? "Add New User" : null}
-                            onAddRecord={handleAddFormOpen}
-                        />
-                    ),
+                    toolbar: showToolbar
+                        ? () => (
+                              <AddRecord
+                                  buttonLabel="Add New Record"
+                                  onAddRecord={handleAddRecord}
+                              />
+                          )
+                        : undefined,
                 }}
             />
         </>

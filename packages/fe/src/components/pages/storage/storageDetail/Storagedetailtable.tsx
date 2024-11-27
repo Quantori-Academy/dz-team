@@ -66,7 +66,8 @@ export const StorageDetailTable = ({ handleAction, reagents }: TableType) => {
                             <Grid
                                 rows={reagents}
                                 headers={reagentColumns}
-                                recordType="detailedStorage"
+                                searchPlaceholder="Search reagents by name or description"
+                                showToolbar={false}
                             />
                         </Box>
                     ) : (
@@ -85,11 +86,7 @@ export const StorageDetailTable = ({ handleAction, reagents }: TableType) => {
                     {reagents?.length > 0 ? (
                         <Box sx={boxStyle}>
                             <Typography variant="h6">Reagents</Typography>
-                            <Grid
-                                rows={reagents}
-                                headers={reagentColumns}
-                                recordType="detailedStorage"
-                            />
+                            <Grid rows={reagents} headers={reagentColumns} />
                         </Box>
                     ) : (
                         <Typography>No reagents available for this storage.</Typography>
