@@ -5,10 +5,8 @@ import {
     StorageLocationUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
 
-
-import { StorageLocation } from "../../../shared/generated/zod";
+import { Reagent, StorageLocation } from "../../../shared/generated/zod";
 import { StorageLocationSearch } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
-
 
 const prisma = new PrismaClient();
 
