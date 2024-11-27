@@ -26,12 +26,6 @@ export const addStorageFx = domain.createEffect(async () => {
     return await postStorage(data);
 });
 
-// updateStorageList.watch(() => {
-//     console.log("updateStorageList event triggered.");
-// });
-// $formData.watch((state) => console.log("Updated $formData:", state));
-// setFormData.watch((payload) => console.log("setFormData event triggered with payload:", payload));
-
 sample({
     clock: updateStorageList,
     source: $formData,

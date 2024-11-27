@@ -1,5 +1,6 @@
 import { useState } from "react";
 
+import { removeModal } from "components/modal/store";
 import { addStorageFx, setFormData } from "stores/storage";
 
 export type NewStorage = {
@@ -62,6 +63,9 @@ export const useStorage = ({ name, room, description }: HookTypes) => {
                 setNameError(null);
                 setConfirmMessage(true);
                 setTimeout(() => setConfirmMessage(false), 2000);
+                setTimeout(() => {
+                    removeModal();
+                }, 2000);
             } catch (_) {
                 setErrorMessage(true);
                 setTimeout(() => setErrorMessage(false), 2000);

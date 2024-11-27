@@ -1,6 +1,16 @@
 import { z } from "zod";
 
-import { ReagentSchema, StorageLocationSchema } from "shared/generated/zod";
+import { ReagentSchema } from "shared/generated/zod";
+
+export const StorageLocationSchema = z.object({
+    id: z.string().uuid(),
+    room: z.string(),
+    name: z.string(),
+    description: z.string().nullish(),
+    deletedAt: z.coerce.date().nullish(),
+});
+
+export type StorageLocation = z.infer<typeof StorageLocationSchema>;
 
 export const StorageLocationContract = z.object({
     id: z.string(),

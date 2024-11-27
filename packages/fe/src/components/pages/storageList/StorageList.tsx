@@ -6,11 +6,11 @@ import { useUnit } from "effector-react";
 
 import { base } from "api/request";
 import { UserRole } from "api/self";
+import { StorageLocation, StorageLocationSchema } from "api/storage/contract";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { TableContext } from "components/commonTable/TableContext";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
-import { StorageLocation, StorageLocationSchema } from "shared/generated/zod";
 import { $auth } from "stores/auth";
 import { updateStorageList } from "stores/storage";
 
@@ -34,7 +34,7 @@ export const StorageList = () => {
     const auth = useUnit($auth);
     const role = auth && (auth.self.role as UserRole);
     const isAdmin = role === UserRole.admin;
-
+    const navigate = useNavigate();
     const handleAddFormOpen = async () => {
         try {
             await createModal({
@@ -43,7 +43,6 @@ export const StorageList = () => {
                 message: <StorageAddForm onClose={() => removeModal()} />,
             });
             // TODO fix refresh invoke
-
             updateListEvent();
             if (tableRef.current?.refresh) {
                 tableRef.current.refresh();
@@ -53,8 +52,6 @@ export const StorageList = () => {
             removeModal();
         }
     };
-
-    const navigate = useNavigate();
 
     return (
         <TableContext.Provider value={{ ref: tableRef }}>
