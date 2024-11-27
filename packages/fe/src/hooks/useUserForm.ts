@@ -37,6 +37,7 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
     });
 
     // User delete handler
+    // TODO add confirm on delete
     const handleDeleteClick = async (id: string) => {
         try {
             await deleteUserFx(id);
