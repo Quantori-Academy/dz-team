@@ -1,23 +1,8 @@
 import { useState } from "react";
 import { useUnit } from "effector-react";
 
-import { removeModal } from "components/modal/store";
+import { NewUser, NotificationTypes } from "api/types";
 import { $usersList, addUserFx, deleteUserFx } from "stores/users";
-
-export type NewUser = {
-    username: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    role: string;
-};
-type Notification = {
-    message: string;
-    type: "error" | "success";
-    open: boolean;
-};
 
 export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElement> }) => {
     const [usernameError, setUsernameError] = useState<string | null>(null);
@@ -30,7 +15,7 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
 
     const users = useUnit($usersList);
 
-    const [notification, setNotification] = useState<Notification>({
+    const [notification, setNotification] = useState<NotificationTypes>({
         message: "",
         type: "success",
         open: false,
@@ -116,17 +101,10 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
         if (Object.keys(errors).length === 0) {
             try {
                 addUserFx(formData);
-
                 // Clear all input fields if the form is valid
-                refs.username.current!.value = "";
-                refs.firstName.current!.value = "";
-                refs.lastName.current!.value = "";
-                refs.email.current!.value = "";
-                refs.password.current!.value = "";
-                refs.confirmPassword.current!.value = "";
-                if (errors.role) {
-                    refs.role.current!.value = "";
-                }
+                Object.keys(refs).forEach((key) => {
+                    refs[key].current!.value = "";
+                });
 
                 // Clear errors after successful submission
                 setUsernameError(null);
@@ -142,9 +120,6 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
                     message: "User added successfully!",
                     type: "success",
                 });
-                setTimeout(() => {
-                    removeModal();
-                }, 2500);
             } catch (_) {
                 setNotification({
                     open: true,

@@ -1,4 +1,4 @@
-import { NewUser } from "hooks/useUserForm";
+import { NewUser } from "api/types";
 import { publicUserSchema } from "shared/zodSchemas/user/publicUserSchema";
 
 import { base, request } from "../request";

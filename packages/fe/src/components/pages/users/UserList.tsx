@@ -1,10 +1,11 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { useGate } from "effector-react";
 
 import { useUserForm } from "hooks/useUserForm";
 import { UsersGate } from "stores/users";
 
 import { Grid } from "../../dataGrid/Grid";
+import { AddUserForm } from "./AddUserForm";
 
 const headers = [
     { field: "username", headerName: "User Name", width: 150 },
@@ -13,22 +14,23 @@ const headers = [
     { field: "lastLoginDate", headerName: "Last login date", width: 170 },
 ];
 
-const boxStyles = {
-    padding: "40px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px",
-};
-
 export const UserList = () => {
     useGate(UsersGate);
 
-    const { users } = useUserForm({});
+    const { users, handleDeleteClick, notification, handleClose } = useUserForm({});
 
     return (
-        <Box sx={boxStyles}>
-            <Typography variant="h5">User List</Typography>
-            <Grid rows={users} headers={headers} />
+        <Box sx={{ padding: "40px" }}>
+            <Grid
+                rows={users}
+                headers={headers}
+                searchPlaceholder="Search users by name, email, or role"
+                handleDelete={handleDeleteClick}
+                notification={notification}
+                handleClose={handleClose}
+                addButtonLabel="Add New User"
+                modalContent={(removeModal) => <AddUserForm onClose={removeModal} />}
+            />
         </Box>
     );
 };
