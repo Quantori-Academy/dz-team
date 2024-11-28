@@ -1,14 +1,9 @@
 import { useRef } from "react";
 import { Box, Button, TextField, Typography } from "@mui/material";
-import { theme } from "theme";
 
 import { useStorage } from "hooks/useStorage";
 
-const textfieldStyle = { width: "200px" };
-const button = { width: "250px" };
 const boxStyle = { display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" };
-const errorStyle = { backgroundColor: "white", color: theme.palette.error.main };
-const successStyle = { color: theme.palette.success.main };
 
 type AddStorageFormProps = {
     onClose: () => void;
@@ -27,9 +22,23 @@ export const StorageAddForm = ({ onClose }: AddStorageFormProps) => {
     return (
         <Box component="form" noValidate autoComplete="off" sx={boxStyle}>
             {confirmMessage && (
-                <Typography sx={successStyle}>Storage Was Added Successfully</Typography>
+                <Typography
+                    sx={(theme) => ({
+                        color: theme.palette.success.main,
+                    })}
+                >
+                    Storage Was Added Successfully
+                </Typography>
             )}
-            {errorMessage && <Typography sx={errorStyle}>Occured Error</Typography>}
+            {errorMessage && (
+                <Typography
+                    sx={(theme) => ({
+                        color: theme.palette.error.main,
+                    })}
+                >
+                    Occured Error
+                </Typography>
+            )}
             <TextField
                 label="Room"
                 name="room"
@@ -37,7 +46,7 @@ export const StorageAddForm = ({ onClose }: AddStorageFormProps) => {
                 error={!!roomError}
                 helperText={roomError}
                 margin="normal"
-                sx={textfieldStyle}
+                sx={{ width: "200px" }}
                 required={true}
             />
             <TextField
@@ -47,7 +56,7 @@ export const StorageAddForm = ({ onClose }: AddStorageFormProps) => {
                 helperText={nameError}
                 inputRef={name}
                 margin="normal"
-                sx={textfieldStyle}
+                sx={{ width: "200px" }}
                 required={true}
             />
             <TextField
@@ -55,13 +64,23 @@ export const StorageAddForm = ({ onClose }: AddStorageFormProps) => {
                 name="Description"
                 inputRef={description}
                 margin="normal"
-                sx={textfieldStyle}
+                sx={{ width: "200px" }}
             />
             <Box sx={boxStyle}>
-                <Button sx={button} variant="contained" color="primary" onClick={handleSubmit}>
+                <Button
+                    sx={{ width: "250px" }}
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSubmit}
+                >
                     Save Storage
                 </Button>
-                <Button sx={button} variant="contained" color="primary" onClick={onClose}>
+                <Button
+                    sx={{ width: "250px" }}
+                    variant="contained"
+                    color="primary"
+                    onClick={onClose}
+                >
                     Cancel
                 </Button>
             </Box>

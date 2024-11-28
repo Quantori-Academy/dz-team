@@ -12,7 +12,6 @@ import { TableContext } from "components/commonTable/TableContext";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
 import { $auth } from "stores/auth";
-import { updateStorageList } from "stores/storage";
 
 import { StorageAddForm } from "../storage/StorageAddForm";
 
@@ -22,16 +21,15 @@ const columns: GridColDef[] = [
     { field: "description", headerName: "Storage Description", width: 170 },
 ];
 
-const BoxStyle = {
+const boxStyle = {
     display: "flex",
     flexDirection: "column",
     gap: "20px",
 };
 
 export const StorageList = () => {
-    const updateListEvent = useUnit(updateStorageList);
-    const tableRef = useRef<CommonTableRef | null>(null);
     const auth = useUnit($auth);
+    const tableRef = useRef<CommonTableRef | null>(null);
     const role = auth && (auth.self.role as UserRole);
     const isAdmin = role === UserRole.admin;
     const navigate = useNavigate();
@@ -40,13 +38,11 @@ export const StorageList = () => {
             await createModal({
                 name: "storage_modal",
                 title: "Add New Storage",
-                message: <StorageAddForm onClose={() => removeModal()} />,
+                message: <StorageAddForm onClose={removeModal} />,
             });
             // TODO fix refresh invoke
-            updateListEvent();
-            if (tableRef.current?.refresh) {
-                tableRef.current.refresh();
-            }
+
+            tableRef.current?.refresh();
             removeModal();
         } catch (_) {
             removeModal();
@@ -55,7 +51,7 @@ export const StorageList = () => {
 
     return (
         <TableContext.Provider value={{ ref: tableRef }}>
-            <Box sx={BoxStyle}>
+            <Box sx={boxStyle}>
                 <CommonTable<StorageLocation>
                     ref={tableRef}
                     columns={columns}

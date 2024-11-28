@@ -20,10 +20,6 @@ export const StorageLocationContract = z.object({
     reagents: z.array(ReagentSchema).optional(),
 });
 
-export const contractStorageType = z.object({
-    data: z.array(StorageLocationContract),
-});
-
 export const StorageLocationDetailContract = StorageLocationSchema.merge(
     z.object({
         reagents: z.array(ReagentSchema),

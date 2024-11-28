@@ -1,5 +1,5 @@
 import { useMemo, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import { DataGrid } from "@mui/x-data-grid";
 
 import { createModal } from "components/modal/createModal";
@@ -7,30 +7,25 @@ import { removeModal } from "components/modal/store";
 import { SupportedValue } from "utils/formatters";
 
 import { AddRecord } from "./Addrecord";
-import { SearchField } from "./SearcheField";
 
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
     searchPlaceholder?: string;
-    onSearch?: (query: string) => void;
     renderActions?: (row: Record<string, SupportedValue>) => JSX.Element;
     modalTitle?: string;
-    modalContent?: JSX.Element;
-    onAddRecordSuccess?: () => void;
+    modalContent?: (removeModal?: () => void) => JSX.Element;
     showToolbar?: boolean;
-    addButtonLabel: string;
+    addButtonLabel?: string;
 };
 
 export const Grid = ({
     rows,
     headers,
     searchPlaceholder = "Search...",
-    onSearch,
     renderActions,
     modalTitle = "Add New Record",
     modalContent,
-    onAddRecordSuccess,
     showToolbar = true,
     addButtonLabel = "Add New Record",
 }: GridProps) => {
@@ -39,7 +34,6 @@ export const Grid = ({
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
         const query = event.target.value;
         setSearchQuery(query);
-        onSearch?.(query);
     };
 
     const filteredRows = useMemo(() => {
@@ -72,10 +66,9 @@ export const Grid = ({
             await createModal({
                 name: "add_record_modal",
                 title: modalTitle,
-                message: modalContent,
+                message: modalContent(removeModal),
             });
             removeModal();
-            onAddRecordSuccess?.();
         } catch (_) {
             removeModal();
         }
@@ -95,10 +88,12 @@ export const Grid = ({
 
     return (
         <>
-            <SearchField
+            <TextField
+                variant="outlined"
                 placeholder={searchPlaceholder}
-                searchQuery={searchQuery}
-                onSearch={handleSearch}
+                value={searchQuery}
+                onChange={handleSearch}
+                fullWidth
             />
             <Box sx={{ height: "300px", width: "100%" }}>
                 <DataGrid

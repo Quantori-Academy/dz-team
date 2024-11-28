@@ -1,4 +1,4 @@
-import { NewStorage } from "hooks/useStorage";
+import { NewStorage } from "api/types";
 
 import { base, request } from "../request";
 import { StorageLocationContract } from "./contract";

@@ -6,16 +6,15 @@ import { StorageLocationDetailContractType } from "api/storage/contract";
 import { deleteStorage } from "api/storage/deleteStorage";
 import { editStorage } from "api/storage/editStorage";
 
-import { StorageDetailTable } from "./Storagedetailtable";
+import { StorageDetailWrapper } from "./StorageDetailWrapper";
 
 const boxStyle = { display: "flex", flexDirection: "column", gap: "20px" };
 const alertStyle = {
     width: "90%",
     maxWidth: "300px",
     position: "fixed",
-    top: "50%",
-    left: "50%",
-    transform: "translate(-50%, -50%)",
+    top: "1%",
+    left: "40%",
     textAlign: "center",
 };
 
@@ -71,7 +70,7 @@ export const StorageDetailPage = () => {
 
     return (
         <Box sx={boxStyle}>
-            <StorageDetailTable handleAction={handleAction} reagents={reagents} />
+            <StorageDetailWrapper handleAction={handleAction} reagents={reagents} />
             {notification && (
                 <Snackbar
                     open={!!notification}

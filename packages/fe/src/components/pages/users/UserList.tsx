@@ -4,7 +4,6 @@ import { Box, Typography } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useGate } from "effector-react";
 
-import { removeModal } from "components/modal/store";
 import { useUserForm } from "hooks/useUserForm";
 import { UsersGate } from "stores/users";
 import { SupportedValue } from "utils/formatters";
@@ -56,7 +55,7 @@ export const UserList = () => {
                 renderActions={renderActions}
                 modalTitle="Add New User"
                 addButtonLabel="Add New User"
-                modalContent={<AddUserForm onClose={() => removeModal()} />}
+                modalContent={(removeModal) => <AddUserForm onClose={removeModal} />}
             />
         </Box>
     );

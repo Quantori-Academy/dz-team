@@ -1,13 +1,8 @@
 import { useState } from "react";
 
+import { postStorage } from "api/storage/postStorage";
+import { NewStorage } from "api/types";
 import { removeModal } from "components/modal/store";
-import { addStorageFx, setFormData } from "stores/storage";
-
-export type NewStorage = {
-    name: string;
-    room: string;
-    description: string;
-};
 
 type HookTypes = {
     name: React.RefObject<HTMLInputElement>;
@@ -44,31 +39,31 @@ export const useStorage = ({ name, room, description }: HookTypes) => {
     };
 
     const handleSubmit = async () => {
-        const currentFormData: NewStorage = {
+        const formData: NewStorage = {
             name: name.current?.value || "",
             room: room.current?.value || "",
             description: description?.current?.value || "",
         };
-
-        if (validateForm(currentFormData)) {
+        if (validateForm(formData)) {
             if (name.current) name.current.value = "";
             if (room.current) room.current.value = "";
             if (description.current) description.current.value = "";
-            setFormData(currentFormData);
-
             try {
-                await addStorageFx();
-                setFormData({ name: "", room: "", description: "" });
+                await postStorage(formData);
                 setRoomError(null);
                 setNameError(null);
                 setConfirmMessage(true);
-                setTimeout(() => setConfirmMessage(false), 2000);
+                setTimeout(() => {
+                    setConfirmMessage(false);
+                }, 2000);
                 setTimeout(() => {
                     removeModal();
                 }, 2000);
-            } catch (_) {
+            } catch (_error) {
                 setErrorMessage(true);
-                setTimeout(() => setErrorMessage(false), 2000);
+                setTimeout(() => {
+                    setErrorMessage(false);
+                }, 2000);
             }
         }
     };

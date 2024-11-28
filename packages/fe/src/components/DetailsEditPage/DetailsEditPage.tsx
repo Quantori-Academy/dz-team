@@ -14,17 +14,13 @@ type FieldConfig = {
     disabled?: boolean;
 };
 
-type Permissions = {
-    allowPermission: boolean;
-};
-
 type DetailsEditPageProps<T extends AnyRoute, TData> = PropsWithChildren<{
     baseUrl: string;
     url: RouteIds<T>;
     fields: FieldConfig[];
     onAction?: (type: "submit" | "delete", data?: TData) => Promise<void>;
     editableFields?: string[];
-    permissions?: Permissions;
+    allowPermission?: boolean;
     tableRef?: TableContextType["ref"];
 }>;
 
@@ -42,7 +38,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
     onAction,
     editableFields = [],
     children,
-    permissions = { allowPermission: true },
+    allowPermission = true,
     tableRef,
 }: DetailsEditPageProps<T, TData>) {
     const [isEditing, setIsEditing] = useState(false);
@@ -75,18 +71,14 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
         await onAction?.("submit", modifiedFields);
         setIsEditing(false);
         setModifiedFields(data);
-        if (tableRef?.current) {
-            tableRef.current.refresh();
-        }
+        tableRef?.current?.refresh();
     };
 
     const handleDelete = async () => {
         await onAction?.("delete", modifiedFields);
         setIsEditing(false);
         setModifiedFields(data);
-        if (tableRef?.current) {
-            tableRef.current.refresh();
-        }
+        tableRef?.current?.refresh();
     };
 
     const handleCancel = () => {
@@ -130,12 +122,12 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                         disabled={
                             !isEditing || field.disabled || !editableFields.includes(field.name)
                         }
-                        sx={{ mb: 2, display: "flex", flexDirection: "column" }}
+                        sx={{ mb: 2, width: "100%" }}
                         onChange={handleFieldChange(field)}
                     />
                 ))}
                 <Box display="flex" justifyContent="flex-start" sx={{ mt: 2 }}>
-                    {permissions.allowPermission && (
+                    {allowPermission && (
                         <>
                             {isEditing ? (
                                 <>

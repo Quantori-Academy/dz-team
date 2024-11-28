@@ -37,28 +37,21 @@ type TableType = {
     handleAction: HandleAction;
 };
 
-export const StorageDetailTable = ({ handleAction, reagents }: TableType) => {
+export const StorageDetailWrapper = ({ handleAction, reagents }: TableType) => {
     const auth = useUnit($auth);
     const role = auth && (auth.self.role as UserRole);
-    const isAdmin = role === UserRole.admin;
-    const isProcurementOfficer = role === UserRole.procurementOfficer;
     const isResearcher = role === UserRole.researcher;
-    const permissions = {
-        allowPermission: !isResearcher,
-    };
 
     return (
         <>
-            {isAdmin || isProcurementOfficer ? (
+            {!isResearcher ? (
                 <DetailsEditPage
                     baseUrl="/storageList"
                     url="/_app/storageList/$id"
                     fields={fields}
                     onAction={handleAction}
-                    editableFields={
-                        permissions.allowPermission ? ["name", "room", "description"] : []
-                    }
-                    permissions={permissions}
+                    editableFields={!isResearcher ? ["name", "room", "description"] : []}
+                    allowPermission={!isResearcher}
                 >
                     {reagents?.length > 0 ? (
                         <Box sx={boxStyle}>
@@ -81,7 +74,7 @@ export const StorageDetailTable = ({ handleAction, reagents }: TableType) => {
                     baseUrl="/storageList"
                     url="/_app/storageList/$id"
                     fields={fields}
-                    permissions={permissions}
+                    allowPermission={!isResearcher}
                 >
                     {reagents?.length > 0 ? (
                         <Box sx={boxStyle}>
@@ -89,7 +82,9 @@ export const StorageDetailTable = ({ handleAction, reagents }: TableType) => {
                             <Grid rows={reagents} headers={reagentColumns} showToolbar={false} />
                         </Box>
                     ) : (
-                        <Typography>No reagents available for this storage.</Typography>
+                        <Box sx={boxStyle}>
+                            <Typography>No reagents in this storage.</Typography>
+                        </Box>
                     )}
                 </DetailsEditPage>
             )}
