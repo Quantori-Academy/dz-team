@@ -4,19 +4,9 @@ import {
     SellerUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
 import { SellerSearch } from "../../../shared/zodSchemas/seller/sellerSearchSchema";
+import { SearchResults } from "../types";
 
 const prisma = new PrismaClient();
-
-type SearchResults = {
-    data: Seller[];
-    meta: {
-        currentPage: number;
-        totalPages: number;
-        totalCount: number;
-        hasNextPage: boolean;
-        hasPreviousPage: boolean;
-    };
-};
 
 export class SellerService {
     /**
@@ -25,7 +15,7 @@ export class SellerService {
      * @param {SellerSearch} queryString - The search parameters including filters for pagination and sorting.
      * @returns {Promise<SearchResults>} A promise that resolves to an object containing sellers and metadata about the results.
      */
-    async getAllSellers(queryString: SellerSearch): Promise<SearchResults> {
+    async getAllSellers(queryString: SellerSearch): Promise<SearchResults<Seller>> {
         const { name, page, limit, sortBy, sortOrder } = queryString;
 
         // Conditions for search across name if query is provided
