@@ -1,9 +1,9 @@
-import { BaseTextFieldProps, Box, TextField } from "@mui/material";
+import { Box, TextField, TextFieldProps } from "@mui/material";
 import { useUnit } from "effector-react";
 
 import { $formData, $formDataErrors, setFormData } from "stores/reagents";
 
-const fields: BaseTextFieldProps[] = [
+const fields: TextFieldProps[] = [
     { label: "Name", name: "name" },
     { label: "Description", name: "description" },
     { label: "Category", name: "category", helperText: "Available options are: reagent, sample" },
@@ -16,7 +16,11 @@ const fields: BaseTextFieldProps[] = [
         label: "Price per Unit",
         name: "pricePerUnit",
         type: "number",
-        helperText: "Value must be a positive number",
+        slotProps: {
+            htmlInput: {
+                min: 1,
+            },
+        },
     },
     {
         label: "Currency",
@@ -28,7 +32,11 @@ const fields: BaseTextFieldProps[] = [
         label: "Quantity",
         name: "quantity",
         type: "number",
-        helperText: "Value must be a positive number",
+        slotProps: {
+            htmlInput: {
+                min: 1,
+            },
+        },
     },
     { label: "Expiration Date", name: "expirationDate", type: "date" },
     { label: "Storage Location", name: "storageLocation" },
@@ -47,21 +55,22 @@ export const ReagentFormModal = () => {
 
     return (
         <Box>
-            {fields.map((field, index) => {
-                const errorText = formDataErrors[field.name as keyof typeof formDataErrors];
+            {fields.map(({ name, label, type, helperText, ...rest }, index) => {
+                const errorText = formDataErrors[name as keyof typeof formDataErrors];
                 return (
                     <TextField
                         key={index}
-                        label={field.label}
-                        name={field.name}
-                        value={formData[field.name as keyof typeof formData] || ""}
+                        label={label}
+                        name={name}
+                        value={formData[name as keyof typeof formData] || ""}
                         onChange={handleChange}
                         fullWidth
                         margin="normal"
-                        type={field.type || "text"}
-                        helperText={errorText || field.helperText}
+                        type={type || "text"}
+                        helperText={errorText || helperText}
                         error={Boolean(errorText)}
                         required
+                        {...rest}
                     />
                 );
             })}
