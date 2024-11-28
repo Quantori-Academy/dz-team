@@ -1,23 +1,97 @@
 import bcrypt from "bcrypt";
-import { PrismaClient } from "@prisma/client";
+import { Prisma, PrismaClient } from "@prisma/client";
 
 import { z } from "zod";
 import { publicUserSchema } from "shared/zodSchemas/user/publicUserSchema";
 import { RegisterUser } from "shared/zodSchemas/user/registerUserSchema";
 import { UpdateUser } from "shared/zodSchemas/user/updateUserSchema";
+import { UserSearch } from "shared/zodSchemas/user/userSearchSchema";
 
 const prisma = new PrismaClient();
 
+type SearchResults = {
+    data: z.infer<typeof publicUserSchema>[];
+    meta: {
+        currentPage: number;
+        totalPages: number;
+        totalCount: number;
+        hasNextPage: boolean;
+        hasPreviousPage: boolean;
+    };
+};
+
 export class UserService {
     /**
-     * Get all users including passwords.
-     * @returns {Promise<UserSchema[]>} A list of users including passwords.
+     * Retrieve all users with optional filtering, pagination, and sorting.
+     *
+     * @param {UserSearch} queryString - The search parameters, including optional filters for pagination and sorting.
+     * @returns {Promise<SearchResults>} A promise that resolves to an object containing users and metadata about the results.
      */
-    async getAllUsers(): Promise<z.infer<typeof publicUserSchema>[]> {
-        const users = await prisma.user.findMany(); // Fetch all users
+    async getAllUsers(queryString: UserSearch): Promise<SearchResults> {
+        const {
+            query,
+            page,
+            limit,
+            sortBy,
+            sortOrder,
+            searchBy,
+            firstName,
+            lastName,
+            username,
+            role,
+        } = queryString;
 
-        // Validate the returned data with UserSchema
-        return users.map((user) => publicUserSchema.parse(user)); // Parse each user into UserSchema
+        // Construct search conditions if `query` is provided
+        const searchConditions: Prisma.UserWhereInput[] = query
+            ? searchBy?.map((field) => ({
+                  [field]: { contains: query, mode: Prisma.QueryMode.insensitive },
+              })) || [] // Ensure it's always an array
+            : []; // Default to empty array if no query is provided
+
+        // Combine filter and search conditions for a query
+        const where: Prisma.UserWhereInput = {
+            AND: [
+                // FILTER CONDITIONS
+                firstName
+                    ? { firstName: { contains: firstName, mode: Prisma.QueryMode.insensitive } }
+                    : {},
+                lastName
+                    ? { lastName: { contains: lastName, mode: Prisma.QueryMode.insensitive } }
+                    : {},
+                username
+                    ? { username: { contains: username, mode: Prisma.QueryMode.insensitive } }
+                    : {},
+                role ? { role } : {},
+                searchConditions.length > 0 ? { OR: searchConditions } : {},
+            ].filter(Boolean),
+        };
+
+        // Fetch users with the given conditions, pagination, and sorting
+        const [users, totalCount] = await Promise.all([
+            prisma.user.findMany({
+                where,
+                skip: (page - 1) * limit,
+                take: limit,
+                orderBy: { [sortBy]: sortOrder },
+            }),
+            prisma.user.count({ where }),
+        ]);
+
+        // Calculate total pages for pagination
+        const totalPages = Math.ceil(totalCount / limit);
+
+        // Construct the result with pagination metadata
+        const result = {
+            data: users,
+            meta: {
+                currentPage: page,
+                totalPages,
+                totalCount,
+                hasNextPage: page < totalPages,
+                hasPreviousPage: page > 1,
+            },
+        };
+        return result;
     }
 
     /**
@@ -79,7 +153,6 @@ export class UserService {
         const hashedPassword = await bcrypt.hash(userData.password, 10);
 
         // Make new user data without confirm password
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { confirmPassword, ...userDataWithoutConfirmPassword } = userData;
 
         // Create the user in the database with the hashed password
@@ -91,7 +164,6 @@ export class UserService {
         });
 
         // Return the created user without password
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { password, ...userWithoutPassword } = newUser;
         return userWithoutPassword;
     }
@@ -109,20 +181,19 @@ export class UserService {
         userData: UpdateUser,
         requesterId: string,
         requesterRole: string,
-    ): Promise<{ user: UpdateUser | null; mustChangePassword: boolean }> {
+    ) {
         const userToUpdate = await prisma.user.findUnique({ where: { id: userId } });
 
         if (!userToUpdate) throw new Error("User not found.");
 
-        // Initialize the mustChangePassword
-        let mustChangePassword = false;
+        // Initialize the mustChangePassword flag
+        let mustChangePassword = userToUpdate.mustChangePassword;
 
         // Define updatable fields based on role
         const isSelfUpdate = userId === requesterId;
         if (requesterRole === "admin") {
-            // Check if admin is updating their own profile or another user's profile
             if (!isSelfUpdate) {
-                // Handle update for a different user
+                // Admin updating another user's profile
                 if (userData.password) {
                     userData.password = await bcrypt.hash(userData.password, 10);
                     mustChangePassword = true; // Set mustChangePassword if password is changed by admin
@@ -130,15 +201,15 @@ export class UserService {
             } else {
                 delete userData.role; // Prevent admins from changing their own role
             }
-        } else if (requesterRole === "researcher" || requesterRole === "procurementOfficer") {
+        } else if (["researcher", "procurementOfficer"].includes(requesterRole)) {
             if (!isSelfUpdate) throw new Error("Unauthorized: Insufficient permissions.");
 
             // Restrict fields for non-admins
             const { firstName, lastName, email, password } = userData;
-            userData = { firstName, lastName, email };
+            userData = { firstName, lastName, password, email };
             if (password) {
                 userData.password = await bcrypt.hash(password, 10);
-                mustChangePassword = false; // Set mustChangePassword if password is changed by user
+                mustChangePassword = false; // Users don't force password change on self-update
             }
         } else {
             throw new Error("Unauthorized: Insufficient permissions.");
@@ -159,13 +230,16 @@ export class UserService {
             where: { id: userId },
             data: {
                 ...userData,
+                mustChangePassword, // Update the mustChangePassword field
             },
         });
 
         // Return updated user without password and the mustChangePassword flag
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+
         const { password, ...userWithoutPassword } = updatedUser;
-        return { user: userWithoutPassword, mustChangePassword };
+
+        // Return the updated object along with mustChangePassword
+        return { ...userWithoutPassword, mustChangePassword };
     }
 
     /**

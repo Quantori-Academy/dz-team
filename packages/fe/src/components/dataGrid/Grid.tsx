@@ -94,13 +94,13 @@ export const Grid = ({ rows, headers }: GridProps) => {
             <DataGrid
                 rows={filteredRows}
                 rowHeight={60}
-                getRowId={(row) =>
-                    typeof row.id === "string" || typeof row.id === "number"
-                        ? row.id
-                        : `${String(row.username ?? "unknown")}-${Math.random()
-                              .toString(36)
-                              .substring(2, 9)}`
-                }
+                // getRowId={(row) =>
+                //     typeof row.id === "string" || typeof row.id === "number"
+                //         ? row.id
+                //         : `${String(row.username ?? "unknown")}-${Math.random()
+                //               .toString(36)
+                //               .substring(2, 9)}`
+                // }
                 columns={columns}
                 disableRowSelectionOnClick
                 pageSizeOptions={[5, 15, 25, 50]}

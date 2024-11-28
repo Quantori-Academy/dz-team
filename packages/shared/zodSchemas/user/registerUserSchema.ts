@@ -1,13 +1,8 @@
+// New registration schema that includes confirmPassword
 import { z } from "zod";
 
 export const registerUserSchema = z
     .object({
-        id: z
-            .string()
-            .uuid({
-                message: "Invalid UUID format for ID.",
-            })
-            .optional(), // Make id optional
         username: z
             .string()
             .min(1, {
@@ -28,12 +23,18 @@ export const registerUserSchema = z
         email: z.string().email({
             message: "Invalid email format.",
         }),
-        password: z.string().min(8, {
-            message: "Password must be at least 8 characters long.",
-        }),
-        confirmPassword: z.string().min(8, {
-            message: "Confirm password must be at least 8 characters long.",
-        }),
+        password: z
+            .string()
+            .min(8, {
+                message: "Password must be at least 8 characters long.",
+            })
+            .openapi({ example: "password" }),
+        confirmPassword: z
+            .string()
+            .min(8, {
+                message: "Confirm password must be at least 8 characters long.",
+            })
+            .openapi({ example: "confirmPassword" }),
         role: z.enum(["admin", "researcher", "procurementOfficer"], {
             message: "Role must be either admin, researcher  or procurementOfficer.",
         }),
