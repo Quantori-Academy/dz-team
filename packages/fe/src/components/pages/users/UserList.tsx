@@ -1,6 +1,6 @@
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useGate } from "effector-react";
 
@@ -17,13 +17,6 @@ const headers = [
     { field: "role", headerName: "Role", width: 170 },
     { field: "lastLoginDate", headerName: "Last login date", width: 170 },
 ];
-
-const boxStyles = {
-    padding: "40px",
-    display: "flex",
-    flexDirection: "column",
-    gap: "20px",
-};
 
 export const UserList = () => {
     useGate(UsersGate);
@@ -46,8 +39,7 @@ export const UserList = () => {
     };
 
     return (
-        <Box sx={boxStyles}>
-            <Typography variant="h5">User List</Typography>
+        <Box sx={{ padding: "40px" }}>
             <Grid
                 rows={users}
                 headers={headers}
