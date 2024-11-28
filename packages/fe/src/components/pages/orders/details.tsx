@@ -54,7 +54,12 @@ export function OrderDetailsPage() {
                     <Typography variant="h6" sx={{ mt: 2 }}>
                         Reagents
                     </Typography>
-                    <Grid rows={reagentData} headers={reagentColumns} recordType="detailedOrder" />
+                    <Grid
+                        rows={reagentData}
+                        headers={reagentColumns}
+                        showSearchField={false}
+                        showAddRecord={false}
+                    />
                 </Box>
             ) : (
                 <Box sx={boxStyle}>

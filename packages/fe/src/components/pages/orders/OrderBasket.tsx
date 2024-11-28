@@ -1,5 +1,4 @@
-import DeleteIcon from "@mui/icons-material/Delete";
-import { Box, Button, Drawer, IconButton, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import { useUnit } from "effector-react";
 import { jwtDecode } from "jwt-decode";
 
@@ -15,11 +14,6 @@ type BasketProps = {
     setTitle: (title: string) => void;
     setSeller: (seller: string) => void;
     setDescription: (seller: string) => void;
-    handleDeleteFromBasket: (id: string) => void;
-    handleClearBasket: () => void;
-    errorMessage: string;
-    open: boolean;
-    onClose: () => void;
 };
 export function OrderBasket({
     basket,
@@ -29,11 +23,6 @@ export function OrderBasket({
     setTitle,
     setSeller,
     setDescription,
-    handleDeleteFromBasket,
-    handleClearBasket,
-    errorMessage,
-    open,
-    onClose,
 }: BasketProps) {
     const submitOrderEvent = useUnit(submitOrder);
 
@@ -74,153 +63,42 @@ export function OrderBasket({
         };
         setOrderData(orderData);
         submitOrderEvent();
-        onClose();
-        handleClearBasket();
     };
 
     return (
-        <Drawer anchor="right" open={open} onClose={onClose}>
-            <Box sx={{ width: 600, p: 3 }}>
-                <Typography variant="h6">Basket</Typography>
-                {basket.length === 0 ? (
-                    <Typography>Your basket is empty</Typography>
-                ) : (
-                    <>
-                        <TextField
-                            label="Title"
-                            value={title}
-                            onChange={(e) => setTitle(e.target.value)}
-                            variant="outlined"
-                            fullWidth
-                            required
-                            sx={{ mt: 2 }}
-                        />
-                        <TextField
-                            label="Seller"
-                            value={seller}
-                            onChange={(e) => setSeller(e.target.value)}
-                            variant="outlined"
-                            fullWidth
-                            required
-                            sx={{ mt: 2 }}
-                        />
-                        <TextField
-                            label="Description"
-                            value={description}
-                            onChange={(e) => setDescription(e.target.value)}
-                            variant="outlined"
-                            fullWidth
-                            required
-                            sx={{ mt: 2 }}
-                        />
-                        {basket.map(({ reagent }) => (
-                            <Box
-                                key={reagent.id}
-                                sx={{ display: "flex", alignItems: "center", mt: 2 }}
-                            >
-                                <Box
-                                    sx={{
-                                        flexGrow: 1,
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <Typography
-                                        variant="caption"
-                                        sx={{ mb: 1, textAlign: "center" }}
-                                    >
-                                        Name
-                                    </Typography>
-                                    <Typography>{reagent.name}</Typography>
-                                </Box>
-                                <Box
-                                    sx={{
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        justifyContent: "center",
-                                    }}
-                                >
-                                    <Typography variant="caption" sx={{ textAlign: "center" }}>
-                                        Amount
-                                    </Typography>
-                                    <Typography sx={{ mt: 1, textAlign: "center" }}>
-                                        {reagent.amount}
-                                    </Typography>
-                                </Box>
-                                <Box
-                                    sx={{
-                                        flexGrow: 1,
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <Typography
-                                        variant="caption"
-                                        sx={{ mb: 1, textAlign: "center" }}
-                                    >
-                                        Unit
-                                    </Typography>
-                                    <Typography>{reagent.units}</Typography>
-                                </Box>
-                                <Box
-                                    sx={{
-                                        flexGrow: 1,
-                                        display: "flex",
-                                        flexDirection: "column",
-                                        alignItems: "center",
-                                    }}
-                                >
-                                    <Typography
-                                        variant="caption"
-                                        sx={{ mb: 1, textAlign: "center" }}
-                                    >
-                                        Price
-                                    </Typography>
-                                    <Typography sx={{ mx: 1 }}>
-                                        ${(reagent.pricePerUnit ?? 0).toFixed(2)}
-                                    </Typography>
-                                </Box>
-                                <IconButton onClick={() => handleDeleteFromBasket(reagent.id)}>
-                                    <DeleteIcon />
-                                </IconButton>
-                                {errorMessage && (
-                                    <Typography color="error" variant="caption">
-                                        {errorMessage}
-                                    </Typography>
-                                )}
-                            </Box>
-                        ))}
-                        <Typography variant="h6" sx={{ mb: 2, mt: 2 }}>
-                            Total Price: $
-                            {basket
-                                .reduce(
-                                    (total, { reagent, quantity }) =>
-                                        total + (reagent.pricePerUnit ?? 0) * quantity,
-                                    0,
-                                )
-                                .toFixed(2)}
-                        </Typography>
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            onClick={handleClearBasket}
-                            sx={{ mt: 2, mr: 3 }}
-                        >
-                            Clear All
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="primary"
-                            onClick={handleCreateOrder}
-                            sx={{ mt: 2 }}
-                        >
-                            Create Order
-                        </Button>
-                    </>
-                )}
+        <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
+            <Box sx={{ display: "flex", gap: "20px", mt: 2 }}>
+                <TextField
+                    label="Title"
+                    value={title}
+                    onChange={(e) => setTitle(e.target.value)}
+                    variant="outlined"
+                    fullWidth
+                    required
+                    sx={{ mt: 2 }}
+                />
+                <TextField
+                    label="Seller"
+                    value={seller}
+                    onChange={(e) => setSeller(e.target.value)}
+                    variant="outlined"
+                    fullWidth
+                    required
+                    sx={{ mt: 2 }}
+                />
             </Box>
-        </Drawer>
+            <TextField
+                label="Description"
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                variant="outlined"
+                fullWidth
+                required
+                sx={{ mt: 2 }}
+            />
+            <Button variant="contained" color="primary" onClick={handleCreateOrder} sx={{ mt: 2 }}>
+                Create Order
+            </Button>
+        </Box>
     );
 }

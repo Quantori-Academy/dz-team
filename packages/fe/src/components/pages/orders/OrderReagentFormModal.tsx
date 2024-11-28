@@ -1,14 +1,18 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Box, Button, TextField } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
-import { z } from "zod";
 
 import { CreateOrderReagent } from "api/orderDetails/contract";
+import { validateInput } from "utils/validationInput";
+
+type Mode = "create" | "edit" | "view";
 
 type OrderReagentFormModalProps = {
+    mode: Mode;
+    selectedReagent?: CreateOrderReagent | null;
     onSubmit: (reagent: CreateOrderReagent) => void;
     onCancel: () => void;
-    onAddToOrder: (newReagent: CreateOrderReagent) => void;
+    onDelete?: () => void;
 };
 const fields = [
     { name: "name", label: "Name", width: 150 },
@@ -23,10 +27,25 @@ const fields = [
     { name: "amount", label: "Amount", width: 170, type: "number" },
 ];
 
+const validationRules = {
+    name: { required: true },
+    structure: { required: true },
+    cas: { required: true },
+    producer: { required: true },
+    catalogId: { required: true },
+    catalogLink: { required: true, urlCheck: true },
+    units: { required: true },
+    pricePerUnit: { required: true, negativeCheck: true },
+    quantity: { required: true, negativeCheck: true, integerCheck: true },
+    amount: { required: true, negativeCheck: true, integerCheck: true },
+};
+
 export const OrderReagentFormModal = ({
     onSubmit,
     onCancel,
-    onAddToOrder,
+    mode,
+    selectedReagent,
+    onDelete,
 }: OrderReagentFormModalProps) => {
     const [formData, setFormData] = useState({
         name: "",
@@ -40,31 +59,39 @@ export const OrderReagentFormModal = ({
         quantity: 0,
         amount: 1,
     });
+    const [currentMode, setCurrentMode] = useState<Mode>(mode);
+    const [errors, setErrors] = useState<Partial<Record<keyof CreateOrderReagent, string>>>({});
+
+    useEffect(() => {
+        if (currentMode !== "create" && selectedReagent) {
+            setFormData({
+                ...selectedReagent,
+                catalogLink: selectedReagent.catalogLink || "",
+            });
+        }
+    }, [currentMode, selectedReagent]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
+        setErrors((prev) => ({ ...prev, [name]: undefined }));
     };
 
     const handleSubmit = () => {
-        try {
-            const parsedData: CreateOrderReagent = {
-                ...formData,
-                name: formData.name || "",
-                quantity: Number(formData.quantity),
-                pricePerUnit: Number(formData.pricePerUnit),
-                amount: Number(formData.amount),
-                id: uuidv4(),
-            };
-            onSubmit(parsedData);
-            onAddToOrder(parsedData);
-        } catch (error) {
-            if (error instanceof z.ZodError) {
-                alert("Validation errors");
-            } else {
-                alert("An unexpected error occurred");
-            }
+        const validationErrors = validateInput(formData, validationRules);
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return;
         }
+        const parsedData: CreateOrderReagent = {
+            ...formData,
+            name: formData.name || "",
+            quantity: Number(formData.quantity),
+            pricePerUnit: Number(formData.pricePerUnit),
+            amount: Number(formData.amount),
+            id: selectedReagent?.id || uuidv4(),
+        };
+        onSubmit(parsedData);
     };
 
     return (
@@ -79,15 +106,42 @@ export const OrderReagentFormModal = ({
                     fullWidth
                     margin="normal"
                     type={field.type || "text"}
+                    disabled={currentMode === "view"}
+                    error={!!errors[field.name as keyof typeof errors]}
+                    helperText={errors[field.name as keyof typeof errors]}
                 />
             ))}
             <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
-                <Button variant="contained" onClick={handleSubmit}>
-                    Submit
-                </Button>
-                <Button variant="outlined" onClick={onCancel}>
-                    Cancel
-                </Button>
+                {currentMode === "create" && (
+                    <Button variant="contained" onClick={handleSubmit}>
+                        Create
+                    </Button>
+                )}
+                {currentMode === "edit" && (
+                    <>
+                        <Button variant="contained" onClick={handleSubmit}>
+                            Save
+                        </Button>
+                        <Button variant="outlined" onClick={onCancel}>
+                            Cancel
+                        </Button>
+                    </>
+                )}
+                {currentMode === "view" && (
+                    <>
+                        <Button variant="outlined" onClick={() => setCurrentMode("edit")}>
+                            Edit
+                        </Button>
+                        <Button
+                            variant="contained"
+                            color="secondary"
+                            onClick={onDelete}
+                            sx={{ marginLeft: "10px" }}
+                        >
+                            Delete
+                        </Button>
+                    </>
+                )}
             </Box>
         </Box>
     );

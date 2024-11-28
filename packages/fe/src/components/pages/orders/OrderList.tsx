@@ -1,9 +1,8 @@
-import { Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 
 import { base } from "api/request";
 import { CommonTable } from "components/commonTable/CommonTable";
-import LayoutBox from "components/LayoutBox/LayoutBox";
 import { Order, OrderSchema } from "shared/generated/zod";
 
 const headers = [
@@ -31,7 +30,14 @@ export const OrderList = () => {
 
     return (
         <>
-            <LayoutBox>
+            <Box
+                sx={{
+                    padding: "40px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "20px",
+                }}
+            >
                 <Typography variant="h5">Order List</Typography>
                 <CommonTable<Order>
                     columns={headers}
@@ -50,7 +56,7 @@ export const OrderList = () => {
                     onAdd={handleClick}
                     addButtonText="Create a new order"
                 />
-            </LayoutBox>
+            </Box>
             <Outlet />
         </>
     );

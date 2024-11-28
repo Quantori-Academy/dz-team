@@ -1,16 +1,14 @@
 import { useState } from "react";
-import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { Box } from "@mui/material";
+import { DataGrid, GridRowParams } from "@mui/x-data-grid";
 import { Outlet } from "@tanstack/react-router";
 
 import { CreateOrderReagent } from "api/orderDetails/contract";
-import { CommonTable } from "components/commonTable/CommonTable";
-import LayoutBox from "components/LayoutBox/LayoutBox";
+import { AddRecord } from "components/dataGrid/Addrecord";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
-import { OrderReagentsSchema } from "shared/zodSchemas/order/orderReagentSchema";
 
 import { OrderBasket } from "./OrderBasket";
-import { OrderReagentDetail } from "./OrderReagentDetailPage";
 import { OrderReagentFormModal } from "./OrderReagentFormModal";
 
 const headers = [
@@ -29,67 +27,23 @@ const headers = [
 export const CreateOrder = () => {
     const [reagents, setReagents] = useState<CreateOrderReagent[]>([]);
     const [selectedReagent, setSelectedReagent] = useState<CreateOrderReagent | null>(null);
-    const [isDrawerOpen, setIsDrawerOpen] = useState(false);
-    const [basketDrawerOpen, setBasketDrawerOpen] = useState(false);
     const [basket, setBasket] = useState<{ reagent: CreateOrderReagent; quantity: number }[]>([]);
     const [title, setTitle] = useState("");
     const [seller, setSeller] = useState("");
     const [description, setDescription] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
-    const toggleBasketDrawer = () => setBasketDrawerOpen(!basketDrawerOpen);
 
-    const handleRowClick = (row: CreateOrderReagent) => {
-        setSelectedReagent(row);
-        setIsDrawerOpen(true);
-    };
-    const openAddModal = async () => {
-        try {
-            await createModal({
-                name: "reagent_modal",
-                title: "Add new Reagent",
-                message: (
-                    <OrderReagentFormModal
-                        onSubmit={(newReagent: CreateOrderReagent) => {
-                            setReagents((prevReagents) => [...prevReagents, newReagent]);
-                            removeModal();
-                        }}
-                        onCancel={() => {
-                            removeModal();
-                        }}
-                        onAddToOrder={handleAddToOrder}
-                    />
-                ),
-            });
-        } catch (_) {
-            removeModal();
-        }
-    };
-    const handleAddToOrder = (newReagent: CreateOrderReagent) => {
-        setBasket((prevBasket) => {
-            const existingItem = prevBasket.find((item) => item.reagent.id === newReagent.id);
-            if (existingItem) {
-                return prevBasket.map((item) =>
-                    item.reagent.id === newReagent.id
-                        ? { ...item, quantity: item.quantity + 1 }
-                        : item,
-                );
-            }
-            return [...prevBasket, { reagent: newReagent, quantity: 1 }];
-        });
-        setIsDrawerOpen(false);
-        setTitle("");
-        setSeller("");
-        setDescription("");
-    };
-    const handleDeleteReagent = () => {
-        if (selectedReagent) {
+    const handleDeleteReagent = (reagentToDelete: CreateOrderReagent) => {
+        if (reagentToDelete) {
             setReagents((prevReagents) =>
-                prevReagents.filter((reagent) => reagent.id !== selectedReagent.id),
+                prevReagents.filter((reagent) => reagent.id !== reagentToDelete.id),
             );
             setBasket((prevBasket) =>
-                prevBasket.filter((item) => item.reagent.id !== selectedReagent.id),
+                prevBasket.filter((item) => item.reagent.id !== reagentToDelete.id),
             );
-            setIsDrawerOpen(false);
+            setSelectedReagent(null);
+            removeModal();
+        } else {
+            alert("No reagent selected for deletion");
         }
     };
     const handleEditReagent = (updatedReagent: CreateOrderReagent) => {
@@ -107,55 +61,69 @@ export const CreateOrder = () => {
             ),
         );
     };
-
-    const handleDeleteFromBasket = (id: string) => {
-        setBasket((prevBasket) => prevBasket.filter((item) => item.reagent.id !== id));
+    const handleRowClick = async (row: CreateOrderReagent) => {
+        setSelectedReagent(row);
+        try {
+            await createModal({
+                name: "reagent_modal",
+                title: "Edit Reagent",
+                message: (
+                    <OrderReagentFormModal
+                        mode="view"
+                        selectedReagent={row}
+                        onSubmit={(updatedReagent: CreateOrderReagent) => {
+                            handleEditReagent(updatedReagent);
+                            handleUpdateBasketReagent(updatedReagent);
+                            removeModal();
+                        }}
+                        onDelete={() => {
+                            handleDeleteReagent(row);
+                            removeModal();
+                        }}
+                        onCancel={() => {
+                            removeModal();
+                        }}
+                    />
+                ),
+            });
+        } catch (_) {
+            removeModal();
+        }
     };
-    const handleClearBasket = () => {
-        setBasket([]);
-        setErrorMessage("");
-    };
 
-    const handleDrawerClose = () => {
-        setIsDrawerOpen(false);
-        setSelectedReagent(null);
-        setTitle("");
-        setSeller("");
-        setDescription("");
-        setErrorMessage("");
+    const openAddModal = async () => {
+        try {
+            await createModal({
+                name: "reagent_modal",
+                title: "Add new Reagent",
+                message: (
+                    <OrderReagentFormModal
+                        mode="create"
+                        selectedReagent={selectedReagent}
+                        onSubmit={(newReagent: CreateOrderReagent) => {
+                            setReagents((prevReagents) => [...prevReagents, newReagent]);
+                            removeModal();
+                        }}
+                        onCancel={() => {
+                            setSelectedReagent(null);
+                            removeModal();
+                        }}
+                    />
+                ),
+            });
+        } catch (_) {
+            removeModal();
+        }
     };
-
     return (
         <>
-            <LayoutBox>
-                <CommonTable<CreateOrderReagent>
-                    rows={reagents}
-                    columns={headers}
-                    schema={OrderReagentsSchema}
-                    onRowClick={(row: CreateOrderReagent) => handleRowClick(row)}
-                    searchBy={{
-                        name: true,
-                    }}
-                    onAdd={openAddModal}
-                    addButtonText="Create a new reagent for an order"
-                    iconProps={{
-                        badgeContent: basket.length,
-                        color: "primary",
-                        onClick: toggleBasketDrawer,
-                    }}
-                    icon={<ShoppingCartIcon />}
-                />
-                <OrderReagentDetail
-                    selectedReagent={selectedReagent}
-                    onClose={handleDrawerClose}
-                    open={isDrawerOpen}
-                    fields={headers}
-                    onDeleteReagent={handleDeleteReagent}
-                    onEditReagent={(updatedReagent) => {
-                        handleEditReagent(updatedReagent);
-                        handleUpdateBasketReagent(updatedReagent);
-                    }}
-                />
+            <Box
+                sx={{
+                    padding: "20px",
+                    display: "flex",
+                    flexDirection: "column",
+                }}
+            >
                 <OrderBasket
                     basket={basket}
                     title={title}
@@ -164,13 +132,23 @@ export const CreateOrder = () => {
                     setTitle={setTitle}
                     setSeller={setSeller}
                     setDescription={setDescription}
-                    handleDeleteFromBasket={handleDeleteFromBasket}
-                    handleClearBasket={handleClearBasket}
-                    errorMessage={errorMessage}
-                    open={basketDrawerOpen}
-                    onClose={toggleBasketDrawer}
                 />
-            </LayoutBox>
+                <DataGrid
+                    rows={reagents}
+                    columns={headers}
+                    onRowClick={(params: GridRowParams<CreateOrderReagent>) =>
+                        handleRowClick(params.row)
+                    }
+                    slots={{
+                        toolbar: () => (
+                            <AddRecord
+                                buttonLabel="Create a new reagent for an order"
+                                onAddRecord={openAddModal}
+                            />
+                        ),
+                    }}
+                />
+            </Box>
             <Outlet />
         </>
     );
