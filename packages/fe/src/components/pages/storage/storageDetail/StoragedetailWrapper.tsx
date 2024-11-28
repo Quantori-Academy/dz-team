@@ -15,6 +15,7 @@ const reagentColumns = [
     { field: "structure", headerName: "Structure", width: 120 },
     { field: "description", headerName: "Description", width: 120 },
     { field: "quantity", headerName: "Quantity", width: 120 },
+    { field: "unit", headerName: "unit", width: 120 },
     { field: "expirationDate", headerName: "Expiration Date", width: 120 },
     { field: "producer", headerName: "Producer", width: 120 },
     { field: "category", headerName: "Category", width: 120 },
