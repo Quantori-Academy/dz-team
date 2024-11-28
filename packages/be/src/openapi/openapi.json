@@ -6104,7 +6104,7 @@
                     {
                         "schema": {
                             "type": "string",
-                            "enum": ["title", "seller", "description", "createdAt", "updatedAt"],
+                            "enum": ["title", "description", "seller", "createdAt", "updatedAt"],
                             "default": "createdAt"
                         },
                         "in": "query",
@@ -6130,8 +6130,8 @@
                                             "status",
                                             "createdAt",
                                             "updatedAt",
-                                            "seller",
-                                            "description"
+                                            "description",
+                                            "seller"
                                         ]
                                     }
                                 },
@@ -6142,8 +6142,8 @@
                                         "status",
                                         "createdAt",
                                         "updatedAt",
-                                        "seller",
-                                        "description"
+                                        "description",
+                                        "seller"
                                     ]
                                 }
                             ]
@@ -6946,6 +6946,128 @@
                                 }
                             }
                         }
+                    }
+                }
+            }
+        },
+        "/api/v1/sellers/": {
+            "get": {
+                "tags": ["Seller"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Seller"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "type": "string",
+                                        "format": "uuid"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": ["name"],
+                                "additionalProperties": false
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/sellers/{id}": {
+            "put": {
+                "tags": ["Seller"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "id": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string",
+                                                "format": "uuid"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    },
+                                    "name": {
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "object",
+                                                "properties": {
+                                                    "set": {
+                                                        "type": "string"
+                                                    }
+                                                },
+                                                "additionalProperties": false
+                                            }
+                                        ]
+                                    }
+                                },
+                                "additionalProperties": false
+                            }
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            },
+            "delete": {
+                "tags": ["Seller"],
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
                     }
                 }
             }

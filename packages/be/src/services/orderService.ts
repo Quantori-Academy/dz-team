@@ -35,7 +35,6 @@ export class OrderService {
         // Define search conditions based on query
         const searchConditions = query
             ? [
-                  { seller: { contains: query, mode: Prisma.QueryMode.insensitive } },
                   { description: { contains: query, mode: Prisma.QueryMode.insensitive } },
                   { title: { contains: query, mode: Prisma.QueryMode.insensitive } },
               ]
