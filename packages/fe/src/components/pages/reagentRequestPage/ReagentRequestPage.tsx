@@ -6,6 +6,8 @@ import { CreateReagentRequestType, initialFormData } from "api/reagentRequest";
 import { base, request } from "api/request";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { TableContext } from "components/commonTable/TableContext";
+import { createModal } from "components/modal/createModal";
+import { removeModal } from "components/modal/store";
 
 import { ReagentRequest, ReagentRequestSchema } from "../../../../../shared/generated/zod";
 import { ReagentRequestFormModal } from "./ReagentRequestFormModal";
@@ -28,10 +30,7 @@ export function ReagentRequestPage() {
     const navigate = useNavigate();
     const tableRef = useRef<CommonTableRef | null>(null);
 
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [formData, setFormData] = useState<CreateReagentRequestType>(initialFormData);
-    const handleModalClose = () => setIsModalOpen(false);
-    const handleAddReagentRequestClick = () => setIsModalOpen(true);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -53,11 +52,25 @@ export function ReagentRequestPage() {
     const handleSubmit = () => {
         submitReagentRequest(formData);
         setFormData(initialFormData);
-        handleModalClose();
     };
 
     const handleRowClick = (row: ReagentRequest) => {
         navigate({ to: `/reagentRequests/${row.id}`, replace: false });
+    };
+
+    const openAddModal = async () => {
+        const response = await createModal({
+            name: "reagent_request_modal",
+            title: "Add New Reagent Request",
+            message: <ReagentRequestFormModal formData={formData} handleChange={handleChange} />,
+            labels: { ok: "Submit", cancel: "Cancel" },
+        });
+
+        if (response) {
+            handleSubmit();
+        }
+
+        removeModal();
     };
 
     return (
@@ -77,16 +90,8 @@ export function ReagentRequestPage() {
                     catalogId: true,
                     catalogLink: true,
                 }}
-                onAdd={handleAddReagentRequestClick}
+                onAdd={openAddModal}
                 addButtonText="Create a Reagent Request"
-            />
-
-            <ReagentRequestFormModal
-                isOpen={isModalOpen}
-                formData={formData}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-                handleModalClose={handleModalClose}
             />
 
             <Outlet />

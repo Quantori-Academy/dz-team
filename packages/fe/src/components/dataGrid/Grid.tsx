@@ -7,6 +7,7 @@ import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
 import { useUserForm } from "hooks/useUserForm";
+import { User } from "shared/generated/zod";
 import { SupportedValue } from "utils/formatters";
 
 import { AddUserForm } from "../pages/users/AddUserForm";
@@ -45,16 +46,13 @@ export const Grid = ({ rows, headers }: GridProps) => {
     );
 
     const handleAddFormOpen = async () => {
-        try {
-            await createModal({
-                name: "add_user_modal",
-                title: "Add New User",
-                message: <AddUserForm onClose={() => removeModal()} />,
-            });
-            removeModal();
-        } catch (_error) {
-            removeModal();
-        }
+        await createModal({
+            name: "add_user_modal",
+            title: "Add New User",
+            message: <AddUserForm onClose={() => removeModal()} />,
+        });
+
+        removeModal();
     };
 
     const columns = useMemo(() => {
@@ -92,9 +90,9 @@ export const Grid = ({ rows, headers }: GridProps) => {
                 sx={{ width: "350px", marginBottom: "16px" }}
             />
             <DataGrid
-                rows={filteredRows}
+                rows={filteredRows as User[]}
                 rowHeight={60}
-                getRowId={(row) =>
+                getRowId={(row: User) =>
                     typeof row.id === "string" || typeof row.id === "number"
                         ? row.id
                         : `${String(row.username ?? "unknown")}-${Math.random()
