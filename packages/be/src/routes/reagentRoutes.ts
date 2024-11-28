@@ -1,4 +1,4 @@
-import { ReagentController } from "../controllers/reagentController";
+import { reagentController } from "../controllers/reagentController";
 import { FastifyZodInstance } from "../types";
 import {
     DELETE_REAGENT_BY_ID_SCHEMA,
@@ -12,9 +12,6 @@ import { FastifyZodOpenApiSchema, FastifyZodOpenApiTypeProvider } from "fastify-
 import ReagentCreateManyInputSchema from "shared/generated/zod/inputTypeSchemas/ReagentCreateManyInputSchema";
 import { ReagentSearch } from "shared/zodSchemas/reagent/reagentSearchSchema";
 import { ReagentUpdateManyMutationInputSchema } from "shared/generated/zod";
-
-
-const reagentController = new ReagentController();
 
 /**
  * Registers the reagent routes with the provided Fastify instance.

@@ -1,10 +1,8 @@
 import { FastifyZodInstance } from "../types";
-import { AuthController } from "../controllers/authController";
+import { authController } from "../controllers/authController";
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import { POST_USER_AUTH_SCHEMA } from "../responseSchemas/auth";
 import { LoginUser } from "shared/zodSchemas/user/loginUserSchema";
-
-const authController = new AuthController();
 
 /**
  * Registers the authentication routes with the provided Fastify instance.

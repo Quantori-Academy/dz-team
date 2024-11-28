@@ -1,4 +1,5 @@
-import { Prisma, PrismaClient, Order, OrderStatus } from "@prisma/client";
+import { Prisma, Order, OrderStatus } from "@prisma/client";
+import { prisma } from "../utils/prisma";
 import { v4 as uuidv4 } from "uuid";
 import { z } from "zod";
 
@@ -8,28 +9,16 @@ import {
     OrderCreateWithUserIdInputSchema,
     OrderUpdateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
+import { SearchResults } from "../types";
 
-const prisma = new PrismaClient();
-
-type OrderSearchResults = {
-    data: Order[];
-    meta: {
-        currentPage: number;
-        totalPages: number;
-        totalCount: number;
-        hasNextPage: boolean;
-        hasPreviousPage: boolean;
-    };
-};
-
-export class OrderService {
+class OrderService {
     /**
      * Retrieve all orders with optional filtering, pagination, and sorting.
      *
      * @param {OrderSearch} queryString - The search parameters including optional filters for pagination and sorting.
-     * @returns {Promise<OrderSearchResults>} A promise that resolves to an object containing orders and metadata about the results.
+     * @returns {Promise<SearchResults>} A promise that resolves to an object containing orders and metadata about the results.
      */
-    async getAllOrders(queryString: OrderSearch): Promise<OrderSearchResults> {
+    async getAllOrders(queryString: OrderSearch): Promise<SearchResults<Order>> {
         const { query, page, limit, sortBy, sortOrder, status } = queryString;
 
         // Define search conditions based on query
@@ -170,3 +159,6 @@ export class OrderService {
         });
     }
 }
+
+// Export only the instance of the class
+export const orderService = new OrderService();

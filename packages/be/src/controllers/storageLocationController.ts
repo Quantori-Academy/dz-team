@@ -5,15 +5,12 @@ import {
     StorageLocationUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
 
-
-import { StorageLocationService } from "../services/storageLocationService";
 import { sendErrorResponse } from "../utils/handleErrors";
 import { StorageLocationSearchSchema } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
 import { idSchema } from "shared/zodSchemas/baseSchemas";
+import { storageLocationService } from "../services/storageLocationService";
 
-const storageLocationService = new StorageLocationService();
-
-export class StorageLocationController {
+class StorageLocationController {
     /**
      * Get all storage locations.
      * @param request - FastifyRequest
@@ -172,3 +169,5 @@ export class StorageLocationController {
         }
     }
 }
+
+export const storageLocationController = new StorageLocationController();

@@ -1,5 +1,5 @@
 import { FastifyZodInstance, Roles } from "../types";
-import { OrderController } from "../controllers/orderController";
+import { orderController } from "../controllers/orderController";
 
 import { OrderStatus } from "@prisma/client";
 import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
@@ -10,12 +10,6 @@ import {
     PATCH_ORDER_STATUS_SCHEMA,
 } from "../responseSchemas/orders";
 import { checkAuthenticatedAndRole } from "../utils/authCheck";
-// import {
-//     OrderCreateWithUserIdInputSchema,
-//     OrderUpdateWithUserIdInputSchema,
-// } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
-
-const orderController = new OrderController();
 
 /**
  * Registers the reagent routes with the provided Fastify instance.

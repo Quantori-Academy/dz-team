@@ -1,5 +1,5 @@
 import { FastifyZodInstance, Roles } from "../types";
-import { UserController } from "../controllers/userController";
+import { userController } from "../controllers/userController";
 import { checkAuthenticated, checkAuthenticatedAndRole } from "../utils/authCheck";
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import {
@@ -12,8 +12,6 @@ import {
 } from "../responseSchemas/users";
 import { RegisterUser } from "shared/zodSchemas/user/registerUserSchema";
 import { UpdateUser } from "shared/zodSchemas/user/updateUserSchema";
-
-const userController = new UserController();
 
 /**
  * User routes for managing user operations.
@@ -57,7 +55,7 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
             preHandler: [checkAuthenticated()],
         },
         async (request, reply) => {
-            return await userController.getSingleUser(request, reply);
+            return await userController.getUser(request, reply);
         },
     );
 

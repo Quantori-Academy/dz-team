@@ -1,29 +1,17 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+import { prisma } from "../utils/prisma";
+import { Prisma } from "@prisma/client";
 import { ReagentUpdateInputSchema } from "../../../shared/generated/zod/inputTypeSchemas";
 import { Reagent } from "../../../shared/generated/zod/modelSchema";
 import ReagentCreateManyInputSchema from "shared/generated/zod/inputTypeSchemas/ReagentCreateManyInputSchema";
 import { ReagentSearch } from "shared/zodSchemas/reagent/reagentSearchSchema";
+import { SearchResults } from "../types";
 
-
-const prisma = new PrismaClient();
-
-type SearchResults = {
-    data: Reagent[];
-    meta: {
-        currentPage: number;
-        totalPages: number;
-        totalCount: number;
-        hasNextPage: boolean;
-        hasPreviousPage: boolean;
-    };
-};
-
-export class ReagentService {
+class ReagentService {
     /**
      * Get all reagents that are not deleted.
      * @returns {Promise<Reagent[]>} An array of all non-deleted reagents.
      */
-    async getAllReagents(queryString: ReagentSearch): Promise<SearchResults> {
+    async getAllReagents(queryString: ReagentSearch): Promise<SearchResults<Reagent>> {
         const {
             query,
             page,
@@ -140,3 +128,6 @@ export class ReagentService {
         return await prisma.reagent.update({ where: { id }, data: { deletedAt: null } });
     }
 }
+
+// Export only the instance of the class
+export const reagentService = new ReagentService();

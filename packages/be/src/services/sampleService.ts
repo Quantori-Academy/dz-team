@@ -1,6 +1,5 @@
-import { PrismaClient, Sample } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { Sample } from "@prisma/client";
+import { prisma } from "../utils/prisma";
 
 /**
  * Fetches all samples from the database.

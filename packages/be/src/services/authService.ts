@@ -1,12 +1,10 @@
 import bcrypt from "bcrypt";
-import { PrismaClient } from "@prisma/client";
+import { prisma } from "../utils/prisma";
 
 import { JwtPayload } from "../types";
 import { LoginUser } from "shared/zodSchemas/user/loginUserSchema";
 
-const prisma = new PrismaClient();
-
-export class AuthService {
+class AuthService {
     /**
      * Log in a user by verifying credentials.
      * @param userData - The login data including username and password.
@@ -46,3 +44,6 @@ export class AuthService {
         return { token };
     }
 }
+
+// Export only the instance of the class
+export const authService = new AuthService();

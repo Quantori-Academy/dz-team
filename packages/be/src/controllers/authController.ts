@@ -1,12 +1,10 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
 
-import { AuthService } from "../services/authService";
 import { LoginUser, loginUserSchema } from "../../../shared/zodSchemas/user/loginUserSchema";
+import { authService } from "../services/authService";
 
-const authService = new AuthService();
-
-export class AuthController {
+class AuthController {
     /**
      * Handle user login.
      * @param request - FastifyRequest containing the login data in the body.
@@ -43,3 +41,5 @@ export class AuthController {
         }
     }
 }
+
+export const authController = new AuthController();

@@ -1,4 +1,5 @@
-import { Prisma, PrismaClient, Reagent } from "@prisma/client";
+import { Prisma, Reagent } from "@prisma/client";
+import { prisma } from "../utils/prisma";
 
 import {
     StorageLocationCreateInputSchema,
@@ -7,28 +8,18 @@ import {
 
 import { StorageLocation } from "../../../shared/generated/zod";
 import { StorageLocationSearch } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
+import { SearchResults } from "../types";
 
-const prisma = new PrismaClient();
-
-type SearchResults = {
-    data: StorageLocation[];
-    meta: {
-        currentPage: number;
-        totalPages: number;
-        totalCount: number;
-        hasNextPage: boolean;
-        hasPreviousPage: boolean;
-    };
-};
-
-export class StorageLocationService {
+class StorageLocationService {
     /**
      * Retrieve all storage locations with optional filtering, pagination, and sorting.
      *
      * @param {StorageLocationSearch} queryString - The search parameters including optional filters for pagination and sorting.
      * @returns {Promise<SearchResults>} A promise that resolves to an object containing storage locations and metadata about the results.
      */
-    async getAllStorageLocations(queryString: StorageLocationSearch): Promise<SearchResults> {
+    async getAllStorageLocations(
+        queryString: StorageLocationSearch,
+    ): Promise<SearchResults<StorageLocation>> {
         const { query, page, limit, sortBy, sortOrder, room, name } = queryString;
 
         // Conditions for search across name, room, or description fields
@@ -200,3 +191,6 @@ export class StorageLocationService {
         return updatedReagent;
     }
 }
+
+// Export only the instance of the class
+export const storageLocationService = new StorageLocationService();

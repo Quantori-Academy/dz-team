@@ -1,33 +1,24 @@
 import bcrypt from "bcrypt";
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma } from "@prisma/client";
+import { prisma } from "../utils/prisma";
 
 import { z } from "zod";
 import { publicUserSchema } from "shared/zodSchemas/user/publicUserSchema";
 import { RegisterUser } from "shared/zodSchemas/user/registerUserSchema";
 import { UpdateUser } from "shared/zodSchemas/user/updateUserSchema";
 import { UserSearch } from "shared/zodSchemas/user/userSearchSchema";
+import { SearchResults } from "../types";
 
-const prisma = new PrismaClient();
-
-type SearchResults = {
-    data: z.infer<typeof publicUserSchema>[];
-    meta: {
-        currentPage: number;
-        totalPages: number;
-        totalCount: number;
-        hasNextPage: boolean;
-        hasPreviousPage: boolean;
-    };
-};
-
-export class UserService {
+class UserService {
     /**
      * Retrieve all users with optional filtering, pagination, and sorting.
      *
      * @param {UserSearch} queryString - The search parameters, including optional filters for pagination and sorting.
      * @returns {Promise<SearchResults>} A promise that resolves to an object containing users and metadata about the results.
      */
-    async getAllUsers(queryString: UserSearch): Promise<SearchResults> {
+    async getAllUsers(
+        queryString: UserSearch,
+    ): Promise<SearchResults<z.infer<typeof publicUserSchema>>> {
         const {
             query,
             page,
@@ -102,7 +93,7 @@ export class UserService {
      * @param requesterRole - The role of the user making the request.
      * @returns The user data or null if not found.
      */
-    async getSingleUser(
+    async getUser(
         userId: string,
         requesterId: string,
         requesterRole: string,
@@ -278,3 +269,6 @@ export class UserService {
         return publicUserSchema.parse(user);
     }
 }
+
+// Export only the instance of the class
+export const userService = new UserService();

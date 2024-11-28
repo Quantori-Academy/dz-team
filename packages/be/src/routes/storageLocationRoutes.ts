@@ -1,6 +1,6 @@
 import { FastifyZodInstance, Roles } from "../types";
 import { checkAuthenticated, checkAuthenticatedAndRole } from "../utils/authCheck";
-import { StorageLocationController } from "../controllers/storageLocationController";
+import { storageLocationController } from "../controllers/storageLocationController";
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import {
     DELETE_STORAGE_LOCATION_BY_ID_SCHEMA,
@@ -14,8 +14,6 @@ import {
     StorageLocationUpdateSchema,
 } from "../responseSchemas/storageLocations";
 import { StorageLocationSearchSchema } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
-
-const storageLocationController = new StorageLocationController();
 
 /**
  * Registers the storage location routes with the provided Fastify instance.

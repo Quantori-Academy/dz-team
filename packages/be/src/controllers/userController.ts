@@ -1,6 +1,5 @@
 import { validate as isValidUUID } from "uuid";
 import { FastifyRequest, FastifyReply } from "fastify";
-import { UserService } from "../services/userService";
 import { sendErrorResponse } from "../utils/handleErrors";
 import {
     RegisterUser,
@@ -9,10 +8,9 @@ import {
 import { UpdateUser } from "shared/zodSchemas/user/updateUserSchema";
 
 import { UserSearchSchema } from "../../../shared/zodSchemas/user/userSearchSchema";
+import { userService } from "../services/userService";
 
-const userService = new UserService();
-
-export class UserController {
+class UserController {
     /**
      * Get all users including passwords
      * @param request - FastifyRequest
@@ -35,7 +33,7 @@ export class UserController {
      * @param reply - FastifyReply
      * @returns A promise that resolves to the user data or an error.
      */
-    async getSingleUser(
+    async getUser(
         request: FastifyRequest<{ Params: { userId: string } }>,
         reply: FastifyReply,
     ): Promise<void> {
@@ -53,7 +51,7 @@ export class UserController {
             }
 
             // Attempt to get the user through the UserService
-            const user = await userService.getSingleUser(userId, requesterId, requesterRole);
+            const user = await userService.getUser(userId, requesterId, requesterRole);
 
             if (user) {
                 return reply.status(200).send(user);
@@ -179,3 +177,5 @@ export class UserController {
         }
     }
 }
+
+export const userController = new UserController();

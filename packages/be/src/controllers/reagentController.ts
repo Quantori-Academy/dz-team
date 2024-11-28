@@ -1,16 +1,14 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
-import { ReagentService } from "../services/reagentService";
 import {
     ReagentCreateInputSchema,
     ReagentUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
 import { ReagentSearchSchema } from "shared/zodSchemas/reagent/reagentSearchSchema";
 import { idSchema } from "shared/zodSchemas/baseSchemas";
+import { reagentService } from "../services/reagentService";
 
-const reagentService = new ReagentService();
-
-export class ReagentController {
+class ReagentController {
     /**
      * Get all reagents.
      * @param request - FastifyRequest
@@ -173,3 +171,5 @@ export class ReagentController {
         }
     }
 }
+
+export const reagentController = new ReagentController();
