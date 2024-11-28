@@ -44,50 +44,30 @@ export const StorageDetailWrapper = ({ handleAction, reagents }: TableType) => {
 
     return (
         <>
-            {!isResearcher ? (
-                <DetailsEditPage
-                    baseUrl="/storageList"
-                    url="/_app/storageList/$id"
-                    fields={fields}
-                    onAction={handleAction}
-                    editableFields={!isResearcher ? ["name", "room", "description"] : []}
-                    allowPermission={!isResearcher}
-                >
-                    {reagents?.length > 0 ? (
-                        <Box sx={boxStyle}>
-                            <Typography variant="h6">Reagents</Typography>
-                            <Grid
-                                rows={reagents}
-                                headers={reagentColumns}
-                                searchPlaceholder="Search reagents by name or description"
-                                showToolbar={false}
-                            />
-                        </Box>
-                    ) : (
-                        <Box sx={boxStyle}>
-                            <Typography>No reagents in this storage.</Typography>
-                        </Box>
-                    )}
-                </DetailsEditPage>
-            ) : (
-                <DetailsEditPage
-                    baseUrl="/storageList"
-                    url="/_app/storageList/$id"
-                    fields={fields}
-                    allowPermission={!isResearcher}
-                >
-                    {reagents?.length > 0 ? (
-                        <Box sx={boxStyle}>
-                            <Typography variant="h6">Reagents</Typography>
-                            <Grid rows={reagents} headers={reagentColumns} showToolbar={false} />
-                        </Box>
-                    ) : (
-                        <Box sx={boxStyle}>
-                            <Typography>No reagents in this storage.</Typography>
-                        </Box>
-                    )}
-                </DetailsEditPage>
-            )}
+            <DetailsEditPage
+                baseUrl="/storageList"
+                url="/_app/storageList/$id"
+                fields={fields}
+                onAction={isResearcher ? handleAction : undefined}
+                editableFields={!isResearcher ? ["name", "room", "description"] : []}
+                allowPermission={!isResearcher}
+            >
+                {reagents?.length > 0 ? (
+                    <Box sx={boxStyle}>
+                        <Typography variant="h6">Reagents</Typography>
+                        <Grid
+                            rows={reagents}
+                            headers={reagentColumns}
+                            searchPlaceholder="Search reagents by name or description"
+                            showToolbar={false}
+                        />
+                    </Box>
+                ) : (
+                    <Box sx={boxStyle}>
+                        <Typography>No reagents in this storage.</Typography>
+                    </Box>
+                )}
+            </DetailsEditPage>
         </>
     );
 };
