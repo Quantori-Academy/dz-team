@@ -118,7 +118,6 @@ export function OrderBasket({
                     onChange={(e) => setTitle(e.target.value)}
                     variant="outlined"
                     fullWidth
-                    required
                     error={!!errors.title}
                     helperText={errors.title}
                     sx={{ mt: 2 }}
@@ -129,7 +128,6 @@ export function OrderBasket({
                     onChange={(e) => setSeller(e.target.value)}
                     variant="outlined"
                     fullWidth
-                    required
                     error={!!errors.seller}
                     helperText={errors.seller}
                     sx={{ mt: 2 }}
