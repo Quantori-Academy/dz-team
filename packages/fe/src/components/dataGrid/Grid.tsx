@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
+import { TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem, GridRowParams } from "@mui/x-data-grid";
 
 import { createModal } from "components/modal/createModal";
@@ -10,7 +11,6 @@ import { SupportedValue } from "utils/formatters";
 
 import { AddUserForm } from "../pages/users/AddUserForm";
 import { AddRecord } from "./Addrecord";
-import { SearchField } from "./SearcheField";
 
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
@@ -95,15 +95,23 @@ export const Grid = ({
 
     return (
         <>
-            {showSearchField && <SearchField searchQuery={searchQuery} onSearch={handleSearch} />}
+            {showSearchField && (
+                <TextField
+                    variant="outlined"
+                    placeholder="Search by name, username, or email"
+                    value={searchQuery}
+                    onChange={handleSearch}
+                    sx={{ width: "350px", marginBottom: "16px" }}
+                />
+            )}
             <DataGrid
                 rows={filteredRows}
                 rowHeight={60}
-                getRowId={(row) =>
-                    typeof row.id === "string" || typeof row.id === "number"
-                        ? row.id
-                        : `${String(row.username ?? "unknown")}-${Math.random().toString(36).substring(2, 9)}`
-                }
+                // getRowId={(row) =>
+                //     typeof row.id === "string" || typeof row.id === "number"
+                //         ? row.id
+                //         : `${String(row.username ?? "unknown")}-${Math.random().toString(36).substring(2, 9)}`
+                // }
                 columns={columns}
                 disableRowSelectionOnClick
                 onRowClick={(params: GridRowParams<Record<string, SupportedValue>>) =>
