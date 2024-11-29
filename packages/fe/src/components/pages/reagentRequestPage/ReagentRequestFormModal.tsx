@@ -1,4 +1,4 @@
-import { BaseTextFieldProps, Box, TextField } from "@mui/material";
+import { BaseTextFieldProps, Grid2 as Grid, TextField } from "@mui/material";
 
 import { CreateReagentRequestType } from "api/reagentRequest";
 
@@ -22,24 +22,27 @@ export const ReagentRequestFormModal = ({
     handleChange,
 }: ReagentRequestFormModalProps) => {
     return (
-        <Box>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             {fields.map((field) => {
                 return (
-                    <TextField
-                        key={field.name}
-                        label={field.label}
-                        name={field.name}
-                        value={formData[field.name as keyof typeof formData] || ""}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        type={field.type || "text"}
-                        helperText={field.helperText}
-                        required={field.required}
-                        disabled={field.disabled}
-                    />
+                    <Grid size={6} key={field.name}>
+                        <TextField
+                            key={field.name}
+                            label={field.label}
+                            name={field.name}
+                            value={formData[field.name as keyof typeof formData] || ""}
+                            onChange={handleChange}
+                            fullWidth
+                            margin="normal"
+                            type={field.type || "text"}
+                            helperText={field.helperText}
+                            required={field.required}
+                            disabled={field.disabled}
+                            sx={{ width: 1 }}
+                        />
+                    </Grid>
                 );
             })}
-        </Box>
+        </Grid>
     );
 };
