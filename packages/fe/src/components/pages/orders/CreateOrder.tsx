@@ -7,6 +7,7 @@ import { CreateOrderReagent } from "api/orderDetails/contract";
 import { AddRecord } from "components/dataGrid/Addrecord";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
+import { useReagents } from "utils/useReagents";
 
 import { OrderBasket } from "./OrderBasket";
 import { OrderReagentFormModal } from "./OrderReagentFormModal";
@@ -25,42 +26,49 @@ const headers = [
     { field: "amount", headerName: "Amount", width: 170, editable: true },
 ];
 export const CreateOrder = () => {
-    const [reagents, setReagents] = useState<CreateOrderReagent[]>([]);
+    const { reagents, basket, deleteReagent, editReagent, setReagents, setBasket } = useReagents();
+    // const [reagents, setReagents] = useState<CreateOrderReagent[]>([]);
     const [selectedReagent, setSelectedReagent] = useState<CreateOrderReagent | null>(null);
-    const [basket, setBasket] = useState<{ reagent: CreateOrderReagent; quantity: number }[]>([]);
+    // const [basket, setBasket] = useState<{ reagent: CreateOrderReagent }[]>([]);
     const [title, setTitle] = useState("");
     const [seller, setSeller] = useState("");
     const [description, setDescription] = useState("");
 
-    const handleDeleteReagent = (reagentToDelete: CreateOrderReagent) => {
-        if (reagentToDelete) {
-            setReagents((prevReagents) =>
-                prevReagents.filter((reagent) => reagent.id !== reagentToDelete.id),
-            );
-            setBasket((prevBasket) =>
-                prevBasket.filter((item) => item.reagent.id !== reagentToDelete.id),
-            );
-            setSelectedReagent(null);
-            removeModal();
-        } else {
-            alert("No reagent selected for deletion");
-        }
+    const clearBasket = () => {
+        setTitle("");
+        setSeller("");
+        setDescription("");
+        setReagents([]);
     };
-    const handleEditReagent = (updatedReagent: CreateOrderReagent) => {
-        setReagents((prevReagents) =>
-            prevReagents.map((reagent) =>
-                reagent.id === updatedReagent.id ? updatedReagent : reagent,
-            ),
-        );
-        setSelectedReagent(updatedReagent);
-    };
-    const handleUpdateBasketReagent = (updatedReagent: CreateOrderReagent) => {
-        setBasket((prevBasket) =>
-            prevBasket.map((item) =>
-                item.reagent.id === updatedReagent.id ? { ...item, reagent: updatedReagent } : item,
-            ),
-        );
-    };
+
+    // const handleDeleteReagent = (reagentToDelete: CreateOrderReagent) => {
+    //     if (reagentToDelete) {
+    //         setReagents((prevReagents) =>
+    //             prevReagents.filter((reagent) => reagent.id !== reagentToDelete.id),
+    //         );
+    //         setBasket((prevBasket) =>
+    //             prevBasket.filter((item) => item.reagent.id !== reagentToDelete.id),
+    //         );
+    //         setSelectedReagent(null);
+    //         removeModal();
+    //     } else {
+    //         alert("No reagent selected for deletion");
+    //     }
+    // };
+    // const handleEditReagent = (updatedReagent: CreateOrderReagent) => {
+    //     setReagents((prevReagents) =>
+    //         prevReagents.map((reagent) =>
+    //             reagent.id === updatedReagent.id ? updatedReagent : reagent,
+    //         ),
+    //     );
+    //     setBasket((prevBasket) =>
+    //         prevBasket.map((item) =>
+    //             item.reagent.id === updatedReagent.id ? { reagent: updatedReagent } : item,
+    //         ),
+    //     );
+    //     setSelectedReagent(updatedReagent);
+    // };
+
     const handleRowClick = async (row: CreateOrderReagent) => {
         setSelectedReagent(row);
         try {
@@ -72,12 +80,13 @@ export const CreateOrder = () => {
                         mode="view"
                         selectedReagent={row}
                         onSubmit={(updatedReagent: CreateOrderReagent) => {
-                            handleEditReagent(updatedReagent);
-                            handleUpdateBasketReagent(updatedReagent);
+                            // handleEditReagent(updatedReagent);
+                            editReagent(updatedReagent);
                             removeModal();
                         }}
                         onDelete={() => {
-                            handleDeleteReagent(row);
+                            // handleDeleteReagent(row);
+                            deleteReagent(row);
                             removeModal();
                         }}
                         onCancel={() => {
@@ -102,6 +111,7 @@ export const CreateOrder = () => {
                         selectedReagent={selectedReagent}
                         onSubmit={(newReagent: CreateOrderReagent) => {
                             setReagents((prevReagents) => [...prevReagents, newReagent]);
+                            setBasket((prevBasket) => [...prevBasket, { reagent: newReagent }]);
                             removeModal();
                         }}
                         onCancel={() => {
@@ -132,6 +142,7 @@ export const CreateOrder = () => {
                     setTitle={setTitle}
                     setSeller={setSeller}
                     setDescription={setDescription}
+                    clearBasket={clearBasket}
                 />
                 <DataGrid
                     rows={reagents}

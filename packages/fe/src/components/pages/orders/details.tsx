@@ -25,7 +25,6 @@ const fields = [
     { label: "Description", name: "description" },
     { label: "Status", name: "status" },
     { label: "Seller", name: "seller" },
-    { label: "Deleted at", name: "deletedAt" },
     { label: "Created at", name: "createdAt" },
     { label: "User Id", name: "userId" },
 ];

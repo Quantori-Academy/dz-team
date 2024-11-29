@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
-import { Box, Button, TextField } from "@mui/material";
+import { Autocomplete, Box, Button, TextField } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 
 import { CreateOrderReagent } from "api/orderDetails/contract";
+import { UnitSchema } from "shared/generated/zod";
 import { validateInput } from "utils/validationInput";
 
 type Mode = "create" | "edit" | "view";
+const unitOptions = UnitSchema.options;
 
 type OrderReagentFormModalProps = {
     mode: Mode;
@@ -29,11 +31,11 @@ const fields = [
 
 const validationRules = {
     name: { required: true },
-    structure: { required: true },
-    cas: { required: true },
+    structure: { required: false },
+    cas: { required: false },
     producer: { required: true },
-    catalogId: { required: true },
-    catalogLink: { required: true, urlCheck: true },
+    catalogId: { required: false },
+    catalogLink: { required: false, urlCheck: true },
     units: { required: true },
     pricePerUnit: { required: true, negativeCheck: true },
     quantity: { required: true, negativeCheck: true, integerCheck: true },
@@ -96,21 +98,44 @@ export const OrderReagentFormModal = ({
 
     return (
         <Box>
-            {fields.map((field) => (
-                <TextField
-                    key={field.name}
-                    label={field.label}
-                    name={field.name}
-                    value={formData[field.name as keyof typeof formData]}
-                    onChange={handleChange}
-                    fullWidth
-                    margin="normal"
-                    type={field.type || "text"}
-                    disabled={currentMode === "view"}
-                    error={!!errors[field.name as keyof typeof errors]}
-                    helperText={errors[field.name as keyof typeof errors]}
-                />
-            ))}
+            {fields.map((field) =>
+                field.name === "units" ? (
+                    <Autocomplete
+                        key={field.name}
+                        options={unitOptions}
+                        value={formData.units}
+                        onChange={(_event, newValue) => {
+                            setFormData((prev) => ({ ...prev, units: newValue || "" }));
+                            setErrors((prev) => ({ ...prev, units: undefined }));
+                        }}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label={field.label}
+                                fullWidth
+                                margin="normal"
+                                error={!!errors[field.name as keyof typeof errors]}
+                                helperText={errors[field.name as keyof typeof errors]}
+                                disabled={currentMode === "view"}
+                            />
+                        )}
+                    />
+                ) : (
+                    <TextField
+                        key={field.name}
+                        label={field.label}
+                        name={field.name}
+                        value={formData[field.name as keyof typeof formData]}
+                        onChange={handleChange}
+                        fullWidth
+                        margin="normal"
+                        type={field.type || "text"}
+                        disabled={currentMode === "view"}
+                        error={!!errors[field.name as keyof typeof errors]}
+                        helperText={errors[field.name as keyof typeof errors]}
+                    />
+                ),
+            )}
             <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
                 {currentMode === "create" && (
                     <Button variant="contained" onClick={handleSubmit}>

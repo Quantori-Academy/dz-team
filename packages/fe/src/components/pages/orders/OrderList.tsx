@@ -1,4 +1,4 @@
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 
 import { base } from "api/request";
@@ -6,7 +6,6 @@ import { CommonTable } from "components/commonTable/CommonTable";
 import { Order, OrderSchema } from "shared/generated/zod";
 
 const headers = [
-    { field: "title", headerName: "Title", width: 150 },
     { field: "seller", headerName: "Seller", width: 170 },
     { field: "description", headerName: "Description ", width: 170 },
     { field: "createdAt", headerName: "Created Date", width: 170 },
@@ -38,7 +37,6 @@ export const OrderList = () => {
                     gap: "20px",
                 }}
             >
-                <Typography variant="h5">Order List</Typography>
                 <CommonTable<Order>
                     columns={headers}
                     url={`${base}/api/v1/orders`}

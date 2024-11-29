@@ -3,6 +3,7 @@ type ValidationRule = {
     negativeCheck?: boolean;
     integerCheck?: boolean;
     urlCheck?: boolean;
+    maxLength?: number;
 };
 
 type ValidationRules = {
@@ -42,6 +43,14 @@ export const validateInput = <T>(
         }
         if (validations.urlCheck && typeof value === "string" && !isUrlValid(value)) {
             errors[field as keyof T] = `${field} must be a valid URL`;
+        }
+        if (
+            validations.maxLength &&
+            typeof value === "string" &&
+            value.length > validations.maxLength
+        ) {
+            errors[field as keyof T] =
+                `${field} must not exceed ${validations.maxLength} characters`;
         }
     }
 
