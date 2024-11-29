@@ -7,6 +7,17 @@ import { updateUserSchema } from "shared/zodSchemas/user/updateUserSchema";
 const userIdParam = z.object({ userId: z.string().describe("User's UUID.") });
 
 export const UsersListSchema = z.array(publicUserSchema);
+
+export const PaginatedUsersSchema = z.object({
+    data: UsersListSchema,
+    meta: z.object({
+        currentPage: z.number().default(1),
+        totalPages: z.number().default(4),
+        totalCount: z.number().default(2),
+        hasNextPage: z.boolean().default(true),
+        hasPreviousPage: z.boolean().default(false),
+    }),
+});
 const unauthorizedResponse = {
     description: "Error - Unauthorized.",
     content: {
@@ -67,7 +78,7 @@ export const GET_USERS_SCHEMA: FastifyZodOpenApiSchema = {
             description: "List of users.",
             content: {
                 "application/json": {
-                    schema: UsersListSchema,
+                    schema: PaginatedUsersSchema,
                 },
             },
         },
