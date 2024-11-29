@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Alert, Box, Button, Snackbar, TextField } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 import { useUnit } from "effector-react";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 
 import { CreateOrderReagent } from "api/orderDetails/contract";
 import { $auth } from "stores/auth";
 import { OrderStatus, setOrderData, submitOrder } from "stores/order";
+import { SnackbarAlert } from "utils/snackBarAlert";
 import { validateInput } from "utils/validationInput";
 
 type BasketProps = {
@@ -74,6 +75,8 @@ export function OrderBasket({
 
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
+            setSnackbarMessage("Order creation failed!");
+            setSnackbarSeverity("error");
             setSnackbarOpen(true);
             return;
         }
@@ -146,20 +149,12 @@ export function OrderBasket({
             <Button variant="contained" color="primary" onClick={handleCreateOrder} sx={{ mt: 2 }}>
                 Create Order
             </Button>
-            <Snackbar
+            <SnackbarAlert
                 open={snackbarOpen}
-                autoHideDuration={6000}
+                message={snackbarMessage}
+                severity={snackbarSeverity}
                 onClose={() => setSnackbarOpen(false)}
-                anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            >
-                <Alert
-                    onClose={() => setSnackbarOpen(false)}
-                    severity={snackbarSeverity}
-                    sx={{ width: "100%" }}
-                >
-                    {snackbarMessage}
-                </Alert>
-            </Snackbar>
+            />
         </Box>
     );
 }

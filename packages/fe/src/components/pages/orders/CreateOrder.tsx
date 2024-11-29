@@ -27,9 +27,7 @@ const headers = [
 ];
 export const CreateOrder = () => {
     const { reagents, basket, deleteReagent, editReagent, setReagents, setBasket } = useReagents();
-    // const [reagents, setReagents] = useState<CreateOrderReagent[]>([]);
     const [selectedReagent, setSelectedReagent] = useState<CreateOrderReagent | null>(null);
-    // const [basket, setBasket] = useState<{ reagent: CreateOrderReagent }[]>([]);
     const [title, setTitle] = useState("");
     const [seller, setSeller] = useState("");
     const [description, setDescription] = useState("");
@@ -40,34 +38,6 @@ export const CreateOrder = () => {
         setDescription("");
         setReagents([]);
     };
-
-    // const handleDeleteReagent = (reagentToDelete: CreateOrderReagent) => {
-    //     if (reagentToDelete) {
-    //         setReagents((prevReagents) =>
-    //             prevReagents.filter((reagent) => reagent.id !== reagentToDelete.id),
-    //         );
-    //         setBasket((prevBasket) =>
-    //             prevBasket.filter((item) => item.reagent.id !== reagentToDelete.id),
-    //         );
-    //         setSelectedReagent(null);
-    //         removeModal();
-    //     } else {
-    //         alert("No reagent selected for deletion");
-    //     }
-    // };
-    // const handleEditReagent = (updatedReagent: CreateOrderReagent) => {
-    //     setReagents((prevReagents) =>
-    //         prevReagents.map((reagent) =>
-    //             reagent.id === updatedReagent.id ? updatedReagent : reagent,
-    //         ),
-    //     );
-    //     setBasket((prevBasket) =>
-    //         prevBasket.map((item) =>
-    //             item.reagent.id === updatedReagent.id ? { reagent: updatedReagent } : item,
-    //         ),
-    //     );
-    //     setSelectedReagent(updatedReagent);
-    // };
 
     const handleRowClick = async (row: CreateOrderReagent) => {
         setSelectedReagent(row);
@@ -80,12 +50,10 @@ export const CreateOrder = () => {
                         mode="view"
                         selectedReagent={row}
                         onSubmit={(updatedReagent: CreateOrderReagent) => {
-                            // handleEditReagent(updatedReagent);
                             editReagent(updatedReagent);
                             removeModal();
                         }}
                         onDelete={() => {
-                            // handleDeleteReagent(row);
                             deleteReagent(row);
                             removeModal();
                         }}
