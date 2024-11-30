@@ -1,4 +1,4 @@
-import { buttonClick, ModalData, showModal } from "./store";
+import { buttonClick, ModalData, removeModal, showModal } from "./store";
 
 type GenericModalDetails = {
     name: string;
@@ -14,6 +14,7 @@ export function createModal({
         const unwatch = buttonClick.watch((response) => {
             unwatch();
             resolve(response);
+            removeModal();
         });
 
         showModal({
