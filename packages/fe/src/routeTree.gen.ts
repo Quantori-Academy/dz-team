@@ -13,10 +13,12 @@
 import { Route as rootRoute } from "./routes/__root";
 import { Route as LoginImport } from "./routes/login";
 import { Route as AppImport } from "./routes/_app";
+import { Route as AppReagentRequestsImport } from "./routes/_app/reagentRequests";
 import { Route as AppResearcherLayoutImport } from "./routes/_app/_researcherLayout";
 import { Route as AppPOfficerLayoutImport } from "./routes/_app/_pOfficerLayout";
 import { Route as AppAdminLayoutImport } from "./routes/_app/_adminLayout";
 import { Route as AppResearcherLayoutIndexImport } from "./routes/_app/_researcherLayout/index";
+import { Route as AppReagentRequestsIdImport } from "./routes/_app/reagentRequests/$id";
 import { Route as AppResearcherLayoutSamplesImport } from "./routes/_app/_researcherLayout/samples";
 import { Route as AppResearcherLayoutReagentsImport } from "./routes/_app/_researcherLayout/reagents";
 import { Route as AppPOfficerLayoutPOfficerImport } from "./routes/_app/_pOfficerLayout/pOfficer";
@@ -40,6 +42,12 @@ const AppRoute = AppImport.update({
     getParentRoute: () => rootRoute,
 } as any);
 
+const AppReagentRequestsRoute = AppReagentRequestsImport.update({
+    id: "/reagentRequests",
+    path: "/reagentRequests",
+    getParentRoute: () => AppRoute,
+} as any);
+
 const AppResearcherLayoutRoute = AppResearcherLayoutImport.update({
     id: "/_researcherLayout",
     getParentRoute: () => AppRoute,
@@ -59,6 +67,12 @@ const AppResearcherLayoutIndexRoute = AppResearcherLayoutIndexImport.update({
     id: "/",
     path: "/",
     getParentRoute: () => AppResearcherLayoutRoute,
+} as any);
+
+const AppReagentRequestsIdRoute = AppReagentRequestsIdImport.update({
+    id: "/$id",
+    path: "/$id",
+    getParentRoute: () => AppReagentRequestsRoute,
 } as any);
 
 const AppResearcherLayoutSamplesRoute = AppResearcherLayoutSamplesImport.update({
@@ -154,6 +168,13 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof AppResearcherLayoutImport;
             parentRoute: typeof AppImport;
         };
+        "/_app/reagentRequests": {
+            id: "/_app/reagentRequests";
+            path: "/reagentRequests";
+            fullPath: "/reagentRequests";
+            preLoaderRoute: typeof AppReagentRequestsImport;
+            parentRoute: typeof AppImport;
+        };
         "/_app/_adminLayout/admin": {
             id: "/_app/_adminLayout/admin";
             path: "/admin";
@@ -202,6 +223,13 @@ declare module "@tanstack/react-router" {
             fullPath: "/samples";
             preLoaderRoute: typeof AppResearcherLayoutSamplesImport;
             parentRoute: typeof AppResearcherLayoutImport;
+        };
+        "/_app/reagentRequests/$id": {
+            id: "/_app/reagentRequests/$id";
+            path: "/$id";
+            fullPath: "/reagentRequests/$id";
+            preLoaderRoute: typeof AppReagentRequestsIdImport;
+            parentRoute: typeof AppReagentRequestsImport;
         };
         "/_app/_researcherLayout/": {
             id: "/_app/_researcherLayout/";
@@ -298,16 +326,30 @@ const AppResearcherLayoutRouteWithChildren = AppResearcherLayoutRoute._addFileCh
     AppResearcherLayoutRouteChildren,
 );
 
+interface AppReagentRequestsRouteChildren {
+    AppReagentRequestsIdRoute: typeof AppReagentRequestsIdRoute;
+}
+
+const AppReagentRequestsRouteChildren: AppReagentRequestsRouteChildren = {
+    AppReagentRequestsIdRoute: AppReagentRequestsIdRoute,
+};
+
+const AppReagentRequestsRouteWithChildren = AppReagentRequestsRoute._addFileChildren(
+    AppReagentRequestsRouteChildren,
+);
+
 interface AppRouteChildren {
     AppAdminLayoutRoute: typeof AppAdminLayoutRouteWithChildren;
     AppPOfficerLayoutRoute: typeof AppPOfficerLayoutRouteWithChildren;
     AppResearcherLayoutRoute: typeof AppResearcherLayoutRouteWithChildren;
+    AppReagentRequestsRoute: typeof AppReagentRequestsRouteWithChildren;
 }
 
 const AppRouteChildren: AppRouteChildren = {
     AppAdminLayoutRoute: AppAdminLayoutRouteWithChildren,
     AppPOfficerLayoutRoute: AppPOfficerLayoutRouteWithChildren,
     AppResearcherLayoutRoute: AppResearcherLayoutRouteWithChildren,
+    AppReagentRequestsRoute: AppReagentRequestsRouteWithChildren,
 };
 
 const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren);
@@ -315,6 +357,7 @@ const AppRouteWithChildren = AppRoute._addFileChildren(AppRouteChildren);
 export interface FileRoutesByFullPath {
     "": typeof AppResearcherLayoutRouteWithChildren;
     "/login": typeof LoginRoute;
+    "/reagentRequests": typeof AppReagentRequestsRouteWithChildren;
     "/admin": typeof AppAdminLayoutAdminRoute;
     "/users": typeof AppAdminLayoutUsersRoute;
     "/createOrder": typeof AppPOfficerLayoutCreateOrderRoute;
@@ -322,6 +365,7 @@ export interface FileRoutesByFullPath {
     "/pOfficer": typeof AppPOfficerLayoutPOfficerRoute;
     "/reagents": typeof AppResearcherLayoutReagentsRouteWithChildren;
     "/samples": typeof AppResearcherLayoutSamplesRoute;
+    "/reagentRequests/$id": typeof AppReagentRequestsIdRoute;
     "/": typeof AppResearcherLayoutIndexRoute;
     "/orders/$id": typeof AppPOfficerLayoutOrdersIdRoute;
     "/reagents/$id": typeof AppResearcherLayoutReagentsIdRoute;
@@ -330,6 +374,7 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
     "": typeof AppPOfficerLayoutRouteWithChildren;
     "/login": typeof LoginRoute;
+    "/reagentRequests": typeof AppReagentRequestsRouteWithChildren;
     "/admin": typeof AppAdminLayoutAdminRoute;
     "/users": typeof AppAdminLayoutUsersRoute;
     "/createOrder": typeof AppPOfficerLayoutCreateOrderRoute;
@@ -337,6 +382,7 @@ export interface FileRoutesByTo {
     "/pOfficer": typeof AppPOfficerLayoutPOfficerRoute;
     "/reagents": typeof AppResearcherLayoutReagentsRouteWithChildren;
     "/samples": typeof AppResearcherLayoutSamplesRoute;
+    "/reagentRequests/$id": typeof AppReagentRequestsIdRoute;
     "/": typeof AppResearcherLayoutIndexRoute;
     "/orders/$id": typeof AppPOfficerLayoutOrdersIdRoute;
     "/reagents/$id": typeof AppResearcherLayoutReagentsIdRoute;
@@ -349,6 +395,7 @@ export interface FileRoutesById {
     "/_app/_adminLayout": typeof AppAdminLayoutRouteWithChildren;
     "/_app/_pOfficerLayout": typeof AppPOfficerLayoutRouteWithChildren;
     "/_app/_researcherLayout": typeof AppResearcherLayoutRouteWithChildren;
+    "/_app/reagentRequests": typeof AppReagentRequestsRouteWithChildren;
     "/_app/_adminLayout/admin": typeof AppAdminLayoutAdminRoute;
     "/_app/_adminLayout/users": typeof AppAdminLayoutUsersRoute;
     "/_app/_pOfficerLayout/createOrder": typeof AppPOfficerLayoutCreateOrderRoute;
@@ -356,6 +403,7 @@ export interface FileRoutesById {
     "/_app/_pOfficerLayout/pOfficer": typeof AppPOfficerLayoutPOfficerRoute;
     "/_app/_researcherLayout/reagents": typeof AppResearcherLayoutReagentsRouteWithChildren;
     "/_app/_researcherLayout/samples": typeof AppResearcherLayoutSamplesRoute;
+    "/_app/reagentRequests/$id": typeof AppReagentRequestsIdRoute;
     "/_app/_researcherLayout/": typeof AppResearcherLayoutIndexRoute;
     "/_app/_pOfficerLayout/orders/$id": typeof AppPOfficerLayoutOrdersIdRoute;
     "/_app/_researcherLayout/reagents/$id": typeof AppResearcherLayoutReagentsIdRoute;
@@ -366,6 +414,7 @@ export interface FileRouteTypes {
     fullPaths:
         | ""
         | "/login"
+        | "/reagentRequests"
         | "/admin"
         | "/users"
         | "/createOrder"
@@ -373,6 +422,7 @@ export interface FileRouteTypes {
         | "/pOfficer"
         | "/reagents"
         | "/samples"
+        | "/reagentRequests/$id"
         | "/"
         | "/orders/$id"
         | "/reagents/$id";
@@ -380,6 +430,7 @@ export interface FileRouteTypes {
     to:
         | ""
         | "/login"
+        | "/reagentRequests"
         | "/admin"
         | "/users"
         | "/createOrder"
@@ -387,6 +438,7 @@ export interface FileRouteTypes {
         | "/pOfficer"
         | "/reagents"
         | "/samples"
+        | "/reagentRequests/$id"
         | "/"
         | "/orders/$id"
         | "/reagents/$id";
@@ -397,6 +449,7 @@ export interface FileRouteTypes {
         | "/_app/_adminLayout"
         | "/_app/_pOfficerLayout"
         | "/_app/_researcherLayout"
+        | "/_app/reagentRequests"
         | "/_app/_adminLayout/admin"
         | "/_app/_adminLayout/users"
         | "/_app/_pOfficerLayout/createOrder"
@@ -404,6 +457,7 @@ export interface FileRouteTypes {
         | "/_app/_pOfficerLayout/pOfficer"
         | "/_app/_researcherLayout/reagents"
         | "/_app/_researcherLayout/samples"
+        | "/_app/reagentRequests/$id"
         | "/_app/_researcherLayout/"
         | "/_app/_pOfficerLayout/orders/$id"
         | "/_app/_researcherLayout/reagents/$id";
@@ -439,7 +493,8 @@ export const routeTree = rootRoute
       "children": [
         "/_app/_adminLayout",
         "/_app/_pOfficerLayout",
-        "/_app/_researcherLayout"
+        "/_app/_researcherLayout",
+        "/_app/reagentRequests"
       ]
     },
     "/login": {
@@ -469,6 +524,13 @@ export const routeTree = rootRoute
         "/_app/_researcherLayout/reagents",
         "/_app/_researcherLayout/samples",
         "/_app/_researcherLayout/"
+      ]
+    },
+    "/_app/reagentRequests": {
+      "filePath": "_app/reagentRequests.tsx",
+      "parent": "/_app",
+      "children": [
+        "/_app/reagentRequests/$id"
       ]
     },
     "/_app/_adminLayout/admin": {
@@ -504,6 +566,10 @@ export const routeTree = rootRoute
     "/_app/_researcherLayout/samples": {
       "filePath": "_app/_researcherLayout/samples.tsx",
       "parent": "/_app/_researcherLayout"
+    },
+    "/_app/reagentRequests/$id": {
+      "filePath": "_app/reagentRequests/$id.tsx",
+      "parent": "/_app/reagentRequests"
     },
     "/_app/_researcherLayout/": {
       "filePath": "_app/_researcherLayout/index.tsx",

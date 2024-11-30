@@ -8,7 +8,7 @@ import {
     FastifyReply,
 } from "fastify";
 
-import { ZodTypeProvider } from "fastify-type-provider-zod";
+import type { FastifyZodOpenApiTypeProvider } from "fastify-zod-openapi";
 
 // Define the JWT payload type with roles
 export interface JwtPayload {
@@ -31,13 +31,24 @@ export enum Roles {
     RESEARCHER = "researcher",
 }
 
+export type SearchResults<T> = {
+    data: T[];
+    meta: {
+        currentPage: number;
+        totalPages: number;
+        totalCount: number;
+        hasNextPage: boolean;
+        hasPreviousPage: boolean;
+    };
+};
+
 // Extend FastifyZodInstance with custom decorators
 export type FastifyZodInstance = FastifyInstance<
     RawServerDefault,
     RawRequestDefaultExpression<RawServerDefault>,
     RawReplyDefaultExpression<RawServerDefault>,
     FastifyBaseLogger,
-    ZodTypeProvider
+    FastifyZodOpenApiTypeProvider
 > & {
     verifyJWT?: (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
     verifyRole?: (

@@ -91,7 +91,6 @@ export class UserService {
                 hasPreviousPage: page > 1,
             },
         };
-
         return result;
     }
 
@@ -182,7 +181,7 @@ export class UserService {
         userData: UpdateUser,
         requesterId: string,
         requesterRole: string,
-    ): Promise<UpdateUser & { mustChangePassword: boolean }> {
+    ) {
         const userToUpdate = await prisma.user.findUnique({ where: { id: userId } });
 
         if (!userToUpdate) throw new Error("User not found.");
@@ -207,7 +206,7 @@ export class UserService {
 
             // Restrict fields for non-admins
             const { firstName, lastName, email, password } = userData;
-            userData = { firstName, lastName, email };
+            userData = { firstName, lastName, password, email };
             if (password) {
                 userData.password = await bcrypt.hash(password, 10);
                 mustChangePassword = false; // Users don't force password change on self-update
@@ -235,7 +234,8 @@ export class UserService {
             },
         });
 
-        // Remove sensitive data (e.g., password) from the result
+        // Return updated user without password and the mustChangePassword flag
+
         const { password, ...userWithoutPassword } = updatedUser;
 
         // Return the updated object along with mustChangePassword

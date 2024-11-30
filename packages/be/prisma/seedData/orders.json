@@ -4,7 +4,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "submitted",
         "title": "Chemical Order 001",
-        "seller": "Sigma-Aldrich",
+        "selle": "Seller A",
         "description": "This order includes two laboratory-grade chemicals for organic synthesis experiments.",
         "reagents": [
             {
@@ -40,7 +40,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "canceled",
         "title": "Chemical Order 002",
-        "seller": "CitricLabs",
+        "selle": "Seller A",
         "description": "This order was canceled after a mix-up in chemical quantities during processing.",
         "reagents": [
             {
@@ -89,7 +89,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "pending",
         "title": "Chemical Order 003",
-        "seller": "Sigma-Aldrich",
+        "selle": "Seller A",
         "description": "Order for a specific acid reagent used in biochemical analysis.",
         "reagents": [
             {
@@ -112,7 +112,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "pending",
         "title": "Chemical Order 004",
-        "seller": "Merck",
+        "selle": "Seller A",
         "description": "Order placed for two reagents required for industrial applications.",
         "reagents": [
             {
@@ -161,7 +161,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "submitted",
         "title": "Chemical Order 005",
-        "seller": "Sigma-Aldrich",
+        "selle": "Seller A",
         "description": "Order for various solvents and reagents for an upcoming experiment in the organic chemistry lab.",
         "reagents": [
             {
@@ -197,7 +197,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "fulfilled",
         "title": "Chemical Order 006",
-        "seller": "CitricLabs",
+        "selle": "Seller A",
         "description": "Order for high purity chemicals required for laboratory synthesis and research purposes.",
         "reagents": [
             {
@@ -233,7 +233,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "submitted",
         "title": "Chemical Order 007",
-        "seller": "Merck",
+        "selle": "Seller A",
         "description": "Order for specialty chemicals used in pharmaceutical research and testing.",
         "reagents": [
             {
@@ -269,7 +269,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "canceled",
         "title": "Chemical Order 008",
-        "seller": "Sigma-Aldrich",
+        "selle": "Seller A",
         "description": "Canceled order due to budget constraints for reagent procurement in the chemical research project.",
         "reagents": [
             {
@@ -305,7 +305,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "fulfilled",
         "title": "Chemical Order 009",
-        "seller": "Fisher Scientific",
+        "selle": "Seller A",
         "description": "Order for laboratory-grade chemicals required for an upcoming experiment in the biochemistry department.",
         "reagents": [
             {
@@ -341,7 +341,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "pending",
         "title": "Chemical Order 010",
-        "seller": "Thermo Fisher",
+        "selle": "Seller A",
         "description": "Order for research-grade chemicals for ongoing studies related to drug synthesis and analysis.",
         "reagents": [
             {
@@ -377,7 +377,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "pending",
         "title": "Chemical Order 011",
-        "seller": "VWR",
+        "selle": "Seller A",
         "description": "Order for reagents to support new experimental protocols in organic chemistry research.",
         "reagents": [
             {
@@ -413,7 +413,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "pending",
         "title": "Chemical Order 012",
-        "seller": "Sigma-Aldrich",
+        "selle": "Seller A",
         "description": "Request for reagents needed to synthesize new materials in advanced polymer research.",
         "reagents": [
             {
@@ -449,7 +449,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "submitted",
         "title": "Chemical Order 013",
-        "seller": "Merck",
+        "selle": "Seller A",
         "description": "Laboratory reagents required for conducting research on new experimental drug formulations.",
         "reagents": [
             {
@@ -485,7 +485,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "canceled",
         "title": "Chemical Order 014",
-        "seller": "Fisher Scientific",
+        "selle": "Seller A",
         "description": "Order for reagents needed for quality control analysis in the pharmaceutical production process.",
         "reagents": [
             {
@@ -521,7 +521,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "canceled",
         "title": "Chemical Order 015",
-        "seller": "Thermo Fisher",
+        "selle": "Seller A",
         "description": "Cancelled order for chemicals previously needed for solvent extraction analysis.",
         "reagents": [
             {
@@ -557,7 +557,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "submitted",
         "title": "Chemical Order 016",
-        "seller": "VWR",
+        "selle": "Seller A",
         "description": "Reagents ordered for testing the properties of new materials in nanotechnology research.",
         "reagents": [
             {
@@ -593,7 +593,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "pending",
         "title": "Chemical Order 017",
-        "seller": "Thermo Fisher",
+        "selle": "Seller A",
         "description": "Order for essential chemicals to carry out pharmaceutical stability studies.",
         "reagents": [
             {
@@ -629,7 +629,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "canceled",
         "title": "Chemical Order 018",
-        "seller": "Sigma-Aldrich",
+        "selle": "Seller A",
         "description": "Chemical reagents for testing of biodegradable polymers in environmental sustainability research.",
         "reagents": [
             {
@@ -665,7 +665,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "canceled",
         "title": "Chemical Order 019",
-        "seller": "Merck",
+        "selle": "Seller A",
         "description": "Cancelled order for reagents used in environmental analysis of heavy metal contamination.",
         "reagents": [
             {
@@ -701,7 +701,7 @@
         "userId": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
         "status": "pending",
         "title": "Chemical Order 020",
-        "seller": "Fisher Scientific",
+        "selle": "Seller A",
         "description": "Order for critical reagents required for genetic research and DNA sequencing.",
         "reagents": [
             {
