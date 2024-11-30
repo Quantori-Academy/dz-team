@@ -7,6 +7,7 @@ import { DataGrid, GridActionsCellItem, GridRowParams } from "@mui/x-data-grid";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
 import { useUserForm } from "hooks/useUserForm";
+import { User } from "shared/generated/zod";
 import { SupportedValue } from "utils/formatters";
 
 import { AddUserForm } from "../pages/users/AddUserForm";
@@ -56,16 +57,13 @@ export const Grid = ({
     );
 
     const handleAddFormOpen = async () => {
-        try {
-            await createModal({
-                name: "add_user_modal",
-                title: "Add New User",
-                message: <AddUserForm onClose={() => removeModal()} />,
-            });
-            removeModal();
-        } catch (_error) {
-            removeModal();
-        }
+        await createModal({
+            name: "add_user_modal",
+            title: "Add New User",
+            message: <AddUserForm onClose={() => removeModal()} />,
+        });
+
+        removeModal();
     };
 
     const columns = useMemo(() => {
@@ -105,13 +103,15 @@ export const Grid = ({
                 />
             )}
             <DataGrid
-                rows={filteredRows}
+                rows={filteredRows as User[]}
                 rowHeight={60}
-                // getRowId={(row) =>
-                //     typeof row.id === "string" || typeof row.id === "number"
-                //         ? row.id
-                //         : `${String(row.username ?? "unknown")}-${Math.random().toString(36).substring(2, 9)}`
-                // }
+                getRowId={(row: User) =>
+                    typeof row.id === "string" || typeof row.id === "number"
+                        ? row.id
+                        : `${String(row.username ?? "unknown")}-${Math.random()
+                              .toString(36)
+                              .substring(2, 9)}`
+                }
                 columns={columns}
                 disableRowSelectionOnClick
                 onRowClick={(params: GridRowParams<Record<string, SupportedValue>>) =>

@@ -7,7 +7,6 @@ import { useUnit } from "effector-react";
 import { base } from "api/request";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { createModal } from "components/modal/createModal";
-import { removeModal } from "components/modal/store";
 import { submitReagent } from "stores/reagents";
 
 import { Reagent, ReagentSchema } from "../../../../../shared/generated/zod";
@@ -41,20 +40,18 @@ export const ReagentsListPage = () => {
     const submitReagentEvent = useUnit(submitReagent);
 
     const openAddModal = async () => {
-        try {
-            await createModal({
-                name: "reagent_modal",
-                title: "Add new Reagent",
-                message: <ReagentFormModal />,
-                labels: { ok: "Submit", cancel: "Cancel" },
-            });
+        const response = await createModal({
+            name: "reagent_modal",
+            title: "Add new Reagent",
+            message: <ReagentFormModal />,
+            labels: { ok: "Submit", cancel: "Cancel" },
+        });
+
+        if (response) {
             submitReagentEvent();
             if (tableRef.current?.refresh) {
                 tableRef.current.refresh();
             }
-            removeModal();
-        } catch (_) {
-            removeModal();
         }
     };
 
