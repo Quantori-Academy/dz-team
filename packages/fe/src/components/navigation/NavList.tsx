@@ -51,8 +51,8 @@ const rolesNavLists: RoleToNavList = {
             details: "View and manage reagent requests",
         },
         {
-            href: "/samples",
-            title: "Samples",
+            href: "/combinedList",
+            title: "Combined List",
             details: "Explore existing samples or create new ones",
         },
     ],
