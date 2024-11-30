@@ -1,8 +1,10 @@
 import { forwardRef, useEffect, useImperativeHandle, useState } from "react";
-import { Badge, Box, IconButton, TextField } from "@mui/material";
+import { TextField } from "@mui/material";
 import {
+    DataGrid,
     GridColDef,
     GridPaginationModel,
+    GridRowParams,
     GridSortModel,
     GridValidRowModel,
 } from "@mui/x-data-grid";
@@ -10,8 +12,6 @@ import { z } from "zod";
 
 import { search } from "api/search";
 import { AddRecord } from "components/dataGrid/Addrecord";
-
-import { PureTable } from "./PureTable";
 
 type FetchResponseType<T> = {
     data: T[];
@@ -32,13 +32,6 @@ type GridProps<T extends GridValidRowModel> = {
     onRowClick?: (row: T) => void;
     onAdd?: () => void;
     addButtonText?: string;
-    iconProps?: {
-        badgeContent: number;
-        color: "default" | "primary" | "secondary";
-        onClick: () => void;
-    };
-    icon?: React.ReactNode;
-    rows?: T[];
 };
 
 export interface CommonTableRef {
@@ -84,7 +77,6 @@ const fetchRows = async <T extends GridValidRowModel>({
         setLoading(false);
     }
 };
-// TODO: search doesnt function for rows but function for url
 
 /**
  * CommonTable component is a wrapper around MUI DataGrid component with server-side pagination, sorting, and filtering.
@@ -119,18 +111,7 @@ const fetchRows = async <T extends GridValidRowModel>({
  */
 export const CommonTable: ForwardRefWithGenerics = forwardRef(
     <T extends GridValidRowModel>(
-        {
-            columns,
-            url,
-            schema,
-            searchBy,
-            onRowClick,
-            onAdd,
-            addButtonText = "ADD",
-            icon,
-            iconProps,
-            rows,
-        }: GridProps<T>,
+        { columns, url, schema, searchBy, onRowClick, onAdd, addButtonText = "ADD" }: GridProps<T>,
         ref: React.Ref<CommonTableRef>,
     ) => {
         const [result, setResult] = useState<FetchResponseType<T>>({
@@ -167,73 +148,50 @@ export const CommonTable: ForwardRefWithGenerics = forwardRef(
         }));
 
         useEffect(() => {
-            if (url) {
-                fetchRows({
-                    url,
-                    schema,
-                    searchBy,
-                    pagination,
-                    sort,
-                    query,
-                    setLoading,
-                    setResult,
-                });
-            } else if (rows) {
-                setResult({
-                    data: rows,
-                    meta: {
-                        currentPage: 1,
-                        totalPages: 1,
-                        totalCount: rows.length,
-                        hasNextPage: false,
-                        hasPreviousPage: false,
-                    },
-                });
-            }
-        }, [
-            pagination.page,
-            pagination.pageSize,
-            sort,
-            query,
-            url,
-            schema,
-            searchBy,
-            pagination,
-            rows,
-        ]);
+            fetchRows({
+                url,
+                schema,
+                searchBy,
+                pagination,
+                sort,
+                query,
+                setLoading,
+                setResult,
+            });
+        }, [pagination.page, pagination.pageSize, sort, query, url, schema, searchBy, pagination]);
 
         return (
             <>
-                <Box display="flex" alignItems="center" justifyContent="space-between" mb={2}>
-                    <TextField
-                        label="Search"
-                        variant="outlined"
-                        value={query}
-                        onChange={(e) => setQuery(e.target.value)}
-                        sx={{ minWidth: 200, flex: 1, mt: 2 }}
-                    />
-                    {icon && iconProps && (
-                        <IconButton onClick={iconProps.onClick}>
-                            <Badge badgeContent={iconProps.badgeContent} color={iconProps.color}>
-                                {icon}
-                            </Badge>
-                        </IconButton>
-                    )}
-                </Box>
-                <PureTable
-                    columns={columns}
+                <TextField
+                    label="Search"
+                    variant="outlined"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    sx={{ minWidth: 200, mt: 2 }}
+                />
+
+                <DataGrid
+                    slots={{
+                        toolbar: onAdd
+                            ? () => <AddRecord buttonLabel={addButtonText} onAddRecord={onAdd} />
+                            : undefined,
+                    }}
                     rows={result.data}
+                    columns={columns}
                     paginationModel={pagination}
+                    pageSizeOptions={[5, 10, 25, 50, 100]}
                     onPaginationModelChange={setPagination}
                     rowCount={result.meta.totalCount}
-                    loading={loading}
+                    paginationMode="server"
                     onSortModelChange={setSort}
-                    onRowClick={onRowClick}
-                    addButton={
-                        onAdd ? (
-                            <AddRecord buttonLabel={addButtonText} onAddRecord={onAdd} />
-                        ) : undefined
-                    }
+                    sortingOrder={["asc", "desc"]}
+                    sortingMode="server"
+                    filterMode="server"
+                    loading={loading}
+                    onRowClick={(params: GridRowParams<T>) => onRowClick?.(params.row)}
+                    disableColumnFilter
+                    disableRowSelectionOnClick
+                    sx={{ mt: 2, minHeight: 300 }}
                 />
             </>
         );

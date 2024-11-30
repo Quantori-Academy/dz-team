@@ -28,7 +28,13 @@ export const UserList = () => {
     return (
         <Box sx={boxStyles}>
             <Typography variant="h5">User List</Typography>
-            <Grid rows={users} headers={headers} />
+            <Grid
+                rows={users}
+                headers={headers}
+                showSearchField={true}
+                showAddRecord={true}
+                buttonLabel="Add new user"
+            />
         </Box>
     );
 };

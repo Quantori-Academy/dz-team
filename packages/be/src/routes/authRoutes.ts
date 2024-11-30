@@ -1,7 +1,8 @@
 import { FastifyZodInstance } from "../types";
-
 import { AuthController } from "../controllers/authController";
-import { LoginUser, loginUserSchema } from "../../../shared/zodSchemas/user/loginUserSchema";
+import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
+import { POST_USER_AUTH_SCHEMA } from "../responseSchemas/auth";
+import { LoginUser } from "shared/zodSchemas/user/loginUserSchema";
 
 const authController = new AuthController();
 
@@ -24,11 +25,9 @@ export const authRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.post<{ Body: LoginUser }>(
         "/login",
+
         {
-            schema: {
-                tags: ["Auth"],
-                body: loginUserSchema, // Use the Zod schema directly
-            },
+            schema: POST_USER_AUTH_SCHEMA satisfies FastifyZodOpenApiSchema,
         },
         async (request, reply) => {
             return await authController.login(request, reply);

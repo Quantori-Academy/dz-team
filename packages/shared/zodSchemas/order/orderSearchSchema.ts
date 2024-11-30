@@ -6,14 +6,14 @@ const OrderFieldEnum = z.enum([
     "status",
     "createdAt",
     "updatedAt",
-    "seller",
     "description",
+    "seller",
 ]);
 
 // Define the OrderSearch schema with additional optional fields
 export const OrderSearchSchema = BaseSearchSchema.extend({
     sortBy: z
-        .enum(["title", "seller", "description", "createdAt", "updatedAt"])
+        .enum(["title", "description", "seller", "createdAt", "updatedAt"])
         .default("createdAt"),
     status: z.enum(["pending", "submitted", "fulfilled", "canceled"]).optional(),
     searchBy: z
