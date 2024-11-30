@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 
@@ -75,26 +76,36 @@ export function ReagentRequestPage() {
 
     return (
         <TableContext.Provider value={{ ref: tableRef }}>
-            <CommonTable<ReagentRequest>
-                columns={reagentRequestColumns}
-                ref={tableRef}
-                url={`${base}/api/v1/reagent-request`}
-                schema={ReagentRequestSchema}
-                onRowClick={handleRowClick}
-                searchBy={{
-                    name: true,
-                    description: true,
-                    structure: true,
-                    producer: true,
-                    cas: true,
-                    catalogId: true,
-                    catalogLink: true,
+            <Box
+                sx={{
+                    padding: "40px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "20px",
+                    mb: 5,
                 }}
-                onAdd={openAddModal}
-                addButtonText="Create a Reagent Request"
-            />
+            >
+                <CommonTable<ReagentRequest>
+                    columns={reagentRequestColumns}
+                    ref={tableRef}
+                    url={`${base}/api/v1/reagent-request`}
+                    schema={ReagentRequestSchema}
+                    onRowClick={handleRowClick}
+                    searchBy={{
+                        name: true,
+                        description: true,
+                        structure: true,
+                        producer: true,
+                        cas: true,
+                        catalogId: true,
+                        catalogLink: true,
+                    }}
+                    onAdd={openAddModal}
+                    addButtonText="Create a Reagent Request"
+                />
 
-            <Outlet />
+                <Outlet />
+            </Box>
         </TableContext.Provider>
     );
 }
