@@ -2,7 +2,7 @@ import { useMemo, useState } from "react";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import { TextField } from "@mui/material";
-import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem, GridRowParams } from "@mui/x-data-grid";
 
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
@@ -15,9 +15,20 @@ import { AddRecord } from "./Addrecord";
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
+    showSearchField?: boolean;
+    showAddRecord?: boolean;
+    onRowClick?: (row: Record<string, SupportedValue>) => void;
+    buttonLabel?: string;
 };
 
-export const Grid = ({ rows, headers }: GridProps) => {
+export const Grid = ({
+    rows,
+    headers,
+    showSearchField,
+    showAddRecord,
+    onRowClick,
+    buttonLabel,
+}: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
     const { handleDeleteClick } = useUserForm({});
 
@@ -84,25 +95,28 @@ export const Grid = ({ rows, headers }: GridProps) => {
 
     return (
         <>
-            <TextField
-                variant="outlined"
-                placeholder="Search by name, username, or email"
-                value={searchQuery}
-                onChange={handleSearch}
-                sx={{ width: "350px", marginBottom: "16px" }}
-            />
+            {showSearchField && (
+                <TextField
+                    variant="outlined"
+                    placeholder="Search by name, username, or email"
+                    value={searchQuery}
+                    onChange={handleSearch}
+                    sx={{ width: "350px", marginBottom: "16px" }}
+                />
+            )}
             <DataGrid
                 rows={filteredRows}
                 rowHeight={60}
                 // getRowId={(row) =>
                 //     typeof row.id === "string" || typeof row.id === "number"
                 //         ? row.id
-                //         : `${String(row.username ?? "unknown")}-${Math.random()
-                //               .toString(36)
-                //               .substring(2, 9)}`
+                //         : `${String(row.username ?? "unknown")}-${Math.random().toString(36).substring(2, 9)}`
                 // }
                 columns={columns}
                 disableRowSelectionOnClick
+                onRowClick={(params: GridRowParams<Record<string, SupportedValue>>) =>
+                    onRowClick?.(params.row)
+                }
                 pageSizeOptions={[5, 15, 25, 50]}
                 initialState={{
                     pagination: {
@@ -112,9 +126,10 @@ export const Grid = ({ rows, headers }: GridProps) => {
                     },
                 }}
                 slots={{
-                    toolbar: () => (
-                        <AddRecord buttonLabel="Add New User" onAddRecord={handleAddFormOpen} />
-                    ),
+                    toolbar: () =>
+                        showAddRecord && (
+                            <AddRecord buttonLabel={buttonLabel} onAddRecord={handleAddFormOpen} />
+                        ),
                 }}
             />
         </>
