@@ -60,7 +60,15 @@ export const ReagentsListPage = () => {
 
     return (
         <TableContext.Provider value={{ ref: tableRef }}>
-            <Box sx={{ mb: 5 }}>
+            <Box
+                sx={{
+                    padding: "40px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "20px",
+                    mb: 5,
+                }}
+            >
                 <CommonTable<Reagent>
                     ref={tableRef}
                     columns={columns}
