@@ -1,125 +1,137 @@
 import { useMemo, useState } from "react";
-import { Box, TextField } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import DeleteIcon from "@mui/icons-material/DeleteOutlined";
+import EditIcon from "@mui/icons-material/Edit";
+import { TextField } from "@mui/material";
+import { DataGrid, GridActionsCellItem, GridRowParams } from "@mui/x-data-grid";
 
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
+import { useUserForm } from "hooks/useUserForm";
+import { User } from "shared/generated/zod";
 import { SupportedValue } from "utils/formatters";
 
+import { AddUserForm } from "../pages/users/AddUserForm";
 import { AddRecord } from "./Addrecord";
 
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
-    searchPlaceholder?: string;
-    renderActions?: (row: Record<string, SupportedValue>) => JSX.Element;
-    modalTitle?: string;
-    modalContent?: (removeModal?: () => void) => JSX.Element;
-    showToolbar?: boolean;
-    addButtonLabel?: string;
+    showSearchField?: boolean;
+    showAddRecord?: boolean;
+    onRowClick?: (row: Record<string, SupportedValue>) => void;
+    buttonLabel?: string;
 };
 
 export const Grid = ({
     rows,
     headers,
-    searchPlaceholder = "Search...",
-    renderActions,
-    modalTitle = "Add New Record",
-    modalContent,
-    showToolbar = true,
-    addButtonLabel = "Add New Record",
+    showSearchField,
+    showAddRecord,
+    onRowClick,
+    buttonLabel,
 }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
+    const { handleDeleteClick } = useUserForm({});
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const query = event.target.value;
-        setSearchQuery(query);
+        setSearchQuery(event.target.value);
     };
 
-    const filteredRows = useMemo(() => {
-        if (!searchQuery) return rows;
+    const filteredRows = rows.filter((row) =>
+        Object.values(row).some((value) => {
+            if (typeof value === "string") {
+                return value.toLowerCase().includes(searchQuery.toLowerCase());
+            }
+            if (typeof value === "number") {
+                return value.toString().includes(searchQuery.toLowerCase());
+            }
+            if (value && typeof value === "object") {
+                return Object.values(value).some(
+                    (nestedValue) =>
+                        typeof nestedValue === "string" &&
+                        nestedValue.toLowerCase().includes(searchQuery.toLowerCase()),
+                );
+            }
+            return false;
+        }),
+    );
 
-        return rows.filter((row) =>
-            Object.values(row).some((value) => {
-                if (typeof value === "string") {
-                    return value.toLowerCase().includes(searchQuery.toLowerCase());
-                }
-                if (typeof value === "number") {
-                    return value.toString().includes(searchQuery.toLowerCase());
-                }
-                if (value && typeof value === "object") {
-                    return Object.values(value).some(
-                        (nestedValue) =>
-                            typeof nestedValue === "string" &&
-                            nestedValue.toLowerCase().includes(searchQuery.toLowerCase()),
-                    );
-                }
-                return false;
-            }),
-        );
-    }, [rows, searchQuery]);
+    const handleAddFormOpen = async () => {
+        await createModal({
+            name: "add_user_modal",
+            title: "Add New User",
+            message: <AddUserForm onClose={() => removeModal()} />,
+        });
 
-    const handleAddRecord = async () => {
-        if (!modalContent) return;
-        try {
-            await createModal({
-                name: "add_record_modal",
-                title: modalTitle,
-                message: modalContent(removeModal),
-            });
-            removeModal();
-        } catch (_) {
-            removeModal();
-        }
+        removeModal();
     };
 
     const columns = useMemo(() => {
-        const actionsColumn = {
+        const editColumn = {
             field: "actions",
             headerName: "Actions",
             width: 100,
-            renderCell: (params: { row: { id: string } }) =>
-                renderActions ? renderActions(params.row) : null,
+            renderCell: (params: { row: { id: string } }) => (
+                <>
+                    <GridActionsCellItem
+                        icon={<EditIcon />}
+                        label="Edit"
+                        onClick={() => alert("Edit item:")}
+                        color="inherit"
+                    />
+                    <GridActionsCellItem
+                        icon={<DeleteIcon />}
+                        label="Delete"
+                        onClick={() => handleDeleteClick(params.row.id)}
+                        color="inherit"
+                    />
+                </>
+            ),
         };
-
-        return [...headers, actionsColumn];
-    }, [headers, renderActions]);
+        return [...headers, editColumn];
+    }, [headers, handleDeleteClick]);
 
     return (
         <>
-            <TextField
-                variant="outlined"
-                placeholder={searchPlaceholder}
-                value={searchQuery}
-                onChange={handleSearch}
-                fullWidth
-            />
-            <Box sx={{ height: "300px", width: "100%" }}>
-                <DataGrid
-                    rows={filteredRows}
-                    columns={columns}
-                    rowHeight={60}
-                    disableRowSelectionOnClick
-                    pageSizeOptions={[5, 15, 25, 50]}
-                    initialState={{
-                        pagination: {
-                            paginationModel: {
-                                pageSize: 5,
-                            },
-                        },
-                    }}
-                    slots={{
-                        toolbar: showToolbar
-                            ? () => (
-                                  <AddRecord
-                                      buttonLabel={addButtonLabel}
-                                      onAddRecord={handleAddRecord}
-                                  />
-                              )
-                            : undefined,
-                    }}
+            {showSearchField && (
+                <TextField
+                    variant="outlined"
+                    placeholder="Search by name, username, or email"
+                    value={searchQuery}
+                    onChange={handleSearch}
+                    sx={{ width: "350px", marginBottom: "16px" }}
                 />
-            </Box>
+            )}
+            <DataGrid
+                rows={filteredRows as User[]}
+                rowHeight={60}
+                getRowId={(row: User) =>
+                    typeof row.id === "string" || typeof row.id === "number"
+                        ? row.id
+                        : `${String(row.username ?? "unknown")}-${Math.random()
+                              .toString(36)
+                              .substring(2, 9)}`
+                }
+                columns={columns}
+                disableRowSelectionOnClick
+                onRowClick={(params: GridRowParams<Record<string, SupportedValue>>) =>
+                    onRowClick?.(params.row)
+                }
+                pageSizeOptions={[5, 15, 25, 50]}
+                initialState={{
+                    pagination: {
+                        paginationModel: {
+                            pageSize: 5,
+                        },
+                    },
+                }}
+                slots={{
+                    toolbar: () =>
+                        showAddRecord && (
+                            <AddRecord buttonLabel={buttonLabel} onAddRecord={handleAddFormOpen} />
+                        ),
+                }}
+            />
         </>
     );
 };

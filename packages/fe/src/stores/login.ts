@@ -13,6 +13,7 @@ export const loginFx = genericDomain.createEffect(
         } catch (err) {
             if (err instanceof Error) {
                 dev.error(err.message, err.stack);
+                throw err;
             }
             throw new Error("An unexpected error occurred. Please, try again or contact support.");
         }
