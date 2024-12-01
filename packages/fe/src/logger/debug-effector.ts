@@ -120,7 +120,7 @@ function extraParams(name: string, config: MergedConfig, payload?: AnyType, isSt
     const disableRootOnly = config.filter[name + "_root"];
     if (disableRootOnly === false) return null;
     else {
-        const disableAll = config.filter[name.replace("_done", "")];
+        const disableAll = config.filter[name.replace?.("_done", "")];
         if (disableAll === false) return null;
     }
     const fn = config.fn[name] ?? (isStore ? genericStore : undefined);

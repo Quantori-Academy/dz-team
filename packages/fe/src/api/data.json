@@ -159,6 +159,108 @@
             "lastLoginDate": "2024-10-18 12:45:00"
         }
     ],
+    "/api/v1/storage-locations": [
+        {
+            "id": "7a2b9d34-efc8-4d5a-93cd-2fb2d123abcd",
+            "room": "Building 1, Room 10",
+            "name": "Cabinet 2, Shelf 1",
+            "description": "Storage for general lab chemicals",
+            "deletedAt": null,
+            "createdAt": "2024-11-04T11:35:10.101Z",
+            "updatedAt": "2024-11-04T12:45:20.250Z"
+        },
+        {
+            "id": "1f345a78-b123-4a67-8e2f-3ad56be67cfe",
+            "room": "Building 2, Room 5",
+            "name": "Cabinet 3, Shelf 2",
+            "description": "Storage for flammable chemicals",
+            "deletedAt": null,
+            "createdAt": "2024-11-04T11:40:12.403Z",
+            "updatedAt": "2024-11-04T12:48:35.624Z"
+        },
+        {
+            "id": "3cd98a24-a86b-4c51-85cd-5ff123e5abcd",
+            "room": "Building 3, Room 8",
+            "name": "Cabinet 1, Shelf 4",
+            "description": "Main storage for organic solvents",
+            "deletedAt": null,
+            "createdAt": "2024-11-04T11:50:45.879Z",
+            "updatedAt": "2024-11-04T12:55:47.906Z"
+        },
+        {
+            "id": "8be234f7-dc91-4ab3-8fd7-8e56bc3245ef",
+            "room": "Building 4, Room 3",
+            "name": "Cabinet 2, Shelf 2",
+            "description": "Storage for corrosive materials",
+            "deletedAt": null,
+            "createdAt": "2024-11-04T12:00:03.998Z",
+            "updatedAt": "2024-11-04T13:05:11.654Z"
+        }
+    ],
+    "/api/v1/storage-locations/2ecb0dc1-1cc6-44c8-93e3-ff1646ebadca": {
+        "storageLocation": {
+            "id": "2ecb0dc1-1cc6-44c8-93e3-ff1646ebadca",
+            "room": "Building 4, Room 3",
+            "name": "Room 3, Shelf A3",
+            "description": "Holds basic reagents for tanning, dyeing, and industrial processes.",
+            "deletedAt": null,
+            "createdAt": "2024-11-04T12:00:03.998Z",
+            "updatedAt": "2024-11-04T13:05:11.654Z",
+            "reagents": [
+                {
+                    "id": "945e827c-a609-4aeb-bd04-b4942c3e6a26",
+                    "name": "Acetic Acid",
+                    "structure": "NH4NO3",
+                    "description": "Fungicide and algaecide in agriculture.",
+                    "quantity": 195,
+                    "unit": "g",
+                    "size": 887,
+                    "expirationDate": "2025-09-07T18:20:48.000Z",
+                    "cas": "8251-79-8892",
+                    "producer": "SaltCo Ltd.",
+                    "catalogId": "CAT-001",
+                    "catalogLink": "https://example.com/catalog/CAT-001",
+                    "pricePerUnit": 4.93,
+                    "category": "acidic",
+                    "status": "out_of_stock"
+                },
+                {
+                    "id": "486bdf83-b00a-436e-92fd-0af0a8ebf548",
+                    "name": "Sodium Hydroxide",
+                    "structure": "MgSO4",
+                    "description": "Used in plaster and as a drying agent.",
+                    "quantity": 212,
+                    "unit": "l",
+                    "size": 420,
+                    "expirationDate": "2025-01-18T18:20:48.000Z",
+                    "cas": "2026-54-3008",
+                    "producer": "BioChem Corp.",
+                    "catalogId": "CAT-018",
+                    "catalogLink": "https://example.com/catalog/CAT-018",
+                    "pricePerUnit": 3.83,
+                    "category": "acidic",
+                    "status": "ordered"
+                },
+                {
+                    "id": "0d44be71-726b-442f-b86c-d6c25f856e6b",
+                    "name": "Magnesium Sulfate",
+                    "structure": "H3BO3",
+                    "description": "Photography and disinfectant chemical.",
+                    "quantity": 459,
+                    "unit": "ml",
+                    "size": 721,
+                    "expirationDate": "2026-02-11T18:20:48.000Z",
+                    "cas": "3825-45-9631",
+                    "producer": "AcidMasters Inc.",
+                    "catalogId": "CAT-063",
+                    "catalogLink": "https://example.com/catalog/CAT-063",
+                    "pricePerUnit": 3.92,
+                    "category": "acidic",
+                    "status": "out_of_stock"
+                }
+            ]
+        }
+    },
 
     "/api/v1/auth/login": {
         "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwidXNlcklkIjoiMTIzIiwiaWF0IjoxNTE2MjM5MDIyfQ.13w-xbkD5hYBV-LR73LTz3KOw1JijATmXIebjS6Y2Ww"

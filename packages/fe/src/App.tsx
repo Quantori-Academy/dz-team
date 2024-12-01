@@ -1,24 +1,20 @@
-import "react-toastify/dist/ReactToastify.css";
 import "./logger/debug-load";
 
-import { ToastContainer } from "react-toastify";
 import { ThemeProvider } from "@mui/material";
 import { Outlet } from "@tanstack/react-router";
+import { SnackbarProvider } from "notistack";
 import { theme } from "theme";
 
 export function App() {
     return (
-        <>
+        <SnackbarProvider
+            autoHideDuration={10000}
+            maxSnack={10}
+            anchorOrigin={{ vertical: "top", horizontal: "right" }}
+        >
             <ThemeProvider theme={theme}>
                 <Outlet />
-                <ToastContainer
-                    autoClose={10000}
-                    limit={10}
-                    position="top-right"
-                    closeOnClick
-                    toastStyle={{ backgroundColor: "#FFEFEF", color: "#662727" }}
-                />
             </ThemeProvider>
-        </>
+        </SnackbarProvider>
     );
 }

@@ -1,4 +1,4 @@
-import { genericDomain } from "logger";
+import { createEvent, createStore } from "effector";
 
 export type ModalData = {
     title?: string;
@@ -8,11 +8,15 @@ export type ModalData = {
 
 type StoreType = {
     modal: string | null;
+    resolve: (() => void) | null;
+    reject: (() => void) | null;
     modalData: ModalData;
 };
 
 const initialValue: StoreType = {
     modal: null,
+    resolve: null,
+    reject: null,
     modalData: {
         title: "",
         message: "",
@@ -20,11 +24,11 @@ const initialValue: StoreType = {
     },
 };
 
-export const showModal = genericDomain.createEvent<StoreType>();
-export const buttonClick = genericDomain.createEvent<boolean>();
-export const removeModal = genericDomain.createEvent();
+// Events
+export const saveResolve = createEvent<StoreType>();
+export const removeModal = createEvent();
 
-export const $modal = genericDomain
-    .createStore<StoreType>(initialValue)
-    .on(showModal, (_, payload) => ({ ...payload }))
+// Store
+export const $modal = createStore<StoreType>(initialValue)
+    .on(saveResolve, (_, payload) => ({ ...payload }))
     .on(removeModal, () => initialValue);

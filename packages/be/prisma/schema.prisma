@@ -230,26 +230,21 @@ enum OrderStatus {
 }
 
 model Order {
-  id              String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
-  title           String        // title of the order
-  description     String?       // Description of the order
-  status          OrderStatus   @default(pending) // Status of the order ("pending", "submitted", "fulfilled", "canceled")
-  seller          String?
-  deletedAt       DateTime?     // Date and Time of soft deletion
-  createdAt       DateTime      @default(now()) // Date and Time of Order creation
-  updatedAt       DateTime      @updatedAt // Date and Time of Order modification
+  id          String      @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  title       String // title of the order
+  description String? // Description of the order
+  status      OrderStatus @default(pending) // Status of the order ("pending", "submitted", "fulfilled", "canceled")
+  seller      String // Seller of the ordered reagents
+  deletedAt   DateTime? // Date and Time of soft deletion
+  createdAt   DateTime    @default(now()) // Date and Time of Order creation
+  updatedAt   DateTime    @updatedAt // Date and Time of Order modification
 
   // One-to-many relation with ReagentRequest
   requests ReagentRequest[]
 
   // Many-to-One relation with User
-  userId          String        @db.Uuid /// @zod.string.uuid()
-  user            User?        @relation(fields: [userId], references: [id]) // Procurement Officer who created the Order
+  userId String @db.Uuid /// @zod.string.uuid()
+  user   User?  @relation(fields: [userId], references: [id]) // Procurement Officer who created the Order
 
-  reagents        Json
-}
-
-model Seller {
-  id     String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
-  name   String        @unique
+  reagents Json
 }

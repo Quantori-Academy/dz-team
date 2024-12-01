@@ -1,5 +1,15 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Alert, Box, Button, Link, Paper, TextField, Typography } from "@mui/material";
+import {
+    Alert,
+    Box,
+    Button,
+    Checkbox,
+    FormControlLabel,
+    Link,
+    Paper,
+    TextField,
+    Typography,
+} from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 
@@ -47,12 +57,6 @@ export function LoginForm() {
             setUsernameError("");
         }
     }, [passwordInput, usernameInput]);
-
-    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-        if (event.key === "Enter") {
-            handleLogin();
-        }
-    };
 
     return (
         <Box
@@ -103,7 +107,12 @@ export function LoginForm() {
                     inputRef={passwordInput}
                     error={!!passwordError || !!loginState.errorMessage}
                     label={passwordError || "Password"}
-                    onKeyDown={handleKeyDown}
+                />
+                {/* TODO: use when auth state is added */}
+                <FormControlLabel
+                    label="Remember me"
+                    sx={{ mb: 2 }}
+                    control={<Checkbox sx={{ ml: 1 }} />}
                 />
                 <Button
                     variant="contained"
@@ -117,7 +126,7 @@ export function LoginForm() {
                 >
                     Log In
                 </Button>
-                <Box sx={{ minHeight: 70, mb: 2 }}>
+                <Box sx={{ minHeight: 90, mb: 2 }}>
                     {loginState.errorMessage ? (
                         <Alert severity="error" sx={{ mb: 2 }}>
                             {loginState.errorMessage}

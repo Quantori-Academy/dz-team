@@ -1,17 +1,17 @@
 import { Box, Button, Dialog, Typography } from "@mui/material";
 
-import { buttonClick } from "./store";
-
 interface Props {
     isOpen: boolean;
+    resolve: (value?: unknown) => void | null;
+    reject: (reason?: unknown) => void | null;
     title?: string;
     message?: string | React.ReactNode;
     labels?: { ok: string; cancel: string };
 }
 
-export function Modal({ isOpen, message, title, labels }: Props) {
+export function Modal({ isOpen, message, title, labels, resolve, reject }: Props) {
     return (
-        <Dialog open={isOpen} onClose={() => buttonClick(false)}>
+        <Dialog open={isOpen} onClose={reject}>
             <Box sx={{ p: "18px" }}>
                 <Typography variant="h5">{title}</Typography>
                 {typeof message === "string" ? (
@@ -31,12 +31,12 @@ export function Modal({ isOpen, message, title, labels }: Props) {
                     }}
                 >
                     {labels?.ok && (
-                        <Button variant="contained" onClick={() => buttonClick(true)}>
+                        <Button variant="contained" onClick={resolve}>
                             {labels.ok}
                         </Button>
                     )}
                     {labels?.cancel && (
-                        <Button variant="outlined" onClick={() => buttonClick(false)}>
+                        <Button variant="outlined" onClick={reject}>
                             {labels.cancel}
                         </Button>
                     )}

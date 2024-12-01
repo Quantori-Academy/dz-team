@@ -31,17 +31,6 @@ export enum Roles {
     RESEARCHER = "researcher",
 }
 
-export type SearchResults<T> = {
-    data: T[];
-    meta: {
-        currentPage: number;
-        totalPages: number;
-        totalCount: number;
-        hasNextPage: boolean;
-        hasPreviousPage: boolean;
-    };
-};
-
 // Extend FastifyZodInstance with custom decorators
 export type FastifyZodInstance = FastifyInstance<
     RawServerDefault,

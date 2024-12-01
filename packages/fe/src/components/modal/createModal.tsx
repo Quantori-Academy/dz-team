@@ -1,4 +1,4 @@
-import { buttonClick, ModalData, removeModal, showModal } from "./store";
+import { ModalData, saveResolve } from "./store";
 
 type GenericModalDetails = {
     name: string;
@@ -10,15 +10,11 @@ export function createModal({
     message,
     labels,
 }: GenericModalDetails): Promise<unknown> {
-    return new Promise((resolve) => {
-        const unwatch = buttonClick.watch((response) => {
-            unwatch();
-            resolve(response);
-            removeModal();
-        });
-
-        showModal({
+    return new Promise((resolve, reject) => {
+        saveResolve({
             modal: name,
+            resolve: resolve as () => void,
+            reject,
             modalData: { title, message, labels },
         });
     });

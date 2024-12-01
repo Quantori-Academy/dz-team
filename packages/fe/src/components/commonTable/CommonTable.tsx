@@ -57,7 +57,6 @@ const fetchRows = async <T extends GridValidRowModel>({
     setLoading: (loading: boolean) => void;
     setResult: (result: FetchResponseType<T>) => void;
 }) => {
-    if (!url) return;
     setLoading(true);
     try {
         const result = await search({

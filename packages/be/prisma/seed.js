@@ -3,7 +3,6 @@ const reagents = require("./seedData/reagents.json");
 const samples = require("./seedData/samples.json");
 const storage = require("./seedData/storage_db.json");
 const orders = require("./seedData/orders.json");
-const sellers = require("./seedData/sellers.json");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
@@ -92,21 +91,6 @@ async function addSamples(storageCount) {
     console.log("🥀 No new samples were added.");
 }
 
-async function addSellers() {
-    const sellerCount = await prisma.seller.count();
-    if (!sellerCount) {
-        const results = sellers.map(order => ({
-            ...order,
-        }));
-        const table = await prisma.seller.createMany({
-            data: results,
-            skipDuplicates: true,
-        });
-        console.log(`📦 Seeded database with ${table.count} seller records.`);
-    } else {
-        console.log("🥀 No new sellers were added.");
-    }
-}
 
 async function addOrders() {
     const orderCount = await prisma.order.count();
@@ -166,9 +150,7 @@ async function main() {
         } else {
             await addReagents(storageCount);
             await addSamples(storageCount);
-            await addSellers()
             await addOrders();
-
         }
     }
 }

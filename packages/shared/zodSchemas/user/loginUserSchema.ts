@@ -1,4 +1,4 @@
-import "zod-openapi/extend";
+import 'zod-openapi/extend'
 import { z } from "zod";
 
 export const loginUserSchema = z

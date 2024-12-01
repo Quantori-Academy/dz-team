@@ -1,4 +1,4 @@
-import { toast } from "react-toastify";
+import { enqueueSnackbar } from "notistack";
 
 export function handleError(err: Error, url: unknown, options?: object): void {
     const errorDetails = `
@@ -10,5 +10,5 @@ Options: ${JSON.stringify(options, null, 2)}
 `;
 
     dev.error(`Full error information:\n${errorDetails}`);
-    toast.error(err.message);
+    enqueueSnackbar(err.message, { variant: "error" });
 }

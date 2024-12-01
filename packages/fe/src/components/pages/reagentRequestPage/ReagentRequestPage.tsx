@@ -1,5 +1,4 @@
 import { useRef, useState } from "react";
-import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 
@@ -7,7 +6,6 @@ import { CreateReagentRequestType, initialFormData } from "api/reagentRequest";
 import { base, request } from "api/request";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { TableContext } from "components/commonTable/TableContext";
-import { createModal } from "components/modal/createModal";
 
 import { ReagentRequest, ReagentRequestSchema } from "../../../../../shared/generated/zod";
 import { ReagentRequestFormModal } from "./ReagentRequestFormModal";
@@ -30,7 +28,10 @@ export function ReagentRequestPage() {
     const navigate = useNavigate();
     const tableRef = useRef<CommonTableRef | null>(null);
 
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const [formData, setFormData] = useState<CreateReagentRequestType>(initialFormData);
+    const handleModalClose = () => setIsModalOpen(false);
+    const handleAddReagentRequestClick = () => setIsModalOpen(true);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -52,57 +53,43 @@ export function ReagentRequestPage() {
     const handleSubmit = () => {
         submitReagentRequest(formData);
         setFormData(initialFormData);
+        handleModalClose();
     };
 
     const handleRowClick = (row: ReagentRequest) => {
         navigate({ to: `/reagentRequests/${row.id}`, replace: false });
     };
 
-    const openAddModal = async () => {
-        const response = await createModal({
-            name: "reagent_request_modal",
-            title: "Add New Reagent Request",
-            message: <ReagentRequestFormModal formData={formData} handleChange={handleChange} />,
-            labels: { ok: "Submit", cancel: "Cancel" },
-        });
-
-        if (response) {
-            handleSubmit();
-        }
-    };
-
     return (
         <TableContext.Provider value={{ ref: tableRef }}>
-            <Box
-                sx={{
-                    padding: "40px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "20px",
-                    mb: 5,
+            <CommonTable<ReagentRequest>
+                columns={reagentRequestColumns}
+                ref={tableRef}
+                url={`${base}/api/v1/reagent-request`}
+                schema={ReagentRequestSchema}
+                onRowClick={handleRowClick}
+                searchBy={{
+                    name: true,
+                    description: true,
+                    structure: true,
+                    producer: true,
+                    cas: true,
+                    catalogId: true,
+                    catalogLink: true,
                 }}
-            >
-                <CommonTable<ReagentRequest>
-                    columns={reagentRequestColumns}
-                    ref={tableRef}
-                    url={`${base}/api/v1/reagent-request`}
-                    schema={ReagentRequestSchema}
-                    onRowClick={handleRowClick}
-                    searchBy={{
-                        name: true,
-                        description: true,
-                        structure: true,
-                        producer: true,
-                        cas: true,
-                        catalogId: true,
-                        catalogLink: true,
-                    }}
-                    onAdd={openAddModal}
-                    addButtonText="Create a Reagent Request"
-                />
+                onAdd={handleAddReagentRequestClick}
+                addButtonText="Create a Reagent Request"
+            />
 
-                <Outlet />
-            </Box>
+            <ReagentRequestFormModal
+                isOpen={isModalOpen}
+                formData={formData}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+                handleModalClose={handleModalClose}
+            />
+
+            <Outlet />
         </TableContext.Provider>
     );
 }
