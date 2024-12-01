@@ -61,7 +61,6 @@ export const Grid = ({
 
     const handleAddRecord = async () => {
         if (!modalContent) return;
-
         try {
             await createModal({
                 name: "add_record_modal",
