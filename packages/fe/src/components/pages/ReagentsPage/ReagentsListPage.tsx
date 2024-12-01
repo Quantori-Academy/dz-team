@@ -7,6 +7,7 @@ import { useUnit } from "effector-react";
 import { base } from "api/request";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { createModal } from "components/modal/createModal";
+import { removeModal } from "components/modal/store";
 import { submitReagent } from "stores/reagents";
 
 import { Reagent, ReagentSchema } from "../../../../../shared/generated/zod";
@@ -53,6 +54,7 @@ export const ReagentsListPage = () => {
                 tableRef.current.refresh();
             }
         }
+        removeModal();
     };
 
     return (
