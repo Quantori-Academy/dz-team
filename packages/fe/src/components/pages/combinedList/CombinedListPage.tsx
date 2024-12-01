@@ -4,9 +4,13 @@ import { GridColDef } from "@mui/x-data-grid";
 
 import { base } from "api/request";
 import { CommonTable } from "components/commonTable/CommonTable";
+import { createModal } from "components/modal/createModal";
+import { removeModal } from "components/modal/store";
 import CombinedListSchema, {
     CombinedList,
 } from "shared/generated/zod/modelSchema/CombinedListSchema";
+
+import { AddSampleForm } from "./AddSampleForm";
 
 const columns: GridColDef<CombinedList>[] = [
     { field: "id", headerName: "ID", width: 90, sortable: false },
@@ -27,15 +31,25 @@ const columns: GridColDef<CombinedList>[] = [
 ];
 
 export const CombinedListPage = () => {
+    const openAddModal = async () => {
+        try {
+            await createModal({
+                name: "sample_modal",
+                title: "Add New Sample",
+                message: <AddSampleForm onClose={removeModal} />,
+            });
+
+            removeModal();
+        } catch (_) {
+            removeModal();
+        }
+    };
     return (
         <Box sx={{ mb: 5 }}>
             <CommonTable<CombinedList>
                 columns={columns}
                 url={`${base}/api/v1/list`}
                 schema={CombinedListSchema}
-                // onRowClick={(row: Reagent) => {
-                //     navigate({ to: `/reagents/${row.id}`, replace: false });
-                // }}
                 searchBy={{
                     name: true,
                     room: true,
@@ -45,8 +59,8 @@ export const CombinedListPage = () => {
                     catalogId: true,
                     catalogLink: true,
                 }}
-                // onAdd={openAddModal}
-                addButtonText="add Sample"
+                onAdd={openAddModal}
+                addButtonText="Add New Sample"
             />
             <Outlet />
         </Box>
