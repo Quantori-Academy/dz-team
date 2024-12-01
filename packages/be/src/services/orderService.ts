@@ -119,13 +119,13 @@ export class OrderService {
      * @param {Prisma.OrderUpdateInput} updateOrderData - The data to update the order.
      * @returns {Promise<Order | { message: string }>} A promise that resolves to the updated order object.
      */
-    async updateOrder(id: string, updateOrderData: unknown): Promise<Order> {
+    async updateOrder(id: string, updateOrderData: unknown): Promise<Order | { message: string }> {
         const existingOrder = await prisma.order.findUnique({
             where: { id },
         });
 
         if (existingOrder?.status !== OrderStatus.pending) {
-            throw new Error("Order can only be deleted if it is in 'pending' status.");
+            return { message: "Order can only be deleted if it is in 'pending' status." };
         }
         // Validate the general order data (excluding reagents)
         const validatedData = OrderUpdateWithUserIdInputSchema.parse(updateOrderData);
@@ -160,7 +160,7 @@ export class OrderService {
 
         // If the order is not 'pending', allow status updates (e.g., fulfilling the order, etc.)
         if (existingOrder?.status === OrderStatus.pending) {
-            throw new Error("Order status can only be updated after it is no longer 'pending'.");
+            return { message: "Order status can only be updated after it is no longer 'pending'." };
         }
 
         // Update and return the order with the new status

@@ -18,15 +18,13 @@ export const updateUserSchema = z.object({
         .email({
             message: "Invalid email format.",
         })
-        .optional()
-        .default("newEmail@example.com"),
+        .optional(),
     password: z
         .string()
         .min(8, {
             message: "Password must be at least 8 characters long.",
         })
-        .optional()
-        .default("newPassword"),
+        .optional(),
     role: z
         .enum(["admin", "researcher", "procurementOfficer"], {
             message: "Role must be either admin, researcher, or procurementOfficer.",

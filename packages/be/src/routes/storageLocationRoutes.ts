@@ -1,19 +1,13 @@
 import { FastifyZodInstance, Roles } from "../types";
-import { checkAuthenticated, checkAuthenticatedAndRole } from "../utils/authCheck";
-import { StorageLocationController } from "../controllers/storageLocationController";
-import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
+
 import {
-    DELETE_STORAGE_LOCATION_BY_ID_SCHEMA,
-    GET_STORAGE_LOCATION_BY_ID_SCHEMA,
-    GET_STORAGE_LOCATIONS_SCHEMA,
-    PATCH_STORAGE_LOCATION_BY_ID_SCHEMA,
-    POST_STORAGE_LOCATION_SCHEMA,
-    PUT_MOVE_STORAGE_LOCATION_SCHEMA,
-    PUT_STORAGE_LOCATION_BY_ID,
-    StorageLocationCreationSchema,
-    StorageLocationUpdateSchema,
-} from "../responseSchemas/storageLocations";
-import { StorageLocationSearchSchema } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
+    StorageLocationCreateInputSchema,
+    StorageLocationUpdateInputSchema,
+} from "../../../shared/generated/zod/inputTypeSchemas";
+
+import { StorageLocationController } from "../controllers/storageLocationController";
+import { checkAuthenticated, checkAuthenticatedAndRole } from "../utils/authCheck";
+import { StorageLocationSearchSchema } from "../../../shared/zodSchemas/storageLocation/storageLocationSearchSchema";
 
 const storageLocationController = new StorageLocationController();
 
@@ -34,7 +28,7 @@ export const storageLocationRoutes = async (app: FastifyZodInstance): Promise<vo
     app.get<{ Querystring: typeof StorageLocationSearchSchema }>(
         "/",
         {
-            schema: GET_STORAGE_LOCATIONS_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["StorageLocation"] },
             preHandler: [checkAuthenticated()],
         },
         async (request, reply) => {
@@ -52,7 +46,7 @@ export const storageLocationRoutes = async (app: FastifyZodInstance): Promise<vo
     app.get<{ Params: { id: string } }>(
         "/:id",
         {
-            schema: GET_STORAGE_LOCATION_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["StorageLocation"] },
             preHandler: [checkAuthenticated()],
         },
         async (request, reply) => {
@@ -64,13 +58,13 @@ export const storageLocationRoutes = async (app: FastifyZodInstance): Promise<vo
      * POST / - Creates a new storage location.
      * Requires ADMIN role.
      *
-     * @body {typeof StorageLocationCreationSchema} Body - The data to create a storage location.
+     * @body {typeof StorageLocationCreateInputSchema} Body - The data to create a storage location.
      * @returns {Promise<void>} The created storage location.
      */
-    app.post<{ Body: typeof StorageLocationCreationSchema }>(
+    app.post<{ Body: typeof StorageLocationCreateInputSchema }>(
         "/",
         {
-            schema: POST_STORAGE_LOCATION_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["StorageLocation"], body: StorageLocationCreateInputSchema },
             preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
         },
         async (request, reply) => {
@@ -83,13 +77,13 @@ export const storageLocationRoutes = async (app: FastifyZodInstance): Promise<vo
      * Requires ADMIN role.
      *
      * @param {string} id - The ID of the storage location to update.
-     * @body {typeof StorageLocationUpdateSchema} Body - The updated data for the storage location.
+     * @body {typeof StorageLocationUpdateInputSchema} Body - The updated data for the storage location.
      * @returns {Promise<void>} The updated storage location.
      */
-    app.put<{ Params: { id: string }; Body: typeof StorageLocationUpdateSchema }>(
+    app.put<{ Params: { id: string }; Body: typeof StorageLocationUpdateInputSchema }>(
         "/:id",
         {
-            schema: PUT_STORAGE_LOCATION_BY_ID satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["StorageLocation"], body: StorageLocationUpdateInputSchema },
             preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
         },
         async (request, reply) => {
@@ -107,7 +101,7 @@ export const storageLocationRoutes = async (app: FastifyZodInstance): Promise<vo
     app.delete<{ Params: { id: string } }>(
         "/:id",
         {
-            schema: DELETE_STORAGE_LOCATION_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["StorageLocation"] },
             preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
         },
         async (request, reply) => {
@@ -125,7 +119,7 @@ export const storageLocationRoutes = async (app: FastifyZodInstance): Promise<vo
     app.patch<{ Params: { id: string } }>(
         "/:id",
         {
-            schema: PATCH_STORAGE_LOCATION_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["StorageLocation"] },
             preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
         },
         async (request, reply) => {
@@ -145,7 +139,7 @@ export const storageLocationRoutes = async (app: FastifyZodInstance): Promise<vo
     app.put<{ Params: { reagentId: string }; Body: { newStorageLocationId: string } }>(
         "/:reagentId/move",
         {
-            schema: PUT_MOVE_STORAGE_LOCATION_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["StorageLocation"] },
             preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
         },
         async (request, reply) => {

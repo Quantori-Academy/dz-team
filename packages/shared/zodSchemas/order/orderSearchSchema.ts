@@ -8,6 +8,7 @@ const OrderFieldEnum = z.enum([
     "updatedAt",
     "seller",
     "description",
+    "title",
 ]);
 
 // Define the OrderSearch schema with additional optional fields

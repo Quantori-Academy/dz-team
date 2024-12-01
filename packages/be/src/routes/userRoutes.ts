@@ -1,17 +1,12 @@
 import { FastifyZodInstance, Roles } from "../types";
+
 import { UserController } from "../controllers/userController";
 import { checkAuthenticated, checkAuthenticatedAndRole } from "../utils/authCheck";
-import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import {
-    DELETE_USER_BY_SCHEMA,
-    GET_CURRENT_USER_SCHEMA,
-    GET_USER_BY_ID_SCHEMA,
-    GET_USERS_SCHEMA,
-    POST_NEW_USER_SCHEMA,
-    UPDATE_USER_BY_ID_SCHEMA,
-} from "../responseSchemas/users";
-import { RegisterUser } from "shared/zodSchemas/user/registerUserSchema";
-import { UpdateUser } from "shared/zodSchemas/user/updateUserSchema";
+    RegisterUser,
+    registerUserSchema,
+} from "../../../shared/zodSchemas/user/registerUserSchema";
+import { UpdateUser, updateUserSchema } from "../../../shared/zodSchemas/user/updateUserSchema";
 
 const userController = new UserController();
 
@@ -34,7 +29,7 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.get(
         "/",
         {
-            schema: GET_USERS_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["Users"] },
             preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
         },
         async (request, reply) => {
@@ -53,7 +48,7 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.get<{ Params: { userId: string } }>(
         "/:userId",
         {
-            schema: GET_USER_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["Users"] },
             preHandler: [checkAuthenticated()],
         },
         async (request, reply) => {
@@ -74,8 +69,8 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.post<{ Body: RegisterUser }>(
         "/",
         {
-            schema: POST_NEW_USER_SCHEMA satisfies FastifyZodOpenApiSchema,
-            // preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
+            schema: { tags: ["Users"], body: registerUserSchema },
+            preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
         },
         async (request, reply) => {
             return await userController.createUser(request, reply);
@@ -95,7 +90,7 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.put<{ Params: { userId: string }; Body: UpdateUser }>(
         "/:userId",
         {
-            schema: UPDATE_USER_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["Users"], body: updateUserSchema },
             preHandler: [checkAuthenticated()],
         },
         async (request, reply) => {
@@ -116,8 +111,8 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.delete<{ Params: { userId: string } }>(
         "/:userId",
         {
-            schema: DELETE_USER_BY_SCHEMA satisfies FastifyZodOpenApiSchema,
-            // preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
+            schema: { tags: ["Users"] },
+            preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
         },
         async (request, reply) => {
             return await userController.deleteUser(request, reply);
@@ -135,7 +130,7 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.get(
         "/me",
         {
-            schema: GET_CURRENT_USER_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["Users"] },
             preHandler: [
                 async (request, reply) => {
                     // Ensure verifyJWT and verifyRole exist, otherwise block the request
