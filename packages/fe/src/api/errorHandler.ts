@@ -10,5 +10,5 @@ Options: ${JSON.stringify(options, null, 2)}
 `;
 
     dev.error(`Full error information:\n${errorDetails}`);
-    toast.error(err.message);
+    toast.error(err.message, { style: { backgroundColor: "#FFEFEF", color: "#662727" } });
 }
