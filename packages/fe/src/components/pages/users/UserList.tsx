@@ -20,7 +20,7 @@ export const UserList = () => {
     const { users, handleDeleteClick, notification, handleClose } = useUserForm({});
 
     return (
-        <Box sx={{ padding: "40px" }}>
+        <Box>
             <Grid
                 rows={users}
                 headers={headers}

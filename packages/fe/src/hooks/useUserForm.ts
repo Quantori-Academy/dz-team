@@ -33,7 +33,6 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
     };
     const handleClose = () => setNotification({ ...notification, open: false });
 
-    // Form validation
     const validateForm = (formData: NewUser) => {
         const errors: Partial<Record<keyof NewUser, string>> = {};
 
@@ -75,7 +74,6 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
         return errors;
     };
 
-    // Submit handler
     const handleSubmit = () => {
         const formData: NewUser = {
             username: refs.username.current?.value || "",

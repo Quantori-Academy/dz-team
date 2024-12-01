@@ -19,7 +19,7 @@ const input = {
 };
 
 interface AddUserFormProps {
-    onClose: () => void;
+    onClose?: () => void;
 }
 
 export const AddUserForm = ({ onClose }: AddUserFormProps) => {
