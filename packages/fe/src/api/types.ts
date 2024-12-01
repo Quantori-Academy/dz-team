@@ -15,9 +15,3 @@ export type ResponseUser = {
     password?: string;
     role: "Admin" | "Procurement Officer" | "Researcher";
 };
-
-export type NewStorage = {
-    name: string;
-    room: string;
-    description: string;
-};

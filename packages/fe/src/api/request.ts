@@ -40,6 +40,22 @@ const api = ky.create({
                 return request;
             },
         ],
+        beforeError: [
+            async (error) => {
+                const { response } = error;
+                const body = await response.json();
+                if (
+                    body &&
+                    typeof body === "object" &&
+                    "message" in body &&
+                    typeof body.message === "string"
+                ) {
+                    error.message = body.message;
+                }
+
+                return error;
+            },
+        ],
     },
 });
 
