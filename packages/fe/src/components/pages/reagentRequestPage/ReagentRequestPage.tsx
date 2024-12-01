@@ -8,6 +8,7 @@ import { base, request } from "api/request";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { TableContext } from "components/commonTable/TableContext";
 import { createModal } from "components/modal/createModal";
+import { removeModal } from "components/modal/store";
 
 import { ReagentRequest, ReagentRequestSchema } from "../../../../../shared/generated/zod";
 import { ReagentRequestFormModal } from "./ReagentRequestFormModal";
@@ -69,6 +70,7 @@ export function ReagentRequestPage() {
         if (response) {
             handleSubmit();
         }
+        removeModal();
     };
 
     return (
