@@ -5,10 +5,8 @@ import {
     StorageLocationUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
 
-
-import { StorageLocation } from "../../../shared/generated/zod";
-import { StorageLocationSearch } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
-
+import { StorageLocation, Reagent } from "../../../shared/generated/zod";
+import { StorageLocationSearch } from "../../../shared/zodSchemas/storageLocation/storageLocationSearchSchema";
 
 const prisma = new PrismaClient();
 
@@ -48,7 +46,6 @@ export class StorageLocationService {
                 room ? { room: { contains: room, mode: Prisma.QueryMode.insensitive } } : {},
                 name ? { name: { contains: name, mode: Prisma.QueryMode.insensitive } } : {},
                 searchConditions ? { OR: searchConditions } : {},
-                { deletedAt: null },
             ].filter(Boolean),
         };
 
@@ -87,10 +84,7 @@ export class StorageLocationService {
         id: string,
     ): Promise<(StorageLocation & { reagents: Reagent[] }) | null> {
         return prisma.storageLocation.findUnique({
-            where: {
-                id,
-                deletedAt: null,
-            },
+            where: { id },
             include: {
                 reagents: true,
             },
@@ -133,19 +127,14 @@ export class StorageLocationService {
      * @param {string} id - The ID of the storage location to delete.
      * @returns {Promise<StorageLocation | { message: string }>} The soft-deleted storage location or a message if deletion is restricted.
      */
-    async deleteStorageLocation(id: string): Promise<StorageLocation> {
+    async deleteStorageLocation(id: string): Promise<StorageLocation | { message: string }> {
         // Check for associated reagents
         const reagentCount = await prisma.reagent.count({
             where: { storageId: id },
         });
 
-        const locationById = (await prisma.storageLocation.findUnique({
-            where: { id: id },
-        }))!;
-
         if (reagentCount > 0) {
-            // return same location without updating deletedAt
-            return locationById;
+            return { message: "Cannot delete storage location: It has associated reagents." };
         }
 
         // Update deletedAt to for soft deletion

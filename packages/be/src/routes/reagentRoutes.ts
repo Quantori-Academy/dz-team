@@ -1,18 +1,7 @@
+import { ReagentCreateInputSchema, ReagentUpdateInputSchema } from "../../../shared/generated/zod";
 import { ReagentController } from "../controllers/reagentController";
 import { FastifyZodInstance } from "../types";
-import {
-    DELETE_REAGENT_BY_ID_SCHEMA,
-    GET_REAGENT_BY_ID_SCHEMA,
-    GET_REAGENTS_SCHEMA,
-    PATCH_REAGENT_BY_ID_SCHEMA,
-    POST_REAGENTS_SCHEMA,
-    PUT_REAGENT_BY_ID_SCHEMA,
-} from "../responseSchemas/reagents";
-import { FastifyZodOpenApiSchema, FastifyZodOpenApiTypeProvider } from "fastify-zod-openapi";
-import ReagentCreateManyInputSchema from "shared/generated/zod/inputTypeSchemas/ReagentCreateManyInputSchema";
-import { ReagentSearch } from "shared/zodSchemas/reagent/reagentSearchSchema";
-import { ReagentUpdateManyMutationInputSchema } from "shared/generated/zod";
-
+import { ReagentSearch } from "../../../shared/zodSchemas/reagent/reagentSearchSchema";
 
 const reagentController = new ReagentController();
 
@@ -29,7 +18,7 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
      * @name GetReagents
      * @function
      * @memberof module:routes
-     * @param {import("shared/zodSchemas/reagent/reagentSearchSchema").ReagentSearch} request.query - The search parameters for filtering reagents.
+     * @param {import("shared/zodSchemas").ReagentSearch} request.query - The search parameters for filtering reagents.
      * @param {Object} reply - The reply object.
      * @returns {Promise<Object>} The list of reagents and metadata.
      * @throws {Error} Throws an error if there is an issue retrieving reagents.
@@ -38,7 +27,7 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
      * @property {number} [page] - The page number for pagination.
      * @property {number} [limit] - The number of results per page.
      * @property {string} [sortBy] - The field to sort the results by.
-     * @property {"asc" | "desc"} [sortOrder] - The order to sort the results.
+     * @property {'asc' | 'desc'} [sortOrder] - The order to sort the results.
      * @property {string} [category] - The category of reagents to filter by.
      * @property {string} [status] - The status of reagents to filter by.
      * @property {string} [storageLocation] - The storage location to filter by.
@@ -48,11 +37,9 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
      * // Example query
      * GET /?page=1&limit=20&sortBy=name&sortBy=structure&sortOrder=asc
      */
-    app.withTypeProvider<FastifyZodOpenApiTypeProvider>().get<{ Querystring: ReagentSearch }>(
+    app.get<{ Querystring: ReagentSearch }>(
         "/",
-        {
-            schema: GET_REAGENTS_SCHEMA satisfies FastifyZodOpenApiSchema,
-        },
+        { schema: { tags: ["Reagent"] } },
         async (request, reply) => {
             return await reagentController.getReagents(request, reply);
         },
@@ -68,7 +55,7 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.get<{ Params: { id: string } }>(
         "/:id",
-        { schema: GET_REAGENT_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema },
+        { schema: { tags: ["Reagent"] } },
         async (request, reply) => {
             return await reagentController.getReagent(request, reply);
         },
@@ -78,15 +65,13 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
      * @route POST /
      * @tags Reagent
      * @summary Create a new reagent.
-     * @param {ReagentSchema} request.body.required - Reagent data to create
+     * @param {ReagentCreateInputSchema} request.body.required - Reagent data to create
      * @returns {Reagent} 201 - The created reagent
      * @returns {Error} 400 - Validation error
      */
-    app.post<{ Body: typeof ReagentCreateManyInputSchema }>(
+    app.post<{ Body: typeof ReagentCreateInputSchema }>(
         "/",
-        {
-            schema: POST_REAGENTS_SCHEMA satisfies FastifyZodOpenApiSchema,
-        },
+        { schema: { tags: ["Reagent"], body: ReagentCreateInputSchema } },
         async (request, reply) => {
             return await reagentController.createReagent(request, reply);
         },
@@ -97,14 +82,14 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
      * @tags Reagent
      * @summary Update an existing reagent by ID.
      * @param {string} id.params.required - Reagent ID
-     * @param {ReagentUpdateManyMutationInputSchema} request.body.required - Data to update the reagent
+     * @param {ReagentUpdateInputSchema} request.body.required - Data to update the reagent
      * @returns {Reagent} 200 - The updated reagent
      * @returns {Error} 404 - Reagent not found
      * @returns {Error} 400 - Validation error
      */
-    app.put<{ Params: { id: string }; Body: typeof ReagentUpdateManyMutationInputSchema }>(
+    app.put<{ Params: { id: string }; Body: typeof ReagentUpdateInputSchema }>(
         "/:id",
-        { schema: PUT_REAGENT_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema },
+        { schema: { tags: ["Reagent"], body: ReagentUpdateInputSchema } },
         async (request, reply) => {
             return await reagentController.updateReagent(request, reply);
         },
@@ -120,7 +105,7 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.delete<{ Params: { id: string } }>(
         "/:id",
-        { schema: DELETE_REAGENT_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema },
+        { schema: { tags: ["Reagent"] } },
         async (request, reply) => {
             return await reagentController.deleteReagent(request, reply);
         },
@@ -136,7 +121,7 @@ export const reagentRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.patch<{ Params: { id: string } }>(
         "/:id",
-        { schema: PATCH_REAGENT_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema },
+        { schema: { tags: ["Reagent"] } },
         async (response, reply) => {
             return await reagentController.undoDeleteReagent(response, reply);
         },

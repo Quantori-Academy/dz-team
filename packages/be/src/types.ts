@@ -8,7 +8,7 @@ import {
     FastifyReply,
 } from "fastify";
 
-import type { FastifyZodOpenApiTypeProvider } from "fastify-zod-openapi";
+import { ZodTypeProvider } from "fastify-type-provider-zod";
 
 // Define the JWT payload type with roles
 export interface JwtPayload {
@@ -37,7 +37,7 @@ export type FastifyZodInstance = FastifyInstance<
     RawRequestDefaultExpression<RawServerDefault>,
     RawReplyDefaultExpression<RawServerDefault>,
     FastifyBaseLogger,
-    FastifyZodOpenApiTypeProvider
+    ZodTypeProvider
 > & {
     verifyJWT?: (request: FastifyRequest, reply: FastifyReply) => Promise<void>;
     verifyRole?: (

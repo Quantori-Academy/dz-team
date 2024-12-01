@@ -1,13 +1,7 @@
 import cors from "@fastify/cors";
 import fastify from "fastify";
-import {
-    fastifyZodOpenApiPlugin,
-    type FastifyZodOpenApiTypeProvider,
-    serializerCompiler,
-    validatorCompiler,
-} from "fastify-zod-openapi";
-import { extendZodWithOpenApi } from "zod-openapi";
-import { z } from "zod";
+
+import { serializerCompiler, validatorCompiler, ZodTypeProvider } from "fastify-type-provider-zod";
 
 import { generateOpenApiSchema } from "./utils/generateOpenApi";
 import { isProd } from "./utils/isProd";
@@ -18,9 +12,7 @@ import { jwtConfig } from "./utils/jwtConfig";
 
 import { apiRoutes } from "./routes/apiRoutes";
 
-// Extend Zod with OpenAPI capabilities
-extendZodWithOpenApi(z);
-const server = fastify().withTypeProvider<FastifyZodOpenApiTypeProvider>();
+const server = fastify().withTypeProvider<ZodTypeProvider>();
 
 const corsOptions = isProd
     ? ["http://vm4.quantori.academy"]
@@ -29,7 +21,6 @@ const corsOptions = isProd
 server.setValidatorCompiler(validatorCompiler);
 
 server.setSerializerCompiler(serializerCompiler);
-server.register(fastifyZodOpenApiPlugin);
 
 server.register(cors, {
     origin: corsOptions,
