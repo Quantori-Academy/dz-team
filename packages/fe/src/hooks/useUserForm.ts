@@ -24,12 +24,7 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
     // User delete handler
 
     const handleDeleteClick = async (id: string) => {
-        try {
-            await deleteUserFx(id);
-            setNotification({ open: true, message: "User deleted successfully!", type: "success" });
-        } catch {
-            setNotification({ open: true, message: "Failed to delete the user.", type: "error" });
-        }
+        await deleteUserFx(id);
     };
     const handleClose = () => setNotification({ ...notification, open: false });
 
