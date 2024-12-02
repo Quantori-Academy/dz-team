@@ -6401,6 +6401,14 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "tags": ["Order"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
             }
         },
         "/api/v1/orders/{id}": {
@@ -6641,6 +6649,24 @@
                                 }
                             }
                         }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Order"],
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
                     }
                 }
             }
@@ -7068,6 +7094,328 @@
                 "responses": {
                     "200": {
                         "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/requests/": {
+            "get": {
+                "summary": "Retrieves all requests with metadata for available pages",
+                "tags": ["Requests"],
+                "description": "Retrieve all available requests.",
+                "responses": {
+                    "200": {
+                        "description": "Requests list with metadata.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "format": "uuid"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "structure": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "cas": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "quantity": {
+                                                        "type": "number",
+                                                        "minimum": 0,
+                                                        "exclusiveMinimum": true
+                                                    },
+                                                    "unit": {
+                                                        "type": "string",
+                                                        "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "enum": [
+                                                            "pending",
+                                                            "ordered",
+                                                            "declined",
+                                                            "fulfilled"
+                                                        ]
+                                                    },
+                                                    "commentsUser": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "commentsProcurement": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "deletedAt": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "createdAt": {
+                                                        "type": "string"
+                                                    },
+                                                    "updatedAt": {
+                                                        "type": "string"
+                                                    },
+                                                    "userId": {
+                                                        "type": "string",
+                                                        "format": "uuid"
+                                                    },
+                                                    "orderId": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "format": "uuid"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "id",
+                                                    "name",
+                                                    "quantity",
+                                                    "unit",
+                                                    "status",
+                                                    "createdAt",
+                                                    "updatedAt",
+                                                    "userId"
+                                                ]
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "currentPage": {
+                                                    "type": "number"
+                                                },
+                                                "totalPages": {
+                                                    "type": "number"
+                                                },
+                                                "totalCount": {
+                                                    "type": "number"
+                                                },
+                                                "hasNextPage": {
+                                                    "type": "boolean"
+                                                },
+                                                "hasPreviousPage": {
+                                                    "type": "boolean"
+                                                }
+                                            },
+                                            "required": [
+                                                "currentPage",
+                                                "totalPages",
+                                                "totalCount",
+                                                "hasNextPage",
+                                                "hasPreviousPage"
+                                            ]
+                                        }
+                                    },
+                                    "required": ["data", "meta"]
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": ["Request"],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "minLength": 1
+                                    },
+                                    "structure": {
+                                        "type": "string"
+                                    },
+                                    "cas": {
+                                        "type": "string"
+                                    },
+                                    "quantity": {
+                                        "type": "number",
+                                        "minimum": 0,
+                                        "exclusiveMinimum": true
+                                    },
+                                    "unit": {
+                                        "type": "string",
+                                        "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                    },
+                                    "status": {
+                                        "type": "string",
+                                        "enum": ["pending", "ordered", "declined", "fulfilled"],
+                                        "default": "pending"
+                                    },
+                                    "orderId": {
+                                        "type": "string",
+                                        "nullable": true,
+                                        "format": "uuid"
+                                    }
+                                },
+                                "required": ["name", "quantity", "unit"]
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
+        "/api/v1/requests/user/{userId}": {
+            "get": {
+                "summary": "Retrieves all requests with metadata for available pages",
+                "tags": ["Requests"],
+                "description": "Retrieve all available requests.",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "userId",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Requests list with metadata.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "format": "uuid"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "structure": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "cas": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "quantity": {
+                                                        "type": "number",
+                                                        "minimum": 0,
+                                                        "exclusiveMinimum": true
+                                                    },
+                                                    "unit": {
+                                                        "type": "string",
+                                                        "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "enum": [
+                                                            "pending",
+                                                            "ordered",
+                                                            "declined",
+                                                            "fulfilled"
+                                                        ]
+                                                    },
+                                                    "commentsUser": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "commentsProcurement": {
+                                                        "type": "array",
+                                                        "items": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "deletedAt": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "createdAt": {
+                                                        "type": "string"
+                                                    },
+                                                    "updatedAt": {
+                                                        "type": "string"
+                                                    },
+                                                    "userId": {
+                                                        "type": "string",
+                                                        "format": "uuid"
+                                                    },
+                                                    "orderId": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "format": "uuid"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "id",
+                                                    "name",
+                                                    "quantity",
+                                                    "unit",
+                                                    "status",
+                                                    "createdAt",
+                                                    "updatedAt",
+                                                    "userId"
+                                                ]
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "currentPage": {
+                                                    "type": "number"
+                                                },
+                                                "totalPages": {
+                                                    "type": "number"
+                                                },
+                                                "totalCount": {
+                                                    "type": "number"
+                                                },
+                                                "hasNextPage": {
+                                                    "type": "boolean"
+                                                },
+                                                "hasPreviousPage": {
+                                                    "type": "boolean"
+                                                }
+                                            },
+                                            "required": [
+                                                "currentPage",
+                                                "totalPages",
+                                                "totalCount",
+                                                "hasNextPage",
+                                                "hasPreviousPage"
+                                            ]
+                                        }
+                                    },
+                                    "required": ["data", "meta"]
+                                }
+                            }
+                        }
                     }
                 }
             }

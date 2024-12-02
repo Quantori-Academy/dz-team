@@ -186,19 +186,20 @@ model User {
 model ReagentRequest {
   id        String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
   name      String        // Name of the reagent
-  structure String        // Stores the chemical structure
-  cas       String        // CAS number for reagent-specific info
+  structure String?        // Stores the chemical structure
+  cas       String?        // CAS number for reagent-specific info
   quantity  Float         // Requested quantity
   unit      Unit          @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
   status    RequestStatus @default(pending) // Status of the request ("pending", "ordered", "declined", "declined", "completed")
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
+  deletedAt DateTime? // Date and Time of  deletion
 
   userId   String          @db.Uuid /// @zod.string.uuid()
   user     User   @relation(fields: [userId], references: [id])
 
-  orderId String  @db.Uuid // Id of the order this request belongs to.
-  order   Order   @relation(fields: [orderId], references: [id])
+  orderId String?  @db.Uuid // Id of the order this request belongs to.
+  order   Order?   @relation(fields: [orderId], references: [id])
 
   reagentRequestComments ReagentRequestComment[]
 }
