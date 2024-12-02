@@ -42,7 +42,7 @@ export function ReagentRequestPage() {
     };
 
     const submitReagentRequest = async (data: CreateReagentRequestType) => {
-        const response = await request(`${base}/api/v1/reagent-request`, ReagentRequestSchema, {
+        const response = await request(`${base}/api/v1/requests`, ReagentRequestSchema, {
             method: "POST",
             json: data,
             throwOnError: true,
@@ -87,17 +87,15 @@ export function ReagentRequestPage() {
                 <CommonTable<ReagentRequest>
                     columns={reagentRequestColumns}
                     ref={tableRef}
-                    url={`${base}/api/v1/reagent-request`}
+                    url={`${base}/api/v1/requests`}
                     schema={ReagentRequestSchema}
                     onRowClick={handleRowClick}
                     searchBy={{
                         name: true,
-                        description: true,
                         structure: true,
-                        producer: true,
                         cas: true,
-                        catalogId: true,
-                        catalogLink: true,
+                        createdAt: true,
+                        updatedAt: true,
                     }}
                     onAdd={openAddModal}
                     addButtonText="Create a Reagent Request"
