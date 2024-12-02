@@ -33,19 +33,14 @@ export const StorageList = () => {
     const isAdmin = role === UserRole.admin;
     const navigate = useNavigate();
     const handleAddFormOpen = async () => {
-        try {
-            await createModal({
-                name: "storage_modal",
-                title: "Add New Storage",
-                message: <StorageAddForm onClose={removeModal} />,
-            });
-            // TODO fix refresh invoke in next PR
+        await createModal({
+            name: "storage_modal",
+            title: "Add New Storage",
+            message: <StorageAddForm onClose={removeModal} />,
+        });
 
-            tableRef.current?.refresh();
-            removeModal();
-        } catch (_) {
-            removeModal();
-        }
+        tableRef.current?.refresh();
+        removeModal();
     };
 
     return (

@@ -49,7 +49,7 @@ export const StorageDetailWrapper = ({ handleAction, reagents }: TableType) => {
                 baseUrl="/storageList"
                 url="/_app/storageList/$id"
                 fields={fields}
-                onAction={isResearcher ? handleAction : undefined}
+                onAction={!isResearcher ? handleAction : undefined}
                 editableFields={!isResearcher ? ["name", "room", "description"] : []}
                 allowPermission={!isResearcher}
             >
