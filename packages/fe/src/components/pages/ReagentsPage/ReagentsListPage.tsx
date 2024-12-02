@@ -41,21 +41,20 @@ export const ReagentsListPage = () => {
     const submitReagentEvent = useUnit(submitReagent);
 
     const openAddModal = async () => {
-        try {
-            await createModal({
-                name: "reagent_modal",
-                title: "Add new Reagent",
-                message: <ReagentFormModal />,
-                labels: { ok: "Submit", cancel: "Cancel" },
-            });
+        const response = await createModal({
+            name: "reagent_modal",
+            title: "Add new Reagent",
+            message: <ReagentFormModal />,
+            labels: { ok: "Submit", cancel: "Cancel" },
+        });
+
+        if (response) {
             submitReagentEvent();
             if (tableRef.current?.refresh) {
                 tableRef.current.refresh();
             }
-            removeModal();
-        } catch (_) {
-            removeModal();
         }
+        removeModal();
     };
 
     return (
