@@ -32,6 +32,11 @@ const rolesNavLists: RoleToNavList = {
             title: "Orders",
             details: "Create a new request, view request statuses",
         },
+        {
+            href: "/reagentRequests",
+            title: "Reagent Request",
+            details: "View and manage reagent requests",
+        },
     ],
     researcher: [
         { href: "/", title: "Home", details: "Entry point of application" },
@@ -41,8 +46,13 @@ const rolesNavLists: RoleToNavList = {
             details: "See the list of available reagents and reagent details",
         },
         {
-            href: "/samples",
-            title: "Samples",
+            href: "/reagentRequests",
+            title: "Reagent Request",
+            details: "View and manage reagent requests",
+        },
+        {
+            href: "/combinedList",
+            title: "Combined List",
             details: "Explore existing samples or create new ones",
         },
     ],

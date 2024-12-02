@@ -158,6 +158,31 @@ model Sample {
   storage   StorageLocation @relation(fields: [storageId], references: [id])
 }
 
+
+model CombinedList {
+  id              String      @id @db.Uuid
+  category        String?
+  name            String?
+  structure       String?
+  description     String?
+  quantity        Float?
+  unit            String?
+  quantityInit    Float?
+  expirationDate  DateTime?
+  producer        String?
+  catalogId       String?
+  catalogLink     String?
+  pricePerUnit    Float?
+  currency        String?
+  type            ReagentType?
+  status          ReagentStatus?
+  cas             String?
+  storageLocation String?
+  deletedAt       DateTime?
+  createdAt       DateTime?
+  updatedAt       DateTime?
+}
+
 enum Role {
   admin
   procurementOfficer

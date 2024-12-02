@@ -1,3 +1,5 @@
+import { enqueueSnackbar } from "notistack";
+
 export function handleError(err: Error, url: unknown, options?: object): void {
     const errorDetails = `
 Name: ${err.name}
@@ -8,4 +10,5 @@ Options: ${JSON.stringify(options, null, 2)}
 `;
 
     dev.error(`Full error information:\n${errorDetails}`);
+    enqueueSnackbar(err.message, { variant: "error" });
 }
