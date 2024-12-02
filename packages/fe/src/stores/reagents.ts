@@ -1,7 +1,6 @@
 import { sample } from "effector";
 import { z } from "zod";
 
-import { base } from "api/request";
 import { genericDomain as domain } from "logger";
 import { ReagentCreateInputSchema } from "shared/generated/zod";
 
@@ -37,7 +36,7 @@ export const submitReagent = domain.createEvent<void>("submitReagent");
 // TODO: move to `/api` and use `request`
 export const addReagentFx = domain.createEffect(async () => {
     const data = $formData.getState();
-    const response = await fetch(`${base}/api/v1/reagents`, {
+    const response = await fetch(`/reagents`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),

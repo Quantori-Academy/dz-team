@@ -2,7 +2,7 @@ import { z } from "zod";
 
 import { publicUserSchema } from "shared/zodSchemas/user/publicUserSchema";
 
-import { base, request } from "../request";
+import { request } from "../request";
 
 const UsersResponseContract = z.object({
     data: publicUserSchema.array(),
@@ -12,7 +12,7 @@ const UsersResponseContract = z.object({
 export type UserType = z.infer<typeof publicUserSchema>;
 
 export const getUsers = async () => {
-    const Users = await request(`${base}/api/v1/users`, UsersResponseContract, {
+    const Users = await request(`/users`, UsersResponseContract, {
         method: "GET",
     });
     return Users;

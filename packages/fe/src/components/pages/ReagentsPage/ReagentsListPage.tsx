@@ -4,7 +4,6 @@ import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 
-import { base } from "api/request";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
@@ -71,7 +70,7 @@ export const ReagentsListPage = () => {
                 <CommonTable<Reagent>
                     ref={tableRef}
                     columns={columns}
-                    url={`${base}/api/v1/reagents`}
+                    url={`/reagents`}
                     schema={ReagentSchema}
                     onRowClick={(row: Reagent) => {
                         navigate({ to: `/reagents/${row.id}`, replace: false });

@@ -1,5 +1,4 @@
 import { ReagentDetails } from "api/reagentDetails/contract";
-import { base } from "api/request";
 
 export type formData = Pick<
     ReagentDetails,
@@ -14,7 +13,7 @@ export const deleteReagentAction = async (
     navigate: (options: { to: string }) => void,
 ) => {
     try {
-        await fetch(`${base}/api/v1/reagents/${id}`, {
+        await fetch(`/reagents/${id}`, {
             method: "DELETE",
         });
         navigate({ to: "/reagents" });
@@ -28,7 +27,7 @@ export const updateReagentAction = async (
     navigate: (options: { to: string }) => void,
 ) => {
     try {
-        await fetch(`${base}/api/v1/reagents/${data.id}`, {
+        await fetch(`/reagents/${data.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
