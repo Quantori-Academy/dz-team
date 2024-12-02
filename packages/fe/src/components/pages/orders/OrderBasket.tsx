@@ -1,11 +1,12 @@
 import { useState } from "react";
-import { Box, Button, TextField } from "@mui/material";
+import { Autocomplete, Box, Button, TextField } from "@mui/material";
 import { useUnit } from "effector-react";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 
 import { CreateOrderReagent } from "api/orderDetails/contract";
 import { $auth } from "stores/auth";
 import { OrderStatus, setOrderData, submitOrder } from "stores/order";
+import { $sellers, fetchSellers } from "stores/sellers";
 import { SnackbarAlert } from "utils/snackBarAlert";
 import { validateInput } from "utils/validationInput";
 
@@ -53,6 +54,8 @@ export function OrderBasket({
     const [snackbarOpen, setSnackbarOpen] = useState(false);
     const [snackbarMessage, setSnackbarMessage] = useState("");
     const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "error">("success");
+
+    const sellers = useUnit($sellers);
 
     const auth = useUnit($auth);
 
@@ -120,9 +123,44 @@ export function OrderBasket({
                     fullWidth
                     error={!!errors.title}
                     helperText={errors.title}
-                    sx={{ mt: 2 }}
+                    // sx={{ mt: 2 }}
+                    sx={{ flex: 1, mt: 2 }}
                 />
-                <TextField
+                <Autocomplete
+                    options={sellers}
+                    // getOptionLabel={(option) => option.name}
+                    getOptionLabel={(option) => (typeof option === "string" ? option : option.name)}
+                    freeSolo
+                    onOpen={() => {
+                        if (!sellers.length) fetchSellers();
+                    }}
+                    // onChange={(event, newValue) => {
+                    //     setSeller(newValue ? newValue.name : "");
+                    // }}
+                    onChange={(event, newValue) => {
+                        if (typeof newValue === "string") {
+                            setSeller(newValue);
+                        } else if (newValue && typeof newValue === "object") {
+                            setSeller(newValue.name);
+                        }
+                    }}
+                    onInputChange={(event, newInputValue) => {
+                        setSeller(newInputValue);
+                    }}
+                    noOptionsText={"No sellers to choose"}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Seller"
+                            variant="outlined"
+                            error={!!errors.seller}
+                            helperText={errors.seller}
+                            sx={{ mt: 2 }}
+                        />
+                    )}
+                    sx={{ flex: 1 }}
+                />
+                {/* <TextField
                     label="Seller"
                     value={seller}
                     onChange={(e) => setSeller(e.target.value)}
@@ -131,7 +169,7 @@ export function OrderBasket({
                     error={!!errors.seller}
                     helperText={errors.seller}
                     sx={{ mt: 2 }}
-                />
+                /> */}
             </Box>
             <TextField
                 label="Description"
