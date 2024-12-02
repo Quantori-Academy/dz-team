@@ -1,137 +1,125 @@
 import { useMemo, useState } from "react";
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import EditIcon from "@mui/icons-material/Edit";
-import { TextField } from "@mui/material";
-import { DataGrid, GridActionsCellItem, GridRowParams } from "@mui/x-data-grid";
+import { Box, TextField } from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
 
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
-import { useUserForm } from "hooks/useUserForm";
-import { User } from "shared/generated/zod";
 import { SupportedValue } from "utils/formatters";
 
-import { AddUserForm } from "../pages/users/AddUserForm";
 import { AddRecord } from "./Addrecord";
 
 type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
-    showSearchField?: boolean;
-    showAddRecord?: boolean;
-    onRowClick?: (row: Record<string, SupportedValue>) => void;
-    buttonLabel?: string;
+    searchPlaceholder?: string;
+    renderActions?: (row: Record<string, SupportedValue>) => JSX.Element;
+    modalTitle?: string;
+    modalContent?: (removeModal?: () => void) => JSX.Element;
+    showToolbar?: boolean;
+    addButtonLabel?: string;
 };
 
 export const Grid = ({
     rows,
     headers,
-    showSearchField,
-    showAddRecord,
-    onRowClick,
-    buttonLabel,
+    searchPlaceholder = "Search...",
+    renderActions,
+    modalTitle = "Add New Record",
+    modalContent,
+    showToolbar = true,
+    addButtonLabel = "Add New Record",
 }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
-    const { handleDeleteClick } = useUserForm({});
 
     const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchQuery(event.target.value);
+        const query = event.target.value;
+        setSearchQuery(query);
     };
 
-    const filteredRows = rows.filter((row) =>
-        Object.values(row).some((value) => {
-            if (typeof value === "string") {
-                return value.toLowerCase().includes(searchQuery.toLowerCase());
-            }
-            if (typeof value === "number") {
-                return value.toString().includes(searchQuery.toLowerCase());
-            }
-            if (value && typeof value === "object") {
-                return Object.values(value).some(
-                    (nestedValue) =>
-                        typeof nestedValue === "string" &&
-                        nestedValue.toLowerCase().includes(searchQuery.toLowerCase()),
-                );
-            }
-            return false;
-        }),
-    );
+    const filteredRows = useMemo(() => {
+        if (!searchQuery) return rows;
 
-    const handleAddFormOpen = async () => {
-        await createModal({
-            name: "add_user_modal",
-            title: "Add New User",
-            message: <AddUserForm onClose={() => removeModal()} />,
-        });
+        return rows.filter((row) =>
+            Object.values(row).some((value) => {
+                if (typeof value === "string") {
+                    return value.toLowerCase().includes(searchQuery.toLowerCase());
+                }
+                if (typeof value === "number") {
+                    return value.toString().includes(searchQuery.toLowerCase());
+                }
+                if (value && typeof value === "object") {
+                    return Object.values(value).some(
+                        (nestedValue) =>
+                            typeof nestedValue === "string" &&
+                            nestedValue.toLowerCase().includes(searchQuery.toLowerCase()),
+                    );
+                }
+                return false;
+            }),
+        );
+    }, [rows, searchQuery]);
 
-        removeModal();
+    const handleAddRecord = async () => {
+        if (!modalContent) return;
+        try {
+            await createModal({
+                name: "add_record_modal",
+                title: modalTitle,
+                message: modalContent(removeModal),
+            });
+            removeModal();
+        } catch (_) {
+            removeModal();
+        }
     };
 
     const columns = useMemo(() => {
-        const editColumn = {
+        const actionsColumn = {
             field: "actions",
             headerName: "Actions",
             width: 100,
-            renderCell: (params: { row: { id: string } }) => (
-                <>
-                    <GridActionsCellItem
-                        icon={<EditIcon />}
-                        label="Edit"
-                        onClick={() => alert("Edit item:")}
-                        color="inherit"
-                    />
-                    <GridActionsCellItem
-                        icon={<DeleteIcon />}
-                        label="Delete"
-                        onClick={() => handleDeleteClick(params.row.id)}
-                        color="inherit"
-                    />
-                </>
-            ),
+            renderCell: (params: { row: { id: string } }) =>
+                renderActions ? renderActions(params.row) : null,
         };
-        return [...headers, editColumn];
-    }, [headers, handleDeleteClick]);
+
+        return [...headers, actionsColumn];
+    }, [headers, renderActions]);
 
     return (
         <>
-            {showSearchField && (
-                <TextField
-                    variant="outlined"
-                    placeholder="Search by name, username, or email"
-                    value={searchQuery}
-                    onChange={handleSearch}
-                    sx={{ width: "350px", marginBottom: "16px" }}
-                />
-            )}
-            <DataGrid
-                rows={filteredRows as User[]}
-                rowHeight={60}
-                getRowId={(row: User) =>
-                    typeof row.id === "string" || typeof row.id === "number"
-                        ? row.id
-                        : `${String(row.username ?? "unknown")}-${Math.random()
-                              .toString(36)
-                              .substring(2, 9)}`
-                }
-                columns={columns}
-                disableRowSelectionOnClick
-                onRowClick={(params: GridRowParams<Record<string, SupportedValue>>) =>
-                    onRowClick?.(params.row)
-                }
-                pageSizeOptions={[5, 15, 25, 50]}
-                initialState={{
-                    pagination: {
-                        paginationModel: {
-                            pageSize: 5,
-                        },
-                    },
-                }}
-                slots={{
-                    toolbar: () =>
-                        showAddRecord && (
-                            <AddRecord buttonLabel={buttonLabel} onAddRecord={handleAddFormOpen} />
-                        ),
-                }}
+            <TextField
+                variant="outlined"
+                placeholder={searchPlaceholder}
+                value={searchQuery}
+                onChange={handleSearch}
+                fullWidth
             />
+            <Box sx={{ height: "300px", width: "100%" }}>
+                <DataGrid
+                    rows={filteredRows}
+                    columns={columns}
+                    rowHeight={60}
+                    disableRowSelectionOnClick
+                    pageSizeOptions={[5, 15, 25, 50]}
+                    initialState={{
+                        pagination: {
+                            paginationModel: {
+                                pageSize: 5,
+                            },
+                        },
+                    }}
+                    slots={{
+                        toolbar: showToolbar
+                            ? () => (
+                                  <AddRecord
+                                      buttonLabel={addButtonLabel}
+                                      onAddRecord={handleAddRecord}
+                                  />
+                              )
+                            : undefined,
+                    }}
+                />
+            </Box>
         </>
     );
 };
