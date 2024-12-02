@@ -86,6 +86,8 @@ export function OrderBasket({
         const orderData = {
             title,
             seller: seller || "",
+            // seller: sellers.find((s) => s.name === seller)?.id || seller,
+            // seller: sellers.find((s) => s.name === seller)?.name || seller,
             status: OrderStatus.pending,
             userId: userId,
             description,
@@ -105,6 +107,7 @@ export function OrderBasket({
         };
 
         setOrderData(orderData);
+        // console.log("orderData", orderData);
         submitOrderEvent();
         setSnackbarMessage("Order created successfully!");
         setSnackbarSeverity("success");
@@ -123,7 +126,6 @@ export function OrderBasket({
                     fullWidth
                     error={!!errors.title}
                     helperText={errors.title}
-                    // sx={{ mt: 2 }}
                     sx={{ flex: 1, mt: 2 }}
                 />
                 <Autocomplete

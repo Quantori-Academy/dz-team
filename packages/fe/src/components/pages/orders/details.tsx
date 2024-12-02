@@ -1,10 +1,11 @@
 import { Box, Typography } from "@mui/material";
-import { useLoaderData } from "@tanstack/react-router";
+import { useLoaderData, useNavigate } from "@tanstack/react-router";
 
 import { Grid } from "components/dataGrid/Grid";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
 import { Order } from "shared/generated/zod/modelSchema";
 import { SupportedValue } from "utils/formatters";
+import { updateOrderAction } from "utils/orderActions";
 
 const reagentColumns = [
     { field: "id", headerName: "ID", width: 120 },
@@ -35,10 +36,16 @@ export function OrderDetailsPage() {
     const { reagents }: { reagents: Record<string, SupportedValue>[] | null } = useLoaderData({
         from: "/_app/_pOfficerLayout/orders/$id",
     });
+    const navigate = useNavigate();
     const reagentData = Array.isArray(reagents) ? reagents : [];
 
-    const handleAction = async (_actionType: "submit" | "delete", _data?: Order) => {
-        // TODO: action buttons will be done in the other branch
+    const handleAction = async (actionType: "submit" | "delete", data?: Order) => {
+        if (!data) {
+            return;
+        } else if (actionType === "submit" && data) {
+            // setIsEditing(false);
+            await updateOrderAction(data, navigate);
+        }
     };
 
     return (
@@ -47,6 +54,7 @@ export function OrderDetailsPage() {
             url="/_app/_pOfficerLayout/orders/$id"
             fields={fields}
             onAction={handleAction}
+            editableFields={["title", "description", "seller"]}
         >
             {reagentData.length > 0 ? (
                 <Box sx={boxStyle}>

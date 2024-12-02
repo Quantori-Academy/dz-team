@@ -1,19 +1,15 @@
-import { FastifyZodInstance, Roles } from "../types";
 import { OrderController } from "../controllers/orderController";
+import { FastifyZodInstance, Roles } from "../types";
 
 import { OrderStatus } from "@prisma/client";
-import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
-import {
-    GET_ORDER_BY_ID_SCHEMA,
-    GET_ORDERS_SCHEMA,
-    PATCH_ORDER_STATUS_SCHEMA,
-} from "../responseSchemas/orders";
-import { checkAuthenticatedAndRole } from "../utils/authCheck";
 import {
     OrderCreateWithUserIdInputSchema,
     OrderUpdateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
+import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
+import { PATCH_ORDER_STATUS_SCHEMA } from "../responseSchemas/orders";
+import { checkAuthenticatedAndRole } from "../utils/authCheck";
 
 const orderController = new OrderController();
 
@@ -33,9 +29,9 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.get<{ Querystring: typeof OrderSearchSchema }>(
         "/",
-        {
-            schema: GET_ORDERS_SCHEMA satisfies FastifyZodOpenApiSchema,
-        },
+        // {
+        //     schema: GET_ORDERS_SCHEMA satisfies FastifyZodOpenApiSchema,
+        // },
         async (request, reply) => {
             return await orderController.getAllOrders(request, reply);
         },
@@ -50,9 +46,9 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.get<{ Params: { id: string } }>(
         "/:id",
-        {
-            schema: GET_ORDER_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
-        },
+        // {
+        //     schema: GET_ORDER_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+        // },
         async (request, reply) => {
             return await orderController.getOrder(request, reply);
         },

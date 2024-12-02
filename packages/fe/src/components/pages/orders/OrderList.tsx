@@ -1,8 +1,10 @@
+import { useRef } from "react";
 import { Box } from "@mui/material";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 
 import { base } from "api/request";
-import { CommonTable } from "components/commonTable/CommonTable";
+import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
+import { TableContext } from "components/commonTable/TableContext";
 import { Order, OrderSchema } from "shared/generated/zod";
 
 const headers = [
@@ -23,12 +25,13 @@ const headers = [
 
 export const OrderList = () => {
     const navigate = useNavigate();
+    const tableRef = useRef<CommonTableRef | null>(null);
     const handleClick = () => {
         navigate({ to: "/createOrder" });
     };
 
     return (
-        <>
+        <TableContext.Provider value={{ ref: tableRef }}>
             <Box
                 sx={{
                     padding: "40px",
@@ -38,6 +41,7 @@ export const OrderList = () => {
                 }}
             >
                 <CommonTable<Order>
+                    ref={tableRef}
                     columns={headers}
                     url={`${base}/api/v1/orders`}
                     schema={OrderSchema}
@@ -56,6 +60,6 @@ export const OrderList = () => {
                 />
             </Box>
             <Outlet />
-        </>
+        </TableContext.Provider>
     );
 };
