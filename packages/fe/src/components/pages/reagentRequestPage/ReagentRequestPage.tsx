@@ -1,14 +1,18 @@
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
+import { useUnit } from "effector-react";
+import { jwtDecode } from "jwt-decode";
 
-import { CreateReagentRequestType, initialFormData } from "api/reagentRequest";
-import { base, request } from "api/request";
+import { base } from "api/request";
+import { UserRole } from "api/self";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { TableContext } from "components/commonTable/TableContext";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
+import { $auth } from "stores/auth";
+import { addReagentRequestFx } from "stores/reagentRequest";
 
 import { ReagentRequest, ReagentRequestSchema } from "../../../../../shared/generated/zod";
 import { ReagentRequestFormModal } from "./ReagentRequestFormModal";
@@ -30,45 +34,39 @@ const reagentRequestColumns: GridColDef[] = [
 export function ReagentRequestPage() {
     const navigate = useNavigate();
     const tableRef = useRef<CommonTableRef | null>(null);
+    const auth = useUnit($auth);
 
-    const [formData, setFormData] = useState<CreateReagentRequestType>(initialFormData);
+    let userId: string;
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: name === "quantity" || name === "pricePerUnit" ? Number(value) : value,
-        });
-    };
+    const role = auth ? auth.self.role : null;
 
-    const submitReagentRequest = async (data: CreateReagentRequestType) => {
-        const response = await request(`${base}/api/v1/requests`, ReagentRequestSchema, {
-            method: "POST",
-            json: data,
-            throwOnError: true,
-        });
-        return response;
-    };
+    if (auth) {
+        const decodedToken: { userId: string } = jwtDecode(auth.token);
 
-    const handleSubmit = () => {
-        submitReagentRequest(formData);
-        setFormData(initialFormData);
-    };
+        userId = decodedToken.userId;
+    } else {
+        userId = "";
+    }
 
     const handleRowClick = (row: ReagentRequest) => {
         navigate({ to: `/reagentRequests/${row.id}`, replace: false });
     };
 
+    const submitReagentRequest = useUnit(addReagentRequestFx);
+
     const openAddModal = async () => {
         const response = await createModal({
             name: "reagent_request_modal",
             title: "Add New Reagent Request",
-            message: <ReagentRequestFormModal formData={formData} handleChange={handleChange} />,
+            message: <ReagentRequestFormModal />,
             labels: { ok: "Submit", cancel: "Cancel" },
         });
 
         if (response) {
-            handleSubmit();
+            await submitReagentRequest();
+            if (tableRef.current?.refresh) {
+                tableRef.current.refresh();
+            }
         }
         removeModal();
     };
@@ -87,7 +85,11 @@ export function ReagentRequestPage() {
                 <CommonTable<ReagentRequest>
                     columns={reagentRequestColumns}
                     ref={tableRef}
-                    url={`${base}/api/v1/requests`}
+                    url={
+                        role === UserRole.researcher
+                            ? `${base}/api/v1/requests/user/${userId}`
+                            : `${base}/api/v1/requests`
+                    }
                     schema={ReagentRequestSchema}
                     onRowClick={handleRowClick}
                     searchBy={{

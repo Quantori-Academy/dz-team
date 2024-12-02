@@ -1,11 +1,7 @@
 import { BaseTextFieldProps, Grid2 as Grid, TextField } from "@mui/material";
+import { useUnit } from "effector-react";
 
-import { CreateReagentRequestType } from "api/reagentRequest";
-
-type ReagentRequestFormModalProps = {
-    formData: CreateReagentRequestType;
-    handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-};
+import { $formData, setFormData } from "stores/reagentRequest";
 
 const fields: BaseTextFieldProps[] = [
     { label: "Reagent Name", name: "name", required: true },
@@ -17,10 +13,17 @@ const fields: BaseTextFieldProps[] = [
     { label: "Status", name: "status", disabled: true, defaultValue: "Pending" },
 ];
 
-export const ReagentRequestFormModal = ({
-    formData,
-    handleChange,
-}: ReagentRequestFormModalProps) => {
+export const ReagentRequestFormModal = () => {
+    const formData = useUnit($formData);
+
+    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target;
+        setFormData({
+            ...formData,
+            [name]: name === "quantity" || name === "pricePerUnit" ? Number(value) : value,
+        });
+    };
+
     return (
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             {fields.map((field) => {
