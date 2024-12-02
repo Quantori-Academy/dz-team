@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { PropsWithChildren, useContext, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, Drawer, IconButton, TextField, Typography } from "@mui/material";
 import { AnyRoute, RouteIds, useLoaderData, useNavigate } from "@tanstack/react-router";
@@ -14,13 +14,13 @@ type FieldConfig = {
     disabled?: boolean;
 };
 
-type DetailsEditPageProps<T extends AnyRoute, TData> = {
+type DetailsEditPageProps<T extends AnyRoute, TData> = PropsWithChildren<{
     baseUrl: string;
     url: RouteIds<T>;
     fields: FieldConfig[];
     onAction: (type: "submit" | "delete", data?: TData) => Promise<void>;
     editableFields?: string[];
-};
+}>;
 
 export const DetailsEditPage = <T extends AnyRoute, TData>(
     props: DetailsEditPageProps<T, TData>,
@@ -36,6 +36,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
     onAction,
     editableFields = [],
     tableRef,
+    children,
 }: DetailsEditPageProps<T, TData> & { tableRef: TableContextType["ref"] }) {
     const [isEditing, setIsEditing] = useState(false);
     const data = useLoaderData<T>({ from: url }) as TData;
@@ -92,13 +93,17 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
             variant="temporary"
             elevation={0}
             sx={{
-                height: "90vh",
                 overflowY: "auto",
                 transform: isSmallScreen ? "translateY(85px)" : "translateY(55px)",
                 borderTop: "1px solid rgba(0, 0, 0, 0.12)",
             }}
         >
-            <Box sx={{ width: 400, p: 2 }}>
+            <Box
+                sx={{
+                    width: 400,
+                    p: 2,
+                }}
+            >
                 <IconButton
                     aria-label="close"
                     onClick={handleCloseDetails}
@@ -154,6 +159,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                         </>
                     )}
                 </Box>
+                {children}
             </Box>
         </Drawer>
     );
