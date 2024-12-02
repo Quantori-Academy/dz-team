@@ -1,6 +1,8 @@
-import { Box } from "@mui/material";
+import { Alert, Box, Snackbar } from "@mui/material";
 import { useGate } from "effector-react";
 
+import { createModal } from "components/modal/createModal";
+import { removeModal } from "components/modal/store";
 import { useUserForm } from "hooks/useUserForm";
 import { UsersGate } from "stores/users";
 
@@ -17,7 +19,28 @@ const headers = [
 export const UserList = () => {
     useGate(UsersGate);
 
-    const { users, handleDeleteClick, notification, handleClose } = useUserForm({});
+    const { users, notification, handleClose } = useUserForm({});
+    // here goes id
+    const openDeleteModal = async () => {
+        try {
+            await createModal({
+                name: "confirm_delete_modal",
+                title: "Confirm Deletion",
+                message: "sample",
+                // message: (
+                //     <ConfirmMessage
+                //         id={id}
+                //         onClose={() => {
+                //             removeModal();
+                //         }}
+                //         setNotification={setNotification}
+                //     />
+                // ),
+            });
+        } catch (_error) {
+            removeModal();
+        }
+    };
 
     return (
         <Box>
@@ -25,12 +48,22 @@ export const UserList = () => {
                 rows={users}
                 headers={headers}
                 searchPlaceholder="Search users by name, email, or role"
-                handleDelete={handleDeleteClick}
+                handleDelete={openDeleteModal}
                 notification={notification}
                 handleClose={handleClose}
                 addButtonLabel="Add New User"
                 modalContent={(removeModal) => <AddUserForm onClose={removeModal} />}
             />
+            <Snackbar
+                open={notification.open}
+                autoHideDuration={6000}
+                onClose={handleClose}
+                anchorOrigin={{ vertical: "top", horizontal: "center" }}
+            />
+            <Alert onClose={handleClose} severity={notification.type}>
+                {notification.message}
+            </Alert>
+            <Snackbar />
         </Box>
     );
 };

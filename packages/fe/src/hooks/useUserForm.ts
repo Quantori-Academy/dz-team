@@ -22,13 +22,13 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
     });
 
     // User delete handler
-    // TODO add confirm on delete
+
     const handleDeleteClick = async (id: string) => {
         try {
             await deleteUserFx(id);
-            setNotification({ message: "User deleted successfully!", type: "success", open: true });
+            setNotification({ open: true, message: "User deleted successfully!", type: "success" });
         } catch {
-            setNotification({ message: "Failed to delete the user.", type: "error", open: true });
+            setNotification({ open: true, message: "Failed to delete the user.", type: "error" });
         }
     };
     const handleClose = () => setNotification({ ...notification, open: false });
@@ -140,6 +140,7 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
         handleDeleteClick,
         users,
         notification,
+        setNotification,
         handleClose,
     };
 };
