@@ -1,11 +1,5 @@
 import { z } from "zod";
-
-// Base Search Schema
-export const BaseSearchSchema = z.object({
-    query: z.string().optional(),
-    page: z.number().min(1).default(1),
-    limit: z.number().min(1).default(10),
-});
+import { BaseSearchSchema } from "../baseSchemas";
 
 // Request Search Field Enum
 const RequestFieldEnum = z.enum(["name", "cas", "structure", "createdAt", "updatedAt"]);
@@ -15,13 +9,11 @@ export const RequestSearchSchema = BaseSearchSchema.extend({
     sortBy: RequestFieldEnum.default("createdAt").describe(
         "The field by which the results should be sorted. Default is 'createdAt'.",
     ),
-
     searchBy: z
         .union([z.array(RequestFieldEnum), RequestFieldEnum])
         .transform((val) => (Array.isArray(val) ? val : [val]))
         .optional()
         .describe("Fields to search by. Can be a single value or an array of values."),
-
     status: z
         .enum(["pending", "ordered", "declined", "fulfilled"])
         .optional()
@@ -32,7 +24,6 @@ export const RequestSearchSchema = BaseSearchSchema.extend({
 
 export type RequestSearch = z.infer<typeof RequestSearchSchema>;
 
-// Example Schemas for creation and updates
 export const RequestCreationBodySchema = z.object({
     name: z.string().min(1, "Reagent name is required"),
     structure: z.string().optional(),
@@ -43,7 +34,6 @@ export const RequestCreationBodySchema = z.object({
     orderId: z.string().uuid().optional().nullable(),
 });
 
-// Request Update Schema
 export const RequestUpdateBodySchema = z.object({
     name: z.string().optional(),
     structure: z.string().optional(),
@@ -55,7 +45,6 @@ export const RequestUpdateBodySchema = z.object({
     updatedAt: z.coerce.date().optional(),
 });
 
-// Comment Request Schema
 export const CommentRequestBodySchema = z.object({
     comment: z.string().min(1, "Comment is required"),
 });

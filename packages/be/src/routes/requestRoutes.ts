@@ -57,15 +57,6 @@ export const requestRoutes = async (app: FastifyZodInstance): Promise<void> => {
      * @param {string} userId - The ID of the user whose requests to retrieve.
      * @returns {Promise<void>} A list of requests for the specified user.
      */
-    // app.get<{ Params: { userId: string } }>(
-    //     "/user/:userId",
-    //     {
-    //         schema: GET_REQUESTS_SCHEMA satisfies FastifyZodOpenApiSchema, // Make sure the schema reflects fetching by userId
-    //     },
-    //     async (request, reply) => {
-    //         return await requestController.getRequestsByUserId(request, reply);
-    //     },
-    // );
     app.get<{ Params: { userId: string } }>(
         "/user/:userId",
         {
