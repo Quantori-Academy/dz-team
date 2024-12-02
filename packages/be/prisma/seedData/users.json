@@ -9,7 +9,7 @@
         "role": "admin"
     },
     {
-        "id": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f705",
+        "id": "123e4567-e89b-12d3-a456-426614174000",
         "username": "researcher1",
         "firstName": "John",
         "lastName": "Doe",
@@ -18,7 +18,7 @@
         "role": "researcher"
     },
     {
-        "id": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f706",
+        "id": "123e4567-e89b-12d3-a456-426614174123",
         "username": "procurement1",
         "firstName": "Jane",
         "lastName": "Smith",

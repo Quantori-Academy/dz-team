@@ -9,8 +9,8 @@ export const requestIdParam = z.object({
 export const RequestSchema = z.object({
     id: z.string().uuid(),
     name: z.string(),
-    structure: z.string().optional(),
-    cas: z.string().optional(),
+    structure: z.string().nullable().optional(),
+    cas: z.string().nullable().optional(),
     quantity: z.number().positive("Quantity must be positive"),
     unit: z.enum(["ml", "l", "mg", "g", "oz", "lb"]),
     status: z.enum(["pending", "ordered", "declined", "fulfilled"]),
@@ -20,17 +20,17 @@ export const RequestSchema = z.object({
     createdAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
     userId: z.string().uuid(),
-    orderId: z.string().uuid().optional(),
+    orderId: z.string().uuid().nullable().optional(), // Nullable and optional
 });
 
 export const RequestsListSchema = z.object({
     data: z.array(RequestSchema),
     meta: z.object({
-        currentPage: z.number().default(1),
-        totalPages: z.number().default(4),
-        totalCount: z.number().default(2),
-        hasNextPage: z.boolean().default(true),
-        hasPreviousPage: z.boolean().default(false),
+        currentPage: z.number(),
+        totalPages: z.number(),
+        totalCount: z.number(),
+        hasNextPage: z.boolean(),
+        hasPreviousPage: z.boolean(),
     }),
 });
 

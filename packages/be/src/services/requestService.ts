@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient, RequestStatus, ReagentRequest } from "@prisma/client"; // Ensure RequestStatus is imported
+import { Prisma, PrismaClient, RequestStatus, ReagentRequest } from "@prisma/client";
 import {
     RequestCreationBody,
     RequestUpdateBody,
@@ -6,21 +6,13 @@ import {
     RequestSearchSchema,
     RequestUpdateBodySchema,
 } from "../../../shared/zodSchemas/request/requestSchemas";
+import { SearchResults } from "../types";
 const prisma = new PrismaClient();
 
-type RequestSearchResults = {
-    data: ReagentRequest[]; // Use ReagentRequest array
-    meta: {
-        currentPage: number;
-        totalPages: number;
-        totalCount: number;
-        hasNextPage: boolean;
-        hasPreviousPage: boolean;
-    };
-};
-
 export class RequestService {
-    public async getAllRequests(queryParams: RequestSearch): Promise<RequestSearchResults> {
+    public async getAllRequests(
+        queryParams: RequestSearch,
+    ): Promise<SearchResults<ReagentRequest>> {
         const { query, page, limit, sortBy, status } = RequestSearchSchema.parse(queryParams);
 
         const searchConditions = query
@@ -33,7 +25,7 @@ export class RequestService {
 
         const where: Prisma.ReagentRequestWhereInput = {
             AND: [
-                status ? { status: status as RequestStatus } : {}, // Correct usage of status
+                status ? { status: status as RequestStatus } : {},
                 { deletedAt: null },
                 searchConditions.length > 0 ? { OR: searchConditions } : {},
             ].filter(Boolean),

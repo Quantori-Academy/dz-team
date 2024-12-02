@@ -7,6 +7,7 @@ import {
     RequestSearch,
     RequestUpdateBody,
 } from "../../../shared/zodSchemas/request/requestSchemas";
+import { RequestsListSchema } from "../responseSchemas/requests";
 
 const requestService = new RequestService();
 
@@ -15,8 +16,10 @@ export class RequestController {
         try {
             const queryString: RequestSearch = request.query as RequestSearch;
             const requests = await requestService.getAllRequests(queryString);
+
             reply.send(requests);
         } catch (error) {
+            console.error("Error: ", error);
             sendErrorResponse(reply, error, "Failed to get requests");
         }
     }
@@ -27,15 +30,42 @@ export class RequestController {
     ): Promise<void> {
         try {
             const userId = request.params.userId;
-            if (!request.userData || !request.userData.userId) {
+            if (!request.userData?.userId) {
                 return reply.status(401).send({ message: "Unauthorized" });
             }
-            const requests = await requestService.getRequestsByUserId(
+            if (request.userData.userId !== userId) {
+                return reply.status(403).send({ message: "Access denied" });
+            }
+
+            const requestData = await requestService.getRequestsByUserId(
                 request.userData.userId,
                 userId,
             );
-            reply.send(requests);
+
+            const response = {
+                data: requestData,
+                meta: {
+                    currentPage: 1,
+                    totalPages: 1,
+                    totalCount: requestData.length,
+                    hasNextPage: false,
+                    hasPreviousPage: false,
+                },
+            };
+
+            try {
+                RequestsListSchema.parse(response);
+                reply.send(response);
+            } catch (validationError) {
+                if (validationError instanceof Error) {
+                    console.error("Validation Error:", validationError.message);
+                } else {
+                    console.error("Validation Error:", validationError);
+                }
+                return reply.status(500).send({ message: "Schema validation error" });
+            }
         } catch (error) {
+            console.error("Error retrieving user requests:", error);
             sendErrorResponse(reply, error, "Failed to get user's requests");
         }
     }
