@@ -6401,6 +6401,14 @@
                         }
                     }
                 }
+            },
+            "post": {
+                "tags": ["Order"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
             }
         },
         "/api/v1/orders/{id}": {
@@ -6641,6 +6649,24 @@
                                 }
                             }
                         }
+                    }
+                }
+            },
+            "put": {
+                "tags": ["Order"],
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "path",
+                        "name": "id",
+                        "required": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
                     }
                 }
             }
