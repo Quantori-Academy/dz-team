@@ -40,7 +40,7 @@ export const StorageList = () => {
                 title: "Add New Storage",
                 message: <StorageAddForm onClose={removeModal} />,
             });
-            // TODO fix refresh invoke
+            // TODO fix refresh invoke in next PR
 
             tableRef.current?.refresh();
             removeModal();
