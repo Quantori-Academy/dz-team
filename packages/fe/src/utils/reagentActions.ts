@@ -14,7 +14,7 @@ export const deleteReagentAction = async (
     navigate: (options: { to: string }) => void,
 ) => {
     try {
-        await fetch(`${base}/api/v1/reagents/${id}`, {
+        await fetch(`${base}/reagents/${id}`, {
             method: "DELETE",
         });
         navigate({ to: "/reagents" });
@@ -28,7 +28,7 @@ export const updateReagentAction = async (
     navigate: (options: { to: string }) => void,
 ) => {
     try {
-        await fetch(`${base}/api/v1/reagents/${data.id}`, {
+        await fetch(`${base}/reagents/${data.id}`, {
             method: "PUT",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),

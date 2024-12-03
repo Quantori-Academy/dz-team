@@ -1,7 +1,6 @@
 import { Box } from "@mui/material";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 
-import { base } from "api/request";
 import { CommonTable } from "components/commonTable/CommonTable";
 import { Order, OrderSchema } from "shared/generated/zod";
 
@@ -39,7 +38,7 @@ export const OrderList = () => {
             >
                 <CommonTable<Order>
                     columns={headers}
-                    url={`${base}/api/v1/orders`}
+                    url={`/orders`}
                     schema={OrderSchema}
                     onRowClick={(row: Order) => {
                         navigate({ to: `/orders/${row.id}`, replace: false });
