@@ -6,8 +6,8 @@ import {
     serializerCompiler,
     validatorCompiler,
 } from "fastify-zod-openapi";
-import { extendZodWithOpenApi } from "zod-openapi";
 import { z } from "zod";
+import { extendZodWithOpenApi } from "zod-openapi";
 
 import { generateOpenApiSchema } from "./utils/generateOpenApi";
 import { isProd } from "./utils/isProd";
@@ -33,7 +33,7 @@ server.register(fastifyZodOpenApiPlugin);
 
 server.register(cors, {
     origin: corsOptions,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
 });
 
 // Conditionally import the OpenAPI generator in non-production environments
