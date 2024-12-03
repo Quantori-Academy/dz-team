@@ -1,8 +1,9 @@
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import { OrderSearchSchema } from "shared/zodSchemas/order/orderSearchSchema";
 import { z } from "zod";
-import { OrderStatusSchema, ReagentSchema } from "shared/generated/zod";
+import { OrderStatusSchema } from "shared/generated/zod";
 import { unauthorizedResponse } from "./storageLocations";
+import { OrderReagentsSchema } from "shared/zodSchemas/order/orderReagentSchema";
 
 export const orderIdParam = z.object({
     id: z.string().describe("Order UUID."),
@@ -51,7 +52,7 @@ export const OrderSchema = z.object({
     createdAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
     userId: z.string().uuid(),
-    reagents: z.array(ReagentSchema),
+    reagents: z.array(OrderReagentsSchema),
 });
 
 export const OrdersListSchema = z.object({

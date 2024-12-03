@@ -1,4 +1,4 @@
-import { FastifyZodInstance, Roles } from "../types";
+import { FastifyZodInstance } from "../types";
 import { OrderController } from "../controllers/orderController";
 
 import { OrderStatus } from "@prisma/client";
@@ -9,7 +9,6 @@ import {
     GET_ORDERS_SCHEMA,
     PATCH_ORDER_STATUS_SCHEMA,
 } from "../responseSchemas/orders";
-import { checkAuthenticatedAndRole } from "../utils/authCheck";
 import {
     OrderCreateWithUserIdInputSchema,
     OrderUpdateWithUserIdInputSchema,
@@ -104,7 +103,6 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
         "/:id/status",
         {
             schema: PATCH_ORDER_STATUS_SCHEMA satisfies FastifyZodOpenApiSchema,
-            preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
         },
         async (request, reply) => {
             return await orderController.updateOrderStatus(request, reply);

@@ -68,7 +68,12 @@ export class OrderController {
             const validatedData = OrderCreateWithUserIdInputSchema.parse(request.body);
 
             if (validatedData.seller) {
-                await sellerService.createSeller({ name: validatedData.seller });
+                // Check if the seller already exists
+                const existingSeller = await sellerService.findSellerByName(validatedData.seller);
+
+                if (!existingSeller) {
+                    await sellerService.createSeller({ name: validatedData.seller });
+                }
             }
 
             // Call the service to create the order
@@ -98,6 +103,18 @@ export class OrderController {
         try {
             const validatedId = idSchema.parse(request.params.id);
             const validatedData = OrderUpdateWithUserIdInputSchema.parse(request.body);
+            // Normalize seller to always be a string or undefined
+            const sellerName =
+                typeof validatedData.seller === "string"
+                    ? validatedData.seller
+                    : validatedData.seller?.set;
+
+            if (sellerName) {
+                const existingSeller = await sellerService.findSellerByName(sellerName);
+                if (!existingSeller) {
+                    await sellerService.createSeller({ name: sellerName });
+                }
+            }
             const order = await orderService.updateOrder(validatedId, validatedData);
             reply.send(order);
         } catch (error) {
