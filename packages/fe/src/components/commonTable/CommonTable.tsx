@@ -57,6 +57,7 @@ const fetchRows = async <T extends GridValidRowModel>({
     setLoading: (loading: boolean) => void;
     setResult: (result: FetchResponseType<T>) => void;
 }) => {
+    if (!url) return;
     setLoading(true);
     try {
         const result = await search({
@@ -94,7 +95,7 @@ const fetchRows = async <T extends GridValidRowModel>({
  *       { field: "name", headerName: "Name", width: 150 },
  *       { field: "inStock", headerName: "In stock?" },
  *       ]}
- *      url={`${base}/api/v1/test`}
+ *      url={`/test`}
  *      schema={z.object({
  *          id: z.string(),
  *          name: z.number(),

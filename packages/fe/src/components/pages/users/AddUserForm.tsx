@@ -5,13 +5,11 @@ import { useUserForm } from "hooks/useUserForm";
 
 const roles = ["admin", "researcher", "procurementOfficer"];
 
-const textfieldStyle = { width: "200px" };
-const button = { width: "250px" };
 const boxStyle = { display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" };
 const input = { display: "flex", alignItems: "center", gap: "10px" };
-interface AddUserFormProps {
-    onClose: () => void;
-}
+type AddUserFormProps = {
+    onClose?: () => void;
+};
 export const AddUserForm = ({ onClose }: AddUserFormProps) => {
     const refs = {
         username: useRef<HTMLInputElement>(null),
@@ -44,7 +42,7 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     error={!!usernameError}
                     helperText={usernameError}
                     margin="normal"
-                    sx={textfieldStyle}
+                    sx={{ width: "200px" }}
                     required={true}
                 />
                 <TextField
@@ -54,7 +52,7 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     helperText={firstNameError}
                     inputRef={refs.firstName}
                     margin="normal"
-                    sx={textfieldStyle}
+                    sx={{ width: "200px" }}
                     required={true}
                 />
             </Box>
@@ -66,7 +64,7 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     helperText={lastNameError}
                     inputRef={refs.lastName}
                     margin="normal"
-                    sx={textfieldStyle}
+                    sx={{ width: "200px" }}
                     required={true}
                 />
                 <TextField
@@ -76,7 +74,7 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     error={!!emailError}
                     helperText={emailError}
                     margin="normal"
-                    sx={textfieldStyle}
+                    sx={{ width: "200px" }}
                     required={true}
                     type="email"
                 />
@@ -90,7 +88,7 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     error={!!passwordError}
                     helperText={passwordError}
                     margin="normal"
-                    sx={textfieldStyle}
+                    sx={{ width: "200px" }}
                     required={true}
                 />
                 <TextField
@@ -101,7 +99,7 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     error={!!confirmPasswordError}
                     helperText={confirmPasswordError}
                     margin="normal"
-                    sx={textfieldStyle}
+                    sx={{ width: "200px" }}
                     required={true}
                 />
             </Box>
@@ -114,7 +112,7 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                 helperText={roleError}
                 margin="normal"
                 defaultValue=""
-                sx={textfieldStyle}
+                sx={{ width: "200px" }}
                 required={true}
             >
                 {roles.map((role) => (
@@ -124,10 +122,20 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                 ))}
             </TextField>
             <Box sx={boxStyle}>
-                <Button sx={button} variant="contained" color="primary" onClick={handleSubmit}>
+                <Button
+                    sx={{ width: "250px" }}
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSubmit}
+                >
                     Save User
                 </Button>
-                <Button sx={button} variant="contained" color="primary" onClick={onClose}>
+                <Button
+                    sx={{ width: "250px" }}
+                    variant="contained"
+                    color="primary"
+                    onClick={onClose}
+                >
                     Cancel
                 </Button>
             </Box>
