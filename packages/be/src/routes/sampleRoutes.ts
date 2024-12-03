@@ -6,9 +6,7 @@ import {
 } from "../../../shared/generated/zod/inputTypeSchemas";
 import { SampleSearchSchema } from "../../../shared/zodSchemas/samples/sampleSearchSchema";
 
-import { SampleController } from "../controllers/sampleController";
-
-const sampleController = new SampleController();
+import { sampleController } from "../controllers/sampleController";
 
 export const sampleRoutes = async (app: FastifyZodInstance): Promise<void> => {
     /**

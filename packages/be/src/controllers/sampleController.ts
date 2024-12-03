@@ -7,13 +7,11 @@ import {
 import { idSchema } from "../../../shared/zodSchemas/baseSchemas";
 import { SampleSearchSchema } from "../../../shared/zodSchemas/samples/sampleSearchSchema";
 
-import { SampleService } from "../services/sampleService";
+import { sampleService } from "../services/sampleService";
 
 import { sendErrorResponse } from "../utils/handleErrors";
 
-const sampleService = new SampleService();
-
-export class SampleController {
+class SampleController {
     /**
      * Get all samples.
      * @param request - FastifyRequest
@@ -140,3 +138,5 @@ export class SampleController {
         }
     }
 }
+
+export const sampleController = new SampleController();
