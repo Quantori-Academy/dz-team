@@ -57,7 +57,7 @@ export function OrderDetailsPage() {
                         rows={reagentData}
                         headers={reagentColumns}
                         showSearchField={false}
-                        showAddRecord={false}
+                        showToolbar={false}
                     />
                 </Box>
             ) : (
