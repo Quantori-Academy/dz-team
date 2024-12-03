@@ -5,8 +5,8 @@ import {
     ReagentCreateInputSchema,
     ReagentUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
-import { idSchema } from "../../../shared/zodSchemas/baseSchemas";
-import { ReagentSearchSchema } from "../../../shared/zodSchemas/reagent/reagentSearchSchema";
+import { ReagentSearchSchema } from "shared/zodSchemas/reagent/reagentSearchSchema";
+import { idSchema } from "shared/zodSchemas/baseSchemas";
 
 const reagentService = new ReagentService();
 
@@ -97,6 +97,10 @@ export class ReagentController {
     ): Promise<void> {
         try {
             const validatedId = idSchema.parse(request.params.id);
+            const isValidReagent = await reagentService.getReagent(validatedId);
+            if (!isValidReagent) {
+                return reply.status(404).send({ message: "Reagent not found" });
+            }
             const validatedData = ReagentUpdateInputSchema.parse(request.body);
 
             const reagent = await reagentService.updateReagent(validatedId, validatedData);
@@ -123,12 +127,14 @@ export class ReagentController {
     ): Promise<void> {
         try {
             const validatedId = idSchema.parse(request.params.id);
+            const findReagentById = await reagentService.getReagent(validatedId);
 
-            const reagent = await reagentService.deleteReagent(validatedId);
-            if (!reagent) {
+            if (findReagentById === null) {
                 return reply.status(404).send({ message: "Reagent not found" });
+            } else {
+                const reagent = await reagentService.deleteReagent(validatedId);
+                reply.send(reagent);
             }
-            reply.send(reagent);
         } catch (error) {
             if (error instanceof z.ZodError) {
                 return reply
