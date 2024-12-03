@@ -22,6 +22,7 @@ type DetailsEditPageProps<T extends AnyRoute, TData> = PropsWithChildren<{
     editableFields?: string[];
     allowPermission?: boolean;
     tableRef?: TableContextType["ref"];
+    IsEditionAllowed?: boolean;
 }>;
 
 export const DetailsEditPage = <T extends AnyRoute, TData>(
@@ -40,6 +41,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
     children,
     allowPermission = true,
     tableRef,
+    IsEditionAllowed = true,
 }: DetailsEditPageProps<T, TData> & { tableRef: TableContextType["ref"] }) {
     const [isEditing, setIsEditing] = useState(false);
     const data = useLoaderData<T>({ from: url }) as TData;
@@ -154,19 +156,17 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                                 </>
                             ) : (
                                 <>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={() => setIsEditing(true)}
-                                    >
-                                        Edit
-                                    </Button>
-                                    <Button
-                                        variant="outlined"
-                                        color="error"
-                                        sx={{ ml: 2 }}
-                                        onClick={handleDelete}
-                                    >
+                                    {IsEditionAllowed ? (
+                                        <Button
+                                            variant="contained"
+                                            color="primary"
+                                            onClick={() => setIsEditing(true)}
+                                            sx={{ mr: 2 }}
+                                        >
+                                            Edit
+                                        </Button>
+                                    ) : null}
+                                    <Button variant="outlined" color="error" onClick={handleDelete}>
                                         Delete
                                     </Button>
                                 </>

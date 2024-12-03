@@ -71,6 +71,7 @@ export function OrderDetailsPage() {
             fields={fields}
             onAction={handleAction}
             editableFields={["title", "description", "seller"]}
+            IsEditionAllowed={status === "pending"}
         >
             <Box sx={boxStyle}>
                 <Typography variant="h6" sx={{ mt: 6 }}>
