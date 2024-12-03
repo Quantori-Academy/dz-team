@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-import { base, request } from "./request";
+import { request } from "./request";
 
 export const fetchServerConnection = async () => {
-    const result = await request(base + "/", z.string(), { shouldAffectIsLoading: true });
+    const result = await request("/", z.string(), { shouldAffectIsLoading: true });
 
     if (result) {
         return "ok!";

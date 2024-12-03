@@ -10,8 +10,9 @@ import { decrementLoading, incrementLoading } from "./loadingState";
 
 const { useMockData, isProd } = config;
 
-// TODO: Update the base URL to include /api/v1 for consistency with the API routes.
-export const base = isProd ? "http://vm4.quantori.academy:1337" : "http://localhost:1337";
+export const base = isProd
+    ? "http://vm4.quantori.academy:1337/api/v1"
+    : "http://localhost:1337/api/v1";
 
 const api = ky.create({
     retry: {
@@ -123,6 +124,7 @@ export async function request<TT extends ZodType, T = z.infer<TT>, K = T>(
         shouldAffectIsLoading?: boolean;
     },
 ): Promise<T | K | undefined> {
+    const resultUrl = typeof url === "string" ? `${base}${url}` : url;
     const auth = $auth.getState();
     const token = auth ? auth.token : null;
     try {
@@ -134,13 +136,13 @@ export async function request<TT extends ZodType, T = z.infer<TT>, K = T>(
             ...options?.headers,
         };
 
-        const response = await api<{ data: T[] }>(url, { ...options, headers }).json(); // TODO: fix type asserion
+        const response = await api<{ data: T[] }>(resultUrl, { ...options, headers }).json(); // TODO: fix type asserion
         const value = contract.parse(response) as T;
 
         return options?.mapper ? options.mapper(value) : value;
     } catch (err) {
         if (options?.showErrorNotification ?? !isProd) {
-            handleError(err as Error, url, options);
+            handleError(err as Error, resultUrl, options);
         }
 
         if (options?.throwOnError ?? true) {

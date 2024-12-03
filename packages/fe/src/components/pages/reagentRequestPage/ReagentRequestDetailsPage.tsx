@@ -5,7 +5,7 @@ import {
     ReagentRequestDetails,
     ReagentRequestDetailsContract,
 } from "api/reagentRequestDetails/contract";
-import { base, request } from "api/request";
+import { request } from "api/request";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
 
 export function ReagentRequestDetailsPage({ url }: { url: "/_app/reagentRequests/$id" }) {
@@ -47,7 +47,7 @@ export function ReagentRequestDetailsPage({ url }: { url: "/_app/reagentRequests
     const handleAction = async (actionType: "submit" | "delete", data?: ReagentRequestDetails) => {
         if (actionType === "delete") {
             await request(
-                `${base}/api/v1/reagent-request/${reagentRequest.id}`,
+                `/reagent-request/${reagentRequest.id}`,
                 ReagentRequestDetailsContract, // TODO: add correct contract when it's ready
                 {
                     method: "DELETE",
@@ -58,7 +58,7 @@ export function ReagentRequestDetailsPage({ url }: { url: "/_app/reagentRequests
             });
         } else if (actionType === "submit" && data) {
             await request(
-                `${base}/api/v1/reagent-request/${reagentRequest.id}`,
+                `/reagent-request/${reagentRequest.id}`,
                 ReagentRequestDetailsContract, // TODO: add correct contract when it's ready
                 {
                     method: "PUT",

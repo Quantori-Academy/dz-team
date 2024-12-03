@@ -5,7 +5,6 @@ import { Outlet, useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 import { jwtDecode } from "jwt-decode";
 
-import { base } from "api/request";
 import { UserRole } from "api/self";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { TableContext } from "components/commonTable/TableContext";
@@ -85,11 +84,7 @@ export function ReagentRequestPage() {
                 <CommonTable<ReagentRequest>
                     columns={reagentRequestColumns}
                     ref={tableRef}
-                    url={
-                        role === UserRole.researcher
-                            ? `${base}/api/v1/requests/user/${userId}`
-                            : `${base}/api/v1/requests`
-                    }
+                    url={role === UserRole.researcher ? `/requests/user/${userId}` : `/requests`}
                     schema={ReagentRequestSchema}
                     onRowClick={handleRowClick}
                     searchBy={{
