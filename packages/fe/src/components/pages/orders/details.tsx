@@ -4,6 +4,8 @@ import { useLoaderData, useNavigate, useRouter } from "@tanstack/react-router";
 import { setStatus } from "api/orderStatus";
 import { Grid } from "components/dataGrid/Grid";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
+import { createModal } from "components/modal/createModal";
+import { removeModal } from "components/modal/store";
 import { Order } from "shared/generated/zod/modelSchema";
 import { OrderStatus } from "stores/order";
 import { SupportedValue } from "utils/formatters";
@@ -82,8 +84,20 @@ export function OrderDetailsPage() {
                     id="select-status"
                     disabled={statusTransferRules[status].length < 1}
                     onChange={async (event) => {
-                        await setStatus({ id, status: event.target.value as OrderStatus });
-                        router.invalidate();
+                        const response = await createModal({
+                            name: "change_order_status_modal",
+                            message: `Are you sure you want to change the order's status to ${event.target.value}?`,
+                            labels: { ok: "Submit", cancel: "Cancel" },
+                        });
+
+                        try {
+                            if (response) {
+                                await setStatus({ id, status: event.target.value as OrderStatus });
+                                router.invalidate();
+                            }
+                        } finally {
+                            removeModal();
+                        }
                     }}
                 >
                     <MenuItem value={status}>{status}</MenuItem>
