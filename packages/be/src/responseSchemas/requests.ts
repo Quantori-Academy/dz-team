@@ -1,13 +1,12 @@
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import { z } from "zod";
-import { unauthorizedResponse } from "./storageLocations";
 
 export const requestIdParam = z.object({
     requestId: z.string().uuid(),
 });
 
 export const RequestSchema = z.object({
-    id: z.string().uuid(),
+    id: z.string().uuid().optional(),
     name: z.string(),
     structure: z.string().nullable().optional(),
     cas: z.string().nullable().optional(),
@@ -51,24 +50,30 @@ export const GET_REQUESTS_SCHEMA: FastifyZodOpenApiSchema = {
 };
 
 export const GET_REQUEST_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
-    summary: "Retrieve a specific request by ID",
-    description: "Fetch detailed information about a request by its unique ID",
+    summary: "Retrieve a request by ID",
+    description: "Fetch details for a specific request.",
     tags: ["Requests"],
-    params: requestIdParam,
+    params: z.object({
+        requestId: z.string().uuid().describe("Request UUID"),
+    }),
     response: {
         200: {
-            description: "Request details",
+            description: "Successful response",
             content: {
                 "application/json": {
                     schema: RequestSchema,
                 },
             },
         },
-        400: {
-            description: "Invalid UUID supplied",
-        },
         404: {
             description: "Request not found",
+            content: {
+                "application/json": {
+                    schema: z.object({
+                        message: z.string().default("Request not found"),
+                    }),
+                },
+            },
         },
     },
 };
@@ -76,23 +81,28 @@ export const GET_REQUEST_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
 export const PATCH_REQUEST_SCHEMA: FastifyZodOpenApiSchema = {
     summary: "Updates a specific request",
     description: "Update request by id.",
-    params: requestIdParam,
     tags: ["Requests"],
+    params: z.object({
+        requestId: z.string().uuid().describe("Request UUID"),
+    }),
     response: {
         200: {
-            description: "Updated request details.",
+            description: "Successful response",
             content: {
                 "application/json": {
                     schema: RequestSchema,
                 },
             },
         },
-        400: {
-            description: "Invalid request or input data",
-        },
         404: {
             description: "Request not found",
+            content: {
+                "application/json": {
+                    schema: z.object({
+                        message: z.string().default("Request not found"),
+                    }),
+                },
+            },
         },
-        401: unauthorizedResponse,
     },
 };
