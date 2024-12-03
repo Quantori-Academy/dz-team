@@ -4,7 +4,7 @@ import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 
 import { CreateReagentRequestType, initialFormData } from "api/reagentRequest";
-import { base, request } from "api/request";
+import { request } from "api/request";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { TableContext } from "components/commonTable/TableContext";
 import { createModal } from "components/modal/createModal";
@@ -42,7 +42,7 @@ export function ReagentRequestPage() {
     };
 
     const submitReagentRequest = async (data: CreateReagentRequestType) => {
-        const response = await request(`${base}/api/v1/reagent-request`, ReagentRequestSchema, {
+        const response = await request(`/reagent-request`, ReagentRequestSchema, {
             method: "POST",
             json: data,
             throwOnError: true,
@@ -87,7 +87,7 @@ export function ReagentRequestPage() {
                 <CommonTable<ReagentRequest>
                     columns={reagentRequestColumns}
                     ref={tableRef}
-                    url={`${base}/api/v1/reagent-request`}
+                    url={`/reagent-request`}
                     schema={ReagentRequestSchema}
                     onRowClick={handleRowClick}
                     searchBy={{

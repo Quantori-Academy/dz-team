@@ -4,7 +4,6 @@ import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 
-import { base } from "api/request";
 import { UserRole } from "api/self";
 import { StorageLocation, StorageLocationSchema } from "api/storage/contract";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
@@ -49,7 +48,7 @@ export const StorageList = () => {
                 <CommonTable<StorageLocation>
                     ref={tableRef}
                     columns={columns}
-                    url={`${base}/api/v1/storage-locations`}
+                    url={`/storage-locations`}
                     schema={StorageLocationSchema}
                     onRowClick={(row: StorageLocation) => {
                         navigate({ to: `/storageList/${row.id}`, replace: false });
