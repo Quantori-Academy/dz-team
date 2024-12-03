@@ -1,12 +1,13 @@
-import { useState } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
-import { useLoaderData, useNavigate } from "@tanstack/react-router";
+import { Box, MenuItem, Select, Typography } from "@mui/material";
+import { useLoaderData, useNavigate, useRouter } from "@tanstack/react-router";
 
+import { setStatus } from "api/orderStatus";
 import { Grid } from "components/dataGrid/Grid";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
 import { Order } from "shared/generated/zod/modelSchema";
+import { OrderStatus } from "stores/order";
 import { SupportedValue } from "utils/formatters";
-import { updateOrderAction, updateOrderStatus } from "utils/orderActions";
+import { updateOrderAction } from "utils/orderActions";
 
 const reagentColumns = [
     { field: "id", headerName: "ID", width: 120 },
@@ -31,6 +32,13 @@ const fields = [
     { label: "User Id", name: "userId" },
 ];
 
+const statusTransferRules: Record<string, string[]> = {
+    pending: ["submitted"],
+    submitted: ["canceled", "fulfilled"],
+    fulfilled: [],
+    canceled: [],
+};
+
 const boxStyle = { display: "flex", flexDirection: "column", gap: "20px" };
 
 export function OrderDetailsPage() {
@@ -43,9 +51,9 @@ export function OrderDetailsPage() {
             from: "/_app/_pOfficerLayout/orders/$id",
         });
     const navigate = useNavigate();
+    const router = useRouter();
+
     const reagentData = Array.isArray(reagents) ? reagents : [];
-    const [isEditingStatus, setIsEditingStatus] = useState(false);
-    const [newStatus, setNewStatus] = useState(status);
 
     const handleAction = async (actionType: "submit" | "delete", data?: Order) => {
         if (!data) {
@@ -54,14 +62,6 @@ export function OrderDetailsPage() {
             // setIsEditing(false);
             await updateOrderAction(data, navigate);
         }
-    };
-    const handleStatusChange = async () => {
-        await updateOrderStatus({ id, status: newStatus }, navigate);
-        setIsEditingStatus(false);
-    };
-    const handleCancelEdit = () => {
-        setIsEditingStatus(false);
-        setNewStatus(status);
     };
 
     return (
@@ -73,36 +73,29 @@ export function OrderDetailsPage() {
             editableFields={["title", "description", "seller"]}
         >
             <Box sx={boxStyle}>
-                <Typography variant="h6" sx={{ mt: 2 }}>
+                <Typography variant="h6" sx={{ mt: 6 }}>
                     Change Order Status
                 </Typography>
-                <TextField
-                    label="Status"
-                    value={newStatus}
-                    onChange={(e) => setNewStatus(e.target.value)}
-                    disabled={!isEditingStatus}
-                    sx={{ width: "50%" }}
-                />
-                <Box sx={{ display: "flex", gap: "10px", mt: 2 }}>
-                    {isEditingStatus ? (
-                        <>
-                            <Button variant="contained" onClick={handleStatusChange}>
-                                Update
-                            </Button>
-                            <Button variant="outlined" onClick={handleCancelEdit}>
-                                Cancel
-                            </Button>
-                        </>
-                    ) : (
-                        <Button variant="contained" onClick={() => setIsEditingStatus(true)}>
-                            Edit
-                        </Button>
-                    )}
-                </Box>
+                <Select
+                    value={status}
+                    id="select-status"
+                    disabled={statusTransferRules[status].length < 1}
+                    onChange={async (event) => {
+                        await setStatus({ id, status: event.target.value as OrderStatus });
+                        router.invalidate();
+                    }}
+                >
+                    <MenuItem value={status}>{status}</MenuItem>
+                    {statusTransferRules[status].map((val) => (
+                        <MenuItem value={val} key={val}>
+                            {val}
+                        </MenuItem>
+                    ))}
+                </Select>
             </Box>
             {reagentData.length > 0 ? (
                 <Box sx={boxStyle}>
-                    <Typography variant="h6" sx={{ mt: 2 }}>
+                    <Typography variant="h6" sx={{ mt: 6 }}>
                         Reagents
                     </Typography>
                     <Grid
