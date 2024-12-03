@@ -99,7 +99,6 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
         "/:id/status",
         {
             schema: PATCH_ORDER_STATUS_SCHEMA satisfies FastifyZodOpenApiSchema,
-            // preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
         },
         async (request, reply) => {
             return await orderController.updateOrderStatus(request, reply);

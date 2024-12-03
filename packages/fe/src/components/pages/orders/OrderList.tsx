@@ -2,7 +2,6 @@ import { useRef } from "react";
 import { Box } from "@mui/material";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 
-import { base } from "api/request";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { TableContext } from "components/commonTable/TableContext";
 import { Order, OrderSchema } from "shared/generated/zod";
@@ -43,7 +42,7 @@ export const OrderList = () => {
                 <CommonTable<Order>
                     ref={tableRef}
                     columns={headers}
-                    url={`${base}/api/v1/orders`}
+                    url={`/orders`}
                     schema={OrderSchema}
                     onRowClick={(row: Order) => {
                         navigate({ to: `/orders/${row.id}`, replace: false });
