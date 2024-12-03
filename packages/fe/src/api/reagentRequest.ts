@@ -3,10 +3,10 @@ import {
     RequestCreationBodySchema,
 } from "shared/zodSchemas/request/requestSchemas";
 
-import { base, request } from "./request";
+import { request } from "./request";
 
 export const createReagentRequest = async (formData: RequestCreationBody) => {
-    const response = await request(`${base}/api/v1/requests`, RequestCreationBodySchema, {
+    const response = await request(`/requests`, RequestCreationBodySchema, {
         method: "POST",
         json: formData,
         showErrorNotification: true,
