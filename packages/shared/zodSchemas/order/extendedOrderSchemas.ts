@@ -16,7 +16,7 @@ export const OrderCreateWithUserIdInputSchema = z.object({
     title: z.string(),
     description: z.string().optional().nullable(),
     seller: z.string().optional().nullable(),
-    status: z.lazy(() => OrderStatusSchema),
+    status: z.lazy(() => OrderStatusSchema).optional(),
     deletedAt: z.coerce.date().optional().nullable(),
     createdAt: z.coerce.date().optional(),
     updatedAt: z.coerce.date().optional(),
