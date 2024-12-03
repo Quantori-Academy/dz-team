@@ -1,4 +1,4 @@
-import { Box, TextField, TextFieldProps } from "@mui/material";
+import { Grid2 as Grid, TextField, TextFieldProps } from "@mui/material";
 import { useUnit } from "effector-react";
 
 import { $formData, $formDataErrors, setFormData } from "stores/reagents";
@@ -6,7 +6,7 @@ import { $formData, $formDataErrors, setFormData } from "stores/reagents";
 const fields: TextFieldProps[] = [
     { label: "Name", name: "name" },
     { label: "Description", name: "description" },
-    { label: "Category", name: "category", helperText: "Available options are: reagent, sample" },
+    { label: "Category", name: "category", helperText: "Available options: reagent, sample" },
     { label: "Structure", name: "structure" },
     { label: "CAS Number", name: "cas" },
     { label: "Producer", name: "producer" },
@@ -25,9 +25,9 @@ const fields: TextFieldProps[] = [
     {
         label: "Currency",
         name: "currency",
-        helperText: "Available options are: usd, euro, rub, cny, jpy",
+        helperText: "Available options: usd, euro, rub, cny, jpy",
     },
-    { label: "Unit", name: "unit", helperText: "Available options are: ml, l, mg, g, oz, lb." },
+    { label: "Unit", name: "unit", helperText: "Available options: ml, l, mg, g, oz, lb." },
     {
         label: "Quantity",
         name: "quantity",
@@ -54,26 +54,29 @@ export const ReagentFormModal = () => {
     };
 
     return (
-        <Box>
+        <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             {fields.map(({ name, label, type, helperText, ...rest }, index) => {
                 const errorText = formDataErrors[name as keyof typeof formDataErrors];
                 return (
-                    <TextField
-                        key={index}
-                        label={label}
-                        name={name}
-                        value={formData[name as keyof typeof formData] || ""}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        type={type || "text"}
-                        helperText={errorText || helperText}
-                        error={Boolean(errorText)}
-                        required
-                        {...rest}
-                    />
+                    <Grid size={6} key={name}>
+                        <TextField
+                            key={index}
+                            label={label}
+                            name={name}
+                            value={formData[name as keyof typeof formData] || ""}
+                            onChange={handleChange}
+                            fullWidth
+                            margin="normal"
+                            type={type || "text"}
+                            helperText={errorText || helperText}
+                            error={Boolean(errorText)}
+                            required
+                            sx={{ width: 1 }}
+                            {...rest}
+                        />
+                    </Grid>
                 );
             })}
-        </Box>
+        </Grid>
     );
 };

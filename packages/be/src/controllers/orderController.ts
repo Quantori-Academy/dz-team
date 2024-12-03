@@ -8,7 +8,9 @@ import {
     OrderUpdateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
 import { OrderStatus } from "@prisma/client";
+import { SellerService } from "../services/sellerService";
 
+const sellerService = new SellerService();
 const orderService = new OrderService();
 
 export class OrderController {
@@ -65,6 +67,15 @@ export class OrderController {
             // Validate the input data
             const validatedData = OrderCreateWithUserIdInputSchema.parse(request.body);
 
+            if (validatedData.seller) {
+                // Check if the seller already exists
+                const existingSeller = await sellerService.findSellerByName(validatedData.seller);
+
+                if (!existingSeller) {
+                    await sellerService.createSeller({ name: validatedData.seller });
+                }
+            }
+
             // Call the service to create the order
             const order = await orderService.createOrder(validatedData);
 
@@ -92,6 +103,18 @@ export class OrderController {
         try {
             const validatedId = idSchema.parse(request.params.id);
             const validatedData = OrderUpdateWithUserIdInputSchema.parse(request.body);
+            // Normalize seller to always be a string or undefined
+            const sellerName =
+                typeof validatedData.seller === "string"
+                    ? validatedData.seller
+                    : validatedData.seller?.set;
+
+            if (sellerName) {
+                const existingSeller = await sellerService.findSellerByName(sellerName);
+                if (!existingSeller) {
+                    await sellerService.createSeller({ name: sellerName });
+                }
+            }
             const order = await orderService.updateOrder(validatedId, validatedData);
             reply.send(order);
         } catch (error) {

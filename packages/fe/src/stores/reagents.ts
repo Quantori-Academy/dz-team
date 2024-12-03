@@ -38,7 +38,7 @@ export const submitReagent = domain.createEvent<void>("submitReagent");
 // TODO: move to `/api` and use `request`
 export const addReagentFx = domain.createEffect(async () => {
     const data = $formData.getState();
-    const response = await fetch(`${base}/api/v1/reagents`, {
+    const response = await fetch(`${base}/reagents`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
@@ -54,11 +54,14 @@ sample({
         const result = ReagentCreateInputSchema.safeParse(formData);
 
         return (
-            result.error?.issues.reduce((acc, issue) => {
-                const key = issue.path.join(".");
-                acc[key] = issue.message;
-                return acc;
-            }, {} as Record<string, string>) ?? {}
+            result.error?.issues.reduce(
+                (acc, issue) => {
+                    const key = issue.path.join(".");
+                    acc[key] = issue.message;
+                    return acc;
+                },
+                {} as Record<string, string>,
+            ) ?? {}
         );
     },
     target: $formDataErrors,
