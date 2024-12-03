@@ -5,6 +5,8 @@ import { userRoutes } from "./userRoutes";
 import { FastifyZodInstance } from "../types";
 import { storageLocationRoutes } from "./storageLocationRoutes";
 import { orderRoutes } from "./orderRoutes";
+import { sellerRoutes } from "./sellerRoutes";
+import { requestRoutes } from "./requestRoutes";
 import { combinedListRoutes } from "./combinedListRoutes";
 
 export const apiRoutes = async (app: FastifyZodInstance) => {
@@ -15,4 +17,6 @@ export const apiRoutes = async (app: FastifyZodInstance) => {
     app.register(userRoutes, { prefix: "/users" });
     app.register(storageLocationRoutes, { prefix: "/storage-locations" });
     app.register(orderRoutes, { prefix: "/orders" });
+    app.register(sellerRoutes, { prefix: "/sellers" });
+    app.register(requestRoutes, { prefix: "/requests" });
 };

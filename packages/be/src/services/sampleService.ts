@@ -10,7 +10,7 @@ import { SampleSearch } from "../../../shared/zodSchemas/samples/sampleSearchSch
 
 const prisma = new PrismaClient();
 
-export class SampleService {
+class SampleService {
     /**
      * Get all samples that are not deleted.
      * @returns {Promise<Sample[]>} An array of all non-deleted sample.
@@ -120,3 +120,5 @@ export class SampleService {
         return await prisma.sample.update({ where: { id }, data: { deletedAt: null } });
     }
 }
+
+export const sampleService = new SampleService();

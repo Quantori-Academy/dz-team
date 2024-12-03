@@ -6,9 +6,16 @@ import {
 } from "../../../shared/generated/zod/inputTypeSchemas";
 import { SampleSearchSchema } from "../../../shared/zodSchemas/samples/sampleSearchSchema";
 
-import { SampleController } from "../controllers/sampleController";
-
-const sampleController = new SampleController();
+import { sampleController } from "../controllers/sampleController";
+import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
+import {
+    DELETE_SAMPLE_BY_ID_SCHEMA,
+    GET_SAMPLE_BY_ID_SCHEMA,
+    GET_SAMPLES_SCHEMA,
+    PATCH_SAMPLE_BY_ID_SCHEMA,
+    POST_SAMPLES_SCHEMA,
+    PUT_SAMPLE_BY_ID_SCHEMA,
+} from "../responseSchemas/samples";
 
 export const sampleRoutes = async (app: FastifyZodInstance): Promise<void> => {
     /**
@@ -23,7 +30,9 @@ export const sampleRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.get<{ Querystring: typeof SampleSearchSchema }>(
         "/",
-        { schema: { tags: ["Sample"] } },
+        {
+            schema: GET_SAMPLES_SCHEMA satisfies FastifyZodOpenApiSchema,
+        },
         async (request, reply) => {
             return await sampleController.getSamples(request, reply);
         },
@@ -39,7 +48,9 @@ export const sampleRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.get<{ Params: { id: string } }>(
         "/:id",
-        { schema: { tags: ["Sample"] } },
+        {
+            schema: GET_SAMPLE_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+        },
         async (request, reply) => {
             return await sampleController.getSample(request, reply);
         },
@@ -55,7 +66,9 @@ export const sampleRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.post<{ Body: typeof SampleCreateInputSchema }>(
         "/",
-        { schema: { tags: ["Sample"], body: SampleCreateInputSchema } },
+        {
+            schema: POST_SAMPLES_SCHEMA satisfies FastifyZodOpenApiSchema,
+        },
         async (request, reply) => {
             return await sampleController.createSample(request, reply);
         },
@@ -73,7 +86,9 @@ export const sampleRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.put<{ Params: { id: string }; Body: typeof SampleUpdateInputSchema }>(
         "/:id",
-        { schema: { tags: ["Sample"], body: SampleUpdateInputSchema } },
+        {
+            schema: PUT_SAMPLE_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+        },
         async (request, reply) => {
             return await sampleController.updateSample(request, reply);
         },
@@ -89,7 +104,9 @@ export const sampleRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.delete<{ Params: { id: string } }>(
         "/:id",
-        { schema: { tags: ["Sample"] } },
+        {
+            schema: DELETE_SAMPLE_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+        },
         async (request, reply) => {
             return await sampleController.deleteSample(request, reply);
         },
@@ -105,7 +122,9 @@ export const sampleRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.patch<{ Params: { id: string } }>(
         "/:id",
-        { schema: { tags: ["Sample"] } },
+        {
+            schema: PATCH_SAMPLE_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+        },
         async (request, reply) => {
             return await sampleController.undoDeleteSample(request, reply);
         },
