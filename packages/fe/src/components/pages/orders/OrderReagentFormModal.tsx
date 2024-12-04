@@ -140,9 +140,14 @@ export const OrderReagentFormModal = ({
             })}
             <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
                 {currentMode === Mode.Create && (
-                    <Button variant="contained" onClick={handleSubmit}>
-                        Create
-                    </Button>
+                    <>
+                        <Button variant="contained" onClick={handleSubmit}>
+                            Create
+                        </Button>
+                        <Button variant="outlined" onClick={onCancel}>
+                            Cancel
+                        </Button>
+                    </>
                 )}
                 {currentMode === Mode.Edit && (
                     <>

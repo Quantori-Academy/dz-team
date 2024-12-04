@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Box, Button, TextField } from "@mui/material";
+import { useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
-import { jwtDecode, JwtPayload } from "jwt-decode";
 
 import { CreateOrderReagent } from "api/orderDetails/contract";
 import { SnackbarAlert } from "components/snackBarAlert/snackBarAlert";
-import { $auth } from "stores/auth";
+import { $userId } from "stores/auth";
 import { OrderStatus, setOrderData, submitOrder } from "stores/order";
 import { validateInput } from "utils/validationInput";
 
@@ -20,13 +20,9 @@ type BasketProps = {
     clearBasket: () => void;
 };
 
-type CustomJwtPayload = JwtPayload & {
-    userId?: string;
-};
-
 const validationRules = {
     title: {
-        required: false,
+        required: true,
         maxLength: 200,
     },
     seller: {
@@ -34,7 +30,7 @@ const validationRules = {
         maxLength: 200,
     },
     description: {
-        required: true,
+        required: false,
     },
 };
 
@@ -50,26 +46,17 @@ export function OrderBasket({
 }: BasketProps) {
     const submitOrderEvent = useUnit(submitOrder);
     const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
-    const [snackbarOpen, setSnackbarOpen] = useState(false);
-    const [snackbarMessage, setSnackbarMessage] = useState("");
-    const [snackbarSeverity, setSnackbarSeverity] = useState<"success" | "error">("success");
-
-    const auth = useUnit($auth);
-
-    let userId = null;
-
-    if (auth && auth.self) {
-        const token = auth.token;
-        const decodedToken = jwtDecode<CustomJwtPayload>(token);
-
-        if (decodedToken?.userId) {
-            userId = decodedToken.userId;
-        } else {
-            setSnackbarMessage("User ID not found in the token");
-            setSnackbarSeverity("error");
-            setSnackbarOpen(true);
-        }
-    }
+    const [snackbar, setSnackbar] = useState<{
+        open: boolean;
+        message: string;
+        severity: "success" | "error";
+    }>({
+        open: false,
+        message: "",
+        severity: "success",
+    });
+    const userId = useUnit($userId);
+    const navigate = useNavigate();
 
     const handleCreateOrder = () => {
         const formData = { title, seller, description };
@@ -77,9 +64,7 @@ export function OrderBasket({
 
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
-            setSnackbarMessage("Order creation failed!");
-            setSnackbarSeverity("error");
-            setSnackbarOpen(true);
+            setSnackbar({ open: true, message: "Order creation failed!", severity: "error" });
             return;
         }
         const orderData = {
@@ -105,10 +90,26 @@ export function OrderBasket({
 
         setOrderData(orderData);
         submitOrderEvent();
-        setSnackbarMessage("Order created successfully!");
-        setSnackbarSeverity("success");
-        setSnackbarOpen(true);
+        setSnackbar({ open: true, message: "Order created successfully!", severity: "success" });
         clearBasket();
+        navigate({ to: "/orders" });
+        // try {
+        //     const response = submitOrderEvent();
+
+        //     if (response.ok) {
+        //         setSnackbar({
+        //             open: true,
+        //             message: "Order created successfully!",
+        //             severity: "success",
+        //         });
+        //         clearBasket();
+        //         navigate({ to: "/orders" });
+        //     } else {
+        //         setSnackbar({ open: true, message: "Order creation failed!", severity: "error" });
+        //     }
+        // } catch (error) {
+        //     setSnackbar({ open: true, message: "Order creation failed!", severity: "error" });
+        // }
     };
 
     return (
@@ -120,6 +121,7 @@ export function OrderBasket({
                     onChange={(e) => setTitle(e.target.value)}
                     variant="outlined"
                     fullWidth
+                    required
                     error={!!errors.title}
                     helperText={errors.title}
                     sx={{ mt: 2 }}
@@ -141,7 +143,6 @@ export function OrderBasket({
                 onChange={(e) => setDescription(e.target.value)}
                 variant="outlined"
                 fullWidth
-                required
                 error={!!errors.description}
                 helperText={errors.description}
                 sx={{ mt: 2 }}
@@ -150,10 +151,10 @@ export function OrderBasket({
                 Create Order
             </Button>
             <SnackbarAlert
-                open={snackbarOpen}
-                message={snackbarMessage}
-                severity={snackbarSeverity}
-                onClose={() => setSnackbarOpen(false)}
+                open={snackbar.open}
+                message={snackbar.message}
+                severity={snackbar.severity}
+                onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
             />
         </Box>
     );

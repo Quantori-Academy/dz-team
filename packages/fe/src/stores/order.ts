@@ -35,6 +35,11 @@ $orderData.on(setOrderData, (state, payload) => ({
 
 export const submitOrderFx = domain.createEffect(async () => {
     const orderData = $orderData.getState();
+    // const response = await fetch(`/orders`, {
+    //     method: "POST",
+    //     headers: { "Content-Type": "application/json" },
+    //     body: JSON.stringify(orderData),
+    // });
     const response = await request("/orders", OrderCreateInputSchema, {
         method: "POST",
         body: JSON.stringify(orderData),
@@ -44,7 +49,17 @@ export const submitOrderFx = domain.createEffect(async () => {
         showErrorNotification: true,
     });
 
+    // if (!response.ok) {
+    //     throw new Error("Failed to create order");
+    // }
+
     setOrderData(initialOrderData);
+    // return {
+    //     ok: response.ok,
+    //     status: response.status,
+    //     data: await response.json(),
+    // };
+    // return await response.json();
     return response;
 });
 
