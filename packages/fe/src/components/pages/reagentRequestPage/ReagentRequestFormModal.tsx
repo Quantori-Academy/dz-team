@@ -1,7 +1,7 @@
 import { BaseTextFieldProps, Grid2 as Grid, TextField } from "@mui/material";
 import { useUnit } from "effector-react";
 
-import { $formData, setFormData } from "stores/reagentRequest";
+import { $formData, $formDataErrors, setFormData } from "stores/reagentRequest";
 
 const fields: BaseTextFieldProps[] = [
     { label: "Reagent Name", name: "name", required: true },
@@ -10,11 +10,11 @@ const fields: BaseTextFieldProps[] = [
     { label: "Desired Quantity", name: "quantity", type: "number", required: true },
     { label: "User Comments", name: "commentsUser", type: "array" },
     { label: "Procurement Comments", name: "commentsProcurement", type: "array", disabled: true },
-    { label: "Status", name: "status", disabled: true, defaultValue: "Pending" },
+    { label: "Status", name: "status", disabled: true },
 ];
 
 export const ReagentRequestFormModal = () => {
-    const formData = useUnit($formData);
+    const [formData, formDataErrors] = useUnit([$formData, $formDataErrors]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -26,22 +26,25 @@ export const ReagentRequestFormModal = () => {
 
     return (
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-            {fields.map((field) => {
+            {fields.map(({ name, label, type, helperText, required, disabled, ...rest }, index) => {
+                const errorText = formDataErrors[name as keyof typeof formDataErrors];
                 return (
-                    <Grid size={6} key={field.name}>
+                    <Grid size={6} key={name}>
                         <TextField
-                            key={field.name}
-                            label={field.label}
-                            name={field.name}
-                            value={formData[field.name as keyof typeof formData] || ""}
+                            key={index}
+                            label={label}
+                            name={name}
+                            value={formData[name as keyof typeof formData] || ""}
                             onChange={handleChange}
                             fullWidth
                             margin="normal"
-                            type={field.type || "text"}
-                            helperText={field.helperText}
-                            required={field.required}
-                            disabled={field.disabled}
+                            type={type || "text"}
+                            helperText={errorText || helperText}
+                            error={Boolean(errorText)}
+                            required={required}
+                            disabled={disabled}
                             sx={{ width: 1 }}
+                            {...rest}
                         />
                     </Grid>
                 );
