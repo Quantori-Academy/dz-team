@@ -1,7 +1,7 @@
 import { sample } from "effector";
 import { z } from "zod";
 
-import { base } from "api/request";
+import { request } from "api/request";
 import { genericDomain as domain } from "logger";
 import { OrderCreateInputSchema } from "shared/generated/zod";
 
@@ -35,18 +35,17 @@ $orderData.on(setOrderData, (state, payload) => ({
 
 export const submitOrderFx = domain.createEffect(async () => {
     const orderData = $orderData.getState();
-    const response = await fetch(`${base}/api/v1/orders`, {
+    const response = await request("/orders", OrderCreateInputSchema, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(orderData),
+        headers: {
+            "Content-Type": "application/json",
+        },
+        showErrorNotification: true,
     });
 
-    if (!response.ok) {
-        throw new Error("Failed to create order");
-    }
-
     setOrderData(initialOrderData);
-    return await response.json();
+    return response;
 });
 
 sample({

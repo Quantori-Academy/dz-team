@@ -4,9 +4,9 @@ import { useUnit } from "effector-react";
 import { jwtDecode, JwtPayload } from "jwt-decode";
 
 import { CreateOrderReagent } from "api/orderDetails/contract";
+import { SnackbarAlert } from "components/snackBarAlert/snackBarAlert";
 import { $auth } from "stores/auth";
 import { OrderStatus, setOrderData, submitOrder } from "stores/order";
-import { SnackbarAlert } from "utils/snackBarAlert";
 import { validateInput } from "utils/validationInput";
 
 type BasketProps = {
@@ -65,7 +65,9 @@ export function OrderBasket({
         if (decodedToken?.userId) {
             userId = decodedToken.userId;
         } else {
-            alert("User ID not found in the token");
+            setSnackbarMessage("User ID not found in the token");
+            setSnackbarSeverity("error");
+            setSnackbarOpen(true);
         }
     }
 

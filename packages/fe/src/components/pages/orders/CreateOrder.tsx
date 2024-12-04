@@ -7,7 +7,8 @@ import { CreateOrderReagent } from "api/orderDetails/contract";
 import { AddRecord } from "components/dataGrid/Addrecord";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
-import { useReagents } from "utils/useReagents";
+import { useReagents } from "hooks/useReagents";
+import { Mode } from "utils/mode";
 
 import { OrderBasket } from "./OrderBasket";
 import { OrderReagentFormModal } from "./OrderReagentFormModal";
@@ -41,55 +42,54 @@ export const CreateOrder = () => {
 
     const handleRowClick = async (row: CreateOrderReagent) => {
         setSelectedReagent(row);
-        try {
-            await createModal({
-                name: "reagent_modal",
-                title: "Edit Reagent",
-                message: (
-                    <OrderReagentFormModal
-                        mode="view"
-                        selectedReagent={row}
-                        onSubmit={(updatedReagent: CreateOrderReagent) => {
-                            editReagent(updatedReagent);
-                            removeModal();
-                        }}
-                        onDelete={() => {
-                            deleteReagent(row);
-                            removeModal();
-                        }}
-                        onCancel={() => {
-                            removeModal();
-                        }}
-                    />
-                ),
-            });
-        } catch (_) {
+        const result = await createModal({
+            name: "reagent_modal",
+            title: "Edit Reagent",
+            message: (
+                <OrderReagentFormModal
+                    mode={Mode.View}
+                    selectedReagent={row}
+                    onSubmit={(updatedReagent: CreateOrderReagent) => {
+                        editReagent(updatedReagent);
+                        removeModal();
+                    }}
+                    onDelete={() => {
+                        deleteReagent(row);
+                        removeModal();
+                    }}
+                    onCancel={() => {
+                        removeModal();
+                    }}
+                />
+            ),
+        });
+        if (!result) {
             removeModal();
         }
     };
 
     const openAddModal = async () => {
-        try {
-            await createModal({
-                name: "reagent_modal",
-                title: "Add new Reagent",
-                message: (
-                    <OrderReagentFormModal
-                        mode="create"
-                        selectedReagent={selectedReagent}
-                        onSubmit={(newReagent: CreateOrderReagent) => {
-                            setReagents((prevReagents) => [...prevReagents, newReagent]);
-                            setBasket((prevBasket) => [...prevBasket, { reagent: newReagent }]);
-                            removeModal();
-                        }}
-                        onCancel={() => {
-                            setSelectedReagent(null);
-                            removeModal();
-                        }}
-                    />
-                ),
-            });
-        } catch (_) {
+        const result = await createModal({
+            name: "reagent_modal",
+            title: "Add new Reagent",
+            message: (
+                <OrderReagentFormModal
+                    mode={Mode.Create}
+                    selectedReagent={selectedReagent}
+                    onSubmit={(newReagent: CreateOrderReagent) => {
+                        setReagents((prevReagents) => [...prevReagents, newReagent]);
+                        setBasket((prevBasket) => [...prevBasket, { reagent: newReagent }]);
+                        removeModal();
+                    }}
+                    onCancel={() => {
+                        setSelectedReagent(null);
+                        removeModal();
+                    }}
+                />
+            ),
+        });
+        if (!result) {
+            setSelectedReagent(null);
             removeModal();
         }
     };
