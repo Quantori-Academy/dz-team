@@ -1,7 +1,7 @@
-import { Box, MenuItem, Select, Typography } from "@mui/material";
+import { Box, MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
 import { useLoaderData, useNavigate, useRouter } from "@tanstack/react-router";
 
-import { setStatus } from "api/orderStatus";
+import { changeStatus } from "api/orderStatus";
 import { Grid } from "components/dataGrid/Grid";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
 import { createModal } from "components/modal/createModal";
@@ -66,6 +66,24 @@ export function OrderDetailsPage() {
         }
     };
 
+    const addModal = async (event: SelectChangeEvent<string>) => {
+        const response = await createModal({
+            name: "change_order_status_modal",
+            message: `Are you sure you want to change the order's status to ${event.target.value}?`,
+            labels: { ok: "Submit", cancel: "Cancel" },
+        });
+
+        if (response) {
+            await changeStatus({
+                id,
+                status: event.target.value as OrderStatus,
+            });
+            router.invalidate();
+        }
+
+        removeModal();
+    };
+
     return (
         <DetailsEditPage
             baseUrl="/orders"
@@ -73,7 +91,7 @@ export function OrderDetailsPage() {
             fields={fields}
             onAction={handleAction}
             editableFields={["title", "description", "seller"]}
-            IsEditionAllowed={status === "pending"}
+            isEditingAllowed={status === "pending"}
         >
             <Box sx={boxStyle}>
                 <Typography variant="h6" sx={{ mt: 6 }}>
@@ -83,22 +101,7 @@ export function OrderDetailsPage() {
                     value={status}
                     id="select-status"
                     disabled={statusTransferRules[status].length < 1}
-                    onChange={async (event) => {
-                        const response = await createModal({
-                            name: "change_order_status_modal",
-                            message: `Are you sure you want to change the order's status to ${event.target.value}?`,
-                            labels: { ok: "Submit", cancel: "Cancel" },
-                        });
-
-                        try {
-                            if (response) {
-                                await setStatus({ id, status: event.target.value as OrderStatus });
-                                router.invalidate();
-                            }
-                        } finally {
-                            removeModal();
-                        }
-                    }}
+                    onChange={addModal}
                 >
                     <MenuItem value={status}>{status}</MenuItem>
                     {statusTransferRules[status].map((val) => (
