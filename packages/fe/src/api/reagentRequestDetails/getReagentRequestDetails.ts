@@ -1,6 +1,6 @@
 import { request } from "api/request";
 
-import { ReagentRequestDetailsContract } from "./contract";
+import { RequestUpdateBodySchema } from "../../../../shared/zodSchemas/request/requestSchemas";
 
 export const getReagentRequestDetailsApi = async ({ id }: { id: string }) =>
-    await request(`/reagent-request/${id}`, ReagentRequestDetailsContract);
+    await request(`/requests/${id}`, RequestUpdateBodySchema);
