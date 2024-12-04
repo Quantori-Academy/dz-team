@@ -1,3 +1,5 @@
+import { CombinedList } from "shared/generated/zod/modelSchema/CombinedListSchema";
+
 export type ResponseMaterial = {
     id: string;
     name: string;
@@ -28,7 +30,7 @@ export type SampleData = {
     quantityUnit: string;
     quantity: number;
     quantityLeft: number;
-    reagentsUsed: string[];
+    reagentsUsed: CombinedList[];
     expirationDate: string;
     storageLocation: string;
     storageId: string;

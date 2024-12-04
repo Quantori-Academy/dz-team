@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import { postSamples } from "api/combinedList/postSamples";
 import { SampleData } from "api/types";
+import { CombinedList } from "shared/generated/zod/modelSchema/CombinedListSchema";
 
 type HookProps = {
     name: React.RefObject<HTMLInputElement>;
@@ -9,7 +10,7 @@ type HookProps = {
     description: React.RefObject<HTMLInputElement>;
     quantity: React.RefObject<HTMLInputElement>;
     quantityLeft: React.RefObject<HTMLInputElement>;
-    reagentsAndSamplesUsed: string[];
+    reagentsAndSamplesUsed: CombinedList[];
     expirationDate: React.RefObject<HTMLInputElement>;
     storageLocation: React.RefObject<{ value: string }>;
     storageId: React.RefObject<{ value: string }>;

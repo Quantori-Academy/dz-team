@@ -29,7 +29,6 @@ const columns: GridColDef<CombinedList>[] = [
     { field: "updatedAt", headerName: "Updated At", width: 150 },
 ];
 
-//  todo create demo
 export const CombinedListPage = () => {
     const openAddModal = async () => {
         try {

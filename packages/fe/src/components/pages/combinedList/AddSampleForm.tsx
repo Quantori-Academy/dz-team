@@ -35,16 +35,19 @@ export const AddSampleForm = ({ onClose }: AddSFormProps) => {
     const [selectedStorage, setSelectedStorage] = useState<{ id: string; name: string } | null>(
         null,
     );
-    const [selectedReagentsAndSamples, setSelectedReagentsAndSamples] = useState<string[]>([]);
+    const [selectedReagentsAndSamples, setSelectedReagentsAndSamples] = useState<CombinedList[]>(
+        [],
+    );
 
-    //TODO
-    useGate(StorageGate);
-    useGate(CombinedListGate);
-    const storageList = useUnit($storageList);
-    const combinedList = useUnit($combinedList);
+    useGate(StorageGate, CombinedListGate);
+
+    const { storageList, combinedList } = useUnit({
+        storageList: $storageList,
+        combinedList: $combinedList,
+    });
 
     const uniqueCombinedList = combinedList.reduce<CombinedList[]>((acc, item) => {
-        // Check if the name or ID already exists in the accumulator
+        // Check if the name already exists in the list
         if (!acc.some((existingItem) => existingItem.name === item.name)) {
             acc.push(item);
         }
@@ -114,13 +117,19 @@ export const AddSampleForm = ({ onClose }: AddSFormProps) => {
                 fullWidth
                 margin="normal"
             />
+            <TextField
+                label="Expiration Date"
+                inputRef={expirationDate}
+                type="date"
+                fullWidth
+                margin="normal"
+                InputLabelProps={{ shrink: true }}
+            />
             <Autocomplete
                 multiple
                 options={uniqueCombinedList}
                 getOptionLabel={(option) => option.name || "Unnamed Item"}
-                onChange={(_event, value) =>
-                    setSelectedReagentsAndSamples(value.map((item) => item.name || "Unnamed Item"))
-                }
+                onChange={(_event, value) => setSelectedReagentsAndSamples(value)}
                 renderInput={(params) => (
                     <TextField
                         {...params}
