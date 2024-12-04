@@ -2,7 +2,6 @@ import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 
-import { base } from "api/request";
 import { CommonTable } from "components/commonTable/CommonTable";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
@@ -49,7 +48,7 @@ export const CombinedListPage = () => {
         <Box sx={{ mb: 5 }}>
             <CommonTable<CombinedList>
                 columns={columns}
-                url={`${base}/api/v1/list`}
+                url={`/list`}
                 schema={CombinedListSchema}
                 searchBy={{
                     name: true,

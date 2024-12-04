@@ -7,26 +7,29 @@ type HookProps = {
     name: React.RefObject<HTMLInputElement>;
     structure: React.RefObject<HTMLInputElement>;
     description: React.RefObject<HTMLInputElement>;
-    quantityUnit: React.RefObject<HTMLInputElement>;
     quantity: React.RefObject<HTMLInputElement>;
     quantityLeft: React.RefObject<HTMLInputElement>;
-    reagentsUsed: React.RefObject<HTMLInputElement>;
+    reagentsAndSamplesUsed: string[];
     expirationDate: React.RefObject<HTMLInputElement>;
-    storageLocation: React.RefObject<HTMLInputElement>;
+    storageLocation: React.RefObject<{ value: string }>;
+    storageId: React.RefObject<{ value: string }>;
+    quantityUnit: string;
 };
 
 export const useSample = ({
     name,
     structure,
     description,
-    quantityUnit,
     quantity,
     quantityLeft,
-    reagentsUsed,
+    reagentsAndSamplesUsed,
     expirationDate,
     storageLocation,
+    storageId,
+    quantityUnit,
 }: HookProps) => {
     const [nameError, setNameError] = useState<string | null>(null);
+    const [storageIdError, setStorageIdError] = useState<string | null>(null);
     const [confirmMessage, setConfirmMessage] = useState(false);
     const [errorMessage, setErrorMessage] = useState(false);
 
@@ -42,6 +45,14 @@ export const useSample = ({
         } else {
             setNameError(null);
         }
+
+        if (!formData.storageId || formData.storageId.trim().length === 0) {
+            setStorageIdError("Storage is required.");
+            isValid = false;
+        } else {
+            setStorageIdError(null);
+        }
+
         return isValid;
     };
 
@@ -50,33 +61,30 @@ export const useSample = ({
             name: name.current?.value || "",
             structure: structure.current?.value || "",
             description: description.current?.value || "",
-            quantityUnit: quantityUnit.current?.value || "",
+            quantityUnit,
             quantity: Number(quantity.current?.value || 0),
             quantityLeft: Number(quantityLeft.current?.value || 0),
-            reagentsUsed: reagentsUsed.current?.value ? reagentsUsed.current.value.split(",") : [],
+            reagentsUsed: reagentsAndSamplesUsed,
             expirationDate: expirationDate.current?.value || "",
             storageLocation: storageLocation.current?.value || "",
+            storageId: storageId.current?.value || "",
         };
 
         if (validateForm(formData)) {
             try {
                 await postSamples(formData);
-                setNameError(null);
                 setConfirmMessage(true);
-                setTimeout(() => {
-                    setConfirmMessage(false);
-                }, 2000);
-            } catch (_) {
+                setTimeout(() => setConfirmMessage(false), 2000);
+            } catch (_error) {
                 setErrorMessage(true);
-                setTimeout(() => {
-                    setErrorMessage(false);
-                }, 2000);
+                setTimeout(() => setErrorMessage(false), 2000);
             }
         }
     };
 
     return {
         nameError,
+        storageIdError,
         confirmMessage,
         errorMessage,
         handleSubmit,

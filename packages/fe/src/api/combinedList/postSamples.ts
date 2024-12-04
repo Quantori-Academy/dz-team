@@ -1,9 +1,9 @@
-import { base, request } from "api/request";
+import { request } from "api/request";
 import { SampleData } from "api/types";
-import CombinedListSchema from "shared/generated/zod/modelSchema/CombinedListSchema";
+import SampleSchema from "shared/generated/zod/modelSchema/SampleSchema";
 
 export const postSamples = async (formdata: SampleData) => {
-    await request(`${base}/api/v1/samples`, CombinedListSchema, {
+    await request(`/samples`, SampleSchema, {
         method: "POST",
         json: formdata,
     });

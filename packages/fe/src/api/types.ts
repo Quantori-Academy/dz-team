@@ -31,4 +31,5 @@ export type SampleData = {
     reagentsUsed: string[];
     expirationDate: string;
     storageLocation: string;
+    storageId: string;
 };
