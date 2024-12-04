@@ -100,7 +100,7 @@ export class ReagentService {
     async createReagent(newReagentData: Prisma.ReagentCreateManyInput): Promise<Reagent> {
         const validatedData = ReagentCreateManyInputSchema.parse(newReagentData);
 
-        if (validatedData.pricePerUnit === 0 && validatedData.quantityInit === 0) {
+        if (validatedData.pricePerUnit === 0 || validatedData.quantity === 0) {
             throw new Error("Invalid reagent data");
         }
 
