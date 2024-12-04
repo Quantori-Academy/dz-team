@@ -1,8 +1,15 @@
 import { FastifyZodInstance, Roles } from "../types";
 import { RequestController } from "../controllers/requestController";
-import { RequestCreationBodySchema } from "../../../shared/zodSchemas/request/requestSchemas";
+import {
+    RequestCreationBodySchema,
+    RequestUpdateBody,
+} from "../../../shared/zodSchemas/request/requestSchemas";
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
-import { GET_REQUESTS_SCHEMA } from "../responseSchemas/requests";
+import {
+    GET_REQUEST_BY_ID_SCHEMA,
+    GET_REQUESTS_SCHEMA,
+    PATCH_REQUEST_SCHEMA,
+} from "../responseSchemas/requests";
 import { checkAuthenticatedAndRole } from "../utils/authCheck";
 import { sendErrorResponse } from "../utils/handleErrors";
 const requestController = new RequestController();
@@ -80,42 +87,39 @@ export const requestRoutes = async (app: FastifyZodInstance): Promise<void> => {
         },
     );
 
-    // /**
-    //  * GET /:requestId - Retrieves a specific request by ID.
-    //  * Authentication required.
-    //  *
-    //  * @param {string} requestId - The ID of the request to retrieve.
-    //  * @returns {Promise<void>} The requested data.
-    //  */
-    // app.get<{ Params: { requestId: string } }>(
-    //     "/:requestId",
-    //     {
-    //         schema: GET_REQUEST_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
-    //     },
-    //     async (request, reply) => {
-    //         return await requestController.getRequestById(request, reply);
-    //     },
-    // );
+    /**
+     * GET /:requestId - Retrieves a specific request by ID.
+     * Authentication required.
+     *
+     * @param {string} requestId - The ID of the request to retrieve.
+     * @returns {Promise<void>} The requested data.
+     */
+    app.get<{ Params: { requestId: string } }>(
+        "/:requestId",
+        {
+            schema: GET_REQUEST_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+        },
+        async (request, reply) => {
+            return await requestController.getRequestById(request, reply);
+        },
+    );
 
-    // /**
-    //  * PATCH /:requestId - Updates a specific request.
-    //  * Requires ADMIN or RESEARCHER role.
-    //  *
-    //  * @param {string} requestId - The ID of the request to update.
-    //  * @body {typeof RequestUpdateBodySchema} Body - The updated data for the request.
-    //  * @returns {Promise<void>} The updated request.
-    //  */
-    // app.patch<{ Params: { requestId: string }; Body: RequestUpdateBody }>(
-    //     "/:requestId",
-    //     {
-    //         preHandler: [checkAuthenticatedAndRole([Roles.ADMIN, Roles.RESEARCHER])],
-    //         schema: {
-    //             ...(PATCH_REQUEST_SCHEMA satisfies FastifyZodOpenApiSchema),
-    //             body: RequestUpdateBodySchema,
-    //         },
-    //     },
-    //     async (request, reply) => {
-    //         return await requestController.updateRequest(request, reply);
-    //     },
-    // );
+    /**
+     * PATCH /:requestId - Updates a specific request.
+     * Requires ADMIN or RESEARCHER role.
+     *
+     * @param {string} requestId - The ID of the request to update.
+     * @body {typeof RequestUpdateBodySchema} Body - The updated data for the request.
+     * @returns {Promise<void>} The updated request.
+     */
+    app.patch<{ Params: { requestId: string }; Body: RequestUpdateBody }>(
+        "/:requestId",
+        {
+            preHandler: [checkAuthenticatedAndRole([Roles.ADMIN, Roles.RESEARCHER])],
+            schema: PATCH_REQUEST_SCHEMA satisfies FastifyZodOpenApiSchema,
+        },
+        async (request, reply) => {
+            return await requestController.updateRequest(request, reply);
+        },
+    );
 };
