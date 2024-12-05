@@ -105,6 +105,7 @@ export function OrderBasket({
                     severity: "success",
                 });
                 clearBasket();
+                setErrors({});
                 setTimeout(() => navigate({ to: "/orders" }), 1000);
             } else {
                 setSnackbar({
