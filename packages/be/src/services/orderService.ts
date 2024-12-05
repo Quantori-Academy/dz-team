@@ -56,6 +56,9 @@ export class OrderService {
                 skip: (page - 1) * limit,
                 take: limit,
                 orderBy: { [sortBy]: sortOrder },
+                include: {
+                    requests: true,
+                },
             }),
             prisma.order.count({ where }),
         ]);
@@ -125,7 +128,7 @@ export class OrderService {
         });
 
         if (existingOrder?.status !== OrderStatus.pending) {
-            return { message: "Order can only be deleted if it is in 'pending' status." };
+            return { message: "Order can only be edited if it is in 'pending' status." };
         }
         // Validate the general order data (excluding reagents)
         const validatedData = OrderUpdateWithUserIdInputSchema.parse(updateOrderData);
@@ -146,6 +149,116 @@ export class OrderService {
         });
     }
 
+    async fulfillOrder(
+        orderId: string,
+        data: {
+            reagents: Array<{ id: string; storageId: string }>;
+            requests: Array<{ id: string; storageId: string }>;
+        },
+    ): Promise<Order | { message: string }> {
+        const { reagents, requests } = data;
+
+        // Fetch the order by ID
+        const order = await prisma.order.findUnique({
+            where: { id: orderId },
+            include: {
+                requests: true, // Include related requests
+            },
+        });
+
+        if (!order) {
+            return { message: "Order not found." };
+        }
+
+        // Validate the order status
+        if (order.status !== "submitted") {
+            return { message: "Only submitted orders can be fulfilled." };
+        }
+
+        // Ensure that order.reagents is an array and check if its length matches
+        if (!Array.isArray(order.reagents) || order.reagents.length !== reagents.length) {
+            return { message: "There are not enough storage locations for all reagents." };
+        }
+
+        // Check if the number of requests in the order matches the number of requests in the request
+        if (order.requests.length !== requests.length) {
+            return { message: "There are not enough storage locations for all requests." };
+        }
+
+        // Parse the reagents array from the order
+        const orderReagents = order.reagents as Array<{
+            id?: string;
+            name: string;
+            structure?: string;
+            cas?: string;
+            producer: string;
+            catalogId?: string;
+            catalogLink?: string;
+            units: string;
+            pricePerUnit: number;
+            quantity: number;
+        }>;
+
+        // Process reagents from the order
+        const processedReagents = reagents.map(({ id, storageId }) => {
+            const reagent = orderReagents.find((r) => r.id === id);
+            if (!reagent) {
+                throw new Error(`Reagent with ID ${id} not found in the order.`);
+            }
+
+            return {
+                name: reagent.name,
+                structure: reagent.structure,
+                cas: reagent.cas,
+                producer: reagent.producer,
+                catalogId: reagent.catalogId,
+                catalogLink: reagent.catalogLink,
+                unit: reagent.units,
+                pricePerUnit: reagent.pricePerUnit,
+                quantity: reagent.quantity,
+                storageId,
+            };
+        });
+
+        // Process reagents from requests
+        const processedRequests = requests.map(({ id, storageId }) => {
+            const request = order.requests.find((req) => req.id === id);
+            if (!request) {
+                throw new Error(`Request with ID ${id} not found in the order requests.`);
+            }
+
+            return {
+                name: request.name,
+                structure: request.structure,
+                cas: request.cas,
+                unit: request.unit,
+                quantity: request.quantity,
+                storageId,
+            };
+        });
+
+        // Combine reagents and requests data
+        const allReagents = [...processedReagents, ...processedRequests];
+
+        // Insert combined data into the reagent table
+        await prisma.reagent.createMany({
+            data: allReagents,
+            skipDuplicates: true,
+        });
+
+        // If status change is to fulfilled, update the reagent requests to 'Fulfilled'
+        await prisma.reagentRequest.updateMany({
+            where: { orderId: orderId },
+            data: { status: "fulfilled" },
+        });
+
+        // Update the order status fulfilled
+        return prisma.order.update({
+            where: { id: orderId },
+            data: { status: "fulfilled" },
+        });
+    }
+
     /**
      * Update the status of an order.
      *
@@ -158,32 +271,50 @@ export class OrderService {
             where: { id },
         });
 
-        // If no order exists, return an error
         if (!existingOrder) {
             return { message: "Order not found." };
         }
 
-        // Check if reagents are already moved in DB
+        if (!status) {
+            return { message: "Invalid status provided." };
+        }
+
         if (status === OrderStatus.fulfilled) {
-            console.log("fulfilled order");
-            // Check if reagents is an array
-            const reagents = existingOrder.reagents as { id: string }[] | undefined;
+            return { message: "Can not change status to fulfilled" };
+        }
 
-            if (!reagents || reagents.length === 0) {
-                return { message: "No reagents associated with this order." };
+        // Check if status is valid for transition from the existing order status
+        if (existingOrder.status === OrderStatus.pending) {
+            if (status === OrderStatus.submitted) {
+                // Valid transition from 'pending' to 'submitted'
+            } else if (status !== OrderStatus.pending) {
+                return { message: "Only 'submitted' can be set from 'pending' status." };
             }
-
-            // Check if all reagents are moved to the reagents table
-            const reagentsExist = await prisma.reagent.findMany({
-                where: { id: { in: reagents.map((reagent) => reagent.id) } },
-            });
-
-            if (reagentsExist.length !== reagents.length) {
+        } else if (existingOrder.status === OrderStatus.submitted) {
+            if (status === OrderStatus.canceled) {
+                // Valid transition from 'submitted' to 'fulfilled' or 'canceled'
+            } else {
                 return {
-                    message:
-                        "Not all reagents have been created. Please create reagents before fulfilling the order.",
+                    message: "Only 'fulfilled' or 'cancelled' can be set from 'submitted' status.",
                 };
             }
+        } else if (
+            existingOrder.status === OrderStatus.canceled ||
+            existingOrder.status === OrderStatus.fulfilled
+        ) {
+            return {
+                message: "Cannot change status once the order is 'cancelled' or 'fulfilled'.",
+            };
+        } else {
+            return { message: "Invalid status change." };
+        }
+
+        // If status change is to cancelled, update the reagent requests to 'Pending'
+        if (status === OrderStatus.canceled) {
+            await prisma.reagentRequest.updateMany({
+                where: { orderId: id },
+                data: { status: "pending" },
+            });
         }
 
         // Update and return the order with the new status

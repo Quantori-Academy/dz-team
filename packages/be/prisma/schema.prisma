@@ -95,9 +95,9 @@ model Reagent {
   id              String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
   name            String // Name of the reagent
   structure       String? // Stores the chemical structure
-  description     String // Description of the reagent
+  description     String? // Description of the reagent
   quantity        Float // Quantity left in stock
-  unit            Unit           @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
+  unit            String           @default("ml") // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
   quantityInit    Float? // Initial quantity of the reagent (e.g., 500 ml)
   container       Container? // Sample container ("bottle", "box", etc)
   expirationDate  DateTime? // Expiry date of the reagent
@@ -143,7 +143,7 @@ model Sample {
   description     String // Description of the sample
   quantity        Float // Quantity left in stock
   quantityInit    Float? // Initial quantity of the sample (e.g., 500 ml)
-  unit            Unit       @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
+  unit            String           @default("ml")  // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
   storageLocation String? // Storage location: Room, Cabinet, Shelf
   category        Category   @default(sample) // Category ("sample")
   container       Container? // Sample container ("bottle", "box", etc)
@@ -180,46 +180,37 @@ model User {
   // One-to-Many relation with Orders
   orders                Order[]                 @relation() // List of Orders made by the Procurement Officer
   reagentRequest        ReagentRequest[]
-  reagentRequestComment ReagentRequestComment[]
+
 }
 
 model ReagentRequest {
   id        String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
-  name      String        // Name of the reagent
-  structure String        // Stores the chemical structure
-  cas       String        // CAS number for reagent-specific info
-  quantity  Float         // Requested quantity
-  unit      Unit          @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
-  status    RequestStatus @default(pending) // Status of the request ("pending", "ordered", "declined", "declined", "completed")
+  name      String // Name of the reagent
+  structure String? // Stores the chemical structure
+  cas       String? // CAS number for reagent-specific info
+  quantity  Float // Requested quantity
+  unit      String           @default("ml")  // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
+  status    RequestStatus @default(pending) // Status of the request ("pending", "ordered", "declined", "fulfilled ")
+  commentsUser  String[]
+  commentsProcurement String[]
+  deletedAt DateTime? // Date and Time of  deletion
   createdAt DateTime      @default(now())
   updatedAt DateTime      @updatedAt
 
-  userId   String          @db.Uuid /// @zod.string.uuid()
+  userId String @db.Uuid /// @zod.string.uuid() // User who created order
   user     User   @relation(fields: [userId], references: [id])
 
-  orderId String  @db.Uuid // Id of the order this request belongs to.
-  order   Order   @relation(fields: [orderId], references: [id])
+  orderId String? @db.Uuid /// @zod.string.uuid() // Id of the order this request belongs to.
+  order   Order?  @relation(fields: [orderId], references: [id])
 
-  reagentRequestComments ReagentRequestComment[]
 }
 
-model ReagentRequestComment {
-  id      String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
-  comment String // Content of comment
-
-  reagentRequestId String         @db.Uuid /// @zod.string.uuid()  // Id of the request this cooment belongs to.
-  request          ReagentRequest @relation(fields: [reagentRequestId], references: [id])
-
-
-  userId  String          @db.Uuid /// @zod.string.uuid()
-  user    User   @relation(fields: [userId], references: [id])
-}
 
 enum RequestStatus {
   pending
   ordered
   declined
-  completed
+  fulfilled
 }
 
 enum OrderStatus {

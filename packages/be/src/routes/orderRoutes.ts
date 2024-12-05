@@ -7,6 +7,7 @@ import {
     OrderCreateWithUserIdInputSchema,
     OrderUpdateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
+import { fulfillOrderSchema } from "shared/zodSchemas/order/fulfillOrderSchema";
 
 const orderController = new OrderController();
 
@@ -84,6 +85,26 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
         },
         async (request, reply) => {
             return await orderController.updateOrder(request, reply);
+        },
+    );
+
+    /**
+     * PATCH /:id/fulfill - Fulfill an order with partial data (reagents and requests).
+     * Requires ADMIN role.
+     *
+     * @param {string} id - The ID of the order to fulfill.
+     * @body {typeof fulfillOrderWithPartialDataSchema} Body - The reagents and requests data.
+     * @returns {Promise<void>} The updated order or an error message.
+     */
+    app.patch<{ Params: { id: string }; Body: typeof fulfillOrderSchema }>(
+        "/:id/fulfill",
+        {
+            schema: {
+                tags: ["Order"],
+            },
+        },
+        async (request, reply) => {
+            return await orderController.fulfillOrder(request, reply);
         },
     );
 

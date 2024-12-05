@@ -8,6 +8,7 @@ import {
     OrderUpdateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
 import { OrderStatus } from "@prisma/client";
+import { fulfillOrderSchema } from "shared/zodSchemas/order/fulfillOrderSchema";
 
 const orderService = new OrderService();
 
@@ -95,6 +96,34 @@ export class OrderController {
             reply.send(order);
         } catch (error) {
             sendErrorResponse(reply, error, "Failed to update order");
+        }
+    }
+
+    /**
+     * Fulfill an order with reagents and requests data.
+     * @param request - FastifyRequest containing the order ID in the parameters and the reagents and requests in the body
+     * @param reply - FastifyReply
+     * @returns A promise that resolves to the fulfilled order object or an error message.
+     */
+    async fulfillOrder(
+        request: FastifyRequest<{ Params: { id: string }; Body: typeof fulfillOrderSchema }>,
+        reply: FastifyReply,
+    ): Promise<void> {
+        try {
+            const validatedId = idSchema.parse(request.params.id);
+            const validatedData = fulfillOrderSchema.parse(request.body);
+            const { reagents, requests } = validatedData;
+
+            const result = await orderService.fulfillOrder(validatedId, { reagents, requests });
+
+            if ("message" in result) {
+                return reply.status(400).send(result);
+            }
+
+            reply.send(result);
+        } catch (error) {
+            console.log(error);
+            sendErrorResponse(reply, error, "Failed to fulfill order");
         }
     }
 

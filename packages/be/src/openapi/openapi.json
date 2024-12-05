@@ -400,6 +400,16 @@
                 }
             }
         },
+        "/api/v1/orders/{id}/fulfill": {
+            "patch": {
+                "tags": ["Order"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
         "/api/v1/orders/{id}/status": {
             "patch": {
                 "tags": ["Order"],
