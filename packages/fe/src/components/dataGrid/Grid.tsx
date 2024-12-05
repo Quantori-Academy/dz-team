@@ -4,9 +4,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Alert, Box, Snackbar, TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
-import { NotificationTypes } from "api/types";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
+import { NotificationTypes } from "hooks/useUserForm";
 import { SupportedValue } from "utils/formatters";
 
 import { AddRecord } from "./Addrecord";
@@ -23,6 +23,7 @@ type GridProps = {
     notification: NotificationTypes;
     handleClose: () => void;
 };
+
 export const Grid = ({
     rows,
     headers,
@@ -67,7 +68,6 @@ export const Grid = ({
 
     const handleAddRecord = async () => {
         if (!modalContent) return;
-
         try {
             await createModal({
                 name: "add_record_modal",
@@ -85,6 +85,7 @@ export const Grid = ({
             field: "actions",
             headerName: "Actions",
             width: 100,
+
             renderCell: (params: { row: { id: string } }) => {
                 const id = params.row.id;
                 return handleDelete ? (
@@ -139,6 +140,7 @@ export const Grid = ({
                             : undefined,
                     }}
                 />
+
                 <Snackbar
                     open={notification.open}
                     autoHideDuration={6000}

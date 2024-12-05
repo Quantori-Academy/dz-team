@@ -24,3 +24,8 @@ export type NewUser = {
     confirmPassword: string;
     role: string;
 };
+export type NewStorage = {
+    name: string;
+    room: string;
+    description: string;
+};
