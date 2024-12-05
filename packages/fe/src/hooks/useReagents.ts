@@ -1,6 +1,7 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
-import { CreateOrderReagent } from "api/orderDetails/contract";
+import { CreateOrderReagent } from "api/order/contract";
 
 export const useReagents = () => {
     const [reagents, setReagents] = useState<CreateOrderReagent[]>([]);
@@ -15,7 +16,7 @@ export const useReagents = () => {
                 prevBasket.filter((item) => item.reagent.id !== reagentToDelete.id),
             );
         } else {
-            alert("No reagent selected for deletion");
+            toast.error("No reagent selected for deletion.");
         }
     };
 

@@ -2,11 +2,11 @@ import { useEffect, useState } from "react";
 import { Autocomplete, Box, Button, TextField } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 
-import { CreateOrderReagent } from "api/orderDetails/contract";
+import { CreateOrderReagent } from "api/order/contract";
 import { UnitSchema } from "shared/generated/zod";
+import { Mode } from "utils/mode";
 import { validateInput } from "utils/validationInput";
 
-type Mode = "create" | "edit" | "view";
 const unitOptions = UnitSchema.options;
 
 type OrderReagentFormModalProps = {
@@ -65,7 +65,7 @@ export const OrderReagentFormModal = ({
     const [errors, setErrors] = useState<Partial<Record<keyof CreateOrderReagent, string>>>({});
 
     useEffect(() => {
-        if (currentMode !== "create" && selectedReagent) {
+        if (currentMode !== Mode.Create && selectedReagent) {
             setFormData({
                 ...selectedReagent,
                 catalogLink: selectedReagent.catalogLink || "",
@@ -98,8 +98,10 @@ export const OrderReagentFormModal = ({
 
     return (
         <Box>
-            {fields.map((field) =>
-                field.name === "units" ? (
+            {fields.map((field) => {
+                const fieldError = errors[field.name as keyof typeof errors];
+
+                return field.name === "units" ? (
                     <Autocomplete
                         key={field.name}
                         options={unitOptions}
@@ -114,9 +116,9 @@ export const OrderReagentFormModal = ({
                                 label={field.label}
                                 fullWidth
                                 margin="normal"
-                                error={!!errors[field.name as keyof typeof errors]}
-                                helperText={errors[field.name as keyof typeof errors]}
-                                disabled={currentMode === "view"}
+                                error={!!fieldError}
+                                helperText={fieldError}
+                                disabled={currentMode === Mode.View}
                             />
                         )}
                     />
@@ -130,19 +132,24 @@ export const OrderReagentFormModal = ({
                         fullWidth
                         margin="normal"
                         type={field.type || "text"}
-                        disabled={currentMode === "view"}
-                        error={!!errors[field.name as keyof typeof errors]}
-                        helperText={errors[field.name as keyof typeof errors]}
+                        disabled={currentMode === Mode.View}
+                        error={!!fieldError}
+                        helperText={fieldError}
                     />
-                ),
-            )}
+                );
+            })}
             <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
-                {currentMode === "create" && (
-                    <Button variant="contained" onClick={handleSubmit}>
-                        Create
-                    </Button>
+                {currentMode === Mode.Create && (
+                    <>
+                        <Button variant="contained" onClick={handleSubmit}>
+                            Create
+                        </Button>
+                        <Button variant="outlined" onClick={onCancel}>
+                            Cancel
+                        </Button>
+                    </>
                 )}
-                {currentMode === "edit" && (
+                {currentMode === Mode.Edit && (
                     <>
                         <Button variant="contained" onClick={handleSubmit}>
                             Save
@@ -152,9 +159,9 @@ export const OrderReagentFormModal = ({
                         </Button>
                     </>
                 )}
-                {currentMode === "view" && (
+                {currentMode === Mode.View && (
                     <>
-                        <Button variant="outlined" onClick={() => setCurrentMode("edit")}>
+                        <Button variant="outlined" onClick={() => setCurrentMode(Mode.Edit)}>
                             Edit
                         </Button>
                         <Button

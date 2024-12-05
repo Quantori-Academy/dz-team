@@ -17,6 +17,7 @@ type GridProps = {
     modalContent?: (removeModal?: () => void) => JSX.Element;
     showToolbar?: boolean;
     addButtonLabel?: string;
+    showSearchField?: boolean;
 };
 
 export const Grid = ({
@@ -28,6 +29,7 @@ export const Grid = ({
     modalContent,
     showToolbar = true,
     addButtonLabel = "Add New Record",
+    showSearchField,
 }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -87,13 +89,15 @@ export const Grid = ({
 
     return (
         <>
-            <TextField
-                variant="outlined"
-                placeholder={searchPlaceholder}
-                value={searchQuery}
-                onChange={handleSearch}
-                fullWidth
-            />
+            {showSearchField && (
+                <TextField
+                    variant="outlined"
+                    placeholder={searchPlaceholder}
+                    value={searchQuery}
+                    onChange={handleSearch}
+                    fullWidth
+                />
+            )}
             <Box sx={{ height: "300px", width: "100%" }}>
                 <DataGrid
                     rows={filteredRows}

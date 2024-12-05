@@ -1,3 +1,5 @@
+import { isNumber, isString } from "lodash";
+
 type ValidationRule = {
     required?: boolean;
     negativeCheck?: boolean;
@@ -6,9 +8,7 @@ type ValidationRule = {
     maxLength?: number;
 };
 
-type ValidationRules = {
-    [key: string]: ValidationRule;
-};
+type ValidationRules = Record<string, ValidationRule>;
 
 const isUrlValid = (urlString: string): boolean => {
     try {
@@ -19,38 +19,33 @@ const isUrlValid = (urlString: string): boolean => {
     }
 };
 
-export const validateInput = <T>(
+export const validateInput = <T extends Record<string, unknown>>(
     input: T,
     rules: ValidationRules,
-): Partial<Record<keyof T, string>> => {
-    const errors: Partial<Record<keyof T, string>> = {};
+): Record<string, string> => {
+    const errors: Record<string, string> = {};
 
     for (const [field, validations] of Object.entries(rules)) {
-        const value = input[field as keyof T];
+        const value = input[field];
 
         if (validations.required && !value) {
-            errors[field as keyof T] = `${field} is required`;
+            errors[field] = `${field} is required`;
         }
 
-        if (validations.negativeCheck && typeof value === "number" && value < 0) {
-            errors[field as keyof T] = `${field} cannot be negative`;
+        if (validations.negativeCheck && isNumber(value) && value < 0) {
+            errors[field] = `${field} cannot be negative`;
         }
         if (validations.integerCheck) {
-            const numericValue = typeof value === "string" ? Number(value) : value;
+            const numericValue = isString(value) ? Number(value) : value;
             if (typeof numericValue !== "number" || !Number.isInteger(numericValue)) {
-                errors[field as keyof T] = `${field} must be an integer`;
+                errors[field] = `${field} must be an integer`;
             }
         }
-        if (validations.urlCheck && typeof value === "string" && !isUrlValid(value)) {
-            errors[field as keyof T] = `${field} must be a valid URL`;
+        if (validations.urlCheck && isString(value) && !isUrlValid(value)) {
+            errors[field] = `${field} must be a valid URL`;
         }
-        if (
-            validations.maxLength &&
-            typeof value === "string" &&
-            value.length > validations.maxLength
-        ) {
-            errors[field as keyof T] =
-                `${field} must not exceed ${validations.maxLength} characters`;
+        if (validations.maxLength && isString(value) && value.length > validations.maxLength) {
+            errors[field] = `${field} must not exceed ${validations.maxLength} characters`;
         }
     }
 

@@ -22,13 +22,11 @@ const reagentColumns = [
 ];
 
 const fields = [
-    { label: "ID", name: "id", disabled: true },
     { label: "Title", name: "title" },
     { label: "Description", name: "description" },
     // { label: "Status", name: "status" },
     { label: "Seller", name: "seller" },
     { label: "Created at", name: "createdAt" },
-    { label: "User Id", name: "userId" },
 ];
 
 const boxStyle = { display: "flex", flexDirection: "column", gap: "20px" };
@@ -109,7 +107,7 @@ export function OrderDetailsPage() {
                         rows={reagentData}
                         headers={reagentColumns}
                         showSearchField={false}
-                        showAddRecord={false}
+                        showToolbar={false}
                     />
                 </Box>
             ) : (
