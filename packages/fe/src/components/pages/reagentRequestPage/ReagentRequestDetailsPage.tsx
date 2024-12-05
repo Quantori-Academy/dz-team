@@ -1,14 +1,18 @@
 import { Box, Typography } from "@mui/material";
 import { useLoaderData, useParams } from "@tanstack/react-router";
+import { useUnit } from "effector-react";
 import { z } from "zod";
 
-import { ReagentRequestDetails } from "api/reagentRequestDetails/contract";
 import { request } from "api/request";
+import { UserRole } from "api/self";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
+import { RequestUpdateBody } from "shared/zodSchemas/request/requestSchemas";
+import { $auth } from "stores/auth";
 
 export function ReagentRequestDetailsPage({ url }: { url: "/_app/reagentRequests/$id" }) {
     const reagentRequest = useLoaderData({ from: url });
     const { id } = useParams({ from: url });
+    const auth = useUnit($auth);
 
     if (!reagentRequest) {
         return (
@@ -31,19 +35,22 @@ export function ReagentRequestDetailsPage({ url }: { url: "/_app/reagentRequests
         { label: "CAS", name: "cas" },
         { label: "Quantity", name: "quantity" },
         { label: "Unit", name: "unit" },
-        { label: "User Comments", name: "userComments" },
-        { label: "Procurement Comments", name: "procurementComments" },
+        { label: "User Comments", name: "commentsUser" },
+        { label: "Procurement Comments", name: "commentsProcurement" },
         { label: "Status", name: "status" },
         { label: "Update Date", name: "updatedAt" },
     ];
 
     const reagentRequestsPagePath = "/reagentRequests";
 
-    const handleAction = async (actionType: "submit" | "delete", data?: ReagentRequestDetails) => {
+    const handleAction = async (actionType: "submit" | "delete", data?: RequestUpdateBody) => {
         if (actionType === "submit" && data) {
             await request(`/requests/${id}`, z.string(), {
                 method: "PATCH",
-                json: data,
+                json:
+                    auth && auth.self.role === UserRole.procurementOfficer
+                        ? { commentsProcurement: data.commentsProcurement }
+                        : { commentsUser: data.commentsUser },
             });
         }
     };
@@ -55,7 +62,11 @@ export function ReagentRequestDetailsPage({ url }: { url: "/_app/reagentRequests
                 url={url}
                 fields={fields}
                 onAction={handleAction}
-                editableFields={["userComments", "procurementComments"]}
+                editableFields={
+                    auth && auth.self.role === UserRole.procurementOfficer
+                        ? ["commentsProcurement"]
+                        : ["commentsUser"]
+                }
                 removeDeleteButton={false}
             />
         </>

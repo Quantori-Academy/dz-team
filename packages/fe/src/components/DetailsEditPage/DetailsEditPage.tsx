@@ -159,7 +159,9 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                                     <Button
                                         variant="contained"
                                         color="primary"
-                                        onClick={() => setIsEditing(true)}
+                                        onClick={() => {
+                                            setIsEditing(true);
+                                        }}
                                     >
                                         Edit
                                     </Button>

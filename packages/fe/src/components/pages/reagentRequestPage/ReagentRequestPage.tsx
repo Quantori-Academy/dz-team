@@ -24,8 +24,8 @@ const reagentRequestColumns: GridColDef[] = [
     { field: "unit", headerName: "Unit", width: 150 },
     { field: "status", headerName: "Status", width: 150 },
     { field: "userId", headerName: "User ID", width: 150 },
-    { field: "userComments", headerName: "User Comments", width: 200 },
-    { field: "procurementComments", headerName: "Procurement Comments", width: 200 },
+    { field: "commentsUser", headerName: "User Comments", width: 200 },
+    { field: "commentsProcurement", headerName: "Procurement Comments", width: 200 },
     { field: "createdAt", headerName: "Date Created", width: 150 },
     { field: "updatedAt", headerName: "Date Modified", width: 150 },
 ];
