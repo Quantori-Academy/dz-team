@@ -1,6 +1,5 @@
 import { request } from "api/request";
-
-import { RequestUpdateBodySchema } from "../../../../shared/zodSchemas/request/requestSchemas";
+import { ReagentRequestSchema } from "shared/generated/zod";
 
 export const getReagentRequestDetailsApi = async ({ id }: { id: string }) =>
-    await request(`/requests/${id}`, RequestUpdateBodySchema);
+    await request(`/requests/${id}`, ReagentRequestSchema);
