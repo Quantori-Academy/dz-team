@@ -1,8 +1,15 @@
 import { useState } from "react";
 import { useUnit } from "effector-react";
 
-import { NewUser, NotificationTypes } from "api/types";
+import { NewUser } from "api/types";
+import { removeModal } from "components/modal/store";
 import { $usersList, addUserFx, deleteUserFx } from "stores/users";
+
+type NotificationTypes = {
+    message: string;
+    type: "error" | "success";
+    open: boolean;
+};
 
 export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElement> }) => {
     const [usernameError, setUsernameError] = useState<string | null>(null);
@@ -118,12 +125,18 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
                     message: "User added successfully!",
                     type: "success",
                 });
+                setTimeout(() => {
+                    removeModal();
+                }, 500);
             } catch (_) {
                 setNotification({
                     open: true,
                     message: "Failed to add user. Please try again.",
                     type: "error",
                 });
+                setTimeout(() => {
+                    removeModal();
+                }, 500);
             }
         }
     };
