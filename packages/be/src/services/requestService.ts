@@ -13,7 +13,8 @@ export class RequestService {
     public async getAllRequests(
         queryParams: RequestSearch,
     ): Promise<SearchResults<ReagentRequest>> {
-        const { query, page, limit, sortBy, status } = RequestSearchSchema.parse(queryParams);
+        const { query, page, limit, sortBy, sortOrder, status } =
+            RequestSearchSchema.parse(queryParams);
 
         const searchConditions = query
             ? [
@@ -36,7 +37,7 @@ export class RequestService {
                 where,
                 skip: (page - 1) * limit,
                 take: limit,
-                orderBy: { [sortBy]: "asc" },
+                orderBy: { [sortBy]: sortOrder },
             }),
             prisma.reagentRequest.count({ where }),
         ]);
@@ -98,13 +99,58 @@ export class RequestService {
         });
     }
 
-    public async getRequestsByUserId(requestedById: string, userId: string) {
-        if (requestedById !== userId) {
-            throw new Error("Unauthorized");
-        }
-        return prisma.reagentRequest.findMany({
-            where: { userId, deletedAt: null },
-        });
+    // public async getRequestsByUserId(requestedById: string, userId: string, queryString: { page: number; sortOrder: "asc" | "desc"; limit: number; sortBy: "status" | "name" | "cas" | "structure" | "createdAt" | "updatedAt" | "quantity" | "unit"; query?: string | undefined; status?: "pending" | "ordered" | "declined" | "fulfilled" | undefined; searchBy?: ("status" | "name" | "cas" | "structure" | "createdAt" | "updatedAt" | "quantity" | "unit" | "commentsUser" | "commentsProcurement")[] | undefined; }) {
+    //     if (requestedById !== userId) {
+    //         throw new Error("Unauthorized");
+    //     }
+    //     return prisma.reagentRequest.findMany({
+    //         where: { userId, deletedAt: null },
+    //     });
+    // }
+
+    public async getRequestsByUserId(userId: string, queryParams: RequestSearch) {
+        const { query, page, limit, sortBy, sortOrder, status } =
+            RequestSearchSchema.parse(queryParams);
+
+        const searchConditions = query
+            ? [
+                  { name: { contains: query, mode: Prisma.QueryMode.insensitive } },
+                  { cas: { contains: query, mode: Prisma.QueryMode.insensitive } },
+                  { structure: { contains: query, mode: Prisma.QueryMode.insensitive } },
+              ]
+            : [];
+
+        const where: Prisma.ReagentRequestWhereInput = {
+            AND: [
+                { userId },
+                status ? { status: status as RequestStatus } : {},
+                { deletedAt: null },
+                searchConditions.length > 0 ? { OR: searchConditions } : {},
+            ].filter(Boolean),
+        };
+
+        const [requests, totalCount] = await Promise.all([
+            prisma.reagentRequest.findMany({
+                where,
+                skip: (page - 1) * limit,
+                take: limit,
+                orderBy: { [sortBy]: sortOrder },
+            }),
+            prisma.reagentRequest.count({ where }),
+        ]);
+
+        const totalPages = Math.ceil(totalCount / limit);
+
+        return {
+            data: requests,
+            meta: {
+                currentPage: page,
+                totalPages,
+                totalCount,
+                hasNextPage: page < totalPages,
+                hasPreviousPage: page > 1,
+            },
+        };
     }
 
     public async updateRequest(
