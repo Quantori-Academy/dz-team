@@ -51,7 +51,6 @@ export const UserList = () => {
                 modalContent={(removeModal) => <AddUserForm onClose={removeModal} />}
             />
             <Snackbar open={notification.open} autoHideDuration={6000} onClose={handleClose} />
-            <Snackbar />
         </Box>
     );
 };

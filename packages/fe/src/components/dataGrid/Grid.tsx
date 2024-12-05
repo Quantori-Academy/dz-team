@@ -3,8 +3,8 @@ import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import { Alert, Box, Snackbar, TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
+import { NotificationTypes } from "types/types";
 
-import { NotificationTypes } from "api/types";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
 import { SupportedValue } from "utils/formatters";
@@ -68,16 +68,12 @@ export const Grid = ({
     const handleAddRecord = async () => {
         if (!modalContent) return;
 
-        try {
-            await createModal({
-                name: "add_record_modal",
-                title: modalTitle,
-                message: modalContent(removeModal),
-            });
-            removeModal();
-        } catch (_) {
-            removeModal();
-        }
+        await createModal({
+            name: "add_record_modal",
+            title: modalTitle,
+            message: modalContent(removeModal),
+        });
+        removeModal();
     };
 
     const columns = useMemo(() => {
@@ -89,7 +85,7 @@ export const Grid = ({
                 const id = params.row.id;
                 return handleDelete ? (
                     <>
-                        <GridActionsCellItem icon={<EditIcon />} label="Edit" color="inherit" />;
+                        <GridActionsCellItem icon={<EditIcon />} label="Edit" color="inherit" />
                         <GridActionsCellItem
                             icon={<DeleteIcon />}
                             label="Delete"

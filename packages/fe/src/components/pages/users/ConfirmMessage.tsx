@@ -1,6 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
+import { NotificationTypes } from "types/types";
 
-import { useUserForm } from "hooks/useUserForm";
+import { deleteUserFx } from "stores/users";
 
 const boxStyle = {
     displey: "flex",
@@ -15,13 +16,11 @@ export const ConfirmMessage = ({
 }: {
     id: string;
     onClose: () => void;
-    setNotification: (notification: {
-        open: boolean;
-        message: string;
-        type: "error" | "success";
-    }) => void;
+    setNotification: (notification: NotificationTypes) => void;
 }) => {
-    const { handleDeleteClick } = useUserForm({});
+    const handleDeleteClick = async (id: string) => {
+        await deleteUserFx(id);
+    };
 
     const handleDelete = async () => {
         try {

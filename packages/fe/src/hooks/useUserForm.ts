@@ -1,8 +1,9 @@
 import { useState } from "react";
 import { useUnit } from "effector-react";
+import { NotificationTypes } from "types/types";
 
-import { NewUser, NotificationTypes } from "api/types";
-import { $usersList, addUserFx, deleteUserFx } from "stores/users";
+import { NewUser } from "api/types";
+import { $usersList, addUserFx } from "stores/users";
 
 export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElement> }) => {
     const [usernameError, setUsernameError] = useState<string | null>(null);
@@ -21,11 +22,6 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
         open: false,
     });
 
-    // User delete handler
-
-    const handleDeleteClick = async (id: string) => {
-        await deleteUserFx(id);
-    };
     const handleClose = () => setNotification({ ...notification, open: false });
 
     const validateForm = (formData: NewUser) => {
@@ -71,13 +67,14 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
 
     const handleSubmit = () => {
         const formData: NewUser = {
-            username: refs.username.current?.value || "",
-            firstName: refs.firstName.current?.value || "",
-            lastName: refs.lastName.current?.value || "",
-            email: refs.email.current?.value || "",
-            password: refs.password.current?.value || "",
-            confirmPassword: refs.confirmPassword.current?.value || "",
-            role: refs.role.current?.value || "",
+            username: refs.username.current?.value ?? "",
+            firstName: refs.firstName.current?.value ?? "",
+            lastName: refs.lastName.current?.value ?? "",
+            email: refs.email.current?.value ?? "",
+            password: refs.password.current?.value ?? "",
+            confirmPassword: refs.confirmPassword.current?.value ?? "",
+            role:
+                (refs.role.current?.value as "Admin" | "Procurement Officer" | "Researcher") ?? "",
         };
 
         const errors = validateForm(formData);
@@ -132,7 +129,6 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
         confirmPasswordError,
         roleError,
         handleSubmit,
-        handleDeleteClick,
         users,
         notification,
         setNotification,

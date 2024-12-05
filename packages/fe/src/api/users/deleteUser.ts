@@ -9,5 +9,7 @@ const UserId = z.object({
 export const deleteUser = async (id: string) => {
     await request(`${base}/api/v1/users/${id}`, UserId, {
         method: "DELETE",
+        showErrorNotification: true,
+        throwOnError: true,
     });
 };

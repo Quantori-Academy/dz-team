@@ -22,10 +22,5 @@ export type NewUser = {
     email: string;
     password: string;
     confirmPassword: string;
-    role: string;
-};
-export type NotificationTypes = {
-    message: string;
-    type: "error" | "success";
-    open: boolean;
+    role: "Admin" | "Procurement Officer" | "Researcher";
 };
