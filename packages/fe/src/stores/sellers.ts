@@ -12,7 +12,7 @@ export const $sellers = domain.createStore<SellersType[]>([]);
 export const fetchSellers = domain.createEvent<void>("fetchSellers");
 
 export const fetchSellersFx = domain.createEffect(async () => {
-    const response = await fetch(`${base}/api/v1/sellers`, {
+    const response = await fetch(`${base}/sellers`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
     });
