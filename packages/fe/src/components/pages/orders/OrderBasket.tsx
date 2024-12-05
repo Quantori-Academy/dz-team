@@ -6,7 +6,7 @@ import { useUnit } from "effector-react";
 import { CreateOrderReagent } from "api/order/contract";
 import { SnackbarAlert } from "components/snackBarAlert/snackBarAlert";
 import { $userId } from "stores/auth";
-import { OrderStatus, setOrderData, submitOrder } from "stores/order";
+import { OrderStatus, setOrderData, submitOrderFx } from "stores/order";
 import { validateInput } from "utils/validationInput";
 
 type BasketProps = {
@@ -44,7 +44,6 @@ export function OrderBasket({
     setDescription,
     clearBasket,
 }: BasketProps) {
-    const submitOrderEvent = useUnit(submitOrder);
     const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
     const [snackbar, setSnackbar] = useState<{
         open: boolean;
@@ -58,7 +57,7 @@ export function OrderBasket({
     const userId = useUnit($userId);
     const navigate = useNavigate();
 
-    const handleCreateOrder = () => {
+    const handleCreateOrder = async () => {
         const formData = { title, seller, description };
         const validationErrors = validateInput(formData, validationRules);
 
@@ -97,10 +96,31 @@ export function OrderBasket({
         };
 
         setOrderData(orderData);
-        submitOrderEvent();
-        setSnackbar({ open: true, message: "Order created successfully!", severity: "success" });
-        clearBasket();
-        navigate({ to: "/orders" });
+        try {
+            const response = await submitOrderFx();
+            if (response.id) {
+                setSnackbar({
+                    open: true,
+                    message: "Order created successfully!",
+                    severity: "success",
+                });
+                clearBasket();
+                setTimeout(() => navigate({ to: "/orders" }), 1000);
+            } else {
+                setSnackbar({
+                    open: true,
+                    message: "Order creation failed!",
+                    severity: "error",
+                });
+            }
+        } catch (error) {
+            const errorMessage = (error as Error)?.message || "Something went wrong";
+            setSnackbar({
+                open: true,
+                message: errorMessage,
+                severity: "error",
+            });
+        }
     };
 
     return (

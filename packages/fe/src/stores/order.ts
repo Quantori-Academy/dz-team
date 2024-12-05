@@ -1,7 +1,7 @@
 import { sample } from "effector";
 import { z } from "zod";
 
-import { submitOrderFx } from "api/order/postOrder";
+import { request } from "api/request";
 import { genericDomain as domain } from "logger";
 import { OrderCreateWithUserIdInputSchema } from "shared/zodSchemas/order/extendedOrderSchemas";
 
@@ -32,6 +32,20 @@ $orderData.on(setOrderData, (state, payload) => ({
     ...state,
     ...payload,
 }));
+
+export const submitOrderFx = domain.createEffect(async () => {
+    const orderData = $orderData.getState();
+    const response = await request("/orders", OrderCreateWithUserIdInputSchema, {
+        method: "POST",
+        body: JSON.stringify(orderData),
+        headers: {
+            "Content-Type": "application/json",
+        },
+        showErrorNotification: true,
+    });
+    setOrderData(initialOrderData);
+    return response;
+});
 
 sample({
     clock: submitOrder,
