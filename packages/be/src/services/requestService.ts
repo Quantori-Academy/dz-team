@@ -62,17 +62,30 @@ export class RequestService {
     }
 
     public async createRequest(requestedById: string, requestData: RequestCreationBody) {
-        const validatedData = {
-            ...requestData,
-            userId: requestedById,
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            status: requestData.status as RequestStatus, // Ensure this maps to Prisma's enum type
-        };
+        const commentsUser =
+            typeof requestData.commentsUser === "string"
+                ? [requestData.commentsUser]
+                : requestData.commentsUser;
+        try {
+            const validatedData = {
+                ...requestData,
+                userId: requestedById,
+                status: "pending" as RequestStatus,
+                // Use commentsUser directly since it should already be an array
+                commentsUser,
+            };
 
-        return prisma.reagentRequest.create({
-            data: validatedData,
-        });
+            return await prisma.reagentRequest.create({
+                data: validatedData,
+            });
+        } catch (error) {
+            if (error instanceof Error) {
+                console.error("Error creating request:", error.message);
+            } else {
+                console.error("Error creating request:", error);
+            }
+            throw new Error("Failed to create request");
+        }
     }
 
     public async deleteRequest(requestId: string) {
@@ -97,31 +110,78 @@ export class RequestService {
     public async updateRequest(
         requestId: string,
         updateData: Partial<RequestUpdateBody>,
-        userId: string,
+        userData: { userId: string; role: string },
     ) {
-        // Validate data
-        const validatedData = RequestUpdateBodySchema.parse(updateData);
+        const { commentsUser, commentsProcurement, status, ...restData } =
+            RequestUpdateBodySchema.parse(updateData);
 
-        // Handle comment creation
-        if (validatedData.comment) {
-            await prisma.reagentRequestComment.create({
-                data: {
-                    comment: validatedData.comment,
-                    reagentRequestId: requestId,
-                    userId: userId,
-                },
-            });
+        const currentRequest = await prisma.reagentRequest.findUnique({
+            where: { id: requestId },
+        });
+
+        if (!currentRequest) {
+            throw new Error("Request not found");
         }
 
-        const { comment, status, ...restData } = validatedData;
+        if (userData.role === "researcher") {
+            if (status || commentsProcurement) {
+                throw new Error(
+                    "Forbidden: Researchers cannot update status or procurement comments.",
+                );
+            }
+
+            if (
+                currentRequest.status !== "pending" &&
+                !(
+                    commentsUser &&
+                    !restData.name &&
+                    !restData.quantity &&
+                    !restData.structure &&
+                    !restData.cas &&
+                    !restData.unit
+                )
+            ) {
+                throw new Error(
+                    "Forbidden: When the request is not pending, researchers can only update commentsUser.",
+                );
+            }
+        }
+
+        if (userData.role === "procurementOfficer") {
+            if (
+                commentsUser ||
+                restData.name ||
+                restData.quantity ||
+                restData.structure ||
+                restData.cas ||
+                restData.unit
+            ) {
+                throw new Error(
+                    "Forbidden: Procurement officers can only update status and procurement comments.",
+                );
+            }
+        }
+
+        const updatedData: Prisma.ReagentRequestUpdateInput = {
+            ...restData,
+            updatedAt: new Date(),
+        };
+
+        if (status) {
+            updatedData.status = status as RequestStatus;
+        }
+
+        if (commentsUser) {
+            updatedData.commentsUser = { push: commentsUser };
+        }
+
+        if (commentsProcurement) {
+            updatedData.commentsProcurement = { push: commentsProcurement };
+        }
 
         return prisma.reagentRequest.update({
             where: { id: requestId },
-            data: {
-                ...restData,
-                ...(status && { status: { set: status as RequestStatus } }), // Use set operation for status
-                updatedAt: new Date(),
-            },
+            data: updatedData,
         });
     }
 }
