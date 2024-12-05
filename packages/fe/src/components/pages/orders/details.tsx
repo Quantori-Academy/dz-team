@@ -6,10 +6,9 @@ import { Grid } from "components/dataGrid/Grid";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
 import { Order } from "shared/generated/zod/modelSchema";
 import { SupportedValue } from "utils/formatters";
-import { updateOrderAction, updateOrderStatus } from "utils/orderActions";
+import { updateOrderAction } from "utils/orderActions";
 
 const reagentColumns = [
-    { field: "id", headerName: "ID", width: 120 },
     { field: "name", headerName: "Name", width: 120 },
     { field: "structure", headerName: "Structure", width: 180 },
     { field: "quantity", headerName: "Quantity", width: 120 },
@@ -24,7 +23,6 @@ const reagentColumns = [
 const fields = [
     { label: "Title", name: "title" },
     { label: "Description", name: "description" },
-    // { label: "Status", name: "status" },
     { label: "Seller", name: "seller" },
     { label: "Created at", name: "createdAt" },
 ];
@@ -34,12 +32,10 @@ const boxStyle = { display: "flex", flexDirection: "column", gap: "20px" };
 export function OrderDetailsPage() {
     const {
         reagents,
-        id,
         status,
-    }: { reagents: Record<string, SupportedValue>[] | null; id: string; status: string } =
-        useLoaderData({
-            from: "/_app/_pOfficerLayout/orders/$id",
-        });
+    }: { reagents: Record<string, SupportedValue>[] | null; status: string } = useLoaderData({
+        from: "/_app/_pOfficerLayout/orders/$id",
+    });
     const navigate = useNavigate();
     const reagentData = Array.isArray(reagents) ? reagents : [];
     const [isEditingStatus, setIsEditingStatus] = useState(false);
@@ -49,13 +45,8 @@ export function OrderDetailsPage() {
         if (!data) {
             return;
         } else if (actionType === "submit" && data) {
-            // setIsEditing(false);
             await updateOrderAction(data, navigate);
         }
-    };
-    const handleStatusChange = async () => {
-        await updateOrderStatus({ id, status: newStatus }, navigate);
-        setIsEditingStatus(false);
     };
     const handleCancelEdit = () => {
         setIsEditingStatus(false);
@@ -84,9 +75,7 @@ export function OrderDetailsPage() {
                 <Box sx={{ display: "flex", gap: "10px", mt: 2 }}>
                     {isEditingStatus ? (
                         <>
-                            <Button variant="contained" onClick={handleStatusChange}>
-                                Update
-                            </Button>
+                            <Button variant="contained">Update</Button>
                             <Button variant="outlined" onClick={handleCancelEdit}>
                                 Cancel
                             </Button>

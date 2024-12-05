@@ -79,8 +79,6 @@ export function OrderBasket({
         const orderData = {
             title,
             seller: seller || "",
-            // seller: sellers.find((s) => s.name === seller)?.id || seller,
-            // seller: sellers.find((s) => s.name === seller)?.name || seller,
             status: OrderStatus.pending,
             userId: userId,
             description,
@@ -144,23 +142,19 @@ export function OrderBasket({
                 />
                 <Autocomplete
                     options={sellers}
-                    // getOptionLabel={(option) => option.name}
                     getOptionLabel={(option) => (typeof option === "string" ? option : option.name)}
                     freeSolo
                     onOpen={() => {
                         if (!sellers.length) fetchSellers();
                     }}
-                    // onChange={(event, newValue) => {
-                    //     setSeller(newValue ? newValue.name : "");
-                    // }}
-                    onChange={(event, newValue) => {
+                    onChange={(_, newValue) => {
                         if (typeof newValue === "string") {
                             setSeller(newValue);
                         } else if (newValue && typeof newValue === "object") {
                             setSeller(newValue.name);
                         }
                     }}
-                    onInputChange={(event, newInputValue) => {
+                    onInputChange={(_, newInputValue) => {
                         setSeller(newInputValue);
                     }}
                     noOptionsText={"No sellers to choose"}
