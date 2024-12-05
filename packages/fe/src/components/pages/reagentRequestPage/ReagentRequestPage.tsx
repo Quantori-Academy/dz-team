@@ -94,7 +94,11 @@ export function ReagentRequestPage() {
                         createdAt: true,
                         updatedAt: true,
                     }}
-                    onAdd={openAddModal}
+                    onAdd={
+                        auth && auth.self.role === UserRole.procurementOfficer
+                            ? undefined
+                            : openAddModal
+                    }
                     addButtonText="Create a Reagent Request"
                 />
 
