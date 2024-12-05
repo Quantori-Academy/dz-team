@@ -1,5 +1,5 @@
 import { createFileRoute } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/_app/_researcherLayout/samples")({
-    component: () => <div>Hello samples!</div>,
+    component: () => <div>Hello, samples!</div>,
 });
