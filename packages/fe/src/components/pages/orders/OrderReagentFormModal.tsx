@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Autocomplete, Box, Button, TextField } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 
-import { CreateOrderReagent } from "api/orderDetails/contract";
+import { CreateOrderReagent } from "api/order/contract";
 import { UnitSchema } from "shared/generated/zod";
 import { Mode } from "utils/mode";
 import { validateInput } from "utils/validationInput";

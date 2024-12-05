@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
 
-import { CreateOrderReagent } from "api/orderDetails/contract";
+import { CreateOrderReagent } from "api/order/contract";
 
 export const useReagents = () => {
     const [reagents, setReagents] = useState<CreateOrderReagent[]>([]);

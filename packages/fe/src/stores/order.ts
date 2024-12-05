@@ -1,11 +1,11 @@
 import { sample } from "effector";
 import { z } from "zod";
 
-import { request } from "api/request";
+import { submitOrderFx } from "api/order/postOrder";
 import { genericDomain as domain } from "logger";
-import { OrderCreateInputSchema } from "shared/generated/zod";
+import { OrderCreateWithUserIdInputSchema } from "shared/zodSchemas/order/extendedOrderSchemas";
 
-type CreateOrderType = z.infer<typeof OrderCreateInputSchema>;
+type CreateOrderType = z.infer<typeof OrderCreateWithUserIdInputSchema>;
 export const OrderStatus = {
     pending: "pending",
     submitted: "submitted",
@@ -13,9 +13,9 @@ export const OrderStatus = {
     canceled: "canceled",
 } as const;
 
-export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
+type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
 
-const initialOrderData = {
+export const initialOrderData: CreateOrderType = {
     title: "",
     seller: "",
     userId: "",
@@ -32,36 +32,6 @@ $orderData.on(setOrderData, (state, payload) => ({
     ...state,
     ...payload,
 }));
-
-export const submitOrderFx = domain.createEffect(async () => {
-    const orderData = $orderData.getState();
-    // const response = await fetch(`/orders`, {
-    //     method: "POST",
-    //     headers: { "Content-Type": "application/json" },
-    //     body: JSON.stringify(orderData),
-    // });
-    const response = await request("/orders", OrderCreateInputSchema, {
-        method: "POST",
-        body: JSON.stringify(orderData),
-        headers: {
-            "Content-Type": "application/json",
-        },
-        showErrorNotification: true,
-    });
-
-    // if (!response.ok) {
-    //     throw new Error("Failed to create order");
-    // }
-
-    setOrderData(initialOrderData);
-    // return {
-    //     ok: response.ok,
-    //     status: response.status,
-    //     data: await response.json(),
-    // };
-    // return await response.json();
-    return response;
-});
 
 sample({
     clock: submitOrder,

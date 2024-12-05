@@ -3,7 +3,7 @@ import { Box } from "@mui/material";
 import { DataGrid, GridRowParams } from "@mui/x-data-grid";
 import { Outlet } from "@tanstack/react-router";
 
-import { CreateOrderReagent } from "api/orderDetails/contract";
+import { CreateOrderReagent } from "api/order/contract";
 import { AddRecord } from "components/dataGrid/Addrecord";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";

@@ -3,7 +3,7 @@ import { Box, Button, TextField } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 
-import { CreateOrderReagent } from "api/orderDetails/contract";
+import { CreateOrderReagent } from "api/order/contract";
 import { SnackbarAlert } from "components/snackBarAlert/snackBarAlert";
 import { $userId } from "stores/auth";
 import { OrderStatus, setOrderData, submitOrder } from "stores/order";
@@ -67,6 +67,14 @@ export function OrderBasket({
             setSnackbar({ open: true, message: "Order creation failed!", severity: "error" });
             return;
         }
+        if (!userId) {
+            setSnackbar({
+                open: true,
+                message: "User  ID is required to create an order!",
+                severity: "error",
+            });
+            return;
+        }
         const orderData = {
             title,
             seller: seller || "",
@@ -93,23 +101,6 @@ export function OrderBasket({
         setSnackbar({ open: true, message: "Order created successfully!", severity: "success" });
         clearBasket();
         navigate({ to: "/orders" });
-        // try {
-        //     const response = submitOrderEvent();
-
-        //     if (response.ok) {
-        //         setSnackbar({
-        //             open: true,
-        //             message: "Order created successfully!",
-        //             severity: "success",
-        //         });
-        //         clearBasket();
-        //         navigate({ to: "/orders" });
-        //     } else {
-        //         setSnackbar({ open: true, message: "Order creation failed!", severity: "error" });
-        //     }
-        // } catch (error) {
-        //     setSnackbar({ open: true, message: "Order creation failed!", severity: "error" });
-        // }
     };
 
     return (
