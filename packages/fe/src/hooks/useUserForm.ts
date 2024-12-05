@@ -5,7 +5,7 @@ import { NewUser } from "api/types";
 import { removeModal } from "components/modal/store";
 import { $usersList, addUserFx, deleteUserFx } from "stores/users";
 
-type NotificationTypes = {
+export type NotificationTypes = {
     message: string;
     type: "error" | "success";
     open: boolean;

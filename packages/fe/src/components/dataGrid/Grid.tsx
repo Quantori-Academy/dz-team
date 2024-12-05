@@ -4,9 +4,9 @@ import EditIcon from "@mui/icons-material/Edit";
 import { Alert, Box, Snackbar, TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
-import { NotificationTypes } from "api/types";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
+import { NotificationTypes } from "hooks/useUserForm";
 import { SupportedValue } from "utils/formatters";
 
 import { AddRecord } from "./Addrecord";
