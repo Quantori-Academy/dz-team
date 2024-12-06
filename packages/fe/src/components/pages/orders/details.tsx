@@ -12,7 +12,6 @@ import { SupportedValue } from "utils/formatters";
 import { updateOrderAction } from "utils/orderActions";
 
 const reagentColumns = [
-    { field: "id", headerName: "ID", width: 120 },
     { field: "name", headerName: "Name", width: 120 },
     { field: "structure", headerName: "Structure", width: 180 },
     { field: "quantity", headerName: "Quantity", width: 120 },
@@ -25,13 +24,10 @@ const reagentColumns = [
 ];
 
 const fields = [
-    { label: "ID", name: "id", disabled: true },
     { label: "Title", name: "title" },
     { label: "Description", name: "description" },
-    // { label: "Status", name: "status" },
     { label: "Seller", name: "seller" },
     { label: "Created at", name: "createdAt" },
-    { label: "User Id", name: "userId" },
 ];
 
 const statusTransferRules: Record<string, string[]> = {
@@ -61,7 +57,6 @@ export function OrderDetailsPage() {
         if (!data) {
             return;
         } else if (actionType === "submit" && data) {
-            // setIsEditing(false);
             await updateOrderAction(data, navigate);
         }
     };
@@ -120,7 +115,7 @@ export function OrderDetailsPage() {
                         rows={reagentData}
                         headers={reagentColumns}
                         showSearchField={false}
-                        showAddRecord={false}
+                        showToolbar={false}
                     />
                 </Box>
             ) : (

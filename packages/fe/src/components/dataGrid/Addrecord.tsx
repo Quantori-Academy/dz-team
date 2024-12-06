@@ -2,7 +2,7 @@ import { Button } from "@mui/material";
 import { GridToolbarContainer } from "@mui/x-data-grid";
 
 type AddRecordProps = {
-    buttonLabel?: string | null;
+    buttonLabel?: string;
     onAddRecord: () => void;
 };
 

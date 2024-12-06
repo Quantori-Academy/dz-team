@@ -6,21 +6,24 @@ import { genericDomain as domain } from "logger";
 import { SellerCreateInputSchema } from "shared/generated/zod";
 
 type SellersType = z.infer<typeof SellerCreateInputSchema>;
+const FetchSellersResponseSchema = z.object({
+    data: z.array(SellerCreateInputSchema),
+});
 
 export const $sellers = domain.createStore<SellersType[]>([]);
 
 export const fetchSellers = domain.createEvent<void>("fetchSellers");
 
 export const fetchSellersFx = domain.createEffect(async () => {
-    const response = await fetch(`${base}/api/v1/sellers`, {
+    const response = await fetch(`${base}/sellers`, {
         method: "GET",
         headers: { "Content-Type": "application/json" },
     });
     if (!response.ok) {
         throw new Error("Failed to fetch sellers");
     }
-    const data = await response.json();
-    // eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
+    const json = await response.json();
+    const data = FetchSellersResponseSchema.parse(json);
     return data.data;
 });
 

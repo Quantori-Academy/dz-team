@@ -7,8 +7,10 @@ import { TableContext } from "components/commonTable/TableContext";
 import { Order, OrderSchema } from "shared/generated/zod";
 
 const headers = [
+    { field: "title", headerName: "Title", width: 170 },
     { field: "seller", headerName: "Seller", width: 170 },
     { field: "description", headerName: "Description ", width: 170 },
+    { field: "status", headerName: "Status ", width: 170 },
     { field: "createdAt", headerName: "Created Date", width: 170 },
     { field: "updatedAt", headerName: "Updated Date", width: 170 },
     {
