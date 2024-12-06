@@ -1,14 +1,11 @@
 import { useMemo, useState } from "react";
-
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
-import { Alert, Box, Snackbar, TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
-import { NotificationTypes } from "hooks/useUserForm";
-
 import { SupportedValue } from "utils/formatters";
 
 import { AddRecord } from "./Addrecord";
@@ -22,10 +19,7 @@ type GridProps = {
     showToolbar?: boolean;
     addButtonLabel?: string;
     handleDelete?: (id: string) => void;
-    notification: NotificationTypes;
-    handleClose: () => void;
 };
-
 
 export const Grid = ({
     rows,
@@ -36,8 +30,6 @@ export const Grid = ({
     showToolbar = true,
     addButtonLabel = "Add New Record",
     handleDelete,
-    notification,
-    handleClose,
 }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -69,10 +61,8 @@ export const Grid = ({
         );
     }, [rows, searchQuery]);
 
-
     const handleAddRecord = async () => {
         if (!modalContent) return;
-
 
         try {
             await createModal({
@@ -146,18 +136,7 @@ export const Grid = ({
                             : undefined,
                     }}
                 />
-                <Snackbar
-                    open={notification.open}
-                    autoHideDuration={6000}
-                    onClose={handleClose}
-                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                >
-                    <Alert onClose={handleClose} severity={notification.type}>
-                        {notification.message}
-                    </Alert>
-                </Snackbar>
             </Box>
         </Box>
-
     );
 };

@@ -17,7 +17,7 @@ const headers = [
 export const UserList = () => {
     useGate(UsersGate);
 
-    const { users, handleDeleteClick, notification, handleClose } = useUserForm();
+    const { users, handleDeleteClick } = useUserForm();
 
     return (
         <Box>
@@ -26,8 +26,6 @@ export const UserList = () => {
                 headers={headers}
                 searchPlaceholder="Search users by name, email, or role"
                 handleDelete={handleDeleteClick}
-                notification={notification}
-                handleClose={handleClose}
                 addButtonLabel="Add New User"
                 modalContent={(removeModal) => <AddUserForm onClose={removeModal} />}
             />

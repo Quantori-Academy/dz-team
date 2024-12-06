@@ -1,4 +1,5 @@
 import { useRef, useState } from "react";
+import { toast } from "react-toastify";
 import { useUnit } from "effector-react";
 
 import { NewUser } from "api/types";
@@ -40,7 +41,7 @@ export const useUserForm = () => {
 
     const handleDeleteClick = async (id: string) => {
         await deleteUserFx(id);
-        setNotification({ message: "User deleted successfully!", type: "success", open: true });
+        toast.success("Record deleted successfully!");
     };
 
     const handleClose = () => setNotification({ ...notification, open: false });
@@ -48,45 +49,13 @@ export const useUserForm = () => {
     const validateForm = (formData: NewUser) => {
         const errors: Partial<Record<keyof NewUser, string>> = {};
 
-        if (formData.username.length > 50) {
-            errors.username = "Username must not exceed 50 characters.";
-        } else if (!formData.username || formData.username.trim().length === 0) {
-            errors.username = "Username is required.";
-        } else if (users.some((user) => user.username === formData.username)) {
-            errors.username = "Username already exists.";
-        }
-
-        if (!formData.firstName || formData.firstName.trim().length === 0) {
-            errors.firstName = "First Name is required.";
-        }
-
-        if (!formData.lastName || formData.lastName.trim().length === 0) {
-            errors.lastName = "Last Name is required.";
-        }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(formData.email)) {
-            errors.email = "Invalid email format.";
-        } else if (users.some((user) => user.email === formData.email)) {
-            errors.email = "Email already exists.";
-        }
-
-        if ((formData.password ?? "").length < 8) {
-            errors.password = "Password must be at least 8 characters long.";
-        }
-
         if (formData.confirmPassword !== formData.password) {
             errors.confirmPassword = "Passwords do not match.";
         }
-
-        if (!formData.role) {
-            errors.role = "Role is required.";
-        }
-
         return errors;
     };
 
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const formData: NewUser = {
             username: refs.username.current?.value || "",
             firstName: refs.firstName.current?.value || "",
@@ -110,7 +79,8 @@ export const useUserForm = () => {
 
         if (Object.keys(errors).length === 0) {
             try {
-                addUserFx(formData);
+                await addUserFx(formData);
+
                 Object.values(refs).forEach((ref) => {
                     if (ref.current) {
                         ref.current.value = "";
@@ -125,20 +95,12 @@ export const useUserForm = () => {
                 setConfirmPasswordError(null);
                 setRoleError(null);
 
-                setNotification({
-                    open: true,
-                    message: "User added successfully!",
-                    type: "success",
-                });
+                toast.success("User added successfully!");
+
                 setTimeout(() => {
                     removeModal();
                 }, 500);
-            } catch (_) {
-                setNotification({
-                    open: true,
-                    message: "Failed to add user. Please try again.",
-                    type: "error",
-                });
+            } catch (_error) {
                 setTimeout(() => {
                     removeModal();
                 }, 500);
