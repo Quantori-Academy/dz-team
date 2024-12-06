@@ -99,15 +99,6 @@ export class RequestService {
         });
     }
 
-    // public async getRequestsByUserId(requestedById: string, userId: string, queryString: { page: number; sortOrder: "asc" | "desc"; limit: number; sortBy: "status" | "name" | "cas" | "structure" | "createdAt" | "updatedAt" | "quantity" | "unit"; query?: string | undefined; status?: "pending" | "ordered" | "declined" | "fulfilled" | undefined; searchBy?: ("status" | "name" | "cas" | "structure" | "createdAt" | "updatedAt" | "quantity" | "unit" | "commentsUser" | "commentsProcurement")[] | undefined; }) {
-    //     if (requestedById !== userId) {
-    //         throw new Error("Unauthorized");
-    //     }
-    //     return prisma.reagentRequest.findMany({
-    //         where: { userId, deletedAt: null },
-    //     });
-    // }
-
     public async getRequestsByUserId(userId: string, queryParams: RequestSearch) {
         const { query, page, limit, sortBy, sortOrder, status } =
             RequestSearchSchema.parse(queryParams);
