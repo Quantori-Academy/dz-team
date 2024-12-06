@@ -1,9 +1,11 @@
 import { useMemo, useState } from "react";
+
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import { Alert, Box, Snackbar, TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import { NotificationTypes } from "types/types";
+
 
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
@@ -15,6 +17,7 @@ type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
     searchPlaceholder?: string;
+
     modalTitle?: string;
     modalContent?: (removeModal?: () => void) => JSX.Element;
     showToolbar?: boolean;
@@ -23,6 +26,7 @@ type GridProps = {
     notification: NotificationTypes;
     handleClose: () => void;
 };
+
 export const Grid = ({
     rows,
     headers,
@@ -34,6 +38,7 @@ export const Grid = ({
     handleDelete,
     notification,
     handleClose,
+
 }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -65,6 +70,7 @@ export const Grid = ({
         );
     }, [rows, searchQuery]);
 
+
     const handleAddRecord = async () => {
         if (!modalContent) return;
 
@@ -74,6 +80,7 @@ export const Grid = ({
             message: modalContent(removeModal),
         });
         removeModal();
+
     };
 
     const columns = useMemo(() => {
@@ -99,6 +106,7 @@ export const Grid = ({
 
         return [...headers, actionsColumn];
     }, [headers, handleDelete]);
+
 
     return (
         <Box>
@@ -147,5 +155,6 @@ export const Grid = ({
                 </Snackbar>
             </Box>
         </Box>
+
     );
 };

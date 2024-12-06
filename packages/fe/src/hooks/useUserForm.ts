@@ -16,6 +16,7 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
 
     const users = useUnit($usersList);
 
+
     const [notification, setNotification] = useState<NotificationTypes>({
         message: "",
         type: "success",
@@ -23,6 +24,7 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
     });
 
     const handleClose = () => setNotification({ ...notification, open: false });
+
 
     const validateForm = (formData: NewUser) => {
         const errors: Partial<Record<keyof NewUser, string>> = {};

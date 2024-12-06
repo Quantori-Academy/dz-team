@@ -1,0 +1,29 @@
+[
+    {
+        "id": "8d512b59-e0b8-4efc-8eb3-ccc1f4e8f704",
+        "username": "admin",
+        "firstName": "admin",
+        "lastName": "admin",
+        "email": "admin@vm4.net",
+        "password": "admin123",
+        "role": "admin"
+    },
+    {
+        "id": "123e4567-e89b-12d3-a456-426614174000",
+        "username": "researcher1",
+        "firstName": "John",
+        "lastName": "Doe",
+        "email": "researcher1@example.com",
+        "password": "researcher1",
+        "role": "researcher"
+    },
+    {
+        "id": "123e4567-e89b-12d3-a456-426614174123",
+        "username": "procurement1",
+        "firstName": "Jane",
+        "lastName": "Smith",
+        "email": "procurement1@example.com",
+        "password": "procurement1",
+        "role": "procurementOfficer"
+    }
+]

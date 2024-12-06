@@ -15,6 +15,7 @@ export type ResponseUser = {
     password?: string;
     role: "Admin" | "Procurement Officer" | "Researcher";
 };
+
 export type NewUser = {
     username: string;
     firstName: string;
@@ -24,6 +25,7 @@ export type NewUser = {
     confirmPassword: string;
     role: "Admin" | "Procurement Officer" | "Researcher";
 };
+
 export type NewStorage = {
     name: string;
     room: string;

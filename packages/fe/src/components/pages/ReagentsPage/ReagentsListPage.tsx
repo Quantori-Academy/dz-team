@@ -4,7 +4,6 @@ import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 
-import { base } from "api/request";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
@@ -41,30 +40,37 @@ export const ReagentsListPage = () => {
     const submitReagentEvent = useUnit(submitReagent);
 
     const openAddModal = async () => {
-        try {
-            await createModal({
-                name: "reagent_modal",
-                title: "Add new Reagent",
-                message: <ReagentFormModal />,
-                labels: { ok: "Submit", cancel: "Cancel" },
-            });
+        const response = await createModal({
+            name: "reagent_modal",
+            title: "Add new Reagent",
+            message: <ReagentFormModal />,
+            labels: { ok: "Submit", cancel: "Cancel" },
+        });
+
+        if (response) {
             submitReagentEvent();
             if (tableRef.current?.refresh) {
                 tableRef.current.refresh();
             }
-            removeModal();
-        } catch (_) {
-            removeModal();
         }
+        removeModal();
     };
 
     return (
         <TableContext.Provider value={{ ref: tableRef }}>
-            <Box sx={{ mb: 5 }}>
+            <Box
+                sx={{
+                    padding: "40px",
+                    display: "flex",
+                    flexDirection: "column",
+                    gap: "20px",
+                    mb: 5,
+                }}
+            >
                 <CommonTable<Reagent>
                     ref={tableRef}
                     columns={columns}
-                    url={`${base}/api/v1/reagents`}
+                    url={`/reagents`}
                     schema={ReagentSchema}
                     onRowClick={(row: Reagent) => {
                         navigate({ to: `/reagents/${row.id}`, replace: false });

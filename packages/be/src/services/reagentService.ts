@@ -1,10 +1,8 @@
 import { Prisma, PrismaClient } from "@prisma/client";
-import {
-    ReagentCreateInputSchema,
-    ReagentUpdateInputSchema,
-} from "../../../shared/generated/zod/inputTypeSchemas";
+import { ReagentUpdateInputSchema } from "../../../shared/generated/zod/inputTypeSchemas";
 import { Reagent } from "../../../shared/generated/zod/modelSchema";
-import { ReagentSearch } from "../../../shared/zodSchemas/reagent/reagentSearchSchema";
+import ReagentCreateManyInputSchema from "shared/generated/zod/inputTypeSchemas/ReagentCreateManyInputSchema";
+import { ReagentSearch } from "shared/zodSchemas/reagent/reagentSearchSchema";
 
 const prisma = new PrismaClient();
 
@@ -99,10 +97,14 @@ export class ReagentService {
      * @param {Prisma.ReagentCreateInput} newReagentData - The data to create a new reagent.
      * @returns {Promise<Reagent>} The newly created reagent.
      */
-    async createReagent(newReagentData: Prisma.ReagentCreateInput): Promise<Reagent> {
-        const validatedData = ReagentCreateInputSchema.parse(newReagentData);
+    async createReagent(newReagentData: Prisma.ReagentCreateManyInput): Promise<Reagent> {
+        const validatedData = ReagentCreateManyInputSchema.parse(newReagentData);
 
-        return await prisma.reagent.create({ data: validatedData });
+        if (validatedData.pricePerUnit === 0 || validatedData.quantity === 0) {
+            throw new Error("Invalid reagent data");
+        }
+
+        return prisma.reagent.create({ data: validatedData });
     }
 
     /**

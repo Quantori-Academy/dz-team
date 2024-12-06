@@ -1,14 +1,19 @@
+
 import { Box, Snackbar } from "@mui/material";
+
 import { useGate } from "effector-react";
 
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
 import { useUserForm } from "hooks/useUserForm";
 import { UsersGate } from "stores/users";
+import { SupportedValue } from "utils/formatters";
 
 import { Grid } from "../../dataGrid/Grid";
 import { AddUserForm } from "./AddUserForm";
+
 import { ConfirmMessage } from "./ConfirmMessage";
+
 
 const headers = [
     { field: "username", headerName: "User Name", width: 150 },
@@ -19,6 +24,7 @@ const headers = [
 
 export const UserList = () => {
     useGate(UsersGate);
+
 
     const { users, notification, handleClose, setNotification } = useUserForm({});
 
@@ -40,6 +46,7 @@ export const UserList = () => {
 
     return (
         <Box>
+
             <Grid
                 rows={users}
                 headers={headers}
@@ -51,6 +58,7 @@ export const UserList = () => {
                 modalContent={(removeModal) => <AddUserForm onClose={removeModal} />}
             />
             <Snackbar open={notification.open} autoHideDuration={6000} onClose={handleClose} />
+
         </Box>
     );
 };
