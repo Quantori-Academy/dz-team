@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useUnit } from "effector-react";
 
 import { NewUser } from "api/types";
@@ -11,7 +11,17 @@ export type NotificationTypes = {
     open: boolean;
 };
 
-export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElement> }) => {
+export const useUserForm = () => {
+    const refs = {
+        username: useRef<HTMLInputElement>(null),
+        firstName: useRef<HTMLInputElement>(null),
+        lastName: useRef<HTMLInputElement>(null),
+        email: useRef<HTMLInputElement>(null),
+        password: useRef<HTMLInputElement>(null),
+        confirmPassword: useRef<HTMLInputElement>(null),
+        role: useRef<HTMLInputElement>(null),
+    };
+
     const [usernameError, setUsernameError] = useState<string | null>(null);
     const [firstNameError, setFirstNameError] = useState<string | null>(null);
     const [lastNameError, setLastNameError] = useState<string | null>(null);
@@ -22,25 +32,17 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
 
     const users = useUnit($usersList);
 
-
     const [notification, setNotification] = useState<NotificationTypes>({
         message: "",
         type: "success",
         open: false,
     });
 
-    // User delete handler
-    // TODO add confirm on delete
-
     const handleDeleteClick = async (id: string) => {
-        try {
-            await deleteUserFx(id);
-            setNotification({ message: "User deleted successfully!", type: "success", open: true });
-        } catch {
-            setNotification({ message: "Failed to delete the user.", type: "error", open: true });
-        }
-
+        await deleteUserFx(id);
+        setNotification({ message: "User deleted successfully!", type: "success", open: true });
     };
+
     const handleClose = () => setNotification({ ...notification, open: false });
 
     const validateForm = (formData: NewUser) => {
@@ -98,7 +100,6 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
 
         const errors = validateForm(formData);
 
-        // Set individual errors
         setUsernameError(errors.username || null);
         setFirstNameError(errors.firstName || null);
         setLastNameError(errors.lastName || null);
@@ -110,12 +111,12 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
         if (Object.keys(errors).length === 0) {
             try {
                 addUserFx(formData);
-                // Clear all input fields if the form is valid
-                Object.keys(refs).forEach((key) => {
-                    refs[key].current!.value = "";
+                Object.values(refs).forEach((ref) => {
+                    if (ref.current) {
+                        ref.current.value = "";
+                    }
                 });
 
-                // Clear errors after successful submission
                 setUsernameError(null);
                 setFirstNameError(null);
                 setLastNameError(null);
@@ -146,6 +147,7 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
     };
 
     return {
+        refs,
         usernameError,
         firstNameError,
         lastNameError,
@@ -154,7 +156,7 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
         confirmPasswordError,
         roleError,
         handleSubmit,
-        handleDeleteUser,
+        handleDeleteClick,
         users,
         notification,
         handleClose,

@@ -1,11 +1,8 @@
-
 import { Box } from "@mui/material";
-
 import { useGate } from "effector-react";
 
 import { useUserForm } from "hooks/useUserForm";
 import { UsersGate } from "stores/users";
-import { SupportedValue } from "utils/formatters";
 
 import { Grid } from "../../dataGrid/Grid";
 import { AddUserForm } from "./AddUserForm";
@@ -20,12 +17,10 @@ const headers = [
 export const UserList = () => {
     useGate(UsersGate);
 
-
-    const { users, handleDeleteClick, notification, handleClose } = useUserForm({});
+    const { users, handleDeleteClick, notification, handleClose } = useUserForm();
 
     return (
         <Box>
-
             <Grid
                 rows={users}
                 headers={headers}
