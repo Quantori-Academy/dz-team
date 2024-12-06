@@ -9,7 +9,7 @@ const textfieldStyle = {
     width: "200px",
     height: "70px",
 };
-const button = { width: "250px" };
+
 const boxStyle = { display: "flex", flexDirection: "column", alignItems: "center", gap: "10px" };
 const input = {
     display: "flex",
@@ -146,10 +146,20 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                 ))}
             </TextField>
             <Box sx={boxStyle}>
-                <Button sx={button} variant="contained" color="primary" onClick={handleSubmit}>
+                <Button
+                    sx={{ width: "250px" }}
+                    variant="contained"
+                    color="primary"
+                    onClick={handleSubmit}
+                >
                     Save User
                 </Button>
-                <Button sx={button} variant="contained" color="primary" onClick={onClose}>
+                <Button
+                    sx={{ width: "250px" }}
+                    variant="contained"
+                    color="primary"
+                    onClick={onClose}
+                >
                     Cancel
                 </Button>
             </Box>
