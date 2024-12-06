@@ -30,6 +30,7 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
 
     // User delete handler
     // TODO add confirm on delete
+
     const handleDeleteClick = async (id: string) => {
         try {
             await deleteUserFx(id);
@@ -89,7 +90,8 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
             email: refs.email.current?.value || "",
             password: refs.password.current?.value || "",
             confirmPassword: refs.confirmPassword.current?.value || "",
-            role: refs.role.current?.value || "",
+            role:
+                (refs.role.current?.value as "Admin" | "Procurement Officer" | "Researcher") ?? "",
         };
 
         const errors = validateForm(formData);

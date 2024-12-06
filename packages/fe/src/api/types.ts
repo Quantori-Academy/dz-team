@@ -22,5 +22,10 @@ export type NewUser = {
     email: string;
     password: string;
     confirmPassword: string;
-    role: string;
+    role: "Admin" | "Procurement Officer" | "Researcher";
+};
+export type NewStorage = {
+    name: string;
+    room: string;
+    description: string;
 };
