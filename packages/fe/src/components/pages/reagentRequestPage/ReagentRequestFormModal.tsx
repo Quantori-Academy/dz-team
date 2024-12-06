@@ -7,7 +7,12 @@ const fields: BaseTextFieldProps[] = [
     { label: "Reagent Name", name: "name", required: true },
     { label: "Structure", name: "structure" },
     { label: "CAS Number", name: "cas" },
-    { label: "Desired Quantity", name: "quantity", type: "number", required: true },
+    {
+        label: "Desired Quantity",
+        name: "quantity",
+        type: "number",
+        helperText: "Enter quantity in ml",
+    },
     { label: "User Comments", name: "commentsUser", type: "array" },
     { label: "Procurement Comments", name: "commentsProcurement", type: "array", disabled: true },
     { label: "Status", name: "status", disabled: true },
@@ -20,7 +25,7 @@ export const ReagentRequestFormModal = () => {
         const { name, value } = e.target;
         setFormData({
             ...formData,
-            [name]: name === "quantity" || name === "pricePerUnit" ? Number(value) : value,
+            [name]: name === "quantity" ? Number(value) : value,
         });
     };
 
@@ -33,7 +38,7 @@ export const ReagentRequestFormModal = () => {
                         <TextField
                             label={label}
                             name={name}
-                            value={formData[name as keyof typeof formData] || ""}
+                            value={formData[name as keyof typeof formData] ?? ""}
                             onChange={handleChange}
                             fullWidth
                             margin="normal"

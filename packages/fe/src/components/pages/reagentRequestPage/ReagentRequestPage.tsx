@@ -10,7 +10,7 @@ import { TableContext } from "components/commonTable/TableContext";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
 import { $auth } from "stores/auth";
-import { addReagentRequestFx } from "stores/reagentRequest";
+import { $formData, addReagentRequestFx, setFormData } from "stores/reagentRequest";
 
 import { ReagentRequest, ReagentRequestSchema } from "../../../../../shared/generated/zod";
 import { ReagentRequestFormModal } from "./ReagentRequestFormModal";
@@ -45,6 +45,7 @@ export function ReagentRequestPage() {
     const submitReagentRequest = useUnit(addReagentRequestFx);
 
     const openAddModal = async () => {
+        setFormData($formData.defaultState);
         const response = await createModal({
             name: "reagent_request_modal",
             title: "Add New Reagent Request",
