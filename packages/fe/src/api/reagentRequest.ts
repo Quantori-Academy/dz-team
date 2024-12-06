@@ -1,3 +1,5 @@
+import { z } from "zod";
+
 import {
     RequestCreationBody,
     RequestCreationBodySchema,
@@ -15,3 +17,14 @@ export const createReagentRequest = async (formData: RequestCreationBody) => {
 
     return response;
 };
+
+export async function updateReagentRequestComments(
+    id: string,
+    commentsKey: string,
+    comment: string,
+) {
+    await request(`/requests/${id}`, z.string(), {
+        method: "PATCH",
+        json: { [commentsKey]: comment },
+    });
+}

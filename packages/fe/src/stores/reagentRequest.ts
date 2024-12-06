@@ -1,7 +1,4 @@
-import { toast } from "react-toastify";
-import { darken, lighten } from "@mui/material";
 import { sample } from "effector";
-import { theme } from "theme";
 import { z } from "zod";
 
 import { createReagentRequest } from "api/reagentRequest";
@@ -10,8 +7,7 @@ import {
     RequestCreationBody,
     RequestCreationBodySchema,
 } from "shared/zodSchemas/request/requestSchemas";
-const getColor = theme.palette.mode === "light" ? darken : lighten;
-const getBackgroundColor = theme.palette.mode === "light" ? lighten : darken;
+import { errorToast } from "utils/errorToast";
 
 export const initialFormData: RequestCreationBody = {
     name: "",
@@ -41,12 +37,7 @@ export const addReagentRequestFx = genericDomain.createEffect(async () => {
         return response;
     } catch (e) {
         if (e instanceof z.ZodError) {
-            toast.error(e.issues[0].message, {
-                style: {
-                    backgroundColor: getBackgroundColor(theme.palette.error.light, 0.9),
-                    color: getColor(theme.palette.error.light, 0.6),
-                },
-            });
+            errorToast(e.issues[0].message);
         }
     }
 });

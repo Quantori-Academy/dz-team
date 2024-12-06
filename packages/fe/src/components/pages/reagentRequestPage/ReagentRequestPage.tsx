@@ -3,7 +3,6 @@ import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
-import { jwtDecode } from "jwt-decode";
 
 import { UserRole } from "api/self";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
@@ -35,17 +34,9 @@ export function ReagentRequestPage() {
     const tableRef = useRef<CommonTableRef | null>(null);
     const auth = useUnit($auth);
 
-    let userId: string;
+    const userId = auth ? auth.userId : "";
 
     const role = auth ? auth.self.role : null;
-
-    if (auth) {
-        const decodedToken: { userId: string } = jwtDecode(auth.token);
-
-        userId = decodedToken.userId;
-    } else {
-        userId = "";
-    }
 
     const handleRowClick = (row: ReagentRequest) => {
         navigate({ to: `/reagentRequests/${row.id}`, replace: false });

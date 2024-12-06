@@ -22,7 +22,7 @@ type DetailsEditPageProps<T extends AnyRoute, TData> = PropsWithChildren<{
     editableFields?: string[];
     allowPermission?: boolean;
     tableRef?: TableContextType["ref"];
-    removeDeleteButton?: boolean;
+    addDeleteButton?: boolean;
 }>;
 
 export const DetailsEditPage = <T extends AnyRoute, TData>(
@@ -41,7 +41,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
     children,
     allowPermission = true,
     tableRef,
-    removeDeleteButton,
+    addDeleteButton = true,
 }: DetailsEditPageProps<T, TData> & { tableRef: TableContextType["ref"] }) {
     const [isEditing, setIsEditing] = useState(false);
     const data = useLoaderData<T>({ from: url }) as TData;
@@ -162,10 +162,11 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                                         onClick={() => {
                                             setIsEditing(true);
                                         }}
+                                        sx={{ mr: 2 }}
                                     >
                                         Edit
                                     </Button>
-                                    {removeDeleteButton ? (
+                                    {addDeleteButton ? (
                                         <Button
                                             variant="outlined"
                                             color="error"

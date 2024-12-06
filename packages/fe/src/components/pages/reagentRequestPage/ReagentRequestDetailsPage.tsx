@@ -1,9 +1,8 @@
 import { Box, Typography } from "@mui/material";
 import { useLoaderData, useParams } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
-import { z } from "zod";
 
-import { request } from "api/request";
+import { updateReagentRequestComments } from "api/reagentRequest";
 import { UserRole } from "api/self";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
 import { RequestUpdateBody } from "shared/zodSchemas/request/requestSchemas";
@@ -43,15 +42,18 @@ export function ReagentRequestDetailsPage({ url }: { url: "/_app/reagentRequests
 
     const reagentRequestsPagePath = "/reagentRequests";
 
+    const commentsKey =
+        auth && auth.self.role === UserRole.procurementOfficer
+            ? "commentsProcurement"
+            : "commentsUser";
+
     const handleAction = async (actionType: "submit" | "delete", data?: RequestUpdateBody) => {
         if (actionType === "submit" && data) {
-            await request(`/requests/${id}`, z.string(), {
-                method: "PATCH",
-                json:
-                    auth && auth.self.role === UserRole.procurementOfficer
-                        ? { commentsProcurement: data.commentsProcurement }
-                        : { commentsUser: data.commentsUser },
-            });
+            await updateReagentRequestComments(
+                id,
+                commentsKey,
+                data[commentsKey] as unknown as string,
+            );
         }
     };
 
@@ -62,12 +64,8 @@ export function ReagentRequestDetailsPage({ url }: { url: "/_app/reagentRequests
                 url={url}
                 fields={fields}
                 onAction={handleAction}
-                editableFields={
-                    auth && auth.self.role === UserRole.procurementOfficer
-                        ? ["commentsProcurement"]
-                        : ["commentsUser"]
-                }
-                removeDeleteButton={false}
+                editableFields={[commentsKey]}
+                addDeleteButton={false}
             />
         </>
     );

@@ -26,12 +26,11 @@ export const ReagentRequestFormModal = () => {
 
     return (
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-            {fields.map(({ name, label, type, helperText, required, disabled, ...rest }, index) => {
+            {fields.map(({ name, label, type, helperText, required, disabled, ...rest }) => {
                 const errorText = formDataErrors[name as keyof typeof formDataErrors];
                 return (
                     <Grid size={6} key={name}>
                         <TextField
-                            key={index}
                             label={label}
                             name={name}
                             value={formData[name as keyof typeof formData] || ""}
