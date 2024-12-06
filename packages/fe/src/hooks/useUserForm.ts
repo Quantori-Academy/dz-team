@@ -22,6 +22,7 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
 
     const users = useUnit($usersList);
 
+
     const [notification, setNotification] = useState<NotificationTypes>({
         message: "",
         type: "success",
@@ -38,6 +39,7 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
         } catch {
             setNotification({ message: "Failed to delete the user.", type: "error", open: true });
         }
+
     };
     const handleClose = () => setNotification({ ...notification, open: false });
 
@@ -152,7 +154,7 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
         confirmPasswordError,
         roleError,
         handleSubmit,
-        handleDeleteClick,
+        handleDeleteUser,
         users,
         notification,
         handleClose,

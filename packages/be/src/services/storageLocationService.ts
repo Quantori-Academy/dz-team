@@ -6,7 +6,7 @@ import {
 } from "../../../shared/generated/zod/inputTypeSchemas";
 
 import { StorageLocation } from "../../../shared/generated/zod";
-import { StorageLocationSearch } from "../../../shared/zodSchemas/storageLocation/storageLocationSearchSchema";
+import { StorageLocationSearch } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
 
 const prisma = new PrismaClient();
 
@@ -131,14 +131,19 @@ export class StorageLocationService {
      * @param {string} id - The ID of the storage location to delete.
      * @returns {Promise<StorageLocation | { message: string }>} The soft-deleted storage location or a message if deletion is restricted.
      */
-    async deleteStorageLocation(id: string): Promise<StorageLocation | { message: string }> {
+    async deleteStorageLocation(id: string): Promise<StorageLocation> {
         // Check for associated reagents
         const reagentCount = await prisma.reagent.count({
             where: { storageId: id },
         });
 
+        const locationById = (await prisma.storageLocation.findUnique({
+            where: { id: id },
+        }))!;
+
         if (reagentCount > 0) {
-            return { message: "Cannot delete storage location: It has associated reagents." };
+            // return same location without updating deletedAt
+            return locationById;
         }
 
         // Update deletedAt to for soft deletion

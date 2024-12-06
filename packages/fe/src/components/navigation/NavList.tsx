@@ -20,6 +20,11 @@ const rolesNavLists: RoleToNavList = {
     admin: [
         { href: "/admin", title: "Home", details: "Entry point of application" },
         { href: "/users", title: "User list", details: "See the list of users" },
+        {
+            href: "/storageList",
+            title: "Storage",
+            details: "View Storage locations list",
+        },
     ],
     procurementOfficer: [
         {
@@ -32,6 +37,16 @@ const rolesNavLists: RoleToNavList = {
             title: "Orders",
             details: "Create a new request, view request statuses",
         },
+        {
+            href: "/reagentRequests",
+            title: "Reagent Request",
+            details: "View and manage reagent requests",
+        },
+        {
+            href: "/storageList",
+            title: "Storage",
+            details: "View Storage locations list",
+        },
     ],
     researcher: [
         { href: "/", title: "Home", details: "Entry point of application" },
@@ -41,9 +56,19 @@ const rolesNavLists: RoleToNavList = {
             details: "See the list of available reagents and reagent details",
         },
         {
+            href: "/reagentRequests",
+            title: "Reagent Request",
+            details: "View and manage reagent requests",
+        },
+        {
             href: "/samples",
             title: "Samples",
             details: "Explore existing samples or create new ones",
+        },
+        {
+            href: "/storageList",
+            title: "Storage",
+            details: "View Storage locations list",
         },
     ],
 };

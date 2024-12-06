@@ -5,6 +5,7 @@ import { useUserForm } from "hooks/useUserForm";
 
 const roles = ["admin", "researcher", "procurementOfficer"];
 
+
 const textfieldStyle = {
     width: "200px",
     height: "70px",
@@ -21,6 +22,7 @@ const input = {
 interface AddUserFormProps {
     onClose?: () => void;
 }
+
 
 export const AddUserForm = ({ onClose }: AddUserFormProps) => {
     const refs = {
@@ -66,8 +68,10 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     error={!!usernameError}
                     helperText={usernameError}
                     margin="normal"
+
                     sx={textfieldStyle}
                     required
+
                 />
                 <TextField
                     label="First Name"
@@ -78,6 +82,7 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                     margin="normal"
                     sx={textfieldStyle}
                     required
+
                 />
             </Box>
             <Box sx={input}>

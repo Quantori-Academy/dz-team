@@ -1,4 +1,5 @@
 import { useMemo, useState } from "react";
+
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import EditIcon from "@mui/icons-material/Edit";
 import { Alert, Box, Snackbar, TextField } from "@mui/material";
@@ -7,6 +8,7 @@ import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
 import { NotificationTypes } from "hooks/useUserForm";
+
 import { SupportedValue } from "utils/formatters";
 
 import { AddRecord } from "./Addrecord";
@@ -23,6 +25,8 @@ type GridProps = {
     notification: NotificationTypes;
     handleClose: () => void;
 };
+
+
 export const Grid = ({
     rows,
     headers,
@@ -65,8 +69,10 @@ export const Grid = ({
         );
     }, [rows, searchQuery]);
 
+
     const handleAddRecord = async () => {
         if (!modalContent) return;
+
 
         try {
             await createModal({
@@ -85,6 +91,7 @@ export const Grid = ({
             field: "actions",
             headerName: "Actions",
             width: 100,
+
             renderCell: (params: { row: { id: string } }) => {
                 const id = params.row.id;
                 return handleDelete ? (
@@ -151,5 +158,6 @@ export const Grid = ({
                 </Snackbar>
             </Box>
         </Box>
+
     );
 };
