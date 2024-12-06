@@ -21,11 +21,14 @@ export const initialFormData: RequestCreationBody = {
 export const $formData = genericDomain.createStore<RequestCreationBody>(initialFormData);
 export const $formDataErrors = genericDomain.createStore<Record<string, string>>({});
 export const setFormData = genericDomain.createEvent<RequestCreationBody>();
+export const resetFormData = genericDomain.createEvent<void>();
 
 $formData.on(setFormData, (state, payload) => ({
     ...state,
     ...payload,
 }));
+
+$formData.on(resetFormData, () => initialFormData);
 
 export const addReagentRequestFx = genericDomain.createEffect(async () => {
     const data = $formData.getState();
@@ -46,6 +49,10 @@ export const addReagentRequestFx = genericDomain.createEffect(async () => {
 sample({
     clock: $formData,
     fn: (formData) => {
+        if (formData === $formData.defaultState) {
+            return {};
+        }
+
         const result = RequestCreationBodySchema.safeParse(formData);
 
         return (
