@@ -12,7 +12,7 @@ import {
 import {
     SampleCreateSchema,
     SampleUpdateSchema,
-} from "shared/zodSchemas/samples/extendedSampleSchemas";
+} from "../../../shared/zodSchemas/samples/extendedSampleSchemas";
 
 export const sampleRoutes = async (app: FastifyZodInstance): Promise<void> => {
     /**

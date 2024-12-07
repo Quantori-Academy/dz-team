@@ -1,12 +1,12 @@
+import { z } from "zod";
 import "zod-openapi/extend";
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
-import { z } from "zod";
 import sampleSchema, { SampleSchema } from "../../../shared/generated/zod/modelSchema/SampleSchema";
 import { SampleSearchSchema } from "../../../shared/zodSchemas/samples/sampleSearchSchema";
 import {
     SampleCreateSchema,
     SampleUpdateSchema,
-} from "shared/zodSchemas/samples/extendedSampleSchemas";
+} from "../../../shared/zodSchemas/samples/extendedSampleSchemas";
 
 export const SamplesListSchema = z.object({
     data: z.array(sampleSchema),

@@ -9,7 +9,7 @@ import { sendErrorResponse } from "../utils/handleErrors";
 import {
     SampleCreateSchema,
     SampleUpdateSchema,
-} from "shared/zodSchemas/samples/extendedSampleSchemas";
+} from "../../../shared/zodSchemas/samples/extendedSampleSchemas";
 
 class SampleController {
     /**
