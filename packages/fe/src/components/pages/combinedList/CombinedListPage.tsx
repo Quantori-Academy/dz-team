@@ -1,8 +1,10 @@
+import { useRef } from "react";
 import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 
-import { CommonTable } from "components/commonTable/CommonTable";
+import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
+import { TableContext } from "components/commonTable/TableContext";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
 import CombinedListSchema, {
@@ -30,38 +32,39 @@ const columns: GridColDef<CombinedList>[] = [
 ];
 
 export const CombinedListPage = () => {
+    const tableRef = useRef<CommonTableRef | null>(null);
     const openAddModal = async () => {
-        try {
-            await createModal({
-                name: "sample_modal",
-                title: "Add New Sample",
-                message: <AddSampleForm onClose={removeModal} />,
-            });
+        await createModal({
+            name: "sample_modal",
+            title: "Add New Sample",
+            message: <AddSampleForm onClose={removeModal} />,
+        });
 
-            removeModal();
-        } catch (_) {
-            removeModal();
-        }
+        tableRef.current?.refresh();
+        removeModal();
     };
     return (
-        <Box sx={{ mb: 5 }}>
-            <CommonTable<CombinedList>
-                columns={columns}
-                url={`/list`}
-                schema={CombinedListSchema}
-                searchBy={{
-                    name: true,
-                    room: true,
-                    structure: true,
-                    producer: true,
-                    cas: true,
-                    catalogId: true,
-                    catalogLink: true,
-                }}
-                onAdd={openAddModal}
-                addButtonText="Add New Sample"
-            />
-            <Outlet />
-        </Box>
+        <TableContext.Provider value={{ ref: tableRef }}>
+            <Box sx={{ mb: 5 }}>
+                <CommonTable<CombinedList>
+                    ref={tableRef}
+                    columns={columns}
+                    url={`/list`}
+                    schema={CombinedListSchema}
+                    searchBy={{
+                        name: true,
+                        room: true,
+                        structure: true,
+                        producer: true,
+                        cas: true,
+                        catalogId: true,
+                        catalogLink: true,
+                    }}
+                    onAdd={openAddModal}
+                    addButtonText="Add New Sample"
+                />
+                <Outlet />
+            </Box>
+        </TableContext.Provider>
     );
 };

@@ -2,7 +2,6 @@ import { useState } from "react";
 
 import { postSamples } from "api/combinedList/postSamples";
 import { SampleData } from "api/types";
-import { CombinedList } from "shared/generated/zod/modelSchema/CombinedListSchema";
 
 type HookProps = {
     name: React.RefObject<HTMLInputElement>;
@@ -10,11 +9,11 @@ type HookProps = {
     description: React.RefObject<HTMLInputElement>;
     quantity: React.RefObject<HTMLInputElement>;
     quantityLeft: React.RefObject<HTMLInputElement>;
-    reagentsAndSamplesUsed: CombinedList[];
+    reagentsAndSamplesUsed: string[];
     expirationDate: React.RefObject<HTMLInputElement>;
     storageLocation: React.RefObject<{ value: string }>;
     storageId: React.RefObject<{ value: string }>;
-    quantityUnit: string;
+    unit: string;
 };
 
 export const useSample = ({
@@ -22,12 +21,10 @@ export const useSample = ({
     structure,
     description,
     quantity,
-    quantityLeft,
     reagentsAndSamplesUsed,
-    expirationDate,
     storageLocation,
     storageId,
-    quantityUnit,
+    unit,
 }: HookProps) => {
     const [nameError, setNameError] = useState<string | null>(null);
     const [storageIdError, setStorageIdError] = useState<string | null>(null);
@@ -62,11 +59,9 @@ export const useSample = ({
             name: name.current?.value || "",
             structure: structure.current?.value || "",
             description: description.current?.value || "",
-            quantityUnit,
+            unit,
             quantity: Number(quantity.current?.value || 0),
-            quantityLeft: Number(quantityLeft.current?.value || 0),
-            reagentsUsed: reagentsAndSamplesUsed,
-            expirationDate: expirationDate.current?.value || "",
+            reagentIds: reagentsAndSamplesUsed,
             storageLocation: storageLocation.current?.value || "",
             storageId: storageId.current?.value || "",
         };

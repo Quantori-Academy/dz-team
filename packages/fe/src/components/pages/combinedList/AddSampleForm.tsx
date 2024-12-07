@@ -31,15 +31,14 @@ export const AddSampleForm = ({ onClose }: AddSFormProps) => {
     const quantityLeft = useRef<HTMLInputElement>(null);
     const expirationDate = useRef<HTMLInputElement>(null);
 
-    const [quantityUnit, setQuantityUnit] = useState("ml");
+    const [unit, setUnit] = useState("ml");
     const [selectedStorage, setSelectedStorage] = useState<{ id: string; name: string } | null>(
         null,
     );
-    const [selectedReagentsAndSamples, setSelectedReagentsAndSamples] = useState<CombinedList[]>(
-        [],
-    );
+    const [selectedReagentsAndSamples, setSelectedReagentsAndSamples] = useState<string[]>([]);
 
-    useGate(StorageGate, CombinedListGate);
+    useGate(StorageGate);
+    useGate(CombinedListGate);
 
     const { storageList, combinedList } = useUnit({
         storageList: $storageList,
@@ -63,7 +62,7 @@ export const AddSampleForm = ({ onClose }: AddSFormProps) => {
         expirationDate,
         storageLocation: { current: { value: selectedStorage?.name || "" } },
         storageId: { current: { value: selectedStorage?.id || "" } },
-        quantityUnit,
+        unit,
     });
 
     return (
@@ -97,7 +96,7 @@ export const AddSampleForm = ({ onClose }: AddSFormProps) => {
             <TextField label="Description" inputRef={description} fullWidth margin="normal" />
             <FormControl fullWidth margin="normal" required>
                 <InputLabel>Quantity Unit</InputLabel>
-                <Select value={quantityUnit} onChange={(e) => setQuantityUnit(e.target.value)}>
+                <Select value={unit} onChange={(e) => setUnit(e.target.value)}>
                     <MenuItem value="ml">ml</MenuItem>
                     <MenuItem value="l">l</MenuItem>
                     <MenuItem value="g">g</MenuItem>
@@ -110,26 +109,29 @@ export const AddSampleForm = ({ onClose }: AddSFormProps) => {
                 fullWidth
                 margin="normal"
             />
-            <TextField
+            {/* <TextField
                 label="Quantity Left"
                 inputRef={quantityLeft}
                 type="number"
                 fullWidth
                 margin="normal"
-            />
-            <TextField
+            /> */}
+            {/* <TextField
                 label="Expiration Date"
                 inputRef={expirationDate}
                 type="date"
                 fullWidth
                 margin="normal"
                 InputLabelProps={{ shrink: true }}
-            />
+            /> */}
             <Autocomplete
                 multiple
                 options={uniqueCombinedList}
                 getOptionLabel={(option) => option.name || "Unnamed Item"}
-                onChange={(_event, value) => setSelectedReagentsAndSamples(value)}
+                onChange={(_event, value) => {
+                    const selectedIds = value.map((item) => item.id);
+                    setSelectedReagentsAndSamples(selectedIds);
+                }}
                 renderInput={(params) => (
                     <TextField
                         {...params}
