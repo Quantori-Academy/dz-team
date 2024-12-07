@@ -8,7 +8,7 @@ import {
     OrderUpdateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
 import { OrderStatus } from "@prisma/client";
-import { fulfillOrderSchema } from "shared/zodSchemas/order/fulfillOrderSchema";
+import { fulfillOrderSchema } from "../../../shared/zodSchemas/order/fulfillOrderSchema";
 
 const orderService = new OrderService();
 

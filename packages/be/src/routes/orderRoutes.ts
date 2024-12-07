@@ -7,7 +7,7 @@ import {
     OrderCreateWithUserIdInputSchema,
     OrderUpdateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
-import { fulfillOrderSchema } from "shared/zodSchemas/order/fulfillOrderSchema";
+import { fulfillOrderSchema } from "../../../shared/zodSchemas/order/fulfillOrderSchema";
 
 const orderController = new OrderController();
 
