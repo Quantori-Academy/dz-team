@@ -113,9 +113,9 @@ export class OrderController {
         try {
             const validatedId = idSchema.parse(request.params.id);
             const validatedData = fulfillOrderSchema.parse(request.body);
-            const { reagents } = validatedData;
+            const { reagents, requests } = validatedData;
 
-            const result = await orderService.fulfillOrder(validatedId, { reagents });
+            const result = await orderService.fulfillOrder(validatedId, { reagents, requests });
 
             if ("message" in result) {
                 return reply.status(400).send(result);
@@ -123,6 +123,7 @@ export class OrderController {
 
             reply.send(result);
         } catch (error) {
+            console.log(error);
             sendErrorResponse(reply, error, "Failed to fulfill order");
         }
     }

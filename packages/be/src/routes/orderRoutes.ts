@@ -89,10 +89,11 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
     );
 
     /**
-     * PATCH /:id/fulfill - Fulfill an order with partial data (reagents).
+     * PATCH /:id/fulfill - Fulfill an order with partial data (reagents and requests).
+     * Requires ADMIN role.
      *
      * @param {string} id - The ID of the order to fulfill.
-     * @body {typeof fulfillOrderSchema} Body - The reagent data.
+     * @body {typeof fulfillOrderWithPartialDataSchema} Body - The reagents and requests data.
      * @returns {Promise<void>} The updated order or an error message.
      */
     app.patch<{ Params: { id: string }; Body: typeof fulfillOrderSchema }>(

@@ -8,7 +8,6 @@ import {
     OrderCreateWithUserIdInputSchema,
     OrderUpdateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
-import { fulfillOrderSchema } from "../../../shared/zodSchemas/order/fulfillOrderSchema";
 
 const prisma = new PrismaClient();
 
@@ -150,18 +149,14 @@ export class OrderService {
         });
     }
 
-    /**
-     * Update an existing order.
-     *
-     * @param {string} orderId - The ID of the order to update.
-     * @param {fulfillOrderSchema} data - The data to update the order.
-     * @returns {Promise<Order | { message: string }>} A promise that resolves to the updated order object.
-     */
     async fulfillOrder(
         orderId: string,
-        data: z.infer<typeof fulfillOrderSchema>,
+        data: {
+            reagents: Array<{ id: string; storageId: string }>;
+            requests: Array<{ id: string; storageId: string }>;
+        },
     ): Promise<Order | { message: string }> {
-        const { reagents } = data;
+        const { reagents, requests } = data;
 
         // Fetch the order by ID
         const order = await prisma.order.findUnique({
@@ -183,6 +178,11 @@ export class OrderService {
         // Ensure that order.reagents is an array and check if its length matches
         if (!Array.isArray(order.reagents) || order.reagents.length !== reagents.length) {
             return { message: "There are not enough storage locations for all reagents." };
+        }
+
+        // Check if the number of requests in the order matches the number of requests in the request
+        if (order.requests.length !== requests.length) {
+            return { message: "There are not enough storage locations for all requests." };
         }
 
         // Parse the reagents array from the order
@@ -220,9 +220,29 @@ export class OrderService {
             };
         });
 
+        // Process reagents from requests
+        const processedRequests = requests.map(({ id, storageId }) => {
+            const request = order.requests.find((req) => req.id === id);
+            if (!request) {
+                throw new Error(`Request with ID ${id} not found in the order requests.`);
+            }
+
+            return {
+                name: request.name,
+                structure: request.structure,
+                cas: request.cas,
+                unit: request.unit,
+                quantity: request.quantity,
+                storageId,
+            };
+        });
+
+        // Combine reagents and requests data
+        const allReagents = [...processedReagents, ...processedRequests];
+
         // Insert combined data into the reagent table
         await prisma.reagent.createMany({
-            data: processedReagents,
+            data: allReagents,
             skipDuplicates: true,
         });
 
