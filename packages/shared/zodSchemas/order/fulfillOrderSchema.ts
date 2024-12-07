@@ -7,10 +7,4 @@ export const fulfillOrderSchema = z.object({
             storageId: z.string(),
         }),
     ),
-    requests: z.array(
-        z.object({
-            id: z.string(),
-            storageId: z.string(),
-        }),
-    ),
 });
