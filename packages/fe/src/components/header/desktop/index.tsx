@@ -13,9 +13,10 @@ import {
     useTheme,
 } from "@mui/material";
 import { Link } from "@tanstack/react-router";
-import { useUnit } from "effector-react";
+import { useGate, useUnit } from "effector-react";
 
 import { $auth } from "stores/auth";
+import { $currentUser, UserGate } from "stores/user";
 import { rolesHeaders } from "utils/roles";
 
 import { DropdownMenuHeaderDesktop } from "./DropdownMenuHeaderDesktop";
@@ -35,7 +36,8 @@ export function HeaderDesktop() {
     const handleClose = () => {
         setAnchorEl(null);
     };
-
+    useGate(UserGate);
+    const user = useUnit($currentUser);
     const auth = useUnit($auth);
     const role = auth ? rolesHeaders[auth.self.role] : [];
 
@@ -84,7 +86,7 @@ export function HeaderDesktop() {
                                             color: theme.palette.text.primary,
                                         }}
                                     >
-                                        UserName
+                                        {user?.username}
                                     </Typography>
                                     {isArrowUp ? (
                                         <>

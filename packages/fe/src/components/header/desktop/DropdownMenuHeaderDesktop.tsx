@@ -6,6 +6,7 @@ import { useUnit } from "effector-react";
 import { theme } from "theme";
 
 import { sessionDeleteFx } from "stores/auth";
+import { $currentUser } from "stores/user";
 
 type Props = {
     handleClose: () => void;
@@ -15,6 +16,7 @@ type Props = {
 
 export function DropdownMenuHeaderDesktop({ handleClose, open, anchorEl }: Props) {
     const deleteSession = useUnit(sessionDeleteFx);
+    const user = useUnit($currentUser);
     return (
         <Menu
             anchorEl={anchorEl}
@@ -57,7 +59,7 @@ export function DropdownMenuHeaderDesktop({ handleClose, open, anchorEl }: Props
                         color: theme.palette.text.primary,
                     }}
                 >
-                    UserName
+                    {user?.username}
                 </Typography>
                 <Typography
                     variant="body2"
@@ -65,7 +67,7 @@ export function DropdownMenuHeaderDesktop({ handleClose, open, anchorEl }: Props
                         color: theme.palette.text.disabled,
                     }}
                 >
-                    usermail@acme.com
+                    {user?.email}
                 </Typography>
             </Box>
             <Divider />
