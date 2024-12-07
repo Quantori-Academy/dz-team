@@ -1,15 +1,15 @@
 import { FastifyRequest, FastifyReply } from "fastify";
 
-import {
-    SampleCreateInputSchema,
-    SampleUpdateInputSchema,
-} from "../../../shared/generated/zod/inputTypeSchemas";
 import { idSchema } from "../../../shared/zodSchemas/baseSchemas";
 import { SampleSearchSchema } from "../../../shared/zodSchemas/samples/sampleSearchSchema";
 
 import { sampleService } from "../services/sampleService";
 
 import { sendErrorResponse } from "../utils/handleErrors";
+import {
+    SampleCreateSchema,
+    SampleUpdateSchema,
+} from "../../../shared/zodSchemas/samples/extendedSampleSchemas";
 
 class SampleController {
     /**
@@ -58,11 +58,11 @@ class SampleController {
      * @returns A promise that resolves to the created Sample object.
      */
     async createSample(
-        request: FastifyRequest<{ Body: unknown }>,
+        request: FastifyRequest<{ Body: typeof SampleCreateSchema }>,
         reply: FastifyReply,
     ): Promise<void> {
         try {
-            const validatedData = SampleCreateInputSchema.parse(request.body);
+            const validatedData = SampleCreateSchema.parse(request.body);
 
             const sample = await sampleService.createSample(validatedData);
             reply.send(sample);
@@ -83,9 +83,9 @@ class SampleController {
     ): Promise<void> {
         try {
             const validatedId = idSchema.parse(request.params.id);
-            const validatedData = SampleUpdateInputSchema.parse(request.body);
+            const validatedData = SampleUpdateSchema.parse(request.body);
 
-            const sample = await sampleService.updateSample(validatedId, validatedData);
+            const sample = await sampleService.updateSample(validatedData, validatedId);
             reply.send(sample);
         } catch (error) {
             sendErrorResponse(reply, error, "Failed to update sample");

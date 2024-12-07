@@ -78,13 +78,21 @@ export class RequestController {
             if (!request.userData || !request.userData.userId) {
                 return reply.status(401).send({ message: "Unauthorized" });
             }
+
             const validatedData = RequestCreationBodySchema.parse(request.body);
+
             const createdRequest = await requestService.createRequest(
                 request.userData.userId,
                 validatedData,
             );
+
             reply.status(201).send(createdRequest);
         } catch (error) {
+            if (error instanceof Error) {
+                console.error("Error: ", error.message); // Detailed logging
+            } else {
+                console.error("Error: ", error); // Fallback for non-Error types
+            }
             sendErrorResponse(reply, error, "Failed to create request");
         }
     }
@@ -93,23 +101,20 @@ export class RequestController {
         request: FastifyRequest<{ Params: { requestId: string }; Body: RequestUpdateBody }>,
         reply: FastifyReply,
     ): Promise<void> {
-        try {
-            if (!request.userData?.userId) {
-                return reply.status(401).send({ message: "Unauthorized" });
-            }
-
-            // Validate and parse the request body
-            const validatedData = RequestUpdateBodySchema.parse(request.body);
-
-            await requestService.updateRequest(
-                request.params.requestId,
-                validatedData,
-                request.userData.userId,
-            );
-            reply.status(204).send();
-        } catch (error) {
-            sendErrorResponse(reply, error, "Failed to update request");
+        if (!request.userData?.userId) {
+            return reply.status(401).send({ message: "Unauthorized" });
         }
+
+        // Validate and parse the request body
+        const validatedData = RequestUpdateBodySchema.parse(request.body);
+
+        await requestService.updateRequest(
+            request.params.requestId,
+            validatedData,
+            request.userData,
+            // request.userData.userId,
+        );
+        reply.status(204).send();
     }
 
     async getRequestById(
