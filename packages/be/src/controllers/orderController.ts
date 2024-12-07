@@ -1,3 +1,4 @@
+import { OrderStatus } from "@prisma/client";
 import { FastifyRequest, FastifyReply } from "fastify";
 import { idSchema } from "../../../shared/zodSchemas/baseSchemas";
 import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
@@ -7,8 +8,8 @@ import {
     OrderCreateWithUserIdInputSchema,
     OrderUpdateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
-import { OrderStatus } from "@prisma/client";
-import { fulfillOrderSchema } from "shared/zodSchemas/order/fulfillOrderSchema";
+
+import { fulfillOrderSchema } from "../../../shared/zodSchemas/order/fulfillOrderSchema";
 
 const orderService = new OrderService();
 

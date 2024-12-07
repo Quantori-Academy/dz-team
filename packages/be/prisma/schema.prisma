@@ -239,3 +239,8 @@ model Order {
 
   reagents Json
 }
+
+model Seller {
+  id     String        @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
+  name   String        @unique
+}

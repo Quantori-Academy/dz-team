@@ -8,7 +8,7 @@ import {
     OrderCreateWithUserIdInputSchema,
     OrderUpdateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
-import { fulfillOrderSchema } from "shared/zodSchemas/order/fulfillOrderSchema";
+import { fulfillOrderSchema } from "../../../shared/zodSchemas/order/fulfillOrderSchema";
 
 const prisma = new PrismaClient();
 
@@ -150,6 +150,13 @@ export class OrderService {
         });
     }
 
+    /**
+     * Update an existing order.
+     *
+     * @param {string} orderId - The ID of the order to update.
+     * @param {fulfillOrderSchema} data - The data to update the order.
+     * @returns {Promise<Order | { message: string }>} A promise that resolves to the updated order object.
+     */
     async fulfillOrder(
         orderId: string,
         data: z.infer<typeof fulfillOrderSchema>,
