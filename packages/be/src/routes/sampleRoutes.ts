@@ -1,9 +1,4 @@
 import { FastifyZodInstance } from "../types";
-
-import {
-    SampleCreateInputSchema,
-    SampleUpdateInputSchema,
-} from "../../../shared/generated/zod/inputTypeSchemas";
 import { SampleSearchSchema } from "../../../shared/zodSchemas/samples/sampleSearchSchema";
 
 import { sampleController } from "../controllers/sampleController";
@@ -13,9 +8,11 @@ import {
     GET_SAMPLE_BY_ID_SCHEMA,
     GET_SAMPLES_SCHEMA,
     PATCH_SAMPLE_BY_ID_SCHEMA,
-    POST_SAMPLES_SCHEMA,
-    PUT_SAMPLE_BY_ID_SCHEMA,
 } from "../responseSchemas/samples";
+import {
+    SampleCreateSchema,
+    SampleUpdateSchema,
+} from "shared/zodSchemas/samples/extendedSampleSchemas";
 
 export const sampleRoutes = async (app: FastifyZodInstance): Promise<void> => {
     /**
@@ -64,11 +61,11 @@ export const sampleRoutes = async (app: FastifyZodInstance): Promise<void> => {
      * @returns {Sample} 201 - The created sample
      * @returns {Error} 400 - Validation error
      */
-    app.post<{ Body: typeof SampleCreateInputSchema }>(
+    app.post<{ Body: typeof SampleCreateSchema }>(
         "/",
-        {
-            schema: POST_SAMPLES_SCHEMA satisfies FastifyZodOpenApiSchema,
-        },
+        // {
+        //     schema: POST_SAMPLES_SCHEMA satisfies FastifyZodOpenApiSchema,
+        // },
         async (request, reply) => {
             return await sampleController.createSample(request, reply);
         },
@@ -79,16 +76,16 @@ export const sampleRoutes = async (app: FastifyZodInstance): Promise<void> => {
      * @tags Sample
      * @summary Update an existing sample by ID.
      * @param {string} id.params.required - Sample ID
-     * @param {SampleUpdateInputSchema} request.body.required - Data to update the sample
+     * @param {SampleUpdateSchema} request.body.required - Data to update the sample
      * @returns {Sample} 200 - The updated sample
      * @returns {Error} 404 - Sample not found
      * @returns {Error} 400 - Validation error
      */
-    app.put<{ Params: { id: string }; Body: typeof SampleUpdateInputSchema }>(
+    app.put<{ Params: { id: string }; Body: typeof SampleUpdateSchema }>(
         "/:id",
-        {
-            schema: PUT_SAMPLE_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
-        },
+        // {
+        //     schema: PUT_SAMPLE_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+        // },
         async (request, reply) => {
             return await sampleController.updateSample(request, reply);
         },

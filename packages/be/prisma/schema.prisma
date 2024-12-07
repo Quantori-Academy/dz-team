@@ -154,8 +154,8 @@ model Sample {
   // Many-to-Many relation with Reagent
   reagents  Reagent[]       @relation("ReagentSamples") // List of Reagents used for the Sample
   // Many-to-One relation with StorageLocation
-  storageId String          @db.Uuid /// @zod.string.uuid() // Storage location of the Reagent
-  storage   StorageLocation @relation(fields: [storageId], references: [id])
+  storageId String            @db.Uuid /// @zod.string.uuid() // Storage location of the Reagent
+  storage   StorageLocation?  @relation(fields: [storageId], references: [id])
 }
 
 enum Role {
