@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useState } from "react";
 import {
     Autocomplete,
     Box,
@@ -8,7 +8,6 @@ import {
     MenuItem,
     Select,
     TextField,
-    Typography,
 } from "@mui/material";
 import { useGate, useUnit } from "effector-react";
 
@@ -24,13 +23,6 @@ type AddSFormProps = {
 const buttonBoxStyle = { display: "flex", justifyContent: "center", gap: "25px" };
 
 export const AddSampleForm = ({ onClose }: AddSFormProps) => {
-    const name = useRef<HTMLInputElement>(null);
-    const structure = useRef<HTMLInputElement>(null);
-    const description = useRef<HTMLInputElement>(null);
-    const quantity = useRef<HTMLInputElement>(null);
-    const quantityLeft = useRef<HTMLInputElement>(null);
-    const expirationDate = useRef<HTMLInputElement>(null);
-
     const [unit, setUnit] = useState("ml");
     const [selectedStorage, setSelectedStorage] = useState<{ id: string; name: string } | null>(
         null,
@@ -52,34 +44,26 @@ export const AddSampleForm = ({ onClose }: AddSFormProps) => {
         }
         return acc;
     }, []);
-    const { nameError, storageIdError, confirmMessage, errorMessage, handleSubmit } = useSample({
-        name,
-        structure,
-        description,
-        quantity,
-        quantityLeft,
-        reagentsAndSamplesUsed: selectedReagentsAndSamples,
-        expirationDate,
-        storageLocation: { current: { value: selectedStorage?.name || "" } },
-        storageId: { current: { value: selectedStorage?.id || "" } },
+
+    const {
+        nameRef,
+        structureRef,
+        descriptionRef,
+        quantityRef,
+        nameError,
+        storageIdError,
+        handleSubmit,
+    } = useSample({
         unit,
+        reagentsAndSamplesUsed: selectedReagentsAndSamples,
+        selectedStorage,
     });
 
     return (
         <Box sx={{ maxWidth: "600px" }}>
-            {confirmMessage && (
-                <Typography sx={(theme) => ({ color: theme.palette.success.main })}>
-                    Sample Was Added Successfully
-                </Typography>
-            )}
-            {errorMessage && (
-                <Typography sx={(theme) => ({ color: theme.palette.error.main })}>
-                    An Error Occurred
-                </Typography>
-            )}
             <TextField
                 label="Name"
-                inputRef={name}
+                inputRef={nameRef}
                 error={!!nameError}
                 helperText={nameError}
                 fullWidth
@@ -88,12 +72,12 @@ export const AddSampleForm = ({ onClose }: AddSFormProps) => {
             />
             <TextField
                 label="Structure (Chemical)"
-                inputRef={structure}
+                inputRef={structureRef}
                 fullWidth
                 margin="normal"
                 required
             />
-            <TextField label="Description" inputRef={description} fullWidth margin="normal" />
+            <TextField label="Description" inputRef={descriptionRef} fullWidth margin="normal" />
             <FormControl fullWidth margin="normal" required>
                 <InputLabel>Quantity Unit</InputLabel>
                 <Select value={unit} onChange={(e) => setUnit(e.target.value)}>
@@ -104,26 +88,11 @@ export const AddSampleForm = ({ onClose }: AddSFormProps) => {
             </FormControl>
             <TextField
                 label="Quantity"
-                inputRef={quantity}
+                inputRef={quantityRef}
                 type="number"
                 fullWidth
                 margin="normal"
             />
-            {/* <TextField
-                label="Quantity Left"
-                inputRef={quantityLeft}
-                type="number"
-                fullWidth
-                margin="normal"
-            /> */}
-            {/* <TextField
-                label="Expiration Date"
-                inputRef={expirationDate}
-                type="date"
-                fullWidth
-                margin="normal"
-                InputLabelProps={{ shrink: true }}
-            /> */}
             <Autocomplete
                 multiple
                 options={uniqueCombinedList}

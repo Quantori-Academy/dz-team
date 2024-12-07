@@ -53,12 +53,7 @@ export const CombinedListPage = () => {
                     schema={CombinedListSchema}
                     searchBy={{
                         name: true,
-                        room: true,
                         structure: true,
-                        producer: true,
-                        cas: true,
-                        catalogId: true,
-                        catalogLink: true,
                     }}
                     onAdd={openAddModal}
                     addButtonText="Add New Sample"

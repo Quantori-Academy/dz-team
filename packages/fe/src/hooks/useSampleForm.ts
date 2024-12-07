@@ -1,35 +1,25 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { toast } from "react-toastify";
 
 import { postSamples } from "api/combinedList/postSamples";
 import { SampleData } from "api/types";
+import { removeModal } from "components/modal/store";
 
 type HookProps = {
-    name: React.RefObject<HTMLInputElement>;
-    structure: React.RefObject<HTMLInputElement>;
-    description: React.RefObject<HTMLInputElement>;
-    quantity: React.RefObject<HTMLInputElement>;
-    quantityLeft: React.RefObject<HTMLInputElement>;
-    reagentsAndSamplesUsed: string[];
-    expirationDate: React.RefObject<HTMLInputElement>;
-    storageLocation: React.RefObject<{ value: string }>;
-    storageId: React.RefObject<{ value: string }>;
     unit: string;
+    reagentsAndSamplesUsed: string[];
+    selectedStorage: { id: string; name: string } | null;
 };
 
-export const useSample = ({
-    name,
-    structure,
-    description,
-    quantity,
-    reagentsAndSamplesUsed,
-    storageLocation,
-    storageId,
-    unit,
-}: HookProps) => {
+export const useSample = ({ unit, reagentsAndSamplesUsed, selectedStorage }: HookProps) => {
+    const nameRef = useRef<HTMLInputElement>(null);
+    const structureRef = useRef<HTMLInputElement>(null);
+    const descriptionRef = useRef<HTMLInputElement>(null);
+    const quantityRef = useRef<HTMLInputElement>(null);
+    const expirationDateRef = useRef<HTMLInputElement>(null);
+
     const [nameError, setNameError] = useState<string | null>(null);
     const [storageIdError, setStorageIdError] = useState<string | null>(null);
-    const [confirmMessage, setConfirmMessage] = useState(false);
-    const [errorMessage, setErrorMessage] = useState(false);
 
     const validateForm = (formData: SampleData) => {
         let isValid = true;
@@ -43,7 +33,6 @@ export const useSample = ({
         } else {
             setNameError(null);
         }
-
         if (!formData.storageId || formData.storageId.trim().length === 0) {
             setStorageIdError("Storage is required.");
             isValid = false;
@@ -56,33 +45,40 @@ export const useSample = ({
 
     const handleSubmit = async () => {
         const formData: SampleData = {
-            name: name.current?.value || "",
-            structure: structure.current?.value || "",
-            description: description.current?.value || "",
+            name: nameRef.current?.value || "",
+            structure: structureRef.current?.value || "",
+            description: descriptionRef.current?.value || "",
             unit,
-            quantity: Number(quantity.current?.value || 0),
+            quantity: Number(quantityRef.current?.value || 0),
             reagentIds: reagentsAndSamplesUsed,
-            storageLocation: storageLocation.current?.value || "",
-            storageId: storageId.current?.value || "",
+            storageLocation: selectedStorage?.name || "",
+            storageId: selectedStorage?.id || "",
         };
 
         if (validateForm(formData)) {
             try {
                 await postSamples(formData);
-                setConfirmMessage(true);
-                setTimeout(() => setConfirmMessage(false), 2000);
+                toast.success("Sample is added successfully!");
+                setTimeout(() => {
+                    removeModal();
+                }, 500);
             } catch (_error) {
-                setErrorMessage(true);
-                setTimeout(() => setErrorMessage(false), 2000);
+                toast.error("An error occurred while adding the sample.");
+                setTimeout(() => {
+                    removeModal();
+                }, 500);
             }
         }
     };
 
     return {
+        nameRef,
+        structureRef,
+        descriptionRef,
+        quantityRef,
+        expirationDateRef,
         nameError,
         storageIdError,
-        confirmMessage,
-        errorMessage,
         handleSubmit,
     };
 };
