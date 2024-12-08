@@ -23,8 +23,8 @@ const reagentColumns = [
 ];
 
 const fields = [
-    { label: "Name", name: "name", required: true },
     { label: "Room", name: "room", required: true },
+    { label: "Name", name: "name", required: true },
     { label: "Description", name: "description", required: false },
 ];
 
@@ -51,7 +51,7 @@ export const StorageDetailWrapper = ({ handleAction, reagents }: TableType) => {
                 fields={fields}
                 onAction={!isResearcher ? handleAction : undefined}
                 editableFields={!isResearcher ? ["name", "room", "description"] : []}
-                allowPermission={!isResearcher}
+                rolePermission={!isResearcher}
             >
                 {reagents?.length > 0 ? (
                     <Box sx={boxStyle}>

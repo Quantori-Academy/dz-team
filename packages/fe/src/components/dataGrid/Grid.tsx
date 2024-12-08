@@ -94,7 +94,7 @@ export const Grid = ({
                 onChange={handleSearch}
                 fullWidth
             />
-            <Box sx={{ height: "300px", width: "100%" }}>
+            <Box>
                 <DataGrid
                     rows={filteredRows}
                     columns={columns}

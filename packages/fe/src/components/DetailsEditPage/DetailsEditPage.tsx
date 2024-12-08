@@ -20,7 +20,7 @@ type DetailsEditPageProps<T extends AnyRoute, TData> = PropsWithChildren<{
     fields: FieldConfig[];
     onAction?: (type: "submit" | "delete", data?: TData) => Promise<void>;
     editableFields?: string[];
-    allowPermission?: boolean;
+    rolePermission?: boolean;
     tableRef?: TableContextType["ref"];
 }>;
 
@@ -38,7 +38,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
     onAction,
     editableFields = [],
     children,
-    allowPermission = true,
+    rolePermission = true,
     tableRef,
 }: DetailsEditPageProps<T, TData> & { tableRef: TableContextType["ref"] }) {
     const [isEditing, setIsEditing] = useState(false);
@@ -132,7 +132,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                     />
                 ))}
                 <Box display="flex" justifyContent="flex-start" sx={{ mt: 2 }}>
-                    {allowPermission && (
+                    {rolePermission && (
                         <>
                             {isEditing ? (
                                 <>
