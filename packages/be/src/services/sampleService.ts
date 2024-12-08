@@ -1,12 +1,13 @@
+import { z } from "zod";
 import { Prisma, PrismaClient } from "@prisma/client";
 import { SearchResults } from "../types";
 
-import {
-    SampleCreateInputSchema,
-    SampleUpdateInputSchema,
-} from "../../../shared/generated/zod/inputTypeSchemas";
 import { Sample } from "../../../shared/generated/zod/modelSchema";
 import { SampleSearch } from "../../../shared/zodSchemas/samples/sampleSearchSchema";
+import {
+    SampleCreateSchema,
+    SampleUpdateSchema,
+} from "../../../shared/zodSchemas/samples/extendedSampleSchemas";
 
 const prisma = new PrismaClient();
 
@@ -78,28 +79,58 @@ class SampleService {
 
     /**
      * Create a new sample.
-     * @param {Prisma.SampleCreateInput} newSampleData - The data to create a new sample.
+     * @param { SampleCreateSchema } newSampleData - The data to create a new sample.
      * @returns {Promise<Sample>} The newly created sample.
      */
-    async createSample(newSampleData: Prisma.SampleCreateInput): Promise<Sample> {
-        const validatedData = SampleCreateInputSchema.parse(newSampleData);
+    async createSample(newSampleData: z.infer<typeof SampleCreateSchema>): Promise<Sample> {
+        const validatedData = SampleCreateSchema.parse(newSampleData);
 
-        return await prisma.sample.create({ data: validatedData });
+        // Destructure the necessary fields from the validated data
+        const { reagentIds = [], ...sampleData } = validatedData;
+
+        // Prepare the Prisma-compatible data
+        const prismaData = {
+            ...sampleData,
+            reagents:
+                reagentIds.length > 0 ? { connect: reagentIds.map((id) => ({ id })) } : undefined,
+        };
+
+        // Pass the parsed and validated data to Prisma
+        return await prisma.sample.create({
+            data: prismaData,
+            include: { reagents: true }, // Include related reagents in the response
+        });
     }
 
     /**
      * Update an existing sample by its ID.
      * @param {string} id - The UUID of the sample to update.
-     * @param {Prisma.SampleUpdateInput} updateSampleData - The data to update the sample.
+     * @param {SampleUpdateSchema} updateSampleData - The data to update the sample.
      * @returns {Promise<Sample>} The updated sample.
      */
-    async updateSample(id: string, updateSampleData: Prisma.SampleUpdateInput): Promise<Sample> {
-        const validatedData = SampleUpdateInputSchema.parse(updateSampleData);
+    async updateSample(
+        updateData: z.infer<typeof SampleUpdateSchema>,
+        id: string,
+    ): Promise<Sample> {
+        // Validate and parse the incoming data using Zod
+        const validatedData = SampleUpdateSchema.parse(updateData);
 
-        return await prisma.sample.update({
-            where: { id, deletedAt: null },
-            data: validatedData,
+        const { reagentIds, ...updateFields } = validatedData;
+
+        // Prepare the update payload, connecting reagents
+        const updatePayload = {
+            ...updateFields,
+            reagents: reagentIds ? { set: reagentIds.map((id) => ({ id })) } : undefined, // Update reagents
+        };
+
+        // Update the sample in the database
+        const updatedSample = await prisma.sample.update({
+            where: { id: id },
+            data: updatePayload,
+            include: { reagents: true },
         });
+
+        return updatedSample;
     }
 
     /**
