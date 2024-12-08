@@ -1,5 +1,10 @@
-import { ReagentController } from "../controllers/reagentController";
+// Internal types
 import { FastifyZodInstance } from "../types";
+
+// Controllers
+import { reagentController } from "../controllers/reagentController";
+
+// Response schemas
 import {
     DELETE_REAGENT_BY_ID_SCHEMA,
     GET_REAGENT_BY_ID_SCHEMA,
@@ -8,12 +13,14 @@ import {
     POST_REAGENTS_SCHEMA,
     PUT_REAGENT_BY_ID_SCHEMA,
 } from "../responseSchemas/reagents";
-import { FastifyZodOpenApiSchema, FastifyZodOpenApiTypeProvider } from "fastify-zod-openapi";
-import ReagentCreateManyInputSchema from "shared/generated/zod/inputTypeSchemas/ReagentCreateManyInputSchema";
-import { ReagentSearch } from "shared/zodSchemas/reagent/reagentSearchSchema";
-import { ReagentUpdateManyMutationInputSchema } from "shared/generated/zod";
 
-const reagentController = new ReagentController();
+// Fastify plugins and utilities
+import { FastifyZodOpenApiSchema, FastifyZodOpenApiTypeProvider } from "fastify-zod-openapi";
+
+// Shared schemas
+import ReagentCreateManyInputSchema from "../../../shared/generated/zod/inputTypeSchemas/ReagentCreateManyInputSchema";
+import { ReagentSearch } from "../../../shared/zodSchemas/reagent/reagentSearchSchema";
+import { ReagentUpdateManyMutationInputSchema } from "shared/generated/zod";
 
 /**
  * Registers the reagent routes with the provided Fastify instance.

@@ -1,15 +1,17 @@
+// External dependencies
 import { FastifyRequest, FastifyReply } from "fastify";
 
+// Shared schemas
 import { idSchema } from "../../../shared/zodSchemas/baseSchemas";
 import { SampleSearchSchema } from "../../../shared/zodSchemas/samples/sampleSearchSchema";
-
-import { sampleService } from "../services/sampleService";
-
-import { sendErrorResponse } from "../utils/handleErrors";
 import {
     SampleCreateSchema,
     SampleUpdateSchema,
 } from "../../../shared/zodSchemas/samples/extendedSampleSchemas";
+
+// Internal services and utilities
+import { sampleService } from "../services/sampleService";
+import { sendErrorResponse } from "../utils/handleErrors";
 
 class SampleController {
     /**

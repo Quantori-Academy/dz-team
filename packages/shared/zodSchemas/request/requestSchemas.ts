@@ -38,7 +38,10 @@ export const RequestCreationBodySchema = z.object({
     cas: z.string().nullable().optional(),
     quantity: z.number().positive("Quantity must be positive"),
     unit: z.string().default("ml"), // Changed to string
-    commentsUser: z.array(z.string()).optional(),
+    commentsUser: z
+        .union([z.string(), z.array(z.string())])
+        .transform((val) => (Array.isArray(val) ? val : [val]))
+        .optional(),
     status: RequestStatusEnum.default("pending"),
     orderId: z.string().uuid().nullable().optional(),
 });
@@ -49,8 +52,14 @@ export const RequestUpdateBodySchema = z.object({
     cas: z.string().nullable().optional(),
     quantity: z.number().positive().optional(),
     unit: z.string().optional(), // unit as string
-    commentsUser: z.string().optional(),
-    commentsProcurement: z.string().optional(), // Added for procurement comments
+    commentsUser: z
+        .union([z.string(), z.array(z.string())])
+        .transform((val) => (Array.isArray(val) ? val : [val]))
+        .optional(),
+    commentsProcurement: z
+        .union([z.string(), z.array(z.string())])
+        .transform((val) => (Array.isArray(val) ? val : [val]))
+        .optional(),
     status: RequestStatusEnum.optional(),
     updatedAt: z.coerce.date().optional(),
 });
