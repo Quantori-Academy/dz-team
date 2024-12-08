@@ -1,74 +1,12 @@
+import { z } from "zod";
 import "zod-openapi/extend";
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
-import { z } from "zod";
 import sampleSchema, { SampleSchema } from "../../../shared/generated/zod/modelSchema/SampleSchema";
-import {
-    ContainerSchema,
-    EnumUnitFieldUpdateOperationsInputSchema,
-    FloatFieldUpdateOperationsInputSchema,
-    NullableDateTimeFieldUpdateOperationsInputSchema,
-    NullableEnumContainerFieldUpdateOperationsInputSchema,
-    NullableFloatFieldUpdateOperationsInputSchema,
-    NullableStringFieldUpdateOperationsInputSchema,
-    StringFieldUpdateOperationsInputSchema,
-    UnitSchema,
-} from "../../../shared/generated/zod";
 import { SampleSearchSchema } from "../../../shared/zodSchemas/samples/sampleSearchSchema";
-
-export const SampleUpdateSchema = z.object({
-    name: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputSchema)]).optional(),
-    structure: z
-        .union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputSchema)])
-        .optional()
-        .nullable(),
-    description: z
-        .union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputSchema)])
-        .optional(),
-    quantity: z.union([z.number(), z.lazy(() => FloatFieldUpdateOperationsInputSchema)]).optional(),
-    unit: z
-        .union([z.lazy(() => UnitSchema), z.lazy(() => EnumUnitFieldUpdateOperationsInputSchema)])
-        .optional(),
-    quantityInit: z
-        .union([z.number(), z.lazy(() => NullableFloatFieldUpdateOperationsInputSchema)])
-        .optional()
-        .nullable(),
-    container: z
-        .union([
-            z.lazy(() => ContainerSchema),
-            z.lazy(() => NullableEnumContainerFieldUpdateOperationsInputSchema),
-        ])
-        .optional()
-        .nullable(),
-    storageLocation: z
-        .union([z.string(), z.lazy(() => NullableStringFieldUpdateOperationsInputSchema)])
-        .optional()
-        .nullable(),
-    deletedAt: z
-        .union([z.coerce.date(), z.lazy(() => NullableDateTimeFieldUpdateOperationsInputSchema)])
-        .optional()
-        .nullable(),
-    createdAt: z.coerce.date().optional(),
-    updatedAt: z.coerce.date().optional(),
-});
-
-export const SampleCreationSchema = z.object({
-    name: z.string(),
-    structure: z.string().optional().nullable(),
-    description: z.string(),
-    quantity: z.number(),
-    unit: z.lazy(() => UnitSchema).optional(),
-    quantityInit: z.number().optional().nullable(),
-    container: z
-        .lazy(() => ContainerSchema)
-        .optional()
-        .nullable(),
-    storageLocation: z.string().optional().nullable(),
-    deletedAt: z.coerce.date().optional().nullable(),
-    createdAt: z.coerce.date().optional(),
-    updatedAt: z.coerce.date().optional(),
-    storageId: z.string().uuid(),
-    reagents: z.array(z.string().uuid()).optional(),
-});
+import {
+    SampleCreateSchema,
+    SampleUpdateSchema,
+} from "../../../shared/zodSchemas/samples/extendedSampleSchemas";
 
 export const SamplesListSchema = z.object({
     data: z.array(sampleSchema),
@@ -136,17 +74,13 @@ export const POST_SAMPLES_SCHEMA: FastifyZodOpenApiSchema = {
     summary: "Creates new sample in the system",
     description: "Create new sample.",
     tags: ["Samples"],
-    body: SampleCreationSchema,
+    body: SampleCreateSchema,
     response: {
         200: {
             description: "Created sample data.",
             content: {
                 "application/json": {
-                    schema: z
-                        .object({
-                            id: z.string().uuid(),
-                        })
-                        .merge(SampleCreationSchema),
+                    schema: SampleCreateSchema,
                 },
             },
         },
