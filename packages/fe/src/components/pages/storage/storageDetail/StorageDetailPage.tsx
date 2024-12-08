@@ -35,6 +35,7 @@ export const StorageDetailPage = () => {
         if (type === "submit" && data) {
             try {
                 await editStorage(data);
+
                 setNotification({
                     type: "success",
                     message: "Storage updated successfully.",
