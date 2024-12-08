@@ -1,14 +1,11 @@
 import { toast } from "react-toastify";
-import { Box } from "@mui/material";
 import { useLoaderData } from "@tanstack/react-router";
 
 import { StorageLocationDetailContractType } from "api/storage/contract";
 import { deleteStorage } from "api/storage/deleteStorage";
 import { editStorage } from "api/storage/editStorage";
 
-import { StorageDetailWrapper } from "./StorageDetailWrapper";
-
-const boxStyle = { display: "flex", flexDirection: "column", gap: "20px" };
+import { StorageDetail } from "./StorageDetail";
 
 export const StorageDetailPage = () => {
     const { reagents } = useLoaderData({
@@ -33,8 +30,8 @@ export const StorageDetailPage = () => {
     };
 
     return (
-        <Box sx={boxStyle}>
-            <StorageDetailWrapper handleAction={handleAction} reagents={reagents} />
-        </Box>
+        <>
+            <StorageDetail handleAction={handleAction} reagents={reagents} />
+        </>
     );
 };

@@ -38,7 +38,7 @@ type TableType = {
     handleAction: HandleAction;
 };
 
-export const StorageDetailWrapper = ({ handleAction, reagents }: TableType) => {
+export const StorageDetail = ({ handleAction, reagents }: TableType) => {
     const auth = useUnit($auth);
     const role = auth && (auth.self.role as UserRole);
     const isResearcher = role === UserRole.researcher;
