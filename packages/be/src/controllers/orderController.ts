@@ -4,8 +4,8 @@ import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchS
 import { OrderService } from "../services/orderService";
 import { sendErrorResponse } from "../utils/handleErrors";
 import {
-    OrderCreateWithUserIdInputSchema,
     OrderUpdateWithUserIdInputSchema,
+    RequestOrderCreateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
 import { OrderStatus } from "@prisma/client";
 import { SellerService } from "../services/sellerService";
@@ -60,12 +60,12 @@ export class OrderController {
      * @returns A promise that resolves to the created Order object.
      */
     async createOrder(
-        request: FastifyRequest<{ Body: typeof OrderCreateWithUserIdInputSchema }>,
+        request: FastifyRequest<{ Body: typeof RequestOrderCreateWithUserIdInputSchema }>,
         reply: FastifyReply,
     ): Promise<void> {
         try {
             // Validate the input data
-            const validatedData = OrderCreateWithUserIdInputSchema.parse(request.body);
+            const validatedData = RequestOrderCreateWithUserIdInputSchema.parse(request.body);
 
             if (validatedData.seller) {
                 // Check if the seller already exists

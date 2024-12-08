@@ -8,6 +8,7 @@ import {
     OrderCreateWithUserIdInputSchema,
     OrderUpdateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
+import { OrderCreationParams } from "../types";
 
 const prisma = new PrismaClient();
 
@@ -23,12 +24,6 @@ type OrderSearchResults = {
 };
 
 export class OrderService {
-    /**
-     * Retrieve all orders with optional filtering, pagination, and sorting.
-     *
-     * @param {OrderSearch} queryString - The search parameters including optional filters for pagination and sorting.
-     * @returns {Promise<OrderSearchResults>} A promise that resolves to an object containing orders and metadata about the results.
-     */
     async getAllOrders(queryString: OrderSearch): Promise<OrderSearchResults> {
         const { query, page, limit, sortBy, sortOrder, status } = queryString;
 
@@ -88,27 +83,71 @@ export class OrderService {
     /**
      * Create a new order.
      *
-     * @param {OrderCreateWithUserIdInputSchema} newOrderData - The data for the new order, including embedded reagent details.
+     * @param {RequestOrderCreateWithUserIdInputSchema} newOrderData - The data for the new order, including embedded reagent details.
      * @returns {Promise<Order>} A promise that resolves to the created order object.
      */
-    async createOrder(newOrderData: unknown): Promise<Order> {
-        // Validate the general order data (excluding reagents)
-        const validatedData = OrderCreateWithUserIdInputSchema.parse(newOrderData);
+    async createOrder(newOrderData: OrderCreationParams): Promise<Order> {
+        if (newOrderData.requestIds && newOrderData.requestIds.length > 0) {
+            return prisma.$transaction(async (prisma) => {
+                const userId = newOrderData.userId;
 
-        // Validate reagents array and add IDs if valid
-        if (Array.isArray(validatedData.reagents)) {
-            validatedData.reagents = validatedData.reagents.map(
-                (reagent: z.infer<typeof OrderReagentsSchema>) => {
-                    OrderReagentsSchema.parse(reagent); // Validate each reagent
-                    return { id: uuidv4(), ...reagent }; // Add unique ID
-                },
-            );
+                const requests = await prisma.reagentRequest.findMany({
+                    where: { id: { in: newOrderData.requestIds }, userId, status: "pending" },
+                });
+
+                if (requests.length === 0) {
+                    throw new Error("No valid requests found for the provided IDs");
+                }
+
+                const reagents = requests.map((req) => ({
+                    name: req.name,
+                    structure: req.structure,
+                    cas: req.cas,
+                    producer: newOrderData.producer,
+                    catalogId: newOrderData.catalogId,
+                    catalogLink: newOrderData.catalogLink,
+                    units: req.unit,
+                    pricePerUnit: newOrderData.pricePerUnit,
+                    quantity: req.quantity,
+                }));
+
+                const order = await prisma.order.create({
+                    data: {
+                        userId,
+                        title: newOrderData.title,
+                        description: newOrderData.description,
+                        status: "submitted",
+                        seller: newOrderData.seller,
+                        reagents,
+                    },
+                });
+
+                await prisma.reagentRequest.updateMany({
+                    where: { id: { in: newOrderData.requestIds } },
+                    data: { status: "ordered", orderId: order.id },
+                });
+
+                return order;
+            });
+        } else {
+            // Validate the general order data (excluding reagents)
+            const validatedData = OrderCreateWithUserIdInputSchema.parse(newOrderData);
+
+            // Validate reagents array and add IDs if valid
+            if (Array.isArray(validatedData.reagents)) {
+                validatedData.reagents = validatedData.reagents.map(
+                    (reagent: z.infer<typeof OrderReagentsSchema>) => {
+                        OrderReagentsSchema.parse(reagent); // Validate each reagent
+                        return { id: uuidv4(), ...reagent }; // Add unique ID
+                    },
+                );
+            }
+
+            // Create and return the new order
+            return prisma.order.create({
+                data: validatedData,
+            });
         }
-
-        // Create and return the new order
-        return prisma.order.create({
-            data: validatedData,
-        });
     }
 
     /**
