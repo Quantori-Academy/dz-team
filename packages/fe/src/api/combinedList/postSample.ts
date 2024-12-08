@@ -16,7 +16,7 @@ const addSampleSchemaContract = z.object({
     storageId: z.string().uuid(),
 });
 
-export const postSamples = async (formdata: SampleData) => {
+export const postSample = async (formdata: SampleData) => {
     await request(`/samples`, addSampleSchemaContract, {
         method: "POST",
         json: formdata,

@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 
-import { postSamples } from "api/combinedList/postSamples";
+import { postSample } from "api/combinedList/postSample";
 import { SampleData } from "api/types";
 import { removeModal } from "components/modal/store";
 
@@ -57,7 +57,7 @@ export const useSample = ({ unit, reagentsAndSamplesUsed, selectedStorage }: Hoo
 
         if (validateForm(formData)) {
             try {
-                await postSamples(formData);
+                await postSample(formData);
                 toast.success("Sample is added successfully!");
                 setTimeout(() => {
                     removeModal();

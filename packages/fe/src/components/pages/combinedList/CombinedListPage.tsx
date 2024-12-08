@@ -1,7 +1,7 @@
 import { useRef } from "react";
-import { Outlet } from "react-router-dom";
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
+import { Outlet } from "@tanstack/react-router";
 
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { TableContext } from "components/commonTable/TableContext";
@@ -14,11 +14,12 @@ import CombinedListSchema, {
 import { AddSampleForm } from "./AddSampleForm";
 
 const columns: GridColDef<CombinedList>[] = [
-    { field: "id", headerName: "ID", width: 90, sortable: false },
     { field: "name", headerName: "Name", width: 150 },
+    { field: "category", headerName: "Category", width: 120 },
     { field: "structure", headerName: "Structure", width: 150 },
     { field: "description", headerName: "Description", width: 200 },
     { field: "quantity", headerName: "Quantity", width: 110 },
+    { field: "storageLocation", headerName: "Storage Location", width: 120 },
     { field: "unit", headerName: "Unit", width: 100, sortable: false },
     { field: "expirationDate", headerName: "Expiration Date", width: 150 },
     { field: "cas", headerName: "CAS", width: 120 },
@@ -26,7 +27,6 @@ const columns: GridColDef<CombinedList>[] = [
     { field: "catalogId", headerName: "Catalog ID", width: 120 },
     { field: "catalogLink", headerName: "Catalog Link", width: 150 },
     { field: "pricePerUnit", headerName: "Price Per Unit", width: 150 },
-    { field: "category", headerName: "Category", width: 120 },
     { field: "createdAt", headerName: "Created At", width: 150 },
     { field: "updatedAt", headerName: "Updated At", width: 150 },
 ];

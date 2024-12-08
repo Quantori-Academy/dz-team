@@ -97,6 +97,12 @@ export const AddSampleForm = ({ onClose }: AddSFormProps) => {
                 multiple
                 options={uniqueCombinedList}
                 getOptionLabel={(option) => option.name || "Unnamed Item"}
+                filterSelectedOptions
+                filterOptions={(options, state) =>
+                    options.filter((option) =>
+                        option.name?.toLowerCase().includes(state.inputValue.toLowerCase()),
+                    )
+                }
                 onChange={(_event, value) => {
                     const selectedIds = value.map((item) => item.id);
                     setSelectedReagentsAndSamples(selectedIds);
@@ -111,6 +117,7 @@ export const AddSampleForm = ({ onClose }: AddSFormProps) => {
                     />
                 )}
             />
+
             <Autocomplete
                 options={storageList}
                 getOptionLabel={(option) => `${option.name} (${option.room})`}
