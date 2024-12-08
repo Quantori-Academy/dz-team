@@ -20,9 +20,10 @@ type DetailsEditPageProps<T extends AnyRoute, TData> = PropsWithChildren<{
     fields: FieldConfig[];
     onAction?: (type: "submit" | "delete", data?: TData) => Promise<void>;
     editableFields?: string[];
-    allowPermission?: boolean;
+
     tableRef?: TableContextType["ref"];
     addEditButton?: boolean;
+    addDeleteButton?: boolean;
 }>;
 
 export const DetailsEditPage = <T extends AnyRoute, TData>(
@@ -39,9 +40,10 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
     onAction,
     editableFields = [],
     children,
-    allowPermission = true,
+
     tableRef,
     addEditButton = true,
+    addDeleteButton = true,
 }: DetailsEditPageProps<T, TData> & { tableRef: TableContextType["ref"] }) {
     const [isEditing, setIsEditing] = useState(false);
     const data = useLoaderData<T>({ from: url }) as TData;
@@ -134,43 +136,37 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                     />
                 ))}
                 <Box display="flex" justifyContent="flex-start" sx={{ mt: 2 }}>
-                    {allowPermission && (
+                    {isEditing ? (
                         <>
-                            {isEditing ? (
-                                <>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={handleUpdate}
-                                    >
-                                        Save
-                                    </Button>
-                                    <Button
-                                        variant="outlined"
-                                        color="error"
-                                        sx={{ ml: 2 }}
-                                        onClick={handleCancel}
-                                    >
-                                        Cancel
-                                    </Button>
-                                </>
-                            ) : (
-                                <>
-                                    {addEditButton ? (
-                                        <Button
-                                            variant="contained"
-                                            color="primary"
-                                            onClick={() => setIsEditing(true)}
-                                            sx={{ mr: 2 }}
-                                        >
-                                            Edit
-                                        </Button>
-                                    ) : null}
-                                    <Button variant="outlined" color="error" onClick={handleDelete}>
-                                        Delete
-                                    </Button>
-                                </>
-                            )}
+                            <Button variant="contained" color="primary" onClick={handleUpdate}>
+                                Save
+                            </Button>
+                            <Button
+                                variant="outlined"
+                                color="error"
+                                sx={{ ml: 2 }}
+                                onClick={handleCancel}
+                            >
+                                Cancel
+                            </Button>
+                        </>
+                    ) : (
+                        <>
+                            {addEditButton ? (
+                                <Button
+                                    variant="contained"
+                                    color="primary"
+                                    onClick={() => setIsEditing(true)}
+                                    sx={{ mr: 2 }}
+                                >
+                                    Edit
+                                </Button>
+                            ) : null}
+                            {addDeleteButton ? (
+                                <Button variant="outlined" color="error" onClick={handleDelete}>
+                                    Delete
+                                </Button>
+                            ) : null}
                         </>
                     )}
                 </Box>

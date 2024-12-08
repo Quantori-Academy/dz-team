@@ -1,7 +1,9 @@
+import { useContext } from "react";
 import { Box, MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
 import { useLoaderData, useNavigate, useRouter } from "@tanstack/react-router";
 
 import { changeStatus } from "api/orderStatus";
+import { TableContext } from "components/commonTable/TableContext";
 import { Grid } from "components/dataGrid/Grid";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
 import { createModal } from "components/modal/createModal";
@@ -50,6 +52,7 @@ export function OrderDetailsPage() {
         });
     const navigate = useNavigate();
     const router = useRouter();
+    const tableRef = useContext(TableContext);
 
     const reagentData = Array.isArray(reagents) ? reagents : [];
 
@@ -73,6 +76,9 @@ export function OrderDetailsPage() {
                 id,
                 status: event.target.value as OrderStatus,
             });
+            if (tableRef.ref.current?.refresh != null) {
+                tableRef.ref.current.refresh();
+            }
             router.invalidate();
         }
 

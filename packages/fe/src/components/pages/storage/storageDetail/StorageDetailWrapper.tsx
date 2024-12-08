@@ -51,7 +51,8 @@ export const StorageDetailWrapper = ({ handleAction, reagents }: TableType) => {
                 fields={fields}
                 onAction={!isResearcher ? handleAction : undefined}
                 editableFields={!isResearcher ? ["name", "room", "description"] : []}
-                allowPermission={!isResearcher}
+                addEditButton={!isResearcher}
+                addDeleteButton={!isResearcher}
             >
                 {reagents?.length > 0 ? (
                     <Box sx={boxStyle}>

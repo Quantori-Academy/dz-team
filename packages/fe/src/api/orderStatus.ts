@@ -6,10 +6,7 @@ import { request } from "./request";
 export const changeStatus = async ({ status, id }: { status: OrderStatus; id: string }) => {
     const response = await request(`/orders/${id}/status`, OrderSchema, {
         method: "PATCH",
-        json: { status: status },
-        showErrorNotification: true,
-        shouldAffectIsLoading: true,
-        throwOnError: false,
+        json: { status },
     });
 
     return response;
