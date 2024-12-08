@@ -134,43 +134,21 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                 <Box display="flex" justifyContent="flex-start" sx={{ mt: 2 }}>
                     {rolePermission && (
                         <>
-                            {isEditing ? (
-                                <>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={handleUpdate}
-                                    >
-                                        Save
-                                    </Button>
-                                    <Button
-                                        variant="outlined"
-                                        color="error"
-                                        sx={{ ml: 2 }}
-                                        onClick={handleCancel}
-                                    >
-                                        Cancel
-                                    </Button>
-                                </>
-                            ) : (
-                                <>
-                                    <Button
-                                        variant="contained"
-                                        color="primary"
-                                        onClick={() => setIsEditing(true)}
-                                    >
-                                        Edit
-                                    </Button>
-                                    <Button
-                                        variant="outlined"
-                                        color="error"
-                                        sx={{ ml: 2 }}
-                                        onClick={handleDelete}
-                                    >
-                                        Delete
-                                    </Button>
-                                </>
-                            )}
+                            <Button
+                                variant="contained"
+                                color="primary"
+                                onClick={isEditing ? handleUpdate : () => setIsEditing(true)}
+                            >
+                                {isEditing ? "Save" : "Edit"}
+                            </Button>
+                            <Button
+                                variant="outlined"
+                                color="error"
+                                sx={{ ml: 2 }}
+                                onClick={isEditing ? handleCancel : handleDelete}
+                            >
+                                {isEditing ? "Cancel" : "Delete"}
+                            </Button>
                         </>
                     )}
                 </Box>
