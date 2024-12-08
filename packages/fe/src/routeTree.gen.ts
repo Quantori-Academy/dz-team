@@ -27,6 +27,7 @@ import { Route as AppPOfficerLayoutPOfficerImport } from "./routes/_app/_pOffice
 import { Route as AppPOfficerLayoutOrdersImport } from "./routes/_app/_pOfficerLayout/orders";
 import { Route as AppPOfficerLayoutCreateOrderImport } from "./routes/_app/_pOfficerLayout/createOrder";
 import { Route as AppAdminLayoutUsersImport } from "./routes/_app/_adminLayout/users";
+import { Route as AppAdminLayoutAdminImport } from "./routes/_app/_adminLayout/admin";
 import { Route as AppResearcherLayoutReagentsIdImport } from "./routes/_app/_researcherLayout/reagents/$id";
 import { Route as AppPOfficerLayoutOrdersIdImport } from "./routes/_app/_pOfficerLayout/orders/$id";
 
@@ -124,6 +125,12 @@ const AppAdminLayoutUsersRoute = AppAdminLayoutUsersImport.update({
     getParentRoute: () => AppAdminLayoutRoute,
 } as any);
 
+const AppAdminLayoutAdminRoute = AppAdminLayoutAdminImport.update({
+    id: "/admin",
+    path: "/admin",
+    getParentRoute: () => AppAdminLayoutRoute,
+} as any);
+
 const AppResearcherLayoutReagentsIdRoute = AppResearcherLayoutReagentsIdImport.update({
     id: "/$id",
     path: "/$id",
@@ -188,6 +195,13 @@ declare module "@tanstack/react-router" {
             fullPath: "/storageList";
             preLoaderRoute: typeof AppStorageListImport;
             parentRoute: typeof AppImport;
+        };
+        "/_app/_adminLayout/admin": {
+            id: "/_app/_adminLayout/admin";
+            path: "/admin";
+            fullPath: "/admin";
+            preLoaderRoute: typeof AppAdminLayoutAdminImport;
+            parentRoute: typeof AppAdminLayoutImport;
         };
         "/_app/_adminLayout/users": {
             id: "/_app/_adminLayout/users";
@@ -272,10 +286,12 @@ declare module "@tanstack/react-router" {
 // Create and export the route tree
 
 interface AppAdminLayoutRouteChildren {
+    AppAdminLayoutAdminRoute: typeof AppAdminLayoutAdminRoute;
     AppAdminLayoutUsersRoute: typeof AppAdminLayoutUsersRoute;
 }
 
 const AppAdminLayoutRouteChildren: AppAdminLayoutRouteChildren = {
+    AppAdminLayoutAdminRoute: AppAdminLayoutAdminRoute,
     AppAdminLayoutUsersRoute: AppAdminLayoutUsersRoute,
 };
 
@@ -385,6 +401,7 @@ export interface FileRoutesByFullPath {
     "/login": typeof LoginRoute;
     "/reagentRequests": typeof AppReagentRequestsRouteWithChildren;
     "/storageList": typeof AppStorageListRouteWithChildren;
+    "/admin": typeof AppAdminLayoutAdminRoute;
     "/users": typeof AppAdminLayoutUsersRoute;
     "/createOrder": typeof AppPOfficerLayoutCreateOrderRoute;
     "/orders": typeof AppPOfficerLayoutOrdersRouteWithChildren;
@@ -403,6 +420,7 @@ export interface FileRoutesByTo {
     "/login": typeof LoginRoute;
     "/reagentRequests": typeof AppReagentRequestsRouteWithChildren;
     "/storageList": typeof AppStorageListRouteWithChildren;
+    "/admin": typeof AppAdminLayoutAdminRoute;
     "/users": typeof AppAdminLayoutUsersRoute;
     "/createOrder": typeof AppPOfficerLayoutCreateOrderRoute;
     "/orders": typeof AppPOfficerLayoutOrdersRouteWithChildren;
@@ -425,6 +443,7 @@ export interface FileRoutesById {
     "/_app/_researcherLayout": typeof AppResearcherLayoutRouteWithChildren;
     "/_app/reagentRequests": typeof AppReagentRequestsRouteWithChildren;
     "/_app/storageList": typeof AppStorageListRouteWithChildren;
+    "/_app/_adminLayout/admin": typeof AppAdminLayoutAdminRoute;
     "/_app/_adminLayout/users": typeof AppAdminLayoutUsersRoute;
     "/_app/_pOfficerLayout/createOrder": typeof AppPOfficerLayoutCreateOrderRoute;
     "/_app/_pOfficerLayout/orders": typeof AppPOfficerLayoutOrdersRouteWithChildren;
@@ -445,6 +464,7 @@ export interface FileRouteTypes {
         | "/login"
         | "/reagentRequests"
         | "/storageList"
+        | "/admin"
         | "/users"
         | "/createOrder"
         | "/orders"
@@ -462,6 +482,7 @@ export interface FileRouteTypes {
         | "/login"
         | "/reagentRequests"
         | "/storageList"
+        | "/admin"
         | "/users"
         | "/createOrder"
         | "/orders"
@@ -482,6 +503,7 @@ export interface FileRouteTypes {
         | "/_app/_researcherLayout"
         | "/_app/reagentRequests"
         | "/_app/storageList"
+        | "/_app/_adminLayout/admin"
         | "/_app/_adminLayout/users"
         | "/_app/_pOfficerLayout/createOrder"
         | "/_app/_pOfficerLayout/orders"
@@ -537,6 +559,7 @@ export const routeTree = rootRoute
       "filePath": "_app/_adminLayout.tsx",
       "parent": "/_app",
       "children": [
+        "/_app/_adminLayout/admin",
         "/_app/_adminLayout/users"
       ]
     },
@@ -571,6 +594,10 @@ export const routeTree = rootRoute
       "children": [
         "/_app/storageList/$id"
       ]
+    },
+    "/_app/_adminLayout/admin": {
+      "filePath": "_app/_adminLayout/admin.tsx",
+      "parent": "/_app/_adminLayout"
     },
     "/_app/_adminLayout/users": {
       "filePath": "_app/_adminLayout/users.tsx",
