@@ -1,16 +1,19 @@
+// External dependencies
 import { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
-import { ReagentService } from "../services/reagentService";
+
+// Internal services
+import { reagentService } from "../services/reagentService";
+
+// Shared schemas
 import {
     ReagentCreateInputSchema,
     ReagentUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
-import { ReagentSearchSchema } from "shared/zodSchemas/reagent/reagentSearchSchema";
-import { idSchema } from "shared/zodSchemas/baseSchemas";
+import { ReagentSearchSchema } from "../../../shared/zodSchemas/reagent/reagentSearchSchema";
+import { idSchema } from "../../../shared/zodSchemas/baseSchemas";
 
-const reagentService = new ReagentService();
-
-export class ReagentController {
+class ReagentController {
     /**
      * Get all reagents.
      * @param request - FastifyRequest
@@ -173,3 +176,5 @@ export class ReagentController {
         }
     }
 }
+
+export const reagentController = new ReagentController();

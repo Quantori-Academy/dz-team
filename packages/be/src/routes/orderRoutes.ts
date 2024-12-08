@@ -1,7 +1,13 @@
+// Internal types
 import { FastifyZodInstance } from "../types";
-import { OrderController } from "../controllers/orderController";
 
+// Controllers
+import { orderController } from "../controllers/orderController";
+
+// Prisma models
 import { OrderStatus } from "@prisma/client";
+
+// Shared schemas
 import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
 import {
     OrderCreateWithUserIdInputSchema,
@@ -9,10 +15,8 @@ import {
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
 import { fulfillOrderSchema } from "../../../shared/zodSchemas/order/fulfillOrderSchema";
 
-const orderController = new OrderController();
-
 /**
- * Registers the reagent routes with the provided Fastify instance.
+ * Registers the order routes with the provided Fastify instance.
  *
  * @param {FastifyZodInstance} app - The Fastify instance to register the routes with.
  * @returns {Promise<void>} A promise that resolves when the routes have been registered.

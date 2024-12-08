@@ -1,12 +1,15 @@
+// Internal types
 import { FastifyZodInstance } from "../types";
-import { SellerController } from "../controllers/sellerController";
+
+// Controllers
+import { sellerController } from "../controllers/sellerController";
+
+// Shared schemas
 import {
     SellerCreateInputSchema,
     SellerUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
 import { SellerSearchSchema } from "../../../shared/zodSchemas/seller/sellerSearchSchema";
-
-const sellerController = new SellerController();
 
 /**
  * Registers the seller routes with the provided Fastify instance.

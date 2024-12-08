@@ -1,19 +1,31 @@
+// External dependencies
 import { FastifyZodInstance } from "../types";
-import { SampleSearchSchema } from "../../../shared/zodSchemas/samples/sampleSearchSchema";
-
-import { sampleController } from "../controllers/sampleController";
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
+
+// Internal controllers
+import { sampleController } from "../controllers/sampleController";
+
+// Shared schemas
+import { SampleSearchSchema } from "../../../shared/zodSchemas/samples/sampleSearchSchema";
+import {
+    SampleCreateSchema,
+    SampleUpdateSchema,
+} from "../../../shared/zodSchemas/samples/extendedSampleSchemas";
+
+// Response schemas
 import {
     DELETE_SAMPLE_BY_ID_SCHEMA,
     GET_SAMPLE_BY_ID_SCHEMA,
     GET_SAMPLES_SCHEMA,
     PATCH_SAMPLE_BY_ID_SCHEMA,
 } from "../responseSchemas/samples";
-import {
-    SampleCreateSchema,
-    SampleUpdateSchema,
-} from "../../../shared/zodSchemas/samples/extendedSampleSchemas";
 
+/**
+ * Registers the sample routes with the provided Fastify instance.
+ *
+ * @param {FastifyZodInstance} app - The Fastify instance to register the routes with.
+ * @returns {Promise<void>} A promise that resolves when the routes have been registered.
+ */
 export const sampleRoutes = async (app: FastifyZodInstance): Promise<void> => {
     /**
      * GET / endpoint to retrieve a list of samples.
