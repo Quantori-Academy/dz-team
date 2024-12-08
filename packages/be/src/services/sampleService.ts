@@ -1,15 +1,20 @@
+// External dependencies
 import { z } from "zod";
-import { Prisma, PrismaClient } from "@prisma/client";
+import { Prisma } from "@prisma/client";
+
+// Internal utilities
+import { prisma } from "../utils/prisma";
 import { SearchResults } from "../types";
 
-import { Sample } from "../../../shared/generated/zod/modelSchema";
+// Shared schemas
 import { SampleSearch } from "../../../shared/zodSchemas/samples/sampleSearchSchema";
 import {
     SampleCreateSchema,
     SampleUpdateSchema,
 } from "../../../shared/zodSchemas/samples/extendedSampleSchemas";
 
-const prisma = new PrismaClient();
+// Generated schemas
+import { Sample } from "../../../shared/generated/zod/modelSchema";
 
 class SampleService {
     /**

@@ -6834,7 +6834,7 @@
                 }
             },
             "post": {
-                "tags": ["Request"],
+                "tags": ["Requests"],
                 "requestBody": {
                     "content": {
                         "application/json": {

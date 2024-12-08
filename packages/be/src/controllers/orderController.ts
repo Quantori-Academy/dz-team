@@ -1,18 +1,21 @@
+// External dependencies
 import { FastifyRequest, FastifyReply } from "fastify";
+import { OrderStatus } from "@prisma/client";
+
+// Internal services
+import { orderService } from "../services/orderService";
+import { sendErrorResponse } from "../utils/handleErrors";
+
+// Shared schemas
 import { idSchema } from "../../../shared/zodSchemas/baseSchemas";
 import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
-import { OrderService } from "../services/orderService";
-import { sendErrorResponse } from "../utils/handleErrors";
 import {
     OrderCreateWithUserIdInputSchema,
     OrderUpdateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
-import { OrderStatus } from "@prisma/client";
 import { fulfillOrderSchema } from "../../../shared/zodSchemas/order/fulfillOrderSchema";
 
-const orderService = new OrderService();
-
-export class OrderController {
+class OrderController {
     /**
      * Get all orders.
      * @param request - FastifyRequest
@@ -152,3 +155,5 @@ export class OrderController {
         }
     }
 }
+
+export const orderController = new OrderController();
