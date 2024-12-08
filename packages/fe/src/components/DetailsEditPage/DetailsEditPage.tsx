@@ -116,7 +116,6 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                 <Typography variant="h6" sx={{ mb: 2 }}>
                     Details
                 </Typography>
-
                 {fields.map((field, index) => (
                     <TextField
                         key={index}

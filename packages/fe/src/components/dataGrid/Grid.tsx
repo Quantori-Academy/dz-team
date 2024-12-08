@@ -74,6 +74,10 @@ export const Grid = ({
     };
 
     const columns = useMemo(() => {
+        if (!renderActions) {
+            return headers;
+        }
+
         const actionsColumn = {
             field: "actions",
             headerName: "Actions",
