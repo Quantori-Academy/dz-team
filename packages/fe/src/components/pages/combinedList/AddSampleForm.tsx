@@ -121,6 +121,11 @@ export const AddSampleForm = ({ onClose }: AddSFormProps) => {
             <Autocomplete
                 options={storageList}
                 getOptionLabel={(option) => `${option.name} (${option.room})`}
+                filterOptions={(options, { inputValue }) =>
+                    options.filter((option) =>
+                        option.name.toLowerCase().includes(inputValue.toLowerCase()),
+                    )
+                }
                 onChange={(_event, value) => setSelectedStorage(value)}
                 renderInput={(params) => (
                     <TextField
@@ -135,6 +140,7 @@ export const AddSampleForm = ({ onClose }: AddSFormProps) => {
                 )}
                 fullWidth
             />
+
             <Box sx={buttonBoxStyle}>
                 <Button
                     variant="contained"
