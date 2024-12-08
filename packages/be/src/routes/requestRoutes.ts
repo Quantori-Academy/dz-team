@@ -46,9 +46,10 @@ export const requestRoutes = async (app: FastifyZodInstance): Promise<void> => {
         "/",
         {
             preHandler: [checkAuthenticatedAndRole([Roles.RESEARCHER, Roles.ADMIN])],
+
             schema: {
-                tags: ["Request"],
                 body: RequestCreationBodySchema,
+                tags: ["Requests"],
             },
         },
         async (request, reply) => {
