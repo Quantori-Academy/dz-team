@@ -1,4 +1,7 @@
+// External dependencies
 import { FastifyRequest, FastifyReply } from "fastify";
+
+// Shared schemas
 import {
     SellerCreateInputSchema,
     SellerUpdateInputSchema,
@@ -6,12 +9,11 @@ import {
 import { idSchema } from "../../../shared/zodSchemas/baseSchemas";
 import { SellerSearchSchema } from "../../../shared/zodSchemas/seller/sellerSearchSchema";
 
-import { SellerService } from "../services/sellerService";
+// Internal services and utilities
+import { sellerService } from "../services/sellerService";
 import { sendErrorResponse } from "../utils/handleErrors";
 
-const sellerService = new SellerService();
-
-export class SellerController {
+class SellerController {
     /**
      * Get all sellers.
      * @param request - FastifyRequest
@@ -118,3 +120,5 @@ export class SellerController {
         }
     }
 }
+
+export const sellerController = new SellerController();

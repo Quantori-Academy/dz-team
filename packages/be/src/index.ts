@@ -33,7 +33,7 @@ server.register(fastifyZodOpenApiPlugin);
 
 server.register(cors, {
     origin: corsOptions,
-    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
 });
 
 // Conditionally import the OpenAPI generator in non-production environments
