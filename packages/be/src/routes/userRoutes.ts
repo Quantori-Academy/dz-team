@@ -124,7 +124,7 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
         "/:userId",
         {
             schema: DELETE_USER_BY_SCHEMA satisfies FastifyZodOpenApiSchema,
-            // preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
+            preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
         },
         async (request, reply) => {
             return await userController.deleteUser(request, reply);

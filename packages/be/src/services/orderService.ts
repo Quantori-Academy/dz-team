@@ -232,50 +232,44 @@ class OrderService {
      * @param {string} status - The new status for the order.
      * @returns {Promise<Order>} A promise that resolves to the updated order object.
      */
-    async updateOrderStatus(id: string, status: OrderStatus): Promise<Order | { message: string }> {
+    async updateOrderStatus(id: string, status: OrderStatus): Promise<Order> {
         const existingOrder = await prisma.order.findUnique({
             where: { id },
         });
 
         if (!existingOrder) {
-            return { message: "Order not found." };
+            throw new Error("Order not found."); // 404 Not Found
         }
 
         if (!status) {
-            return { message: "Invalid status provided." };
+            throw new Error("Invalid status provided."); // 400 Bad Request
         }
 
         if (status === OrderStatus.fulfilled) {
-            return { message: "Can not change status to fulfilled" };
+            throw new Error("Cannot change status to 'fulfilled'."); // 400 Bad Request
         }
 
-        // Check if status is valid for transition from the existing order status
+        // Validate transitions based on the existing order status
         if (existingOrder.status === OrderStatus.pending) {
-            if (status === OrderStatus.submitted) {
-                // Valid transition from 'pending' to 'submitted'
-            } else if (status !== OrderStatus.pending) {
-                return { message: "Only 'submitted' can be set from 'pending' status." };
+            if (status !== OrderStatus.submitted && status !== OrderStatus.pending) {
+                throw new Error("Only 'submitted' can be set from 'pending' status."); // 400 Bad Request
             }
         } else if (existingOrder.status === OrderStatus.submitted) {
-            if (status === OrderStatus.canceled) {
-                // Valid transition from 'submitted' to 'fulfilled' or 'canceled'
-            } else {
-                return {
-                    message: "Only 'fulfilled' or 'cancelled' can be set from 'submitted' status.",
-                };
+            if (status !== OrderStatus.canceled) {
+                throw new Error(
+                    "Only 'fulfilled' or 'cancelled' can be set from 'submitted' status.",
+                ); // 400 Bad Request
             }
         } else if (
             existingOrder.status === OrderStatus.canceled ||
             existingOrder.status === OrderStatus.fulfilled
         ) {
-            return {
-                message: "Cannot change status once the order is 'cancelled' or 'fulfilled'.",
-            };
+            throw new Error("Cannot change status once the order is 'cancelled' or 'fulfilled'."); // 400 Bad Request
         } else {
-            return { message: "Invalid status change." };
+            throw new Error("Invalid status change."); // 400 Bad Request
         }
 
-        // If status change is to cancelled, update the reagent requests to 'Pending'
+        // If status change is to 'canceled', update associated reagent requests to 'pending'
         if (status === OrderStatus.canceled) {
             await prisma.reagentRequest.updateMany({
                 where: { orderId: id },
