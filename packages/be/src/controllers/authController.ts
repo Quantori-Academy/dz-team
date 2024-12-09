@@ -1,12 +1,14 @@
+// External dependencies
 import { FastifyRequest, FastifyReply } from "fastify";
 import { z } from "zod";
 
-import { AuthService } from "../services/authService";
+// Internal services
+import { authService } from "../services/authService";
+
+// Shared schemas
 import { LoginUser, loginUserSchema } from "../../../shared/zodSchemas/user/loginUserSchema";
 
-const authService = new AuthService();
-
-export class AuthController {
+class AuthController {
     /**
      * Handle user login.
      * @param request - FastifyRequest containing the login data in the body.
@@ -20,7 +22,6 @@ export class AuthController {
             // Validate the request body against the loginUserSchema
             const parsedData = loginUserSchema.parse(request.body);
 
-            // Use an arrow function to bind the jwt.sign method
             const jwtSign = (payload: object) => request.server.jwt.sign(payload);
 
             // Call AuthService to perform login and pass the bound jwtSign function
@@ -43,3 +44,5 @@ export class AuthController {
         }
     }
 }
+
+export const authController = new AuthController();
