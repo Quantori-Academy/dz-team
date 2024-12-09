@@ -2,6 +2,7 @@ import { useRef } from "react";
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
+import { useUnit } from "effector-react";
 
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { TableContext } from "components/commonTable/TableContext";
@@ -10,7 +11,9 @@ import { removeModal } from "components/modal/store";
 import CombinedListSchema, {
     CombinedList,
 } from "shared/generated/zod/modelSchema/CombinedListSchema";
+import { submitReagent } from "stores/reagents";
 
+import { ReagentFormModal } from "../ReagentsPage/ReagentFormModal";
 import { AddSampleForm } from "./AddSampleForm";
 
 const columns: GridColDef<CombinedList>[] = [
@@ -34,6 +37,7 @@ const columns: GridColDef<CombinedList>[] = [
 export const CombinedListPage = () => {
     const tableRef = useRef<CommonTableRef | null>(null);
     const navigate = useNavigate();
+    const submitReagentEvent = useUnit(submitReagent);
     const openAddModal = async () => {
         await createModal({
             name: "sample_modal",
@@ -44,6 +48,21 @@ export const CombinedListPage = () => {
         tableRef.current?.refresh();
         removeModal();
     };
+
+    const openAddModalReagent = async () => {
+        const response = await createModal({
+            name: "reagent_modal",
+            title: "Add new Reagent",
+            message: <ReagentFormModal />,
+            labels: { ok: "Submit", cancel: "Cancel" },
+        });
+
+        if (response) {
+            submitReagentEvent();
+            tableRef.current?.refresh();
+        }
+        removeModal();
+    };
     return (
         <TableContext.Provider value={{ ref: tableRef }}>
             <Box sx={{ mb: 5 }}>
@@ -52,19 +71,21 @@ export const CombinedListPage = () => {
                     columns={columns}
                     url={`/list`}
                     onRowClick={(row: CombinedList) => {
-                        if (row.category === "reagent") {
-                            navigate({ to: `/reagents/${row.id}`, replace: false });
-                        } else if (row.category === "sample") {
-                            navigate({ to: `/combinedList/${row.id}`, replace: false });
-                        }
+                        const path =
+                            row.category === "reagent"
+                                ? `/reagents/${row.id}`
+                                : `/combinedList/${row.id}`;
+                        navigate({ to: path, replace: false });
                     }}
                     schema={CombinedListSchema}
                     searchBy={{
                         name: true,
                         structure: true,
                     }}
-                    onAdd={openAddModal}
-                    addButtonText="Add New Sample"
+                    toolbarButtons={[
+                        { label: "Add New Sample", onClick: openAddModal },
+                        { label: "Add New Reagent", onClick: openAddModalReagent },
+                    ]}
                 />
                 <Outlet />
             </Box>
