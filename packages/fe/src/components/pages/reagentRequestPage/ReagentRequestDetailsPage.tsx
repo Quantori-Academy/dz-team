@@ -1,16 +1,17 @@
 import { Box, Typography } from "@mui/material";
-import { useLoaderData, useNavigate } from "@tanstack/react-router";
+import { useLoaderData, useParams } from "@tanstack/react-router";
+import { useUnit } from "effector-react";
 
-import {
-    ReagentRequestDetails,
-    ReagentRequestDetailsContract,
-} from "api/reagentRequestDetails/contract";
-import { request } from "api/request";
+import { updateReagentRequestComments } from "api/reagentRequest";
+import { UserRole } from "api/self";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
+import { RequestUpdateBody } from "shared/zodSchemas/request/requestSchemas";
+import { $auth } from "stores/auth";
 
 export function ReagentRequestDetailsPage({ url }: { url: "/_app/reagentRequests/$id" }) {
-    const navigate = useNavigate();
     const reagentRequest = useLoaderData({ from: url });
+    const { id } = useParams({ from: url });
+    const auth = useUnit($auth);
 
     if (!reagentRequest) {
         return (
@@ -28,42 +29,30 @@ export function ReagentRequestDetailsPage({ url }: { url: "/_app/reagentRequests
     }
 
     const fields = [
-        { label: "ID", name: "id", disabled: true },
-        { label: "User ID", name: "userId" },
         { label: "Name", name: "name" },
         { label: "Structure", name: "structure" },
         { label: "CAS", name: "cas" },
         { label: "Quantity", name: "quantity" },
         { label: "Unit", name: "unit" },
-        { label: "User Comments", name: "userComments" },
-        { label: "Procurement Comments", name: "procurementComments" },
+        { label: "User Comments", name: "commentsUser" },
+        { label: "Procurement Comments", name: "commentsProcurement" },
         { label: "Status", name: "status" },
-        { label: "Creation Date", name: "createdAt" },
         { label: "Update Date", name: "updatedAt" },
     ];
 
     const reagentRequestsPagePath = "/reagentRequests";
 
-    const handleAction = async (actionType: "submit" | "delete", data?: ReagentRequestDetails) => {
-        if (actionType === "delete") {
-            await request(
-                `/reagent-request/${reagentRequest.id}`,
-                ReagentRequestDetailsContract, // TODO: add correct contract when it's ready
-                {
-                    method: "DELETE",
-                },
-            );
-            navigate({
-                to: reagentRequestsPagePath,
-            });
-        } else if (actionType === "submit" && data) {
-            await request(
-                `/reagent-request/${reagentRequest.id}`,
-                ReagentRequestDetailsContract, // TODO: add correct contract when it's ready
-                {
-                    method: "PUT",
-                    json: data,
-                },
+    const commentsKey =
+        auth && auth.self.role === UserRole.procurementOfficer
+            ? "commentsProcurement"
+            : "commentsUser";
+
+    const handleAction = async (actionType: "submit" | "delete", data?: RequestUpdateBody) => {
+        if (actionType === "submit" && data) {
+            await updateReagentRequestComments(
+                id,
+                commentsKey,
+                data[commentsKey] as unknown as string,
             );
         }
     };
@@ -75,7 +64,8 @@ export function ReagentRequestDetailsPage({ url }: { url: "/_app/reagentRequests
                 url={url}
                 fields={fields}
                 onAction={handleAction}
-                editableFields={["userComments", "procurementComments", "status"]}
+                editableFields={[commentsKey]}
+                addDeleteButton={false}
             />
         </>
     );

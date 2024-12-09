@@ -132,7 +132,7 @@ async function addReagentRequests() {
         return;
     }
 
-    const validRequestStatuses = ["pending", "ordered", "declined", "completed"];
+    const validRequestStatuses = ["pending", "ordered", "declined", "fulfilled"];
 
     if (!reagentRequestCount) {
         const results = reagentRequests.map((req) => {

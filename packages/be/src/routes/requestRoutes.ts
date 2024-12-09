@@ -1,20 +1,28 @@
+// Internal types
 import { FastifyZodInstance, Roles } from "../types";
-import { RequestController } from "../controllers/requestController";
+
+// Controllers
+import { requestController } from "../controllers/requestController";
+
+// Shared schemas
 import {
     RequestCreationBodySchema,
     RequestUpdateBody,
 } from "../../../shared/zodSchemas/request/requestSchemas";
+
+// Fastify plugins and utilities
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
+import { checkAuthenticatedAndRole } from "../utils/authCheck";
+
+// Response schemas
 import {
     GET_REQUEST_BY_ID_SCHEMA,
     GET_REQUESTS_SCHEMA,
     PATCH_REQUEST_SCHEMA,
 } from "../responseSchemas/requests";
-import { checkAuthenticatedAndRole } from "../utils/authCheck";
-import { sendErrorResponse } from "../utils/handleErrors";
-const requestController = new RequestController();
+
 /**
- * Registers the reagent routes with the provided Fastify instance.
+ * Registers the request routes with the provided Fastify instance.
  *
  * @param {FastifyZodInstance} app - The Fastify instance to register the routes with.
  * @returns {Promise<void>} A promise that resolves when the routes have been registered.
@@ -46,10 +54,11 @@ export const requestRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.post<{ Body: typeof RequestCreationBodySchema }>(
         "/",
         {
-            preHandler: [checkAuthenticatedAndRole([Roles.ADMIN, Roles.RESEARCHER])],
+            preHandler: [checkAuthenticatedAndRole([Roles.RESEARCHER, Roles.ADMIN])],
+
             schema: {
-                tags: ["Request"],
                 body: RequestCreationBodySchema,
+                tags: ["Requests"],
             },
         },
         async (request, reply) => {
@@ -71,19 +80,12 @@ export const requestRoutes = async (app: FastifyZodInstance): Promise<void> => {
             schema: GET_REQUESTS_SCHEMA,
         },
         async (request, reply) => {
-            try {
-                const userId = request.params.userId;
-
-                if (!request.userData || request.userData.userId !== userId) {
-                    return reply.status(403).send({ message: "Access denied" });
-                }
-
-                const requests = await requestController.getRequestsByUserId(request, reply);
-                reply.send(requests);
-            } catch (error) {
-                console.error("Error:", error);
-                sendErrorResponse(reply, error, "Failed to get user's requests");
+            const userId = request.params.userId;
+            if (!request.userData || request.userData.userId !== userId) {
+                return reply.status(403).send({ message: "Access denied" });
             }
+            const requests = await requestController.getRequestsByUserId(request, reply);
+            reply.send(requests);
         },
     );
 
@@ -97,6 +99,14 @@ export const requestRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.get<{ Params: { requestId: string } }>(
         "/:requestId",
         {
+            preHandler: [
+                checkAuthenticatedAndRole([
+                    Roles.RESEARCHER,
+                    Roles.ADMIN,
+                    Roles.PROCUREMENT_OFFICER,
+                ]),
+            ],
+
             schema: GET_REQUEST_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
         },
         async (request, reply) => {
@@ -115,7 +125,13 @@ export const requestRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.patch<{ Params: { requestId: string }; Body: RequestUpdateBody }>(
         "/:requestId",
         {
-            preHandler: [checkAuthenticatedAndRole([Roles.ADMIN, Roles.RESEARCHER])],
+            preHandler: [
+                checkAuthenticatedAndRole([
+                    Roles.ADMIN,
+                    Roles.RESEARCHER,
+                    Roles.PROCUREMENT_OFFICER,
+                ]),
+            ],
             schema: PATCH_REQUEST_SCHEMA satisfies FastifyZodOpenApiSchema,
         },
         async (request, reply) => {

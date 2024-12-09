@@ -1,10 +1,17 @@
+// Internal types
 import { FastifyZodInstance } from "../types";
-import { AuthController } from "../controllers/authController";
-import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
-import { POST_USER_AUTH_SCHEMA } from "../responseSchemas/auth";
-import { LoginUser } from "shared/zodSchemas/user/loginUserSchema";
 
-const authController = new AuthController();
+// Controllers
+import { authController } from "../controllers/authController";
+
+// External dependencies
+import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
+
+// Response schemas
+import { POST_USER_AUTH_SCHEMA } from "../responseSchemas/auth";
+
+// Shared schemas
+import { LoginUser } from "../../../shared/zodSchemas/user/loginUserSchema";
 
 /**
  * Registers the authentication routes with the provided Fastify instance.

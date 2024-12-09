@@ -6,7 +6,7 @@ import { genericDomain } from "logger";
 
 import { loginFx } from "./login";
 
-export type Auth = { token: string; self: SelfType };
+export type Auth = { token: string; self: SelfType; userId: string };
 export type AuthStoreValue = Auth | null | false;
 
 export const $auth = genericDomain.createStore<AuthStoreValue>(false);
@@ -40,7 +40,15 @@ export const sessionLoadFx = genericDomain.createEffect(() => {
     if (!source) {
         return null;
     }
-    return JSON.parse(source) as AuthStoreValue;
+
+    const parsed = JSON.parse(source) as AuthStoreValue;
+
+    if (parsed && parsed.token) {
+        const decodedToken: { userId: string } = jwtDecode(parsed.token);
+        return { ...parsed, userId: decodedToken.userId };
+    }
+
+    return parsed;
 });
 
 export const sessionDeleteFx = genericDomain.createEffect(() => {
@@ -68,8 +76,7 @@ sample({
     clock: loginFx.done,
     fn: ({ result }) => {
         const decodedToken: { userId: string } = jwtDecode(result.token);
-        const res = { token: result.token, userId: decodedToken.userId };
-        return res;
+        return { token: result.token, userId: decodedToken.userId };
     },
     target: getUserFx,
 });
@@ -77,7 +84,7 @@ sample({
 // set auth value based on received user
 sample({
     clock: getUserFx.done,
-    fn: ({ params, result }) => ({ token: params.token, self: result }),
+    fn: ({ params, result }) => ({ token: params.token, userId: params.userId, self: result }),
     target: $auth,
 });
 

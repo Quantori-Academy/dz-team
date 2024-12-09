@@ -1,19 +1,22 @@
-import { OrderController } from "../controllers/orderController";
+// Internal types
 import { FastifyZodInstance } from "../types";
 
+// Controllers
+import { orderController } from "../controllers/orderController";
+
+// Prisma models
 import { OrderStatus } from "@prisma/client";
-import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
+
+// Shared schemas
 import {
     OrderCreateWithUserIdInputSchema,
     OrderUpdateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
+import { fulfillOrderSchema } from "../../../shared/zodSchemas/order/fulfillOrderSchema";
 import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
-import { PATCH_ORDER_STATUS_SCHEMA } from "../responseSchemas/orders";
-
-const orderController = new OrderController();
 
 /**
- * Registers the reagent routes with the provided Fastify instance.
+ * Registers the order routes with the provided Fastify instance.
  *
  * @param {FastifyZodInstance} app - The Fastify instance to register the routes with.
  * @returns {Promise<void>} A promise that resolves when the routes have been registered.
@@ -28,9 +31,11 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.get<{ Querystring: typeof OrderSearchSchema }>(
         "/",
-        // {
-        //     schema: GET_ORDERS_SCHEMA satisfies FastifyZodOpenApiSchema,
-        // },
+        {
+            schema: {
+                tags: ["Order"],
+            },
+        },
         async (request, reply) => {
             return await orderController.getAllOrders(request, reply);
         },
@@ -45,9 +50,9 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.get<{ Params: { id: string } }>(
         "/:id",
-        // {
-        //     schema: GET_ORDER_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
-        // },
+        {
+            schema: { tags: ["Order"] },
+        },
         async (request, reply) => {
             return await orderController.getOrder(request, reply);
         },
@@ -63,7 +68,7 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.post<{ Body: typeof OrderCreateWithUserIdInputSchema }>(
         "/",
-        { schema: { tags: ["Order"] } },
+        // { schema: { tags: ["Order"], body: OrderCreateWithUserIdInputSchema } },
         async (request, reply) => {
             return await orderController.createOrder(request, reply);
         },
@@ -79,11 +84,30 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.put<{ Params: { id: string }; Body: typeof OrderUpdateWithUserIdInputSchema }>(
         "/:id",
-        {
-            schema: { tags: ["Order"] },
-        },
+        // {
+        //     schema: { tags: ["Order"], body: OrderUpdateWithUserIdInputSchema },
+        // },
         async (request, reply) => {
             return await orderController.updateOrder(request, reply);
+        },
+    );
+
+    /**
+     * PATCH /:id/fulfill - Fulfill an order with partial data (reagents).
+     *
+     * @param {string} id - The ID of the order to fulfill.
+     * @body {typeof fulfillOrderSchema} Body - The reagent data.
+     * @returns {Promise<void>} The updated order or an error message.
+     */
+    app.patch<{ Params: { id: string }; Body: typeof fulfillOrderSchema }>(
+        "/:id/fulfill",
+        {
+            schema: {
+                tags: ["Order"],
+            },
+        },
+        async (request, reply) => {
+            return await orderController.fulfillOrder(request, reply);
         },
     );
 
@@ -98,7 +122,7 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.patch<{ Params: { id: string }; Body: { status: OrderStatus } }>(
         "/:id/status",
         {
-            schema: PATCH_ORDER_STATUS_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["Order"] },
         },
         async (request, reply) => {
             return await orderController.updateOrderStatus(request, reply);
