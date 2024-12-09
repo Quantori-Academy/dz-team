@@ -128,4 +128,20 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
             return await orderController.updateOrderStatus(request, reply);
         },
     );
+
+    /**
+     * DELETE /orders/:id - Deletes an order by ID.
+     *
+     * @param {string} id - The ID of the order to delete.
+     * @returns {Promise<void>} A confirmation message indicating the result.
+     */
+    app.delete<{ Params: { id: string } }>(
+        "/:id",
+        {
+            schema: { tags: ["Order"] },
+        },
+        async (request, reply) => {
+            return await orderController.deleteOrder(request, reply);
+        },
+    );
 };
