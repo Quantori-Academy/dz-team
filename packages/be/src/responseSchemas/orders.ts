@@ -52,7 +52,7 @@ export const OrderSchema = z.object({
     createdAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
     userId: z.string().uuid(),
-    reagents: z.array(OrderReagentsSchema),
+    reagents: z.array(OrderReagentsSchema).optional().default([]),
 });
 
 export const OrdersListSchema = z.object({

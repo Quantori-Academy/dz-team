@@ -6,7 +6,7 @@ export const SampleCreateSchema = z
         id: z.string().uuid().optional(),
         name: z.string(),
         structure: z.string().optional().nullable(),
-        description: z.string(),
+        description: z.string().optional(),
         quantity: z.number(),
         quantityInit: z.number().optional().nullable(),
         unit: z.lazy(() => UnitSchema).optional(),

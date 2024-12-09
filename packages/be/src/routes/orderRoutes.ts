@@ -14,6 +14,8 @@ import {
     OrderUpdateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
 import { fulfillOrderSchema } from "../../../shared/zodSchemas/order/fulfillOrderSchema";
+import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
+import { GET_ORDERS_SCHEMA } from "../responseSchemas/orders";
 
 /**
  * Registers the order routes with the provided Fastify instance.
@@ -32,9 +34,7 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.get<{ Querystring: typeof OrderSearchSchema }>(
         "/",
         {
-            schema: {
-                tags: ["Order"],
-            },
+            schema: GET_ORDERS_SCHEMA satisfies FastifyZodOpenApiSchema,
         },
         async (request, reply) => {
             return await orderController.getAllOrders(request, reply);
