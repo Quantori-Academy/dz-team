@@ -140,7 +140,7 @@ model Sample {
   id              String     @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
   name            String // Name of the sample
   structure       String? // Chemical structure
-  description     String // Description of the sample
+  description     String? // Description of the sample
   quantity        Float // Quantity left in stock
   quantityInit    Float? // Initial quantity of the sample (e.g., 500 ml)
   unit            Unit       @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
@@ -156,6 +156,30 @@ model Sample {
   // Many-to-One relation with StorageLocation
   storageId String           @db.Uuid /// @zod.string.uuid() // Storage location of the Reagent
   storage   StorageLocation? @relation(fields: [storageId], references: [id])
+}
+
+model CombinedList {
+  id              String         @id @db.Uuid
+  category        String?
+  name            String?
+  structure       String?
+  description     String?
+  quantity        Float?
+  unit            String?
+  quantityInit    Float?
+  expirationDate  DateTime?
+  producer        String?
+  catalogId       String?
+  catalogLink     String?
+  pricePerUnit    Float?
+  currency        String?
+  type            ReagentType?
+  status          ReagentStatus?
+  cas             String?
+  storageLocation String?
+  deletedAt       DateTime?
+  createdAt       DateTime?
+  updatedAt       DateTime?
 }
 
 enum Role {
