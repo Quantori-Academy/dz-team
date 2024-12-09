@@ -1,22 +1,27 @@
-import { Prisma, PrismaClient, Seller } from "@prisma/client";
+// External dependencies
+import { Prisma, Seller } from "@prisma/client";
+
+// Internal utilities
+import { prisma } from "../utils/prisma";
+
+// Shared schemas
+import { SellerSearch } from "../../../shared/zodSchemas/seller/sellerSearchSchema";
+
+// Generated schemas
 import {
     SellerCreateInputSchema,
     SellerUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
-import { SellerSearch } from "../../../shared/zodSchemas/seller/sellerSearchSchema";
-import { SearchResults } from "../types";
 
-const prisma = new PrismaClient();
-
-export class SellerService {
+class SellerService {
     /**
      * Retrieve all sellers with optional filtering, pagination, and sorting.
      *
      * @param {SellerSearch} queryString - The search parameters including filters for pagination and sorting.
      * @returns {Promise<SearchResults>} A promise that resolves to an object containing sellers and metadata about the results.
      */
-    async getAllSellers(queryString: SellerSearch): Promise<SearchResults<Seller>> {
-        const { name, page, limit, sortBy, sortOrder } = queryString;
+    async getAllSellers(queryString: SellerSearch): Promise<Seller[]> {
+        const { name, sortBy, sortOrder } = queryString;
 
         // Conditions for search across name if query is provided
         const searchConditions = name
@@ -25,32 +30,16 @@ export class SellerService {
 
         // Build the where clause dynamically based on searchConditions
         const where: Prisma.SellerWhereInput = {
-            AND: [searchConditions.length > 0 ? { OR: searchConditions } : {}].filter(Boolean), // Filter out empty conditions
+            AND: [searchConditions.length > 0 ? { OR: searchConditions } : {}].filter(Boolean),
         };
 
-        // Fetch paginated results and total count in parallel
-        const [sellers, totalCount] = await Promise.all([
-            prisma.seller.findMany({
-                where,
-                skip: (page - 1) * limit,
-                take: limit,
-                orderBy: { [sortBy]: sortOrder },
-            }),
-            prisma.seller.count({ where }),
-        ]);
+        // Fetch all sellers matching the conditions
+        const sellers = await prisma.seller.findMany({
+            where,
+            orderBy: sortBy ? { [sortBy]: sortOrder || "asc" } : undefined, // Apply sorting if provided
+        });
 
-        const totalPages = Math.ceil(totalCount / limit);
-
-        return {
-            data: sellers,
-            meta: {
-                currentPage: page,
-                totalPages,
-                totalCount,
-                hasNextPage: page < totalPages,
-                hasPreviousPage: page > 1,
-            },
-        };
+        return sellers;
     }
 
     /**
@@ -108,3 +97,5 @@ export class SellerService {
         });
     }
 }
+
+export const sellerService = new SellerService();

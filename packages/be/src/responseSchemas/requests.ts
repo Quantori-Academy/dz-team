@@ -11,7 +11,7 @@ export const RequestSchema = z.object({
     structure: z.string().nullable().optional(),
     cas: z.string().nullable().optional(),
     quantity: z.number().positive("Quantity must be positive"),
-    unit: z.enum(["ml", "l", "mg", "g", "oz", "lb"]),
+    unit: z.string(), // unit as string
     status: z.enum(["pending", "ordered", "declined", "fulfilled"]),
     commentsUser: z.array(z.string()).optional(),
     commentsProcurement: z.array(z.string()).optional(),
@@ -19,7 +19,7 @@ export const RequestSchema = z.object({
     createdAt: z.coerce.date(),
     updatedAt: z.coerce.date(),
     userId: z.string().uuid(),
-    orderId: z.string().uuid().nullable().optional(), // Nullable and optional
+    orderId: z.string().uuid().nullable().optional(),
 });
 
 export const RequestsListSchema = z.object({
