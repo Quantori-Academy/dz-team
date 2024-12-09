@@ -1,7 +1,8 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Box } from "@mui/material";
 import { DataGrid, GridRowParams } from "@mui/x-data-grid";
 import { Outlet } from "@tanstack/react-router";
+import { v4 as uuidv4 } from "uuid";
 
 import { CreateOrderReagent } from "api/order/contract";
 import { AddRecord } from "components/dataGrid/Addrecord";
@@ -14,7 +15,6 @@ import { OrderBasket } from "./OrderBasket";
 import { OrderReagentFormModal } from "./OrderReagentFormModal";
 
 const headers = [
-    { field: "id", headerName: "id", width: 150, editable: false },
     { field: "name", headerName: "Name", width: 150, editable: true },
     { field: "structure", headerName: "Structure", width: 170, editable: true },
     { field: "cas", headerName: "Cas", width: 170, editable: true },
@@ -27,18 +27,18 @@ const headers = [
     { field: "amount", headerName: "Amount", width: 170, editable: true },
 ];
 export const CreateOrder = () => {
-    const { reagents, basket, deleteReagent, editReagent, setReagents, setBasket } = useReagents();
+    const { orderItems, deleteReagent, editReagent, addReagent, setOrderItems } = useReagents();
     const [selectedReagent, setSelectedReagent] = useState<CreateOrderReagent | null>(null);
     const [title, setTitle] = useState("");
     const [seller, setSeller] = useState("");
     const [description, setDescription] = useState("");
 
-    const clearBasket = () => {
+    const clearBasket = useCallback(() => {
         setTitle("");
         setSeller("");
         setDescription("");
-        setReagents([]);
-    };
+        setOrderItems([]);
+    }, [setTitle, setSeller, setDescription, setOrderItems]);
 
     const handleRowClick = async (row: CreateOrderReagent) => {
         setSelectedReagent(row);
@@ -77,8 +77,10 @@ export const CreateOrder = () => {
                     mode={Mode.Create}
                     selectedReagent={selectedReagent}
                     onSubmit={(newReagent: CreateOrderReagent) => {
-                        setReagents((prevReagents) => [...prevReagents, newReagent]);
-                        setBasket((prevBasket) => [...prevBasket, { reagent: newReagent }]);
+                        if (!newReagent.id) {
+                            newReagent.id = uuidv4();
+                        }
+                        addReagent(newReagent);
                         removeModal();
                     }}
                     onCancel={() => {
@@ -103,7 +105,7 @@ export const CreateOrder = () => {
                 }}
             >
                 <OrderBasket
-                    basket={basket}
+                    basket={orderItems}
                     title={title}
                     seller={seller}
                     description={description}
@@ -113,7 +115,7 @@ export const CreateOrder = () => {
                     clearBasket={clearBasket}
                 />
                 <DataGrid
-                    rows={reagents}
+                    rows={orderItems}
                     columns={headers}
                     onRowClick={(params: GridRowParams<CreateOrderReagent>) =>
                         handleRowClick(params.row)

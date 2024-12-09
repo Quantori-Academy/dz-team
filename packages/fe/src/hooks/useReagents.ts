@@ -4,16 +4,12 @@ import { toast } from "react-toastify";
 import { CreateOrderReagent } from "api/order/contract";
 
 export const useReagents = () => {
-    const [reagents, setReagents] = useState<CreateOrderReagent[]>([]);
-    const [basket, setBasket] = useState<{ reagent: CreateOrderReagent }[]>([]);
+    const [orderItems, setOrderItems] = useState<CreateOrderReagent[]>([]);
 
     const deleteReagent = (reagentToDelete: CreateOrderReagent) => {
         if (reagentToDelete) {
-            setReagents((prevReagents) =>
+            setOrderItems((prevReagents) =>
                 prevReagents.filter((reagent) => reagent.id !== reagentToDelete.id),
-            );
-            setBasket((prevBasket) =>
-                prevBasket.filter((item) => item.reagent.id !== reagentToDelete.id),
             );
         } else {
             toast.error("No reagent selected for deletion.");
@@ -21,24 +17,21 @@ export const useReagents = () => {
     };
 
     const editReagent = (updatedReagent: CreateOrderReagent) => {
-        setReagents((prevReagents) =>
+        setOrderItems((prevReagents) =>
             prevReagents.map((reagent) =>
                 reagent.id === updatedReagent.id ? updatedReagent : reagent,
             ),
         );
-        setBasket((prevBasket) =>
-            prevBasket.map((item) =>
-                item.reagent.id === updatedReagent.id ? { reagent: updatedReagent } : item,
-            ),
-        );
+    };
+    const addReagent = (newReagent: CreateOrderReagent) => {
+        setOrderItems((prevItems) => [...prevItems, newReagent]);
     };
 
     return {
-        reagents,
-        basket,
+        orderItems,
         deleteReagent,
         editReagent,
-        setReagents,
-        setBasket,
+        addReagent,
+        setOrderItems,
     };
 };
