@@ -34,7 +34,7 @@ const fields = [
 
 const statusTransferRules: Record<string, string[]> = {
     pending: ["submitted"],
-    submitted: ["canceled", "fulfilled"],
+    submitted: ["canceled"],
     fulfilled: [],
     canceled: [],
 };
