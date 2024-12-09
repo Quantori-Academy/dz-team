@@ -95,7 +95,7 @@ model Reagent {
   id              String         @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid /// @zod.string.uuid()
   name            String // Name of the reagent
   structure       String? // Stores the chemical structure
-  description     String // Description of the reagent
+  description     String? // Description of the reagent
   quantity        Float // Quantity left in stock
   unit            Unit           @default(ml) // Unit of measurement ("ml", "l", "mg", "g", "oz", "lb")
   quantityInit    Float? // Initial quantity of the reagent (e.g., 500 ml)

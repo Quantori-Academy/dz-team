@@ -1,6 +1,11 @@
+// External dependencies
 import { FastifyRequest, FastifyReply } from "fastify";
-import { RequestService } from "../services/requestService";
+
+// Internal services and utilities
+import { requestService } from "../services/requestService";
 import { sendErrorResponse } from "../utils/handleErrors";
+
+// Shared schemas
 import {
     RequestCreationBodySchema,
     RequestUpdateBodySchema,
@@ -8,9 +13,14 @@ import {
     RequestUpdateBody,
 } from "../../../shared/zodSchemas/request/requestSchemas";
 
-const requestService = new RequestService();
-
-export class RequestController {
+class RequestController {
+    /**
+     * Fetches all reagent requests based on query parameters.
+     *
+     * @param {FastifyRequest} request - The Fastify request object.
+     * @param {FastifyReply} reply - The Fastify reply object.
+     * @returns {Promise<void>}
+     */
     async getAllRequests(request: FastifyRequest, reply: FastifyReply): Promise<void> {
         try {
             const queryString: RequestSearch = request.query as RequestSearch;
@@ -23,6 +33,13 @@ export class RequestController {
         }
     }
 
+    /**
+     * Fetches reagent requests for a specific user based on query parameters.
+     *
+     * @param {FastifyRequest<{ Params: { userId: string } }>} request - The Fastify request object containing user ID in params.
+     * @param {FastifyReply} reply - The Fastify reply object.
+     * @returns {Promise<void>}
+     */
     async getRequestsByUserId(
         request: FastifyRequest<{ Params: { userId: string } }>,
         reply: FastifyReply,
@@ -47,6 +64,13 @@ export class RequestController {
         }
     }
 
+    /**
+     * Creates a new reagent request.
+     *
+     * @param {FastifyRequest<{ Body: typeof RequestCreationBodySchema }>} request - The Fastify request object containing request body.
+     * @param {FastifyReply} reply - The Fastify reply object.
+     * @returns {Promise<void>}
+     */
     async createRequest(
         request: FastifyRequest<{ Body: typeof RequestCreationBodySchema }>,
         reply: FastifyReply,
@@ -74,6 +98,13 @@ export class RequestController {
         }
     }
 
+    /**
+     * Updates a reagent request.
+     *
+     * @param {FastifyRequest<{ Params: { requestId: string }; Body: RequestUpdateBody }>} request - The Fastify request object containing request ID and update body.
+     * @param {FastifyReply} reply - The Fastify reply object.
+     * @returns {Promise<void>}
+     */
     async updateRequest(
         request: FastifyRequest<{ Params: { requestId: string }; Body: RequestUpdateBody }>,
         reply: FastifyReply,
@@ -94,6 +125,13 @@ export class RequestController {
         reply.status(204).send();
     }
 
+    /**
+     * Fetches a single reagent request by its ID.
+     *
+     * @param {FastifyRequest<{ Params: { requestId: string } }>} request - The Fastify request object containing request ID in params.
+     * @param {FastifyReply} reply - The Fastify reply object.
+     * @returns {Promise<void>}
+     */
     async getRequestById(
         request: FastifyRequest<{ Params: { requestId: string } }>,
         reply: FastifyReply,
@@ -110,3 +148,5 @@ export class RequestController {
         }
     }
 }
+
+export const requestController = new RequestController();

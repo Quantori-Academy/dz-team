@@ -1,4 +1,11 @@
-import { Prisma, PrismaClient, RequestStatus, ReagentRequest } from "@prisma/client";
+// External dependencies
+import { Prisma, RequestStatus, ReagentRequest } from "@prisma/client";
+
+// Internal utilities
+import { prisma } from "../utils/prisma";
+import { SearchResults } from "../types";
+
+// Shared schemas
 import {
     RequestCreationBody,
     RequestUpdateBody,
@@ -6,10 +13,13 @@ import {
     RequestSearchSchema,
     RequestUpdateBodySchema,
 } from "../../../shared/zodSchemas/request/requestSchemas";
-import { SearchResults } from "../types";
-const prisma = new PrismaClient();
 
-export class RequestService {
+class RequestService {
+    /**
+     * Fetch all reagent requests with optional search and pagination.
+     * @param {RequestSearch} queryParams - Query parameters for searching and pagination.
+     * @returns {Promise<SearchResults<ReagentRequest>>} Paginated list of reagent requests.
+     */
     public async getAllRequests(
         queryParams: RequestSearch,
     ): Promise<SearchResults<ReagentRequest>> {
@@ -56,12 +66,25 @@ export class RequestService {
         };
     }
 
+    /**
+     * Fetch a single reagent request by ID.
+     * @param {string} requestId - ID of the request to fetch.
+     * @returns {Promise<ReagentRequest>} The requested reagent request.
+     * @throws {Error} If the request is not found.
+     */
     public async getSingleRequest(requestId: string) {
         const request = await prisma.reagentRequest.findUnique({ where: { id: requestId } });
         if (!request) throw new Error("Request not found");
         return request;
     }
 
+    /**
+     * Create a new reagent request.
+     * @param {string} requestedById - ID of the user creating the request.
+     * @param {RequestCreationBody} requestData - Data for the new request.
+     * @returns {Promise<ReagentRequest>} The created reagent request.
+     * @throws {Error} If the request creation fails.
+     */
     public async createRequest(requestedById: string, requestData: RequestCreationBody) {
         const commentsUser =
             typeof requestData.commentsUser === "string"
@@ -89,6 +112,12 @@ export class RequestService {
         }
     }
 
+    /**
+     * Soft delete a reagent request by marking it as deleted.
+     * @param {string} requestId - ID of the request to delete.
+     * @returns {Promise<ReagentRequest>} The updated reagent request.
+     * @throws {Error} If the request is not found.
+     */
     public async deleteRequest(requestId: string) {
         const request = await prisma.reagentRequest.findUnique({ where: { id: requestId } });
         if (!request) throw new Error("Request not found");
@@ -99,6 +128,12 @@ export class RequestService {
         });
     }
 
+    /**
+     * Fetch all requests by a specific user with optional search and pagination.
+     * @param {string} userId - ID of the user whose requests to fetch.
+     * @param {RequestSearch} queryParams - Query parameters for searching and pagination.
+     * @returns {Promise<SearchResults<ReagentRequest>>} Paginated list of user requests.
+     */
     public async getRequestsByUserId(userId: string, queryParams: RequestSearch) {
         const { query, page, limit, sortBy, sortOrder, status } =
             RequestSearchSchema.parse(queryParams);
@@ -144,6 +179,14 @@ export class RequestService {
         };
     }
 
+    /**
+     * Update a reagent request with role-based restrictions.
+     * @param {string} requestId - ID of the request to update.
+     * @param {Partial<RequestUpdateBody>} updateData - Data to update in the request.
+     * @param {{ userId: string; role: string }} userData - Information about the user performing the update.
+     * @returns {Promise<ReagentRequest>} The updated reagent request.
+     * @throws {Error} If the request is not found or the update is forbidden.
+     */
     public async updateRequest(
         requestId: string,
         updateData: Partial<RequestUpdateBody>,
@@ -222,3 +265,5 @@ export class RequestService {
         });
     }
 }
+
+export const requestService = new RequestService();

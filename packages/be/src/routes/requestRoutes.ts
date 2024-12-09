@@ -1,19 +1,28 @@
+// Internal types
 import { FastifyZodInstance, Roles } from "../types";
-import { RequestController } from "../controllers/requestController";
+
+// Controllers
+import { requestController } from "../controllers/requestController";
+
+// Shared schemas
 import {
     RequestCreationBodySchema,
     RequestUpdateBody,
 } from "../../../shared/zodSchemas/request/requestSchemas";
+
+// Fastify plugins and utilities
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
+import { checkAuthenticatedAndRole } from "../utils/authCheck";
+
+// Response schemas
 import {
     GET_REQUEST_BY_ID_SCHEMA,
     GET_REQUESTS_SCHEMA,
     PATCH_REQUEST_SCHEMA,
 } from "../responseSchemas/requests";
-import { checkAuthenticatedAndRole } from "../utils/authCheck";
-const requestController = new RequestController();
+
 /**
- * Registers the reagent routes with the provided Fastify instance.
+ * Registers the request routes with the provided Fastify instance.
  *
  * @param {FastifyZodInstance} app - The Fastify instance to register the routes with.
  * @returns {Promise<void>} A promise that resolves when the routes have been registered.

@@ -1,19 +1,21 @@
+// External dependencies
 import { FastifyRequest, FastifyReply } from "fastify";
+import { OrderStatus } from "@prisma/client";
+
+// Internal services
+import { orderService } from "../services/orderService";
+import { sendErrorResponse } from "../utils/handleErrors";
+
+// Shared schemas
 import { idSchema } from "../../../shared/zodSchemas/baseSchemas";
 import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
-import { OrderService } from "../services/orderService";
-import { sendErrorResponse } from "../utils/handleErrors";
 import {
     OrderUpdateWithUserIdInputSchema,
     RequestOrderCreateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
-import { OrderStatus } from "@prisma/client";
-import { SellerService } from "../services/sellerService";
+import { fulfillOrderSchema } from "../../../shared/zodSchemas/order/fulfillOrderSchema";
 
-const sellerService = new SellerService();
-const orderService = new OrderService();
-
-export class OrderController {
+class OrderController {
     /**
      * Get all orders.
      * @param request - FastifyRequest
@@ -42,7 +44,6 @@ export class OrderController {
     ): Promise<void> {
         try {
             const validatedId = idSchema.parse(request.params.id);
-
             const order = await orderService.getOrder(validatedId);
             if (!order) {
                 return reply.status(404).send({ message: "Order not found" });
@@ -66,15 +67,6 @@ export class OrderController {
         try {
             // Validate the input data
             const validatedData = RequestOrderCreateWithUserIdInputSchema.parse(request.body);
-
-            if (validatedData.seller) {
-                // Check if the seller already exists
-                const existingSeller = await sellerService.findSellerByName(validatedData.seller);
-
-                if (!existingSeller) {
-                    await sellerService.createSeller({ name: validatedData.seller });
-                }
-            }
 
             // Call the service to create the order
             const order = await orderService.createOrder(validatedData);
@@ -103,22 +95,37 @@ export class OrderController {
         try {
             const validatedId = idSchema.parse(request.params.id);
             const validatedData = OrderUpdateWithUserIdInputSchema.parse(request.body);
-            // Normalize seller to always be a string or undefined
-            const sellerName =
-                typeof validatedData.seller === "string"
-                    ? validatedData.seller
-                    : validatedData.seller?.set;
-
-            if (sellerName) {
-                const existingSeller = await sellerService.findSellerByName(sellerName);
-                if (!existingSeller) {
-                    await sellerService.createSeller({ name: sellerName });
-                }
-            }
             const order = await orderService.updateOrder(validatedId, validatedData);
             reply.send(order);
         } catch (error) {
             sendErrorResponse(reply, error, "Failed to update order");
+        }
+    }
+
+    /**
+     * Fulfill an order with reagents and requests data.
+     * @param request - FastifyRequest containing the order ID in the parameters and the reagents and requests in the body
+     * @param reply - FastifyReply
+     * @returns A promise that resolves to the fulfilled order object or an error message.
+     */
+    async fulfillOrder(
+        request: FastifyRequest<{ Params: { id: string }; Body: typeof fulfillOrderSchema }>,
+        reply: FastifyReply,
+    ): Promise<void> {
+        try {
+            const validatedId = idSchema.parse(request.params.id);
+            const validatedData = fulfillOrderSchema.parse(request.body);
+            const { reagents } = validatedData;
+
+            const result = await orderService.fulfillOrder(validatedId, { reagents });
+
+            if ("message" in result) {
+                return reply.status(400).send(result);
+            }
+
+            reply.send(result);
+        } catch (error) {
+            sendErrorResponse(reply, error, "Failed to fulfill order");
         }
     }
 
@@ -134,12 +141,11 @@ export class OrderController {
     ): Promise<void> {
         try {
             const validatedId = idSchema.parse(request.params.id);
-
             const { status } = request.body;
 
             // Check if the status is valid according to the OrderStatus enum
             if (!Object.values(OrderStatus).includes(status)) {
-                return reply.status(400).send({ message: "Invalid order status" });
+                return reply.status(400).send({ error: "Invalid order status" });
             }
 
             const updatedOrder = await orderService.updateOrderStatus(validatedId, status);
@@ -149,3 +155,5 @@ export class OrderController {
         }
     }
 }
+
+export const orderController = new OrderController();

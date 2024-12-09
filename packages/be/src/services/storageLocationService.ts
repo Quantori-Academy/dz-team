@@ -1,34 +1,32 @@
-import { Prisma, PrismaClient, Reagent } from "@prisma/client";
+// External dependencies
+import { Prisma, Reagent } from "@prisma/client";
 
+// Internal utilities
+import { prisma } from "../utils/prisma";
+
+// Shared schemas
+import { StorageLocationSearch } from "../../../shared/zodSchemas/storageLocation/storageLocationSearchSchema";
+
+// Generated schemas
 import {
     StorageLocationCreateInputSchema,
     StorageLocationUpdateInputSchema,
 } from "../../../shared/generated/zod/inputTypeSchemas";
-
 import { StorageLocation } from "../../../shared/generated/zod";
-import { StorageLocationSearch } from "shared/zodSchemas/storageLocation/storageLocationSearchSchema";
 
-const prisma = new PrismaClient();
+// Internal types
+import { SearchResults } from "../types";
 
-type SearchResults = {
-    data: StorageLocation[];
-    meta: {
-        currentPage: number;
-        totalPages: number;
-        totalCount: number;
-        hasNextPage: boolean;
-        hasPreviousPage: boolean;
-    };
-};
-
-export class StorageLocationService {
+class StorageLocationService {
     /**
      * Retrieve all storage locations with optional filtering, pagination, and sorting.
      *
      * @param {StorageLocationSearch} queryString - The search parameters including optional filters for pagination and sorting.
      * @returns {Promise<SearchResults>} A promise that resolves to an object containing storage locations and metadata about the results.
      */
-    async getAllStorageLocations(queryString: StorageLocationSearch): Promise<SearchResults> {
+    async getAllStorageLocations(
+        queryString: StorageLocationSearch,
+    ): Promise<SearchResults<StorageLocation>> {
         const { query, page, limit, sortBy, sortOrder, room, name } = queryString;
 
         // Conditions for search across name, room, or description fields
@@ -200,3 +198,5 @@ export class StorageLocationService {
         return updatedReagent;
     }
 }
+
+export const storageLocationService = new StorageLocationService();
