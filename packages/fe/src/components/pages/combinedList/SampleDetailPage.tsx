@@ -14,6 +14,7 @@ const fields = [
     { label: "Updated At", name: "updadetAt", required: true },
 ];
 
+//TODO Add edit and delete functions
 export const SampleDetailPage = () => {
     return (
         <>

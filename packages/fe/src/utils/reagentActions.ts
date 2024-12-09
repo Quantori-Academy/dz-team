@@ -17,7 +17,7 @@ export const deleteReagentAction = async (
         await fetch(`${base}/reagents/${id}`, {
             method: "DELETE",
         });
-        navigate({ to: "/reagents" });
+        navigate({ to: "/combinedList" });
     } catch (_error) {
         alert("Failed to delete reagent. Please try again later.");
     }
@@ -33,7 +33,7 @@ export const updateReagentAction = async (
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(data),
         });
-        navigate({ to: `/reagents/${data.id}` });
+        navigate({ to: `/combinedList/${data.id}` });
     } catch (_error) {
         alert("Failed to update reagent. Please try again later.");
     }

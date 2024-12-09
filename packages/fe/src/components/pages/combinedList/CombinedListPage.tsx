@@ -63,6 +63,7 @@ export const CombinedListPage = () => {
         }
         removeModal();
     };
+    // TODO  fix navigation after reagent is clicked
     return (
         <TableContext.Provider value={{ ref: tableRef }}>
             <Box sx={{ mb: 5 }}>
