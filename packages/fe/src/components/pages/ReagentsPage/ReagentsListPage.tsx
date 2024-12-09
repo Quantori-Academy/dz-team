@@ -40,7 +40,7 @@ export const ReagentsListPage = () => {
 
     const handleSubmit = async () => {
         const result = await submitReagentEvent();
-        if (result != null) {
+        if (result !== undefined) {
             setIsOpen(false);
         }
         if (tableRef.current?.refresh) {
@@ -85,9 +85,9 @@ export const ReagentsListPage = () => {
 
                 <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
                     <Box sx={{ p: "18px" }}>
-                        <Typography variant="h5">{"Add new Reagent"}</Typography>
+                        <Typography variant="h5">Add new Reagent</Typography>
                         <Typography variant="body1" sx={{ my: "20px" }}>
-                            {<ReagentFormModal />}
+                            <ReagentFormModal />
                         </Typography>
                         <Box
                             sx={{
@@ -98,12 +98,7 @@ export const ReagentsListPage = () => {
                                 gap: "8px",
                             }}
                         >
-                            <Button
-                                variant="contained"
-                                onClick={() => {
-                                    handleSubmit();
-                                }}
-                            >
+                            <Button variant="contained" onClick={handleSubmit}>
                                 {"Submit"}
                             </Button>
                             <Button variant="outlined" onClick={() => setIsOpen(false)}>

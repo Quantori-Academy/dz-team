@@ -3,7 +3,7 @@ import { z } from "zod";
 import { CategorySchema, CurrencySchema, UnitSchema } from "../../../shared/generated/zod";
 import { request } from "./request";
 
-export const createReagent = async (formData: z.infer<typeof ReagentCreateSchema>) => {
+export const createReagent = async (formData: ReagentCreateType) => {
     const response = await request(`/reagents`, ReagentCreateSchema, {
         method: "POST",
         json: formData,
@@ -34,3 +34,5 @@ export const ReagentCreateSchema = z.object({
     currency: z.lazy(() => CurrencySchema),
     category: z.lazy(() => CategorySchema),
 });
+
+export type ReagentCreateType = z.infer<typeof ReagentCreateSchema>;

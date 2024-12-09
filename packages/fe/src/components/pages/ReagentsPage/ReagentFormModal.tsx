@@ -1,7 +1,13 @@
 import { Grid2 as Grid, TextField, TextFieldProps } from "@mui/material";
 import { useUnit } from "effector-react";
 
-import { $formData, $formDataErrors, $shouldShowErrors, setFormData } from "stores/reagents";
+import {
+    $formData,
+    $formDataErrors,
+    $shouldShowErrors,
+    setFormData,
+    touchField,
+} from "stores/reagents";
 
 const fields: TextFieldProps[] = [
     { label: "Name", name: "name" },
@@ -43,7 +49,7 @@ const fields: TextFieldProps[] = [
 ];
 
 export const ReagentFormModal = () => {
-    const [formData, formDataErrors] = useUnit([$formData, $formDataErrors]);
+    const [formData, formDataErrors, touch] = useUnit([$formData, $formDataErrors, touchField]);
     const shouldShowErrors = useUnit($shouldShowErrors);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,6 +64,8 @@ export const ReagentFormModal = () => {
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             {fields.map(({ name, label, type, helperText, ...rest }) => {
                 const errorText = formDataErrors[name as keyof typeof formDataErrors];
+                const showError = shouldShowErrors[name as keyof typeof formDataErrors];
+
                 return (
                     <Grid size={6} key={name}>
                         <TextField
@@ -68,8 +76,13 @@ export const ReagentFormModal = () => {
                             fullWidth
                             margin="normal"
                             type={type || "text"}
-                            helperText={shouldShowErrors ? errorText || helperText : ""}
-                            error={shouldShowErrors ? Boolean(errorText) : false}
+                            onBlur={() => {
+                                if (name) {
+                                    touch(name);
+                                }
+                            }}
+                            helperText={showError ? errorText || helperText : ""}
+                            error={showError ? Boolean(errorText) : false}
                             required
                             sx={{ width: 1 }}
                             {...rest}
