@@ -1,10 +1,15 @@
-import { useState } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
-import { useLoaderData, useNavigate } from "@tanstack/react-router";
+import { useContext } from "react";
+import { Box, MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
+import { useLoaderData, useNavigate, useRouter } from "@tanstack/react-router";
 
+import { changeStatus } from "api/orderStatus";
+import { TableContext } from "components/commonTable/TableContext";
 import { Grid } from "components/dataGrid/Grid";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
+import { createModal } from "components/modal/createModal";
+import { removeModal } from "components/modal/store";
 import { Order } from "shared/generated/zod/modelSchema";
+import { OrderStatus } from "stores/order";
 import { SupportedValue } from "utils/formatters";
 import { updateOrderAction } from "utils/orderActions";
 
@@ -27,19 +32,29 @@ const fields = [
     { label: "Created at", name: "createdAt" },
 ];
 
+const statusTransferRules: Record<string, string[]> = {
+    pending: ["submitted"],
+    submitted: ["canceled"],
+    fulfilled: [],
+    canceled: [],
+};
+
 const boxStyle = { display: "flex", flexDirection: "column", gap: "20px" };
 
 export function OrderDetailsPage() {
     const {
         reagents,
+        id,
         status,
-    }: { reagents: Record<string, SupportedValue>[] | null; status: string } = useLoaderData({
-        from: "/_app/_pOfficerLayout/orders/$id",
-    });
+    }: { reagents: Record<string, SupportedValue>[] | null; id: string; status: string } =
+        useLoaderData({
+            from: "/_app/_pOfficerLayout/orders/$id",
+        });
     const navigate = useNavigate();
+    const router = useRouter();
+    const tableRef = useContext(TableContext);
+
     const reagentData = Array.isArray(reagents) ? reagents : [];
-    const [isEditingStatus, setIsEditingStatus] = useState(false);
-    const [newStatus, setNewStatus] = useState(status);
 
     const handleAction = async (actionType: "submit" | "delete", data?: Order) => {
         if (!data) {
@@ -48,9 +63,26 @@ export function OrderDetailsPage() {
             await updateOrderAction(data, navigate);
         }
     };
-    const handleCancelEdit = () => {
-        setIsEditingStatus(false);
-        setNewStatus(status);
+
+    const addModal = async (event: SelectChangeEvent<string>) => {
+        const response = await createModal({
+            name: "change_order_status_modal",
+            message: `Are you sure you want to change the order's status to ${event.target.value}?`,
+            labels: { ok: "Submit", cancel: "Cancel" },
+        });
+
+        if (response) {
+            await changeStatus({
+                id,
+                status: event.target.value as OrderStatus,
+            });
+            if (tableRef.ref.current?.refresh != null) {
+                tableRef.ref.current.refresh();
+            }
+            router.invalidate();
+        }
+
+        removeModal();
     };
 
     return (
@@ -60,36 +92,29 @@ export function OrderDetailsPage() {
             fields={fields}
             onAction={handleAction}
             editableFields={["title", "description", "seller"]}
+            addEditButton={status === "pending"}
         >
             <Box sx={boxStyle}>
-                <Typography variant="h6" sx={{ mt: 2 }}>
+                <Typography variant="h6" sx={{ mt: 6 }}>
                     Change Order Status
                 </Typography>
-                <TextField
-                    label="Status"
-                    value={newStatus}
-                    onChange={(e) => setNewStatus(e.target.value)}
-                    disabled={!isEditingStatus}
-                    sx={{ width: "50%" }}
-                />
-                <Box sx={{ display: "flex", gap: "10px", mt: 2 }}>
-                    {isEditingStatus ? (
-                        <>
-                            <Button variant="contained">Update</Button>
-                            <Button variant="outlined" onClick={handleCancelEdit}>
-                                Cancel
-                            </Button>
-                        </>
-                    ) : (
-                        <Button variant="contained" onClick={() => setIsEditingStatus(true)}>
-                            Edit
-                        </Button>
-                    )}
-                </Box>
+                <Select
+                    value={status}
+                    id="select-status"
+                    disabled={statusTransferRules[status].length < 1}
+                    onChange={addModal}
+                >
+                    <MenuItem value={status}>{status}</MenuItem>
+                    {statusTransferRules[status].map((val) => (
+                        <MenuItem value={val} key={val}>
+                            {val}
+                        </MenuItem>
+                    ))}
+                </Select>
             </Box>
             {reagentData.length > 0 ? (
                 <Box sx={boxStyle}>
-                    <Typography variant="h6" sx={{ mt: 2 }}>
+                    <Typography variant="h6" sx={{ mt: 6 }}>
                         Reagents
                     </Typography>
                     <Grid
