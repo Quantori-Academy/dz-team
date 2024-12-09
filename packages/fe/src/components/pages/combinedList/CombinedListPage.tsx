@@ -1,7 +1,7 @@
 import { useRef } from "react";
 import { Box } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
-import { Outlet } from "@tanstack/react-router";
+import { Outlet, useNavigate } from "@tanstack/react-router";
 
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { TableContext } from "components/commonTable/TableContext";
@@ -33,6 +33,7 @@ const columns: GridColDef<CombinedList>[] = [
 
 export const CombinedListPage = () => {
     const tableRef = useRef<CommonTableRef | null>(null);
+    const navigate = useNavigate();
     const openAddModal = async () => {
         await createModal({
             name: "sample_modal",
@@ -50,6 +51,13 @@ export const CombinedListPage = () => {
                     ref={tableRef}
                     columns={columns}
                     url={`/list`}
+                    onRowClick={(row: CombinedList) => {
+                        if (row.category === "reagent") {
+                            navigate({ to: `/reagents/${row.id}`, replace: false });
+                        } else if (row.category === "sample") {
+                            navigate({ to: `/combinedList/${row.id}`, replace: false });
+                        }
+                    }}
                     schema={CombinedListSchema}
                     searchBy={{
                         name: true,
