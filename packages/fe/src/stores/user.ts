@@ -2,7 +2,7 @@ import { sample } from "effector";
 import { createGate } from "effector-react";
 
 import { CurrentUser } from "api/users/contract";
-import { getUser } from "api/users/getUsers";
+import { getUser } from "api/users/getUser";
 import { genericDomain as domain } from "logger";
 
 // Store to hold the user

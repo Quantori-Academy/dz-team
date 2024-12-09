@@ -53,10 +53,13 @@ export function DropdownMenuHeaderDesktop({ handleClose, open, anchorEl }: Props
             transformOrigin={{ horizontal: "center", vertical: "top" }}
             anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
         >
-            <Box sx={{ mt: 1, mr: 2, mb: 1, ml: 2, width: "148px" }}>
+            <Box sx={{ mt: 1, mr: 2, mb: 1, ml: 2, width: "180px", minWidth: "148px" }}>
                 <Typography
                     sx={{
                         color: theme.palette.text.primary,
+                        overflow: "hidden",
+                        whiteSpace: "nowrap",
+                        textOverflow: "ellipsis",
                     }}
                 >
                     {user?.username}

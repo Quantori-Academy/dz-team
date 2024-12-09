@@ -3,7 +3,6 @@ import { z } from "zod";
 import { publicUserSchema } from "shared/zodSchemas/user/publicUserSchema";
 
 import { request } from "../request";
-import { CurrentUserContract } from "./contract";
 
 const UsersResponseContract = z.object({
     data: publicUserSchema.array(),
@@ -17,11 +16,4 @@ export const getUsers = async () => {
         method: "GET",
     });
     return Users;
-};
-
-export const getUser = async () => {
-    const CurrentUser = await request(`/users/me`, CurrentUserContract, {
-        method: "GET",
-    });
-    return CurrentUser;
 };

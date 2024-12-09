@@ -84,6 +84,10 @@ export function HeaderDesktop() {
                                     <Typography
                                         sx={{
                                             color: theme.palette.text.primary,
+                                            overflow: "hidden",
+                                            whiteSpace: "nowrap",
+                                            textOverflow: "ellipsis",
+                                            maxWidth: "140px",
                                         }}
                                     >
                                         {user?.username}
