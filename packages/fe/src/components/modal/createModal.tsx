@@ -9,7 +9,7 @@ export function createModal({
     title,
     message,
     labels,
-}: GenericModalDetails): Promise<unknown> {
+}: GenericModalDetails): Promise<boolean> {
     return new Promise((resolve) => {
         const unwatch = buttonClick.watch((response) => {
             unwatch();

@@ -26,6 +26,7 @@ export const initialFormData: CreateReagentType = {
 
 export const $formData = domain.createStore<CreateReagentType>(initialFormData);
 export const $formDataErrors = domain.createStore<Record<string, string>>({});
+export const $shouldShowErrors = domain.createStore(false);
 export const setFormData = domain.createEvent<CreateReagentType>();
 export const resetFormData = domain.createEvent<void>();
 
@@ -44,7 +45,7 @@ export const addReagentFx = domain.createEffect(async () => {
     try {
         ReagentCreateSchema.parse(data);
         const response = await createReagent(data);
-        setFormData(initialFormData);
+
         return response;
     } catch (e) {
         if (e instanceof z.ZodError) {
@@ -55,12 +56,9 @@ export const addReagentFx = domain.createEffect(async () => {
 
 // Processes form data, validates it with the schema, and stores errors in $formDataErrors
 sample({
-    clock: $formData,
+    clock: [$formData, addReagentFx],
+    source: $formData,
     fn: (formData) => {
-        if (formData === $formData.defaultState) {
-            return {};
-        }
-
         const result = ReagentCreateSchema.safeParse(formData);
 
         return (
@@ -75,6 +73,25 @@ sample({
         );
     },
     target: $formDataErrors,
+});
+
+// Should show errors
+sample({
+    clock: $formData,
+    fn: (formData) => {
+        if (formData === $formData.defaultState) {
+            return false;
+        }
+
+        return true;
+    },
+    target: $shouldShowErrors,
+});
+
+$shouldShowErrors.on(addReagentFx.doneData, (_, data) => {
+    if (data == null) {
+        return true;
+    }
 });
 
 // post added reagent on submit

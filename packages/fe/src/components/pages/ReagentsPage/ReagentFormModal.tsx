@@ -1,7 +1,7 @@
 import { Grid2 as Grid, TextField, TextFieldProps } from "@mui/material";
 import { useUnit } from "effector-react";
 
-import { $formData, $formDataErrors, setFormData } from "stores/reagents";
+import { $formData, $formDataErrors, $shouldShowErrors, setFormData } from "stores/reagents";
 
 const fields: TextFieldProps[] = [
     { label: "Name", name: "name" },
@@ -44,6 +44,7 @@ const fields: TextFieldProps[] = [
 
 export const ReagentFormModal = () => {
     const [formData, formDataErrors] = useUnit([$formData, $formDataErrors]);
+    const shouldShowErrors = useUnit($shouldShowErrors);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -67,8 +68,8 @@ export const ReagentFormModal = () => {
                             fullWidth
                             margin="normal"
                             type={type || "text"}
-                            helperText={errorText || helperText}
-                            error={Boolean(errorText)}
+                            helperText={shouldShowErrors ? errorText || helperText : ""}
+                            error={shouldShowErrors ? Boolean(errorText) : false}
                             required
                             sx={{ width: 1 }}
                             {...rest}
