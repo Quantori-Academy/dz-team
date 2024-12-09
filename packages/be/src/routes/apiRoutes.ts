@@ -8,8 +8,10 @@ import { storageLocationRoutes } from "./storageLocationRoutes";
 import { orderRoutes } from "./orderRoutes";
 import { sellerRoutes } from "./sellerRoutes";
 import { requestRoutes } from "./requestRoutes";
+import { combinedListRoutes } from "./combinedListRoutes";
 
 export const apiRoutes = async (app: FastifyZodInstance) => {
+    app.register(combinedListRoutes, { prefix: "/list" });
     app.register(reagentRoutes, { prefix: "/reagents" });
     app.register(sampleRoutes, { prefix: "/samples" });
     app.register(authRoutes, { prefix: "/auth" });

@@ -1018,7 +1018,8 @@
                         "nullable": true
                     },
                     "description": {
-                        "type": "string"
+                        "type": "string",
+                        "nullable": true
                     },
                     "quantity": {
                         "type": "number"
@@ -1054,7 +1055,6 @@
                     "category",
                     "id",
                     "name",
-                    "description",
                     "quantity",
                     "createdAt",
                     "updatedAt",
@@ -1095,7 +1095,8 @@
                                     "nullable": true
                                 },
                                 "description": {
-                                    "type": "string"
+                                    "type": "string",
+                                    "nullable": true
                                 },
                                 "quantity": {
                                     "type": "number"
@@ -1131,7 +1132,6 @@
                                 "category",
                                 "id",
                                 "name",
-                                "description",
                                 "quantity",
                                 "createdAt",
                                 "updatedAt",
@@ -1623,6 +1623,16 @@
         }
     },
     "paths": {
+        "/api/v1/list/": {
+            "get": {
+                "tags": ["CombinedList"],
+                "responses": {
+                    "200": {
+                        "description": "Default Response"
+                    }
+                }
+            }
+        },
         "/api/v1/reagents/": {
             "get": {
                 "summary": "Retrieves a list of reagents with metadata for available pages",
@@ -3519,7 +3529,8 @@
                                                         "nullable": true
                                                     },
                                                     "description": {
-                                                        "type": "string"
+                                                        "type": "string",
+                                                        "nullable": true
                                                     },
                                                     "quantity": {
                                                         "type": "number"
@@ -3552,7 +3563,6 @@
                                                     "category",
                                                     "id",
                                                     "name",
-                                                    "description",
                                                     "quantity",
                                                     "createdAt",
                                                     "updatedAt",
@@ -3657,7 +3667,8 @@
                                             "nullable": true
                                         },
                                         "description": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "nullable": true
                                         },
                                         "quantity": {
                                             "type": "number"
@@ -3690,7 +3701,6 @@
                                         "category",
                                         "id",
                                         "name",
-                                        "description",
                                         "quantity",
                                         "createdAt",
                                         "updatedAt",
@@ -3801,7 +3811,8 @@
                                             "nullable": true
                                         },
                                         "description": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "nullable": true
                                         },
                                         "quantity": {
                                             "type": "number"
@@ -3834,7 +3845,6 @@
                                         "category",
                                         "id",
                                         "name",
-                                        "description",
                                         "quantity",
                                         "createdAt",
                                         "updatedAt",
@@ -3928,7 +3938,8 @@
                                             "nullable": true
                                         },
                                         "description": {
-                                            "type": "string"
+                                            "type": "string",
+                                            "nullable": true
                                         },
                                         "quantity": {
                                             "type": "number"
@@ -3961,7 +3972,6 @@
                                         "category",
                                         "id",
                                         "name",
-                                        "description",
                                         "quantity",
                                         "createdAt",
                                         "updatedAt",
@@ -6863,10 +6873,17 @@
                                         "default": "ml"
                                     },
                                     "commentsUser": {
-                                        "type": "array",
-                                        "items": {
-                                            "type": "string"
-                                        }
+                                        "anyOf": [
+                                            {
+                                                "type": "string"
+                                            },
+                                            {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "string"
+                                                }
+                                            }
+                                        ]
                                     },
                                     "status": {
                                         "type": "string",
