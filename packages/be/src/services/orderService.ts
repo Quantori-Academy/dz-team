@@ -283,6 +283,30 @@ class OrderService {
             data: { status },
         });
     }
+
+    /**
+     * Delete a order by ID.
+     *
+     * @param {string} id - The ID of the order to delete.
+     * @returns {Promise<Seller | null>} A promise that resolves to the deleted order, or null if the order was not found.
+     */
+    async deleteOrder(id: string): Promise<Order | { message: string }> {
+        const existingOrder = await prisma.order.findUnique({
+            where: { id },
+        });
+
+        if (!existingOrder) {
+            throw new Error("Order not found."); // 404 Not Found
+        }
+
+        if (existingOrder?.status !== OrderStatus.pending) {
+            return { message: "Order can only be deleted if it is in 'pending' status." };
+        }
+
+        return prisma.order.delete({
+            where: { id },
+        });
+    }
 }
 
 export const orderService = new OrderService();
