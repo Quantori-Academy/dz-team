@@ -1,4 +1,5 @@
 import { useContext } from "react";
+import { toast } from "react-toastify";
 import { Box, MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
 import { useLoaderData, useNavigate, useRouter } from "@tanstack/react-router";
 
@@ -11,7 +12,7 @@ import { removeModal } from "components/modal/store";
 import { Order } from "shared/generated/zod/modelSchema";
 import { OrderStatus } from "stores/order";
 import { SupportedValue } from "utils/formatters";
-import { updateOrderAction } from "utils/orderActions";
+import { deleteOrderAction, updateOrderAction } from "utils/orderActions";
 
 const reagentColumns = [
     { field: "name", headerName: "Name", width: 120 },
@@ -57,10 +58,24 @@ export function OrderDetailsPage() {
     const reagentData = Array.isArray(reagents) ? reagents : [];
 
     const handleAction = async (actionType: "submit" | "delete", data?: Order) => {
-        if (!data) {
-            return;
-        } else if (actionType === "submit" && data) {
+        if (actionType === "delete") {
+            if (!data || !data.id) {
+                toast.error("Order data or ID is missing for the delete action.", {
+                    position: "bottom-left",
+                });
+                return;
+            }
+            await deleteOrderAction(data.id, navigate);
+            toast.success("Order successfully deleted!", { position: "bottom-left" });
+        } else if (actionType === "submit") {
+            if (!data) {
+                toast.error("Order data is missing for the submit action.", {
+                    position: "bottom-left",
+                });
+                return;
+            }
             await updateOrderAction(data, navigate);
+            toast.success("Order successfully updated!", { position: "bottom-left" });
         }
     };
 
