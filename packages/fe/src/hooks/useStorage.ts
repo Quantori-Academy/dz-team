@@ -14,7 +14,6 @@ type HookTypes = {
 export const useStorage = ({ name, room, description }: HookTypes) => {
     const [roomError, setRoomError] = useState<string | null>(null);
     const [nameError, setNameError] = useState<string | null>(null);
-    const [errorMessage, setErrorMessage] = useState(false);
 
     const validateForm = (formData: NewStorage) => {
         let isValid = true;
@@ -49,20 +48,12 @@ export const useStorage = ({ name, room, description }: HookTypes) => {
             if (name.current) name.current.value = "";
             if (room.current) room.current.value = "";
             if (description.current) description.current.value = "";
-            try {
-                await postStorage(formData);
-                setRoomError(null);
-                setNameError(null);
-                toast.success("Storage Added successfully!");
-                wait(500);
-                removeModal();
-            } catch (_error) {
-                setErrorMessage(true);
-                wait(500);
-                setErrorMessage(false);
-                wait(500);
-                removeModal();
-            }
+            await postStorage(formData);
+            setRoomError(null);
+            setNameError(null);
+            toast.success("Storage Added successfully!");
+            wait(500);
+            removeModal();
         }
     };
 
@@ -70,6 +61,5 @@ export const useStorage = ({ name, room, description }: HookTypes) => {
         roomError,
         nameError,
         handleSubmit,
-        errorMessage,
     };
 };
