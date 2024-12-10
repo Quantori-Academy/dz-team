@@ -1,31 +1,30 @@
 import { z } from "zod";
 
-export const CreateReagentRequest = z.object({
-    userId: z.string(),
-    name: z.string(),
-    structure: z.string(),
-    cas: z.string(),
-    quantity: z.number(),
-    unit: z.string(),
-    status: z.string(),
-    commentsUser: z.array(z.string()),
-    commentsProcurement: z.array(z.string()),
-    createdAt: z.string(),
-    updatedAt: z.string(),
-});
+import {
+    RequestCreationBody,
+    RequestCreationBodySchema,
+} from "shared/zodSchemas/request/requestSchemas";
 
-export const initialFormData: CreateReagentRequestType = {
-    userId: "",
-    name: "",
-    structure: "",
-    cas: "",
-    quantity: 0,
-    unit: "",
-    status: "",
-    commentsUser: [""],
-    commentsProcurement: [""],
-    createdAt: "",
-    updatedAt: "",
+import { request } from "./request";
+
+export const createReagentRequest = async (formData: RequestCreationBody) => {
+    const response = await request(`/requests`, RequestCreationBodySchema, {
+        method: "POST",
+        json: formData,
+        showErrorNotification: true,
+        throwOnError: true,
+    });
+
+    return response;
 };
 
-export type CreateReagentRequestType = z.infer<typeof CreateReagentRequest>;
+export async function updateReagentRequestComments(
+    id: string,
+    commentsKey: string,
+    comment: string,
+) {
+    await request(`/requests/${id}`, z.string(), {
+        method: "PATCH",
+        json: { [commentsKey]: comment },
+    });
+}

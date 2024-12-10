@@ -1,4 +1,11 @@
-import { Prisma, PrismaClient, RequestStatus, ReagentRequest } from "@prisma/client";
+// External dependencies
+import { Prisma, RequestStatus, ReagentRequest } from "@prisma/client";
+
+// Internal utilities
+import { prisma } from "../utils/prisma";
+import { SearchResults } from "../types";
+
+// Shared schemas
 import {
     RequestCreationBody,
     RequestUpdateBody,
@@ -6,14 +13,18 @@ import {
     RequestSearchSchema,
     RequestUpdateBodySchema,
 } from "../../../shared/zodSchemas/request/requestSchemas";
-import { SearchResults } from "../types";
-const prisma = new PrismaClient();
 
-export class RequestService {
+class RequestService {
+    /**
+     * Fetch all reagent requests with optional search and pagination.
+     * @param {RequestSearch} queryParams - Query parameters for searching and pagination.
+     * @returns {Promise<SearchResults<ReagentRequest>>} Paginated list of reagent requests.
+     */
     public async getAllRequests(
         queryParams: RequestSearch,
     ): Promise<SearchResults<ReagentRequest>> {
-        const { query, page, limit, sortBy, status } = RequestSearchSchema.parse(queryParams);
+        const { query, page, limit, sortBy, sortOrder, status } =
+            RequestSearchSchema.parse(queryParams);
 
         const searchConditions = query
             ? [
@@ -36,7 +47,7 @@ export class RequestService {
                 where,
                 skip: (page - 1) * limit,
                 take: limit,
-                orderBy: { [sortBy]: "asc" },
+                orderBy: { [sortBy]: sortOrder },
             }),
             prisma.reagentRequest.count({ where }),
         ]);
@@ -55,12 +66,25 @@ export class RequestService {
         };
     }
 
+    /**
+     * Fetch a single reagent request by ID.
+     * @param {string} requestId - ID of the request to fetch.
+     * @returns {Promise<ReagentRequest>} The requested reagent request.
+     * @throws {Error} If the request is not found.
+     */
     public async getSingleRequest(requestId: string) {
         const request = await prisma.reagentRequest.findUnique({ where: { id: requestId } });
         if (!request) throw new Error("Request not found");
         return request;
     }
 
+    /**
+     * Create a new reagent request.
+     * @param {string} requestedById - ID of the user creating the request.
+     * @param {RequestCreationBody} requestData - Data for the new request.
+     * @returns {Promise<ReagentRequest>} The created reagent request.
+     * @throws {Error} If the request creation fails.
+     */
     public async createRequest(requestedById: string, requestData: RequestCreationBody) {
         const commentsUser =
             typeof requestData.commentsUser === "string"
@@ -88,6 +112,12 @@ export class RequestService {
         }
     }
 
+    /**
+     * Soft delete a reagent request by marking it as deleted.
+     * @param {string} requestId - ID of the request to delete.
+     * @returns {Promise<ReagentRequest>} The updated reagent request.
+     * @throws {Error} If the request is not found.
+     */
     public async deleteRequest(requestId: string) {
         const request = await prisma.reagentRequest.findUnique({ where: { id: requestId } });
         if (!request) throw new Error("Request not found");
@@ -98,15 +128,65 @@ export class RequestService {
         });
     }
 
-    public async getRequestsByUserId(requestedById: string, userId: string) {
-        if (requestedById !== userId) {
-            throw new Error("Unauthorized");
-        }
-        return prisma.reagentRequest.findMany({
-            where: { userId, deletedAt: null },
-        });
+    /**
+     * Fetch all requests by a specific user with optional search and pagination.
+     * @param {string} userId - ID of the user whose requests to fetch.
+     * @param {RequestSearch} queryParams - Query parameters for searching and pagination.
+     * @returns {Promise<SearchResults<ReagentRequest>>} Paginated list of user requests.
+     */
+    public async getRequestsByUserId(userId: string, queryParams: RequestSearch) {
+        const { query, page, limit, sortBy, sortOrder, status } =
+            RequestSearchSchema.parse(queryParams);
+
+        const searchConditions = query
+            ? [
+                  { name: { contains: query, mode: Prisma.QueryMode.insensitive } },
+                  { cas: { contains: query, mode: Prisma.QueryMode.insensitive } },
+                  { structure: { contains: query, mode: Prisma.QueryMode.insensitive } },
+              ]
+            : [];
+
+        const where: Prisma.ReagentRequestWhereInput = {
+            AND: [
+                { userId },
+                status ? { status: status as RequestStatus } : {},
+                { deletedAt: null },
+                searchConditions.length > 0 ? { OR: searchConditions } : {},
+            ].filter(Boolean),
+        };
+
+        const [requests, totalCount] = await Promise.all([
+            prisma.reagentRequest.findMany({
+                where,
+                skip: (page - 1) * limit,
+                take: limit,
+                orderBy: { [sortBy]: sortOrder },
+            }),
+            prisma.reagentRequest.count({ where }),
+        ]);
+
+        const totalPages = Math.ceil(totalCount / limit);
+
+        return {
+            data: requests,
+            meta: {
+                currentPage: page,
+                totalPages,
+                totalCount,
+                hasNextPage: page < totalPages,
+                hasPreviousPage: page > 1,
+            },
+        };
     }
 
+    /**
+     * Update a reagent request with role-based restrictions.
+     * @param {string} requestId - ID of the request to update.
+     * @param {Partial<RequestUpdateBody>} updateData - Data to update in the request.
+     * @param {{ userId: string; role: string }} userData - Information about the user performing the update.
+     * @returns {Promise<ReagentRequest>} The updated reagent request.
+     * @throws {Error} If the request is not found or the update is forbidden.
+     */
     public async updateRequest(
         requestId: string,
         updateData: Partial<RequestUpdateBody>,
@@ -185,3 +265,5 @@ export class RequestService {
         });
     }
 }
+
+export const requestService = new RequestService();

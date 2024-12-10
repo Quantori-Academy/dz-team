@@ -18,7 +18,6 @@ type RoleToNavList = {
 
 const rolesNavLists: RoleToNavList = {
     admin: [
-        { href: "/admin", title: "Home", details: "Entry point of application" },
         { href: "/users", title: "User list", details: "See the list of users" },
         {
             href: "/storageList",
@@ -27,11 +26,6 @@ const rolesNavLists: RoleToNavList = {
         },
     ],
     procurementOfficer: [
-        {
-            href: "/pOfficer",
-            title: "Home",
-            details: "Entry point of application",
-        },
         {
             href: "/orders",
             title: "Orders",
@@ -49,7 +43,6 @@ const rolesNavLists: RoleToNavList = {
         },
     ],
     researcher: [
-        { href: "/", title: "Home", details: "Entry point of application" },
         {
             href: "/reagents",
             title: "Reagents",

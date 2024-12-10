@@ -1,14 +1,14 @@
 import { useRef, useState } from "react";
-import { Box } from "@mui/material";
+import { Box, Button, Dialog, Typography } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
+import { useUnit } from "effector-react";
 
-import { CreateReagentRequestType, initialFormData } from "api/reagentRequest";
-import { request } from "api/request";
+import { UserRole } from "api/self";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { TableContext } from "components/commonTable/TableContext";
-import { createModal } from "components/modal/createModal";
-import { removeModal } from "components/modal/store";
+import { $auth } from "stores/auth";
+import { addReagentRequestFx, resetFormData } from "stores/reagentRequest";
 
 import { ReagentRequest, ReagentRequestSchema } from "../../../../../shared/generated/zod";
 import { ReagentRequestFormModal } from "./ReagentRequestFormModal";
@@ -21,56 +21,41 @@ const reagentRequestColumns: GridColDef[] = [
     { field: "unit", headerName: "Unit", width: 150 },
     { field: "status", headerName: "Status", width: 150 },
     { field: "userId", headerName: "User ID", width: 150 },
-    { field: "userComments", headerName: "User Comments", width: 200 },
-    { field: "procurementComments", headerName: "Procurement Comments", width: 200 },
+    { field: "commentsUser", headerName: "User Comments", width: 200 },
+    { field: "commentsProcurement", headerName: "Procurement Comments", width: 200 },
     { field: "createdAt", headerName: "Date Created", width: 150 },
     { field: "updatedAt", headerName: "Date Modified", width: 150 },
 ];
 
 export function ReagentRequestPage() {
+    const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
     const tableRef = useRef<CommonTableRef | null>(null);
+    const auth = useUnit($auth);
 
-    const [formData, setFormData] = useState<CreateReagentRequestType>(initialFormData);
+    const userId = auth ? auth.userId : "";
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value } = e.target;
-        setFormData({
-            ...formData,
-            [name]: name === "quantity" || name === "pricePerUnit" ? Number(value) : value,
-        });
-    };
-
-    const submitReagentRequest = async (data: CreateReagentRequestType) => {
-        const response = await request(`/reagent-request`, ReagentRequestSchema, {
-            method: "POST",
-            json: data,
-            throwOnError: true,
-        });
-        return response;
-    };
-
-    const handleSubmit = () => {
-        submitReagentRequest(formData);
-        setFormData(initialFormData);
-    };
+    const role = auth ? auth.self.role : null;
 
     const handleRowClick = (row: ReagentRequest) => {
         navigate({ to: `/reagentRequests/${row.id}`, replace: false });
     };
 
-    const openAddModal = async () => {
-        const response = await createModal({
-            name: "reagent_request_modal",
-            title: "Add New Reagent Request",
-            message: <ReagentRequestFormModal formData={formData} handleChange={handleChange} />,
-            labels: { ok: "Submit", cancel: "Cancel" },
-        });
+    const submitReagentRequest = useUnit(addReagentRequestFx);
 
-        if (response) {
-            handleSubmit();
+    const handleSubmit = async () => {
+        const result = await submitReagentRequest();
+        if (result !== undefined) {
+            setIsOpen(false);
         }
-        removeModal();
+        if (tableRef.current?.refresh) {
+            tableRef.current.refresh();
+        }
+    };
+
+    const openAddModal = () => {
+        resetFormData();
+        setIsOpen(true);
     };
 
     return (
@@ -87,21 +72,48 @@ export function ReagentRequestPage() {
                 <CommonTable<ReagentRequest>
                     columns={reagentRequestColumns}
                     ref={tableRef}
-                    url={`/reagent-request`}
+                    url={role === UserRole.researcher ? `/requests/user/${userId}` : `/requests`}
                     schema={ReagentRequestSchema}
                     onRowClick={handleRowClick}
                     searchBy={{
                         name: true,
-                        description: true,
                         structure: true,
-                        producer: true,
                         cas: true,
-                        catalogId: true,
-                        catalogLink: true,
+                        createdAt: true,
+                        updatedAt: true,
                     }}
-                    onAdd={openAddModal}
+                    onAdd={
+                        auth && auth.self.role === UserRole.procurementOfficer
+                            ? undefined
+                            : openAddModal
+                    }
                     addButtonText="Create a Reagent Request"
                 />
+
+                <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+                    <Box sx={{ p: "18px" }}>
+                        <Typography variant="h5">Add New Reagent Request</Typography>
+                        <Typography variant="body1" sx={{ my: "20px" }}>
+                            <ReagentRequestFormModal />
+                        </Typography>
+                        <Box
+                            sx={{
+                                width: "100%",
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                alignItems: "center",
+                                gap: "8px",
+                            }}
+                        >
+                            <Button variant="contained" onClick={handleSubmit}>
+                                Submit
+                            </Button>
+                            <Button variant="outlined" onClick={() => setIsOpen(false)}>
+                                Cancel
+                            </Button>
+                        </Box>
+                    </Box>
+                </Dialog>
 
                 <Outlet />
             </Box>

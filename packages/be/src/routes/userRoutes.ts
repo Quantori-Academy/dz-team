@@ -1,7 +1,14 @@
-import { FastifyZodInstance, Roles } from "../types";
-import { UserController } from "../controllers/userController";
-import { checkAuthenticated, checkAuthenticatedAndRole } from "../utils/authCheck";
+// External dependencies
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
+
+// Internal utilities
+import { FastifyZodInstance, Roles } from "../types";
+import { checkAuthenticated, checkAuthenticatedAndRole } from "../utils/authCheck";
+
+// Controllers
+import { userController } from "../controllers/userController";
+
+// Response schemas
 import {
     DELETE_USER_BY_SCHEMA,
     GET_CURRENT_USER_SCHEMA,
@@ -10,10 +17,10 @@ import {
     POST_NEW_USER_SCHEMA,
     UPDATE_USER_BY_ID_SCHEMA,
 } from "../responseSchemas/users";
-import { RegisterUser } from "shared/zodSchemas/user/registerUserSchema";
-import { UpdateUser } from "shared/zodSchemas/user/updateUserSchema";
 
-const userController = new UserController();
+// Shared schemas
+import { RegisterUser } from "../../../shared/zodSchemas/user/registerUserSchema";
+import { UpdateUser } from "../../../shared/zodSchemas/user/updateUserSchema";
 
 /**
  * User routes for managing user operations.
@@ -57,7 +64,7 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
             preHandler: [checkAuthenticated()],
         },
         async (request, reply) => {
-            return await userController.getSingleUser(request, reply);
+            return await userController.getUser(request, reply);
         },
     );
 
@@ -117,7 +124,7 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
         "/:userId",
         {
             schema: DELETE_USER_BY_SCHEMA satisfies FastifyZodOpenApiSchema,
-            // preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
+            preHandler: [checkAuthenticatedAndRole([Roles.ADMIN])],
         },
         async (request, reply) => {
             return await userController.deleteUser(request, reply);
@@ -136,21 +143,7 @@ export const userRoutes = async (app: FastifyZodInstance): Promise<void> => {
         "/me",
         {
             schema: GET_CURRENT_USER_SCHEMA satisfies FastifyZodOpenApiSchema,
-            preHandler: [
-                async (request, reply) => {
-                    // Ensure verifyJWT and verifyRole exist, otherwise block the request
-                    if (!app.verifyJWT) {
-                        reply.code(500).send({
-                            error: "Authentication or authorization method not available",
-                        });
-                        throw new Error(
-                            "Required authentication or authorization method not registered.",
-                        );
-                    }
-
-                    await app.verifyJWT(request, reply);
-                },
-            ],
+            preHandler: [checkAuthenticated()],
         },
         async (request, reply) => {
             return await userController.getCurrentUser(request, reply);
