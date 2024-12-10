@@ -4,6 +4,7 @@ import { toast } from "react-toastify";
 import { postStorage } from "api/storage/postStorage";
 import { NewStorage } from "api/types";
 import { removeModal } from "components/modal/store";
+import { wait } from "utils";
 
 type HookTypes = {
     name: React.RefObject<HTMLInputElement>;
@@ -53,17 +54,14 @@ export const useStorage = ({ name, room, description }: HookTypes) => {
                 setRoomError(null);
                 setNameError(null);
                 toast.success("Storage Added successfully!");
-                setTimeout(() => {
-                    removeModal();
-                }, 500);
+                wait(500);
+                removeModal();
             } catch (_error) {
                 setErrorMessage(true);
-                setTimeout(() => {
-                    setErrorMessage(false);
-                }, 500);
-                setTimeout(() => {
-                    removeModal();
-                }, 500);
+                wait(500);
+                setErrorMessage(false);
+                wait(500);
+                removeModal();
             }
         }
     };

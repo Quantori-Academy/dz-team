@@ -51,7 +51,7 @@ export const StorageDetail = ({ handleAction, reagents }: TableType) => {
                 fields={fields}
                 onAction={!isResearcher ? handleAction : undefined}
                 editableFields={!isResearcher ? ["name", "room", "description"] : []}
-                rolePermission={!isResearcher}
+                enableButtons={!isResearcher}
             >
                 {reagents?.length > 0 ? (
                     <Box sx={boxStyle}>

@@ -29,9 +29,5 @@ export const StorageDetailPage = () => {
         }
     };
 
-    return (
-        <>
-            <StorageDetail handleAction={handleAction} reagents={reagents} />
-        </>
-    );
+    return <StorageDetail handleAction={handleAction} reagents={reagents} />;
 };
