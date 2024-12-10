@@ -7,7 +7,6 @@ import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
 import { deleteReagentAction, updateReagentAction } from "utils/reagentActions";
 
 const fields = [
-    { label: "ID", name: "id", disabled: true },
     { label: "Name", name: "name" },
     { label: "Category", name: "category" },
     { label: "Description", name: "description" },
