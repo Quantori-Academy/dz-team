@@ -74,6 +74,10 @@ export const Grid = ({
     };
 
     const columns = useMemo(() => {
+        if (!renderActions) {
+            return headers;
+        }
+
         const actionsColumn = {
             field: "actions",
             headerName: "Actions",
@@ -94,7 +98,7 @@ export const Grid = ({
                 onChange={handleSearch}
                 fullWidth
             />
-            <Box sx={{ height: "300px", width: "100%" }}>
+            <Box>
                 <DataGrid
                     rows={filteredRows}
                     columns={columns}

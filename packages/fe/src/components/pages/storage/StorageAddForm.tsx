@@ -1,5 +1,5 @@
 import { useRef } from "react";
-import { Box, Button, TextField, Typography } from "@mui/material";
+import { Box, Button, TextField } from "@mui/material";
 
 import { useStorage } from "hooks/useStorage";
 
@@ -13,7 +13,7 @@ export const StorageAddForm = ({ onClose }: AddStorageFormProps) => {
     const room = useRef<HTMLInputElement>(null);
     const description = useRef<HTMLInputElement>(null);
 
-    const { roomError, nameError, handleSubmit, confirmMessage, errorMessage } = useStorage({
+    const { roomError, nameError, handleSubmit } = useStorage({
         name,
         room,
         description,
@@ -21,24 +21,6 @@ export const StorageAddForm = ({ onClose }: AddStorageFormProps) => {
 
     return (
         <Box component="form" noValidate autoComplete="off" sx={boxStyle}>
-            {confirmMessage && (
-                <Typography
-                    sx={(theme) => ({
-                        color: theme.palette.success.main,
-                    })}
-                >
-                    Storage Was Added Successfully
-                </Typography>
-            )}
-            {errorMessage && (
-                <Typography
-                    sx={(theme) => ({
-                        color: theme.palette.error.main,
-                    })}
-                >
-                    Occured Error
-                </Typography>
-            )}
             <TextField
                 label="Room"
                 name="room"
