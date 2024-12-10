@@ -1617,10 +1617,335 @@
     "paths": {
         "/api/v1/list/": {
             "get": {
+                "summary": "Retrieves a list of reagents and samples with metadata for available pages",
                 "tags": ["CombinedList"],
+                "description": "Retrieve a list of available reagents and samples.",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "query"
+                    },
+                    {
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "default": 1
+                        },
+                        "in": "query",
+                        "name": "page"
+                    },
+                    {
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "maximum": 100,
+                            "default": 10
+                        },
+                        "in": "query",
+                        "name": "limit"
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "id",
+                                "name",
+                                "description",
+                                "structure",
+                                "category",
+                                "quantity",
+                                "unit",
+                                "quantityInit",
+                                "status",
+                                "type",
+                                "expirationDate",
+                                "storageLocation",
+                                "cas",
+                                "producer",
+                                "catalogId",
+                                "catalogLink",
+                                "pricePerUnit",
+                                "currency",
+                                "createdAt",
+                                "updatedAt"
+                            ],
+                            "default": "name"
+                        },
+                        "in": "query",
+                        "name": "sortBy"
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": ["asc", "desc"],
+                            "default": "asc"
+                        },
+                        "in": "query",
+                        "name": "sortOrder"
+                    },
+                    {
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "enum": [
+                                            "name",
+                                            "room",
+                                            "structure",
+                                            "cas",
+                                            "producer",
+                                            "catalogId",
+                                            "catalogLink"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "string",
+                                    "enum": [
+                                        "name",
+                                        "room",
+                                        "structure",
+                                        "cas",
+                                        "producer",
+                                        "catalogId",
+                                        "catalogLink"
+                                    ]
+                                }
+                            ]
+                        },
+                        "in": "query",
+                        "name": "searchBy"
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": ["reagent", "sample"]
+                        },
+                        "in": "query",
+                        "name": "category"
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "organic",
+                                "inorganic",
+                                "acidic",
+                                "basic",
+                                "oxidizing",
+                                "reducing",
+                                "precipitating",
+                                "complexing",
+                                "indicator",
+                                "other"
+                            ]
+                        },
+                        "in": "query",
+                        "name": "type"
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "available",
+                                "lowStock",
+                                "outOfStock",
+                                "ordered",
+                                "notAvailable"
+                            ]
+                        },
+                        "in": "query",
+                        "name": "status"
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "storageLocation"
+                    }
+                ],
                 "responses": {
                     "200": {
-                        "description": "Default Response"
+                        "description": "Reagents list with metadata.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "unit": {
+                                                        "type": "string",
+                                                        "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                                    },
+                                                    "container": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": ["bottle", "box", "other", null]
+                                                    },
+                                                    "currency": {
+                                                        "type": "string",
+                                                        "enum": ["usd", "euro", "rub", "cny", "jpy"]
+                                                    },
+                                                    "category": {
+                                                        "type": "string",
+                                                        "enum": ["reagent", "sample"]
+                                                    },
+                                                    "type": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": [
+                                                            "organic",
+                                                            "inorganic",
+                                                            "acidic",
+                                                            "basic",
+                                                            "oxidizing",
+                                                            "reducing",
+                                                            "precipitating",
+                                                            "complexing",
+                                                            "indicator",
+                                                            "other",
+                                                            null
+                                                        ]
+                                                    },
+                                                    "status": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "enum": [
+                                                            "available",
+                                                            "lowStock",
+                                                            "outOfStock",
+                                                            "ordered",
+                                                            "notAvailable",
+                                                            null
+                                                        ]
+                                                    },
+                                                    "id": {
+                                                        "type": "string",
+                                                        "format": "uuid"
+                                                    },
+                                                    "name": {
+                                                        "type": "string"
+                                                    },
+                                                    "structure": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "description": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "quantity": {
+                                                        "type": "number"
+                                                    },
+                                                    "quantityInit": {
+                                                        "type": "number",
+                                                        "nullable": true
+                                                    },
+                                                    "expirationDate": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "storageLocation": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "cas": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "producer": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "catalogId": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "catalogLink": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "pricePerUnit": {
+                                                        "type": "number",
+                                                        "nullable": true
+                                                    },
+                                                    "deletedAt": {
+                                                        "type": "string",
+                                                        "nullable": true
+                                                    },
+                                                    "createdAt": {
+                                                        "type": "string"
+                                                    },
+                                                    "updatedAt": {
+                                                        "type": "string"
+                                                    },
+                                                    "storageId": {
+                                                        "type": "string",
+                                                        "nullable": true,
+                                                        "format": "uuid"
+                                                    }
+                                                },
+                                                "required": [
+                                                    "unit",
+                                                    "currency",
+                                                    "category",
+                                                    "id",
+                                                    "name",
+                                                    "quantity",
+                                                    "createdAt",
+                                                    "updatedAt"
+                                                ]
+                                            }
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "currentPage": {
+                                                    "type": "number",
+                                                    "default": 1
+                                                },
+                                                "totalPages": {
+                                                    "type": "number",
+                                                    "default": 4
+                                                },
+                                                "totalCount": {
+                                                    "type": "number",
+                                                    "default": 2
+                                                },
+                                                "hasNextPage": {
+                                                    "type": "boolean",
+                                                    "default": true
+                                                },
+                                                "hasPreviousPage": {
+                                                    "type": "boolean",
+                                                    "default": false
+                                                }
+                                            },
+                                            "required": [
+                                                "currentPage",
+                                                "totalPages",
+                                                "totalCount",
+                                                "hasNextPage",
+                                                "hasPreviousPage"
+                                            ]
+                                        }
+                                    },
+                                    "required": ["data", "meta"]
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -4602,6 +4927,128 @@
                 "summary": "Retrieves a list of users",
                 "tags": ["Users"],
                 "description": "Retrieve all available users in the system.",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "query",
+                        "description": "A search query to filter by name, description, etc."
+                    },
+                    {
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "default": 1
+                        },
+                        "in": "query",
+                        "name": "page",
+                        "description": "The page number for pagination. Default is 1."
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": ["asc", "desc"],
+                            "default": "asc"
+                        },
+                        "in": "query",
+                        "name": "sortOrder",
+                        "description": "The sort order, either 'asc' for ascending or 'desc' for descending. Default is 'asc'."
+                    },
+                    {
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "maximum": 100,
+                            "default": 10
+                        },
+                        "in": "query",
+                        "name": "limit",
+                        "description": "The number of results per page. Max is 100. Default is 10."
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "firstName",
+                                "lastName",
+                                "username",
+                                "email",
+                                "role",
+                                "createdAt",
+                                "updatedAt"
+                            ],
+                            "default": "username"
+                        },
+                        "in": "query",
+                        "name": "sortBy"
+                    },
+                    {
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "enum": [
+                                            "firstName",
+                                            "lastName",
+                                            "username",
+                                            "email",
+                                            "role",
+                                            "createdAt"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "string",
+                                    "enum": [
+                                        "firstName",
+                                        "lastName",
+                                        "username",
+                                        "email",
+                                        "role",
+                                        "createdAt"
+                                    ]
+                                }
+                            ]
+                        },
+                        "in": "query",
+                        "name": "searchBy"
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "firstName"
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "lastName"
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "username"
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": ["admin", "procurementOfficer", "researcher"]
+                        },
+                        "in": "query",
+                        "name": "role"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "List of users.",
@@ -7388,6 +7835,9 @@
                 }
             },
             "post": {
+                "summary": "Creates new order",
+                "tags": ["Orders"],
+                "description": "Create new order.",
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -7397,7 +7847,9 @@
         },
         "/api/v1/orders/{id}": {
             "get": {
-                "tags": ["Order"],
+                "summary": "Retrieves a single order by its id",
+                "tags": ["Orders"],
+                "description": "Retrieve single order by id.",
                 "parameters": [
                     {
                         "schema": {
@@ -7405,16 +7857,168 @@
                         },
                         "in": "path",
                         "name": "id",
-                        "required": true
+                        "required": true,
+                        "description": "Order UUID."
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Default Response"
+                        "description": "Order details.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "enum": [
+                                                "pending",
+                                                "submitted",
+                                                "fulfilled",
+                                                "canceled"
+                                            ]
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "seller": {
+                                            "type": "string"
+                                        },
+                                        "deletedAt": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        },
+                                        "userId": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "reagents": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "format": "uuid"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "minLength": 1
+                                                    },
+                                                    "structure": {
+                                                        "type": "string"
+                                                    },
+                                                    "cas": {
+                                                        "type": "string"
+                                                    },
+                                                    "producer": {
+                                                        "type": "string"
+                                                    },
+                                                    "catalogId": {
+                                                        "type": "string"
+                                                    },
+                                                    "catalogLink": {
+                                                        "type": "string",
+                                                        "format": "uri"
+                                                    },
+                                                    "unit": {
+                                                        "type": "string",
+                                                        "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                                    },
+                                                    "pricePerUnit": {
+                                                        "type": "number"
+                                                    },
+                                                    "quantity": {
+                                                        "type": "number",
+                                                        "minimum": 0,
+                                                        "exclusiveMinimum": true
+                                                    },
+                                                    "amount": {
+                                                        "type": "number",
+                                                        "minimum": 1
+                                                    }
+                                                },
+                                                "required": [
+                                                    "name",
+                                                    "producer",
+                                                    "unit",
+                                                    "pricePerUnit",
+                                                    "quantity",
+                                                    "amount"
+                                                ],
+                                                "additionalProperties": false
+                                            },
+                                            "default": []
+                                        }
+                                    },
+                                    "required": [
+                                        "status",
+                                        "id",
+                                        "title",
+                                        "seller",
+                                        "createdAt",
+                                        "updatedAt",
+                                        "userId",
+                                        "reagents"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error - Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Invalid UUID"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error - Order not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Order not found"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
                     }
                 }
             },
             "put": {
+                "summary": "Update existing order by its id",
+                "tags": ["Orders"],
+                "description": "Update order.",
                 "parameters": [
                     {
                         "schema": {
@@ -7422,7 +8026,8 @@
                         },
                         "in": "path",
                         "name": "id",
-                        "required": true
+                        "required": true,
+                        "description": "Order UUID."
                     }
                 ],
                 "responses": {
@@ -7434,7 +8039,43 @@
         },
         "/api/v1/orders/{id}/fulfill": {
             "patch": {
-                "tags": ["Order"],
+                "summary": "Fulfill the order",
+                "tags": ["Orders"],
+                "description": "Fulfill order.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "status": {
+                                        "type": "object",
+                                        "properties": {
+                                            "reagents": {
+                                                "type": "array",
+                                                "items": {
+                                                    "type": "object",
+                                                    "properties": {
+                                                        "id": {
+                                                            "type": "string"
+                                                        },
+                                                        "storageId": {
+                                                            "type": "string"
+                                                        }
+                                                    },
+                                                    "required": ["id", "storageId"]
+                                                }
+                                            }
+                                        },
+                                        "required": ["reagents"]
+                                    }
+                                },
+                                "required": ["status"]
+                            }
+                        }
+                    },
+                    "required": true
+                },
                 "parameters": [
                     {
                         "schema": {
@@ -7442,19 +8083,233 @@
                         },
                         "in": "path",
                         "name": "id",
-                        "required": true
+                        "required": true,
+                        "description": "Order UUID."
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Default Response"
+                        "description": "Updated order details.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "enum": [
+                                                "pending",
+                                                "submitted",
+                                                "fulfilled",
+                                                "canceled"
+                                            ]
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "seller": {
+                                            "type": "string"
+                                        },
+                                        "deletedAt": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        },
+                                        "userId": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "reagents": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "format": "uuid"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "minLength": 1
+                                                    },
+                                                    "structure": {
+                                                        "type": "string"
+                                                    },
+                                                    "cas": {
+                                                        "type": "string"
+                                                    },
+                                                    "producer": {
+                                                        "type": "string"
+                                                    },
+                                                    "catalogId": {
+                                                        "type": "string"
+                                                    },
+                                                    "catalogLink": {
+                                                        "type": "string",
+                                                        "format": "uri"
+                                                    },
+                                                    "unit": {
+                                                        "type": "string",
+                                                        "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                                    },
+                                                    "pricePerUnit": {
+                                                        "type": "number"
+                                                    },
+                                                    "quantity": {
+                                                        "type": "number",
+                                                        "minimum": 0,
+                                                        "exclusiveMinimum": true
+                                                    },
+                                                    "amount": {
+                                                        "type": "number",
+                                                        "minimum": 1
+                                                    }
+                                                },
+                                                "required": [
+                                                    "name",
+                                                    "producer",
+                                                    "unit",
+                                                    "pricePerUnit",
+                                                    "quantity",
+                                                    "amount"
+                                                ],
+                                                "additionalProperties": false
+                                            },
+                                            "default": []
+                                        }
+                                    },
+                                    "required": [
+                                        "status",
+                                        "id",
+                                        "title",
+                                        "seller",
+                                        "createdAt",
+                                        "updatedAt",
+                                        "userId",
+                                        "reagents"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error - Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Invalid UUID"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error - Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "default": 401
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "default": "FST_JWT_NO_AUTHORIZATION_IN_HEADER"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "default": "Unauthorized"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "default": "No Authorization was found in request.headers"
+                                        }
+                                    },
+                                    "required": ["statusCode", "code", "error", "message"]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error - Order not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Order not found"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error - Unsatisfactory status.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Failed to update order status"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
                     }
                 }
             }
         },
         "/api/v1/orders/{id}/status": {
             "patch": {
-                "tags": ["Order"],
+                "summary": "Updates the status of an order by its id",
+                "tags": ["Orders"],
+                "description": "Update order status by id.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "status": {
+                                        "type": "string",
+                                        "enum": ["pending", "submitted", "fulfilled", "canceled"]
+                                    }
+                                },
+                                "required": ["status"]
+                            }
+                        }
+                    },
+                    "required": true
+                },
                 "parameters": [
                     {
                         "schema": {
@@ -7462,12 +8317,207 @@
                         },
                         "in": "path",
                         "name": "id",
-                        "required": true
+                        "required": true,
+                        "description": "Order UUID."
                     }
                 ],
                 "responses": {
                     "200": {
-                        "description": "Default Response"
+                        "description": "Updated order details.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "status": {
+                                            "type": "string",
+                                            "enum": [
+                                                "pending",
+                                                "submitted",
+                                                "fulfilled",
+                                                "canceled"
+                                            ]
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "title": {
+                                            "type": "string"
+                                        },
+                                        "description": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "seller": {
+                                            "type": "string"
+                                        },
+                                        "deletedAt": {
+                                            "type": "string",
+                                            "nullable": true
+                                        },
+                                        "createdAt": {
+                                            "type": "string"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string"
+                                        },
+                                        "userId": {
+                                            "type": "string",
+                                            "format": "uuid"
+                                        },
+                                        "reagents": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "format": "uuid"
+                                                    },
+                                                    "name": {
+                                                        "type": "string",
+                                                        "minLength": 1
+                                                    },
+                                                    "structure": {
+                                                        "type": "string"
+                                                    },
+                                                    "cas": {
+                                                        "type": "string"
+                                                    },
+                                                    "producer": {
+                                                        "type": "string"
+                                                    },
+                                                    "catalogId": {
+                                                        "type": "string"
+                                                    },
+                                                    "catalogLink": {
+                                                        "type": "string",
+                                                        "format": "uri"
+                                                    },
+                                                    "unit": {
+                                                        "type": "string",
+                                                        "enum": ["ml", "l", "mg", "g", "oz", "lb"]
+                                                    },
+                                                    "pricePerUnit": {
+                                                        "type": "number"
+                                                    },
+                                                    "quantity": {
+                                                        "type": "number",
+                                                        "minimum": 0,
+                                                        "exclusiveMinimum": true
+                                                    },
+                                                    "amount": {
+                                                        "type": "number",
+                                                        "minimum": 1
+                                                    }
+                                                },
+                                                "required": [
+                                                    "name",
+                                                    "producer",
+                                                    "unit",
+                                                    "pricePerUnit",
+                                                    "quantity",
+                                                    "amount"
+                                                ],
+                                                "additionalProperties": false
+                                            },
+                                            "default": []
+                                        }
+                                    },
+                                    "required": [
+                                        "status",
+                                        "id",
+                                        "title",
+                                        "seller",
+                                        "createdAt",
+                                        "updatedAt",
+                                        "userId",
+                                        "reagents"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Error - Bad Request",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Invalid UUID"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Error - Unauthorized.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "statusCode": {
+                                            "type": "number",
+                                            "default": 401
+                                        },
+                                        "code": {
+                                            "type": "string",
+                                            "default": "FST_JWT_NO_AUTHORIZATION_IN_HEADER"
+                                        },
+                                        "error": {
+                                            "type": "string",
+                                            "default": "Unauthorized"
+                                        },
+                                        "message": {
+                                            "type": "string",
+                                            "default": "No Authorization was found in request.headers"
+                                        }
+                                    },
+                                    "required": ["statusCode", "code", "error", "message"]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Error - Order not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Order not found"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
+                    },
+                    "500": {
+                        "description": "Error - Unsatisfactory status.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "default": "Failed to update order status"
+                                        }
+                                    },
+                                    "required": ["message"]
+                                }
+                            }
+                        }
                     }
                 }
             }
@@ -7477,6 +8527,84 @@
                 "summary": "Retrieves a list of sellers",
                 "tags": ["Sellers"],
                 "description": "Retrieve all sellers.",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "query",
+                        "description": "A search query to filter by name, description, etc."
+                    },
+                    {
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "default": 1
+                        },
+                        "in": "query",
+                        "name": "page",
+                        "description": "The page number for pagination. Default is 1."
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": ["asc", "desc"],
+                            "default": "asc"
+                        },
+                        "in": "query",
+                        "name": "sortOrder",
+                        "description": "The sort order, either 'asc' for ascending or 'desc' for descending. Default is 'asc'."
+                    },
+                    {
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "maximum": 100,
+                            "default": 10
+                        },
+                        "in": "query",
+                        "name": "limit",
+                        "description": "The number of results per page. Max is 100. Default is 10."
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": ["name"],
+                            "default": "name"
+                        },
+                        "in": "query",
+                        "name": "sortBy"
+                    },
+                    {
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "enum": ["name"]
+                                    }
+                                },
+                                {
+                                    "type": "string",
+                                    "enum": ["name"]
+                                }
+                            ]
+                        },
+                        "in": "query",
+                        "name": "searchBy"
+                    },
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "name"
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "List of sellers.",
@@ -7831,6 +8959,119 @@
                 "summary": "Retrieves all requests with metadata for available pages",
                 "tags": ["Requests"],
                 "description": "Retrieve all available requests.",
+                "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "query",
+                        "description": "A search query to filter by name, description, etc."
+                    },
+                    {
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "default": 1
+                        },
+                        "in": "query",
+                        "name": "page",
+                        "description": "The page number for pagination. Default is 1."
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": ["asc", "desc"],
+                            "default": "asc"
+                        },
+                        "in": "query",
+                        "name": "sortOrder",
+                        "description": "The sort order, either 'asc' for ascending or 'desc' for descending. Default is 'asc'."
+                    },
+                    {
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "maximum": 100,
+                            "default": 10
+                        },
+                        "in": "query",
+                        "name": "limit",
+                        "description": "The number of results per page. Max is 100. Default is 10."
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "name",
+                                "cas",
+                                "structure",
+                                "createdAt",
+                                "updatedAt",
+                                "quantity",
+                                "unit",
+                                "status"
+                            ],
+                            "default": "createdAt"
+                        },
+                        "in": "query",
+                        "name": "sortBy",
+                        "description": "The field by which the results should be sorted. Default is 'createdAt'."
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": ["pending", "ordered", "declined", "fulfilled"]
+                        },
+                        "in": "query",
+                        "name": "status",
+                        "description": "Filter requests by status. Options include 'pending', 'ordered', 'declined', 'fulfilled'."
+                    },
+                    {
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "enum": [
+                                            "name",
+                                            "cas",
+                                            "structure",
+                                            "createdAt",
+                                            "updatedAt",
+                                            "quantity",
+                                            "unit",
+                                            "status",
+                                            "commentsUser",
+                                            "commentsProcurement"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "string",
+                                    "enum": [
+                                        "name",
+                                        "cas",
+                                        "structure",
+                                        "createdAt",
+                                        "updatedAt",
+                                        "quantity",
+                                        "unit",
+                                        "status",
+                                        "commentsUser",
+                                        "commentsProcurement"
+                                    ]
+                                }
+                            ]
+                        },
+                        "in": "query",
+                        "name": "searchBy",
+                        "description": "Fields to search by. Can be a single value or an array of values."
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Requests list with metadata.",
@@ -7955,64 +9196,9 @@
                 }
             },
             "post": {
+                "summary": "Creates new request",
                 "tags": ["Requests"],
-                "requestBody": {
-                    "content": {
-                        "application/json": {
-                            "schema": {
-                                "type": "object",
-                                "properties": {
-                                    "name": {
-                                        "type": "string",
-                                        "minLength": 1
-                                    },
-                                    "structure": {
-                                        "type": "string",
-                                        "nullable": true
-                                    },
-                                    "cas": {
-                                        "type": "string",
-                                        "nullable": true
-                                    },
-                                    "quantity": {
-                                        "type": "number",
-                                        "minimum": 0,
-                                        "exclusiveMinimum": true
-                                    },
-                                    "unit": {
-                                        "type": "string",
-                                        "default": "ml"
-                                    },
-                                    "commentsUser": {
-                                        "anyOf": [
-                                            {
-                                                "type": "string"
-                                            },
-                                            {
-                                                "type": "array",
-                                                "items": {
-                                                    "type": "string"
-                                                }
-                                            }
-                                        ]
-                                    },
-                                    "status": {
-                                        "type": "string",
-                                        "enum": ["pending", "ordered", "declined", "fulfilled"],
-                                        "default": "pending"
-                                    },
-                                    "orderId": {
-                                        "type": "string",
-                                        "nullable": true,
-                                        "format": "uuid"
-                                    }
-                                },
-                                "required": ["name", "quantity"]
-                            }
-                        }
-                    },
-                    "required": true
-                },
+                "description": "Create new request.",
                 "responses": {
                     "200": {
                         "description": "Default Response"
@@ -8026,6 +9212,117 @@
                 "tags": ["Requests"],
                 "description": "Retrieve all available requests.",
                 "parameters": [
+                    {
+                        "schema": {
+                            "type": "string"
+                        },
+                        "in": "query",
+                        "name": "query",
+                        "description": "A search query to filter by name, description, etc."
+                    },
+                    {
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "default": 1
+                        },
+                        "in": "query",
+                        "name": "page",
+                        "description": "The page number for pagination. Default is 1."
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": ["asc", "desc"],
+                            "default": "asc"
+                        },
+                        "in": "query",
+                        "name": "sortOrder",
+                        "description": "The sort order, either 'asc' for ascending or 'desc' for descending. Default is 'asc'."
+                    },
+                    {
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "exclusiveMinimum": true,
+                            "maximum": 100,
+                            "default": 10
+                        },
+                        "in": "query",
+                        "name": "limit",
+                        "description": "The number of results per page. Max is 100. Default is 10."
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": [
+                                "name",
+                                "cas",
+                                "structure",
+                                "createdAt",
+                                "updatedAt",
+                                "quantity",
+                                "unit",
+                                "status"
+                            ],
+                            "default": "createdAt"
+                        },
+                        "in": "query",
+                        "name": "sortBy",
+                        "description": "The field by which the results should be sorted. Default is 'createdAt'."
+                    },
+                    {
+                        "schema": {
+                            "type": "string",
+                            "enum": ["pending", "ordered", "declined", "fulfilled"]
+                        },
+                        "in": "query",
+                        "name": "status",
+                        "description": "Filter requests by status. Options include 'pending', 'ordered', 'declined', 'fulfilled'."
+                    },
+                    {
+                        "schema": {
+                            "anyOf": [
+                                {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "string",
+                                        "enum": [
+                                            "name",
+                                            "cas",
+                                            "structure",
+                                            "createdAt",
+                                            "updatedAt",
+                                            "quantity",
+                                            "unit",
+                                            "status",
+                                            "commentsUser",
+                                            "commentsProcurement"
+                                        ]
+                                    }
+                                },
+                                {
+                                    "type": "string",
+                                    "enum": [
+                                        "name",
+                                        "cas",
+                                        "structure",
+                                        "createdAt",
+                                        "updatedAt",
+                                        "quantity",
+                                        "unit",
+                                        "status",
+                                        "commentsUser",
+                                        "commentsProcurement"
+                                    ]
+                                }
+                            ]
+                        },
+                        "in": "query",
+                        "name": "searchBy",
+                        "description": "Fields to search by. Can be a single value or an array of values."
+                    },
                     {
                         "schema": {
                             "type": "string"

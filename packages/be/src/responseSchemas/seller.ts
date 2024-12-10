@@ -1,5 +1,6 @@
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import { z } from "zod";
+import { SellerSearchSchema } from "shared/zodSchemas/seller/sellerSearchSchema";
 
 export const sellerIdParam = z.object({
     id: z.string().uuid().describe("Seller UUID."),
@@ -94,6 +95,7 @@ export const PUT_SELLER_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
 export const GET_SELLERS_SCHEMA: FastifyZodOpenApiSchema = {
     summary: "Retrieves a list of sellers",
     description: "Retrieve all sellers.",
+    querystring: SellerSearchSchema,
     tags: ["Sellers"],
     response: {
         200: {

@@ -3,6 +3,7 @@ import { z } from "zod";
 import { publicUserSchema } from "shared/zodSchemas/user/publicUserSchema";
 import { registerUserSchema } from "shared/zodSchemas/user/registerUserSchema";
 import { updateUserSchema } from "shared/zodSchemas/user/updateUserSchema";
+import { UserSearchSchema } from "shared/zodSchemas/user/userSearchSchema";
 
 const userIdParam = z.object({ userId: z.string().describe("User's UUID.") });
 
@@ -72,6 +73,7 @@ const serverFailure = {
 export const GET_USERS_SCHEMA: FastifyZodOpenApiSchema = {
     summary: "Retrieves a list of users",
     description: "Retrieve all available users in the system.",
+    querystring: UserSearchSchema,
     tags: ["Users"],
     response: {
         200: {
