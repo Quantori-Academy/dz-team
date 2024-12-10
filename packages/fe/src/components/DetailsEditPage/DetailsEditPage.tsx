@@ -104,7 +104,11 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
         >
             <Box
                 sx={{
-                    width: 400,
+                    width: {
+                        xs: 400,
+                        sm: 400,
+                        md: 650,
+                    },
                     p: 2,
                 }}
             >
