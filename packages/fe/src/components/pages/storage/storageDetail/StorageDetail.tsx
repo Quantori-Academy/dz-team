@@ -44,31 +44,30 @@ export const StorageDetail = ({ handleAction, reagents }: TableType) => {
     const isResearcher = role === UserRole.researcher;
 
     return (
-        <>
-            <DetailsEditPage
-                baseUrl="/storageList"
-                url="/_app/storageList/$id"
-                fields={fields}
-                onAction={!isResearcher ? handleAction : undefined}
-                editableFields={!isResearcher ? ["name", "room", "description"] : []}
-                enableButtons={!isResearcher}
-            >
-                {reagents?.length > 0 ? (
-                    <Box sx={boxStyle}>
-                        <Typography variant="h6">Reagents</Typography>
-                        <Grid
-                            rows={reagents}
-                            headers={reagentColumns}
-                            searchPlaceholder="Search reagents by name or description"
-                            showToolbar={false}
-                        />
-                    </Box>
-                ) : (
-                    <Box sx={boxStyle}>
-                        <Typography>No reagents in this storage.</Typography>
-                    </Box>
-                )}
-            </DetailsEditPage>
-        </>
+        <DetailsEditPage
+            baseUrl="/storageList"
+            url="/_app/storageList/$id"
+            fields={fields}
+            onAction={!isResearcher ? handleAction : undefined}
+            editableFields={!isResearcher ? ["name", "room", "description"] : []}
+            addEditButton={!isResearcher}
+            addDeleteButton={!isResearcher}
+        >
+            {reagents?.length > 0 ? (
+                <Box sx={boxStyle}>
+                    <Typography variant="h6">Reagents</Typography>
+                    <Grid
+                        rows={reagents}
+                        headers={reagentColumns}
+                        searchPlaceholder="Search reagents by name or description"
+                        showToolbar={false}
+                    />
+                </Box>
+            ) : (
+                <Box sx={boxStyle}>
+                    <Typography>No reagents in this storage.</Typography>
+                </Box>
+            )}
+        </DetailsEditPage>
     );
 };
