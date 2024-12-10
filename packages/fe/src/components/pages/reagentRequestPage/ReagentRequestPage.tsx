@@ -106,10 +106,10 @@ export function ReagentRequestPage() {
                             }}
                         >
                             <Button variant="contained" onClick={handleSubmit}>
-                                {"Submit"}
+                                Submit
                             </Button>
                             <Button variant="outlined" onClick={() => setIsOpen(false)}>
-                                {"Cancel"}
+                                Cancel
                             </Button>
                         </Box>
                     </Box>
