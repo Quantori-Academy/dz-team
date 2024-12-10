@@ -1,3 +1,5 @@
+import { UserRole } from "./self";
+
 export type ResponseMaterial = {
     id: string;
     name: string;
@@ -23,7 +25,7 @@ export type NewUser = {
     email: string;
     password: string;
     confirmPassword: string;
-    role: "Admin" | "Procurement Officer" | "Researcher";
+    role: UserRole;
 };
 
 export type NewStorage = {

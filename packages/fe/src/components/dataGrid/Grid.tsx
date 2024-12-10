@@ -1,6 +1,5 @@
 import { useMemo, useState } from "react";
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import EditIcon from "@mui/icons-material/Edit";
 import { Box, TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
@@ -85,15 +84,12 @@ export const Grid = ({
             renderCell: (params: { row: { id: string } }) => {
                 const id = params.row.id;
                 return handleDelete ? (
-                    <>
-                        <GridActionsCellItem icon={<EditIcon />} label="Edit" color="inherit" />;
-                        <GridActionsCellItem
-                            icon={<DeleteIcon />}
-                            label="Delete"
-                            color="inherit"
-                            onClick={() => handleDelete(id)}
-                        />
-                    </>
+                    <GridActionsCellItem
+                        icon={<DeleteIcon />}
+                        label="Delete"
+                        color="inherit"
+                        onClick={() => handleDelete(id)}
+                    />
                 ) : null;
             },
         };

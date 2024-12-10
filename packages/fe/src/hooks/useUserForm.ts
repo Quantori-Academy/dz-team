@@ -2,14 +2,45 @@ import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { useUnit } from "effector-react";
 
+import { UserRole } from "api/self";
 import { NewUser } from "api/types";
 import { removeModal } from "components/modal/store";
 import { $usersList, addUserFx, deleteUserFx } from "stores/users";
+import { wait } from "utils";
 
-export type NotificationTypes = {
-    message: string;
-    type: "error" | "success";
-    open: boolean;
+const validateForm = (formData: NewUser) => {
+    const errors: Partial<Record<keyof NewUser, string>> = {};
+
+    if (!formData.username || formData.username.trim().length === 0) {
+        errors.username = "Username is required.";
+    }
+
+    if (!formData.firstName || formData.firstName.trim().length === 0) {
+        errors.firstName = "First Name is required.";
+    }
+
+    if (!formData.lastName || formData.lastName.trim().length === 0) {
+        errors.lastName = "Last Name is required.";
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email || !emailRegex.test(formData.email)) {
+        errors.email = "Invalid email format.";
+    }
+
+    if (!formData.password || formData.password.length < 8) {
+        errors.password = "Password must be at least 8 characters long.";
+    }
+
+    if (formData.confirmPassword !== formData.password) {
+        errors.confirmPassword = "Passwords do not match.";
+    }
+
+    if (!formData.role) {
+        errors.role = "Role is required.";
+    }
+
+    return errors;
 };
 
 export const useUserForm = () => {
@@ -33,26 +64,9 @@ export const useUserForm = () => {
 
     const users = useUnit($usersList);
 
-    const [notification, setNotification] = useState<NotificationTypes>({
-        message: "",
-        type: "success",
-        open: false,
-    });
-
     const handleDeleteClick = async (id: string) => {
         await deleteUserFx(id);
-        toast.success("Record deleted successfully!");
-    };
-
-    const handleClose = () => setNotification({ ...notification, open: false });
-
-    const validateForm = (formData: NewUser) => {
-        const errors: Partial<Record<keyof NewUser, string>> = {};
-
-        if (formData.confirmPassword !== formData.password) {
-            errors.confirmPassword = "Passwords do not match.";
-        }
-        return errors;
+        toast.success("User deleted successfully!");
     };
 
     const handleSubmit = async () => {
@@ -63,8 +77,7 @@ export const useUserForm = () => {
             email: refs.email.current?.value || "",
             password: refs.password.current?.value || "",
             confirmPassword: refs.confirmPassword.current?.value || "",
-            role:
-                (refs.role.current?.value as "Admin" | "Procurement Officer" | "Researcher") ?? "",
+            role: (refs.role.current?.value as UserRole) ?? "",
         };
 
         const errors = validateForm(formData);
@@ -96,14 +109,11 @@ export const useUserForm = () => {
                 setRoleError(null);
 
                 toast.success("User added successfully!");
-
-                setTimeout(() => {
-                    removeModal();
-                }, 500);
+                wait(500);
+                removeModal();
             } catch (_error) {
-                setTimeout(() => {
-                    removeModal();
-                }, 500);
+                wait(500);
+                removeModal();
             }
         }
     };
@@ -120,7 +130,5 @@ export const useUserForm = () => {
         handleSubmit,
         handleDeleteClick,
         users,
-        notification,
-        handleClose,
     };
 };
