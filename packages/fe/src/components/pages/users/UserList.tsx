@@ -1,6 +1,4 @@
-
 import { Box } from "@mui/material";
-
 import { useGate } from "effector-react";
 
 import { createModal } from "components/modal/createModal";
@@ -10,9 +8,7 @@ import { UsersGate } from "stores/users";
 
 import { Grid } from "../../dataGrid/Grid";
 import { AddUserForm } from "./AddUserForm";
-
 import { ConfirmMessage } from "./ConfirmMessage";
-
 
 const headers = [
     { field: "username", headerName: "User Name", width: 150 },
@@ -24,24 +20,33 @@ const headers = [
 export const UserList = () => {
     useGate(UsersGate);
 
+    const { users } = useUserForm();
 
-    const { users, handleDeleteClick } = useUserForm();
+    const openDeleteModal = async (id: string) => {
+        await createModal({
+            name: "confirm_delete_modal",
+            title: "Confirm Deletion",
+            message: (
+                <ConfirmMessage
+                    id={id}
+                    onClose={() => {
+                        removeModal();
+                    }}
+                />
+            ),
+        });
+    };
 
     return (
         <Box>
-
             <Grid
                 rows={users}
                 headers={headers}
                 searchPlaceholder="Search users by name, email, or role"
-
-                handleDelete={handleDeleteClick}
-
+                handleDelete={openDeleteModal}
                 addButtonLabel="Add New User"
                 modalContent={(removeModal) => <AddUserForm onClose={removeModal} />}
             />
-            <Snackbar open={notification.open} autoHideDuration={6000} onClose={handleClose} />
-
         </Box>
     );
 };

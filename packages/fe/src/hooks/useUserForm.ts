@@ -1,18 +1,15 @@
 import { useRef, useState } from "react";
 import { toast } from "react-toastify";
 import { useUnit } from "effector-react";
-import { NotificationTypes } from "types/types";
-
 
 import { UserRole } from "api/self";
 import { NewUser } from "api/types";
 import { removeModal } from "components/modal/store";
-import { $usersList, addUserFx, deleteUserFx } from "stores/users";
+import { $usersList, addUserFx } from "stores/users";
 import { wait } from "utils";
 
 const validateForm = (formData: NewUser) => {
     const errors: Partial<Record<keyof NewUser, string>> = {};
-
 
     if (!formData.username || formData.username.trim().length === 0) {
         errors.username = "Username is required.";
@@ -21,7 +18,6 @@ const validateForm = (formData: NewUser) => {
     if (!formData.firstName || formData.firstName.trim().length === 0) {
         errors.firstName = "First Name is required.";
     }
-
 
     if (!formData.lastName || formData.lastName.trim().length === 0) {
         errors.lastName = "Last Name is required.";
@@ -68,15 +64,8 @@ export const useUserForm = () => {
 
     const users = useUnit($usersList);
 
-    const handleDeleteClick = async (id: string) => {
-        await deleteUserFx(id);
-        toast.success("User deleted successfully!");
-
-    };
-
     const handleSubmit = async () => {
         const formData: NewUser = {
-
             username: refs.username.current?.value || "",
             firstName: refs.firstName.current?.value || "",
             lastName: refs.lastName.current?.value || "",
@@ -84,11 +73,9 @@ export const useUserForm = () => {
             password: refs.password.current?.value || "",
             confirmPassword: refs.confirmPassword.current?.value || "",
             role: (refs.role.current?.value as UserRole) ?? "",
-
         };
 
         const errors = validateForm(formData);
-
 
         setUsernameError(errors.username || null);
         setFirstNameError(errors.firstName || null);
@@ -100,7 +87,6 @@ export const useUserForm = () => {
 
         if (Object.keys(errors).length === 0) {
             try {
-
                 await addUserFx(formData);
 
                 Object.values(refs).forEach((ref) => {
@@ -123,7 +109,6 @@ export const useUserForm = () => {
             } catch (_error) {
                 wait(500);
                 removeModal();
-
             }
         }
     };
@@ -139,8 +124,5 @@ export const useUserForm = () => {
         roleError,
         handleSubmit,
         users,
-        notification,
-        setNotification,
-        handleClose,
     };
 };

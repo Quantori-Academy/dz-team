@@ -1,15 +1,7 @@
-
 import { Box, Button, MenuItem, TextField } from "@mui/material";
-
 
 import { UserRole } from "api/self";
 import { useUserForm } from "hooks/useUserForm";
-
-const textfieldStyle = {
-    width: "200px",
-    height: "70px",
-};
-
 
 const textfieldStyle = {
     width: "200px",
@@ -22,13 +14,11 @@ const input = {
     alignItems: "center",
     gap: "10px",
     flexDirection: { xs: "column", sm: "row" },
-
 };
 
 type AddUserFormProps = {
     onClose?: () => void;
 };
-
 
 export const AddUserForm = ({ onClose }: AddUserFormProps) => {
     const {
@@ -41,22 +31,10 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
         confirmPasswordError,
         roleError,
         handleSubmit,
-
     } = useUserForm();
-
 
     return (
         <Box component="form" noValidate autoComplete="off" sx={boxStyle}>
-            <Snackbar
-                open={notification.open}
-                autoHideDuration={6000}
-                onClose={handleClose}
-                anchorOrigin={{ vertical: "top", horizontal: "center" }}
-            >
-                <Alert onClose={handleClose} severity={notification.type}>
-                    {notification.message}
-                </Alert>
-            </Snackbar>
             <Box sx={input}>
                 <TextField
                     label="Username"

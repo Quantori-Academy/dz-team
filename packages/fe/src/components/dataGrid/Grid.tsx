@@ -1,9 +1,7 @@
 import { useMemo, useState } from "react";
-
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import { Box, TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-
 
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
@@ -21,8 +19,6 @@ type GridProps = {
     showToolbar?: boolean;
     addButtonLabel?: string;
     handleDelete?: (id: string) => void;
-
-
 };
 
 export const Grid = ({
@@ -34,8 +30,6 @@ export const Grid = ({
     showToolbar = true,
     addButtonLabel = "Add New Record",
     handleDelete,
-
-
 }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
 
@@ -67,10 +61,8 @@ export const Grid = ({
         );
     }, [rows, searchQuery]);
 
-
     const handleAddRecord = async () => {
         if (!modalContent) return;
-
 
         await createModal({
             name: "add_record_modal",
@@ -78,8 +70,6 @@ export const Grid = ({
             message: modalContent(removeModal),
         });
         removeModal();
-
-
     };
 
     const columns = useMemo(() => {
@@ -87,7 +77,6 @@ export const Grid = ({
             field: "actions",
             headerName: "Actions",
             width: 100,
-
 
             renderCell: (params: { row: { id: string } }) => {
                 const id = params.row.id;
@@ -104,7 +93,6 @@ export const Grid = ({
 
         return [...headers, actionsColumn];
     }, [headers, handleDelete]);
-
 
     return (
         <Box>
@@ -141,18 +129,7 @@ export const Grid = ({
                             : undefined,
                     }}
                 />
-                <Snackbar
-                    open={notification.open}
-                    autoHideDuration={6000}
-                    onClose={handleClose}
-                    anchorOrigin={{ vertical: "top", horizontal: "center" }}
-                >
-                    <Alert onClose={handleClose} severity={notification.type}>
-                        {notification.message}
-                    </Alert>
-                </Snackbar>
             </Box>
         </Box>
-
     );
 };

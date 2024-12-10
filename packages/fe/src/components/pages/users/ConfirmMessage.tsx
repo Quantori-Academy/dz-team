@@ -1,7 +1,9 @@
+import { toast } from "react-toastify";
 import { Box, Button, Typography } from "@mui/material";
-import { NotificationTypes } from "types/types";
 
+import { removeModal } from "components/modal/store";
 import { deleteUserFx } from "stores/users";
+import { wait } from "utils";
 
 const boxStyle = {
     displey: "flex",
@@ -9,35 +11,16 @@ const boxStyle = {
     justifyContent: "center",
     gap: "20px",
 };
-export const ConfirmMessage = ({
-    id,
-    onClose,
-    setNotification,
-}: {
-    id: string;
-    onClose: () => void;
-    setNotification: (notification: NotificationTypes) => void;
-}) => {
+export const ConfirmMessage = ({ id, onClose }: { id: string; onClose: () => void }) => {
     const handleDeleteClick = async (id: string) => {
-        await deleteUserFx(id);
-    };
-
-    const handleDelete = async () => {
         try {
-            await handleDeleteClick(id);
-            setNotification({
-                open: true,
-                message: "User deleted successfully!",
-                type: "success",
-            });
+            await deleteUserFx(id);
+            toast.success("User deleted successfully!");
+            wait(500);
+            removeModal();
         } catch (_error) {
-            setNotification({
-                open: true,
-                message: "Failed to delete the user.",
-                type: "error",
-            });
-        } finally {
-            onClose();
+            wait(500);
+            removeModal();
         }
     };
 
@@ -48,7 +31,7 @@ export const ConfirmMessage = ({
                 <Button onClick={onClose} color="primary" variant="outlined">
                     No
                 </Button>
-                <Button onClick={handleDelete} color="primary" variant="contained">
+                <Button onClick={() => handleDeleteClick(id)} color="primary" variant="contained">
                     Yes
                 </Button>
             </Box>
