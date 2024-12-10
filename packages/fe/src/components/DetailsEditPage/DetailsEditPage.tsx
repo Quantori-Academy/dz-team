@@ -2,7 +2,6 @@ import { PropsWithChildren, useContext, useState } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { Box, Button, Drawer, IconButton, TextField, Typography } from "@mui/material";
 import { AnyRoute, RouteIds, useLoaderData, useNavigate } from "@tanstack/react-router";
-import { theme } from "theme";
 
 import { TableContext, TableContextType } from "components/commonTable/TableContext";
 import { useIsDesktop } from "utils/useIsDesktop";
@@ -130,31 +129,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                         disabled={
                             !isEditing || field.disabled || !editableFields.includes(field.name)
                         }
-                        sx={{
-                            mb: 2,
-                            width: "100%",
-                            backgroundColor:
-                                isEditing && editableFields.includes(field.name)
-                                    ? theme.palette.secondary.main + "20"
-                                    : "inherit",
-                            "& .MuiOutlinedInput-notchedOutline": {
-                                borderColor:
-                                    isEditing && editableFields.includes(field.name)
-                                        ? theme.palette.primary.main
-                                        : "inherit",
-                            },
-                            "& .MuiInputBase-input": {
-                                color:
-                                    isEditing && editableFields.includes(field.name)
-                                        ? theme.palette.text.primary
-                                        : theme.palette.text.disabled,
-                            },
-                            "& .MuiInputBase-input.Mui-disabled": {
-                                WebkitTextFillColor: isEditing
-                                    ? theme.palette.text.primary
-                                    : theme.palette.text.disabled,
-                            },
-                        }}
+                        sx={{ mb: 2, width: "100%" }}
                         onChange={handleFieldChange(field)}
                     />
                 ))}
