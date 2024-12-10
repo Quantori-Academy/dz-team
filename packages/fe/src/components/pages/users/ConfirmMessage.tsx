@@ -6,10 +6,10 @@ import { deleteUserFx } from "stores/users";
 import { wait } from "utils";
 
 const boxStyle = {
-    displey: "flex",
+    display: "flex",
     alignItems: "center",
+    flexDirection: "column",
     justifyContent: "center",
-    gap: "20px",
 };
 export const ConfirmMessage = ({ id, onClose }: { id: string; onClose: () => void }) => {
     const handleDeleteClick = async (id: string) => {
@@ -27,7 +27,7 @@ export const ConfirmMessage = ({ id, onClose }: { id: string; onClose: () => voi
     return (
         <Box sx={boxStyle}>
             <Typography sx={{ p: 2 }}>Are you sure you want to delete this user?</Typography>
-            <Box sx={boxStyle} display="flex" justifyContent="flex-end">
+            <Box sx={{ gap: 2 }} display="flex" justifyContent="flex-end">
                 <Button onClick={onClose} color="primary" variant="outlined">
                     No
                 </Button>

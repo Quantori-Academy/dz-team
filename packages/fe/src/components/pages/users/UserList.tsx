@@ -25,15 +25,8 @@ export const UserList = () => {
     const openDeleteModal = async (id: string) => {
         await createModal({
             name: "confirm_delete_modal",
-            title: "Confirm Deletion",
-            message: (
-                <ConfirmMessage
-                    id={id}
-                    onClose={() => {
-                        removeModal();
-                    }}
-                />
-            ),
+            title: "Confirm User Deletion Message",
+            message: <ConfirmMessage id={id} onClose={removeModal} />,
         });
     };
 
