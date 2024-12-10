@@ -1,7 +1,13 @@
 import { BaseTextFieldProps, Grid2 as Grid, TextField } from "@mui/material";
 import { useUnit } from "effector-react";
 
-import { $formData, $formDataErrors, setFormData } from "stores/reagentRequest";
+import {
+    $formData,
+    $formDataErrors,
+    $shouldShowErrors,
+    setFormData,
+    touchField,
+} from "stores/reagentRequest";
 
 const fields: BaseTextFieldProps[] = [
     { label: "Reagent Name", name: "name", required: true },
@@ -19,7 +25,8 @@ const fields: BaseTextFieldProps[] = [
 ];
 
 export const ReagentRequestFormModal = () => {
-    const [formData, formDataErrors] = useUnit([$formData, $formDataErrors]);
+    const [formData, formDataErrors, touch] = useUnit([$formData, $formDataErrors, touchField]);
+    const shouldShowErrors = useUnit($shouldShowErrors);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -33,18 +40,24 @@ export const ReagentRequestFormModal = () => {
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
             {fields.map(({ name, label, type, helperText, required, disabled, ...rest }) => {
                 const errorText = formDataErrors[name as keyof typeof formDataErrors];
+                const showError = shouldShowErrors[name as keyof typeof formDataErrors];
                 return (
                     <Grid size={6} key={name}>
                         <TextField
                             label={label}
                             name={name}
-                            value={formData[name as keyof typeof formData] ?? ""}
+                            value={formData[name as keyof typeof formData] || ""}
                             onChange={handleChange}
                             fullWidth
                             margin="normal"
                             type={type || "text"}
-                            helperText={errorText || helperText}
-                            error={Boolean(errorText)}
+                            onBlur={() => {
+                                if (name) {
+                                    touch(name);
+                                }
+                            }}
+                            helperText={showError ? errorText || helperText : ""}
+                            error={showError ? Boolean(errorText) : false}
                             required={required}
                             disabled={disabled}
                             sx={{ width: 1 }}
