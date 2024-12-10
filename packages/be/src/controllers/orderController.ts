@@ -154,6 +154,28 @@ class OrderController {
             sendErrorResponse(reply, error, "Failed to update order status");
         }
     }
+
+    /**
+     * Delete a order by ID.
+     * @param request - FastifyRequest containing the order ID in the parameters
+     * @param reply - FastifyReply
+     * @returns A promise that resolves to the deleted order object or a 404 response if not found.
+     */
+    async deleteOrder(
+        request: FastifyRequest<{ Params: { id: string } }>,
+        reply: FastifyReply,
+    ): Promise<void> {
+        try {
+            const validatedId = idSchema.parse(request.params.id);
+            const order = await orderService.deleteOrder(validatedId);
+            if (!order) {
+                return reply.status(404).send({ message: "Storage location not found" });
+            }
+            reply.send(order);
+        } catch (error) {
+            sendErrorResponse(reply, error, "Failed to delete order");
+        }
+    }
 }
 
 export const orderController = new OrderController();
