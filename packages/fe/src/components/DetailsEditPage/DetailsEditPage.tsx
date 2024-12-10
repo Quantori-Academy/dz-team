@@ -121,6 +121,8 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
 
                 {fields.map((field, index) => (
                     <TextField
+                        color="primary"
+                        focused
                         key={index}
                         label={field.label}
                         type={field.type || "text"}
