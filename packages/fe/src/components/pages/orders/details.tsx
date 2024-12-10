@@ -14,6 +14,8 @@ import { OrderStatus } from "stores/order";
 import { SupportedValue } from "utils/formatters";
 import { deleteOrderAction, updateOrderAction } from "utils/orderActions";
 
+import { CompleteOrder } from "./CompleteOrder";
+
 const reagentColumns = [
     { field: "name", headerName: "Name", width: 120 },
     { field: "structure", headerName: "Structure", width: 180 },
@@ -127,6 +129,9 @@ export function OrderDetailsPage() {
                     ))}
                 </Select>
             </Box>
+
+            {status === "submitted" ? <CompleteOrder orderId={id} reagents={reagentData} /> : null}
+
             {reagentData.length > 0 ? (
                 <Box sx={boxStyle}>
                     <Typography variant="h6" sx={{ mt: 6 }}>
