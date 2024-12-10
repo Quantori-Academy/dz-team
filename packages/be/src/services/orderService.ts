@@ -13,6 +13,7 @@ import { OrderSearch } from "../../../shared/zodSchemas/order/orderSearchSchema"
 import {
     OrderCreateWithUserIdInputSchema,
     OrderUpdateWithUserIdInputSchema,
+    // RequestOrderCreateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
 import { fulfillOrderSchema } from "../../../shared/zodSchemas/order/fulfillOrderSchema";
 
@@ -103,6 +104,7 @@ class OrderService {
                 }
 
                 const reagents = requests.map((req) => ({
+                    id: uuidv4(),
                     name: req.name,
                     structure: req.structure,
                     cas: req.cas,
@@ -119,11 +121,13 @@ class OrderService {
                         userId,
                         title: newOrderData.title,
                         description: newOrderData.description,
-                        status: "submitted",
+                        status: OrderStatus.pending,
                         seller: newOrderData.seller,
                         reagents,
                     },
                 });
+
+                // RequestOrderCreateWithUserIdInputSchema.parse(order);
 
                 await prisma.reagentRequest.updateMany({
                     where: { id: { in: newOrderData.requestIds } },
