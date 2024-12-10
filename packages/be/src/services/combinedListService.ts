@@ -1,26 +1,20 @@
-import { Prisma, PrismaClient } from "@prisma/client";
+// External dependencies
+import { Prisma } from "@prisma/client";
+
+// Shared schemas
 import { CombinedList } from "../../../shared/generated/zod/modelSchema";
 import { CombinedListSearch } from "../../../shared/zodSchemas/combinedList/combinedListSearchSchema";
 
-const prisma = new PrismaClient();
+// Internal utilities
+import { SearchResults } from "../types";
+import { prisma } from "../utils/prisma";
 
-type SearchResults = {
-    data: CombinedList[];
-    meta: {
-        currentPage: number;
-        totalPages: number;
-        totalCount: number;
-        hasNextPage: boolean;
-        hasPreviousPage: boolean;
-    };
-};
-
-export class CombinedListService {
+class CombinedListService {
     /**
      * Get all reagents and samples that are not deleted.
      * @returns {Promise<SearchResults>} Combined list of reagents and samples.
      */
-    async getAllItems(queryParams: CombinedListSearch): Promise<SearchResults> {
+    async getAllItems(queryParams: CombinedListSearch): Promise<SearchResults<CombinedList>> {
         const {
             query,
             page = 1,
@@ -84,3 +78,5 @@ export class CombinedListService {
         };
     }
 }
+
+export const combinedListService = new CombinedListService();

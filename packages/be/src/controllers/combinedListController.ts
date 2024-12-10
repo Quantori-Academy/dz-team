@@ -1,11 +1,16 @@
+// Zod validation library
 import { z } from "zod";
+
+// Fastify types
 import { FastifyRequest, FastifyReply } from "fastify";
-import { CombinedListService } from "../services/combinedListService";
+
+// Internal service
+import { combinedListService } from "../services/combinedListService";
+
+// Shared schemas
 import { CombinedListSearchSchema } from "../../../shared/zodSchemas/combinedList/combinedListSearchSchema";
 
-const combinedListService = new CombinedListService();
-
-export class CombinedListController {
+class CombinedListController {
     /**
      * Get all reagents and samples.
      * @param request - FastifyRequest
@@ -27,3 +32,5 @@ export class CombinedListController {
         }
     }
 }
+
+export const combinedListController = new CombinedListController();

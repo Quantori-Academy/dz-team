@@ -11,7 +11,7 @@ export function App() {
         <>
             <ThemeProvider theme={theme}>
                 <Outlet />
-                <ToastContainer autoClose={10000} limit={10} position="top-right" closeOnClick />
+                <ToastContainer autoClose={10000} limit={10} position="bottom-left" closeOnClick />
             </ThemeProvider>
         </>
     );

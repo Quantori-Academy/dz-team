@@ -1,8 +1,9 @@
+import { FastifyZodInstance } from "../types";
+
 import { reagentRoutes } from "./reagentRoutes";
 import { sampleRoutes } from "./sampleRoutes";
 import { authRoutes } from "./authRoutes";
 import { userRoutes } from "./userRoutes";
-import { FastifyZodInstance } from "../types";
 import { storageLocationRoutes } from "./storageLocationRoutes";
 import { orderRoutes } from "./orderRoutes";
 import { sellerRoutes } from "./sellerRoutes";

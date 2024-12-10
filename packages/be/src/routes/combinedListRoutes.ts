@@ -1,8 +1,11 @@
-import { CombinedListController } from "../controllers/combinedListController";
-import { FastifyZodInstance } from "../types";
-import { CombinedListSearch } from "shared/zodSchemas/combinedList/combinedListSearchSchema";
+// Internal controllers
+import { combinedListController } from "../controllers/combinedListController";
 
-const combinedListController = new CombinedListController();
+// Internal types
+import { FastifyZodInstance } from "../types";
+
+// Shared schemas
+import { CombinedListSearch } from "../../../shared/zodSchemas/combinedList/combinedListSearchSchema";
 
 /**
  * Registers the combined list route with the provided Fastify instance.

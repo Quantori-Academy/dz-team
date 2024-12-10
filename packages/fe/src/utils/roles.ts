@@ -1,7 +1,7 @@
 export const rolesRoutes = {
-    admin: "/admin",
-    procurementOfficer: "/pOfficer",
-    researcher: "/",
+    admin: "/users",
+    procurementOfficer: "/orders",
+    researcher: "/reagents",
 };
 
 export const rolesHeaders = {
