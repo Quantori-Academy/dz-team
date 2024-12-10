@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { useGate } from "effector-react";
 
 import { useUserForm } from "hooks/useUserForm";
@@ -20,15 +19,13 @@ export const UserList = () => {
     const { users, handleDeleteClick } = useUserForm();
 
     return (
-        <Box>
-            <Grid
-                rows={users}
-                headers={headers}
-                searchPlaceholder="Search users by name, email, or role"
-                handleDelete={handleDeleteClick}
-                addButtonLabel="Add New User"
-                modalContent={(removeModal) => <AddUserForm onClose={removeModal} />}
-            />
-        </Box>
+        <Grid
+            rows={users}
+            headers={headers}
+            searchPlaceholder="Search users by name, email, or role"
+            handleDelete={handleDeleteClick}
+            addButtonLabel="Add New User"
+            modalContent={(removeModal) => <AddUserForm onClose={removeModal} />}
+        />
     );
 };
