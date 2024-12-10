@@ -5,13 +5,13 @@ import { useUnit } from "effector-react";
 
 import { CreateOrderReagent } from "api/order/contract";
 import { SnackbarAlert } from "components/snackBarAlert/snackBarAlert";
-import { $userId } from "stores/auth";
+import { $auth } from "stores/auth";
 import { OrderStatus, setOrderData, submitOrderFx } from "stores/order";
 import { $sellers, fetchSellers } from "stores/sellers";
 import { validateInput } from "utils/validationInput";
 
 type BasketProps = {
-    basket: { reagent: CreateOrderReagent }[];
+    basket: CreateOrderReagent[];
     title: string;
     seller: string;
     description: string;
@@ -55,7 +55,8 @@ export function OrderBasket({
         message: "",
         severity: "success",
     });
-    const userId = useUnit($userId);
+    const auth = useUnit($auth);
+    const userId = auth && typeof auth !== "boolean" ? auth.userId : null;
     const sellers = useUnit($sellers);
     const navigate = useNavigate();
 
@@ -71,7 +72,7 @@ export function OrderBasket({
         if (!userId) {
             setSnackbar({
                 open: true,
-                message: "User  ID is required to create an order!",
+                message: "Looks like your authorization is broken! Please re-login and try again",
                 severity: "error",
             });
             return;
@@ -82,7 +83,7 @@ export function OrderBasket({
             status: OrderStatus.pending,
             userId: userId,
             description,
-            reagents: basket.map(({ reagent }) => ({
+            reagents: basket.map((reagent) => ({
                 id: reagent.id,
                 name: reagent.name,
                 structure: reagent.structure,

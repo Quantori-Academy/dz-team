@@ -64,14 +64,23 @@ export const OrderReagentFormModal = ({
     const [currentMode, setCurrentMode] = useState<Mode>(mode);
     const [errors, setErrors] = useState<Partial<Record<keyof CreateOrderReagent, string>>>({});
 
+    const validateForm = (): boolean => {
+        const validationErrors = validateInput(formData, validationRules);
+        if (Object.keys(validationErrors).length > 0) {
+            setErrors(validationErrors);
+            return false;
+        }
+        return true;
+    };
+
     useEffect(() => {
-        if (currentMode !== Mode.Create && selectedReagent) {
+        if (selectedReagent && mode !== Mode.Create) {
             setFormData({
                 ...selectedReagent,
                 catalogLink: selectedReagent.catalogLink || "",
             });
         }
-    }, [currentMode, selectedReagent]);
+    }, [mode, selectedReagent]);
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -79,21 +88,28 @@ export const OrderReagentFormModal = ({
         setErrors((prev) => ({ ...prev, [name]: undefined }));
     };
 
-    const handleSubmit = () => {
-        const validationErrors = validateInput(formData, validationRules);
-        if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
-            return;
-        }
-        const parsedData: CreateOrderReagent = {
+    const handleCreate = () => {
+        if (!validateForm()) return;
+        const newReagent: CreateOrderReagent = {
             ...formData,
-            name: formData.name || "",
+            id: uuidv4(),
             quantity: Number(formData.quantity),
             pricePerUnit: Number(formData.pricePerUnit),
             amount: Number(formData.amount),
-            id: selectedReagent?.id || uuidv4(),
         };
-        onSubmit(parsedData);
+        onSubmit(newReagent);
+    };
+
+    const handleEdit = () => {
+        if (!selectedReagent || !validateForm()) return;
+        const updatedReagent: CreateOrderReagent = {
+            ...formData,
+            id: selectedReagent?.id,
+            quantity: Number(formData.quantity),
+            pricePerUnit: Number(formData.pricePerUnit),
+            amount: Number(formData.amount),
+        };
+        onSubmit(updatedReagent);
     };
 
     return (
@@ -147,7 +163,7 @@ export const OrderReagentFormModal = ({
             <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
                 {currentMode === Mode.Create && (
                     <>
-                        <Button variant="contained" onClick={handleSubmit}>
+                        <Button variant="contained" onClick={handleCreate}>
                             Create
                         </Button>
                         <Button variant="outlined" onClick={onCancel}>
@@ -157,7 +173,7 @@ export const OrderReagentFormModal = ({
                 )}
                 {currentMode === Mode.Edit && (
                     <>
-                        <Button variant="contained" onClick={handleSubmit}>
+                        <Button variant="contained" onClick={handleEdit}>
                             Save
                         </Button>
                         <Button variant="outlined" onClick={onCancel}>
