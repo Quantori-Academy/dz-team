@@ -23,7 +23,7 @@ const fields = [
     { name: "producer", label: "Producer", width: 170 },
     { name: "catalogId", label: "Catalog Id", width: 150 },
     { name: "catalogLink", label: "Catalog Link", width: 170 },
-    { name: "units", label: "Units ", width: 170 },
+    { name: "unit", label: "Unit ", width: 170 },
     { name: "pricePerUnit", label: "Price Per Unit", width: 170, type: "number" },
     { name: "quantity", label: "Quantity", width: 170, type: "number" },
     { name: "amount", label: "Amount", width: 170, type: "number" },
@@ -36,7 +36,7 @@ const validationRules = {
     producer: { required: true },
     catalogId: { required: false },
     catalogLink: { required: false, urlCheck: true },
-    units: { required: true },
+    unit: { required: true },
     pricePerUnit: { required: true, negativeCheck: true },
     quantity: { required: true, negativeCheck: true, integerCheck: true },
     amount: { required: true, negativeCheck: true, integerCheck: true },
@@ -57,7 +57,7 @@ export const OrderReagentFormModal = ({
         catalogId: "",
         catalogLink: "",
         pricePerUnit: 0,
-        units: "ml",
+        unit: "ml",
         quantity: 0,
         amount: 1,
     });
@@ -101,14 +101,14 @@ export const OrderReagentFormModal = ({
             {fields.map((field) => {
                 const fieldError = errors[field.name as keyof typeof errors];
 
-                return field.name === "units" ? (
+                return field.name === "unit" ? (
                     <Autocomplete
                         key={field.name}
                         options={unitOptions}
-                        value={formData.units}
+                        value={formData.unit}
                         onChange={(_event, newValue) => {
-                            setFormData((prev) => ({ ...prev, units: newValue || "" }));
-                            setErrors((prev) => ({ ...prev, units: undefined }));
+                            setFormData((prev) => ({ ...prev, unit: newValue || "" }));
+                            setErrors((prev) => ({ ...prev, unit: undefined }));
                         }}
                         renderInput={(params) => (
                             <TextField

@@ -87,7 +87,7 @@ export function OrderBasket({
                 name: reagent.name,
                 structure: reagent.structure,
                 quantity: reagent.quantity,
-                units: reagent.units,
+                unit: reagent.unit,
                 cas: reagent.cas,
                 producer: reagent.producer,
                 catalogId: reagent.catalogId,

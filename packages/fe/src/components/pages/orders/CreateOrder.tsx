@@ -21,7 +21,7 @@ const headers = [
     { field: "producer", headerName: "Producer", width: 170, editable: true },
     { field: "catalogId", headerName: "Catalog Id", width: 150, editable: true },
     { field: "catalogLink", headerName: "Catalog Link", width: 170, editable: true },
-    { field: "units", headerName: "Units ", width: 170, editable: true },
+    { field: "unit", headerName: "Unit ", width: 170, editable: true },
     { field: "pricePerUnit", headerName: "Price Per Unit", width: 170, editable: true },
     { field: "quantity", headerName: "Quantity", width: 17, editable: true },
     { field: "amount", headerName: "Amount", width: 170, editable: true },
