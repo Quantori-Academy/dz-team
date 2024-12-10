@@ -1,5 +1,5 @@
 
-import { Box, Snackbar } from "@mui/material";
+import { Box } from "@mui/material";
 
 import { useGate } from "effector-react";
 
@@ -7,7 +7,6 @@ import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
 import { useUserForm } from "hooks/useUserForm";
 import { UsersGate } from "stores/users";
-import { SupportedValue } from "utils/formatters";
 
 import { Grid } from "../../dataGrid/Grid";
 import { AddUserForm } from "./AddUserForm";
@@ -26,23 +25,7 @@ export const UserList = () => {
     useGate(UsersGate);
 
 
-    const { users, notification, handleClose, setNotification } = useUserForm({});
-
-    const openDeleteModal = async (id: string) => {
-        await createModal({
-            name: "confirm_delete_modal",
-            title: "Confirm Deletion",
-            message: (
-                <ConfirmMessage
-                    id={id}
-                    onClose={() => {
-                        removeModal();
-                    }}
-                    setNotification={setNotification}
-                />
-            ),
-        });
-    };
+    const { users, handleDeleteClick } = useUserForm();
 
     return (
         <Box>
@@ -51,9 +34,9 @@ export const UserList = () => {
                 rows={users}
                 headers={headers}
                 searchPlaceholder="Search users by name, email, or role"
-                handleDelete={openDeleteModal}
-                notification={notification}
-                handleClose={handleClose}
+
+                handleDelete={handleDeleteClick}
+
                 addButtonLabel="Add New User"
                 modalContent={(removeModal) => <AddUserForm onClose={removeModal} />}
             />

@@ -1,9 +1,14 @@
-import { useRef } from "react";
-import { Alert, Box, Button, MenuItem, Snackbar, TextField } from "@mui/material";
 
+import { Box, Button, MenuItem, TextField } from "@mui/material";
+
+
+import { UserRole } from "api/self";
 import { useUserForm } from "hooks/useUserForm";
 
-const roles = ["admin", "researcher", "procurementOfficer"];
+const textfieldStyle = {
+    width: "200px",
+    height: "70px",
+};
 
 
 const textfieldStyle = {
@@ -17,25 +22,17 @@ const input = {
     alignItems: "center",
     gap: "10px",
     flexDirection: { xs: "column", sm: "row" },
+
 };
 
-interface AddUserFormProps {
+type AddUserFormProps = {
     onClose?: () => void;
-}
+};
 
 
 export const AddUserForm = ({ onClose }: AddUserFormProps) => {
-    const refs = {
-        username: useRef<HTMLInputElement>(null),
-        firstName: useRef<HTMLInputElement>(null),
-        lastName: useRef<HTMLInputElement>(null),
-        email: useRef<HTMLInputElement>(null),
-        password: useRef<HTMLInputElement>(null),
-        confirmPassword: useRef<HTMLInputElement>(null),
-        role: useRef<HTMLInputElement>(null),
-    };
-
     const {
+        refs,
         usernameError,
         firstNameError,
         lastNameError,
@@ -44,9 +41,9 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
         confirmPasswordError,
         roleError,
         handleSubmit,
-        notification,
-        handleClose,
-    } = useUserForm(refs);
+
+    } = useUserForm();
+
 
     return (
         <Box component="form" noValidate autoComplete="off" sx={boxStyle}>
@@ -63,7 +60,6 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
             <Box sx={input}>
                 <TextField
                     label="Username"
-                    name="username"
                     inputRef={refs.username}
                     error={!!usernameError}
                     helperText={usernameError}
@@ -73,10 +69,9 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                 />
                 <TextField
                     label="First Name"
-                    name="firstName"
+                    inputRef={refs.firstName}
                     error={!!firstNameError}
                     helperText={firstNameError}
-                    inputRef={refs.firstName}
                     margin="normal"
                     sx={textfieldStyle}
                     required
@@ -85,17 +80,15 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
             <Box sx={input}>
                 <TextField
                     label="Last Name"
-                    name="lastName"
+                    inputRef={refs.lastName}
                     error={!!lastNameError}
                     helperText={lastNameError}
-                    inputRef={refs.lastName}
                     margin="normal"
                     sx={textfieldStyle}
                     required
                 />
                 <TextField
                     label="Email"
-                    name="email"
                     inputRef={refs.email}
                     error={!!emailError}
                     helperText={emailError}
@@ -108,7 +101,6 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
             <Box sx={input}>
                 <TextField
                     label="Password"
-                    name="password"
                     type="password"
                     inputRef={refs.password}
                     error={!!passwordError}
@@ -119,7 +111,6 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                 />
                 <TextField
                     label="Confirm Password"
-                    name="confirmPassword"
                     type="password"
                     inputRef={refs.confirmPassword}
                     error={!!confirmPasswordError}
@@ -132,7 +123,6 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
             <TextField
                 select
                 label="Role"
-                name="role"
                 inputRef={refs.role}
                 error={!!roleError}
                 helperText={roleError}
@@ -141,27 +131,17 @@ export const AddUserForm = ({ onClose }: AddUserFormProps) => {
                 sx={textfieldStyle}
                 required
             >
-                {roles.map((role) => (
+                {Object.values(UserRole).map((role) => (
                     <MenuItem key={role} value={role}>
                         {role}
                     </MenuItem>
                 ))}
             </TextField>
             <Box sx={boxStyle}>
-                <Button
-                    sx={{ width: "250px" }}
-                    variant="contained"
-                    color="primary"
-                    onClick={handleSubmit}
-                >
+                <Button sx={{ width: "250px" }} variant="contained" onClick={handleSubmit}>
                     Save User
                 </Button>
-                <Button
-                    sx={{ width: "250px" }}
-                    variant="contained"
-                    color="primary"
-                    onClick={onClose}
-                >
+                <Button sx={{ width: "250px" }} variant="contained" onClick={onClose}>
                     Cancel
                 </Button>
             </Box>

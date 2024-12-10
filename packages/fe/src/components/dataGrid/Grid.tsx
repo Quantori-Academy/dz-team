@@ -1,10 +1,8 @@
 import { useMemo, useState } from "react";
 
 import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import EditIcon from "@mui/icons-material/Edit";
-import { Alert, Box, Snackbar, TextField } from "@mui/material";
+import { Box, TextField } from "@mui/material";
 import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
-import { NotificationTypes } from "types/types";
 
 
 import { createModal } from "components/modal/createModal";
@@ -23,8 +21,8 @@ type GridProps = {
     showToolbar?: boolean;
     addButtonLabel?: string;
     handleDelete?: (id: string) => void;
-    notification: NotificationTypes;
-    handleClose: () => void;
+
+
 };
 
 export const Grid = ({
@@ -36,8 +34,7 @@ export const Grid = ({
     showToolbar = true,
     addButtonLabel = "Add New Record",
     handleDelete,
-    notification,
-    handleClose,
+
 
 }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
@@ -74,12 +71,14 @@ export const Grid = ({
     const handleAddRecord = async () => {
         if (!modalContent) return;
 
+
         await createModal({
             name: "add_record_modal",
             title: modalTitle,
             message: modalContent(removeModal),
         });
         removeModal();
+
 
     };
 
@@ -88,18 +87,17 @@ export const Grid = ({
             field: "actions",
             headerName: "Actions",
             width: 100,
+
+
             renderCell: (params: { row: { id: string } }) => {
                 const id = params.row.id;
                 return handleDelete ? (
-                    <>
-                        <GridActionsCellItem icon={<EditIcon />} label="Edit" color="inherit" />
-                        <GridActionsCellItem
-                            icon={<DeleteIcon />}
-                            label="Delete"
-                            color="inherit"
-                            onClick={() => handleDelete(id)}
-                        />
-                    </>
+                    <GridActionsCellItem
+                        icon={<DeleteIcon />}
+                        label="Delete"
+                        color="inherit"
+                        onClick={() => handleDelete(id)}
+                    />
                 ) : null;
             },
         };
