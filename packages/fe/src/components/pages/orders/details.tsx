@@ -108,6 +108,7 @@ export function OrderDetailsPage() {
             onAction={handleAction}
             editableFields={["title", "description", "seller"]}
             addEditButton={status === "pending"}
+            addDeleteButton={status === "pending"}
         >
             <Box sx={boxStyle}>
                 <Typography variant="h6" sx={{ mt: 6 }}>
