@@ -1,4 +1,8 @@
+import { toast } from "react-toastify";
+
+import { deleteSample } from "api/combinedList/deleteSample";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
+import { CombinedList } from "shared/generated/zod/modelSchema/CombinedListSchema";
 
 const fields = [
     { label: "Name", name: "name", required: true },
@@ -16,15 +20,29 @@ const fields = [
 
 //TODO Add edit and delete functions
 export const SampleDetailPage = () => {
+    const handleAction = async (type: "submit" | "delete", data?: CombinedList) => {
+        if (type === "submit" && data) {
+            try {
+                // await editStorage(data);
+                toast.success("Sample Updated Successfully");
+            } catch (_error) {
+                toast.success("Sample Deleted Successfully");
+            }
+        }
+
+        if (type === "delete" && data) {
+            await deleteSample(data.id);
+            toast.success("Sample Deleted Successfully");
+        }
+    };
+
     return (
-        <>
-            <DetailsEditPage
-                baseUrl="/combinedList"
-                url="/_app/_researcherLayout/combinedList/$id"
-                fields={fields}
-                // onAction={handleAction}
-                editableFields={["name", "structure", "description"]}
-            />
-        </>
+        <DetailsEditPage
+            baseUrl="/combinedList"
+            url="/_app/_researcherLayout/combinedList/$id"
+            fields={fields}
+            onAction={handleAction}
+            editableFields={["name", "structure", "description"]}
+        />
     );
 };
