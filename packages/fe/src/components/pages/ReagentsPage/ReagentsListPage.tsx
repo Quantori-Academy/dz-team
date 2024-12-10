@@ -1,13 +1,11 @@
-import { useRef } from "react";
-import { Box } from "@mui/material";
+import { useRef, useState } from "react";
+import { Box, Button, Dialog, Typography } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
-import { createModal } from "components/modal/createModal";
-import { removeModal } from "components/modal/store";
-import { submitReagent } from "stores/reagents";
+import { addReagentFx, resetFormData } from "stores/reagents";
 
 import { Reagent, ReagentSchema } from "../../../../../shared/generated/zod";
 import { TableContext } from "../../commonTable/TableContext";
@@ -33,27 +31,21 @@ const columns: GridColDef<Reagent>[] = [
 ];
 
 export const ReagentsListPage = () => {
+    const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
 
     const tableRef = useRef<CommonTableRef | null>(null);
 
-    const submitReagentEvent = useUnit(submitReagent);
+    const submitReagentEvent = useUnit(addReagentFx);
 
-    const openAddModal = async () => {
-        const response = await createModal({
-            name: "reagent_modal",
-            title: "Add new Reagent",
-            message: <ReagentFormModal />,
-            labels: { ok: "Submit", cancel: "Cancel" },
-        });
-
-        if (response) {
-            submitReagentEvent();
-            if (tableRef.current?.refresh) {
-                tableRef.current.refresh();
-            }
+    const handleSubmit = async () => {
+        const result = await submitReagentEvent();
+        if (result !== undefined) {
+            setIsOpen(false);
         }
-        removeModal();
+        if (tableRef.current?.refresh) {
+            tableRef.current.refresh();
+        }
     };
 
     return (
@@ -84,9 +76,38 @@ export const ReagentsListPage = () => {
                         catalogId: true,
                         catalogLink: true,
                     }}
-                    onAdd={openAddModal}
+                    onAdd={() => {
+                        resetFormData();
+                        setIsOpen(true);
+                    }}
                     addButtonText="add reagent"
                 />
+
+                <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+                    <Box sx={{ p: "18px" }}>
+                        <Typography variant="h5">Add new Reagent</Typography>
+                        <Typography variant="body1" sx={{ my: "20px" }}>
+                            <ReagentFormModal />
+                        </Typography>
+                        <Box
+                            sx={{
+                                width: "100%",
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                alignItems: "center",
+                                gap: "8px",
+                            }}
+                        >
+                            <Button variant="contained" onClick={handleSubmit}>
+                                {"Submit"}
+                            </Button>
+                            <Button variant="outlined" onClick={() => setIsOpen(false)}>
+                                {"Cancel"}
+                            </Button>
+                        </Box>
+                    </Box>
+                </Dialog>
+
                 <Outlet />
             </Box>
         </TableContext.Provider>

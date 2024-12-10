@@ -96,7 +96,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
             variant="temporary"
             elevation={0}
             sx={{
-                height: "100vh",
+                height: isSmallScreen ? "calc(100vh - 85px)" : "calc(100vh - 55px)",
                 overflowY: "auto",
                 transform: isSmallScreen ? "translateY(85px)" : "translateY(55px)",
                 borderTop: "1px solid rgba(0, 0, 0, 0.12)",
