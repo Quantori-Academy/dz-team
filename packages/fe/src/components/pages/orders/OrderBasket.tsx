@@ -10,7 +10,6 @@ import { OrderStatus, setOrderData, submitOrderFx } from "stores/order";
 import { validateInput } from "utils/validationInput";
 
 type BasketProps = {
-    // basket: { reagent: CreateOrderReagent }[];
     basket: CreateOrderReagent[];
     title: string;
     seller: string;
@@ -82,13 +81,12 @@ export function OrderBasket({
             status: OrderStatus.pending,
             userId: userId,
             description,
-            // reagents: basket.map(({ reagent }) => ({
             reagents: basket.map((reagent) => ({
                 id: reagent.id,
                 name: reagent.name,
                 structure: reagent.structure,
                 quantity: reagent.quantity,
-                units: reagent.units,
+                unit: reagent.unit,
                 cas: reagent.cas,
                 producer: reagent.producer,
                 catalogId: reagent.catalogId,

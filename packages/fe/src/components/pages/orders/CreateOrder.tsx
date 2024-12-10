@@ -2,7 +2,6 @@ import { useCallback, useState } from "react";
 import { Box } from "@mui/material";
 import { DataGrid, GridRowParams } from "@mui/x-data-grid";
 import { Outlet } from "@tanstack/react-router";
-import { v4 as uuidv4 } from "uuid";
 
 import { CreateOrderReagent } from "api/order/contract";
 import { AddRecord } from "components/dataGrid/Addrecord";
@@ -21,7 +20,7 @@ const headers = [
     { field: "producer", headerName: "Producer", width: 170, editable: true },
     { field: "catalogId", headerName: "Catalog Id", width: 150, editable: true },
     { field: "catalogLink", headerName: "Catalog Link", width: 170, editable: true },
-    { field: "units", headerName: "Units ", width: 170, editable: true },
+    { field: "unit", headerName: "Unit ", width: 170, editable: true },
     { field: "pricePerUnit", headerName: "Price Per Unit", width: 170, editable: true },
     { field: "quantity", headerName: "Quantity", width: 17, editable: true },
     { field: "amount", headerName: "Amount", width: 170, editable: true },
@@ -77,9 +76,6 @@ export const CreateOrder = () => {
                     mode={Mode.Create}
                     selectedReagent={selectedReagent}
                     onSubmit={(newReagent: CreateOrderReagent) => {
-                        if (!newReagent.id) {
-                            newReagent.id = uuidv4();
-                        }
                         addReagent(newReagent);
                         removeModal();
                     }}

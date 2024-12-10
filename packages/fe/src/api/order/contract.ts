@@ -14,7 +14,7 @@ const _CreateOrderReagentContract = z.object({
         .number()
         .nullable()
         .transform((val) => val || 0),
-    units: z
+    unit: z
         .string()
         .nullable()
         .transform((val) => val || "ml"),
