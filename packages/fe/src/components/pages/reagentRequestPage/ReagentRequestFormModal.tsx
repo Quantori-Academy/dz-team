@@ -20,7 +20,7 @@ import {
 
 const fields: BaseTextFieldProps[] = [
     { label: "Reagent Name", name: "name", required: true },
-    { label: "Structure", name: "structure" },
+    { label: "Structure (SMILES)", name: "structure" },
     { label: "CAS Number", name: "cas" },
     {
         label: "Desired Quantity",
