@@ -9,10 +9,10 @@ const SampleDetailSchema = z.object({
     container: z.string().nullable(),
     deletedAt: z.date().nullable(),
     description: z.string(),
-    quantity: z.number(),
+    quantity: z.number().optional(),
     quantityInit: z.number().nullable(),
     storageId: z.string().uuid(),
-    storageLocation: z.string(),
+    storageLocation: z.string().nullable(),
     structure: z.string(),
     unit: z.string(),
 });

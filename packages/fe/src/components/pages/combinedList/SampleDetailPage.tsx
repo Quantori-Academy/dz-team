@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 
 import { deleteSample } from "api/combinedList/deleteSample";
 import { editSample } from "api/combinedList/editSample";
-import { SampleData } from "api/types";
+import { EditSampleData } from "api/types";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
 
 const fields = [
@@ -19,7 +19,7 @@ const fields = [
 ];
 
 export const SampleDetailPage = () => {
-    const handleAction = async (type: "submit" | "delete", data?: SampleData) => {
+    const handleAction = async (type: "submit" | "delete", data?: EditSampleData) => {
         if (type === "submit" && data) {
             await editSample(data);
             toast.success("Sample Updated Successfully");

@@ -22,6 +22,17 @@ export type NewStorage = {
 };
 
 export type SampleData = {
+    name: string;
+    structure: string;
+    description: string;
+    unit: string;
+    quantity: number;
+    reagentIds: string[];
+    storageLocation: string;
+    storageId: string;
+};
+
+export type EditSampleData = {
     id: string;
     name: string;
     structure: string;
