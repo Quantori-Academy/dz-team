@@ -90,7 +90,7 @@ sample({
 
 // Processes form data, validates it with the schema, and stores errors in $formDataErrors
 sample({
-    clock: [addReagentFx],
+    clock: addReagentFx,
     source: $formData,
     fn: (formData) => {
         const result = ReagentCreateSchema.safeParse(formData);
