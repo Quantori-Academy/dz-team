@@ -22,6 +22,7 @@ export type NewStorage = {
 };
 
 export type SampleData = {
+    id: string;
     name: string;
     structure: string;
     description: string;
