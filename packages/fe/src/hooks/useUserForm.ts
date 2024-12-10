@@ -86,30 +86,25 @@ export const useUserForm = () => {
         setRoleError(errors.role || null);
 
         if (Object.keys(errors).length === 0) {
-            try {
-                await addUserFx(formData);
+            await addUserFx(formData);
 
-                Object.values(refs).forEach((ref) => {
-                    if (ref.current) {
-                        ref.current.value = "";
-                    }
-                });
+            Object.values(refs).forEach((ref) => {
+                if (ref.current) {
+                    ref.current.value = "";
+                }
+            });
 
-                setUsernameError(null);
-                setFirstNameError(null);
-                setLastNameError(null);
-                setEmailError(null);
-                setPasswordError(null);
-                setConfirmPasswordError(null);
-                setRoleError(null);
+            setUsernameError(null);
+            setFirstNameError(null);
+            setLastNameError(null);
+            setEmailError(null);
+            setPasswordError(null);
+            setConfirmPasswordError(null);
+            setRoleError(null);
 
-                toast.success("User added successfully!");
-                wait(500);
-                removeModal();
-            } catch (_error) {
-                wait(500);
-                removeModal();
-            }
+            toast.success("User added successfully!");
+            wait(500);
+            removeModal();
         }
     };
 

@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { useGate } from "effector-react";
 
 import { createModal } from "components/modal/createModal";
@@ -31,6 +30,7 @@ export const UserList = () => {
     };
 
     return (
+
         <Box>
             <Grid
                 rows={users}
@@ -41,5 +41,6 @@ export const UserList = () => {
                 modalContent={(removeModal) => <AddUserForm onClose={removeModal} />}
             />
         </Box>
+
     );
 };
