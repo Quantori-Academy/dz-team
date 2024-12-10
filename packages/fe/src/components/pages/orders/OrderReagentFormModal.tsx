@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Autocomplete, Box, Button, TextField } from "@mui/material";
+import { Autocomplete, Box, Button, Grid, TextField } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 
 import { CreateOrderReagent } from "api/order/contract";
@@ -98,46 +98,52 @@ export const OrderReagentFormModal = ({
 
     return (
         <Box>
-            {fields.map((field) => {
-                const fieldError = errors[field.name as keyof typeof errors];
+            <Grid container spacing={3}>
+                {fields.map((field) => {
+                    const fieldError = errors[field.name as keyof typeof errors];
 
-                return field.name === "unit" ? (
-                    <Autocomplete
-                        key={field.name}
-                        options={unitOptions}
-                        value={formData.unit}
-                        onChange={(_event, newValue) => {
-                            setFormData((prev) => ({ ...prev, unit: newValue || "" }));
-                            setErrors((prev) => ({ ...prev, unit: undefined }));
-                        }}
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                label={field.label}
-                                fullWidth
-                                margin="normal"
-                                error={!!fieldError}
-                                helperText={fieldError}
-                                disabled={currentMode === Mode.View}
-                            />
-                        )}
-                    />
-                ) : (
-                    <TextField
-                        key={field.name}
-                        label={field.label}
-                        name={field.name}
-                        value={formData[field.name as keyof typeof formData]}
-                        onChange={handleChange}
-                        fullWidth
-                        margin="normal"
-                        type={field.type || "text"}
-                        disabled={currentMode === Mode.View}
-                        error={!!fieldError}
-                        helperText={fieldError}
-                    />
-                );
-            })}
+                    return (
+                        <Grid item xs={12} sm={6} key={field.name}>
+                            {field.name === "unit" ? (
+                                <Autocomplete
+                                    key={field.name}
+                                    options={unitOptions}
+                                    value={formData.unit}
+                                    onChange={(_event, newValue) => {
+                                        setFormData((prev) => ({ ...prev, unit: newValue || "" }));
+                                        setErrors((prev) => ({ ...prev, unit: undefined }));
+                                    }}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            {...params}
+                                            label={field.label}
+                                            fullWidth
+                                            margin="normal"
+                                            error={!!fieldError}
+                                            helperText={fieldError}
+                                            disabled={currentMode === Mode.View}
+                                        />
+                                    )}
+                                />
+                            ) : (
+                                <TextField
+                                    key={field.name}
+                                    label={field.label}
+                                    name={field.name}
+                                    value={formData[field.name as keyof typeof formData]}
+                                    onChange={handleChange}
+                                    fullWidth
+                                    margin="normal"
+                                    type={field.type || "text"}
+                                    disabled={currentMode === Mode.View}
+                                    error={!!fieldError}
+                                    helperText={fieldError}
+                                />
+                            )}
+                        </Grid>
+                    );
+                })}
+            </Grid>
             <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
                 {currentMode === Mode.Create && (
                     <>
