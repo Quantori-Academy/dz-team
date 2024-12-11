@@ -1,6 +1,8 @@
+import { useRef } from "react";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 
-import { CommonTable } from "components/commonTable/CommonTable";
+import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
+import { TableContext } from "components/commonTable/TableContext";
 import { Order, OrderSchema } from "shared/generated/zod";
 
 const headers = [
@@ -23,13 +25,15 @@ const headers = [
 
 export const OrderList = () => {
     const navigate = useNavigate();
+    const tableRef = useRef<CommonTableRef | null>(null);
     const handleClick = () => {
         navigate({ to: "/createOrder" });
     };
 
     return (
-        <>
+        <TableContext.Provider value={{ ref: tableRef }}>
             <CommonTable<Order>
+                ref={tableRef}
                 columns={headers}
                 url={`/orders`}
                 schema={OrderSchema}
@@ -47,6 +51,6 @@ export const OrderList = () => {
                 addButtonText="Create a new order"
             />
             <Outlet />
-        </>
+        </TableContext.Provider>
     );
 };

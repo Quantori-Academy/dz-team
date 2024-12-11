@@ -1,12 +1,13 @@
 import { useState } from "react";
 import { toast } from "react-toastify";
-import { Box, Button, TextField } from "@mui/material";
+import { Autocomplete, Box, Button, TextField } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 
 import { CreateOrderReagent } from "api/order/contract";
 import { $auth } from "stores/auth";
 import { OrderStatus, setOrderData, submitOrderFx } from "stores/order";
+import { $sellers, fetchSellers } from "stores/sellers";
 import { validateInput } from "utils/validationInput";
 
 type BasketProps = {
@@ -45,7 +46,7 @@ export function OrderBasket({
     clearBasket,
 }: BasketProps) {
     const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
-    const auth = useUnit($auth);
+    const [auth, sellers] = useUnit([$auth, $sellers]);
     const userId = auth && typeof auth !== "boolean" ? auth.userId : null;
     const navigate = useNavigate();
 
@@ -107,15 +108,37 @@ export function OrderBasket({
                     required
                     error={!!errors.title}
                     helperText={errors.title}
+                    sx={{ flex: 1, mt: 2 }}
                 />
-                <TextField
-                    label="Seller"
-                    value={seller}
-                    onChange={(e) => setSeller(e.target.value)}
-                    variant="outlined"
-                    fullWidth
-                    error={!!errors.seller}
-                    helperText={errors.seller}
+                <Autocomplete
+                    options={sellers}
+                    getOptionLabel={(option) => (typeof option === "string" ? option : option.name)}
+                    freeSolo
+                    onOpen={() => {
+                        if (!sellers.length) fetchSellers();
+                    }}
+                    onChange={(_, newValue) => {
+                        if (typeof newValue === "string") {
+                            setSeller(newValue);
+                        } else if (newValue && typeof newValue === "object") {
+                            setSeller(newValue.name);
+                        }
+                    }}
+                    onInputChange={(_, newInputValue) => {
+                        setSeller(newInputValue);
+                    }}
+                    noOptionsText={"No sellers to choose"}
+                    renderInput={(params) => (
+                        <TextField
+                            {...params}
+                            label="Seller"
+                            variant="outlined"
+                            error={!!errors.seller}
+                            helperText={errors.seller}
+                            sx={{ mt: 2 }}
+                        />
+                    )}
+                    sx={{ flex: 1 }}
                 />
             </Box>
             <TextField

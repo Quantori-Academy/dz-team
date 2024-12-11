@@ -10,7 +10,7 @@ export const OrderStatus = {
     canceled: "canceled",
 } as const;
 
-type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
+export type OrderStatus = (typeof OrderStatus)[keyof typeof OrderStatus];
 
 export const initialOrderData: CreateOrderType = {
     title: "",
