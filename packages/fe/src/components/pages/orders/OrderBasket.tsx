@@ -84,19 +84,14 @@ export function OrderBasket({
         };
 
         setOrderData(orderData);
-        try {
-            const response = await submitOrderFx();
-            if (response.id) {
-                toast.success("Order created successfully!");
-                clearBasket();
-                setErrors({});
-                setTimeout(() => navigate({ to: "/orders" }), 1000);
-            } else {
-                toast.error("Order creation failed!");
-            }
-        } catch (error) {
-            const errorMessage = (error as Error)?.message || "Something went wrong";
-            toast.error(errorMessage);
+        const response = await submitOrderFx();
+        if (response.id) {
+            toast.success("Order created successfully!");
+            clearBasket();
+            setErrors({});
+            navigate({ to: "/orders" });
+        } else {
+            toast.error("Order creation failed!");
         }
     };
 
