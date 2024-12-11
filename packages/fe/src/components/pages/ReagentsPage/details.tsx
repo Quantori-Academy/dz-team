@@ -2,8 +2,8 @@ import { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { useLoaderData, useNavigate } from "@tanstack/react-router";
 
-import { ReagentDetails } from "api/reagentDetails/contract";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
+import { Reagent } from "shared/generated/zod";
 import { deleteReagentAction, updateReagentAction } from "utils/reagentActions";
 
 const fields = [
@@ -40,7 +40,7 @@ export function ReagentDetailsPage() {
         );
     }
 
-    const handleAction = async (actionType: "submit" | "delete", data?: ReagentDetails) => {
+    const handleAction = async (actionType: "submit" | "delete", data?: Reagent) => {
         if (actionType === "delete") {
             await deleteReagentAction(reagent.id, navigate);
         } else if (actionType === "submit" && data) {
