@@ -1,6 +1,5 @@
-import { Logout, Settings } from "@mui/icons-material";
+import { Logout } from "@mui/icons-material";
 import CloseIcon from "@mui/icons-material/Close";
-import PersonIcon from "@mui/icons-material/Person";
 import { IconButton, MenuItem, Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
@@ -52,29 +51,6 @@ export function DropdownMenuHeaderMobile({ open, setOpen }: Props) {
                         <CloseIcon fontSize="small" />
                     </IconButton>
                 </Box>
-                <Divider />
-
-                <MenuItem
-                    sx={{
-                        color: theme.palette.text.primary,
-                        mt: 1,
-                    }}
-                >
-                    <ListItemIcon>
-                        <PersonIcon fontSize="medium" />
-                    </ListItemIcon>
-                    Account
-                </MenuItem>
-                <MenuItem
-                    sx={{
-                        color: theme.palette.text.primary,
-                    }}
-                >
-                    <ListItemIcon>
-                        <Settings fontSize="medium" />
-                    </ListItemIcon>
-                    Settings
-                </MenuItem>
                 <Divider />
                 <Link onClick={deleteSession} style={{ textDecoration: "none" }}>
                     <MenuItem
