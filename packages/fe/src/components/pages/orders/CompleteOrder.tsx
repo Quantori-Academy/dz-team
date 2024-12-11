@@ -8,19 +8,18 @@ import { StorageLocation } from "api/storage/contract";
 import { getStorage } from "api/storage/getStorage";
 import { TableContext } from "components/commonTable/TableContext";
 import { createModal } from "components/modal/createModal";
-import { removeModal } from "components/modal/store";
 import { errorToast } from "utils/errorToast";
-import { SupportedValue } from "utils/formatters";
 
 type CompleteOrderProps = {
     orderId: string;
-    reagents: Record<string, SupportedValue>[];
+    // TODO: Replace any with the correct type
+    reagents: Record<"id" | "name", string>[];
 };
 
 export function CompleteOrder(props: CompleteOrderProps) {
     const [isModalOpen, setModalOpen] = useState(false);
     const [storages, setStorages] = useState<StorageLocation[]>([]);
-    const [resultStorageIds, setResultStorageIds] = useState<string[]>([]);
+    const [resultStorageIds, setResultStorageIds] = useState<Record<string, string>>({});
     const [showErrors, setShowErrors] = useState(false);
     const tableRef = useContext(TableContext);
     const router = useRouter();
@@ -28,15 +27,17 @@ export function CompleteOrder(props: CompleteOrderProps) {
     const handleCompleteOrder = async () => {
         setShowErrors(true);
 
-        const reagentsAndStorages = props.reagents.map((reagent, index) => {
+        const reagentsAndStorages = props.reagents.map((reagent) => {
             return {
-                id: reagent.id as string,
-                storageId: resultStorageIds[index],
+                id: reagent.id,
+                storageId: resultStorageIds[reagent.id],
             };
         });
 
         const hasEmptyStorages = reagentsAndStorages.some(
-            (reagentAndStorage) => !reagentAndStorage.storageId,
+            // TODO: replace empty string with null and update the type
+            (reagentAndStorage) =>
+                !reagentAndStorage.storageId || reagentAndStorage.storageId === "",
         );
 
         if (hasEmptyStorages) {
@@ -50,8 +51,6 @@ export function CompleteOrder(props: CompleteOrderProps) {
             message: "Are you sure you want to complete the order?",
             labels: { ok: "Submit", cancel: "Cancel" },
         });
-
-        removeModal();
 
         if (isSubmit) {
             await fulfillOrder(props.orderId, reagentsAndStorages);
@@ -84,10 +83,10 @@ export function CompleteOrder(props: CompleteOrderProps) {
                 >
                     <Typography variant="h5">Enter storage location for reagents</Typography>
 
-                    {props.reagents.map((e, name) => {
+                    {props.reagents.map((reagent, index) => {
                         return (
                             <Box
-                                key={name}
+                                key={index}
                                 sx={{
                                     display: "flex",
                                     justifyContent: "flex-end",
@@ -96,7 +95,7 @@ export function CompleteOrder(props: CompleteOrderProps) {
                                 gap={2}
                             >
                                 <Box sx={{ width: 0.4 }}>
-                                    <Typography variant="body1">{e.name as string}</Typography>
+                                    <Typography variant="body1">{reagent.name}</Typography>
                                 </Box>
                                 <Autocomplete
                                     options={storages}
@@ -109,17 +108,18 @@ export function CompleteOrder(props: CompleteOrderProps) {
                                             );
                                     }}
                                     onChange={(_, newValue) => {
-                                        const newResultStorageIds = [...resultStorageIds];
-                                        newResultStorageIds[name] = newValue?.id ?? "";
-                                        setResultStorageIds(newResultStorageIds);
+                                        setResultStorageIds((prev) => {
+                                            return { ...prev, [reagent.id]: newValue?.id ?? "" };
+                                        });
+                                        setShowErrors(false);
                                     }}
                                     renderInput={(params) => (
                                         <TextField
                                             {...params}
                                             label="Storage Location"
-                                            error={showErrors && !resultStorageIds[name]}
+                                            error={showErrors && !resultStorageIds[index]}
                                             helperText={
-                                                showErrors && !resultStorageIds[name]
+                                                showErrors && !resultStorageIds[index]
                                                     ? "Please select a storage location"
                                                     : ""
                                             }
