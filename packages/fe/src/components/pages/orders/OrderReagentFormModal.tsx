@@ -92,7 +92,13 @@ export const OrderReagentFormModal = ({
     const handleAction = () => {
         if (!validateForm()) return;
         const id = isEditModal ? selectedReagent?.id : uuidv4();
-        onSubmit({ ...formData, id });
+        onSubmit({
+            ...formData,
+            pricePerUnit: Number(formData.pricePerUnit),
+            quantity: Number(formData.quantity),
+            amount: Number(formData.amount),
+            id,
+        });
     };
 
     return (
