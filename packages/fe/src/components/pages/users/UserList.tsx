@@ -1,12 +1,7 @@
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import EditIcon from "@mui/icons-material/Edit";
-import { Box } from "@mui/material";
-import { GridActionsCellItem } from "@mui/x-data-grid";
 import { useGate } from "effector-react";
 
 import { useUserForm } from "hooks/useUserForm";
 import { UsersGate } from "stores/users";
-import { SupportedValue } from "utils/formatters";
 
 import { Grid } from "../../dataGrid/Grid";
 import { AddUserForm } from "./AddUserForm";
@@ -21,34 +16,16 @@ const headers = [
 export const UserList = () => {
     useGate(UsersGate);
 
-    const { users, handleDeleteUser } = useUserForm({});
-
-    const renderActions = (row: Record<string, SupportedValue>) => {
-        const id = row.id as string;
-        return (
-            <>
-                <GridActionsCellItem icon={<EditIcon />} label="Edit" color="inherit" />
-                <GridActionsCellItem
-                    icon={<DeleteIcon />}
-                    label="Delete"
-                    color="inherit"
-                    onClick={() => handleDeleteUser(id)}
-                />
-            </>
-        );
-    };
+    const { users, handleDeleteClick } = useUserForm();
 
     return (
-        <Box sx={{ padding: "40px" }}>
-            <Grid
-                rows={users}
-                headers={headers}
-                searchPlaceholder="Search users by name, email, or role"
-                renderActions={renderActions}
-                modalTitle="Add New User"
-                addButtonLabel="Add New User"
-                modalContent={(removeModal) => <AddUserForm onClose={removeModal} />}
-            />
-        </Box>
+        <Grid
+            rows={users}
+            headers={headers}
+            searchPlaceholder="Search users by name, email, or role"
+            handleDelete={handleDeleteClick}
+            addButtonLabel="Add New User"
+            modalContent={(removeModal) => <AddUserForm onClose={removeModal} />}
+        />
     );
 };

@@ -1,6 +1,7 @@
 import { useMemo, useState } from "react";
+import DeleteIcon from "@mui/icons-material/DeleteOutlined";
 import { Box, TextField } from "@mui/material";
-import { DataGrid } from "@mui/x-data-grid";
+import { DataGrid, GridActionsCellItem } from "@mui/x-data-grid";
 
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
@@ -12,29 +13,29 @@ type GridProps = {
     rows: Array<Record<string, SupportedValue>>;
     headers: Array<{ field: string; headerName: string }>;
     searchPlaceholder?: string;
-    renderActions?: (row: Record<string, SupportedValue>) => JSX.Element;
     modalTitle?: string;
     modalContent?: (removeModal?: () => void) => JSX.Element;
     showToolbar?: boolean;
+    showSearchField?: boolean;
     addButtonLabel?: string;
+    handleDelete?: (id: string) => void;
 };
 
 export const Grid = ({
     rows,
     headers,
     searchPlaceholder = "Search...",
-    renderActions,
     modalTitle = "Add New Record",
     modalContent,
     showToolbar = true,
+    showSearchField = true,
     addButtonLabel = "Add New Record",
+    handleDelete,
 }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
 
-    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const query = event.target.value;
-        setSearchQuery(query);
-    };
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) =>
+        setSearchQuery(event.target.value);
 
     const filteredRows = useMemo(() => {
         if (!searchQuery) return rows;
@@ -61,6 +62,7 @@ export const Grid = ({
 
     const handleAddRecord = async () => {
         if (!modalContent) return;
+
         try {
             await createModal({
                 name: "add_record_modal",
@@ -74,30 +76,37 @@ export const Grid = ({
     };
 
     const columns = useMemo(() => {
-        if (!renderActions) {
-            return headers;
-        }
+        if (!handleDelete) return headers;
 
         const actionsColumn = {
             field: "actions",
             headerName: "Actions",
-            width: 100,
-            renderCell: (params: { row: { id: string } }) =>
-                renderActions ? renderActions(params.row) : null,
+            width: 70,
+            renderCell: (params: { row: { id: string } }) => (
+                <GridActionsCellItem
+                    icon={<DeleteIcon />}
+                    label="Delete"
+                    color="inherit"
+                    onClick={() => handleDelete(params.row.id)}
+                />
+            ),
         };
 
         return [...headers, actionsColumn];
-    }, [headers, renderActions]);
+    }, [headers, handleDelete]);
 
     return (
-        <>
-            <TextField
-                variant="outlined"
-                placeholder={searchPlaceholder}
-                value={searchQuery}
-                onChange={handleSearch}
-                fullWidth
-            />
+        <Box>
+            {showSearchField && (
+                <TextField
+                    variant="outlined"
+                    placeholder={searchPlaceholder}
+                    value={searchQuery}
+                    onChange={handleSearch}
+                    fullWidth
+                    sx={{ paddingBottom: "20px" }}
+                />
+            )}
             <Box>
                 <DataGrid
                     rows={filteredRows}
@@ -124,6 +133,6 @@ export const Grid = ({
                     }}
                 />
             </Box>
-        </>
+        </Box>
     );
 };

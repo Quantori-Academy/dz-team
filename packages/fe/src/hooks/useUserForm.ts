@@ -1,19 +1,58 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { toast } from "react-toastify";
 import { useUnit } from "effector-react";
 
+import { UserRole } from "api/self";
+import { NewUser } from "api/types";
+import { removeModal } from "components/modal/store";
 import { $usersList, addUserFx, deleteUserFx } from "stores/users";
 
-export type NewUser = {
-    username: string;
-    firstName: string;
-    lastName: string;
-    email: string;
-    password: string;
-    confirmPassword: string;
-    role: string;
+const validateForm = (formData: NewUser) => {
+    const errors: Partial<Record<keyof NewUser, string>> = {};
+
+    if (!formData.username || formData.username.trim().length === 0) {
+        errors.username = "Username is required.";
+    }
+
+    if (!formData.firstName || formData.firstName.trim().length === 0) {
+        errors.firstName = "First Name is required.";
+    }
+
+    if (!formData.lastName || formData.lastName.trim().length === 0) {
+        errors.lastName = "Last Name is required.";
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!formData.email || !emailRegex.test(formData.email)) {
+        errors.email = "Invalid email format.";
+    }
+
+    if (!formData.password || formData.password.length < 8) {
+        errors.password = "Password must be at least 8 characters long.";
+    }
+
+    if (formData.confirmPassword !== formData.password) {
+        errors.confirmPassword = "Passwords do not match.";
+    }
+
+    if (!formData.role) {
+        errors.role = "Role is required.";
+    }
+
+    return errors;
 };
 
-export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElement> }) => {
+export const useUserForm = () => {
+    const refs = {
+        username: useRef<HTMLInputElement>(null),
+        firstName: useRef<HTMLInputElement>(null),
+        lastName: useRef<HTMLInputElement>(null),
+        email: useRef<HTMLInputElement>(null),
+        password: useRef<HTMLInputElement>(null),
+        confirmPassword: useRef<HTMLInputElement>(null),
+        role: useRef<HTMLInputElement>(null),
+    };
+
     const [usernameError, setUsernameError] = useState<string | null>(null);
     const [firstNameError, setFirstNameError] = useState<string | null>(null);
     const [lastNameError, setLastNameError] = useState<string | null>(null);
@@ -24,69 +63,41 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
 
     const users = useUnit($usersList);
 
-    // user delete
-
-    const handleDeleteUser = (id: string) => {
-        deleteUserFx(id);
+    const handleDeleteClick = async (id: string) => {
+        await deleteUserFx(id);
+        toast.success("User deleted successfully!");
     };
 
-    const validateForm = (formData: NewUser) => {
-        let isValid = true;
-
-        if (formData.username.length > 50) {
-            setUsernameError("Username must not exceed 50 characters.");
-            isValid = false;
-        } else if (!formData.username || formData.username.trim().length === 0) {
-            setUsernameError("User name is required");
-            isValid = false;
-        }
-
-        if (!formData.firstName || formData.firstName.trim().length === 0) {
-            setFirstNameError("First Name is required.");
-            isValid = false;
-        }
-        if (!formData.lastName || formData.lastName.trim().length === 0) {
-            setLastNameError("Last Name is required.");
-            isValid = false;
-        }
-
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(formData.email)) {
-            setEmailError("Invalid email format.");
-            isValid = false;
-        }
-
-        if ((formData.password ?? "").length < 8) {
-            setPasswordError("Password must be at least 8 characters long.");
-            isValid = false;
-        }
-
-        if (formData.confirmPassword !== formData.password) {
-            setConfirmPasswordError("Passwords do not match.");
-            isValid = false;
-        }
-
-        if (!formData.role) {
-            setRoleError("Role is required.");
-            isValid = false;
-        }
-
-        return isValid;
-    };
-
-    const handleSubmit = () => {
+    const handleSubmit = async () => {
         const formData: NewUser = {
-            username: refs.username.current?.value as string,
-            firstName: refs.firstName.current?.value as string,
-            lastName: refs.lastName.current?.value as string,
-            email: refs.email.current?.value as string,
-            password: refs.password.current?.value as string,
-            confirmPassword: refs.confirmPassword.current?.value as string,
-            role: refs.role.current?.value as "admin" | "researcher" | "procurementOfficer",
+            username: refs.username.current?.value || "",
+            firstName: refs.firstName.current?.value || "",
+            lastName: refs.lastName.current?.value || "",
+            email: refs.email.current?.value || "",
+            password: refs.password.current?.value || "",
+            confirmPassword: refs.confirmPassword.current?.value || "",
+            role: (refs.role.current?.value as UserRole) ?? "",
         };
 
-        if (validateForm(formData)) {
-            addUserFx(formData);
+        const errors = validateForm(formData);
+
+        setUsernameError(errors.username || null);
+        setFirstNameError(errors.firstName || null);
+        setLastNameError(errors.lastName || null);
+        setEmailError(errors.email || null);
+        setPasswordError(errors.password || null);
+        setConfirmPasswordError(errors.confirmPassword || null);
+        setRoleError(errors.role || null);
+
+        if (Object.keys(errors).length === 0) {
+            await addUserFx(formData);
+
+            Object.values(refs).forEach((ref) => {
+                if (ref.current) {
+                    ref.current.value = "";
+                }
+            });
+
             setUsernameError(null);
             setFirstNameError(null);
             setLastNameError(null);
@@ -94,17 +105,14 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
             setPasswordError(null);
             setConfirmPasswordError(null);
             setRoleError(null);
+
+            toast.success("User added successfully!");
+            removeModal();
         }
-        refs.username.current!.value = "";
-        refs.firstName.current!.value = "";
-        refs.lastName.current!.value = "";
-        refs.email.current!.value = "";
-        refs.password.current!.value = "";
-        refs.confirmPassword.current!.value = "";
-        refs.role.current!.value = "";
     };
 
     return {
+        refs,
         usernameError,
         firstNameError,
         lastNameError,
@@ -113,7 +121,7 @@ export const useUserForm = (refs: { [key: string]: React.RefObject<HTMLInputElem
         confirmPasswordError,
         roleError,
         handleSubmit,
-        handleDeleteUser,
+        handleDeleteClick,
         users,
     };
 };
