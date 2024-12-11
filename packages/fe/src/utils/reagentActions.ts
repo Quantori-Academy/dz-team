@@ -1,8 +1,8 @@
-import { ReagentDetails } from "api/reagentDetails/contract";
 import { base } from "api/request";
+import { Reagent } from "shared/generated/zod";
 
 export type formData = Pick<
-    ReagentDetails,
+    Reagent,
     "id" | "name" | "cas" | "producer" | "pricePerUnit" | "quantity" | "unit" | "storageLocation"
 >;
 

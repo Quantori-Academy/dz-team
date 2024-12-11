@@ -1,3 +1,11 @@
+
+import { toast } from "react-toastify";
+import { useNavigate } from "@tanstack/react-router";
+
+import { deleteSample } from "api/combinedList/deleteSample";
+import { editSample } from "api/combinedList/editSample";
+import { EditSampleData } from "api/types";
+
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
 
 const fields = [
@@ -11,20 +19,32 @@ const fields = [
     { label: "Initial Quantity ", name: "quantityInit", required: true },
     { label: "Container", name: "container", required: true },
     { label: "Created At", name: "createdAt", required: true },
-    { label: "Updated At", name: "updadetAt", required: true },
+
 ];
 
-//TODO Add edit and delete functions
 export const SampleDetailPage = () => {
+    const navigate = useNavigate();
+    const handleAction = async (type: "submit" | "delete", data?: EditSampleData) => {
+        if (type === "submit" && data) {
+            await editSample(data);
+            toast.success("Sample Updated Successfully");
+        }
+
+        if (type === "delete" && data) {
+            await deleteSample(data.id);
+            toast.success("Sample Deleted Successfully");
+            navigate({ to: "/combinedList" });
+        }
+    };
+
     return (
-        <>
-            <DetailsEditPage
-                baseUrl="/combinedList"
-                url="/_app/_researcherLayout/combinedList/$id"
-                fields={fields}
-                // onAction={handleAction}
-                editableFields={["name", "structure", "description"]}
-            />
-        </>
+        <DetailsEditPage
+            baseUrl="/combinedList"
+            url="/_app/_researcherLayout/combinedList/$id"
+            fields={fields}
+            onAction={handleAction}
+            editableFields={["storageLocation", "quantity"]}
+        />
+
     );
 };

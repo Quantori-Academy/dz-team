@@ -1,14 +1,7 @@
 import { useState } from "react";
-import {
-    Autocomplete,
-    Box,
-    Button,
-    FormControl,
-    InputLabel,
-    MenuItem,
-    Select,
-    TextField,
-} from "@mui/material";
+
+import { Autocomplete, Box, Button, TextField } from "@mui/material";
+
 import { useGate, useUnit } from "effector-react";
 
 import { useSample } from "hooks/useSampleForm";
@@ -23,7 +16,9 @@ type AddSFormProps = {
 const buttonBoxStyle = { display: "flex", justifyContent: "center", gap: "25px" };
 
 export const AddSampleForm = ({ onClose }: AddSFormProps) => {
-    const [unit, setUnit] = useState("ml");
+
+    const [unit, setUnit] = useState("");
+
     const [selectedStorage, setSelectedStorage] = useState<{ id: string; name: string } | null>(
         null,
     );
@@ -78,14 +73,25 @@ export const AddSampleForm = ({ onClose }: AddSFormProps) => {
                 required
             />
             <TextField label="Description" inputRef={descriptionRef} fullWidth margin="normal" />
-            <FormControl fullWidth margin="normal" required>
-                <InputLabel>Quantity Unit</InputLabel>
-                <Select value={unit} onChange={(e) => setUnit(e.target.value)}>
-                    <MenuItem value="ml">ml</MenuItem>
-                    <MenuItem value="l">l</MenuItem>
-                    <MenuItem value="g">g</MenuItem>
-                </Select>
-            </FormControl>
+
+            <Autocomplete
+                freeSolo
+                options={["ml", "l", "g"]}
+                value={unit}
+                onChange={(_, newValue) => setUnit(newValue || "")}
+                onInputChange={(_, newValue) => setUnit(newValue)}
+                renderInput={(params) => (
+                    <TextField
+                        {...params}
+                        label="Unit"
+                        variant="outlined"
+                        margin="normal"
+                        fullWidth
+                        required
+                    />
+                )}
+            />
+
             <TextField
                 label="Quantity"
                 inputRef={quantityRef}

@@ -1,6 +1,5 @@
 import { request } from "api/request";
-
-import { ReagentDetailsContract } from "./contract";
+import { ReagentSchema } from "shared/generated/zod";
 
 export const getReagentsDetailsApi = async ({ id }: { id: string }) =>
-    await request(`/reagents/${id}`, ReagentDetailsContract);
+    await request(`/reagents/${id}`, ReagentSchema);
