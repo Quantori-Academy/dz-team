@@ -16,6 +16,7 @@ type GridProps = {
     modalTitle?: string;
     modalContent?: (removeModal?: () => void) => JSX.Element;
     showToolbar?: boolean;
+    showSearchField?: boolean;
     addButtonLabel?: string;
     handleDelete?: (id: string) => void;
 };
@@ -27,15 +28,14 @@ export const Grid = ({
     modalTitle = "Add New Record",
     modalContent,
     showToolbar = true,
+    showSearchField = true,
     addButtonLabel = "Add New Record",
     handleDelete,
 }: GridProps) => {
     const [searchQuery, setSearchQuery] = useState("");
 
-    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
-        const query = event.target.value;
-        setSearchQuery(query);
-    };
+    const handleSearch = (event: React.ChangeEvent<HTMLInputElement>) =>
+        setSearchQuery(event.target.value);
 
     const filteredRows = useMemo(() => {
         if (!searchQuery) return rows;
@@ -76,26 +76,20 @@ export const Grid = ({
     };
 
     const columns = useMemo(() => {
-        if (!renderActions) {
-            return headers;
-        }
+        if (!handleDelete) return headers;
 
         const actionsColumn = {
             field: "actions",
             headerName: "Actions",
-            width: 100,
-
-            renderCell: (params: { row: { id: string } }) => {
-                const id = params.row.id;
-                return handleDelete ? (
-                    <GridActionsCellItem
-                        icon={<DeleteIcon />}
-                        label="Delete"
-                        color="inherit"
-                        onClick={() => handleDelete(id)}
-                    />
-                ) : null;
-            },
+            width: 70,
+            renderCell: (params: { row: { id: string } }) => (
+                <GridActionsCellItem
+                    icon={<DeleteIcon />}
+                    label="Delete"
+                    color="inherit"
+                    onClick={() => handleDelete(params.row.id)}
+                />
+            ),
         };
 
         return [...headers, actionsColumn];
@@ -103,14 +97,16 @@ export const Grid = ({
 
     return (
         <Box>
-            <TextField
-                variant="outlined"
-                placeholder={searchPlaceholder}
-                value={searchQuery}
-                onChange={handleSearch}
-                fullWidth
-                sx={{ paddingBottom: "20px" }}
-            />
+            {showSearchField && (
+                <TextField
+                    variant="outlined"
+                    placeholder={searchPlaceholder}
+                    value={searchQuery}
+                    onChange={handleSearch}
+                    fullWidth
+                    sx={{ paddingBottom: "20px" }}
+                />
+            )}
             <Box>
                 <DataGrid
                     rows={filteredRows}

@@ -31,8 +31,8 @@ export const CreateOrder = () => {
                     rows={[]}
                     headers={headers}
                     showSearchField={false}
-                    showAddRecord={true}
-                    buttonLabel="Create a new reagent for an order"
+                    showToolbar={true}
+                    addButtonLabel="Create a new reagent for an order"
                 />
             </Box>
             <Outlet />
