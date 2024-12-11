@@ -86,11 +86,12 @@ export const OrderReagentFormModal = ({
         setErrors((prev) => ({ ...prev, [name]: undefined }));
     };
 
-    const isEditMode = selectedReagent && !!onDelete;
+    const isEditModal = selectedReagent && !!onDelete;
+    const isEditingDisabled = isEditModal && !isEditing;
 
     const handleAction = () => {
         if (!validateForm()) return;
-        const id = isEditMode ? selectedReagent?.id : uuidv4();
+        const id = isEditModal ? selectedReagent?.id : uuidv4();
         onSubmit({ ...formData, id });
     };
 
@@ -116,7 +117,7 @@ export const OrderReagentFormModal = ({
                                 margin="normal"
                                 error={!!fieldError}
                                 helperText={fieldError}
-                                disabled={!isEditing}
+                                disabled={isEditingDisabled}
                             />
                         )}
                     />
@@ -130,7 +131,7 @@ export const OrderReagentFormModal = ({
                         fullWidth
                         margin="normal"
                         type={field.type || "text"}
-                        disabled={!isEditing}
+                        disabled={isEditingDisabled}
                         error={!!fieldError}
                         helperText={fieldError}
                     />
@@ -139,12 +140,12 @@ export const OrderReagentFormModal = ({
             <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
                 <Button
                     variant="contained"
-                    onClick={isEditMode && !isEditing ? () => setIsEditing(true) : handleAction}
+                    onClick={isEditingDisabled ? () => setIsEditing(true) : handleAction}
                 >
-                    {isEditing ? "Save" : "Edit"}
+                    {isEditingDisabled ? "Edit" : "Submit"}
                 </Button>
 
-                {isEditing && (
+                {isEditingDisabled && (
                     <Button variant="contained" color="error" onClick={onDelete}>
                         Delete
                     </Button>
