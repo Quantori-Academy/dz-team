@@ -1,9 +1,7 @@
 import { sample } from "effector";
 
-import { CreateOrderType } from "api/order/createOrder";
-import { request } from "api/request";
+import { createOrder, CreateOrderType } from "api/order/createOrder";
 import { genericDomain as domain } from "logger";
-import { OrderCreateWithUserIdInputSchema } from "shared/zodSchemas/order/extendedOrderSchemas";
 
 export const OrderStatus = {
     pending: "pending",
@@ -34,14 +32,7 @@ $orderData.on(setOrderData, (state, payload) => ({
 
 export const submitOrderFx = domain.createEffect(async () => {
     const orderData = $orderData.getState();
-    const response = await request("/orders", OrderCreateWithUserIdInputSchema, {
-        method: "POST",
-        body: JSON.stringify(orderData),
-        headers: {
-            "Content-Type": "application/json",
-        },
-        showErrorNotification: true,
-    });
+    const response = await createOrder(orderData);
     setOrderData(initialOrderData);
     return response;
 });
