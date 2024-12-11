@@ -7,26 +7,23 @@ import { Order } from "shared/generated/zod/modelSchema";
 import { SupportedValue } from "utils/formatters";
 
 const reagentColumns = [
-    { field: "id", headerName: "ID", width: 120 },
     { field: "name", headerName: "Name", width: 120 },
-    { field: "structure", headerName: "Structure", width: 180 },
-    { field: "quantity", headerName: "Quantity", width: 120 },
-    { field: "cas", headerName: "CAS", width: 120 },
+    { field: "quantity", headerName: "Quantity", width: 80 },
+    { field: "amount", headerName: "Amount", width: 80 },
     { field: "producer", headerName: "Producer", width: 180 },
+    { field: "pricePerUnit", headerName: "Price per unit", width: 102 },
     { field: "catalogId", headerName: "Catalog Id", width: 120 },
     { field: "catalogLink", headerName: "Catalog Link", width: 120 },
-    { field: "pricePerUnit", headerName: "Price per unit", width: 180 },
+    { field: "cas", headerName: "CAS", width: 120 },
+    { field: "structure", headerName: "Structure", width: 180 },
 ];
 
 const fields = [
-    { label: "ID", name: "id", disabled: true },
     { label: "Title", name: "title" },
     { label: "Description", name: "description" },
     { label: "Status", name: "status" },
     { label: "Seller", name: "seller" },
-    { label: "Deleted at", name: "deletedAt" },
     { label: "Created at", name: "createdAt" },
-    { label: "User Id", name: "userId" },
 ];
 
 const boxStyle = { display: "flex", flexDirection: "column", gap: "20px" };

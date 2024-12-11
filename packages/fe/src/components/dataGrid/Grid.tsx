@@ -103,7 +103,7 @@ export const Grid = ({
                     sx={{ paddingBottom: "20px" }}
                 />
             )}
-            <Box sx={{ height: "300px", width: "100%" }}>
+            <Box>
                 <DataGrid
                     rows={filteredRows}
                     columns={columns}
