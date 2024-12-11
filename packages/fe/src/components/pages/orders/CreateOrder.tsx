@@ -28,7 +28,6 @@ const headers = [
 
 export const CreateOrder = () => {
     const { orderItems, deleteReagent, editReagent, addReagent, setOrderItems } = useReagents();
-    const [selectedReagent, setSelectedReagent] = useState<CreateOrderReagent | null>(null);
     const [title, setTitle] = useState("");
     const [seller, setSeller] = useState("");
     const [description, setDescription] = useState("");
@@ -40,9 +39,8 @@ export const CreateOrder = () => {
         setOrderItems([]);
     }, [setTitle, setSeller, setDescription, setOrderItems]);
 
-    const handleRowClick = async (row: CreateOrderReagent) => {
-        setSelectedReagent(row);
-        const result = await createModal({
+    const handleRowClick = (row: CreateOrderReagent) => {
+        createModal({
             name: "reagent_modal",
             title: "Edit Reagent",
             message: (
@@ -57,40 +55,27 @@ export const CreateOrder = () => {
                         deleteReagent(row);
                         removeModal();
                     }}
-                    onCancel={() => {
-                        removeModal();
-                    }}
+                    onCancel={removeModal}
                 />
             ),
         });
-        if (!result) {
-            removeModal();
-        }
     };
 
-    const openAddModal = async () => {
-        const result = await createModal({
+    const openAddModal = () => {
+        createModal({
             name: "reagent_modal",
             title: "Add new Reagent",
             message: (
                 <OrderReagentFormModal
                     mode={Mode.Create}
-                    selectedReagent={selectedReagent}
                     onSubmit={(newReagent: CreateOrderReagent) => {
                         addReagent(newReagent);
                         removeModal();
                     }}
-                    onCancel={() => {
-                        setSelectedReagent(null);
-                        removeModal();
-                    }}
+                    onCancel={removeModal}
                 />
             ),
         });
-        if (!result) {
-            setSelectedReagent(null);
-            removeModal();
-        }
     };
 
     return (
@@ -111,7 +96,7 @@ export const CreateOrder = () => {
                 setDescription={setDescription}
                 clearBasket={clearBasket}
             />
-            <Box sx={{ display: "flex", flexDirection: "column", minHeight: "300px" }}>
+            <Box sx={{ display: "flex", flexDirection: "column", minHeight: "330px" }}>
                 <DataGrid
                     rows={orderItems}
                     columns={headers}
