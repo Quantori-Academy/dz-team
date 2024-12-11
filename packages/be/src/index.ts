@@ -6,8 +6,8 @@ import {
     serializerCompiler,
     validatorCompiler,
 } from "fastify-zod-openapi";
-import { z } from "zod";
 import { extendZodWithOpenApi } from "zod-openapi";
+import { z } from "zod";
 
 import { generateOpenApiSchema } from "./utils/generateOpenApi";
 import { isProd } from "./utils/isProd";

@@ -8,12 +8,12 @@ import { orderController } from "../controllers/orderController";
 import { OrderStatus } from "@prisma/client";
 
 // Shared schemas
+import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
 import {
     OrderCreateWithUserIdInputSchema,
     OrderUpdateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
 import { fulfillOrderSchema } from "../../../shared/zodSchemas/order/fulfillOrderSchema";
-import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
 
 /**
  * Registers the order routes with the provided Fastify instance.

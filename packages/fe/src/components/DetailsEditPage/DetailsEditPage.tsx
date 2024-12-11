@@ -23,8 +23,8 @@ type DetailsEditPageProps<T extends AnyRoute, TData> = PropsWithChildren<{
     onAction?: (type: Actions, data?: TData) => Promise<void>;
     editableFields?: string[];
     tableRef?: TableContextType["ref"];
-    addEditButton?: boolean;
     addDeleteButton?: boolean;
+    addEditButton?: boolean;
 }>;
 
 export const DetailsEditPage = <T extends AnyRoute, TData>(
@@ -42,8 +42,8 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
     editableFields = [],
     children,
     tableRef,
-    addEditButton = true,
     addDeleteButton = true,
+    addEditButton = true,
 }: DetailsEditPageProps<T, TData> & { tableRef: TableContextType["ref"] }) {
     const [isEditing, setIsEditing] = useState(false);
     const data = useLoaderData<T>({ from: url }) as TData;
