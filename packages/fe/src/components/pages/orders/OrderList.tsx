@@ -1,4 +1,3 @@
-import { Box } from "@mui/material";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 
 import { CommonTable } from "components/commonTable/CommonTable";
@@ -30,32 +29,23 @@ export const OrderList = () => {
 
     return (
         <>
-            <Box
-                sx={{
-                    padding: "40px",
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "20px",
+            <CommonTable<Order>
+                columns={headers}
+                url={`/orders`}
+                schema={OrderSchema}
+                onRowClick={(row: Order) => {
+                    navigate({ to: `/orders/${row.id}`, replace: false });
                 }}
-            >
-                <CommonTable<Order>
-                    columns={headers}
-                    url={`/orders`}
-                    schema={OrderSchema}
-                    onRowClick={(row: Order) => {
-                        navigate({ to: `/orders/${row.id}`, replace: false });
-                    }}
-                    searchBy={{
-                        title: true,
-                        description: true,
-                        seller: true,
-                        createdAt: true,
-                        updatedAt: true,
-                    }}
-                    onAdd={handleClick}
-                    addButtonText="Create a new order"
-                />
-            </Box>
+                searchBy={{
+                    title: true,
+                    description: true,
+                    seller: true,
+                    createdAt: true,
+                    updatedAt: true,
+                }}
+                onAdd={handleClick}
+                addButtonText="Create a new order"
+            />
             <Outlet />
         </>
     );

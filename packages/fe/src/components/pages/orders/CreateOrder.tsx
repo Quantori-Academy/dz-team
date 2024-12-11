@@ -8,7 +8,6 @@ import { AddRecord } from "components/dataGrid/Addrecord";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
 import { useReagents } from "hooks/useReagents";
-import { Mode } from "utils/mode";
 
 import { OrderBasket } from "./OrderBasket";
 import { OrderReagentFormModal } from "./OrderReagentFormModal";
@@ -45,7 +44,6 @@ export const CreateOrder = () => {
             title: "Edit Reagent",
             message: (
                 <OrderReagentFormModal
-                    mode={Mode.View}
                     selectedReagent={row}
                     onSubmit={(updatedReagent: CreateOrderReagent) => {
                         editReagent(updatedReagent);
@@ -67,7 +65,6 @@ export const CreateOrder = () => {
             title: "Add new Reagent",
             message: (
                 <OrderReagentFormModal
-                    mode={Mode.Create}
                     onSubmit={(newReagent: CreateOrderReagent) => {
                         addReagent(newReagent);
                         removeModal();

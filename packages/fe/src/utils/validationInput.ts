@@ -2,7 +2,7 @@ import { isNumber, isString } from "lodash";
 
 type ValidationRule = {
     required?: boolean;
-    negativeCheck?: boolean;
+    positiveCheck?: boolean;
     integerCheck?: boolean;
     urlCheck?: boolean;
     maxLength?: number;
@@ -31,13 +31,16 @@ export const validateInput = <T extends Record<string, unknown>>(
         if (validations.required && !value) {
             errors[field] = `${field} is required`;
         }
+
         const numericValue = isNumber(value) ? value : Number(value);
-        if (validations.negativeCheck && isNumber(numericValue) && numericValue < 0) {
-            errors[field] = `${field} cannot be negative`;
-        }
-        if (validations.integerCheck && isNumber(numericValue) && !Number.isInteger(numericValue)) {
+
+        if (validations.integerCheck && !Number.isInteger(numericValue)) {
             errors[field] = `${field} must be an integer`;
         }
+        if (validations.positiveCheck && numericValue <= 0) {
+            errors[field] = `${field} must be a positive number`;
+        }
+
         if (validations.urlCheck && isString(value) && !isUrlValid(value)) {
             errors[field] = `${field} must be a valid URL`;
         }

@@ -1,21 +1,41 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Autocomplete, Box, Button, TextField } from "@mui/material";
 import { v4 as uuidv4 } from "uuid";
 
 import { CreateOrderReagent } from "api/order/contract";
 import { UnitSchema } from "shared/generated/zod";
-import { Mode } from "utils/mode";
 import { validateInput } from "utils/validationInput";
 
 const unitOptions = UnitSchema.options;
 
+// with discriminated union for onDelete or no onDelete - with onDelete and selectedReagent it's Edit mode
 type OrderReagentFormModalProps = {
-    mode: Mode;
-    selectedReagent?: CreateOrderReagent | null;
     onSubmit: (reagent: CreateOrderReagent) => void;
     onCancel: () => void;
-    onDelete?: () => void;
+} & (
+    | {
+          selectedReagent: CreateOrderReagent;
+          onDelete: () => void;
+      }
+    | {
+          selectedReagent?: never;
+          onDelete?: never;
+      }
+);
+
+const initialFormData = {
+    name: "",
+    structure: "",
+    cas: "",
+    producer: "",
+    catalogId: "",
+    catalogLink: "",
+    pricePerUnit: 0,
+    unit: "ml",
+    quantity: 0,
+    amount: 1,
 };
+
 const fields = [
     { name: "name", label: "Name", width: 150 },
     { name: "structure", label: "Structure", width: 170 },
@@ -37,31 +57,19 @@ const validationRules = {
     catalogId: { required: false },
     catalogLink: { required: false, urlCheck: true },
     unit: { required: true },
-    pricePerUnit: { required: true, negativeCheck: true },
-    quantity: { required: true, negativeCheck: true, integerCheck: true },
-    amount: { required: true, negativeCheck: true, integerCheck: true },
+    pricePerUnit: { required: true, positiveCheck: true },
+    quantity: { required: true, positiveCheck: true, integerCheck: true },
+    amount: { required: true, positiveCheck: true, integerCheck: true },
 };
 
 export const OrderReagentFormModal = ({
     onSubmit,
     onCancel,
-    mode,
     selectedReagent,
     onDelete,
 }: OrderReagentFormModalProps) => {
-    const [formData, setFormData] = useState({
-        name: "",
-        structure: "",
-        cas: "",
-        producer: "",
-        catalogId: "",
-        catalogLink: "",
-        pricePerUnit: 0,
-        unit: "ml",
-        quantity: 0,
-        amount: 1,
-    });
-    const [currentMode, setCurrentMode] = useState<Mode>(mode);
+    const [formData, setFormData] = useState(selectedReagent || initialFormData);
+    const [isEditing, setIsEditing] = useState(false);
     const [errors, setErrors] = useState<Partial<Record<keyof CreateOrderReagent, string>>>({});
 
     const validateForm = (): boolean => {
@@ -72,53 +80,22 @@ export const OrderReagentFormModal = ({
         }
         return true;
     };
-
-    useEffect(() => {
-        if (selectedReagent && mode !== Mode.Create) {
-            setFormData({
-                ...selectedReagent,
-                catalogLink: selectedReagent.catalogLink || "",
-            });
-        }
-    }, [mode, selectedReagent]);
-
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
         setFormData((prev) => ({ ...prev, [name]: value }));
         setErrors((prev) => ({ ...prev, [name]: undefined }));
     };
 
-    const handleCreate = () => {
-        if (!validateForm()) return;
-        const newReagent: CreateOrderReagent = {
-            ...formData,
-            id: uuidv4(),
-            quantity: Number(formData.quantity),
-            pricePerUnit: Number(formData.pricePerUnit),
-            amount: Number(formData.amount),
-        };
-        onSubmit(newReagent);
-    };
+    const isEditMode = selectedReagent && !!onDelete;
 
-    const handleEdit = () => {
-        if (!selectedReagent || !validateForm()) return;
-        const validationErrors = validateInput(formData, validationRules);
-        if (Object.keys(validationErrors).length > 0) {
-            setErrors(validationErrors);
-            return;
-        }
-        const updatedReagent: CreateOrderReagent = {
-            ...formData,
-            id: selectedReagent?.id,
-            quantity: Number(formData.quantity),
-            pricePerUnit: Number(formData.pricePerUnit),
-            amount: Number(formData.amount),
-        };
-        onSubmit(updatedReagent);
+    const handleAction = () => {
+        if (!validateForm()) return;
+        const id = isEditMode ? selectedReagent?.id : uuidv4();
+        onSubmit({ ...formData, id });
     };
 
     return (
-        <Box>
+        <>
             {fields.map((field) => {
                 const fieldError = errors[field.name as keyof typeof errors];
 
@@ -139,7 +116,7 @@ export const OrderReagentFormModal = ({
                                 margin="normal"
                                 error={!!fieldError}
                                 helperText={fieldError}
-                                disabled={currentMode === Mode.View}
+                                disabled={!isEditing}
                             />
                         )}
                     />
@@ -153,49 +130,33 @@ export const OrderReagentFormModal = ({
                         fullWidth
                         margin="normal"
                         type={field.type || "text"}
-                        disabled={currentMode === Mode.View}
+                        disabled={!isEditing}
                         error={!!fieldError}
                         helperText={fieldError}
                     />
                 );
             })}
             <Box sx={{ display: "flex", justifyContent: "space-between", marginTop: "20px" }}>
-                {currentMode === Mode.Create && (
-                    <>
-                        <Button variant="contained" onClick={handleCreate}>
-                            Create
-                        </Button>
-                        <Button variant="outlined" onClick={onCancel}>
-                            Cancel
-                        </Button>
-                    </>
+                <Button
+                    variant="contained"
+                    onClick={isEditMode && !isEditing ? () => setIsEditing(true) : handleAction}
+                >
+                    {isEditing ? "Save" : "Edit"}
+                </Button>
+
+                {isEditing && (
+                    <Button variant="contained" color="error" onClick={onDelete}>
+                        Delete
+                    </Button>
                 )}
-                {currentMode === Mode.Edit && (
-                    <>
-                        <Button variant="contained" onClick={handleEdit}>
-                            Save
-                        </Button>
-                        <Button variant="outlined" onClick={onCancel}>
-                            Cancel
-                        </Button>
-                    </>
-                )}
-                {currentMode === Mode.View && (
-                    <>
-                        <Button variant="outlined" onClick={() => setCurrentMode(Mode.Edit)}>
-                            Edit
-                        </Button>
-                        <Button
-                            variant="contained"
-                            color="secondary"
-                            onClick={onDelete}
-                            sx={{ marginLeft: "10px" }}
-                        >
-                            Delete
-                        </Button>
-                    </>
-                )}
+
+                <Button
+                    variant="outlined"
+                    onClick={!isEditing ? onCancel : () => setIsEditing(false)}
+                >
+                    Cancel
+                </Button>
             </Box>
-        </Box>
+        </>
     );
 };
