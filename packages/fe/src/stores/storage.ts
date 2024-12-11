@@ -7,10 +7,7 @@ import { genericDomain as domain } from "logger";
 
 export const $storageList = domain.createStore<StorageLocation[]>([], { name: "$storageList" });
 
-export const fetchStorageFx = domain.createEffect(async () => {
-    const response = await getStorage();
-    return response?.data ?? [];
-});
+export const fetchStorageFx = domain.createEffect(async () => (await getStorage()) ?? []);
 
 export const StorageGate = createGate({ domain });
 

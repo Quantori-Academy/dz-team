@@ -1,11 +1,11 @@
-import { Logout, Settings } from "@mui/icons-material";
-import PersonIcon from "@mui/icons-material/Person";
+import { Logout } from "@mui/icons-material";
 import { Box, Divider, ListItemIcon, Menu, MenuItem, Typography } from "@mui/material";
 import { Link } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 import { theme } from "theme";
 
 import { sessionDeleteFx } from "stores/auth";
+import { $currentUser } from "stores/user";
 
 type Props = {
     handleClose: () => void;
@@ -15,6 +15,7 @@ type Props = {
 
 export function DropdownMenuHeaderDesktop({ handleClose, open, anchorEl }: Props) {
     const deleteSession = useUnit(sessionDeleteFx);
+    const user = useUnit($currentUser);
     return (
         <Menu
             anchorEl={anchorEl}
@@ -51,13 +52,16 @@ export function DropdownMenuHeaderDesktop({ handleClose, open, anchorEl }: Props
             transformOrigin={{ horizontal: "center", vertical: "top" }}
             anchorOrigin={{ horizontal: "center", vertical: "bottom" }}
         >
-            <Box sx={{ mt: 1, mr: 2, mb: 1, ml: 2, width: "148px" }}>
+            <Box sx={{ mt: 1, mr: 2, mb: 1, ml: 2, width: "180px", minWidth: "148px" }}>
                 <Typography
                     sx={{
                         color: theme.palette.text.primary,
+                        overflow: "hidden",
+                        whiteSpace: "nowrap",
+                        textOverflow: "ellipsis",
                     }}
                 >
-                    UserName
+                    {user?.username}
                 </Typography>
                 <Typography
                     variant="body2"
@@ -65,32 +69,9 @@ export function DropdownMenuHeaderDesktop({ handleClose, open, anchorEl }: Props
                         color: theme.palette.text.disabled,
                     }}
                 >
-                    usermail@acme.com
+                    {user?.email}
                 </Typography>
             </Box>
-            <Divider />
-
-            <MenuItem
-                sx={{
-                    color: theme.palette.text.primary,
-                    mt: 1,
-                }}
-            >
-                <ListItemIcon>
-                    <PersonIcon fontSize="medium" />
-                </ListItemIcon>
-                Account
-            </MenuItem>
-            <MenuItem
-                sx={{
-                    color: theme.palette.text.primary,
-                }}
-            >
-                <ListItemIcon>
-                    <Settings fontSize="medium" />
-                </ListItemIcon>
-                Settings
-            </MenuItem>
             <Divider />
             <Link onClick={deleteSession} style={{ textDecoration: "none" }}>
                 <MenuItem

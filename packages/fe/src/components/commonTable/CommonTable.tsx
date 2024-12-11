@@ -172,13 +172,13 @@ export const CommonTable: ForwardRefWithGenerics = forwardRef(
         }, [pagination.page, pagination.pageSize, sort, query, url, schema, searchBy, pagination]);
 
         return (
-            <>
+            <Box sx={{ display: "flex", flexDirection: "column" }} gap={2}>
                 <TextField
                     label="Search"
                     variant="outlined"
                     value={query}
                     onChange={(e) => setQuery(e.target.value)}
-                    sx={{ minWidth: 200, mt: 2 }}
+                    sx={{ width: "100%" }}
                 />
 
                 <DataGrid
@@ -212,9 +212,9 @@ export const CommonTable: ForwardRefWithGenerics = forwardRef(
                     onRowClick={(params: GridRowParams<T>) => onRowClick?.(params.row)}
                     disableColumnFilter
                     disableRowSelectionOnClick
-                    sx={{ mt: 2, minHeight: 300 }}
+                    sx={{ minHeight: 300 }}
                 />
-            </>
+            </Box>
         );
     },
 );

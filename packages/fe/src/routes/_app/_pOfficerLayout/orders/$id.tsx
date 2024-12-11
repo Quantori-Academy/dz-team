@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 
-import { getOrdersDetailsApi } from "api/orderDetails/getOrderDetails";
+import { getOrdersDetailsApi } from "api/order/getOrderDetails";
 import { OrderDetailsPage } from "components/pages/orders/details";
 
 export const Route = createFileRoute("/_app/_pOfficerLayout/orders/$id")({
