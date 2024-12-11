@@ -1,17 +1,17 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 import { Autocomplete, Box, Button, TextField } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 
 import { CreateOrderReagent } from "api/order/contract";
-import { SnackbarAlert } from "components/snackBarAlert/snackBarAlert";
-import { $userId } from "stores/auth";
+import { $auth } from "stores/auth";
 import { OrderStatus, setOrderData, submitOrderFx } from "stores/order";
 import { $sellers, fetchSellers } from "stores/sellers";
 import { validateInput } from "utils/validationInput";
 
 type BasketProps = {
-    basket: { reagent: CreateOrderReagent }[];
+    basket: CreateOrderReagent[];
     title: string;
     seller: string;
     description: string;
@@ -46,17 +46,8 @@ export function OrderBasket({
     clearBasket,
 }: BasketProps) {
     const [errors, setErrors] = useState<Partial<Record<string, string>>>({});
-    const [snackbar, setSnackbar] = useState<{
-        open: boolean;
-        message: string;
-        severity: "success" | "error";
-    }>({
-        open: false,
-        message: "",
-        severity: "success",
-    });
-    const userId = useUnit($userId);
-    const sellers = useUnit($sellers);
+    const [auth, sellers] = useUnit([$auth, $sellers]);
+    const userId = auth && typeof auth !== "boolean" ? auth.userId : null;
     const navigate = useNavigate();
 
     const handleCreateOrder = async () => {
@@ -65,16 +56,12 @@ export function OrderBasket({
 
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
-            setSnackbar({ open: true, message: "Order creation failed!", severity: "error" });
-            return;
+            return toast.error("Order creation failed!");
         }
         if (!userId) {
-            setSnackbar({
-                open: true,
-                message: "User  ID is required to create an order!",
-                severity: "error",
-            });
-            return;
+            return toast.error(
+                "Looks like your authorization is broken! Please re-login and try again",
+            );
         }
         const orderData = {
             title,
@@ -82,7 +69,7 @@ export function OrderBasket({
             status: OrderStatus.pending,
             userId: userId,
             description,
-            reagents: basket.map(({ reagent }) => ({
+            reagents: basket.map((reagent) => ({
                 id: reagent.id,
                 name: reagent.name,
                 structure: reagent.structure,
@@ -98,37 +85,20 @@ export function OrderBasket({
         };
 
         setOrderData(orderData);
-        try {
-            const response = await submitOrderFx();
-            if (response.id) {
-                setSnackbar({
-                    open: true,
-                    message: "Order created successfully!",
-                    severity: "success",
-                });
-                clearBasket();
-                setErrors({});
-                setTimeout(() => navigate({ to: "/orders" }), 1000);
-            } else {
-                setSnackbar({
-                    open: true,
-                    message: "Order creation failed!",
-                    severity: "error",
-                });
-            }
-        } catch (error) {
-            const errorMessage = (error as Error)?.message || "Something went wrong";
-            setSnackbar({
-                open: true,
-                message: errorMessage,
-                severity: "error",
-            });
+        const response = await submitOrderFx();
+        if (response.id) {
+            toast.success("Order created successfully!");
+            clearBasket();
+            setErrors({});
+            navigate({ to: "/orders" });
+        } else {
+            toast.error("Order creation failed!");
         }
     };
 
     return (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-            <Box sx={{ display: "flex", gap: "20px", mt: 2 }}>
+        <Box sx={{ display: "flex", flexDirection: "column" }} gap={2}>
+            <Box sx={{ display: "flex" }} gap={2}>
                 <TextField
                     label="Title"
                     value={title}
@@ -179,17 +149,10 @@ export function OrderBasket({
                 fullWidth
                 error={!!errors.description}
                 helperText={errors.description}
-                sx={{ mt: 2 }}
             />
-            <Button variant="contained" color="primary" onClick={handleCreateOrder} sx={{ mt: 2 }}>
+            <Button variant="contained" color="primary" onClick={handleCreateOrder}>
                 Create Order
             </Button>
-            <SnackbarAlert
-                open={snackbar.open}
-                message={snackbar.message}
-                severity={snackbar.severity}
-                onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
-            />
         </Box>
     );
 }

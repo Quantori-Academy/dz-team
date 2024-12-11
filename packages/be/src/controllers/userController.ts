@@ -89,7 +89,11 @@ class UserController {
             // Respond with the created user, omitting the password
             reply.status(201).send(newUser);
         } catch (error) {
-            sendErrorResponse(reply, error, "User registration failed");
+            sendErrorResponse(
+                reply,
+                error,
+                "User registration failed user name or email already exists",
+            );
         }
     }
 

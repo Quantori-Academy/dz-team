@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Box } from "@mui/material";
 import { DataGrid, GridRowParams } from "@mui/x-data-grid";
 import { Outlet } from "@tanstack/react-router";
@@ -8,13 +8,11 @@ import { AddRecord } from "components/dataGrid/Addrecord";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
 import { useReagents } from "hooks/useReagents";
-import { Mode } from "utils/mode";
 
 import { OrderBasket } from "./OrderBasket";
 import { OrderReagentFormModal } from "./OrderReagentFormModal";
 
 const headers = [
-    { field: "id", headerName: "id", width: 150, editable: false },
     { field: "name", headerName: "Name", width: 150, editable: true },
     { field: "structure", headerName: "Structure", width: 170, editable: true },
     { field: "cas", headerName: "Cas", width: 170, editable: true },
@@ -26,28 +24,26 @@ const headers = [
     { field: "quantity", headerName: "Quantity", width: 17, editable: true },
     { field: "amount", headerName: "Amount", width: 170, editable: true },
 ];
+
 export const CreateOrder = () => {
-    const { reagents, basket, deleteReagent, editReagent, setReagents, setBasket } = useReagents();
-    const [selectedReagent, setSelectedReagent] = useState<CreateOrderReagent | null>(null);
+    const { orderItems, deleteReagent, editReagent, addReagent, setOrderItems } = useReagents();
     const [title, setTitle] = useState("");
     const [seller, setSeller] = useState("");
     const [description, setDescription] = useState("");
 
-    const clearBasket = () => {
+    const clearBasket = useCallback(() => {
         setTitle("");
         setSeller("");
         setDescription("");
-        setReagents([]);
-    };
+        setOrderItems([]);
+    }, [setTitle, setSeller, setDescription, setOrderItems]);
 
-    const handleRowClick = async (row: CreateOrderReagent) => {
-        setSelectedReagent(row);
-        const result = await createModal({
+    const handleRowClick = (row: CreateOrderReagent) => {
+        createModal({
             name: "reagent_modal",
             title: "Edit Reagent",
             message: (
                 <OrderReagentFormModal
-                    mode={Mode.View}
                     selectedReagent={row}
                     onSubmit={(updatedReagent: CreateOrderReagent) => {
                         editReagent(updatedReagent);
@@ -57,63 +53,49 @@ export const CreateOrder = () => {
                         deleteReagent(row);
                         removeModal();
                     }}
-                    onCancel={() => {
-                        removeModal();
-                    }}
+                    onCancel={removeModal}
                 />
             ),
         });
-        if (!result) {
-            removeModal();
-        }
     };
 
-    const openAddModal = async () => {
-        const result = await createModal({
+    const openAddModal = () => {
+        createModal({
             name: "reagent_modal",
             title: "Add new Reagent",
             message: (
                 <OrderReagentFormModal
-                    mode={Mode.Create}
-                    selectedReagent={selectedReagent}
                     onSubmit={(newReagent: CreateOrderReagent) => {
-                        setReagents((prevReagents) => [...prevReagents, newReagent]);
-                        setBasket((prevBasket) => [...prevBasket, { reagent: newReagent }]);
+                        addReagent(newReagent);
                         removeModal();
                     }}
-                    onCancel={() => {
-                        setSelectedReagent(null);
-                        removeModal();
-                    }}
+                    onCancel={removeModal}
                 />
             ),
         });
-        if (!result) {
-            setSelectedReagent(null);
-            removeModal();
-        }
     };
+
     return (
-        <>
-            <Box
-                sx={{
-                    padding: "20px",
-                    display: "flex",
-                    flexDirection: "column",
-                }}
-            >
-                <OrderBasket
-                    basket={basket}
-                    title={title}
-                    seller={seller}
-                    description={description}
-                    setTitle={setTitle}
-                    setSeller={setSeller}
-                    setDescription={setDescription}
-                    clearBasket={clearBasket}
-                />
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+            }}
+            gap={2}
+        >
+            <OrderBasket
+                basket={orderItems}
+                title={title}
+                seller={seller}
+                description={description}
+                setTitle={setTitle}
+                setSeller={setSeller}
+                setDescription={setDescription}
+                clearBasket={clearBasket}
+            />
+            <Box sx={{ display: "flex", flexDirection: "column", minHeight: "330px" }}>
                 <DataGrid
-                    rows={reagents}
+                    rows={orderItems}
                     columns={headers}
                     onRowClick={(params: GridRowParams<CreateOrderReagent>) =>
                         handleRowClick(params.row)
@@ -129,6 +111,6 @@ export const CreateOrder = () => {
                 />
             </Box>
             <Outlet />
-        </>
+        </Box>
     );
 };

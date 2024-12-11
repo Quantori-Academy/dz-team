@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Alert, Box, Button, Link, Paper, TextField, Typography } from "@mui/material";
+import { Alert, Box, Button, Paper, TextField, Typography } from "@mui/material";
 import { useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
 
@@ -124,10 +124,6 @@ export function LoginForm() {
                         </Alert>
                     ) : null}
                 </Box>
-                {/* TODO: update link when password restoration page is ready */}
-                <Link variant="body2" color="secondary" sx={{ cursor: "pointer" }}>
-                    Forgot password?
-                </Link>
             </Box>
         </Box>
     );
