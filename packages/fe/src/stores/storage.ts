@@ -9,7 +9,7 @@ export const $storageList = domain.createStore<StorageLocation[]>([], { name: "$
 
 export const fetchStorageFx = domain.createEffect(async () => {
     const response = await getStorage();
-    return response?.data ?? [];
+    return response ?? [];
 });
 
 export const StorageGate = createGate({ domain });
