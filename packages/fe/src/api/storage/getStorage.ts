@@ -1,10 +1,19 @@
-import { request } from "api/request";
+import { search } from "api/search";
+import { StorageLocationSchema } from "shared/generated/zod";
 
-import { StorageLocationsAllContract } from "./contract";
-
-export const getStorage = async () => {
-    const storage = await request(`/storage-locations`, StorageLocationsAllContract, {
-        method: "GET",
+export const getStorage = async (query = "") => {
+    const storage = await search({
+        url: "/storage-locations",
+        query,
+        schema: StorageLocationSchema,
+        page: 0,
+        pageSize: 15,
+        sortBy: "name",
+        sortOrder: "asc",
+        searchBy: {
+            name: true,
+            room: true,
+        },
     });
-    return storage;
+    return storage.data;
 };
