@@ -36,11 +36,15 @@ server.register(cors, {
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
 });
 
-registerSwagger(server);
+// Conditionally import the OpenAPI generator in non-production environments
+if (!isProd) {
+    // Register Swagger
+    registerSwagger(server);
 
-server.ready(() => {
-    generateOpenApiSchema(server);
-});
+    server.ready(() => {
+        generateOpenApiSchema(server); // Call the schema generation without await
+    });
+}
 
 server.get("/", async () => {
     return `Hello world! isProd: ${isProd}`;

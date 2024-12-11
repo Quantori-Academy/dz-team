@@ -5,16 +5,11 @@ import { FastifyZodInstance } from "../types";
 import { sellerController } from "../controllers/sellerController";
 
 // Shared schemas
-import { SellerSearchSchema } from "../../../shared/zodSchemas/seller/sellerSearchSchema";
-import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
-
-// OpenAPI response schemas
 import {
-    DELETE_SELLER_BY_ID_SCHEMA,
-    GET_SELLERS_SCHEMA,
-    POST_SELLER_SCHEMA,
-    PUT_SELLER_BY_ID_SCHEMA,
-} from "../responseSchemas/seller";
+    SellerCreateInputSchema,
+    SellerUpdateInputSchema,
+} from "../../../shared/generated/zod/inputTypeSchemas";
+import { SellerSearchSchema } from "../../../shared/zodSchemas/seller/sellerSearchSchema";
 
 /**
  * Registers the seller routes with the provided Fastify instance.
@@ -32,7 +27,7 @@ export const sellerRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.get<{ Querystring: typeof SellerSearchSchema }>(
         "/",
         {
-            schema: GET_SELLERS_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["Seller"] },
         },
         async (request, reply) => {
             return await sellerController.getAllSellers(request, reply);
@@ -48,7 +43,7 @@ export const sellerRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.post<{ Body: { name: string } }>(
         "/",
         {
-            schema: POST_SELLER_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["Seller"], body: SellerCreateInputSchema },
         },
         async (request, reply) => {
             return await sellerController.createSeller(request, reply);
@@ -65,7 +60,7 @@ export const sellerRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.put<{ Params: { id: string }; Body: { name: string } }>(
         "/:id",
         {
-            schema: PUT_SELLER_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["Seller"], body: SellerUpdateInputSchema },
         },
         async (request, reply) => {
             return await sellerController.updateSeller(request, reply);
@@ -81,7 +76,7 @@ export const sellerRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.delete<{ Params: { id: string } }>(
         "/:id",
         {
-            schema: DELETE_SELLER_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["Seller"] },
         },
         async (request, reply) => {
             return await sellerController.deleteSeller(request, reply);

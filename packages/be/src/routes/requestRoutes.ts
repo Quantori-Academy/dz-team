@@ -14,12 +14,11 @@ import {
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import { checkAuthenticatedAndRole } from "../utils/authCheck";
 
-// OpenAPI response schemas
+// Response schemas
 import {
     GET_REQUEST_BY_ID_SCHEMA,
     GET_REQUESTS_SCHEMA,
     PATCH_REQUEST_SCHEMA,
-    POST_REQUEST_SCHEMA,
 } from "../responseSchemas/requests";
 
 /**
@@ -56,7 +55,11 @@ export const requestRoutes = async (app: FastifyZodInstance): Promise<void> => {
         "/",
         {
             preHandler: [checkAuthenticatedAndRole([Roles.RESEARCHER, Roles.ADMIN])],
-            schema: POST_REQUEST_SCHEMA,
+
+            schema: {
+                body: RequestCreationBodySchema,
+                tags: ["Requests"],
+            },
         },
         async (request, reply) => {
             return await requestController.createRequest(request, reply);

@@ -1,6 +1,5 @@
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 import { z } from "zod";
-import { RequestSearchSchema } from "shared/zodSchemas/request/requestSchemas";
 
 export const requestIdParam = z.object({
     requestId: z.string().uuid(),
@@ -37,7 +36,6 @@ export const RequestsListSchema = z.object({
 export const GET_REQUESTS_SCHEMA: FastifyZodOpenApiSchema = {
     summary: "Retrieves all requests with metadata for available pages",
     description: "Retrieve all available requests.",
-    querystring: RequestSearchSchema,
     tags: ["Requests"],
     response: {
         200: {
@@ -78,12 +76,6 @@ export const GET_REQUEST_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
             },
         },
     },
-};
-
-export const POST_REQUEST_SCHEMA: FastifyZodOpenApiSchema = {
-    summary: "Creates new request",
-    description: "Create new request.",
-    tags: ["Requests"],
 };
 
 export const PATCH_REQUEST_SCHEMA: FastifyZodOpenApiSchema = {

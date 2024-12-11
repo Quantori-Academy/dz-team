@@ -235,7 +235,7 @@ export const PATCH_STORAGE_LOCATION_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
             description: "Storage location data with nullified 'deletedAt' field.",
             content: {
                 "application/json": {
-                    schema: StorageLocationSchema,
+                    schema: storageLocationSchema,
                 },
             },
         },

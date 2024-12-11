@@ -1,6 +1,5 @@
 // Internal types
 import { FastifyZodInstance } from "../types";
-import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 
 // Controllers
 import { orderController } from "../controllers/orderController";
@@ -15,16 +14,6 @@ import {
     OrderUpdateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
 import { fulfillOrderSchema } from "../../../shared/zodSchemas/order/fulfillOrderSchema";
-
-// OpenAPI response schemas
-import {
-    GET_ORDER_BY_ID_SCHEMA,
-    GET_ORDERS_SCHEMA,
-    PATCH_ORDER_FULFILL_SCHEMA,
-    PATCH_ORDER_STATUS_SCHEMA,
-    POST_ORDER_SCHEMA,
-    PUT_ORDER_BY_ID_SCHEMA,
-} from "../responseSchemas/orders";
 
 /**
  * Registers the order routes with the provided Fastify instance.
@@ -43,7 +32,9 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.get<{ Querystring: typeof OrderSearchSchema }>(
         "/",
         {
-            schema: GET_ORDERS_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: {
+                tags: ["Order"],
+            },
         },
         async (request, reply) => {
             return await orderController.getAllOrders(request, reply);
@@ -60,7 +51,7 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.get<{ Params: { id: string } }>(
         "/:id",
         {
-            schema: GET_ORDER_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["Order"] },
         },
         async (request, reply) => {
             return await orderController.getOrder(request, reply);
@@ -77,9 +68,7 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.post<{ Body: typeof OrderCreateWithUserIdInputSchema }>(
         "/",
-        {
-            schema: POST_ORDER_SCHEMA satisfies FastifyZodOpenApiSchema,
-        },
+        // { schema: { tags: ["Order"], body: OrderCreateWithUserIdInputSchema } },
         async (request, reply) => {
             return await orderController.createOrder(request, reply);
         },
@@ -95,9 +84,9 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.put<{ Params: { id: string }; Body: typeof OrderUpdateWithUserIdInputSchema }>(
         "/:id",
-        {
-            schema: PUT_ORDER_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
-        },
+        // {
+        //     schema: { tags: ["Order"], body: OrderUpdateWithUserIdInputSchema },
+        // },
         async (request, reply) => {
             return await orderController.updateOrder(request, reply);
         },
@@ -113,7 +102,9 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.patch<{ Params: { id: string }; Body: typeof fulfillOrderSchema }>(
         "/:id/fulfill",
         {
-            schema: PATCH_ORDER_FULFILL_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: {
+                tags: ["Order"],
+            },
         },
         async (request, reply) => {
             return await orderController.fulfillOrder(request, reply);
@@ -131,7 +122,7 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
     app.patch<{ Params: { id: string }; Body: { status: OrderStatus } }>(
         "/:id/status",
         {
-            schema: PATCH_ORDER_STATUS_SCHEMA satisfies FastifyZodOpenApiSchema,
+            schema: { tags: ["Order"] },
         },
         async (request, reply) => {
             return await orderController.updateOrderStatus(request, reply);

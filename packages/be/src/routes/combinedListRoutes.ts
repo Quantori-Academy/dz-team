@@ -1,15 +1,11 @@
-// Internal types
-import { FastifyZodInstance } from "../types";
-import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
-
 // Internal controllers
 import { combinedListController } from "../controllers/combinedListController";
 
+// Internal types
+import { FastifyZodInstance } from "../types";
+
 // Shared schemas
 import { CombinedListSearch } from "../../../shared/zodSchemas/combinedList/combinedListSearchSchema";
-
-// OpenAPI response schemas
-import { GET_COMBINED_LIST_SCHEMA } from "../responseSchemas/combinedList";
 
 /**
  * Registers the combined list route with the provided Fastify instance.
@@ -45,9 +41,7 @@ export const combinedListRoutes = async (app: FastifyZodInstance): Promise<void>
      */
     app.get<{ Querystring: CombinedListSearch }>(
         "/",
-        {
-            schema: GET_COMBINED_LIST_SCHEMA satisfies FastifyZodOpenApiSchema,
-        },
+        { schema: { tags: ["CombinedList"] } },
         async (request, reply) => {
             return await combinedListController.getCombinedList(request, reply);
         },

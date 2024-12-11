@@ -7,7 +7,6 @@ import {
     SampleCreateSchema,
     SampleUpdateSchema,
 } from "../../../shared/zodSchemas/samples/extendedSampleSchemas";
-import { ReagentSchema } from "shared/generated/zod";
 
 export const SamplesListSchema = z.object({
     data: z.array(sampleSchema),
@@ -22,14 +21,6 @@ export const SamplesListSchema = z.object({
 
 const sampleIdParam = z.object({
     id: z.string().describe("Sample UUID."),
-});
-
-const extendedSampleSchema = SampleSchema.extend({
-    reagents: z
-        .array(ReagentSchema)
-        .optional()
-        .default([])
-        .describe("List of associated reagents."),
 });
 
 const validationErrorResponse = {
@@ -89,7 +80,7 @@ export const POST_SAMPLES_SCHEMA: FastifyZodOpenApiSchema = {
             description: "Created sample data.",
             content: {
                 "application/json": {
-                    schema: extendedSampleSchema,
+                    schema: SampleCreateSchema,
                 },
             },
         },
@@ -125,7 +116,7 @@ export const GET_SAMPLE_BY_ID_SCHEMA: FastifyZodOpenApiSchema = {
             description: "The requested sample.",
             content: {
                 "application/json": {
-                    schema: SampleSchema,
+                    schema: sampleSchema,
                 },
             },
         },

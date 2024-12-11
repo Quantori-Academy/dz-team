@@ -12,14 +12,12 @@ import {
     SampleUpdateSchema,
 } from "../../../shared/zodSchemas/samples/extendedSampleSchemas";
 
-// OpenAPI response schemas
+// Response schemas
 import {
     DELETE_SAMPLE_BY_ID_SCHEMA,
     GET_SAMPLE_BY_ID_SCHEMA,
     GET_SAMPLES_SCHEMA,
     PATCH_SAMPLE_BY_ID_SCHEMA,
-    POST_SAMPLES_SCHEMA,
-    PUT_SAMPLE_BY_ID_SCHEMA,
 } from "../responseSchemas/samples";
 
 /**
@@ -77,9 +75,9 @@ export const sampleRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.post<{ Body: typeof SampleCreateSchema }>(
         "/",
-        {
-            schema: POST_SAMPLES_SCHEMA satisfies FastifyZodOpenApiSchema,
-        },
+        // {
+        //     schema: POST_SAMPLES_SCHEMA satisfies FastifyZodOpenApiSchema,
+        // },
         async (request, reply) => {
             return await sampleController.createSample(request, reply);
         },
@@ -97,9 +95,9 @@ export const sampleRoutes = async (app: FastifyZodInstance): Promise<void> => {
      */
     app.put<{ Params: { id: string }; Body: typeof SampleUpdateSchema }>(
         "/:id",
-        {
-            schema: PUT_SAMPLE_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
-        },
+        // {
+        //     schema: PUT_SAMPLE_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
+        // },
         async (request, reply) => {
             return await sampleController.updateSample(request, reply);
         },
