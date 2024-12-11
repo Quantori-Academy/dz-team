@@ -1,11 +1,10 @@
 import { sample } from "effector";
-import { z } from "zod";
 
+import { CreateOrderType } from "api/order/createOrder";
 import { request } from "api/request";
 import { genericDomain as domain } from "logger";
 import { OrderCreateWithUserIdInputSchema } from "shared/zodSchemas/order/extendedOrderSchemas";
 
-type CreateOrderType = z.infer<typeof OrderCreateWithUserIdInputSchema>;
 export const OrderStatus = {
     pending: "pending",
     submitted: "submitted",
