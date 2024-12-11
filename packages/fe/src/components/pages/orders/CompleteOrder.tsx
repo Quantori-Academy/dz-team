@@ -83,12 +83,7 @@ export function CompleteOrder(props: CompleteOrderProps) {
 
     return (
         <>
-            <Button
-                variant="contained"
-                color="primary"
-                sx={{ mt: 6 }}
-                onClick={() => setModalOpen(true)}
-            >
+            <Button variant="contained" color="primary" onClick={() => setModalOpen(true)}>
                 Mark Order as Complete
             </Button>
 
