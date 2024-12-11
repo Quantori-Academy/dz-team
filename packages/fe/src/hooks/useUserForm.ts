@@ -6,7 +6,6 @@ import { UserRole } from "api/self";
 import { NewUser } from "api/types";
 import { removeModal } from "components/modal/store";
 import { $usersList, addUserFx, deleteUserFx } from "stores/users";
-import { wait } from "utils";
 
 const validateForm = (formData: NewUser) => {
     const errors: Partial<Record<keyof NewUser, string>> = {};
@@ -108,7 +107,6 @@ export const useUserForm = () => {
             setRoleError(null);
 
             toast.success("User added successfully!");
-            wait(500);
             removeModal();
         }
     };
