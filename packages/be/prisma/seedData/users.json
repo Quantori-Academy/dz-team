@@ -28,6 +28,7 @@
     },
 
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "6457aad1-902a-429b-9fa5-205ea6b9ef67",
         "username": "Josiane.Kuhlman19",
@@ -39,6 +40,7 @@
         "updatedAt": "2023-01-25T20:48:22.954Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "367228d5-24b8-43a6-8435-e3cab8a59245",
         "username": "Abel.Thompson",
@@ -50,6 +52,7 @@
         "updatedAt": "2023-03-12T15:58:17.717Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "81872ac1-5e0a-4d90-9af7-ee1963d5903d",
         "username": "Glennie_Lehner50",
@@ -61,6 +64,7 @@
         "updatedAt": "2023-10-07T03:44:32.910Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "e7a98650-5c64-47a7-a336-028a2e82a373",
         "username": "Giovanna.Hammes",
@@ -72,6 +76,7 @@
         "updatedAt": "2023-04-01T05:25:44.006Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "b52537f7-1b74-45d6-947f-c09adbe61169",
         "username": "Omari_OReilly24",
@@ -83,6 +88,7 @@
         "updatedAt": "2023-12-11T07:31:56.432Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "4153876c-81d0-44f2-8854-84eccbe12049",
         "username": "Erich.Kerluke22",
@@ -94,6 +100,7 @@
         "updatedAt": "2023-09-29T03:05:40.319Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "d26dd248-43f2-45e8-84e3-9851983df556",
         "username": "Fred.Spinka87",
@@ -105,6 +112,7 @@
         "updatedAt": "2023-06-16T19:17:37.420Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "0b098ed9-d56c-4daa-8f1c-76a42aab5ac6",
         "username": "Juana_Larkin-Quitzon",
@@ -116,6 +124,7 @@
         "updatedAt": "2023-03-22T22:40:56.611Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "f498c2c5-0bb8-47a9-97fb-750f3c0bfd92",
         "username": "Michelle13",
@@ -127,6 +136,7 @@
         "updatedAt": "2023-03-21T12:44:47.660Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "c8f0c9de-1573-404e-8105-612ed89b7a71",
         "username": "Arvel.Simonis",
@@ -138,6 +148,7 @@
         "updatedAt": "2023-03-26T10:48:15.727Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "f378a847-b094-4abc-b185-309a97364b05",
         "username": "Angel_Mills81",
@@ -149,6 +160,7 @@
         "updatedAt": "2023-06-05T20:01:20.429Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "4140580c-7101-454a-8f19-9fd4767be027",
         "username": "Aisha_Kautzer83",
@@ -160,6 +172,7 @@
         "updatedAt": "2023-05-06T02:31:59.702Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "08e39ef3-8201-400c-8d52-851c758db33d",
         "username": "Myrna.Breitenberg38",
@@ -171,6 +184,7 @@
         "updatedAt": "2023-04-12T15:03:26.597Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "7242940f-0902-447e-8ab7-1ed745c3f2ce",
         "username": "Dejon_Lynch",
@@ -182,6 +196,7 @@
         "updatedAt": "2023-09-10T10:01:33.742Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "3120e89f-a907-4a7f-8a8a-7f1512738253",
         "username": "Yasmeen.Cummings",
@@ -193,6 +208,7 @@
         "updatedAt": "2023-02-24T13:04:32.767Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "47163d0b-c8c4-489b-98f5-330043c2db9c",
         "username": "Shanna.Kuvalis",
@@ -204,6 +220,7 @@
         "updatedAt": "2023-10-13T14:47:10.817Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "74f79f26-12cd-4394-b008-4932d0edd942",
         "username": "Kariane37",
@@ -215,6 +232,7 @@
         "updatedAt": "2023-07-14T18:04:44.324Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "21a011b3-e3c0-4365-a518-1f68866e54e7",
         "username": "Niko44",
@@ -226,6 +244,7 @@
         "updatedAt": "2023-09-01T20:18:15.069Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "59da5f5e-ae84-45b6-963f-1352dad420aa",
         "username": "Gage.Mueller",
@@ -237,6 +256,7 @@
         "updatedAt": "2023-10-24T15:10:19.018Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "58afad4a-6096-43cf-956f-05a4b217e157",
         "username": "Amie.Hermiston",
@@ -248,6 +268,7 @@
         "updatedAt": "2023-11-17T01:01:00.575Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "4fdbe6f4-280c-4dc9-8564-3f0868d49cb1",
         "username": "Aiden_Bode",
@@ -259,6 +280,7 @@
         "updatedAt": "2023-06-20T20:02:49.896Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "e4764715-fca5-4281-9fc1-7b9ccef6ef19",
         "username": "Molly_McGlynn81",
@@ -270,6 +292,7 @@
         "updatedAt": "2023-07-26T02:34:29.617Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "2b957182-d4e9-4ab1-810c-966521b2cf9a",
         "username": "Shaina75",
@@ -281,6 +304,7 @@
         "updatedAt": "2023-04-10T21:39:15.614Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "16aca6eb-ce35-4f04-a322-b9abeef2afaa",
         "username": "Faye.Blanda",
@@ -292,6 +316,7 @@
         "updatedAt": "2023-01-21T02:14:51.684Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "c8e1ce7a-f480-49a8-9a40-0f2b4473dc0f",
         "username": "Jewel90",
@@ -303,6 +328,7 @@
         "updatedAt": "2022-12-26T07:02:02.816Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "117b38b2-bd05-4db8-9e76-bf8772257fd5",
         "username": "Berniece_Hayes86",
@@ -314,6 +340,7 @@
         "updatedAt": "2023-09-05T20:59:06.405Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "74b6ec96-f42d-4e06-99a5-873050de2af4",
         "username": "Clotilde.Mueller65",
@@ -325,6 +352,7 @@
         "updatedAt": "2023-03-10T07:58:15.070Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "831786ad-818f-4340-9863-b9a7ee4aa0d7",
         "username": "Maritza60",
@@ -336,6 +364,7 @@
         "updatedAt": "2023-08-17T07:53:51.327Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "99a0f39d-20fe-4cbd-8f51-24157987578f",
         "username": "Dorcas.Koepp",
@@ -347,6 +376,7 @@
         "updatedAt": "2023-03-25T10:33:41.141Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "6b7dc932-0674-40cc-a7c5-ab5cd4fd93dc",
         "username": "Jaida.Strosin76",
@@ -358,6 +388,7 @@
         "updatedAt": "2023-10-15T04:24:04.522Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "4f99b99d-4a7a-4aa5-86a4-42be6169b78c",
         "username": "Keanu_Feest95",
@@ -369,6 +400,7 @@
         "updatedAt": "2023-08-17T17:41:53.223Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "610ed5e2-0e11-4a06-a8cd-0ce8f4fa641d",
         "username": "Mariah_Considine15",
@@ -380,6 +412,7 @@
         "updatedAt": "2023-06-22T17:11:44.471Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "b6ea895b-b737-441a-b5a0-f70a5f5f610b",
         "username": "Regan_Corwin",
@@ -391,6 +424,7 @@
         "updatedAt": "2023-06-21T11:54:58.863Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "0c8304a2-a280-4c08-aab4-9a8e0d8dcf93",
         "username": "Delpha48",
@@ -402,6 +436,7 @@
         "updatedAt": "2023-05-24T17:13:15.749Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "bfd589f1-c184-4fa2-8057-3d11e5af4d2a",
         "username": "Corine_Lakin5",
@@ -413,6 +448,7 @@
         "updatedAt": "2023-05-25T05:27:15.718Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "8bed760f-3c85-4310-912c-4308bd829b1e",
         "username": "Coty_King",
@@ -424,6 +460,7 @@
         "updatedAt": "2023-10-19T20:44:18.875Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "792f4808-6349-4a4f-be88-8c9d45ebf485",
         "username": "Amir_Lockman",
@@ -435,6 +472,7 @@
         "updatedAt": "2023-04-23T07:15:00.973Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "00c8f0ce-9289-4d1a-9e7d-bfa9f56eb704",
         "username": "Zelma_Terry29",
@@ -446,6 +484,7 @@
         "updatedAt": "2023-11-06T19:41:03.695Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "1743e965-5413-4315-ac0a-eed40a700fff",
         "username": "Vincenza63",
@@ -457,6 +496,7 @@
         "updatedAt": "2023-01-18T13:00:12.492Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "5c814363-3666-4bfe-9461-24af3196f714",
         "username": "Trinity.Berge39",
@@ -468,6 +508,7 @@
         "updatedAt": "2023-09-21T06:37:52.092Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "9a7e3b0e-2624-4c38-aab0-883a2b52bdab",
         "username": "Preston46",
@@ -479,6 +520,7 @@
         "updatedAt": "2023-09-22T03:22:37.785Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "905db4f3-ec7f-416b-838a-194782a5d5ef",
         "username": "Geovanni_Farrell",
@@ -490,6 +532,7 @@
         "updatedAt": "2023-03-11T21:54:13.493Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "84fd4a7e-c5a2-4f50-869e-e09a2f7206ea",
         "username": "Liam.Mraz",
@@ -501,6 +544,7 @@
         "updatedAt": "2023-09-20T01:33:51.358Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "5a0ce18e-e4cf-414b-ac58-71364ff3c9d8",
         "username": "Jason_Kohler",
@@ -512,6 +556,7 @@
         "updatedAt": "2023-11-05T09:13:20.342Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "54b0e387-7284-4b77-a60d-69bfb9723b02",
         "username": "Annabell_Tromp72",
@@ -523,6 +568,7 @@
         "updatedAt": "2023-06-12T21:59:53.366Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "bd2a6f9b-0519-484b-8c6a-0a8c7de8ba4a",
         "username": "Julia_Grant",
@@ -534,6 +580,7 @@
         "updatedAt": "2023-11-13T16:34:35.159Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "36e1dad4-88e6-4ffe-843a-72596cf24f64",
         "username": "Alysha21",
@@ -545,6 +592,7 @@
         "updatedAt": "2023-02-02T23:30:18.133Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "aabb59c8-825d-4a79-81ad-3e5a54f0b7a3",
         "username": "Gideon_Reynolds56",
@@ -556,6 +604,7 @@
         "updatedAt": "2023-04-22T16:18:11.257Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "dd9a594e-3ee7-4fb8-86e9-bf2b77a14ace",
         "username": "Sadie.Thiel51",
@@ -567,6 +616,7 @@
         "updatedAt": "2023-03-18T17:31:50.281Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "5c517c8d-30d1-4575-b3c1-7f0687dbb52b",
         "username": "Deja67",
@@ -578,6 +628,7 @@
         "updatedAt": "2023-11-18T13:49:51.001Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "7843cb8b-9a23-46b5-99f4-87c1ce9158b4",
         "username": "Christophe.Reichel95",
@@ -589,6 +640,7 @@
         "updatedAt": "2023-03-22T03:41:57.891Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "57b1c40e-d346-4d5d-a3a2-862a2f842d64",
         "username": "Dean_Denesik",
@@ -600,6 +652,7 @@
         "updatedAt": "2023-10-27T10:06:38.598Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "25899e99-6f07-47af-93a5-a1a21a6c1fa1",
         "username": "Lilian.Bode74",
@@ -611,6 +664,7 @@
         "updatedAt": "2023-01-09T15:50:24.581Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "deef3925-bff0-441d-93a1-6975917a5cc7",
         "username": "Hilario87",
@@ -622,6 +676,7 @@
         "updatedAt": "2023-03-31T19:41:58.321Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "281cb39c-52a3-4904-aa40-2885e3511e0b",
         "username": "Josie.Nienow41",
@@ -633,6 +688,7 @@
         "updatedAt": "2023-07-14T00:29:41.888Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "6a3230be-68ae-42d6-8538-cb82b068a85f",
         "username": "Nathanial_Kling68",
@@ -644,6 +700,7 @@
         "updatedAt": "2023-07-12T20:00:36.675Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "8fa84654-6d8d-448d-b17d-11a1474c5f9d",
         "username": "Miller.Krajcik12",
@@ -655,6 +712,7 @@
         "updatedAt": "2023-05-31T02:39:41.146Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "a128995d-fc4e-4c62-837f-237029080eed",
         "username": "Elvie50",
@@ -666,6 +724,7 @@
         "updatedAt": "2023-04-19T00:58:03.129Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "dabba980-7b17-4c7e-8f3b-4b892822780a",
         "username": "Donnell9",
@@ -677,6 +736,7 @@
         "updatedAt": "2023-10-21T04:02:17.718Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "a0da9d63-5c6f-4d2c-b5bd-c374c620d55e",
         "username": "Demario48",
@@ -688,6 +748,7 @@
         "updatedAt": "2023-07-19T00:18:59.995Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "118e1ec5-ef59-45ec-8370-35fecf692819",
         "username": "Adaline_Beatty72",
@@ -699,6 +760,7 @@
         "updatedAt": "2023-07-18T20:35:08.223Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "76079867-6ef1-4528-839e-854b9be1dd49",
         "username": "Keith.Trantow",
@@ -710,6 +772,7 @@
         "updatedAt": "2023-10-24T00:08:26.354Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "5a85876a-485e-4fc2-8bae-1e26923d57f2",
         "username": "Eleanora_Kuhic83",
@@ -721,6 +784,7 @@
         "updatedAt": "2022-12-14T09:24:57.468Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "a5612b36-91ce-41fd-9ad7-f22d8f655519",
         "username": "Lewis26",
@@ -732,6 +796,7 @@
         "updatedAt": "2023-06-09T12:09:54.405Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "860ff33a-ebd9-4888-9cc9-b0ad93d7ed82",
         "username": "Xander_Huels-Grant92",
@@ -743,6 +808,7 @@
         "updatedAt": "2023-10-19T20:58:07.576Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "8883802f-9f63-4ecb-9945-3073d86fe460",
         "username": "Blake.Jacobs",
@@ -754,6 +820,7 @@
         "updatedAt": "2023-07-03T04:08:12.378Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "6b7dc8e1-82c5-4bfd-b673-525582b8f331",
         "username": "Brody14",
@@ -765,6 +832,7 @@
         "updatedAt": "2023-04-25T01:54:16.788Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "8ef39430-3545-4749-baae-cec2af5802f3",
         "username": "Marlee6",
@@ -776,6 +844,7 @@
         "updatedAt": "2023-03-29T09:02:21.881Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "476a94df-1b8f-476c-aae9-aa4acbe82cad",
         "username": "Johan.Sawayn",
@@ -787,6 +856,7 @@
         "updatedAt": "2023-11-13T15:29:54.542Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "02811ba0-fef2-449d-8a6b-085a183bdd92",
         "username": "Malinda_Herzog",
@@ -798,6 +868,7 @@
         "updatedAt": "2022-12-20T18:13:09.530Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "00da50b5-db67-4843-9b68-321395e2d804",
         "username": "Vella56",
@@ -809,6 +880,7 @@
         "updatedAt": "2023-03-22T23:11:12.470Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "51341f0b-0352-4dc4-95a5-50d573d7b313",
         "username": "Uriel66",
@@ -820,6 +892,7 @@
         "updatedAt": "2023-03-11T05:34:30.104Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "b2ab875c-9ead-4e32-8c0c-e7ebd306b02c",
         "username": "Jaron.Nader60",
@@ -831,6 +904,7 @@
         "updatedAt": "2023-10-02T23:35:30.688Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "a7ebddf0-5f32-4965-97ed-9461e49d4108",
         "username": "Royal.Upton4",
@@ -842,6 +916,7 @@
         "updatedAt": "2023-03-26T23:53:09.706Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "521360de-4514-477c-a1ed-a89044dbcaac",
         "username": "Selina63",
@@ -853,6 +928,7 @@
         "updatedAt": "2023-02-20T14:54:34.922Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "10575b08-ae28-4969-83b5-0d4feaa34b55",
         "username": "Hayden0",
@@ -864,6 +940,7 @@
         "updatedAt": "2022-12-23T19:56:32.156Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "92f7367f-a7da-4932-892b-87c0fcefdb2a",
         "username": "Johathan_Hagenes88",
@@ -875,6 +952,7 @@
         "updatedAt": "2023-10-10T17:21:37.204Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "e85bcaaa-d047-4850-818f-fc87edea135e",
         "username": "Chandler.Wilderman",
@@ -886,6 +964,7 @@
         "updatedAt": "2023-02-13T11:53:11.659Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "6fa41c38-de93-48dd-bf33-49676da91d97",
         "username": "Floy88",
@@ -897,6 +976,7 @@
         "updatedAt": "2023-01-25T16:59:41.468Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "0bf6f979-faf3-46e4-a7b1-cdeb4fcfcb23",
         "username": "Issac_Doyle14",
@@ -908,6 +988,7 @@
         "updatedAt": "2023-01-10T02:36:38.144Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "b8544a21-b773-4dc2-8882-b20742d4caa4",
         "username": "Jerad19",
@@ -919,6 +1000,7 @@
         "updatedAt": "2023-05-09T04:23:23.766Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "b9225001-90da-4c6f-8d0d-546af7fc1624",
         "username": "Lew.Jerde",
@@ -930,6 +1012,7 @@
         "updatedAt": "2023-09-14T15:37:00.258Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "af7f0252-1e3e-479b-8ff1-f534a3db5660",
         "username": "Eden59",
@@ -941,6 +1024,7 @@
         "updatedAt": "2023-04-08T04:22:47.611Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "e1e88843-f41b-40d0-82e0-7c079764399e",
         "username": "Judge82",
@@ -952,6 +1036,7 @@
         "updatedAt": "2023-06-19T10:56:38.488Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "a3d809b8-90ff-4938-9738-775e07bf6fba",
         "username": "Gladys_Gibson32",
@@ -963,6 +1048,7 @@
         "updatedAt": "2023-12-08T22:57:24.956Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "82163238-12b2-49a2-9733-773e9c71b38d",
         "username": "Dorothea.Borer",
@@ -974,6 +1060,7 @@
         "updatedAt": "2023-07-18T10:01:33.381Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "000fbedc-74fd-4a71-af1b-0d37094bfa39",
         "username": "Marcellus69",
@@ -985,6 +1072,7 @@
         "updatedAt": "2023-09-06T03:08:32.889Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "770b41d4-6fd9-4704-b9e1-63c4f2cca431",
         "username": "Hildegard_Emard71",
@@ -996,6 +1084,7 @@
         "updatedAt": "2023-09-17T09:07:14.509Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "d81d390b-6725-4d4a-bf61-19e854ff9b8d",
         "username": "Enola_Weimann-Schaden56",
@@ -1007,6 +1096,7 @@
         "updatedAt": "2023-06-02T15:46:47.966Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "1e3d37a0-8ad6-4de0-815f-934fca4b30a1",
         "username": "Rocky.Huel",
@@ -1018,6 +1108,7 @@
         "updatedAt": "2023-08-22T13:03:05.286Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "5d56a762-6254-4ce5-bdbc-30090096e008",
         "username": "Darrell59",
@@ -1029,6 +1120,7 @@
         "updatedAt": "2023-09-16T12:39:59.218Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "636210c5-895b-4a94-9032-dd4460213d43",
         "username": "Olga46",
@@ -1040,6 +1132,7 @@
         "updatedAt": "2023-01-25T15:49:44.246Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "b5721123-0bfb-43c1-ade4-6c82e8fcce82",
         "username": "Jamar.Haley-Cummerata15",
@@ -1051,6 +1144,7 @@
         "updatedAt": "2023-09-19T12:02:34.733Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "7cb405ea-71fe-42c8-bf3a-4a011e5dcb68",
         "username": "Sally.Swift",
@@ -1062,6 +1156,7 @@
         "updatedAt": "2023-06-19T03:01:29.776Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "03b35fc7-7dab-4ac2-9a3e-7b8c102fc0bc",
         "username": "Eli_Mills",
@@ -1073,6 +1168,7 @@
         "updatedAt": "2023-08-10T17:01:54.127Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "fdd5b233-fe6e-4008-bc95-46c69ed2d88b",
         "username": "Jasmin.Botsford",
@@ -1084,6 +1180,7 @@
         "updatedAt": "2023-11-09T20:30:00.065Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "93f44b52-f946-48c1-8f20-427020c0f124",
         "username": "Kennedy89",
@@ -1095,6 +1192,7 @@
         "updatedAt": "2023-01-19T16:05:14.302Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "4bb85caf-ff1d-4f2b-a5ac-6e9def1d50ed",
         "username": "Noble.Hirthe76",
@@ -1106,6 +1204,7 @@
         "updatedAt": "2023-08-02T07:33:53.523Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "4b5377c0-3a71-4a41-9a52-ce0ec6a81da0",
         "username": "Anais.Welch25",
@@ -1117,6 +1216,7 @@
         "updatedAt": "2023-02-03T14:59:28.602Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "aec59ae3-eca3-432a-b990-4d2c67bca895",
         "username": "Golden_Oberbrunner33",
@@ -1128,6 +1228,7 @@
         "updatedAt": "2023-02-02T00:40:59.245Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "aa33c98a-a275-4f60-a2e0-715ea9346219",
         "username": "Orion.Kessler",
@@ -1139,6 +1240,7 @@
         "updatedAt": "2023-09-12T21:43:49.222Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "b4f0e1cf-4219-4792-9b6b-4242ebabb1fa",
         "username": "Bartholome52",
@@ -1150,6 +1252,7 @@
         "updatedAt": "2023-02-22T22:19:28.248Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "de619fdd-75c3-4d2c-a1f9-c74d01eea14d",
         "username": "Clifford29",
@@ -1161,6 +1264,7 @@
         "updatedAt": "2023-09-19T13:08:24.603Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "f1f75db8-ded4-499a-9d52-d9d6c7cacd79",
         "username": "Ryan68",
@@ -1172,6 +1276,7 @@
         "updatedAt": "2023-01-14T13:13:54.820Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "629de8de-ad00-48d3-b44b-cb4138d1f4a2",
         "username": "Murl_Schroeder75",
@@ -1183,6 +1288,7 @@
         "updatedAt": "2023-04-09T04:44:58.290Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "fa7e3f18-0c8e-48c4-a849-ad3fc89a16c7",
         "username": "Coby_Bednar",
@@ -1194,6 +1300,7 @@
         "updatedAt": "2023-11-08T05:54:10.957Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "2be4f80d-3e2e-45fd-85d4-6ed459589b21",
         "username": "Jeffry.Parker",
@@ -1205,6 +1312,7 @@
         "updatedAt": "2023-02-26T20:03:16.571Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "fdcad534-6ef4-4cd1-8958-93d8aeb1942f",
         "username": "Sedrick49",
@@ -1216,6 +1324,7 @@
         "updatedAt": "2023-01-30T12:10:07.622Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "73783710-f7a7-4f2f-8ed9-b7b640a400df",
         "username": "Dangelo_Sawayn",
@@ -1227,6 +1336,7 @@
         "updatedAt": "2022-12-25T15:02:41.764Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "4413a42e-2e6d-436a-8736-5a5987513ad1",
         "username": "Emmie.Hettinger90",
@@ -1238,6 +1348,7 @@
         "updatedAt": "2023-03-16T16:16:40.563Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "6751b75e-3714-4812-8609-a965ece8d6e4",
         "username": "Hilton.Daniel",
@@ -1249,6 +1360,7 @@
         "updatedAt": "2023-06-30T14:12:22.084Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "9948fc8d-b6f0-43aa-8bd8-6343f248f288",
         "username": "Trenton_Nader",
@@ -1260,6 +1372,7 @@
         "updatedAt": "2023-12-12T03:33:16.553Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "93409419-7fc6-465b-8f2c-9631f3e36741",
         "username": "Francesco.Okuneva",
@@ -1271,6 +1384,7 @@
         "updatedAt": "2023-05-14T21:09:38.097Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "c3b08598-8466-40a4-8378-00512b670aa3",
         "username": "Austyn27",
@@ -1282,6 +1396,7 @@
         "updatedAt": "2023-05-10T12:13:54.597Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "710e22a3-6693-4f15-8df3-b08e02f77605",
         "username": "Elisa91",
@@ -1293,6 +1408,7 @@
         "updatedAt": "2022-12-25T05:49:12.561Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "9d5cde48-31ee-40bb-8e82-b27b0333dbf1",
         "username": "Xander.Lindgren64",
@@ -1304,6 +1420,7 @@
         "updatedAt": "2023-06-10T15:40:08.359Z"
     },
     {
+        "password": "randomPassword",
         "role": "procurementOfficer",
         "id": "afa46dfe-474b-48c7-bc5f-669da1f3ba52",
         "username": "Jennie.Gerhold95",
@@ -1315,6 +1432,7 @@
         "updatedAt": "2023-12-12T12:05:18.083Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "4f5461a1-00df-4fa6-be4f-1628fc76bb8b",
         "username": "Bernice.Christiansen66",
@@ -1326,6 +1444,7 @@
         "updatedAt": "2023-11-08T15:52:24.816Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "5de7f7c8-da73-4767-9cf1-28a6f1d7dc3a",
         "username": "Josephine_Wiza",
@@ -1337,6 +1456,7 @@
         "updatedAt": "2023-10-01T22:57:18.907Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "4c32cb35-3d8a-4d43-aa1c-322477c43bf5",
         "username": "Eileen.Tillman-Lubowitz",
@@ -1348,6 +1468,7 @@
         "updatedAt": "2023-12-10T03:58:22.755Z"
     },
     {
+        "password": "randomPassword",
         "role": "researcher",
         "id": "443e2c61-ad7c-482f-afa9-faf608e977bf",
         "username": "Sydnee.Rolfson",
