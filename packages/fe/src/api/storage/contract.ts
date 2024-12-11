@@ -13,10 +13,6 @@ export const StorageLocationsAllContract = z.object({
     data: z.array(StorageLocationSchema),
 });
 
-export const StorageLocationsAllContract = z.object({
-    data: z.array(StorageLocationSchema),
-});
-
 export type StorageLocation = z.infer<typeof StorageLocationSchema>;
 
 export const StorageLocationContract = z.object({
