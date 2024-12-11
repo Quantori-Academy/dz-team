@@ -1,12 +1,9 @@
-import DeleteIcon from "@mui/icons-material/DeleteOutlined";
-import EditIcon from "@mui/icons-material/Edit";
-import { Box } from "@mui/material";
-import { GridActionsCellItem } from "@mui/x-data-grid";
-import { useGate } from "effector-react";
+import { toast } from "react-toastify";
+import { useGate, useUnit } from "effector-react";
 
+import { createModal } from "components/modal/createModal";
 import { useUserForm } from "hooks/useUserForm";
-import { UsersGate } from "stores/users";
-import { SupportedValue } from "utils/formatters";
+import { deleteUserFx, UsersGate } from "stores/users";
 
 import { Grid } from "../../dataGrid/Grid";
 import { AddUserForm } from "./AddUserForm";
@@ -20,35 +17,30 @@ const headers = [
 
 export const UserList = () => {
     useGate(UsersGate);
+    const deleteUser = useUnit(deleteUserFx);
 
-    const { users, handleDeleteUser } = useUserForm({});
+    const { users } = useUserForm();
 
-    const renderActions = (row: Record<string, SupportedValue>) => {
-        const id = row.id as string;
-        return (
-            <>
-                <GridActionsCellItem icon={<EditIcon />} label="Edit" color="inherit" />
-                <GridActionsCellItem
-                    icon={<DeleteIcon />}
-                    label="Delete"
-                    color="inherit"
-                    onClick={() => handleDeleteUser(id)}
-                />
-            </>
-        );
+    const openDeleteModal = async (id: string) => {
+        const toDelete = await createModal({
+            name: "confirm_delete_modal",
+            message: "Are you sure you want to delete this user?",
+            labels: { ok: "Yes", cancel: "No" },
+        });
+        if (toDelete) {
+            await deleteUser(id);
+            toast.success("User deleted successfully!");
+        }
     };
 
     return (
-        <Box sx={{ padding: "40px" }}>
-            <Grid
-                rows={users}
-                headers={headers}
-                searchPlaceholder="Search users by name, email, or role"
-                renderActions={renderActions}
-                modalTitle="Add New User"
-                addButtonLabel="Add New User"
-                modalContent={(removeModal) => <AddUserForm onClose={removeModal} />}
-            />
-        </Box>
+        <Grid
+            rows={users}
+            headers={headers}
+            searchPlaceholder="Search users by name, email, or role"
+            handleDelete={openDeleteModal}
+            addButtonLabel="Add New User"
+            modalContent={(removeModal) => <AddUserForm onClose={removeModal} />}
+        />
     );
 };

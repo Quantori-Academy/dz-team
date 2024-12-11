@@ -26,6 +26,7 @@
         "prod:be": "yarn workspace be run db:preprod && yarn workspace be run prod",
         "prod:fe": "yarn workspace fe run prod",
         "init:be": "yarn workspace be run db:reset && yarn workspace be run prod",
+        "db:reset": "yarn workspace be run db:reset",
         "lint": "eslint . --max-warnings 0",
         "lint:fix": "eslint . --fix",
         "format": "prettier --write .",

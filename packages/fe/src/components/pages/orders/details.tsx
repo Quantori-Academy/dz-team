@@ -10,20 +10,20 @@ import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
 import { Order } from "shared/generated/zod/modelSchema";
-import { OrderStatus } from "stores/order";
+import { type OrderStatus } from "stores/order";
 import { SupportedValue } from "utils/formatters";
 import { deleteOrderAction, updateOrderAction } from "utils/orderActions";
 
 const reagentColumns = [
     { field: "name", headerName: "Name", width: 120 },
-    { field: "structure", headerName: "Structure", width: 180 },
-    { field: "quantity", headerName: "Quantity", width: 120 },
-    { field: "cas", headerName: "CAS", width: 120 },
+    { field: "quantity", headerName: "Quantity", width: 80 },
+    { field: "amount", headerName: "Amount", width: 80 },
     { field: "producer", headerName: "Producer", width: 180 },
+    { field: "pricePerUnit", headerName: "Price per unit", width: 102 },
     { field: "catalogId", headerName: "Catalog Id", width: 120 },
     { field: "catalogLink", headerName: "Catalog Link", width: 120 },
-    { field: "pricePerUnit", headerName: "Price per unit", width: 180 },
-    { field: "amount", headerName: "Amount", width: 180 },
+    { field: "cas", headerName: "CAS", width: 120 },
+    { field: "structure", headerName: "Structure", width: 180 },
 ];
 
 const fields = [

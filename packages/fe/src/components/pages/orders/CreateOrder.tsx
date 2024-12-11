@@ -8,7 +8,6 @@ import { AddRecord } from "components/dataGrid/Addrecord";
 import { createModal } from "components/modal/createModal";
 import { removeModal } from "components/modal/store";
 import { useReagents } from "hooks/useReagents";
-import { Mode } from "utils/mode";
 
 import { OrderBasket } from "./OrderBasket";
 import { OrderReagentFormModal } from "./OrderReagentFormModal";
@@ -25,9 +24,9 @@ const headers = [
     { field: "quantity", headerName: "Quantity", width: 17, editable: true },
     { field: "amount", headerName: "Amount", width: 170, editable: true },
 ];
+
 export const CreateOrder = () => {
     const { orderItems, deleteReagent, editReagent, addReagent, setOrderItems } = useReagents();
-    const [selectedReagent, setSelectedReagent] = useState<CreateOrderReagent | null>(null);
     const [title, setTitle] = useState("");
     const [seller, setSeller] = useState("");
     const [description, setDescription] = useState("");
@@ -39,14 +38,12 @@ export const CreateOrder = () => {
         setOrderItems([]);
     }, [setTitle, setSeller, setDescription, setOrderItems]);
 
-    const handleRowClick = async (row: CreateOrderReagent) => {
-        setSelectedReagent(row);
-        const result = await createModal({
+    const handleRowClick = (row: CreateOrderReagent) => {
+        createModal({
             name: "reagent_modal",
             title: "Edit Reagent",
             message: (
                 <OrderReagentFormModal
-                    mode={Mode.View}
                     selectedReagent={row}
                     onSubmit={(updatedReagent: CreateOrderReagent) => {
                         editReagent(updatedReagent);
@@ -56,60 +53,47 @@ export const CreateOrder = () => {
                         deleteReagent(row);
                         removeModal();
                     }}
-                    onCancel={() => {
-                        removeModal();
-                    }}
+                    onCancel={removeModal}
                 />
             ),
         });
-        if (!result) {
-            removeModal();
-        }
     };
 
-    const openAddModal = async () => {
-        const result = await createModal({
+    const openAddModal = () => {
+        createModal({
             name: "reagent_modal",
             title: "Add new Reagent",
             message: (
                 <OrderReagentFormModal
-                    mode={Mode.Create}
-                    selectedReagent={selectedReagent}
                     onSubmit={(newReagent: CreateOrderReagent) => {
                         addReagent(newReagent);
                         removeModal();
                     }}
-                    onCancel={() => {
-                        setSelectedReagent(null);
-                        removeModal();
-                    }}
+                    onCancel={removeModal}
                 />
             ),
         });
-        if (!result) {
-            setSelectedReagent(null);
-            removeModal();
-        }
     };
+
     return (
-        <>
-            <Box
-                sx={{
-                    padding: "20px",
-                    display: "flex",
-                    flexDirection: "column",
-                }}
-            >
-                <OrderBasket
-                    basket={orderItems}
-                    title={title}
-                    seller={seller}
-                    description={description}
-                    setTitle={setTitle}
-                    setSeller={setSeller}
-                    setDescription={setDescription}
-                    clearBasket={clearBasket}
-                />
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+            }}
+            gap={2}
+        >
+            <OrderBasket
+                basket={orderItems}
+                title={title}
+                seller={seller}
+                description={description}
+                setTitle={setTitle}
+                setSeller={setSeller}
+                setDescription={setDescription}
+                clearBasket={clearBasket}
+            />
+            <Box sx={{ display: "flex", flexDirection: "column", minHeight: "330px" }}>
                 <DataGrid
                     rows={orderItems}
                     columns={headers}
@@ -127,6 +111,6 @@ export const CreateOrder = () => {
                 />
             </Box>
             <Outlet />
-        </>
+        </Box>
     );
 };

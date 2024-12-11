@@ -1,10 +1,10 @@
 import { sample } from "effector";
 import { createGate } from "effector-react";
 
+import { NewUser } from "api/types";
 import { PostUsers } from "api/users/addUser";
 import { deleteUser } from "api/users/deleteUser";
 import { getUsers, UserType } from "api/users/getUsers";
-import { NewUser } from "hooks/useUserForm";
 import { genericDomain as domain } from "logger";
 
 // Store to hold the user list
