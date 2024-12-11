@@ -63,16 +63,12 @@ export const Grid = ({
     const handleAddRecord = async () => {
         if (!modalContent) return;
 
-        try {
-            await createModal({
-                name: "add_record_modal",
-                title: modalTitle,
-                message: modalContent(removeModal),
-            });
-            removeModal();
-        } catch (_) {
-            removeModal();
-        }
+        await createModal({
+            name: "add_record_modal",
+            title: modalTitle,
+            message: modalContent(removeModal),
+        });
+        removeModal();
     };
 
     const columns = useMemo(() => {
@@ -107,7 +103,7 @@ export const Grid = ({
                     sx={{ paddingBottom: "20px" }}
                 />
             )}
-            <Box>
+            <Box sx={{ height: "300px", width: "100%" }}>
                 <DataGrid
                     rows={filteredRows}
                     columns={columns}
