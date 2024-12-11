@@ -105,7 +105,10 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                         md: 650,
                     },
                     p: 2,
+                    display: "flex",
+                    flexDirection: "column",
                 }}
+                gap={1}
             >
                 <IconButton
                     aria-label="close"
@@ -114,9 +117,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                 >
                     <CloseIcon />
                 </IconButton>
-                <Typography variant="h6" sx={{ mb: 2 }}>
-                    Details
-                </Typography>
+                <Typography variant="h6">Details</Typography>
                 {fields.map((field, index) => (
                     <TextField
                         color="primary"
@@ -129,11 +130,12 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                         disabled={
                             !isEditing || field.disabled || !editableFields.includes(field.name)
                         }
-                        sx={{ mb: 2, width: "100%" }}
                         onChange={handleFieldChange(field)}
+                        fullWidth
+                        margin="normal"
                     />
                 ))}
-                <Box display="flex" justifyContent="flex-start" sx={{ mt: 2 }}>
+                <Box display="flex" justifyContent="flex-start" gap={2}>
                     {addEditButton && (
                         <>
                             <Button
@@ -146,12 +148,7 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                                 {isEditing ? "Save" : "Edit"}
                             </Button>
                             {isEditing && (
-                                <Button
-                                    variant="outlined"
-                                    color="error"
-                                    sx={{ ml: 2 }}
-                                    onClick={handleCancel}
-                                >
+                                <Button variant="outlined" color="error" onClick={handleCancel}>
                                     Cancel
                                 </Button>
                             )}
@@ -161,7 +158,6 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
                         <Button
                             variant="outlined"
                             color="error"
-                            sx={{ ml: 2 }}
                             onClick={() => handleAction("delete")}
                         >
                             Delete

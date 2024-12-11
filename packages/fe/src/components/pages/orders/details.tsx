@@ -10,7 +10,6 @@ import { TableContext } from "components/commonTable/TableContext";
 import { Grid } from "components/dataGrid/Grid";
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
 import { createModal } from "components/modal/createModal";
-import { removeModal } from "components/modal/store";
 import { Order } from "shared/generated/zod/modelSchema";
 import { type OrderStatus } from "stores/order";
 import { SupportedValue } from "utils/formatters";
@@ -41,8 +40,6 @@ const statusTransferRules: Record<string, string[]> = {
     canceled: [],
 };
 
-const boxStyle = { display: "flex", flexDirection: "column", gap: "20px" };
-
 export function OrderDetailsPage() {
     const {
         reagents,
@@ -65,10 +62,10 @@ export function OrderDetailsPage() {
         }
         if (actionType === "delete") {
             await deleteOrder(data.id);
+            navigate({ to: "/orders" });
         } else {
             await updateOrder(data);
         }
-        navigate({ to: "/orders" });
         toast.success(`Order successfully ${actionType === "delete" ? "deleted" : "updated"}!`);
     };
 
@@ -84,13 +81,10 @@ export function OrderDetailsPage() {
                 id,
                 status: event.target.value as OrderStatus,
             });
-            if (tableRef.ref.current?.refresh != null) {
-                tableRef.ref.current.refresh();
-            }
+
+            tableRef.ref.current?.refresh();
             router.invalidate();
         }
-
-        removeModal();
     };
 
     return (
@@ -103,15 +97,14 @@ export function OrderDetailsPage() {
             addEditButton={status === "pending"}
             addDeleteButton={status === "pending"}
         >
-            <Box sx={boxStyle}>
-                <Typography variant="h6" sx={{ mt: 6 }}>
-                    Change Order Status
-                </Typography>
+            <Box sx={{ display: "flex", flexDirection: "column" }} gap={2} pt={1}>
+                <Typography variant="h6">Change Order Status</Typography>
                 <Select
                     value={status}
                     id="select-status"
                     disabled={statusTransferRules[status].length < 1}
                     onChange={addModal}
+                    fullWidth
                 >
                     <MenuItem value={status}>{status}</MenuItem>
                     {statusTransferRules[status].map((val) => (
@@ -120,24 +113,20 @@ export function OrderDetailsPage() {
                         </MenuItem>
                     ))}
                 </Select>
-            </Box>
-            {reagentData.length > 0 ? (
-                <Box sx={boxStyle}>
-                    <Typography variant="h6" sx={{ mt: 6 }}>
-                        Reagents
-                    </Typography>
-                    <Grid
-                        rows={reagentData}
-                        headers={reagentColumns}
-                        showSearchField={false}
-                        showToolbar={false}
-                    />
-                </Box>
-            ) : (
-                <Box sx={boxStyle}>
+                {reagentData.length > 0 ? (
+                    <>
+                        <Typography variant="h6">Reagents</Typography>
+                        <Grid
+                            rows={reagentData}
+                            headers={reagentColumns}
+                            showSearchField={false}
+                            showToolbar={false}
+                        />
+                    </>
+                ) : (
                     <Typography>No reagents in this order.</Typography>
-                </Box>
-            )}
+                )}
+            </Box>
         </DetailsEditPage>
     );
 }
