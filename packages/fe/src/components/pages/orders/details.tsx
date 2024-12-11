@@ -3,6 +3,8 @@ import { toast } from "react-toastify";
 import { Box, MenuItem, Select, SelectChangeEvent, Typography } from "@mui/material";
 import { useLoaderData, useNavigate, useRouter } from "@tanstack/react-router";
 
+import { deleteOrder } from "api/order/deleteOrder";
+import { updateOrder } from "api/order/updateOrder";
 import { changeStatus } from "api/orderStatus";
 import { TableContext } from "components/commonTable/TableContext";
 import { Grid } from "components/dataGrid/Grid";
@@ -12,7 +14,6 @@ import { removeModal } from "components/modal/store";
 import { Order } from "shared/generated/zod/modelSchema";
 import { type OrderStatus } from "stores/order";
 import { SupportedValue } from "utils/formatters";
-import { deleteOrderAction, updateOrderAction } from "utils/orderActions";
 
 const reagentColumns = [
     { field: "name", headerName: "Name", width: 120 },
@@ -58,25 +59,17 @@ export function OrderDetailsPage() {
     const reagentData = Array.isArray(reagents) ? reagents : [];
 
     const handleAction = async (actionType: "submit" | "delete", data?: Order) => {
-        if (actionType === "delete") {
-            if (!data || !data.id) {
-                toast.error("Order data or ID is missing for the delete action.", {
-                    position: "bottom-left",
-                });
-                return;
-            }
-            await deleteOrderAction(data.id, navigate);
-            toast.success("Order successfully deleted!", { position: "bottom-left" });
-        } else if (actionType === "submit") {
-            if (!data) {
-                toast.error("Order data is missing for the submit action.", {
-                    position: "bottom-left",
-                });
-                return;
-            }
-            await updateOrderAction(data, navigate);
-            toast.success("Order successfully updated!", { position: "bottom-left" });
+        if (!data) {
+            toast.error("Order data is missing");
+            return;
         }
+        if (actionType === "delete") {
+            await deleteOrder(data.id);
+        } else {
+            await updateOrder(data);
+        }
+        navigate({ to: "/orders" });
+        toast.success(`Order successfully ${actionType === "delete" ? "deleted" : "updated"}!`);
     };
 
     const addModal = async (event: SelectChangeEvent<string>) => {
