@@ -39,6 +39,7 @@ export const sessionLoadFx = genericDomain.createEffect(() => {
         const decodedToken: { userId: string } = jwtDecode(parsed.token);
         return { ...parsed, userId: decodedToken.userId };
     }
+
     return parsed;
 });
 

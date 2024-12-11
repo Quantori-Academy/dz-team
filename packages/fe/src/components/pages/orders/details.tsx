@@ -14,6 +14,8 @@ import { Order } from "shared/generated/zod/modelSchema";
 import { type OrderStatus } from "stores/order";
 import { SupportedValue } from "utils/formatters";
 
+import { CompleteOrder } from "./CompleteOrder";
+
 const reagentColumns = [
     { field: "name", headerName: "Name", width: 120 },
     { field: "quantity", headerName: "Quantity", width: 80 },
@@ -113,6 +115,10 @@ export function OrderDetailsPage() {
                         </MenuItem>
                     ))}
                 </Select>
+                {status === "submitted" ? (
+                    <CompleteOrder orderId={id} reagents={reagentData} />
+                ) : null}
+
                 {reagentData.length > 0 ? (
                     <>
                         <Typography variant="h6">Reagents</Typography>
