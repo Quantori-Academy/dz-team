@@ -11,14 +11,6 @@ export type AuthStoreValue = Auth | null | false;
 
 export const $auth = genericDomain.createStore<AuthStoreValue>(false);
 
-export const $userId = $auth.map((auth) => {
-    if (auth && auth.token) {
-        const decodedToken = jwtDecode<{ userId: string }>(auth.token);
-        return decodedToken.userId || null;
-    }
-    return null;
-});
-
 export const getUserFx = genericDomain.createEffect(
     ({ token, userId }: { token: string; userId: string }) => {
         try {
@@ -47,6 +39,7 @@ export const sessionLoadFx = genericDomain.createEffect(() => {
         const decodedToken: { userId: string } = jwtDecode(parsed.token);
         return { ...parsed, userId: decodedToken.userId };
     }
+
     return parsed;
 });
 
