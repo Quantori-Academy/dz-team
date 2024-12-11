@@ -1,3 +1,4 @@
+import { debounce } from "lodash";
 import { useContext, useState } from "react";
 import { toast } from "react-toastify";
 import { Autocomplete, Box, Button, Dialog, TextField, Typography } from "@mui/material";
@@ -23,6 +24,8 @@ export function CompleteOrder(props: CompleteOrderProps) {
     const [showErrors, setShowErrors] = useState(false);
     const tableRef = useContext(TableContext);
     const router = useRouter();
+
+    const handleSearch = async (query: string) => setStorages(await getStorage(query));
 
     const handleCompleteOrder = async () => {
         setShowErrors(true);
@@ -102,10 +105,13 @@ export function CompleteOrder(props: CompleteOrderProps) {
                                     getOptionLabel={(option) => option.name + ", " + option.room}
                                     fullWidth
                                     onOpen={() => {
-                                        if (!storages.length)
-                                            getStorage().then((storages) =>
-                                                setStorages(storages.data),
-                                            );
+                                        if (!storages.length) handleSearch("");
+                                    }}
+                                    onInputChange={(_, value) => {
+                                        // TODO: debounce prevents the function from being called at all - why?
+                                        debounce(() => handleSearch(value), 300);
+                                        // handleSearch(value);
+                                        // ^ works as expected
                                     }}
                                     onChange={(_, newValue) => {
                                         setResultStorageIds((prev) => {
