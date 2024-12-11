@@ -106,8 +106,8 @@ export function OrderBasket({
     };
 
     return (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: "20px" }}>
-            <Box sx={{ display: "flex", gap: "20px", mt: 2 }}>
+        <Box sx={{ display: "flex", flexDirection: "column" }} gap={2}>
+            <Box sx={{ display: "flex" }} gap={2}>
                 <TextField
                     label="Title"
                     value={title}
@@ -117,7 +117,6 @@ export function OrderBasket({
                     required
                     error={!!errors.title}
                     helperText={errors.title}
-                    sx={{ mt: 2 }}
                 />
                 <TextField
                     label="Seller"
@@ -127,7 +126,6 @@ export function OrderBasket({
                     fullWidth
                     error={!!errors.seller}
                     helperText={errors.seller}
-                    sx={{ mt: 2 }}
                 />
             </Box>
             <TextField
@@ -138,9 +136,8 @@ export function OrderBasket({
                 fullWidth
                 error={!!errors.description}
                 helperText={errors.description}
-                sx={{ mt: 2 }}
             />
-            <Button variant="contained" color="primary" onClick={handleCreateOrder} sx={{ mt: 2 }}>
+            <Button variant="contained" color="primary" onClick={handleCreateOrder}>
                 Create Order
             </Button>
         </Box>

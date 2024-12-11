@@ -25,6 +25,7 @@ const headers = [
     { field: "quantity", headerName: "Quantity", width: 17, editable: true },
     { field: "amount", headerName: "Amount", width: 170, editable: true },
 ];
+
 export const CreateOrder = () => {
     const { orderItems, deleteReagent, editReagent, addReagent, setOrderItems } = useReagents();
     const [selectedReagent, setSelectedReagent] = useState<CreateOrderReagent | null>(null);
@@ -91,25 +92,26 @@ export const CreateOrder = () => {
             removeModal();
         }
     };
+
     return (
-        <>
-            <Box
-                sx={{
-                    padding: "20px",
-                    display: "flex",
-                    flexDirection: "column",
-                }}
-            >
-                <OrderBasket
-                    basket={orderItems}
-                    title={title}
-                    seller={seller}
-                    description={description}
-                    setTitle={setTitle}
-                    setSeller={setSeller}
-                    setDescription={setDescription}
-                    clearBasket={clearBasket}
-                />
+        <Box
+            sx={{
+                display: "flex",
+                flexDirection: "column",
+            }}
+            gap={2}
+        >
+            <OrderBasket
+                basket={orderItems}
+                title={title}
+                seller={seller}
+                description={description}
+                setTitle={setTitle}
+                setSeller={setSeller}
+                setDescription={setDescription}
+                clearBasket={clearBasket}
+            />
+            <Box sx={{ display: "flex", flexDirection: "column", minHeight: "300px" }}>
                 <DataGrid
                     rows={orderItems}
                     columns={headers}
@@ -127,6 +129,6 @@ export const CreateOrder = () => {
                 />
             </Box>
             <Outlet />
-        </>
+        </Box>
     );
 };
