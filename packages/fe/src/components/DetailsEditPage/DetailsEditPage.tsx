@@ -25,7 +25,6 @@ type DetailsEditPageProps<T extends AnyRoute, TData> = PropsWithChildren<{
     tableRef?: TableContextType["ref"];
     addEditButton?: boolean;
     addDeleteButton?: boolean;
-    addEditButton?: boolean;
 }>;
 
 export const DetailsEditPage = <T extends AnyRoute, TData>(
@@ -45,7 +44,6 @@ export function DetailsEditPageInner<T extends AnyRoute, TData>({
     tableRef,
     addEditButton = true,
     addDeleteButton = true,
-    addEditButton = true,
 }: DetailsEditPageProps<T, TData> & { tableRef: TableContextType["ref"] }) {
     const [isEditing, setIsEditing] = useState(false);
     const data = useLoaderData<T>({ from: url }) as TData;
