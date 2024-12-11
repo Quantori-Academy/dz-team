@@ -1,21 +1,5 @@
-import { z } from "zod";
-
 import { request } from "api/request";
-
-const SampleDetailSchema = z.object({
-    id: z.string().uuid(),
-    name: z.string(),
-    category: z.string(),
-    container: z.string().nullable(),
-    deletedAt: z.date().nullable(),
-    description: z.string(),
-    quantity: z.number().optional(),
-    quantityInit: z.number().nullable(),
-    storageId: z.string().uuid(),
-    storageLocation: z.string().nullable(),
-    structure: z.string(),
-    unit: z.string(),
-});
+import { SampleSchema } from "shared/generated/zod";
 
 export const editSample = async (data: {
     id: string;
@@ -33,7 +17,7 @@ export const editSample = async (data: {
                 : updateData.quantity,
     };
 
-    await request(`/samples/${id}`, SampleDetailSchema, {
+    await request(`/samples/${id}`, SampleSchema, {
         method: "PUT",
         json: processedData,
     });
