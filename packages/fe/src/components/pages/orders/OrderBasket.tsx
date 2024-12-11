@@ -87,11 +87,6 @@ export function OrderBasket({
         try {
             const response = await submitOrderFx();
             if (response.id) {
-                /* setSnackbar({
-                    open: true,
-                    message: "Order created successfully!",
-                    severity: "success",
-                }); */
                 toast.success("Order created successfully!");
                 clearBasket();
                 setErrors({});
