@@ -1,15 +1,6 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { toast } from "react-toastify";
-import {
-    Box,
-    Button,
-    Dialog,
-    FormControl,
-    InputLabel,
-    MenuItem,
-    Select,
-    Typography,
-} from "@mui/material";
+import { Autocomplete, Box, Button, Dialog, TextField, Typography } from "@mui/material";
 import { useRouter } from "@tanstack/react-router";
 
 import { fulfillOrder } from "api/order/fulfill";
@@ -33,10 +24,6 @@ export function CompleteOrder(props: CompleteOrderProps) {
     const [showErrors, setShowErrors] = useState(false);
     const tableRef = useContext(TableContext);
     const router = useRouter();
-
-    useEffect(() => {
-        getStorage().then((storages) => setStorages(storages.data));
-    }, []);
 
     const handleCompleteOrder = async () => {
         setShowErrors(true);
@@ -71,9 +58,7 @@ export function CompleteOrder(props: CompleteOrderProps) {
 
             toast.success("The order is successfully fulfilled!");
 
-            if (tableRef.ref?.current?.refresh) {
-                tableRef.ref.current.refresh();
-            }
+            tableRef.ref.current?.refresh();
 
             setModalOpen(false);
 
@@ -88,55 +73,65 @@ export function CompleteOrder(props: CompleteOrderProps) {
             </Button>
 
             <Dialog open={isModalOpen} onClose={() => setModalOpen(false)}>
-                <Box sx={{ p: 4, width: 440 }}>
-                    <Typography variant="h5" sx={{ mb: 4 }}>
-                        Enter storage location for reagents
-                    </Typography>
+                <Box
+                    sx={{
+                        padding: 4,
+                        width: { xs: "100%", sm: 500, md: 550 },
+                        display: "flex",
+                        flexDirection: "column",
+                    }}
+                    gap={2}
+                >
+                    <Typography variant="h5">Enter storage location for reagents</Typography>
 
                     {props.reagents.map((e, name) => {
                         return (
                             <Box
                                 key={name}
                                 sx={{
-                                    width: "100%",
                                     display: "flex",
                                     justifyContent: "flex-end",
                                     alignItems: "center",
-                                    gap: "8px",
                                 }}
+                                gap={2}
                             >
-                                <Box sx={{ mr: 4, width: 0.5 }}>{e.name as string}</Box>
-                                <FormControl fullWidth sx={{ width: 1, mt: 2, mb: 1 }}>
-                                    <InputLabel id="unit-label">Storage Location</InputLabel>
-                                    <Select
-                                        labelId="unit-label"
-                                        label="Storage Location"
-                                        error={showErrors && !resultStorageIds[name]}
-                                        value={resultStorageIds[name]}
-                                        onChange={(e) => {
-                                            if (typeof e.target.value === "string") {
-                                                const newResultStorageIds = [...resultStorageIds];
-
-                                                newResultStorageIds[name] = e.target.value;
-
-                                                setResultStorageIds(newResultStorageIds);
+                                <Box sx={{ width: 0.4 }}>
+                                    <Typography variant="body1">{e.name as string}</Typography>
+                                </Box>
+                                <Autocomplete
+                                    options={storages}
+                                    getOptionLabel={(option) => option.name + ", " + option.room}
+                                    fullWidth
+                                    onOpen={() => {
+                                        if (!storages.length)
+                                            getStorage().then((storages) =>
+                                                setStorages(storages.data),
+                                            );
+                                    }}
+                                    onChange={(_, newValue) => {
+                                        const newResultStorageIds = [...resultStorageIds];
+                                        newResultStorageIds[name] = newValue?.id ?? "";
+                                        setResultStorageIds(newResultStorageIds);
+                                    }}
+                                    renderInput={(params) => (
+                                        <TextField
+                                            {...params}
+                                            label="Storage Location"
+                                            error={showErrors && !resultStorageIds[name]}
+                                            helperText={
+                                                showErrors && !resultStorageIds[name]
+                                                    ? "Please select a storage location"
+                                                    : ""
                                             }
-                                        }}
-                                        fullWidth
-                                    >
-                                        {storages?.map((storage, index) => (
-                                            <MenuItem key={index} value={storage.id}>
-                                                {storage.name}
-                                            </MenuItem>
-                                        ))}
-                                    </Select>
-                                </FormControl>
+                                        />
+                                    )}
+                                />
                             </Box>
                         );
                     })}
 
-                    <Box display="flex" justifyContent="flex-end" sx={{ mt: 4 }}>
-                        <Button variant="contained" onClick={handleCompleteOrder} sx={{ mr: 2 }}>
+                    <Box display="flex" justifyContent="flex-end" gap={2}>
+                        <Button variant="contained" onClick={handleCompleteOrder}>
                             Submit
                         </Button>
                         <Button variant="outlined" onClick={() => setModalOpen(false)}>
