@@ -1,4 +1,5 @@
 import { toast } from "react-toastify";
+import { useNavigate } from "@tanstack/react-router";
 
 import { deleteSample } from "api/combinedList/deleteSample";
 import { editSample } from "api/combinedList/editSample";
@@ -19,6 +20,7 @@ const fields = [
 ];
 
 export const SampleDetailPage = () => {
+    const navigate = useNavigate();
     const handleAction = async (type: "submit" | "delete", data?: EditSampleData) => {
         if (type === "submit" && data) {
             await editSample(data);
@@ -28,6 +30,7 @@ export const SampleDetailPage = () => {
         if (type === "delete" && data) {
             await deleteSample(data.id);
             toast.success("Sample Deleted Successfully");
+            navigate({ to: "/combinedList" });
         }
     };
 
