@@ -64,8 +64,6 @@ export const CombinedListPage = () => {
         removeModal();
     };
 
-
-
     return (
         <TableContext.Provider value={{ ref: tableRef }}>
             <Box sx={{ mb: 5 }}>
@@ -77,7 +75,7 @@ export const CombinedListPage = () => {
                         const path =
                             row.category === "reagent"
                                 ? `/reagents/${row.id}`
-                                : `/combinedList/${row.id}`;
+                                : `/samples/${row.id}`;
                         navigate({ to: path, replace: false });
                     }}
                     schema={CombinedListSchema}
