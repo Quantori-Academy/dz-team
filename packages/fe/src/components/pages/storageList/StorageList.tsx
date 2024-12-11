@@ -57,10 +57,16 @@ export const StorageList = () => {
                         name: true,
                         room: true,
                     }}
-                    {...(isAdmin && {
-                        onAdd: handleAddFormOpen,
-                        addButtonText: "Add New Storage",
-                    })}
+                    toolbarButtons={
+                        isAdmin
+                            ? [
+                                  {
+                                      label: "Add New Storage",
+                                      onClick: handleAddFormOpen,
+                                  },
+                              ]
+                            : []
+                    }
                 />
                 <Outlet />
             </Box>

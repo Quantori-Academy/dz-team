@@ -82,12 +82,16 @@ export function ReagentRequestPage() {
                         createdAt: true,
                         updatedAt: true,
                     }}
-                    onAdd={
+                    toolbarButtons={
                         auth && auth.self.role === UserRole.procurementOfficer
-                            ? undefined
-                            : openAddModal
+                            ? [
+                                  {
+                                      label: "Create a Reagent Request",
+                                      onClick: openAddModal,
+                                  },
+                              ]
+                            : []
                     }
-                    addButtonText="Create a Reagent Request"
                 />
 
                 <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
