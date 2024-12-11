@@ -30,17 +30,13 @@ export const UserList = () => {
     };
 
     return (
-
-        <Box>
-            <Grid
-                rows={users}
-                headers={headers}
-                searchPlaceholder="Search users by name, email, or role"
-                handleDelete={openDeleteModal}
-                addButtonLabel="Add New User"
-                modalContent={(removeModal) => <AddUserForm onClose={removeModal} />}
-            />
-        </Box>
-
+        <Grid
+            rows={users}
+            headers={headers}
+            searchPlaceholder="Search users by name, email, or role"
+            handleDelete={openDeleteModal}
+            addButtonLabel="Add New User"
+            modalContent={(removeModal) => <AddUserForm onClose={removeModal} />}
+        />
     );
 };

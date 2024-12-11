@@ -1,8 +1,10 @@
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 import { postStorage } from "api/storage/postStorage";
 import { NewStorage } from "api/types";
 import { removeModal } from "components/modal/store";
+import { wait } from "utils";
 
 type HookTypes = {
     name: React.RefObject<HTMLInputElement>;
@@ -12,8 +14,6 @@ type HookTypes = {
 export const useStorage = ({ name, room, description }: HookTypes) => {
     const [roomError, setRoomError] = useState<string | null>(null);
     const [nameError, setNameError] = useState<string | null>(null);
-    const [confirmMessage, setConfirmMessage] = useState(false);
-    const [errorMessage, setErrorMessage] = useState(false);
 
     const validateForm = (formData: NewStorage) => {
         let isValid = true;
@@ -48,23 +48,12 @@ export const useStorage = ({ name, room, description }: HookTypes) => {
             if (name.current) name.current.value = "";
             if (room.current) room.current.value = "";
             if (description.current) description.current.value = "";
-            try {
-                await postStorage(formData);
-                setRoomError(null);
-                setNameError(null);
-                setConfirmMessage(true);
-                setTimeout(() => {
-                    setConfirmMessage(false);
-                }, 2000);
-                setTimeout(() => {
-                    removeModal();
-                }, 2000);
-            } catch (_error) {
-                setErrorMessage(true);
-                setTimeout(() => {
-                    setErrorMessage(false);
-                }, 2000);
-            }
+            await postStorage(formData);
+            setRoomError(null);
+            setNameError(null);
+            toast.success("Storage Added successfully!");
+            wait(500);
+            removeModal();
         }
     };
 
@@ -72,7 +61,5 @@ export const useStorage = ({ name, room, description }: HookTypes) => {
         roomError,
         nameError,
         handleSubmit,
-        confirmMessage,
-        errorMessage,
     };
 };

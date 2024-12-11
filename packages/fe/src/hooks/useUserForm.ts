@@ -5,8 +5,7 @@ import { useUnit } from "effector-react";
 import { UserRole } from "api/self";
 import { NewUser } from "api/types";
 import { removeModal } from "components/modal/store";
-import { $usersList, addUserFx } from "stores/users";
-import { wait } from "utils";
+import { $usersList, addUserFx, deleteUserFx } from "stores/users";
 
 const validateForm = (formData: NewUser) => {
     const errors: Partial<Record<keyof NewUser, string>> = {};
@@ -64,6 +63,11 @@ export const useUserForm = () => {
 
     const users = useUnit($usersList);
 
+    const handleDeleteClick = async (id: string) => {
+        await deleteUserFx(id);
+        toast.success("User deleted successfully!");
+    };
+
     const handleSubmit = async () => {
         const formData: NewUser = {
             username: refs.username.current?.value || "",
@@ -103,7 +107,6 @@ export const useUserForm = () => {
             setRoleError(null);
 
             toast.success("User added successfully!");
-            wait(500);
             removeModal();
         }
     };
@@ -118,6 +121,7 @@ export const useUserForm = () => {
         confirmPasswordError,
         roleError,
         handleSubmit,
+        handleDeleteClick,
         users,
     };
 };

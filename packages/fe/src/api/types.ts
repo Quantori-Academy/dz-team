@@ -26,7 +26,6 @@ export type NewUser = {
     password: string;
     confirmPassword: string;
     role: UserRole;
-
 };
 
 export type NewStorage = {
