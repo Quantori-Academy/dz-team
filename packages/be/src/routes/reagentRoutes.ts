@@ -4,7 +4,7 @@ import { FastifyZodInstance } from "../types";
 // Controllers
 import { reagentController } from "../controllers/reagentController";
 
-// Response schemas
+// OpenAPI response schemas
 import {
     DELETE_REAGENT_BY_ID_SCHEMA,
     GET_REAGENT_BY_ID_SCHEMA,

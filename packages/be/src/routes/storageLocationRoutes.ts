@@ -8,7 +8,7 @@ import { checkAuthenticated, checkAuthenticatedAndRole } from "../utils/authChec
 // Controllers
 import { storageLocationController } from "../controllers/storageLocationController";
 
-// Response schemas
+// OpenAPI response schemas
 import {
     DELETE_STORAGE_LOCATION_BY_ID_SCHEMA,
     GET_STORAGE_LOCATION_BY_ID_SCHEMA,
@@ -60,7 +60,7 @@ export const storageLocationRoutes = async (app: FastifyZodInstance): Promise<vo
         "/:id",
         {
             schema: GET_STORAGE_LOCATION_BY_ID_SCHEMA satisfies FastifyZodOpenApiSchema,
-            preHandler: [checkAuthenticated()],
+            // preHandler: [checkAuthenticated()],
         },
         async (request, reply) => {
             return await storageLocationController.getStorageLocation(request, reply);

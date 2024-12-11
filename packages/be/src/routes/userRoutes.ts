@@ -8,7 +8,7 @@ import { checkAuthenticated, checkAuthenticatedAndRole } from "../utils/authChec
 // Controllers
 import { userController } from "../controllers/userController";
 
-// Response schemas
+// OpenAPI response schemas
 import {
     DELETE_USER_BY_SCHEMA,
     GET_CURRENT_USER_SCHEMA,

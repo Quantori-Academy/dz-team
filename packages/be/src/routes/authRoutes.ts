@@ -7,7 +7,7 @@ import { authController } from "../controllers/authController";
 // External dependencies
 import { FastifyZodOpenApiSchema } from "fastify-zod-openapi";
 
-// Response schemas
+// OpenAPI response schemas
 import { POST_USER_AUTH_SCHEMA } from "../responseSchemas/auth";
 
 // Shared schemas
