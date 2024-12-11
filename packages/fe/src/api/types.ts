@@ -45,6 +45,7 @@ export type SampleData = {
     storageId: string;
 };
 
+
 export type EditSampleData = {
     id: string;
     name: string;
@@ -56,3 +57,4 @@ export type EditSampleData = {
     storageLocation: string;
     storageId: string;
 };
+

@@ -64,6 +64,8 @@ export const CombinedListPage = () => {
         removeModal();
     };
 
+
+
     return (
         <TableContext.Provider value={{ ref: tableRef }}>
             <Box sx={{ mb: 5 }}>

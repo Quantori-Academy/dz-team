@@ -1,9 +1,11 @@
+
 import { toast } from "react-toastify";
 import { useNavigate } from "@tanstack/react-router";
 
 import { deleteSample } from "api/combinedList/deleteSample";
 import { editSample } from "api/combinedList/editSample";
 import { EditSampleData } from "api/types";
+
 import { DetailsEditPage } from "components/DetailsEditPage/DetailsEditPage";
 
 const fields = [
@@ -17,6 +19,7 @@ const fields = [
     { label: "Initial Quantity ", name: "quantityInit", required: true },
     { label: "Container", name: "container", required: true },
     { label: "Created At", name: "createdAt", required: true },
+
 ];
 
 export const SampleDetailPage = () => {
@@ -42,5 +45,6 @@ export const SampleDetailPage = () => {
             onAction={handleAction}
             editableFields={["storageLocation", "quantity"]}
         />
+
     );
 };

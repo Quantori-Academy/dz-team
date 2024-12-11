@@ -9,9 +9,6 @@ export const StorageLocationSchema = z.object({
     description: z.string().nullish(),
     deletedAt: z.coerce.date().nullish(),
 });
-export const StorageLocationsAllContract = z.object({
-    data: z.array(StorageLocationSchema),
-});
 
 export const StorageLocationsAllContract = z.object({
     data: z.array(StorageLocationSchema),

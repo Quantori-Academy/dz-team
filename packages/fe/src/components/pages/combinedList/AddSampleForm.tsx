@@ -1,5 +1,7 @@
 import { useState } from "react";
+
 import { Autocomplete, Box, Button, TextField } from "@mui/material";
+
 import { useGate, useUnit } from "effector-react";
 
 import { useSample } from "hooks/useSampleForm";
@@ -14,7 +16,9 @@ type AddSFormProps = {
 const buttonBoxStyle = { display: "flex", justifyContent: "center", gap: "25px" };
 
 export const AddSampleForm = ({ onClose }: AddSFormProps) => {
+
     const [unit, setUnit] = useState("");
+
     const [selectedStorage, setSelectedStorage] = useState<{ id: string; name: string } | null>(
         null,
     );
@@ -69,6 +73,7 @@ export const AddSampleForm = ({ onClose }: AddSFormProps) => {
                 required
             />
             <TextField label="Description" inputRef={descriptionRef} fullWidth margin="normal" />
+
             <Autocomplete
                 freeSolo
                 options={["ml", "l", "g"]}
@@ -86,6 +91,7 @@ export const AddSampleForm = ({ onClose }: AddSFormProps) => {
                     />
                 )}
             />
+
             <TextField
                 label="Quantity"
                 inputRef={quantityRef}
