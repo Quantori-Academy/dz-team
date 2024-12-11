@@ -58,15 +58,13 @@ export function ReagentRequestDetailsPage({ url }: { url: "/_app/reagentRequests
     };
 
     return (
-        <>
-            <DetailsEditPage
-                baseUrl={reagentRequestsPagePath}
-                url={url}
-                fields={fields}
-                onAction={handleAction}
-                editableFields={[commentsKey]}
-                addDeleteButton={false}
-            />
-        </>
+        <DetailsEditPage
+            baseUrl={reagentRequestsPagePath}
+            url={url}
+            fields={fields}
+            onAction={handleAction}
+            editableFields={[commentsKey]}
+            addDeleteButton={false}
+        />
     );
 }

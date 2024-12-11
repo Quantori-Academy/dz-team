@@ -17,6 +17,7 @@ export function createModal({
         });
 
         const unwatch = buttonClick.watch((response) => {
+            removeModal();
             resolve(response);
         });
 

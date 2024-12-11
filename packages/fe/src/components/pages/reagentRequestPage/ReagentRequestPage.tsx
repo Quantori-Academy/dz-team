@@ -1,5 +1,5 @@
-import { useRef } from "react";
-import { Box } from "@mui/material";
+import { useRef, useState } from "react";
+import { Box, Button, Dialog, Typography } from "@mui/material";
 import { GridColDef } from "@mui/x-data-grid";
 import { Outlet, useNavigate } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
@@ -7,8 +7,6 @@ import { useUnit } from "effector-react";
 import { UserRole } from "api/self";
 import { CommonTable, CommonTableRef } from "components/commonTable/CommonTable";
 import { TableContext } from "components/commonTable/TableContext";
-import { createModal } from "components/modal/createModal";
-import { removeModal } from "components/modal/store";
 import { $auth } from "stores/auth";
 import { addReagentRequestFx, resetFormData } from "stores/reagentRequest";
 
@@ -30,6 +28,7 @@ const reagentRequestColumns: GridColDef[] = [
 ];
 
 export function ReagentRequestPage() {
+    const [isOpen, setIsOpen] = useState(false);
     const navigate = useNavigate();
     const tableRef = useRef<CommonTableRef | null>(null);
     const auth = useUnit($auth);
@@ -44,22 +43,19 @@ export function ReagentRequestPage() {
 
     const submitReagentRequest = useUnit(addReagentRequestFx);
 
-    const openAddModal = async () => {
-        resetFormData();
-        const response = await createModal({
-            name: "reagent_request_modal",
-            title: "Add New Reagent Request",
-            message: <ReagentRequestFormModal />,
-            labels: { ok: "Submit", cancel: "Cancel" },
-        });
-
-        if (response) {
-            await submitReagentRequest();
-            if (tableRef.current?.refresh) {
-                tableRef.current.refresh();
-            }
+    const handleSubmit = async () => {
+        const result = await submitReagentRequest();
+        if (result !== undefined) {
+            setIsOpen(false);
         }
-        removeModal();
+        if (tableRef.current?.refresh) {
+            tableRef.current.refresh();
+        }
+    };
+
+    const openAddModal = () => {
+        resetFormData();
+        setIsOpen(true);
     };
 
     return (
@@ -93,6 +89,31 @@ export function ReagentRequestPage() {
                     }
                     addButtonText="Create a Reagent Request"
                 />
+
+                <Dialog open={isOpen} onClose={() => setIsOpen(false)}>
+                    <Box sx={{ p: "18px" }}>
+                        <Typography variant="h5">Add New Reagent Request</Typography>
+                        <Typography variant="body1" sx={{ my: "20px" }}>
+                            <ReagentRequestFormModal />
+                        </Typography>
+                        <Box
+                            sx={{
+                                width: "100%",
+                                display: "flex",
+                                justifyContent: "flex-end",
+                                alignItems: "center",
+                                gap: "8px",
+                            }}
+                        >
+                            <Button variant="contained" onClick={handleSubmit}>
+                                Submit
+                            </Button>
+                            <Button variant="outlined" onClick={() => setIsOpen(false)}>
+                                Cancel
+                            </Button>
+                        </Box>
+                    </Box>
+                </Dialog>
 
                 <Outlet />
             </Box>

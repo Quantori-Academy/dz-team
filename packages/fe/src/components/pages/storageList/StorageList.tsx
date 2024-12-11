@@ -14,8 +14,8 @@ import { StorageAddForm } from "components/pages/storage/StorageAddForm";
 import { $auth } from "stores/auth";
 
 const columns: GridColDef[] = [
-    { field: "name", headerName: "Storage Name", width: 170 },
     { field: "room", headerName: "Storage Room", width: 170 },
+    { field: "name", headerName: "Storage Name", width: 170 },
     { field: "description", headerName: "Storage Description", width: 170 },
 ];
 
