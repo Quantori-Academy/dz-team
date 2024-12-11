@@ -1,5 +1,4 @@
-import { Logout, Settings } from "@mui/icons-material";
-import PersonIcon from "@mui/icons-material/Person";
+import { Logout } from "@mui/icons-material";
 import { Box, Divider, ListItemIcon, Menu, MenuItem, Typography } from "@mui/material";
 import { Link } from "@tanstack/react-router";
 import { useUnit } from "effector-react";
@@ -73,29 +72,6 @@ export function DropdownMenuHeaderDesktop({ handleClose, open, anchorEl }: Props
                     {user?.email}
                 </Typography>
             </Box>
-            <Divider />
-
-            <MenuItem
-                sx={{
-                    color: theme.palette.text.primary,
-                    mt: 1,
-                }}
-            >
-                <ListItemIcon>
-                    <PersonIcon fontSize="medium" />
-                </ListItemIcon>
-                Account
-            </MenuItem>
-            <MenuItem
-                sx={{
-                    color: theme.palette.text.primary,
-                }}
-            >
-                <ListItemIcon>
-                    <Settings fontSize="medium" />
-                </ListItemIcon>
-                Settings
-            </MenuItem>
             <Divider />
             <Link onClick={deleteSession} style={{ textDecoration: "none" }}>
                 <MenuItem
