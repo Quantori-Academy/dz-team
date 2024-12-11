@@ -1,5 +1,5 @@
 import { debounce } from "lodash";
-import { useContext, useState } from "react";
+import { useContext, useMemo, useState } from "react";
 import { toast } from "react-toastify";
 import { Autocomplete, Box, Button, Dialog, TextField, Typography } from "@mui/material";
 import { useRouter } from "@tanstack/react-router";
@@ -39,8 +39,7 @@ export function CompleteOrder(props: CompleteOrderProps) {
 
         const hasEmptyStorages = reagentsAndStorages.some(
             // TODO: replace empty string with null and update the type
-            (reagentAndStorage) =>
-                !reagentAndStorage.storageId || reagentAndStorage.storageId === "",
+            (reagentAndStorage) => !reagentAndStorage.storageId,
         );
 
         if (hasEmptyStorages) {
@@ -67,6 +66,8 @@ export function CompleteOrder(props: CompleteOrderProps) {
             router.invalidate();
         }
     };
+
+    const search = useMemo(() => debounce((value: string) => handleSearch(value), 300), []);
 
     return (
         <>
@@ -108,10 +109,7 @@ export function CompleteOrder(props: CompleteOrderProps) {
                                         if (!storages.length) handleSearch("");
                                     }}
                                     onInputChange={(_, value) => {
-                                        // TODO: debounce prevents the function from being called at all - why?
-                                        debounce(() => handleSearch(value), 300);
-                                        // handleSearch(value);
-                                        // ^ works as expected
+                                        search(value);
                                     }}
                                     onChange={(_, newValue) => {
                                         setResultStorageIds((prev) => {
