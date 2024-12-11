@@ -23,11 +23,12 @@ import { Route as AppStorageListIdImport } from "./routes/_app/storageList/$id";
 import { Route as AppReagentRequestsIdImport } from "./routes/_app/reagentRequests/$id";
 import { Route as AppResearcherLayoutSamplesImport } from "./routes/_app/_researcherLayout/samples";
 import { Route as AppResearcherLayoutReagentsImport } from "./routes/_app/_researcherLayout/reagents";
+import { Route as AppResearcherLayoutCombinedListImport } from "./routes/_app/_researcherLayout/combinedList";
 import { Route as AppPOfficerLayoutOrdersImport } from "./routes/_app/_pOfficerLayout/orders";
 import { Route as AppPOfficerLayoutCreateOrderImport } from "./routes/_app/_pOfficerLayout/createOrder";
 import { Route as AppAdminLayoutUsersImport } from "./routes/_app/_adminLayout/users";
+import { Route as AppResearcherLayoutSamplesIdImport } from "./routes/_app/_researcherLayout/samples/$id";
 import { Route as AppResearcherLayoutReagentsIdImport } from "./routes/_app/_researcherLayout/reagents/$id";
-import { Route as AppResearcherLayoutCombinedListIdImport } from "./routes/_app/_researcherLayout/combinedList/$id";
 import { Route as AppPOfficerLayoutOrdersIdImport } from "./routes/_app/_pOfficerLayout/orders/$id";
 
 // Create/Update Routes
@@ -100,6 +101,12 @@ const AppResearcherLayoutReagentsRoute = AppResearcherLayoutReagentsImport.updat
     getParentRoute: () => AppResearcherLayoutRoute,
 } as any);
 
+const AppResearcherLayoutCombinedListRoute = AppResearcherLayoutCombinedListImport.update({
+    id: "/combinedList",
+    path: "/combinedList",
+    getParentRoute: () => AppResearcherLayoutRoute,
+} as any);
+
 const AppPOfficerLayoutOrdersRoute = AppPOfficerLayoutOrdersImport.update({
     id: "/orders",
     path: "/orders",
@@ -118,16 +125,16 @@ const AppAdminLayoutUsersRoute = AppAdminLayoutUsersImport.update({
     getParentRoute: () => AppAdminLayoutRoute,
 } as any);
 
+const AppResearcherLayoutSamplesIdRoute = AppResearcherLayoutSamplesIdImport.update({
+    id: "/$id",
+    path: "/$id",
+    getParentRoute: () => AppResearcherLayoutSamplesRoute,
+} as any);
+
 const AppResearcherLayoutReagentsIdRoute = AppResearcherLayoutReagentsIdImport.update({
     id: "/$id",
     path: "/$id",
     getParentRoute: () => AppResearcherLayoutReagentsRoute,
-} as any);
-
-const AppResearcherLayoutCombinedListIdRoute = AppResearcherLayoutCombinedListIdImport.update({
-    id: "/combinedList/$id",
-    path: "/combinedList/$id",
-    getParentRoute: () => AppResearcherLayoutRoute,
 } as any);
 
 const AppPOfficerLayoutOrdersIdRoute = AppPOfficerLayoutOrdersIdImport.update({
@@ -210,6 +217,13 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof AppPOfficerLayoutOrdersImport;
             parentRoute: typeof AppPOfficerLayoutImport;
         };
+        "/_app/_researcherLayout/combinedList": {
+            id: "/_app/_researcherLayout/combinedList";
+            path: "/combinedList";
+            fullPath: "/combinedList";
+            preLoaderRoute: typeof AppResearcherLayoutCombinedListImport;
+            parentRoute: typeof AppResearcherLayoutImport;
+        };
         "/_app/_researcherLayout/reagents": {
             id: "/_app/_researcherLayout/reagents";
             path: "/reagents";
@@ -252,19 +266,19 @@ declare module "@tanstack/react-router" {
             preLoaderRoute: typeof AppPOfficerLayoutOrdersIdImport;
             parentRoute: typeof AppPOfficerLayoutOrdersImport;
         };
-        "/_app/_researcherLayout/combinedList/$id": {
-            id: "/_app/_researcherLayout/combinedList/$id";
-            path: "/combinedList/$id";
-            fullPath: "/combinedList/$id";
-            preLoaderRoute: typeof AppResearcherLayoutCombinedListIdImport;
-            parentRoute: typeof AppResearcherLayoutImport;
-        };
         "/_app/_researcherLayout/reagents/$id": {
             id: "/_app/_researcherLayout/reagents/$id";
             path: "/$id";
             fullPath: "/reagents/$id";
             preLoaderRoute: typeof AppResearcherLayoutReagentsIdImport;
             parentRoute: typeof AppResearcherLayoutReagentsImport;
+        };
+        "/_app/_researcherLayout/samples/$id": {
+            id: "/_app/_researcherLayout/samples/$id";
+            path: "/$id";
+            fullPath: "/samples/$id";
+            preLoaderRoute: typeof AppResearcherLayoutSamplesIdImport;
+            parentRoute: typeof AppResearcherLayoutSamplesImport;
         };
     }
 }
@@ -320,18 +334,29 @@ const AppResearcherLayoutReagentsRouteChildren: AppResearcherLayoutReagentsRoute
 const AppResearcherLayoutReagentsRouteWithChildren =
     AppResearcherLayoutReagentsRoute._addFileChildren(AppResearcherLayoutReagentsRouteChildren);
 
+interface AppResearcherLayoutSamplesRouteChildren {
+    AppResearcherLayoutSamplesIdRoute: typeof AppResearcherLayoutSamplesIdRoute;
+}
+
+const AppResearcherLayoutSamplesRouteChildren: AppResearcherLayoutSamplesRouteChildren = {
+    AppResearcherLayoutSamplesIdRoute: AppResearcherLayoutSamplesIdRoute,
+};
+
+const AppResearcherLayoutSamplesRouteWithChildren =
+    AppResearcherLayoutSamplesRoute._addFileChildren(AppResearcherLayoutSamplesRouteChildren);
+
 interface AppResearcherLayoutRouteChildren {
+    AppResearcherLayoutCombinedListRoute: typeof AppResearcherLayoutCombinedListRoute;
     AppResearcherLayoutReagentsRoute: typeof AppResearcherLayoutReagentsRouteWithChildren;
-    AppResearcherLayoutSamplesRoute: typeof AppResearcherLayoutSamplesRoute;
+    AppResearcherLayoutSamplesRoute: typeof AppResearcherLayoutSamplesRouteWithChildren;
     AppResearcherLayoutIndexRoute: typeof AppResearcherLayoutIndexRoute;
-    AppResearcherLayoutCombinedListIdRoute: typeof AppResearcherLayoutCombinedListIdRoute;
 }
 
 const AppResearcherLayoutRouteChildren: AppResearcherLayoutRouteChildren = {
+    AppResearcherLayoutCombinedListRoute: AppResearcherLayoutCombinedListRoute,
     AppResearcherLayoutReagentsRoute: AppResearcherLayoutReagentsRouteWithChildren,
-    AppResearcherLayoutSamplesRoute: AppResearcherLayoutSamplesRoute,
+    AppResearcherLayoutSamplesRoute: AppResearcherLayoutSamplesRouteWithChildren,
     AppResearcherLayoutIndexRoute: AppResearcherLayoutIndexRoute,
-    AppResearcherLayoutCombinedListIdRoute: AppResearcherLayoutCombinedListIdRoute,
 };
 
 const AppResearcherLayoutRouteWithChildren = AppResearcherLayoutRoute._addFileChildren(
@@ -388,14 +413,15 @@ export interface FileRoutesByFullPath {
     "/users": typeof AppAdminLayoutUsersRoute;
     "/createOrder": typeof AppPOfficerLayoutCreateOrderRoute;
     "/orders": typeof AppPOfficerLayoutOrdersRouteWithChildren;
+    "/combinedList": typeof AppResearcherLayoutCombinedListRoute;
     "/reagents": typeof AppResearcherLayoutReagentsRouteWithChildren;
-    "/samples": typeof AppResearcherLayoutSamplesRoute;
+    "/samples": typeof AppResearcherLayoutSamplesRouteWithChildren;
     "/reagentRequests/$id": typeof AppReagentRequestsIdRoute;
     "/storageList/$id": typeof AppStorageListIdRoute;
     "/": typeof AppResearcherLayoutIndexRoute;
     "/orders/$id": typeof AppPOfficerLayoutOrdersIdRoute;
-    "/combinedList/$id": typeof AppResearcherLayoutCombinedListIdRoute;
     "/reagents/$id": typeof AppResearcherLayoutReagentsIdRoute;
+    "/samples/$id": typeof AppResearcherLayoutSamplesIdRoute;
 }
 
 export interface FileRoutesByTo {
@@ -406,14 +432,15 @@ export interface FileRoutesByTo {
     "/users": typeof AppAdminLayoutUsersRoute;
     "/createOrder": typeof AppPOfficerLayoutCreateOrderRoute;
     "/orders": typeof AppPOfficerLayoutOrdersRouteWithChildren;
+    "/combinedList": typeof AppResearcherLayoutCombinedListRoute;
     "/reagents": typeof AppResearcherLayoutReagentsRouteWithChildren;
-    "/samples": typeof AppResearcherLayoutSamplesRoute;
+    "/samples": typeof AppResearcherLayoutSamplesRouteWithChildren;
     "/reagentRequests/$id": typeof AppReagentRequestsIdRoute;
     "/storageList/$id": typeof AppStorageListIdRoute;
     "/": typeof AppResearcherLayoutIndexRoute;
     "/orders/$id": typeof AppPOfficerLayoutOrdersIdRoute;
-    "/combinedList/$id": typeof AppResearcherLayoutCombinedListIdRoute;
     "/reagents/$id": typeof AppResearcherLayoutReagentsIdRoute;
+    "/samples/$id": typeof AppResearcherLayoutSamplesIdRoute;
 }
 
 export interface FileRoutesById {
@@ -428,14 +455,15 @@ export interface FileRoutesById {
     "/_app/_adminLayout/users": typeof AppAdminLayoutUsersRoute;
     "/_app/_pOfficerLayout/createOrder": typeof AppPOfficerLayoutCreateOrderRoute;
     "/_app/_pOfficerLayout/orders": typeof AppPOfficerLayoutOrdersRouteWithChildren;
+    "/_app/_researcherLayout/combinedList": typeof AppResearcherLayoutCombinedListRoute;
     "/_app/_researcherLayout/reagents": typeof AppResearcherLayoutReagentsRouteWithChildren;
-    "/_app/_researcherLayout/samples": typeof AppResearcherLayoutSamplesRoute;
+    "/_app/_researcherLayout/samples": typeof AppResearcherLayoutSamplesRouteWithChildren;
     "/_app/reagentRequests/$id": typeof AppReagentRequestsIdRoute;
     "/_app/storageList/$id": typeof AppStorageListIdRoute;
     "/_app/_researcherLayout/": typeof AppResearcherLayoutIndexRoute;
     "/_app/_pOfficerLayout/orders/$id": typeof AppPOfficerLayoutOrdersIdRoute;
-    "/_app/_researcherLayout/combinedList/$id": typeof AppResearcherLayoutCombinedListIdRoute;
     "/_app/_researcherLayout/reagents/$id": typeof AppResearcherLayoutReagentsIdRoute;
+    "/_app/_researcherLayout/samples/$id": typeof AppResearcherLayoutSamplesIdRoute;
 }
 
 export interface FileRouteTypes {
@@ -448,14 +476,15 @@ export interface FileRouteTypes {
         | "/users"
         | "/createOrder"
         | "/orders"
+        | "/combinedList"
         | "/reagents"
         | "/samples"
         | "/reagentRequests/$id"
         | "/storageList/$id"
         | "/"
         | "/orders/$id"
-        | "/combinedList/$id"
-        | "/reagents/$id";
+        | "/reagents/$id"
+        | "/samples/$id";
     fileRoutesByTo: FileRoutesByTo;
     to:
         | ""
@@ -465,14 +494,15 @@ export interface FileRouteTypes {
         | "/users"
         | "/createOrder"
         | "/orders"
+        | "/combinedList"
         | "/reagents"
         | "/samples"
         | "/reagentRequests/$id"
         | "/storageList/$id"
         | "/"
         | "/orders/$id"
-        | "/combinedList/$id"
-        | "/reagents/$id";
+        | "/reagents/$id"
+        | "/samples/$id";
     id:
         | "__root__"
         | "/_app"
@@ -485,14 +515,15 @@ export interface FileRouteTypes {
         | "/_app/_adminLayout/users"
         | "/_app/_pOfficerLayout/createOrder"
         | "/_app/_pOfficerLayout/orders"
+        | "/_app/_researcherLayout/combinedList"
         | "/_app/_researcherLayout/reagents"
         | "/_app/_researcherLayout/samples"
         | "/_app/reagentRequests/$id"
         | "/_app/storageList/$id"
         | "/_app/_researcherLayout/"
         | "/_app/_pOfficerLayout/orders/$id"
-        | "/_app/_researcherLayout/combinedList/$id"
-        | "/_app/_researcherLayout/reagents/$id";
+        | "/_app/_researcherLayout/reagents/$id"
+        | "/_app/_researcherLayout/samples/$id";
     fileRoutesById: FileRoutesById;
 }
 
@@ -552,10 +583,10 @@ export const routeTree = rootRoute
       "filePath": "_app/_researcherLayout.tsx",
       "parent": "/_app",
       "children": [
+        "/_app/_researcherLayout/combinedList",
         "/_app/_researcherLayout/reagents",
         "/_app/_researcherLayout/samples",
-        "/_app/_researcherLayout/",
-        "/_app/_researcherLayout/combinedList/$id"
+        "/_app/_researcherLayout/"
       ]
     },
     "/_app/reagentRequests": {
@@ -587,6 +618,10 @@ export const routeTree = rootRoute
         "/_app/_pOfficerLayout/orders/$id"
       ]
     },
+    "/_app/_researcherLayout/combinedList": {
+      "filePath": "_app/_researcherLayout/combinedList.tsx",
+      "parent": "/_app/_researcherLayout"
+    },
     "/_app/_researcherLayout/reagents": {
       "filePath": "_app/_researcherLayout/reagents.tsx",
       "parent": "/_app/_researcherLayout",
@@ -596,7 +631,10 @@ export const routeTree = rootRoute
     },
     "/_app/_researcherLayout/samples": {
       "filePath": "_app/_researcherLayout/samples.tsx",
-      "parent": "/_app/_researcherLayout"
+      "parent": "/_app/_researcherLayout",
+      "children": [
+        "/_app/_researcherLayout/samples/$id"
+      ]
     },
     "/_app/reagentRequests/$id": {
       "filePath": "_app/reagentRequests/$id.tsx",
@@ -614,13 +652,13 @@ export const routeTree = rootRoute
       "filePath": "_app/_pOfficerLayout/orders/$id.tsx",
       "parent": "/_app/_pOfficerLayout/orders"
     },
-    "/_app/_researcherLayout/combinedList/$id": {
-      "filePath": "_app/_researcherLayout/combinedList/$id.tsx",
-      "parent": "/_app/_researcherLayout"
-    },
     "/_app/_researcherLayout/reagents/$id": {
       "filePath": "_app/_researcherLayout/reagents/$id.tsx",
       "parent": "/_app/_researcherLayout/reagents"
+    },
+    "/_app/_researcherLayout/samples/$id": {
+      "filePath": "_app/_researcherLayout/samples/$id.tsx",
+      "parent": "/_app/_researcherLayout/samples"
     }
   }
 }
