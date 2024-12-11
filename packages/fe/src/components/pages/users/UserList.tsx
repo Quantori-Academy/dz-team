@@ -1,13 +1,12 @@
-import { useGate } from "effector-react";
+import { toast } from "react-toastify";
+import { useGate, useUnit } from "effector-react";
 
 import { createModal } from "components/modal/createModal";
-import { removeModal } from "components/modal/store";
 import { useUserForm } from "hooks/useUserForm";
-import { UsersGate } from "stores/users";
+import { deleteUserFx, UsersGate } from "stores/users";
 
 import { Grid } from "../../dataGrid/Grid";
 import { AddUserForm } from "./AddUserForm";
-import { ConfirmMessage } from "./ConfirmMessage";
 
 const headers = [
     { field: "username", headerName: "User Name", width: 150 },
@@ -18,15 +17,20 @@ const headers = [
 
 export const UserList = () => {
     useGate(UsersGate);
+    const deleteUser = useUnit(deleteUserFx);
 
     const { users } = useUserForm();
 
     const openDeleteModal = async (id: string) => {
-        await createModal({
+        const toDelete = await createModal({
             name: "confirm_delete_modal",
-            title: "Confirm User Deletion Message",
-            message: <ConfirmMessage id={id} onClose={removeModal} />,
+            message: "Are you sure you want to delete this user?",
+            labels: { ok: "Yes", cancel: "No" },
         });
+        if (toDelete) {
+            await deleteUser(id);
+            toast.success("User deleted successfully!");
+        }
     };
 
     return (
