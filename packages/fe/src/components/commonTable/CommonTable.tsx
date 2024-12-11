@@ -13,6 +13,13 @@ import { z } from "zod";
 import { search } from "api/search";
 import { AddRecord } from "components/dataGrid/Addrecord";
 
+const boxStyle = {
+    display: "flex",
+    gap: 2,
+    justifyContent: "flex-start",
+    p: 1,
+};
+
 type FetchResponseType<T> = {
     data: T[];
     meta: {
@@ -24,14 +31,18 @@ type FetchResponseType<T> = {
     };
 };
 
+type ToolbarButton = {
+    label: string;
+    onClick: () => void;
+};
+
 type GridProps<T extends GridValidRowModel> = {
     columns: GridColDef<T>[];
     url: string;
     schema: z.ZodType<T>;
     searchBy: Record<string, boolean>;
     onRowClick?: (row: T) => void;
-    onAdd?: () => void;
-    addButtonText?: string;
+    toolbarButtons?: ToolbarButton[];
 };
 
 export interface CommonTableRef {
@@ -111,7 +122,7 @@ const fetchRows = async <T extends GridValidRowModel>({
  */
 export const CommonTable: ForwardRefWithGenerics = forwardRef(
     <T extends GridValidRowModel>(
-        { columns, url, schema, searchBy, onRowClick, onAdd, addButtonText = "ADD" }: GridProps<T>,
+        { columns, url, schema, searchBy, onRowClick, toolbarButtons }: GridProps<T>,
         ref: React.Ref<CommonTableRef>,
     ) => {
         const [result, setResult] = useState<FetchResponseType<T>>({
@@ -172,8 +183,18 @@ export const CommonTable: ForwardRefWithGenerics = forwardRef(
 
                 <DataGrid
                     slots={{
-                        toolbar: onAdd
-                            ? () => <AddRecord buttonLabel={addButtonText} onAddRecord={onAdd} />
+                        toolbar: toolbarButtons?.length
+                            ? () => (
+                                  <Box sx={boxStyle}>
+                                      {toolbarButtons.map((button, index) => (
+                                          <AddRecord
+                                              key={index}
+                                              buttonLabel={button.label}
+                                              onAddRecord={button.onClick}
+                                          />
+                                      ))}
+                                  </Box>
+                              )
                             : undefined,
                     }}
                     rows={result.data}

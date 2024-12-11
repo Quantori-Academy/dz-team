@@ -1,13 +1,27 @@
-import { createEvent } from "effector";
+import { sample } from "effector";
+import { createGate } from "effector-react";
 
-import { StorageLocationDetailContractType } from "api/storage/contract";
+import { StorageLocation } from "api/storage/contract";
+import { getStorage } from "api/storage/getStorage";
 import { genericDomain as domain } from "logger";
-// Events
-export const updateStorage = domain.createEvent<StorageLocationDetailContractType>();
-export const deleteStorageById = createEvent<string>();
 
-// Store
-export const $storageDetails = domain
-    .createStore<StorageLocationDetailContractType | null>(null)
-    .on(updateStorage, (_, updatedStorage) => updatedStorage)
-    .on(deleteStorageById, (state, id) => (state?.id === id ? null : state));
+export const $storageList = domain.createStore<StorageLocation[]>([], { name: "$storageList" });
+
+
+export const fetchStorageFx = domain.createEffect(async () => {
+    const response = await getStorage();
+    return response ?? [];
+});
+
+
+export const StorageGate = createGate({ domain });
+
+sample({
+    clock: StorageGate.open,
+    target: fetchStorageFx,
+});
+
+sample({
+    clock: fetchStorageFx.doneData,
+    target: $storageList,
+});

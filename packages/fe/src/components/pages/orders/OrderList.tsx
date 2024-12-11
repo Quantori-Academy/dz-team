@@ -47,8 +47,12 @@ export const OrderList = () => {
                     createdAt: true,
                     updatedAt: true,
                 }}
-                onAdd={handleClick}
-                addButtonText="Create a new order"
+                toolbarButtons={[
+                    {
+                        label: "Create a new order",
+                        onClick: handleClick,
+                    },
+                ]}
             />
             <Outlet />
         </TableContext.Provider>
