@@ -25,6 +25,41 @@ export const OrderCreateWithUserIdInputSchema = z.object({
     userId: z.string().uuid(),
 });
 
+const Reagent = z.object({
+    id: z.string().uuid(),
+    name: z.string(),
+    structure: z.string(),
+    cas: z.string(),
+    producer: z.string(),
+    catalogId: z.string(),
+    catalogLink: z.string(),
+    units: z.string(),
+    pricePerUnit: z.number(),
+    quantity: z.number(),
+    amount: z.number(),
+});
+
+export const RequestOrderCreateWithUserIdInputSchema = z.object({
+    id: z.string().uuid().optional(), // Ensure id is optional, Prisma auto-generates if not provided
+    title: z.string(),
+    description: z.string().optional().nullable(),
+    seller: z.string().optional().nullable(),
+    status: z.lazy(() => OrderStatusSchema).optional(),
+    deletedAt: z.coerce.date().optional().nullable(),
+    createdAt: z.coerce.date().optional(),
+    updatedAt: z.coerce.date().optional(),
+
+    userId: z.string().uuid(),
+    requestIds: z.array(z.string()).optional(),
+
+    reagents: z.lazy(() => z.array(Reagent)).optional(),
+
+    producer: z.string().optional(),
+    catalogId: z.string().optional(),
+    catalogLink: z.string().optional(),
+    pricePerUnit: z.number().optional(),
+});
+
 export const OrderUpdateWithUserIdInputSchema = z.object({
     title: z.union([z.string(), z.lazy(() => StringFieldUpdateOperationsInputSchema)]).optional(),
     description: z

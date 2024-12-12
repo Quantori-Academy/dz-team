@@ -1,3 +1,4 @@
+import { OrderStatus } from "@prisma/client";
 import {
     FastifyInstance,
     FastifyBaseLogger,
@@ -7,7 +8,6 @@ import {
     FastifyRequest,
     FastifyReply,
 } from "fastify";
-
 import type { FastifyZodOpenApiTypeProvider } from "fastify-zod-openapi";
 
 // Define the JWT payload type with roles
@@ -57,3 +57,33 @@ export type FastifyZodInstance = FastifyInstance<
         requiredRoles: Array<JwtPayload["role"]>,
     ) => Promise<void>;
 };
+
+interface Reagent {
+    id: string | undefined;
+    name: string;
+    structure: string;
+    cas: string;
+    producer: string;
+    catalogId: string;
+    catalogLink: string;
+    units: string;
+    pricePerUnit: number;
+    quantity: number;
+    amount: number;
+}
+
+export interface OrderCreationParams {
+    title: string;
+    description?: string | undefined | null;
+    seller?: string | undefined | null;
+    status?: OrderStatus;
+    userId: string;
+    requestIds?: string[];
+
+    reagents?: Reagent[];
+
+    producer?: string;
+    catalogId?: string;
+    catalogLink?: string;
+    pricePerUnit?: number;
+}

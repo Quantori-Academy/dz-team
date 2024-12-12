@@ -5,7 +5,7 @@ import { z } from "zod";
 
 // Internal utilities
 import { prisma } from "../utils/prisma";
-import { SearchResults } from "../types";
+import { OrderCreationParams, SearchResults } from "../types";
 
 // Shared schemas
 import { OrderReagentsSchema } from "../../../shared/zodSchemas/order/orderReagentSchema";
@@ -13,6 +13,7 @@ import { OrderSearch } from "../../../shared/zodSchemas/order/orderSearchSchema"
 import {
     OrderCreateWithUserIdInputSchema,
     OrderUpdateWithUserIdInputSchema,
+    // RequestOrderCreateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
 import { fulfillOrderSchema } from "../../../shared/zodSchemas/order/fulfillOrderSchema";
 
@@ -86,27 +87,74 @@ class OrderService {
     /**
      * Create a new order.
      *
-     * @param {OrderCreateWithUserIdInputSchema} newOrderData - The data for the new order, including embedded reagent details.
+     * @param {RequestOrderCreateWithUserIdInputSchema} newOrderData - The data for the new order, including embedded reagent details.
      * @returns {Promise<Order>} A promise that resolves to the created order object.
      */
-    async createOrder(newOrderData: unknown): Promise<Order> {
-        // Validate the general order data (excluding reagents)
-        const validatedData = OrderCreateWithUserIdInputSchema.parse(newOrderData);
+    async createOrder(newOrderData: OrderCreationParams): Promise<Order> {
+        if (newOrderData.requestIds && newOrderData.requestIds.length > 0) {
+            return prisma.$transaction(async (prisma) => {
+                const userId = newOrderData.userId;
 
-        // Validate reagents array and add IDs if valid
-        if (Array.isArray(validatedData.reagents)) {
-            validatedData.reagents = validatedData.reagents.map(
-                (reagent: z.infer<typeof OrderReagentsSchema>) => {
-                    OrderReagentsSchema.parse(reagent); // Validate each reagent
-                    return { id: uuidv4(), ...reagent }; // Add unique ID
-                },
-            );
+                const requests = await prisma.reagentRequest.findMany({
+                    where: { id: { in: newOrderData.requestIds }, userId, status: "pending" },
+                });
+
+                if (requests.length === 0) {
+                    throw new Error("No valid requests found for the provided IDs");
+                }
+
+                const reagents = requests.map((req) => ({
+                    id: uuidv4(),
+                    name: req.name,
+                    structure: req.structure,
+                    cas: req.cas,
+                    producer: newOrderData.producer,
+                    catalogId: newOrderData.catalogId,
+                    catalogLink: newOrderData.catalogLink,
+                    units: req.unit,
+                    pricePerUnit: newOrderData.pricePerUnit,
+                    quantity: req.quantity,
+                }));
+
+                const order = await prisma.order.create({
+                    data: {
+                        userId,
+                        title: newOrderData.title,
+                        description: newOrderData.description,
+                        status: OrderStatus.pending,
+                        seller: newOrderData.seller,
+                        reagents,
+                    },
+                });
+
+                // RequestOrderCreateWithUserIdInputSchema.parse(order);
+
+                await prisma.reagentRequest.updateMany({
+                    where: { id: { in: newOrderData.requestIds } },
+                    data: { status: "ordered", orderId: order.id },
+                });
+
+                return order;
+            });
+        } else {
+            // Validate the general order data (excluding reagents)
+            const validatedData = OrderCreateWithUserIdInputSchema.parse(newOrderData);
+
+            // Validate reagents array and add IDs if valid
+            if (Array.isArray(validatedData.reagents)) {
+                validatedData.reagents = validatedData.reagents.map(
+                    (reagent: z.infer<typeof OrderReagentsSchema>) => {
+                        OrderReagentsSchema.parse(reagent); // Validate each reagent
+                        return { id: uuidv4(), ...reagent }; // Add unique ID
+                    },
+                );
+            }
+
+            // Create and return the new order
+            return prisma.order.create({
+                data: validatedData,
+            });
         }
-
-        // Create and return the new order
-        return prisma.order.create({
-            data: validatedData,
-        });
     }
 
     /**
@@ -176,6 +224,7 @@ class OrderService {
             id?: string;
             name: string;
             structure?: string;
+            description: string;
             cas?: string;
             producer: string;
             catalogId?: string;
@@ -196,6 +245,7 @@ class OrderService {
                 name: reagent.name,
                 structure: reagent.structure,
                 cas: reagent.cas,
+                description: reagent.description,
                 producer: reagent.producer,
                 catalogId: reagent.catalogId,
                 catalogLink: reagent.catalogLink,

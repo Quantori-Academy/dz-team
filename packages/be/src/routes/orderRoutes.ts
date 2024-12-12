@@ -10,8 +10,8 @@ import { OrderStatus } from "@prisma/client";
 // Shared schemas
 import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
 import {
-    OrderCreateWithUserIdInputSchema,
     OrderUpdateWithUserIdInputSchema,
+    RequestOrderCreateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
 import { fulfillOrderSchema } from "../../../shared/zodSchemas/order/fulfillOrderSchema";
 
@@ -66,7 +66,7 @@ export const orderRoutes = async (app: FastifyZodInstance): Promise<void> => {
      * @returns {Reagent} 201 - The created Order
      * @returns {Error} 400 - Validation error
      */
-    app.post<{ Body: typeof OrderCreateWithUserIdInputSchema }>(
+    app.post<{ Body: typeof RequestOrderCreateWithUserIdInputSchema }>(
         "/",
         // { schema: { tags: ["Order"], body: OrderCreateWithUserIdInputSchema } },
         async (request, reply) => {

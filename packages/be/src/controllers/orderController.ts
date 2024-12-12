@@ -10,8 +10,8 @@ import { sendErrorResponse } from "../utils/handleErrors";
 import { idSchema } from "../../../shared/zodSchemas/baseSchemas";
 import { OrderSearchSchema } from "../../../shared/zodSchemas/order/orderSearchSchema";
 import {
-    OrderCreateWithUserIdInputSchema,
     OrderUpdateWithUserIdInputSchema,
+    RequestOrderCreateWithUserIdInputSchema,
 } from "../../../shared/zodSchemas/order/extendedOrderSchemas";
 import { fulfillOrderSchema } from "../../../shared/zodSchemas/order/fulfillOrderSchema";
 
@@ -61,12 +61,12 @@ class OrderController {
      * @returns A promise that resolves to the created Order object.
      */
     async createOrder(
-        request: FastifyRequest<{ Body: typeof OrderCreateWithUserIdInputSchema }>,
+        request: FastifyRequest<{ Body: typeof RequestOrderCreateWithUserIdInputSchema }>,
         reply: FastifyReply,
     ): Promise<void> {
         try {
             // Validate the input data
-            const validatedData = OrderCreateWithUserIdInputSchema.parse(request.body);
+            const validatedData = RequestOrderCreateWithUserIdInputSchema.parse(request.body);
 
             // Call the service to create the order
             const order = await orderService.createOrder(validatedData);
